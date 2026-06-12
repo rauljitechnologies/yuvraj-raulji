@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="en" class="scroll-auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#060606">
+  <title id="pageTitle">Blog — Yuvraj Raulji</title>
+  <meta name="description" id="pageDesc" content="Expert insights by Yuvraj Raulji on Magento 2, SEO, AWS, WordPress, and AI automation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { bg:'#060606', bg2:'#0d0d0d', red:'#c8102e', rv:'#e8192c' },
+          fontFamily: {
+            bebas:['"Bebas Neue"','sans-serif'],
+            grotesk:['"Space Grotesk"','Inter','system-ui','sans-serif'],
+          },
+          maxWidth:{ shell:'1400px', prose:'740px' },
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    ::selection{background:#c8102e;color:#fff}
+    body{-webkit-tap-highlight-color:transparent}
+    .nav-link{position:relative;padding:6px 0;transition:color .22s}
+    .nav-link::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:#e8192c;transform:scaleX(0);transform-origin:right;transition:transform .38s cubic-bezier(.19,1,.22,1)}
+    .nav-link:hover{color:#f4f4f4}
+    .nav-link:hover::after{transform:scaleX(1);transform-origin:left}
+    .sec-kicker::before{content:"";width:26px;height:1px;background:#e8192c;flex-shrink:0}
+    .noise{position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.08;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E")}
+    /* ── Prose — premium editorial ── */
+    .prose{counter-reset:sec;min-width:0;max-width:760px}
+    .prose h2{counter-increment:sec;font-family:"Bebas Neue",sans-serif;font-size:clamp(1.9rem,3.6vw,2.7rem);letter-spacing:.025em;text-transform:uppercase;line-height:.96;margin:2.7em 0 .85em;padding-top:1.1em;border-top:1px solid rgba(255,255,255,.07);color:#f4f4f4}
+    .prose h2::before{content:counter(sec,decimal-leading-zero);display:block;font-size:.74rem;letter-spacing:.26em;color:rgba(232,25,44,.85);margin-bottom:12px}
+    .prose h2:first-child{margin-top:0;padding-top:0;border-top:none}
+    .prose h3{font-family:"Bebas Neue",sans-serif;font-size:clamp(1.35rem,2.5vw,1.85rem);letter-spacing:.03em;text-transform:uppercase;line-height:1;margin:2.2em 0 .65em;color:#e8192c}
+    .prose p{overflow-wrap:break-word;font-size:clamp(.99rem,1.25vw,1.10rem);line-height:1.92;color:rgba(244,244,244,.74);margin-bottom:1.55em}
+    .prose ul,.prose ol{padding-left:1.4em;margin:0 0 1.7em}
+    .prose li{font-size:clamp(.99rem,1.25vw,1.10rem);line-height:1.84;color:rgba(244,244,244,.74);margin-bottom:.62em;padding-left:.35em}
+    .prose ul li::marker{color:#e8192c}
+    .prose ol li::marker{color:#e8192c;font-weight:700}
+    .prose strong{color:#f4f4f4;font-weight:700}
+    .prose a{color:#e8192c;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(232,25,44,.40);transition:color .2s,text-decoration-color .2s}
+    .prose a:hover{color:#f4f4f4;text-decoration-color:#e8192c}
+    .prose blockquote{position:relative;border-left:2px solid #e8192c;padding:1.2em 1.6em;margin:2.2em 0;background:linear-gradient(90deg,rgba(200,16,46,.08),rgba(200,16,46,.02));border-radius:0 10px 10px 0}
+    .prose blockquote p{color:rgba(244,244,244,.82);font-style:italic;margin:0;font-size:1.05em}
+    .prose code{overflow-wrap:anywhere;font-size:.88em;background:rgba(200,16,46,.10);border:1px solid rgba(200,16,46,.18);padding:2px 7px;border-radius:5px;color:#ff8a96}
+    .prose table{width:100%;border-collapse:collapse;margin:2em 0;font-size:.92rem}
+    .prose th{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#e8192c;text-align:left;padding:10px 14px;border-bottom:1px solid rgba(200,16,46,.30)}
+    .prose td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);color:rgba(244,244,244,.70)}
+    .prose hr{border:none;height:1px;background:linear-gradient(90deg,rgba(200,16,46,.35),rgba(255,255,255,.07),transparent);margin:3em 0}
+    .footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c8102e,transparent)}
+    @keyframes avP{to{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.19,1,.22,1),transform .8s cubic-bezier(.19,1,.22,1)}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    @keyframes rp{to{box-shadow:0 0 80px rgba(200,16,46,.28),inset 0 0 50px rgba(200,16,46,.12)}}
+    .ldr-ring::before{content:"";position:absolute;inset:-13px;border:1px solid rgba(255,255,255,.06);border-radius:50%;animation:sp 5s linear infinite}
+    .ldr-ring::after{content:"";position:absolute;inset:-26px;border:1px solid rgba(200,16,46,.12);border-radius:50%;animation:sp 8s linear infinite reverse}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  /* ── Premium article additions ── */
+    .prose h2{scroll-margin-top:110px}
+    .prose>p:first-of-type::first-letter{font-family:"Bebas Neue",sans-serif;font-size:3.4em;line-height:.78;float:left;padding:8px 14px 0 0;color:#e8192c}
+    @keyframes imgIn{from{opacity:0;transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
+    /* ── Preloader v2 ── */
+    .ldr-meta{font-size:.56rem;font-weight:700;letter-spacing:.30em;text-transform:uppercase;color:rgba(244,244,244,.30)}
+    .ldr-word{transform:translateY(112%);animation:ldrUp .9s cubic-bezier(.19,1,.22,1) forwards}
+    @keyframes ldrUp{to{transform:translateY(0)}}
+  </style>
+</head>
+<body class="bg-bg text-[#f4f4f4] font-grotesk overflow-x-hidden"
+  x-data="pageData"
+  :class="{'overflow-hidden':menuOpen}"
+  @scroll.window="navScrolled=window.scrollY>18"
+  @keydown.escape.window="menuOpen=false">
+
+<!-- Reading progress -->
+<div class="fixed top-0 left-0 right-0 z-[950] h-[3px] pointer-events-none" aria-hidden="true">
+  <div id="rprogBar" style="height:100%;width:0%;background:linear-gradient(90deg,#c8102e,#e8192c);box-shadow:0 0 14px rgba(232,25,44,.55)"></div>
+</div>
+
+<div class="noise" aria-hidden="true"></div>
+
+<!-- Preloader -->
+<div id="ldr" class="fixed inset-0 z-[1200] bg-[#020202] transition-all duration-[900ms] overflow-hidden"
+     style="transition-timing-function:cubic-bezier(.76,0,.24,1)" aria-hidden="true">
+
+  <!-- Ambient background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 58%,rgba(200,16,46,.13),transparent 72%)"></div>
+    <div style="position:absolute;inset:0;opacity:.05;background-image:linear-gradient(rgba(200,16,46,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(200,16,46,.30) 1px,transparent 1px);background-size:64px 64px"></div>
+  </div>
+
+  <!-- Corner meta -->
+  <span class="ldr-meta absolute top-7 left-7">Yuvraj Raulji</span>
+  <span class="ldr-meta absolute top-7 right-7">Article · 2026</span>
+  <span class="ldr-meta absolute bottom-7 left-7 hidden sm:block">Vadodara &mdash; India</span>
+  <div class="absolute bottom-7 right-7 font-bebas text-rv" style="font-size:1.5rem;letter-spacing:.10em;line-height:1"><span id="ldrPct">00</span><span style="color:rgba(232,25,44,.50)">%</span></div>
+
+  <!-- Centre wordmark -->
+  <div class="absolute inset-0 grid place-items-center px-6">
+    <div class="text-center">
+      <div class="overflow-hidden">
+        <div class="ldr-word font-bebas" style="font-size:clamp(3.4rem,10vw,7.5rem);line-height:.92;letter-spacing:.04em;color:#f4f4f4;animation-delay:.10s">YUVRAJ</div>
+      </div>
+      <div class="overflow-hidden">
+        <div class="ldr-word font-bebas" style="font-size:clamp(3.4rem,10vw,7.5rem);line-height:.92;letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px rgba(232,25,44,.90);animation-delay:.22s">RAULJI</div>
+      </div>
+      <!-- Progress line -->
+      <div class="mx-auto mt-8 relative overflow-hidden" style="width:min(300px,58vw);height:1px;background:rgba(255,255,255,.10)">
+        <div id="ldrBar" style="position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,#c8102e,#e8192c);box-shadow:0 0 16px rgba(232,25,44,.60)"></div>
+      </div>
+      <p class="ldr-meta mt-5" style="color:rgba(244,244,244,.34)">Blog &amp; Insights</p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var p=document.getElementById('ldrPct'),b=document.getElementById('ldrBar');
+  if(!p||!b)return;
+  if(rm){p.textContent='100';b.style.width='100%';return}
+  var t0=performance.now(),D=1000;
+  requestAnimationFrame(function tick(n){
+    var k=Math.min((n-t0)/D,1),v=Math.round((1-Math.pow(1-k,3))*100);
+    p.textContent=(v<10?'0':'')+v;b.style.width=v+'%';
+    if(k<1)requestAnimationFrame(tick);
+  });
+})();
+</script>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 z-[790] bg-[rgba(6,6,6,.97)] backdrop-blur-xl flex flex-col items-center justify-center gap-7 transition-all duration-[320ms]"
+     :class="menuOpen?'opacity-100 visible':'opacity-0 invisible'">
+  <a href="index.html"            @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase hover:text-rv">Home</a>
+  <a href="index.html#expertise"  @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase hover:text-rv">Services</a>
+  <a href="index.html#work"       @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase hover:text-rv">Work</a>
+  <a href="index.html#technology" @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase hover:text-rv">Technology</a>
+  <a href="blog.html"             @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase text-rv">Blog</a>
+  <a href="index.html#contact"    @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase hover:text-rv">Contact</a>
+  <a href="mailto:toyuvrajraulji@gmail.com?subject=Strategic+Consultation"
+     class="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-red text-white text-[.80rem] font-bold tracking-[.10em] uppercase active:scale-[.97] touch-manipulation">Book Consultation →</a>
+</div>
+
+<!-- Nav -->
+<header class="fixed top-0 left-0 right-0 z-[800] border-b border-transparent transition-all duration-[280ms]"
+        :class="navScrolled?'bg-[rgba(6,6,6,.88)] border-[rgba(200,16,46,.14)] backdrop-blur-xl':''">
+  <div class="max-w-shell mx-auto px-6 md:px-10 h-[74px] flex items-center justify-between gap-6">
+    <a href="index.html" class="flex items-center gap-[10px] text-[.80rem] font-bold tracking-[.14em] uppercase">
+      <span class="w-8 h-8 grid place-items-center border border-[rgba(200,16,46,.32)] rounded-full text-rv text-[.70rem] font-bold">YR</span>Yuvraj Raulji
+    </a>
+    <nav class="hidden lg:flex items-center gap-7 text-[.74rem] font-semibold tracking-[.10em] uppercase text-[rgba(244,244,244,.60)]">
+      <a href="index.html#expertise"  class="nav-link">Services</a>
+      <a href="index.html#work"       class="nav-link">Work</a>
+      <a href="index.html#technology" class="nav-link">Technology</a>
+      <a href="blog.html"             class="nav-link" style="color:#e8192c">Blog</a>
+      <a href="index.html#contact"    class="nav-link">Contact</a>
+    </nav>
+    <a href="mailto:toyuvrajraulji@gmail.com?subject=Strategic+Consultation"
+       class="hidden lg:inline-flex items-center gap-[7px] h-10 px-5 rounded bg-red text-white text-[.72rem] font-bold tracking-[.10em] uppercase whitespace-nowrap transition-all hover:bg-rv hover:shadow-[0_10px_36px_rgba(200,16,46,.32)] hover:-translate-y-px active:scale-[.96] touch-manipulation">
+      Consultation →
+    </a>
+    <button class="lg:hidden flex flex-col justify-center gap-[5px] w-10 h-10 p-2 touch-manipulation"
+            @click="menuOpen=!menuOpen" :aria-expanded="menuOpen" aria-label="Menu">
+      <span class="block h-[1.5px] bg-[#f4f4f4] rounded transition-all duration-300" :class="menuOpen?'translate-y-[6.5px] rotate-45':''"></span>
+      <span class="block h-[1.5px] bg-[#f4f4f4] rounded transition-all duration-300" :class="menuOpen?'opacity-0':''"></span>
+      <span class="block h-[1.5px] bg-[#f4f4f4] rounded transition-all duration-300" :class="menuOpen?'-translate-y-[6.5px] -rotate-45':''"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Article -->
+<main x-show="post" x-cloak>
+
+  <!-- Article Hero — editorial -->
+  <section class="relative overflow-hidden bg-bg" style="padding:clamp(120px,16vh,170px) 0 clamp(40px,5vw,60px)" x-show="post">
+
+    <!-- Layered ambient background -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 75% at -5% 30%,rgba(200,16,46,.16) 0%,transparent 100%)"></div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 45% 55% at 105% 85%,rgba(140,8,22,.12) 0%,transparent 100%)"></div>
+      <div style="position:absolute;inset:0;opacity:.05;background-image:linear-gradient(rgba(200,16,46,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(200,16,46,.25) 1px,transparent 1px);background-size:72px 72px"></div>
+      <!-- Ghost category watermark -->
+      <div class="absolute select-none hidden md:block" style="right:-1%;top:6%;font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,13vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(200,16,46,.07);letter-spacing:.02em;text-transform:uppercase" x-text="post?.cat"></div>
+      <!-- Vertical magazine label -->
+      <div class="absolute left-0 top-0 bottom-0 hidden xl:flex flex-col items-center justify-center gap-4 pl-[18px]">
+        <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.55rem;font-weight:700;letter-spacing:.32em;color:rgba(244,244,244,.18);text-transform:uppercase;white-space:nowrap">Blog &amp; Insights · Yuvraj Raulji</span>
+        <span style="width:1px;height:56px;background:linear-gradient(transparent,rgba(200,16,46,.50),transparent)"></span>
+      </div>
+    </div>
+
+    <div class="relative z-[2] max-w-shell mx-auto px-6 md:px-10 xl:px-16">
+
+      <!-- Breadcrumb -->
+      <nav class="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(244,244,244,.34)] mb-10 reveal">
+        <a href="index.html" class="hover:text-rv transition-colors">Home</a>
+        <span style="width:14px;height:1px;background:rgba(200,16,46,.45)"></span>
+        <a href="blog.html" class="hover:text-rv transition-colors">Blog</a>
+        <span style="width:14px;height:1px;background:rgba(200,16,46,.45)"></span>
+        <span class="text-rv" x-text="post?.cat"></span>
+      </nav>
+
+      <div style="max-width:920px">
+        <!-- Kicker -->
+        <div class="flex items-center flex-wrap gap-4 mb-7 reveal">
+          <span class="inline-flex items-center h-[28px] px-4 rounded-full bg-rv text-white text-[.60rem] font-bold tracking-[.16em] uppercase" style="box-shadow:0 6px 20px rgba(232,25,44,.40)" x-text="post?.cat"></span>
+          <span class="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(244,244,244,.38)]" x-text="post?.date"></span>
+          <span class="w-1 h-1 rounded-full bg-[rgba(200,16,46,.55)]"></span>
+          <span class="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(244,244,244,.38)]" x-text="post?.readTime"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-bebas uppercase reveal" style="font-size:clamp(2.6rem,6.5vw,5.6rem);line-height:.92;letter-spacing:.015em;margin-bottom:26px" x-text="post?.title"></h1>
+
+        <!-- Excerpt -->
+        <p class="reveal" style="font-size:clamp(1rem,1.4vw,1.16rem);line-height:1.85;color:rgba(244,244,244,.55);max-width:680px;margin-bottom:36px" x-text="post?.excerpt"></p>
+
+        <!-- Author bar -->
+        <div class="flex items-center flex-wrap gap-x-8 gap-y-4 reveal" style="border-top:1px solid rgba(255,255,255,.08);padding-top:24px">
+          <div class="flex items-center gap-[12px]">
+            <div style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(200,16,46,.35);background:rgba(200,16,46,.08);display:grid;place-items:center;font-family:'Bebas Neue',sans-serif;font-size:.92rem;color:#e8192c;box-shadow:0 0 24px rgba(200,16,46,.14)">YR</div>
+            <div>
+              <div style="font-size:.80rem;font-weight:700;color:rgba(244,244,244,.85)">Yuvraj Raulji</div>
+              <div style="font-size:.60rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(244,244,244,.36)">Full Stack E-commerce &amp; AI Consultant</div>
+            </div>
+          </div>
+          <div class="hidden sm:block" style="width:1px;height:30px;background:rgba(255,255,255,.09)"></div>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="tag in (post?.tags||[])" :key="tag">
+              <span class="inline-flex items-center h-[24px] px-3 rounded-full text-[.58rem] font-bold tracking-[.12em] uppercase"
+                    style="border:1px solid rgba(200,16,46,.22);background:rgba(200,16,46,.06);color:rgba(244,244,244,.55)" x-text="tag"></span>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured image -->
+  <div class="max-w-shell mx-auto px-6 md:px-10" style="margin-bottom:clamp(56px,7vw,90px)" x-show="post">
+    <div class="relative rounded-2xl overflow-hidden h-[280px] sm:h-[400px] md:h-[560px]"
+         style="border:1px solid rgba(255,255,255,.09);box-shadow:0 50px 110px rgba(0,0,0,.60)">
+      <img :src="post?.img" :alt="post?.title"
+           class="absolute inset-0 w-full h-full object-cover"
+           style="animation:imgIn 1.5s cubic-bezier(.19,1,.22,1) both .2s">
+      <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(180deg,rgba(6,6,6,.28) 0%,transparent 35%,rgba(6,6,6,.55) 100%)"></div>
+      <div class="absolute inset-0 rounded-2xl pointer-events-none" style="box-shadow:inset 0 0 0 1px rgba(200,16,46,.16)"></div>
+    </div>
+  </div>
+
+  <!-- Article Content + Sidebar -->
+  <div class="max-w-shell mx-auto px-6 md:px-10" style="margin-bottom:clamp(80px,10vw,140px)" x-show="post">
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-12 xl:gap-16 items-start">
+
+      <!-- Main content -->
+      <div class="min-w-0">
+
+        <!-- Mobile table of contents -->
+        <div class="lg:hidden p-6 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2 mb-10" x-show="toc.length>1" x-cloak>
+          <div class="flex items-center gap-3 mb-4">
+            <span style="width:2px;height:14px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+            <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">On This Page</p>
+          </div>
+          <nav class="flex flex-col gap-[10px]">
+            <template x-for="(h,i) in toc" :key="'m'+h.id">
+              <a :href="'#'+h.id"
+                 @click.prevent="document.getElementById(h.id).scrollIntoView({behavior:'smooth'})"
+                 class="flex items-start gap-[10px] text-[.79rem] leading-[1.5] text-[rgba(244,244,244,.50)] transition-colors duration-200 hover:text-rv">
+                <span class="font-bebas pt-[2px] flex-shrink-0 text-[rgba(200,16,46,.50)]" style="font-size:.74rem;letter-spacing:.08em" x-text="String(i+1).padStart(2,'0')"></span>
+                <span x-text="h.t"></span>
+              </a>
+            </template>
+          </nav>
+        </div>
+
+        <article class="prose reveal" x-html="post?.content"></article>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="lg:sticky lg:top-[104px] flex flex-col gap-6 reveal">
+
+        <!-- Table of contents (desktop sidebar) -->
+        <div class="hidden lg:block p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2" x-show="toc.length>1" x-cloak>
+          <div class="flex items-center gap-3 mb-5"><span style="width:2px;height:14px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+            <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">On This Page</p>
+          </div>
+          <nav class="flex flex-col gap-[12px]">
+            <template x-for="(h,i) in toc" :key="h.id">
+              <a :href="'#'+h.id"
+                 @click.prevent="document.getElementById(h.id).scrollIntoView({behavior:'smooth'})"
+                 class="flex items-start gap-[10px] text-[.79rem] leading-[1.5] transition-colors duration-200"
+                 :class="tocActive===h.id ? 'text-rv' : 'text-[rgba(244,244,244,.48)] hover:text-[#f4f4f4]'">
+                <span class="font-bebas pt-[2px] flex-shrink-0" style="font-size:.74rem;letter-spacing:.08em"
+                      :class="tocActive===h.id ? 'text-rv' : 'text-[rgba(200,16,46,.45)]'"
+                      x-text="String(i+1).padStart(2,'0')"></span>
+                <span x-text="h.t"></span>
+              </a>
+            </template>
+          </nav>
+        </div>
+
+        <!-- Author card -->
+        <div class="p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2">
+          <div class="flex items-center gap-3 mb-5"><span style="width:2px;height:14px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+            <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">Written By</p>
+          </div>
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full grid place-items-center font-bebas text-rv text-xl flex-shrink-0"
+                 style="border:1px solid rgba(200,16,46,.35);background:rgba(200,16,46,.08);box-shadow:0 0 28px rgba(200,16,46,.14)">YR</div>
+            <div>
+              <p class="font-bold text-[.92rem]">Yuvraj Raulji</p>
+              <p class="text-[.70rem] text-[rgba(244,244,244,.46)] leading-snug">Full Stack E-commerce &amp;<br>AI Consultant · 9+ Years</p>
+            </div>
+          </div>
+          <p class="text-[.82rem] text-[rgba(244,244,244,.52)] leading-[1.7] mb-5">Magento 2 architect, SEO/CRO strategist, AWS infrastructure specialist, and AI automation engineer based in Vadodara, India.</p>
+          <div class="flex flex-col gap-[10px]">
+            <a href="mailto:toyuvrajraulji@gmail.com?subject=Blog+Article+Consultation" class="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(200,16,46,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation">Hire Me →</a>
+            <a href="https://www.linkedin.com/in/yuvraj-raulji/" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 h-11 rounded border border-[rgba(255,255,255,.12)] text-[.70rem] font-semibold tracking-[.12em] uppercase text-[rgba(244,244,244,.60)] transition-all hover:border-[rgba(200,16,46,.36)] hover:text-rv touch-manipulation">Connect on LinkedIn</a>
+          </div>
+        </div>
+
+        <!-- Share -->
+        <div class="p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2">
+          <div class="flex items-center gap-3 mb-5"><span style="width:2px;height:14px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+            <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">Share Article</p>
+          </div>
+          <div class="flex items-center gap-[10px]">
+            <button @click="share('li')" aria-label="Share on LinkedIn"
+                    class="w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+                    style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700">in</button>
+            <button @click="share('x')" aria-label="Share on X"
+                    class="w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+                    style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700">X</button>
+            <button @click="share('wa')" aria-label="Share on WhatsApp"
+                    class="w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+                    style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.70rem;font-weight:700">wa</button>
+            <button @click="copyLink()" aria-label="Copy link"
+                    class="w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+                    :style="copied ? 'border:1px solid #e8192c;color:#e8192c;font-size:.80rem' : 'border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.80rem'"
+                    x-text="copied ? '\u2713' : '\u29C9'"></button>
+          </div>
+          <p class="text-[.62rem] tracking-[.10em] uppercase text-rv font-bold mt-3" x-show="copied" x-cloak>Link copied!</p>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="relative p-7 rounded-xl overflow-hidden" style="border:1px solid rgba(200,16,46,.26);background:linear-gradient(160deg,rgba(200,16,46,.10),rgba(200,16,46,.03))">
+          <div class="absolute top-0 left-0 right-0 h-[2px]" style="background:linear-gradient(90deg,transparent,rgba(232,25,44,.65),transparent)"></div>
+          <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-rv mb-3">Free Consultation</p>
+          <p class="font-bebas text-[1.55rem] uppercase tracking-[.03em] leading-[.98] mb-3">Need Help With<br>Your Project?</p>
+          <p class="text-[.78rem] text-[rgba(244,244,244,.52)] leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
+          <a href="mailto:toyuvrajraulji@gmail.com?subject=Consultation+Request" class="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(200,16,46,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation">Book Now →</a>
+        </div>
+
+        <!-- Tags -->
+        <div class="p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2" x-show="(post?.tags||[]).length">
+          <div class="flex items-center gap-3 mb-5"><span style="width:2px;height:14px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+            <p class="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">Tags</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="tag in (post?.tags||[])" :key="tag">
+              <span class="inline-flex items-center h-[26px] px-3 rounded-full text-[.60rem] font-bold tracking-[.10em] uppercase"
+                    style="border:1px solid rgba(200,16,46,.20);background:rgba(200,16,46,.05);color:rgba(244,244,244,.55)" x-text="tag"></span>
+            </template>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- Related Posts -->
+  <section class="relative overflow-hidden bg-bg2 border-t border-[rgba(255,255,255,.07)]" style="padding:clamp(72px,9vw,120px) 0" x-show="related.length>0">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 60% at 92% 8%,rgba(200,16,46,.08),transparent)"></div>
+    <div class="relative max-w-shell mx-auto px-6 md:px-10">
+
+      <!-- Section header -->
+      <div class="flex items-center gap-4 mb-12">
+        <span style="width:2px;height:30px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px;flex-shrink:0"></span>
+        <div>
+          <p class="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(200,16,46,.60)] mb-1">Keep Reading</p>
+          <h2 class="font-bebas uppercase tracking-[.02em] leading-[.94]" style="font-size:clamp(2rem,4vw,3.4rem)">Related Articles</h2>
+        </div>
+        <div class="flex-1 h-[1px]" style="background:linear-gradient(90deg,rgba(200,16,46,.16),transparent)"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <template x-for="r in related" :key="r.slug">
+          <a :href="'blog-detail.html?slug='+r.slug"
+             class="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(200,16,46,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal">
+            <div class="relative overflow-hidden" style="height:190px">
+              <img :src="r.img" :alt="r.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy">
+              <div class="absolute inset-0" style="background:linear-gradient(180deg,transparent 45%,rgba(6,6,6,.55) 100%)"></div>
+              <span class="absolute top-4 left-4 inline-flex items-center h-[24px] px-3 rounded-full bg-rv text-white text-[.56rem] font-bold tracking-[.14em] uppercase" style="box-shadow:0 5px 16px rgba(232,25,44,.40)" x-text="r.cat"></span>
+            </div>
+            <div class="p-6">
+              <h3 class="font-bebas uppercase tracking-[.02em] leading-[1.04] mb-3 transition-colors duration-200 group-hover:text-rv" style="font-size:clamp(1.15rem,1.8vw,1.5rem)" x-text="r.title"></h3>
+              <div class="flex items-center justify-between">
+                <p class="text-[.64rem] font-semibold tracking-[.12em] uppercase text-[rgba(244,244,244,.36)]" x-text="r.date"></p>
+                <span class="inline-flex items-center gap-1 text-[.62rem] font-bold tracking-[.14em] uppercase text-rv transition-all duration-300 group-hover:gap-[7px]">Read <span>→</span></span>
+              </div>
+            </div>
+          </a>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="relative overflow-hidden bg-bg" style="padding:clamp(80px,10vw,130px) 0">
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 55% at 50% 100%,rgba(200,16,46,.10),transparent)"></div>
+    <div class="relative max-w-prose mx-auto px-6 md:px-10 text-center reveal">
+      <p class="text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-4">Work With Yuvraj</p>
+      <h2 class="font-bebas uppercase tracking-[.03em] leading-[.92] mb-6" style="font-size:clamp(2.4rem,6vw,5rem)">Ready To Grow<br>Your Business?</h2>
+      <p class="text-[rgba(244,244,244,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">From Magento 2 builds and SEO audits to AWS server setup and AI automation — let's turn your digital presence into a growth engine.</p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="mailto:toyuvrajraulji@gmail.com?subject=Project+Inquiry"
+           class="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']">Book Consultation</a>
+        <a href="blog.html"
+           class="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f4f4f4] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']">More Articles</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER — Luxury Editorial ══ -->
+<footer class="footer relative bg-[#020202] overflow-hidden" style="padding:clamp(64px,8vw,104px) 0 0">
+
+  <!-- Ambient background -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 8% 0%,rgba(200,16,46,.10) 0%,transparent 100%)"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 45% 55% at 100% 100%,rgba(140,8,22,.10) 0%,transparent 100%)"></div>
+    <!-- Ghost watermark -->
+    <div class="absolute select-none" style="right:-1%;bottom:-6%;font-family:'Bebas Neue',sans-serif;font-size:clamp(8rem,20vw,19rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(200,16,46,.08);letter-spacing:.02em">YR</div>
+  </div>
+
+  <div class="relative z-[2] max-w-shell mx-auto px-6 md:px-10">
+
+    <!-- ── Top: Brand + Columns ── -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.25fr_.75fr_1fr_1.1fr_1fr] gap-12 lg:gap-9 pb-14">
+
+      <!-- Brand block -->
+      <div>
+        <a href="index.html" class="inline-flex items-center gap-3 mb-6 group">
+          <span class="w-11 h-11 grid place-items-center rounded-full font-bebas text-rv text-[1.05rem]"
+                style="border:1px solid rgba(200,16,46,.38);background:rgba(200,16,46,.07);box-shadow:0 0 28px rgba(200,16,46,.14)">YR</span>
+          <span class="font-bebas text-[1.7rem] tracking-[.06em] uppercase text-[#f4f4f4] transition-colors group-hover:text-rv">Yuvraj Raulji</span>
+        </a>
+        <p class="leading-[1.8] mb-7 max-w-[340px]" style="font-size:.86rem;color:rgba(244,244,244,.46)">
+          Full Stack E-commerce Developer &amp; AI Consultant crafting luxury digital experiences — Magento 2, Shopify, AWS infrastructure, and growth-driven SEO from Vadodara, India.
+        </p>
+        <!-- Socials -->
+        <div class="flex items-center gap-3">
+          <a href="https://www.linkedin.com/in/yuvraj-raulji/" target="_blank" rel="noopener" aria-label="LinkedIn"
+             class="w-10 h-10 grid place-items-center rounded-full transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+             style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700;letter-spacing:.04em">in</a>
+          <a href="https://www.instagram.com/iamyuvrajraulji" target="_blank" rel="noopener" aria-label="Instagram"
+             class="w-10 h-10 grid place-items-center rounded-full transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+             style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700;letter-spacing:.04em">ig</a>
+          <a href="https://www.facebook.com/iamyuvrajraulji" target="_blank" rel="noopener" aria-label="Facebook"
+             class="w-10 h-10 grid place-items-center rounded-full transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+             style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700;letter-spacing:.04em">fb</a>
+          <a href="mailto:toyuvrajraulji@gmail.com" aria-label="Email"
+             class="w-10 h-10 grid place-items-center rounded-full transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]"
+             style="border:1px solid rgba(255,255,255,.12);color:rgba(244,244,244,.55);font-size:.74rem;font-weight:700">@</a>
+        </div>
+      </div>
+
+      <!-- Navigate -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <span style="width:2px;height:16px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px"></span>
+          <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Navigate</h3>
+        </div>
+        <ul class="space-y-[14px]" style="font-size:.82rem">
+          <li><a href="index.html"            class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Home</a></li>
+          <li><a href="index.html#expertise"  class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Services</a></li>
+          <li><a href="index.html#work"       class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Work</a></li>
+          <li><a href="index.html#technology" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Technology</a></li>
+          <li><a href="blog.html"             class="inline-flex items-center gap-2 text-rv"><span class="text-rv text-[.6rem]">—</span>Blog &amp; Insights</a></li>
+          <li><a href="index.html#contact"    class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Expertise -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <span style="width:2px;height:16px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px"></span>
+          <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Expertise</h3>
+        </div>
+        <ul class="space-y-[14px]" style="font-size:.82rem">
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Magento 2 Commerce</a></li>
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Shopify</a></li>
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>SEO &amp; CRO</a></li>
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AWS &amp; Server Setup</a></li>
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>WordPress &amp; WooCommerce</a></li>
+          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AI Automation</a></li>
+        </ul>
+      </div>
+
+      <!-- Topics — links to blog filters -->
+      <div>
+        <div class="flex items-center justify-between gap-3 mb-6">
+          <div class="flex items-center gap-3">
+            <span style="width:2px;height:16px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px"></span>
+            <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Explore Topics</h3>
+          </div>
+          <span class="font-bebas text-[.92rem] tracking-[.08em] text-[rgba(200,16,46,.45)]">22</span>
+        </div>
+
+        <!-- Pills -->
+        <div class="flex flex-wrap gap-[9px] mb-6">
+          <a href="blog.html?filter=magento-2"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Magento 2</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">6</span>
+          </a>
+          <a href="blog.html?filter=shopify"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Shopify</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">4</span>
+          </a>
+          <a href="blog.html?filter=seo-cro"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">SEO &amp; CRO</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
+          </a>
+          <a href="blog.html?filter=wordpress"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">WordPress</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
+          </a>
+          <a href="blog.html?filter=ai-automation"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">AI &amp; Automation</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
+          </a>
+          <a href="blog.html?filter=aws-server"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">AWS &amp; Server</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">2</span>
+          </a>
+          <a href="blog.html?filter=performance"
+             class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
+            <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Performance</span>
+            <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">1</span>
+          </a>
+        </div>
+
+        <!-- View all -->
+        <a href="blog.html"
+           class="inline-flex items-center gap-2 transition-all duration-300 hover:gap-[13px] group"
+           style="font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8192c">
+          View All 22 Articles <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+
+      <!-- Contact / CTA -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <span style="width:2px;height:16px;background:linear-gradient(180deg,#e8192c,rgba(200,16,46,.15));border-radius:2px"></span>
+          <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Get In Touch</h3>
+        </div>
+        <a href="mailto:toyuvrajraulji@gmail.com" class="block mb-2 transition-colors hover:text-rv" style="font-size:.88rem;font-weight:600;color:rgba(244,244,244,.78)">toyuvrajraulji@gmail.com</a>
+        <p class="mb-7" style="font-size:.76rem;color:rgba(244,244,244,.36);letter-spacing:.04em">Vadodara, Gujarat, India · IST (GMT+5:30)</p>
+
+        <a href="mailto:toyuvrajraulji@gmail.com?subject=Strategic+Consultation"
+           class="inline-flex items-center gap-2 h-[48px] px-7 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_14px_44px_rgba(200,16,46,.34)] hover:-translate-y-[2px] active:scale-[.96] touch-manipulation mb-6">
+          Book Consultation →
+        </a>
+
+        <!-- Availability -->
+        <div class="flex items-center gap-[10px]">
+          <span class="w-[7px] h-[7px] rounded-full bg-[#22c55e] flex-shrink-0" style="box-shadow:0 0 0 0 rgba(34,197,94,.55);animation:avP 1.8s ease-out infinite"></span>
+          <span style="font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,244,244,.40)">Available for new projects</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Divider with red accent ── -->
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(200,16,46,.35) 18%,rgba(255,255,255,.08) 50%,rgba(200,16,46,.35) 82%,transparent)"></div>
+
+    <!-- ── Bottom bar ── -->
+    <div class="flex flex-wrap items-center justify-between gap-4 py-7 text-[.70rem] text-[rgba(244,244,244,.34)]" style="letter-spacing:.06em">
+      <span>© 2026 <span class="text-[rgba(244,244,244,.60)] font-semibold">Yuvraj Raulji</span>. All Rights Reserved.</span>
+      <span class="hidden md:inline-flex items-center gap-[10px] font-bold tracking-[.22em] uppercase" style="font-size:.58rem;color:rgba(200,16,46,.50)">
+        <span style="width:18px;height:1px;background:rgba(200,16,46,.45)"></span>Luxury Brand Developer &amp; E-Commerce Architect<span style="width:18px;height:1px;background:rgba(200,16,46,.45)"></span>
+      </span>
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"
+              class="inline-flex items-center gap-2 font-bold tracking-[.18em] uppercase transition-all duration-300 hover:!text-rv group cursor-pointer border-0 bg-transparent"
+              style="font-size:.62rem;color:rgba(244,244,244,.42)">
+        Back to top
+        <span class="w-8 h-8 grid place-items-center rounded-full transition-all duration-300 group-hover:!border-rv group-hover:shadow-[0_0_20px_rgba(200,16,46,.25)] group-hover:-translate-y-[2px]"
+              style="border:1px solid rgba(200,16,46,.30);color:#e8192c;font-size:.74rem">↑</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+const POSTS = {
+  'magento2-seo-technical-audit': {
+    cat:'Magento 2', date:'12 Jun 2025', readTime:'8 min read',
+    title:'Magento 2 SEO: The Complete Technical Audit Guide 2025',
+    excerpt:'A step-by-step framework for auditing Magento 2 stores — covering XML sitemaps, canonical tags, hreflang, structured data, crawl budget, and Core Web Vitals that directly impact rankings.',
+    tags:['Technical SEO','Magento 2','Core Web Vitals','Schema'],
+    filter:'magento-2',
+    content:`
+      <h2>Why Magento 2 Needs a Dedicated SEO Audit</h2>
+      <p>Magento 2 is one of the most powerful e-commerce platforms available — but it comes with SEO pitfalls that are unique to its architecture. Duplicate category/product URLs, incorrect canonical tags, bloated XML sitemaps, and slow TTFB are common issues that silently destroy organic rankings for even well-designed stores.</p>
+      <p>Over 9 years of working with Magento 2 stores, I've developed a systematic audit framework that consistently uncovers the 20% of issues causing 80% of the organic traffic loss. This guide walks through every layer.</p>
+      <h2>Phase 1: Crawlability & Indexability</h2>
+      <h3>1.1 XML Sitemap Configuration</h3>
+      <p>Magento 2 generates sitemaps automatically but the defaults are often wrong. Key issues to fix:</p>
+      <ul>
+        <li>Sitemap includes <code>?___store=</code> query parameters — these create duplicate URLs in Google Search Console</li>
+        <li>Out-of-stock products should typically be excluded from sitemaps using a custom plugin</li>
+        <li>Sitemap file size should not exceed 50MB / 50,000 URLs — split into sub-sitemaps if needed</li>
+        <li>Lastmod dates must update when product content changes — configure this in <code>Stores → Configuration → Catalog → XML Sitemap</code></li>
+      </ul>
+      <h3>1.2 Robots.txt</h3>
+      <p>Magento 2 has a built-in robots.txt editor under <code>Content → Design → Configuration → Edit → HTML Head → Default Robots</code>. Critical rules to verify:</p>
+      <pre><code>Disallow: /catalog/product/compare/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /catalogsearch/
+Allow: /catalogsearch/result/</code></pre>
+      <h3>1.3 Canonical Tags</h3>
+      <p>The most common Magento 2 SEO mistake is incorrect canonical implementation. Products accessible via multiple category paths (<code>/category-1/product.html</code> and <code>/category-2/product.html</code>) must all canonical to the primary product URL. Set this in <code>Stores → Configuration → Catalog → Catalog → Search Engine Optimization → Use Canonical Link Meta Tag for Products</code>.</p>
+      <blockquote><p>Always audit canonical tags with Screaming Frog or a custom crawl — do not trust that Magento's built-in settings are working correctly after upgrades or custom development.</p></blockquote>
+      <h2>Phase 2: On-Page SEO Signals</h2>
+      <h3>2.1 Title Tags & Meta Descriptions</h3>
+      <p>Magento 2 allows product-level meta overrides but most stores rely on the auto-generated format: <em>Product Name — Store Name</em>. For high-traffic categories, invest in manually optimised titles with primary keyword in positions 1-3. Use the <code>[store_name]</code> variable only at the end.</p>
+      <h3>2.2 Structured Data (Schema)</h3>
+      <p>Implement JSON-LD for all product pages with these schema types:</p>
+      <ul>
+        <li><strong>Product</strong> — name, description, image, sku, brand</li>
+        <li><strong>Offer</strong> — price, priceCurrency, availability, url</li>
+        <li><strong>AggregateRating</strong> — if reviews are enabled</li>
+        <li><strong>BreadcrumbList</strong> — critical for Magento 2 since navigation paths vary</li>
+      </ul>
+      <h2>Phase 3: Core Web Vitals</h2>
+      <h3>3.1 LCP (Largest Contentful Paint)</h3>
+      <p>The hero product image is almost always the LCP element on Magento 2 PDP pages. Common fixes: preload the LCP image in the theme's <code>default_head_blocks.xml</code>, serve WebP via Fastly or Cloudflare Image Resizing, and remove render-blocking third-party scripts from the <code>&lt;head&gt;</code>.</p>
+      <h3>3.2 CLS (Cumulative Layout Shift)</h3>
+      <p>Magento 2's lazy-loaded product images and promotional banners are primary CLS culprits. Always define explicit <code>width</code> and <code>height</code> attributes on all images and reserve space for above-the-fold banners.</p>
+      <h2>Phase 4: International & Multi-Store SEO</h2>
+      <p>For multi-store Magento 2 setups, hreflang implementation is critical. Each store view should declare all language/region variants. Use a custom module or Amasty SEO Suite to manage hreflang at scale across large catalogs.</p>
+      <hr>
+      <p>This audit framework is the same one I apply to every Magento 2 engagement. If you need a comprehensive SEO audit or want to implement these optimizations on your store, <a href="mailto:toyuvrajraulji@gmail.com?subject=Magento+2+SEO+Audit">reach out for a consultation</a>.</p>
+    `
+  },
+  'aws-magento2-server-setup': {
+    cat:'AWS & Server', date:'15 May 2025', readTime:'14 min read',
+    title:'AWS Server Setup for Magento 2: Production-Ready Guide',
+    excerpt:'Complete walkthrough: EC2 instance selection, RDS configuration, S3 media storage, Nginx + PHP-FPM tuning, Varnish cache, Redis sessions/cache, SSL, and deployment pipeline on AWS for Magento 2.',
+    tags:['AWS','Nginx','Redis','Varnish','Magento 2'],
+    filter:'aws-server',
+    content:`
+      <h2>The Right AWS Architecture for Magento 2</h2>
+      <p>Choosing the wrong instance type or missing a caching layer can mean the difference between a Magento 2 store that loads in 800ms versus one that times out under traffic. After deploying dozens of Magento 2 stores on AWS, this is the architecture that reliably handles production traffic.</p>
+      <h2>Phase 1: Infrastructure Stack</h2>
+      <h3>Recommended AWS Services</h3>
+      <ul>
+        <li><strong>EC2</strong> — Application server. Start with <code>c6i.2xlarge</code> for mid-traffic stores (8 vCPU, 16GB RAM). Use <code>c6i.4xlarge</code> for high-traffic.</li>
+        <li><strong>RDS MySQL 8.0</strong> — Managed database. Use <code>db.r6g.large</code> minimum. Enable Multi-AZ for production. Separate read replica for heavy catalog queries.</li>
+        <li><strong>ElastiCache Redis</strong> — Sessions + full-page cache backend. <code>cache.r6g.large</code> with cluster mode disabled for Magento 2 compatibility.</li>
+        <li><strong>S3 + CloudFront</strong> — Media storage and CDN. Use S3 for <code>pub/media</code> and CloudFront distribution for global edge caching.</li>
+        <li><strong>Elastic Load Balancer</strong> — Required for multi-node setups and SSL termination.</li>
+      </ul>
+      <h2>Phase 2: Web Server Configuration</h2>
+      <h3>Nginx + PHP-FPM Setup</h3>
+      <p>The official Magento 2 Nginx configuration is a good starting point but requires tuning for production:</p>
+      <pre><code># PHP-FPM pool config (/etc/php/8.2/fpm/pool.d/magento.conf)
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
+pm.max_requests = 500</code></pre>
+      <h3>Varnish 7.x Configuration</h3>
+      <p>Varnish provides full-page cache for Magento 2 with significant performance gains. Key configuration points:</p>
+      <ul>
+        <li>Use Magento's built-in VCL export from <code>System → Cache Management → Varnish Configuration</code></li>
+        <li>Configure <code>BACKEND_HOST</code> to point to Nginx (not public), listening on port 8080</li>
+        <li>Set <code>BACKEND_PORT</code> to 8080, Varnish listens on 80/443 via ELB</li>
+        <li>TTL for full-page cache: 86400s (24h) — Magento handles cache invalidation via ban</li>
+      </ul>
+      <h2>Phase 3: Redis Configuration</h2>
+      <h3>Separate Redis Instances for Sessions & Cache</h3>
+      <p>Using a single Redis instance for both sessions and cache is a common mistake — cache eviction can clear session data, causing unexpected logouts. Use two separate Redis databases or instances:</p>
+      <pre><code># app/etc/env.php
+'session' => [
+    'save' => 'redis',
+    'redis' => [
+        'host' => 'session-redis.xxx.cache.amazonaws.com',
+        'port' => '6379',
+        'database' => '2',
+        'compression_threshold' => '2048',
+    ],
+],
+'cache' => [
+    'frontend' => [
+        'default' => [
+            'backend' => 'Cm_Cache_Backend_Redis',
+            'backend_options' => [
+                'server' => 'cache-redis.xxx.cache.amazonaws.com',
+                'database' => '0',
+                'port' => '6379',
+            ],
+        ],
+    ],
+],</code></pre>
+      <h2>Phase 4: Deployment Pipeline</h2>
+      <p>A reliable Magento 2 deployment pipeline on AWS should include:</p>
+      <ul>
+        <li>GitHub Actions or CodePipeline triggering on merge to <code>main</code></li>
+        <li>Composer install in the CI environment (not on the server)</li>
+        <li>Zero-downtime deployment via rsync to a staging directory + atomic symlink swap</li>
+        <li><code>bin/magento setup:upgrade --keep-generated</code> for production deploys</li>
+        <li>Automated Varnish flush post-deploy via Magento CLI or AWS Lambda</li>
+      </ul>
+      <hr>
+      <p>Need help setting up a production-ready Magento 2 environment on AWS? <a href="mailto:toyuvrajraulji@gmail.com?subject=AWS+Magento2+Setup">Get in touch for a server audit or full setup</a>.</p>
+    `
+  },
+  'cro-double-conversion': {
+    cat:'SEO & CRO', date:'28 May 2025', readTime:'10 min read',
+    title:'CRO Strategies That Double E-commerce Conversion Rates',
+    excerpt:'Data-backed CRO frameworks used on real Magento and Shopify stores — A/B testing methodology, heatmap analysis, checkout funnel optimization, and micro-conversion tactics with measurable results.',
+    tags:['CRO','A/B Testing','Conversion','Checkout'],
+    filter:'seo-cro',
+    content:`
+      <h2>The CRO Mindset: Data Before Design</h2>
+      <p>The biggest mistake e-commerce teams make with CRO is redesigning pages based on intuition. Real conversion improvements come from understanding exactly where users drop off, what they're confused by, and what builds enough trust to trigger a purchase.</p>
+      <p>In 9+ years of e-commerce work, I've applied this framework to Magento 2 and Shopify stores across fashion, luxury retail, B2B, and healthcare — consistently achieving 25–80% conversion rate improvements.</p>
+      <h2>Step 1: Build Your Data Foundation</h2>
+      <h3>Analytics Setup</h3>
+      <p>Before any optimization, you need clean data. Essential GA4 setup for e-commerce CRO:</p>
+      <ul>
+        <li><strong>Enhanced E-commerce events</strong> — view_item, add_to_cart, begin_checkout, purchase with all parameters</li>
+        <li><strong>Funnel exploration</strong> — PDP → Add to Cart → Checkout Step 1 → Step 2 → Purchase</li>
+        <li><strong>Scroll depth events</strong> via GTM — are users seeing your CTAs?</li>
+        <li><strong>Session recording</strong> — Microsoft Clarity (free) or Hotjar for heatmaps and recordings</li>
+      </ul>
+      <h3>Key Metrics to Establish</h3>
+      <ul>
+        <li>Add-to-cart rate by device (mobile vs desktop gap is usually significant)</li>
+        <li>Cart abandonment rate (industry average: 70–75%)</li>
+        <li>Checkout abandonment by step (payment step loses most users)</li>
+        <li>Session recording analysis: where do users hesitate or rage-click?</li>
+      </ul>
+      <h2>Step 2: Product Page Optimization</h2>
+      <blockquote><p>The product page is where 60% of the CRO opportunity lives on most e-commerce stores.</p></blockquote>
+      <h3>Trust Signals Above the Fold</h3>
+      <p>Before a user can add to cart, they need to see: clear pricing, delivery timeline, return policy summary, and social proof (review count + rating). Test moving these elements above the fold — this alone typically lifts add-to-cart rates by 10–20%.</p>
+      <h3>CTA Optimization</h3>
+      <ul>
+        <li>Button color and size — test high-contrast options (not just red)</li>
+        <li>Button copy — "Add to Cart" vs "Buy Now" vs "Get This" can vary by 15%</li>
+        <li>Sticky CTA bar on mobile — keeps the add-to-cart visible during scroll</li>
+      </ul>
+      <h2>Step 3: Checkout Funnel Optimization</h2>
+      <p>The biggest conversion gains in e-commerce consistently come from checkout optimization. Top priorities:</p>
+      <ul>
+        <li><strong>Guest checkout</strong> — forcing account creation kills mobile conversions. Always offer guest checkout as default.</li>
+        <li><strong>Address autocomplete</strong> — use Google Places API. Form completion time drops by 40%.</li>
+        <li><strong>Payment options</strong> — showing Razorpay, UPI, card, and COD options at the top of checkout increases mobile conversions significantly in India.</li>
+        <li><strong>Progress indicator</strong> — users are 30% less likely to abandon when they can see "Step 2 of 3".</li>
+        <li><strong>Trust badges</strong> at checkout — SSL seal, money-back guarantee, secure payment icons near the payment button.</li>
+      </ul>
+      <h2>Step 4: A/B Testing Framework</h2>
+      <p>For reliable A/B testing on Magento 2 or Shopify, you need:</p>
+      <ul>
+        <li>Minimum 1,000 conversions per variant before drawing conclusions</li>
+        <li>95% statistical significance threshold</li>
+        <li>Test one variable at a time — not redesigns</li>
+        <li>Run tests for full 2-week cycles to account for day-of-week variation</li>
+      </ul>
+      <hr>
+      <p>Want a CRO audit of your store? I'll identify your top 5 conversion bottlenecks and build a prioritized optimization roadmap. <a href="mailto:toyuvrajraulji@gmail.com?subject=CRO+Audit+Request">Book a free consultation →</a></p>
+    `
+  },
+
+  'magento2-checkout-optimization': {
+    cat:'Magento 2', date:'05 Jun 2025', readTime:'9 min read', filter:'magento-2',
+    title:'Magento 2 Checkout Optimization: Cut Cart Abandonment by 40%',
+    excerpt:'A proven checkout redesign framework for Magento 2 — one-page checkout config, guest checkout enforcement, address autocomplete, payment UX, mobile-first form design, and trust signal placement that consistently reduces abandonment by 35–45%.',
+    tags:['Magento 2','Checkout','CRO','UX'],
+    content:`
+      <h2>Why Checkout Is Your Biggest Revenue Lever</h2>
+      <p>The average e-commerce cart abandonment rate is 70–75%. For Magento 2 stores, a poorly configured checkout is often the single largest revenue leak — and it's entirely fixable. In this guide I walk through the exact optimizations I've applied across 20+ Magento 2 stores that consistently deliver a 35–45% reduction in checkout abandonment.</p>
+      <blockquote><p>A 1% improvement in checkout conversion on a ₹1 crore/month store is ₹1 lakh in additional monthly revenue — with zero new traffic needed.</p></blockquote>
+      <h2>Step 1: Enable & Configure One-Page Checkout</h2>
+      <p>Magento 2 ships with a two-step checkout by default. While it's cleaner than Magento 1, it still has friction. The most impactful first move:</p>
+      <ul>
+        <li>Switch to a single-page layout — all steps visible without a page reload</li>
+        <li>Use <code>Amasty One Step Checkout</code> or <code>IWD Agency Checkout</code> for production-grade implementations</li>
+        <li>Remove the "Review & Payments" heading — users don't need to be told what they're doing</li>
+        <li>Disable the Order Summary accordion — keep it open on desktop by default</li>
+      </ul>
+      <h2>Step 2: Guest Checkout as the Default Path</h2>
+      <p>Forcing account creation before purchase is the single biggest conversion killer in Magento 2. The fix is two-part:</p>
+      <ul>
+        <li>In Admin → Stores → Configuration → Sales → Checkout → Guest Checkout: set to <strong>Enabled</strong></li>
+        <li>On the checkout page, make "Continue as Guest" the primary button — larger, higher contrast than the Login option</li>
+        <li>After the order, prompt for account creation with a single click (password auto-set from email)</li>
+      </ul>
+      <h3>Account Creation Prompt Copy</h3>
+      <p>Replace the default "Create an Account" with: <strong>"Save your details for faster checkout next time — takes 2 seconds."</strong> This framing consistently outperforms the default copy by 20–30% in opt-in rate.</p>
+      <h2>Step 3: Address Autocomplete</h2>
+      <p>Manual address entry is the biggest friction point on mobile. Implement Google Places Autocomplete on the address fields:</p>
+      <ul>
+        <li>Use the <code>mageplaza/module-google-address-suggestion</code> module or custom JS integration</li>
+        <li>Enable for both shipping and billing address fields</li>
+        <li>Form completion time drops by ~40% — significant impact on mobile conversion</li>
+      </ul>
+      <h2>Step 4: Payment UX Optimization</h2>
+      <p>The payment step has the highest abandonment rate of any checkout step. Critical fixes:</p>
+      <ul>
+        <li><strong>Show all payment options immediately</strong> — don't hide them behind an accordion</li>
+        <li><strong>Order payment methods by popularity</strong> — UPI/Razorpay first for India markets, card second, COD last</li>
+        <li><strong>Inline card validation</strong> — real-time feedback as user types card number, not on submit</li>
+        <li><strong>Remove "Place Order" dead zone</strong> — the button should be visible without scrolling on mobile</li>
+        <li><strong>Sticky CTA on mobile</strong> — fix the "Place Order" button to the bottom of the viewport</li>
+      </ul>
+      <h2>Step 5: Trust Signals at the Right Moment</h2>
+      <p>Place trust signals directly adjacent to the payment button — not in the footer or header:</p>
+      <ul>
+        <li>SSL padlock icon + "Secure Checkout" text immediately above the Place Order button</li>
+        <li>Return policy summary (e.g. "Easy 30-day returns") near the order total</li>
+        <li>Payment logos (Visa, Mastercard, Razorpay, UPI) as small icons under the button</li>
+      </ul>
+      <h2>Step 6: Mobile-First Form Design</h2>
+      <ul>
+        <li>Minimum input height: 48px — prevents accidental taps on small screens</li>
+        <li>Set correct <code>inputmode</code> attributes — <code>inputmode="numeric"</code> for phone/pincode/card fields</li>
+        <li>Use <code>autocomplete</code> attributes — <code>autocomplete="email"</code>, <code>autocomplete="tel"</code>, etc. for browser autofill</li>
+        <li>Error messages inline below the field, not in a banner at the top</li>
+        <li>Remove all non-essential fields — every extra field costs ~10% conversion</li>
+      </ul>
+      <h2>Measuring the Impact</h2>
+      <p>Track these GA4 events to quantify the improvement:</p>
+      <ul>
+        <li><code>begin_checkout</code> → <code>add_shipping_info</code> → <code>add_payment_info</code> → <code>purchase</code> funnel</li>
+        <li>Checkout abandonment by device (mobile vs desktop)</li>
+        <li>Step-by-step drop-off rates</li>
+      </ul>
+      <hr>
+      <p>Need a checkout audit for your Magento 2 store? I'll identify every friction point and build a prioritized fix list. <a href="mailto:toyuvrajraulji@gmail.com?subject=Magento2+Checkout+Audit">Book a free consultation →</a></p>
+    `
+  },
+
+  'magento2-pwa-studio-headless': {
+    cat:'Magento 2', date:'20 May 2025', readTime:'13 min read', filter:'magento-2',
+    title:'Magento 2 PWA Studio: Building a Headless Storefront in 2025',
+    excerpt:'A hands-on guide to Magento 2 PWA Studio — Venia storefront architecture, GraphQL API integration, local development setup, performance tuning for 90+ Lighthouse scores, and production deployment on AWS CloudFront.',
+    tags:['Magento 2','PWA','GraphQL','Performance'],
+    content:`
+      <h2>Why PWA Studio for Magento 2?</h2>
+      <p>Magento 2 PWA Studio is Adobe's official headless frontend framework for Magento 2. It delivers app-like performance — instant page transitions, offline support, and 90+ Lighthouse scores — while keeping Magento 2 as the commerce engine powering catalog, cart, and checkout via GraphQL.</p>
+      <p>After deploying PWA Studio storefronts for fashion, electronics, and B2B clients, here's what I've learned about doing it right in 2025.</p>
+      <h2>Architecture Overview</h2>
+      <p>PWA Studio consists of three core packages:</p>
+      <ul>
+        <li><strong>Venia Storefront</strong> — the reference implementation and starting point for custom builds</li>
+        <li><strong>Peregrine</strong> — React hooks and logic layer (stateless, reusable across UI frameworks)</li>
+        <li><strong>Buildpack</strong> — Webpack configuration and extensibility layer</li>
+      </ul>
+      <p>The stack: <strong>React 18 + GraphQL (Apollo Client) + Venia UI + Webpack 5 + Workbox (service worker)</strong>. The Magento 2 backend exposes all commerce data via the GraphQL API.</p>
+      <h2>Local Development Setup</h2>
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>Node.js 18+ (LTS), Yarn 1.22+</li>
+        <li>Magento 2.4.6+ with GraphQL enabled</li>
+        <li>HTTPS for local dev (required for service worker)</li>
+      </ul>
+      <h3>Quick Start</h3>
+      <pre><code>yarn create @magento/pwa
+cd my-store
+# Set your Magento backend URL in .env:
+# MAGENTO_BACKEND_URL=https://your-magento-store.com/
+yarn watch</code></pre>
+      <h2>GraphQL Performance Optimization</h2>
+      <p>The biggest PWA Studio performance bottleneck is over-fetching from GraphQL. Key strategies:</p>
+      <ul>
+        <li><strong>Fragment colocation</strong> — each component requests only the fields it uses</li>
+        <li><strong>Apollo Client cache policy</strong> — use <code>cache-first</code> for static data (categories, CMS), <code>network-only</code> for cart/account</li>
+        <li><strong>Persisted queries</strong> — hash-based GET requests instead of POST for cacheable queries (CDN-cacheable)</li>
+        <li><strong>Varnish ESI</strong> — cache full page HTML at the edge, invalidate on content change</li>
+      </ul>
+      <h2>Achieving 90+ Lighthouse Scores</h2>
+      <ul>
+        <li><strong>Image optimization</strong> — use Magento's image resize API (<code>/media/catalog/product/cache/</code>) with WebP format + width params</li>
+        <li><strong>Code splitting</strong> — PWA Studio does this automatically per route; verify no large shared chunks</li>
+        <li><strong>Critical CSS</strong> — inline above-fold styles; Buildpack supports this via <code>HTMLWebpackPlugin</code></li>
+        <li><strong>Service Worker</strong> — Workbox pre-caches shell and static assets; configure <code>runtimeCaching</code> for product images</li>
+        <li><strong>LCP optimization</strong> — preload the hero image, ensure it's served from CDN with correct cache-control headers</li>
+      </ul>
+      <h2>Production Deployment on AWS CloudFront</h2>
+      <p>The recommended production stack for PWA Studio:</p>
+      <ul>
+        <li><strong>S3 + CloudFront</strong> — serve the React bundle as a static site via S3 origin</li>
+        <li><strong>Lambda@Edge</strong> — handle server-side redirects, URL rewrites, A/B testing at the edge</li>
+        <li><strong>CloudFront cache behaviors</strong> — separate cache policies for JS/CSS (1 year), HTML (5 min), API calls (no cache)</li>
+        <li><strong>Magento 2 backend</strong> — keep on EC2/RDS behind CloudFront, accessible only via GraphQL endpoint</li>
+      </ul>
+      <h2>Extensibility: Targets & Intercepts</h2>
+      <p>PWA Studio's extensibility model uses <em>Targets</em> (extension points) and <em>Intercepts</em> (the code that hooks into them). This allows third-party modules to modify the storefront without forking core code:</p>
+      <pre><code>// intercept.js in your custom module
+module.exports = targets => {
+  targets.of('@magento/venia-ui').routes.tap(routes => {
+    routes.push({
+      name: 'Custom Page',
+      pattern: '/custom',
+      path: require.resolve('./src/components/CustomPage')
+    });
+  });
+};</code></pre>
+      <hr>
+      <p>Building a PWA Studio storefront? Let's plan your architecture together. <a href="mailto:toyuvrajraulji@gmail.com?subject=PWA+Studio+Project">Book a consultation →</a></p>
+    `
+  },
+
+  'shopify-plus-vs-magento2-2025': {
+    cat:'Shopify', date:'10 May 2025', readTime:'12 min read', filter:'shopify',
+    title:'Shopify Plus vs Magento 2 in 2025: The Definitive Enterprise Comparison',
+    excerpt:'A real-world breakdown of Shopify Plus vs Magento 2 Open Source & Commerce — total cost of ownership, customization depth, B2B features, API capabilities, and which platform wins for different business models in 2025.',
+    tags:['Shopify Plus','Magento 2','Platform','Enterprise'],
+    content:`
+      <h2>The Question Every Growing E-commerce Brand Asks</h2>
+      <p>After managing migrations in both directions — Magento 2 to Shopify Plus, and Shopify to Magento 2 — I can tell you: there is no universally "better" platform. The right choice depends on your business model, technical team, and growth roadmap. Here's the honest breakdown.</p>
+      <h2>Total Cost of Ownership (3-Year Estimate)</h2>
+      <h3>Shopify Plus</h3>
+      <ul>
+        <li>Platform fee: $2,300/month (up to $800k GMV) — scales with revenue above that</li>
+        <li>Apps: $500–$2,000/month for a typical enterprise app stack</li>
+        <li>Development: lower ongoing cost — most customizations are theme-level</li>
+        <li>Hosting: included</li>
+        <li><strong>3-year TCO estimate: ₹80L–₹1.5Cr</strong></li>
+      </ul>
+      <h3>Magento 2 Open Source (Self-hosted)</h3>
+      <ul>
+        <li>Platform licence: free (Open Source) or $22,000–$125,000/year (Adobe Commerce)</li>
+        <li>Hosting (AWS): ₹80k–₹2.5L/month depending on scale</li>
+        <li>Extensions: ₹2L–₹8L one-time for a full production stack</li>
+        <li>Development: higher — requires PHP/Magento expertise</li>
+        <li><strong>3-year TCO estimate: ₹60L–₹2.5Cr</strong></li>
+      </ul>
+      <h2>Customization Depth</h2>
+      <p><strong>Magento 2 wins decisively here.</strong> It's open source PHP — you can modify any part of the system: pricing logic, checkout flow, catalogue rules, admin workflows, integration architecture. Nothing is off-limits.</p>
+      <p>Shopify Plus allows significant theme customization and has a powerful app ecosystem, but core checkout logic (outside Checkout Extensions) is locked. If your business requires deeply custom checkout flows, complex pricing rules, or unique catalogue structures, Magento 2 is the only real option.</p>
+      <h2>B2B & Wholesale Features</h2>
+      <h3>Magento 2 B2B (Adobe Commerce)</h3>
+      <ul>
+        <li>Company accounts with hierarchy</li>
+        <li>Shared catalogues with customer-group pricing</li>
+        <li>Negotiable quotes</li>
+        <li>Purchase orders with approval workflows</li>
+        <li>Credit limits</li>
+      </ul>
+      <h3>Shopify Plus B2B</h3>
+      <ul>
+        <li>B2B on Shopify (launched 2022) — company profiles, custom pricing, net payment terms</li>
+        <li>Good for simpler wholesale models; less flexible than Magento 2 B2B for complex hierarchies</li>
+      </ul>
+      <p><strong>Winner for complex B2B: Magento 2.</strong> For simpler wholesale + D2C combined: Shopify Plus is faster to market.</p>
+      <h2>Performance & Scalability</h2>
+      <p>Shopify Plus handles infrastructure automatically — you never worry about scaling for Black Friday. Magento 2 on AWS requires proper architecture (Varnish, Redis, RDS read replicas, auto-scaling) but gives you complete control over performance tuning.</p>
+      <p>For most businesses under ₹50Cr GMV, Shopify Plus performance is excellent out of the box. For ultra-high traffic (millions of SKUs, flash sales, complex catalogue) Magento 2 with proper infrastructure can outperform.</p>
+      <h2>When to Choose Shopify Plus</h2>
+      <ul>
+        <li>D2C brand with standard product catalogue and checkout</li>
+        <li>Team without dedicated PHP/Magento developers</li>
+        <li>Speed to market is the priority</li>
+        <li>International expansion with multi-currency/multi-language via Shopify Markets</li>
+        <li>Social commerce (Instagram, TikTok Shop integrations are seamless)</li>
+      </ul>
+      <h2>When to Choose Magento 2</h2>
+      <ul>
+        <li>Complex B2B, wholesale, or multi-store architecture</li>
+        <li>Deep customization requirements — unique pricing, complex catalogue rules</li>
+        <li>Ownership over code and data (no vendor lock-in)</li>
+        <li>Existing Magento 1/2 ecosystem and team</li>
+        <li>Headless architecture with full control over the GraphQL API</li>
+      </ul>
+      <hr>
+      <p>Not sure which platform is right for your business? I'll give you an honest assessment based on your specific requirements. <a href="mailto:toyuvrajraulji@gmail.com?subject=Platform+Consultation">Book a free strategy call →</a></p>
+    `
+  },
+
+  'shopify-headless-nextjs-guide': {
+    cat:'Shopify', date:'25 Apr 2025', readTime:'14 min read', filter:'shopify',
+    title:'Shopify Headless with Next.js: Complete Implementation Guide 2025',
+    excerpt:'Step-by-step headless Shopify build using Next.js 14, Hydrogen 2.0, and the Storefront API — covering product pages, cart, checkout, ISR caching, SEO best practices, and Vercel deployment with 90+ Core Web Vitals.',
+    tags:['Shopify','Next.js','Headless','Storefront API'],
+    content:`
+      <h2>Why Go Headless with Shopify?</h2>
+      <p>Shopify's default Liquid themes are excellent for most stores. But as brands grow, they hit limitations — slow page transitions, rigid layout constraints, inability to share components across channels. Going headless solves this: Shopify becomes the commerce backend (inventory, orders, payments), and Next.js becomes the frontend you fully control.</p>
+      <p>The result: 90+ Core Web Vitals, instant page transitions, and a React component library you own completely.</p>
+      <h2>Architecture Decision: Hydrogen 2.0 vs Custom Next.js</h2>
+      <h3>Hydrogen 2.0 (Remix-based)</h3>
+      <ul>
+        <li>Shopify's official headless framework — built on Remix</li>
+        <li>Best-in-class for Shopify-specific patterns (cart, checkout, metafields)</li>
+        <li>Deploys to Oxygen (Shopify's edge hosting) — free with Shopify Plus</li>
+        <li>Choose if: you're going fully Shopify-native and want the fastest time-to-launch</li>
+      </ul>
+      <h3>Next.js + Storefront API</h3>
+      <ul>
+        <li>More flexibility — mix Shopify data with other APIs (CMS, ERP, reviews)</li>
+        <li>Larger ecosystem — React component libraries, Vercel deployment, edge caching</li>
+        <li>Choose if: you need a multi-source data architecture or prefer the React/Next.js ecosystem</li>
+      </ul>
+      <p>This guide covers the <strong>Next.js 14 + Storefront API</strong> path.</p>
+      <h2>Project Setup</h2>
+      <pre><code>npx create-next-app@latest my-shopify-store --typescript --tailwind --app
+cd my-shopify-store
+npm install @shopify/storefront-api-client graphql</code></pre>
+      <h3>Storefront API Client</h3>
+      <pre><code>// lib/shopify.ts
+import { createStorefrontApiClient } from '@shopify/storefront-api-client';
+
+export const shopify = createStorefrontApiClient({
+  storeDomain: process.env.SHOPIFY_STORE_DOMAIN!,
+  apiVersion: '2025-01',
+  publicAccessToken: process.env.SHOPIFY_STOREFRONT_TOKEN!,
+});</code></pre>
+      <h2>Product Pages with ISR</h2>
+      <p>Use Incremental Static Regeneration (ISR) for product pages — they're statically generated at build time but revalidated in the background when products change:</p>
+      <pre><code>// app/products/[handle]/page.tsx
+export const revalidate = 3600; // revalidate every hour
+
+export async function generateStaticParams() {
+  const { data } = await shopify.request(GET_ALL_PRODUCT_HANDLES);
+  return data.products.edges.map(({ node }) => ({ handle: node.handle }));
+}
+
+export default async function ProductPage({ params }) {
+  const { data } = await shopify.request(GET_PRODUCT, { variables: { handle: params.handle } });
+  return &lt;ProductView product={data.product} /&gt;;
+}</code></pre>
+      <h2>Cart Architecture</h2>
+      <p>Use Shopify's Cart API with a React Context for global cart state:</p>
+      <ul>
+        <li>Create cart on first item add — <code>cartCreate</code> mutation</li>
+        <li>Store <code>cartId</code> in a cookie (not localStorage — works on server components)</li>
+        <li>Use optimistic updates for instant UI response on add/remove</li>
+        <li>Cart drawer as a Server Component — renders cart items SSR for performance</li>
+      </ul>
+      <h2>Checkout Redirect</h2>
+      <p>Shopify headless checkout uses a redirect — the cart's <code>checkoutUrl</code> sends users to Shopify's hosted checkout. This is intentional: Shopify's checkout handles PCI compliance, payment processing, and fraud detection.</p>
+      <p>With Shopify Plus, you can use <strong>Checkout Extensions</strong> to customize the checkout UI (add custom fields, upsells, payment method ordering) while keeping it on Shopify's infrastructure.</p>
+      <h2>SEO Best Practices</h2>
+      <ul>
+        <li>Use Next.js <code>generateMetadata()</code> — fetch product title, description, and OG image server-side</li>
+        <li>Canonical URLs — always point to the primary domain, not <code>*.myshopify.com</code></li>
+        <li>Structured data — output <code>Product</code> + <code>Offer</code> JSON-LD in the page head</li>
+        <li>XML sitemap — generate dynamically from Storefront API product/collection lists</li>
+        <li>hreflang — if multi-market, output correct language/region tags per page</li>
+      </ul>
+      <h2>Core Web Vitals Targets</h2>
+      <ul>
+        <li><strong>LCP &lt; 2.5s</strong> — preload hero image, serve from Shopify CDN with width params</li>
+        <li><strong>CLS = 0</strong> — reserve image dimensions with aspect-ratio CSS, avoid layout shifts from font loading</li>
+        <li><strong>INP &lt; 200ms</strong> — keep client-side JS lean; defer analytics scripts</li>
+      </ul>
+      <h2>Deployment: Vercel</h2>
+      <p>Next.js + Vercel is the natural production stack. Key config:</p>
+      <ul>
+        <li>Enable Edge Runtime for product and collection pages — served from 100+ global PoPs</li>
+        <li>Use Vercel's Image Optimization — <code>next/image</code> serves WebP with correct sizing automatically</li>
+        <li>Environment variables: store Shopify tokens in Vercel project settings, not in code</li>
+      </ul>
+      <hr>
+      <p>Building a headless Shopify storefront? I've delivered 5+ production builds with 90+ CWV scores. <a href="mailto:toyuvrajraulji@gmail.com?subject=Shopify+Headless+Project">Let's talk →</a></p>
+    `
+  },
+
+  'ecommerce-market-trends-2025': {
+    cat:'Market Trends', date:'02 Jun 2025', readTime:'10 min read', filter:'market',
+    title:'E-commerce Market Trends 2025: What Every Online Retailer Must Know',
+    excerpt:'The five biggest shifts shaping e-commerce in 2025 — AI-personalized shopping, social commerce dominance, BNPL evolution, sustainability-driven buying behaviour, and what D2C brands must do right now to stay competitive.',
+    tags:['Market Trends','E-commerce','2025','D2C'],
+    content:`
+      <h2>The E-commerce Landscape Has Shifted — Again</h2>
+      <p>Global e-commerce crossed $6.3 trillion in 2024 and is projected to reach $7.9 trillion by end of 2025. But the growth isn't evenly distributed. The brands winning in 2025 are doing something fundamentally different from those that are stagnating — and it comes down to five defining trends.</p>
+      <h2>Trend 1: AI-Personalized Shopping is the New Standard</h2>
+      <p>In 2023, personalization meant "customers who bought X also bought Y." In 2025, it means real-time, session-level personalization across every touchpoint — homepage layout, search results, email content, pricing, and post-purchase flows — all driven by AI inference on behavioural signals.</p>
+      <p>What this means for your store:</p>
+      <ul>
+        <li>Deploy AI-powered search (Klevu, SearchPie, or Algolia with ML re-ranking) — generic search results are costing you 20–30% of search conversions</li>
+        <li>Personalized product recommendations on PDP — not just "related products" but ML-driven next-best recommendations based on session context</li>
+        <li>Dynamic email content — triggered behavioural flows with AI-selected product blocks, not static templates</li>
+      </ul>
+      <blockquote><p>Brands using AI personalization are seeing 15–25% higher average order value compared to those using rule-based personalization. — McKinsey, 2025</p></blockquote>
+      <h2>Trend 2: Social Commerce is No Longer Optional</h2>
+      <p>Instagram Shop, TikTok Shop, and Pinterest Shopping are no longer "nice to have" channels — they're primary discovery platforms for fashion, beauty, home decor, and food categories. In India, TikTok's competitor (Instagram Reels + YouTube Shorts) is driving billions in commerce discovery.</p>
+      <p>Action items for 2025:</p>
+      <ul>
+        <li>Shopify: enable Meta and TikTok sales channels — catalogue sync is native</li>
+        <li>Magento 2: use a product feed extension (Xtento, Wyomind) to push to Google Shopping, Meta, and TikTok</li>
+        <li>Content-commerce integration — your product pages need to embed creator content (UGC, video reviews)</li>
+        <li>Shoppable video — even a simple Reels series featuring your products can drive meaningful revenue</li>
+      </ul>
+      <h2>Trend 3: BNPL & Flexible Payments Are Driving AOV</h2>
+      <p>Buy Now Pay Later (Afterpay, Klarna, Simpl in India, LazyPay) has matured from a trend into an expectation for mid-to-high ticket purchases. Data from 50+ stores I've worked with shows:</p>
+      <ul>
+        <li>Stores offering BNPL see 12–22% higher AOV on categories above ₹2,000</li>
+        <li>BNPL at checkout reduces abandonment by 8–14% for first-time customers</li>
+        <li>Displaying "From ₹X/month" on product pages increases add-to-cart rate on high-ticket items by 18%</li>
+      </ul>
+      <h2>Trend 4: Sustainability as a Conversion Signal</h2>
+      <p>Indian and global consumers — particularly under 35 — are actively choosing brands with visible sustainability commitments. This isn't just ethics; it's conversion rate optimization:</p>
+      <ul>
+        <li>Display carbon-neutral shipping options at checkout</li>
+        <li>Add "Sustainably made" / "Organic" / "Recycled packaging" trust badges on PDP</li>
+        <li>Show your supply chain story — even a 200-word "How it's made" section increases trust signals measurably</li>
+        <li>Brands showing CO2 impact per order see 6–11% higher repeat purchase rate</li>
+      </ul>
+      <h2>Trend 5: First-Party Data is the New Moat</h2>
+      <p>Third-party cookies are being phased out across browsers. Brands that built their growth on Meta/Google audience targeting are finding CAC rising 30–60% year over year. The winners in 2025 are those with strong first-party data strategies:</p>
+      <ul>
+        <li><strong>Email & SMS capture</strong> — optimized pop-ups, post-purchase flows, loyalty program sign-ups</li>
+        <li><strong>Loyalty programmes</strong> — points, tiers, and referrals driving retention and repeat purchase</li>
+        <li><strong>Zero-party data</strong> — quizzes, preference surveys, style selectors that customers willingly fill out in exchange for personalization</li>
+        <li><strong>CDP (Customer Data Platform)</strong> — Segment, Klaviyo, or even a well-structured GA4 + CRM setup to centralize and activate customer data</li>
+      </ul>
+      <h2>What To Do Right Now</h2>
+      <p>If I were advising a D2C brand in India in mid-2025, my top three immediate priorities would be:</p>
+      <ul>
+        <li><strong>Fix your mobile checkout</strong> — 70%+ of your traffic is mobile; if your mobile conversion rate is below 1.5%, you have a checkout problem</li>
+        <li><strong>Build your email/SMS list aggressively</strong> — owned channels are the only channel where your CAC doesn't increase year over year</li>
+        <li><strong>Add social proof everywhere</strong> — UGC, video reviews, star ratings on every PDP; without it you're leaving 15–30% conversion on the table</li>
+      </ul>
+      <hr>
+      <p>Want a growth strategy tailored to your store? I'll audit your current performance and build a 90-day roadmap. <a href="mailto:toyuvrajraulji@gmail.com?subject=Growth+Strategy+Consultation">Book a free consultation →</a></p>
+    `
+  },
+
+  'ai-ecommerce-revenue-2025': {
+    cat:'AI & Automation', date:'15 Jun 2025', readTime:'11 min read', filter:'ai-automation',
+    title:'AI for E-commerce in 2025: Real Use Cases That Actually Drive Revenue',
+    excerpt:'Six battle-tested AI implementations across Magento 2 and Shopify stores — AI-powered product recommendations, dynamic pricing, intelligent inventory forecasting, GPT-generated catalog content, chatbot sales agents, and predictive churn reduction.',
+    tags:['AI','GPT-4','Automation','Revenue'],
+    content:`
+      <h2>AI in E-commerce: Past the Hype, Into the Revenue</h2>
+      <p>In 2023, AI in e-commerce meant chatbots that couldn't answer questions and recommendation widgets that suggested products you just bought. In 2025, AI is genuinely driving measurable revenue — but only when implemented with clear business objectives, not just as technology theatre.</p>
+      <p>Here are six AI implementations I've deployed across Magento 2 and Shopify stores that are generating real, measurable business outcomes.</p>
+      <h2>Use Case 1: AI-Powered Product Recommendations</h2>
+      <p>Rule-based "customers also bought" recommendations are dead. Modern AI recommendation engines (Klevu, Constructor.io, Vue.ai, or Personalize.ai) use session-level behavioural signals, inventory data, and margin data to serve recommendations that maximize conversion AND margin — not just click-through rate.</p>
+      <p><strong>Implementation on Magento 2:</strong> Replace the native Related Products/Upsells blocks with an AI recommendation widget. The widget loads asynchronously (no impact on LCP), personalizes in real-time based on the current session, and updates recommendations based on cart contents.</p>
+      <p><strong>Results we've seen:</strong> 12–28% increase in items per order; 8–15% increase in overall revenue per session.</p>
+      <h2>Use Case 2: GPT-4 Bulk Catalog Content Generation</h2>
+      <p>For stores with 1,000–100,000+ SKUs, manual product content is impossible. AI-generated content at scale, done right, can produce SEO-optimized product titles, descriptions, meta tags, and alt text that outperforms human-written content on organic search metrics.</p>
+      <p><strong>The workflow (n8n + GPT-4 + Magento 2 REST API):</strong></p>
+      <ul>
+        <li>n8n fetches products with thin/missing descriptions from Magento 2 via REST API</li>
+        <li>Each product's attributes (name, category, specs) are passed to GPT-4 with a structured prompt</li>
+        <li>GPT-4 returns title, meta title, meta description, and 150–300 word description</li>
+        <li>n8n posts the content back to Magento 2 via REST API in batches of 50</li>
+        <li>Human review queue for flagged outputs (price mentions, competitor names, etc.)</li>
+      </ul>
+      <p><strong>Results:</strong> One client processed 12,000 SKUs in 4 hours at a cost of $180. Organic traffic to those product pages increased 34% over the following 90 days.</p>
+      <h2>Use Case 3: Dynamic Pricing with AI</h2>
+      <p>Dynamic pricing — adjusting prices based on demand, competition, inventory levels, and customer segment — is standard in travel and hospitality. It's now viable for e-commerce with tools like Prisync, Boardfy, and custom n8n workflows.</p>
+      <ul>
+        <li><strong>Competitive pricing</strong> — auto-match or undercut competitor prices on key SKUs by ±X%</li>
+        <li><strong>Inventory-based pricing</strong> — raise prices on low-stock, high-demand products automatically</li>
+        <li><strong>Segment-based pricing</strong> — logged-in loyalty members see prices reflecting their tier; anonymous visitors see standard pricing</li>
+      </ul>
+      <p><strong>Caution:</strong> Dynamic pricing requires careful guardrails — minimum margin floors, maximum markup caps, and audit logging. Done wrong, it damages brand trust.</p>
+      <h2>Use Case 4: Intelligent Inventory Forecasting</h2>
+      <p>Stockouts cost e-commerce stores an estimated 8% of annual revenue. AI demand forecasting (tools: inventory.ai, Finale Inventory, or custom ML models) uses historical sales velocity, seasonality, marketing calendar, and external signals (weather, trends) to predict stock requirements 30–90 days out.</p>
+      <p><strong>Magento 2 integration:</strong> Connect your ERP/WMS via REST API or direct DB integration; feed historical orders into the forecasting model; surface low-stock alerts in admin with recommended reorder quantities.</p>
+      <h2>Use Case 5: AI Chatbot Sales Agent</h2>
+      <p>A well-implemented AI chatbot (not the basic FAQ bot — a true sales agent) can handle product queries, size/fit questions, compatibility checks, and even complete a purchase — all without human intervention.</p>
+      <p><strong>Stack:</strong> Claude API or GPT-4 + vector database (Pinecone/Weaviate) for product catalogue search + Magento 2/Shopify API for real-time stock and cart actions.</p>
+      <ul>
+        <li>Product knowledge base embedded in vector DB — instant semantic search across 10,000+ SKUs</li>
+        <li>Context-aware — chatbot knows what page the user is on, what's in their cart</li>
+        <li>Escalation path — hands off to human agent when confidence is low or when the customer asks</li>
+      </ul>
+      <p><strong>Results:</strong> One fashion brand saw 11% of chatbot conversations result in a purchase (vs 2.8% overall site conversion rate).</p>
+      <h2>Use Case 6: Predictive Churn Reduction</h2>
+      <p>Acquiring a new customer costs 5–7x more than retaining an existing one. AI churn prediction identifies customers who are likely to lapse (based on recency, frequency, monetary, and engagement signals) before they do — so you can intervene with a targeted campaign.</p>
+      <ul>
+        <li>Build an RFM model from your order history (Klaviyo does this natively)</li>
+        <li>Customers moving from "Active" to "At Risk" segment trigger a win-back automation</li>
+        <li>Win-back sequence: Day 0 email → Day 7 SMS → Day 14 email with discount → Day 30 final attempt</li>
+        <li>Predictive churn models in Klaviyo or custom Python ML (scikit-learn + XGBoost) can increase win-back rates by 25–40% vs generic campaigns</li>
+      </ul>
+      <h2>The Common Thread: AI + Automation + Measurement</h2>
+      <p>Every successful AI implementation I've seen shares three things: a clear business metric it's optimizing for, an automation layer that makes it scalable (n8n, Klaviyo, or custom), and measurement infrastructure to prove the ROI. Without measurement, AI is just technology spend.</p>
+      <hr>
+      <p>Want to identify the highest-ROI AI implementation for your store? I'll audit your current setup and build an AI roadmap. <a href="mailto:toyuvrajraulji@gmail.com?subject=AI+Automation+Consultation">Book a free consultation →</a></p>
+    `
+  },
+};
+
+// Canonical metadata for all 22 posts — synced with blog.html listing
+const META = {
+ "magento2-seo-technical-audit": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "12 Jun 2026",
+  "readTime": "8 min read",
+  "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 SEO: The Complete Technical Audit Guide 2026",
+  "excerpt": "A step-by-step framework for auditing Magento 2 stores — XML sitemaps, canonical tags, hreflang, structured data, crawl budget, and Core Web Vitals that directly impact rankings."
+ },
+ "ai-ecommerce-revenue-2025": {
+  "cat": "AI & Automation",
+  "filter": "ai-automation",
+  "date": "08 Jun 2026",
+  "readTime": "11 min read",
+  "img": "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1600&q=80",
+  "title": "AI for E-commerce in 2026: Real Use Cases That Actually Drive Revenue",
+  "excerpt": "Six battle-tested AI implementations — product recommendations, dynamic pricing, inventory forecasting, GPT catalog content, chatbot sales agents, and predictive churn reduction."
+ },
+ "magento2-checkout-optimization": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "05 Jun 2026",
+  "readTime": "9 min read",
+  "img": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 Checkout Optimization: Cut Cart Abandonment by 40%",
+  "excerpt": "Proven checkout redesign framework — one-page checkout, guest checkout, address autocomplete, payment UX, mobile-first form design, and trust signal placement."
+ },
+ "shopify-plus-vs-magento2-2025": {
+  "cat": "Shopify",
+  "filter": "shopify",
+  "date": "10 May 2026",
+  "readTime": "12 min read",
+  "img": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=80",
+  "title": "Shopify Plus vs Magento 2 in 2026: The Definitive Enterprise Comparison",
+  "excerpt": "Real-world breakdown — TCO, customisation depth, B2B features, API capabilities, and which platform wins for which business model in 2026."
+ },
+ "aws-magento2-server-setup": {
+  "cat": "AWS & Server",
+  "filter": "aws-server",
+  "date": "15 May 2026",
+  "readTime": "14 min read",
+  "img": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80",
+  "title": "AWS Server Setup for Magento 2: Production-Ready Guide",
+  "excerpt": "Complete walkthrough: EC2 instance selection, RDS config, S3 media, Nginx + PHP-FPM tuning, Varnish, Redis, SSL, and CI/CD deployment pipeline on AWS."
+ },
+ "shopify-headless-nextjs-guide": {
+  "cat": "Shopify",
+  "filter": "shopify",
+  "date": "25 Apr 2026",
+  "readTime": "14 min read",
+  "img": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1600&q=80",
+  "title": "Shopify Headless with Next.js: Complete Implementation Guide 2026",
+  "excerpt": "Step-by-step headless Shopify build using Next.js 14, Hydrogen 2.0, and Storefront API — cart, checkout, ISR, SEO best practices, and Vercel deployment."
+ },
+ "cro-double-conversion": {
+  "cat": "SEO & CRO",
+  "filter": "seo-cro",
+  "date": "28 May 2026",
+  "readTime": "10 min read",
+  "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
+  "title": "CRO Strategies That Double E-commerce Conversion Rates",
+  "excerpt": "Data-backed CRO frameworks from real Magento and Shopify stores — A/B testing methodology, heatmap analysis, checkout optimisation, and micro-conversion tactics."
+ },
+ "magento2-pwa-studio-headless": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "20 May 2026",
+  "readTime": "13 min read",
+  "img": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 PWA Studio: Building a Headless Storefront in 2026",
+  "excerpt": "Hands-on guide to Magento 2 PWA Studio — Venia storefront, GraphQL API, local setup, performance tuning for 90+ Lighthouse, and production deployment on AWS CloudFront."
+ },
+ "core-web-vitals-pagespeed-90": {
+  "cat": "Performance",
+  "filter": "performance",
+  "date": "02 May 2026",
+  "readTime": "11 min read",
+  "img": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=1600&q=80",
+  "title": "Core Web Vitals: Achieving 90+ PageSpeed on Any Platform",
+  "excerpt": "LCP, FID, CLS — diagnose and fix all three on Magento 2, WordPress, and Shopify. CDN config, image optimisation, JS deferral, and server-side caching strategies."
+ },
+ "wordpress-performance-aws": {
+  "cat": "WordPress",
+  "filter": "wordpress",
+  "date": "08 Apr 2026",
+  "readTime": "12 min read",
+  "img": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1600&q=80",
+  "title": "WordPress Performance on AWS: Nginx, Redis & Cloudflare Setup",
+  "excerpt": "Production AWS stack for WordPress: EC2 + RDS + S3 + CloudFront, Nginx FastCGI cache, Redis object cache, Cloudflare rules, and WP-CLI automation."
+ },
+ "magento2-b2b-setup": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "10 Mar 2026",
+  "readTime": "10 min read",
+  "img": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 B2B Commerce: Multi-Store & Company Account Setup",
+  "excerpt": "Company accounts, shared catalogs, custom pricing tiers, negotiable quotes, purchase orders, and multi-store architecture for wholesale and distributor models."
+ },
+ "seo-schema-markup-ecommerce": {
+  "cat": "SEO & CRO",
+  "filter": "seo-cro",
+  "date": "25 Feb 2026",
+  "readTime": "7 min read",
+  "img": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=1600&q=80",
+  "title": "Schema Markup for E-commerce: Product, Review & Breadcrumb JSON-LD",
+  "excerpt": "Product, Offer, AggregateRating, BreadcrumbList, and FAQ schema on Magento 2, Shopify, and WordPress — with validation, testing, and rich snippet improvements."
+ },
+ "woocommerce-performance-optimization": {
+  "cat": "WordPress",
+  "filter": "wordpress",
+  "date": "14 Feb 2026",
+  "readTime": "9 min read",
+  "img": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1600&q=80",
+  "title": "WooCommerce Performance: From 3s to Under 1s Load Time",
+  "excerpt": "WooCommerce speed optimisation — database cleanup, object caching, image CDN, lazy loading, GZIP + Brotli compression, plugin audit, and Critical CSS extraction."
+ },
+ "aws-rds-mysql-magento-optimization": {
+  "cat": "AWS & Server",
+  "filter": "aws-server",
+  "date": "18 Jan 2026",
+  "readTime": "11 min read",
+  "img": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1600&q=80",
+  "title": "AWS RDS MySQL Tuning for High-Traffic Magento 2 Stores",
+  "excerpt": "RDS parameter group optimisation, read replica setup, slow query log analysis, indexing strategy, connection pooling with ProxySQL, and automated RDS snapshots."
+ },
+ "shopify-markets-international": {
+  "cat": "Shopify",
+  "filter": "shopify",
+  "date": "10 Jan 2026",
+  "readTime": "10 min read",
+  "img": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=1600&q=80",
+  "title": "Shopify Markets: Complete Guide to International Selling in 2026",
+  "excerpt": "Set up multi-currency, localised domains, duties & taxes, language translation, and geo-based redirects using Shopify Markets for global e-commerce expansion."
+ },
+ "magento2-custom-module-development": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "28 Dec 2025",
+  "readTime": "15 min read",
+  "img": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 Custom Module Development: Best Practices Guide 2026",
+  "excerpt": "Build production-ready Magento 2 modules — DI, plugins, observers, UI components, REST API endpoints, and testing with PHPUnit."
+ },
+ "google-analytics-4-seo-strategy": {
+  "cat": "SEO & CRO",
+  "filter": "seo-cro",
+  "date": "15 Dec 2025",
+  "readTime": "9 min read",
+  "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
+  "title": "GA4 & SEO: Using Google Analytics 4 to Drive Organic Growth",
+  "excerpt": "Configure GA4 for SEO insights — organic channel grouping, landing page reports, event tracking for scroll & CTA clicks, and connecting Search Console data."
+ },
+ "wordpress-gutenberg-block-dev": {
+  "cat": "WordPress",
+  "filter": "wordpress",
+  "date": "02 Dec 2025",
+  "readTime": "11 min read",
+  "img": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80",
+  "title": "WordPress Gutenberg Block Development: Custom Blocks in 2026",
+  "excerpt": "Build custom Gutenberg blocks with React, block.json, InnerBlocks, dynamic PHP rendering, block transforms, and full site editing (FSE) template parts."
+ },
+ "n8n-ecommerce-automation": {
+  "cat": "AI & Automation",
+  "filter": "ai-automation",
+  "date": "20 Apr 2026",
+  "readTime": "9 min read",
+  "img": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1600&q=80",
+  "title": "n8n Automation for E-commerce: 10 Workflows That Save Hours Daily",
+  "excerpt": "Real n8n workflows — order sync, abandoned cart recovery, inventory alerts, customer segmentation, AI product descriptions, and multi-channel reporting."
+ },
+ "ai-product-content-automation": {
+  "cat": "AI & Automation",
+  "filter": "ai-automation",
+  "date": "01 Feb 2026",
+  "readTime": "8 min read",
+  "img": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1600&q=80",
+  "title": "AI-Powered Product Content: GPT + n8n for Bulk Catalog Generation",
+  "excerpt": "Automate product title optimisation, description writing, meta tags, and alt text generation for 10,000+ SKUs using GPT-4, n8n workflows, and Magento 2 REST API."
+ },
+ "magento2-performance-optimization": {
+  "cat": "Magento 2",
+  "filter": "magento-2",
+  "date": "22 Nov 2025",
+  "readTime": "12 min read",
+  "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+  "title": "Magento 2 Performance Optimization: From 4s to Sub-1s Load Time",
+  "excerpt": "Full-stack performance guide — FPC + Varnish config, Redis sessions & cache, image WebP pipeline, critical CSS, JS bundling, and CDN configuration for Magento 2."
+ },
+ "shopify-conversion-rate-optimization": {
+  "cat": "Shopify",
+  "filter": "shopify",
+  "date": "08 Nov 2025",
+  "readTime": "8 min read",
+  "img": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80",
+  "title": "Shopify CRO: 15 High-Impact Changes That Lift Revenue by 30%",
+  "excerpt": "Proven Shopify conversion tactics — sticky ATC, trust badges, urgency timers, upsell apps, smart search, product page redesigns, and post-purchase flows."
+ }
+};
+Object.entries(META).forEach(([slug, m]) => {
+  if (POSTS[slug]) Object.assign(POSTS[slug], m);
+  else POSTS[slug] = { ...m, tags:[m.cat],
+    content:'<p>This article is being written and will be published shortly. <a href="https://www.linkedin.com/in/yuvraj-raulji/" target="_blank">Follow on LinkedIn</a> to get notified.</p>' };
+});
+Object.values(POSTS).forEach(p => { if (!p.img) p.img = META['magento2-seo-technical-audit'].img; });
+
+
+document.addEventListener('alpine:init', () => {
+  Alpine.data('pageData', () => ({
+    menuOpen: false,
+    navScrolled: false,
+    post: null,
+    related: [],
+    toc: [],
+    tocActive: null,
+    copied: false,
+    share(net) {
+      const u = encodeURIComponent(location.href), t = encodeURIComponent(this.post?.title || document.title);
+      const m = { li:'https://www.linkedin.com/sharing/share-offsite/?url='+u,
+                  x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,
+                  wa:'https://wa.me/?text='+t+'%20'+u };
+      window.open(m[net], '_blank', 'noopener,width=640,height=560');
+    },
+    copyLink() {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(location.href).then(() => { this.copied = true; setTimeout(() => this.copied = false, 2000); });
+    },
+    init() {
+      const rm = matchMedia("(prefers-reduced-motion:reduce)").matches;
+      setTimeout(() => document.getElementById('ldr').classList.add('opacity-0','translate-y-[-100%]','invisible'), rm?80:1200);
+      const params = new URLSearchParams(location.search);
+      const slug = params.get('slug') || 'magento2-seo-technical-audit';
+      this.post = POSTS[slug] || POSTS['magento2-seo-technical-audit'];
+      this.related = Object.entries(POSTS)
+        .filter(([s, p]) => s !== slug && p.filter === this.post.filter)
+        .slice(0,3)
+        .map(([s,p]) => ({...p, slug:s}));
+      if(this.related.length < 3) {
+        const extra = Object.entries(POSTS).filter(([s])=>s!==slug&&!this.related.find(r=>r.slug===s)).slice(0,3-this.related.length).map(([s,p])=>({...p,slug:s}));
+        this.related = [...this.related,...extra];
+      }
+      document.title = this.post.title + ' — Yuvraj Raulji';
+      document.getElementById('pageDesc').setAttribute('content', this.post.excerpt);
+      this.$nextTick(() => {
+        const io = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.1});
+        document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+        // Table of contents from article headings + scrollspy
+        const hs = [...document.querySelectorAll('article.prose h2')];
+        this.toc = hs.map((h,i) => { h.id = 'sec-'+i; return { id:h.id, t:h.textContent }; });
+        const spy = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)this.tocActive=e.target.id}),{rootMargin:'-15% 0px -70% 0px'});
+        hs.forEach(h=>spy.observe(h));
+      });
+      // Reading progress bar
+      const bar = document.getElementById('rprogBar');
+      addEventListener('scroll', () => {
+        const h = document.documentElement;
+        bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+      }, { passive:true });
+    }
+  }));
+});
+</script>
+</body>
+</html>
