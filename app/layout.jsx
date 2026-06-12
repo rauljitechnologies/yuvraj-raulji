@@ -4,6 +4,12 @@ export const viewport = { themeColor: '#060606' };
 
 export const metadata = {
   metadataBase: new URL('https://yuvrajraulji.com'),
+  authors: [{ name: 'Yuvraj Raulji', url: 'https://yuvrajraulji.com' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
 };
 
 export default function RootLayout({ children }) {

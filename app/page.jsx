@@ -10,6 +10,13 @@ export const metadata = {
     url: 'https://yuvrajraulji.com/',
     siteName: 'Yuvraj Raulji',
     type: 'website',
+    images: [{ url: 'https://yuvrajraulji.com/assets/yuvraj-raulji.jpg', alt: 'Yuvraj Raulji' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Yuvraj Raulji | Luxury Brand Development & E-Commerce Architect',
+    description: 'Full Stack E-commerce Developer & AI Consultant — Magento 2, Shopify, SEO & CRO, AWS, and AI automation.',
+    images: ['https://yuvrajraulji.com/assets/yuvraj-raulji.jpg'],
   },
 };
 
