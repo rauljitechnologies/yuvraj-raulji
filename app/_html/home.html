@@ -363,9 +363,20 @@
     modalData: {},
     contactOpen: false,
     cForm: { name:'', email:'', phone:'', service:'', message:'', sent:false, sending:false, hp:'' },
+    phoneOk() {
+      const raw = (this.cForm.phone || '').trim();
+      if (!raw) return true;                          // phone is optional
+      if (/[^0-9+\s().-]/.test(raw)) return false;   // letters/symbols not allowed
+      const d = raw.replace(/\D/g, '');
+      if (raw.startsWith('+')) return d.length >= 8 && d.length <= 15;      // international
+      if (d.length === 10) return /^[6-9]/.test(d);                          // Indian mobile
+      if (d.length === 11 && d.startsWith('0')) return /^[6-9]/.test(d[1]);  // 0 + 10 digits
+      if (d.length === 12 && d.startsWith('91')) return /^[6-9]/.test(d[2]); // 91 + 10 digits
+      return false;
+    },
     sendContact() {
       const f = this.cForm;
-      if (!f.name || !f.email || !f.message || f.sending) return;
+      if (!f.name || !f.email || !f.message || f.sending || !this.phoneOk()) return;
       const mailtoFallback = () => {
         const s = encodeURIComponent('Project Inquiry from ' + f.name + (f.service ? ' — ' + f.service : ''));
         const b = encodeURIComponent('Name: ' + f.name + '\nEmail: ' + f.email + '\nPhone: ' + (f.phone||'—') + '\nService: ' + (f.service||'Not specified') + '\n\nMessage:\n' + f.message);
@@ -1812,7 +1823,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label class="cf-lbl" for="cf-phone">Phone Number</label>
-              <input id="cf-phone" class="cf-inp" type="tel" placeholder="+91 XXXXX XXXXX" x-model="cForm.phone">
+              <input id="cf-phone" class="cf-inp" type="tel" inputmode="tel" maxlength="18" placeholder="+91 XXXXX XXXXX" x-model="cForm.phone"
+                     :style="phoneOk() ? '' : 'border-color:rgba(232,25,44,.70);box-shadow:0 0 0 1px rgba(232,25,44,.30)'">
+              <p x-show="!phoneOk()" x-cloak style="margin-top:6px;font-size:.68rem;letter-spacing:.04em;color:#e8192c">
+                Enter a valid mobile number — e.g. 98983 34731 or +91 98983 34731
+              </p>
             </div>
             <div>
               <label class="cf-lbl" for="cf-service">I'm Interested In</label>
@@ -1840,7 +1855,7 @@
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
             <span style="font-size:.68rem;color:rgba(244,244,244,.24);letter-spacing:.08em"><span style="color:#e8192c">*</span> Required fields</span>
             <button type="submit"
-                    :disabled="!cForm.name || !cForm.email || !cForm.message || cForm.sending"
+                    :disabled="!cForm.name || !cForm.email || !cForm.message || cForm.sending || !phoneOk()"
                     class="inline-flex items-center gap-2 h-[50px] px-8 rounded bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_16px_48px_rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none">
               <span x-show="!cForm.sending">Send Message &nbsp;→</span>
               <span x-show="cForm.sending" class="inline-flex items-center gap-2">
