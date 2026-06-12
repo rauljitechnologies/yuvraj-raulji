@@ -1,45 +1,4 @@
-<!doctype html>
-<html lang="en" class="scroll-auto">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#060606">
-
-  <!-- ── Primary SEO ── -->
-  <title>Yuvraj Raulji | Luxury Brand Development & E-Commerce Architecture</title>
-  <meta name="description" content="Yuvraj Raulji — Expert in luxury brand development and e-commerce architecture. Magento 2, Shopify, AWS, SEO & CRO. 9+ years building premium digital brands worldwide. Based in Vadodara, India.">
-  <link rel="canonical" href="https://yuvrajraulji.com/">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="author" content="Yuvraj Raulji">
-  <meta name="keywords" content="Yuvraj Raulji, Magento 2 developer India, Shopify developer, luxury brand development, e-commerce architecture, SEO expert India, CRO specialist, AWS server setup, WordPress developer Vadodara Gujarat, luxury ecommerce store development">
-
-  <!-- ── Open Graph (Facebook / LinkedIn) ── -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yuvrajraulji.com/">
-  <meta property="og:site_name" content="Yuvraj Raulji">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Yuvraj Raulji | Luxury Brand Development & E-Commerce Architecture">
-  <meta property="og:description" content="Expert in luxury brand development and e-commerce architecture — Magento 2, Shopify, AWS, SEO & CRO. 9+ years building premium digital brands worldwide.">
-  <meta property="og:image" content="https://yuvrajraulji.com/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Yuvraj Raulji — Luxury Brand Development & E-Commerce Architecture">
-
-  <!-- ── Twitter Card ── -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yuvraj Raulji | Luxury Brand Development & E-Commerce">
-  <meta name="twitter:description" content="Expert in luxury brand development and e-commerce architecture — Magento 2, Shopify, AWS, SEO & CRO. 9+ years building premium digital brands.">
-  <meta name="twitter:image" content="https://yuvrajraulji.com/og-image.jpg">
-  <meta name="twitter:image:alt" content="Yuvraj Raulji — Luxury Brand Development">
-
-  <!-- ── Geo ── -->
-  <meta name="geo.region" content="IN-GJ">
-  <meta name="geo.placename" content="Vadodara, Gujarat, India">
-  <meta name="geo.position" content="22.3072;73.1812">
-  <meta name="ICBM" content="22.3072, 73.1812">
-
-  <!-- ── JSON-LD Structured Data ── -->
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -171,18 +130,9 @@
     ]
   }
   </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <!-- ── Lead API (Google Apps Script) — paste your Web App URL between the quotes.
-     Setup guide: google-apps-script/SETUP-GUIDE.md ── -->
-  <script>window.LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec";</script>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+<script>window.LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec";</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
     tailwind.config = {
       theme: {
         extend: {
@@ -201,11 +151,8 @@
       }
     }
   </script>
-
-  <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
-
-  <style>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+<style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     ::selection { background: #c8102e; color: #fff; }
@@ -405,10 +352,8 @@
     .ldr-word{transform:translateY(112%);animation:ldrUp .9s cubic-bezier(.19,1,.22,1) forwards}
     @keyframes ldrUp{to{transform:translateY(0)}}
   </style>
-</head>
-
-<body
-  class="bg-bg text-[#f4f4f4] font-grotesk overflow-x-hidden"
+<div
+  class="alpine-body bg-bg text-[#f4f4f4] font-grotesk overflow-x-hidden"
   x-data="{
     menuOpen: false,
     navScrolled: false,
@@ -511,7 +456,7 @@
   <a href="#expertise"  @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv">Services</a>
   <a href="#work"       @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv">Work</a>
   <a href="#technology" @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv">Technology</a>
-  <a href="blog.html"   @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv">Blog</a>
+  <a href="/blog"   @click="menuOpen=false" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv">Blog</a>
   <button @click="menuOpen=false; contactOpen=true" class="font-bebas text-[2.8rem] tracking-[.06em] uppercase transition-colors hover:text-rv active:text-rv bg-transparent border-0 text-left cursor-pointer">Contact</button>
   <a href="mailto:toyuvrajraulji@gmail.com?subject=Strategic+Consultation"
      @click="menuOpen=false"
@@ -530,7 +475,7 @@
       <a href="#expertise"  class="nav-link">Services</a>
       <a href="#work"       class="nav-link">Work</a>
       <a href="#technology" class="nav-link">Technology</a>
-      <a href="blog.html"   class="nav-link">Blog</a>
+      <a href="/blog"   class="nav-link">Blog</a>
       <button @click="contactOpen=true" class="nav-link bg-transparent border-0 p-0 cursor-pointer">Contact</button>
     </nav>
     <button @click="contactOpen=true"
@@ -565,7 +510,7 @@
 
     <!-- Portrait right panel -->
     <div class="hero-portrait absolute top-0 right-0 bottom-0 w-1/2 overflow-hidden pointer-events-none hidden md:block" aria-hidden="true">
-      <div class="w-full h-full" style="background:url('assets/yuvraj-raulji.jpg') center top/cover no-repeat"></div>
+      <div class="w-full h-full" style="background:url('/assets/yuvraj-raulji.jpg') center top/cover no-repeat"></div>
       <!-- Floating chips -->
       <div class="absolute inset-0 z-[2]">
         <div class="hchip absolute top-[22%] left-[6%] inline-flex items-center gap-[7px] h-[34px] px-[13px] rounded-full border border-[rgba(200,16,46,.38)] bg-[rgba(6,6,6,.82)] backdrop-blur-xl text-[.66rem] font-semibold tracking-[.10em] uppercase text-[rgba(244,244,244,.88)]" style="animation:chipF 6s ease-in-out infinite">Magento 2 Expert</div>
@@ -730,17 +675,17 @@
       ws: 0,
       wsAuto: null,
       slides: [
-        { cat:'Headless Commerce · Fashion',       title:'Powerlook',              desc:'High-performance headless commerce architecture for India&rsquo;s fastest-growing men&rsquo;s fashion brand.',                    img:'assets/case-covers/powerlook-cover.jpg',     url:'https://www.rauljitechnologies.com/case-study/powerlook/' },
-        { cat:'Magento 2 · Marketplace',           title:'ShopUnicore',            desc:'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',                                                  img:'assets/case-covers/shopunicore-cover.jpg',   url:'https://www.rauljitechnologies.com/case-study/shopunicore/' },
-        { cat:'E-Commerce · Health & Fitness',     title:'S3Buy',                  desc:'Online fitness and supplement store delivering authentic sports nutrition at speed.',                                             img:'assets/case-covers/s3buy-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/s3buy/' },
-        { cat:'Magento 2 · Textiles',              title:'Modern Fabrics',         desc:'A powerful, flexible Magento 2 commerce build for a premium fabric retailer.',                                                    img:'assets/case-covers/modern-fabrics-cover.jpg', url:'https://www.rauljitechnologies.com/case-study/modern-fabrics/' },
-        { cat:'Shopify · D2C',                     title:'Future Roots',           desc:'India&rsquo;s most trusted online plant store on Shopify — OTP login, GoKwik one-page checkout, custom PDPs.',                     img:'assets/case-covers/future-roots-cover.jpg',       url:'https://www.rauljitechnologies.com/case-study/future-roots/' },
-        { cat:'Magento 2 · Fabrics',               title:'Regal Fabric Gallery',   desc:'High-performance Magento 2 storefront serving fabric customers worldwide.',                                                       img:'assets/case-covers/regal-fabric-gallery-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/regal/' },
-        { cat:'Magento 2 · Luxury Fashion',        title:'Africa Fashion House',   desc:'A Magento 2 flagship showcasing luxury African fashion collections.',                                                              img:'assets/case-covers/africa-fashion-house-cover.jpg',           url:'https://www.rauljitechnologies.com/case-study/africa-fashion-house/' },
-        { cat:'Custom Platform · B2B',             title:'Nxtby',                  desc:'Scalable B2B procurement platform streamlining purchase requests and approvals.',                                                 img:'assets/case-covers/nxtby-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/nxtby/' },
-        { cat:'Web Platform · Manufacturing',      title:'Synergy Water Slides',   desc:'A modern engineering brand platform — 3× traffic growth and 45% better engagement.',                                              img:'assets/case-covers/synergy-water-slides-cover.jpg',          url:'https://www.rauljitechnologies.com/case-study/synergy-water-slides/' },
-        { cat:'Magento 2 · Industrial Safety',     title:'Sure Safety',            desc:'Magento 2 commerce for a leading manufacturer of PPE and industrial safety solutions.',                                           img:'assets/case-covers/sure-safety-cover.jpg',    url:'https://www.rauljitechnologies.com/case-study/sure-safety/' },
-        { cat:'Magento 2 · Grocery',               title:'Al Jazira Supermarket',  desc:'Scalable Magento 2 grocery commerce serving thousands of supermarket products online.',                                           img:'assets/case-covers/al-jazira-supermarket-cover.jpg',      url:'https://www.rauljitechnologies.com/case-study/al-jazira-supermarket/' }
+        { cat:'Headless Commerce · Fashion',       title:'Powerlook',              desc:'High-performance headless commerce architecture for India&rsquo;s fastest-growing men&rsquo;s fashion brand.',                    img:'/assets/case-covers/powerlook-cover.jpg',     url:'https://www.rauljitechnologies.com/case-study/powerlook/' },
+        { cat:'Magento 2 · Marketplace',           title:'ShopUnicore',            desc:'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',                                                  img:'/assets/case-covers/shopunicore-cover.jpg',   url:'https://www.rauljitechnologies.com/case-study/shopunicore/' },
+        { cat:'E-Commerce · Health & Fitness',     title:'S3Buy',                  desc:'Online fitness and supplement store delivering authentic sports nutrition at speed.',                                             img:'/assets/case-covers/s3buy-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/s3buy/' },
+        { cat:'Magento 2 · Textiles',              title:'Modern Fabrics',         desc:'A powerful, flexible Magento 2 commerce build for a premium fabric retailer.',                                                    img:'/assets/case-covers/modern-fabrics-cover.jpg', url:'https://www.rauljitechnologies.com/case-study/modern-fabrics/' },
+        { cat:'Shopify · D2C',                     title:'Future Roots',           desc:'India&rsquo;s most trusted online plant store on Shopify — OTP login, GoKwik one-page checkout, custom PDPs.',                     img:'/assets/case-covers/future-roots-cover.jpg',       url:'https://www.rauljitechnologies.com/case-study/future-roots/' },
+        { cat:'Magento 2 · Fabrics',               title:'Regal Fabric Gallery',   desc:'High-performance Magento 2 storefront serving fabric customers worldwide.',                                                       img:'/assets/case-covers/regal-fabric-gallery-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/regal/' },
+        { cat:'Magento 2 · Luxury Fashion',        title:'Africa Fashion House',   desc:'A Magento 2 flagship showcasing luxury African fashion collections.',                                                              img:'/assets/case-covers/africa-fashion-house-cover.jpg',           url:'https://www.rauljitechnologies.com/case-study/africa-fashion-house/' },
+        { cat:'Custom Platform · B2B',             title:'Nxtby',                  desc:'Scalable B2B procurement platform streamlining purchase requests and approvals.',                                                 img:'/assets/case-covers/nxtby-cover.jpg',         url:'https://www.rauljitechnologies.com/case-study/nxtby/' },
+        { cat:'Web Platform · Manufacturing',      title:'Synergy Water Slides',   desc:'A modern engineering brand platform — 3× traffic growth and 45% better engagement.',                                              img:'/assets/case-covers/synergy-water-slides-cover.jpg',          url:'https://www.rauljitechnologies.com/case-study/synergy-water-slides/' },
+        { cat:'Magento 2 · Industrial Safety',     title:'Sure Safety',            desc:'Magento 2 commerce for a leading manufacturer of PPE and industrial safety solutions.',                                           img:'/assets/case-covers/sure-safety-cover.jpg',    url:'https://www.rauljitechnologies.com/case-study/sure-safety/' },
+        { cat:'Magento 2 · Grocery',               title:'Al Jazira Supermarket',  desc:'Scalable Magento 2 grocery commerce serving thousands of supermarket products online.',                                           img:'/assets/case-covers/al-jazira-supermarket-cover.jpg',      url:'https://www.rauljitechnologies.com/case-study/al-jazira-supermarket/' }
       ],
       wsGo(i) { this.ws = (i + this.slides.length) % this.slides.length; this.wsPlay(); },
       wsPlay() { clearInterval(this.wsAuto); this.wsAuto = setInterval(() => this.ws = (this.ws + 1) % this.slides.length, 6000); }
@@ -1223,14 +1168,14 @@
         </div>
         <div>
           <p class="text-[rgba(244,244,244,.60)] mb-5" style="font-size:clamp(.92rem,1.2vw,1.06rem);line-height:1.74">Editorial perspectives on the forces reshaping commerce, enterprise technology, and AI-powered operations.</p>
-          <a href="blog.html" class="btn-arr inline-flex items-center gap-2 h-[42px] px-5 rounded border border-[rgba(200,16,46,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase no-underline transition-all hover:bg-red hover:border-red hover:text-white hover:-translate-y-px touch-manipulation">View All Insights</a>
+          <a href="/blog" class="btn-arr inline-flex items-center gap-2 h-[42px] px-5 rounded border border-[rgba(200,16,46,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase no-underline transition-all hover:bg-red hover:border-red hover:text-white hover:-translate-y-px touch-manipulation">View All Insights</a>
         </div>
       </div>
 
       <!-- Editorial cards -->
       <div class="grid grid-cols-2 md:grid-cols-4 border border-[rgba(255,255,255,.08)] rounded-xl overflow-hidden gap-px bg-[rgba(255,255,255,.08)] reveal">
         <template x-for="(p, i) in posts" :key="i">
-          <a href="blog.html" class="group relative min-h-[225px] p-6 bg-bg2 grid content-between gap-4 no-underline text-inherit overflow-hidden transition-all duration-300 hover:bg-[rgba(200,16,46,.06)] hover:-translate-y-1 touch-manipulation">
+          <a href="/blog" class="group relative min-h-[225px] p-6 bg-bg2 grid content-between gap-4 no-underline text-inherit overflow-hidden transition-all duration-300 hover:bg-[rgba(200,16,46,.06)] hover:-translate-y-1 touch-manipulation">
             <span class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#e8192c] via-[#c8102e] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" aria-hidden="true"></span>
             <span class="flex items-start justify-between gap-3">
               <span class="text-[.66rem] font-bold tracking-[.22em] uppercase text-rv" x-text="('0' + (i + 1)).slice(-2)"></span>
@@ -1556,7 +1501,7 @@
 
       <!-- Brand block -->
       <div>
-        <a href="index.html" class="inline-flex items-center gap-3 mb-6 group">
+        <a href="/" class="inline-flex items-center gap-3 mb-6 group">
           <span class="w-11 h-11 grid place-items-center rounded-full font-bebas text-rv text-[1.05rem]"
                 style="border:1px solid rgba(200,16,46,.38);background:rgba(200,16,46,.07);box-shadow:0 0 28px rgba(200,16,46,.14)">YR</span>
           <span class="font-bebas text-[1.7rem] tracking-[.06em] uppercase text-[#f4f4f4] transition-colors group-hover:text-rv">Yuvraj Raulji</span>
@@ -1588,12 +1533,12 @@
           <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Navigate</h3>
         </div>
         <ul class="space-y-[14px]" style="font-size:.82rem">
-          <li><a href="index.html"            class="inline-flex items-center gap-2 text-rv"><span class="text-rv text-[.6rem]">—</span>Home</a></li>
-          <li><a href="index.html#expertise"  class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Services</a></li>
-          <li><a href="index.html#work"       class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Work</a></li>
-          <li><a href="index.html#technology" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Technology</a></li>
-          <li><a href="blog.html"             class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Blog &amp; Insights</a></li>
-          <li><a href="index.html#contact"    class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Contact</a></li>
+          <li><a href="/"            class="inline-flex items-center gap-2 text-rv"><span class="text-rv text-[.6rem]">—</span>Home</a></li>
+          <li><a href="/#expertise"  class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Services</a></li>
+          <li><a href="/#work"       class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Work</a></li>
+          <li><a href="/#technology" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Technology</a></li>
+          <li><a href="/blog"             class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Blog &amp; Insights</a></li>
+          <li><a href="/#contact"    class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Contact</a></li>
         </ul>
       </div>
 
@@ -1604,12 +1549,12 @@
           <h3 class="text-[.64rem] font-bold tracking-[.28em] uppercase text-[rgba(244,244,244,.62)]">Expertise</h3>
         </div>
         <ul class="space-y-[14px]" style="font-size:.82rem">
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Magento 2 Commerce</a></li>
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Shopify</a></li>
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>SEO &amp; CRO</a></li>
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AWS &amp; Server Setup</a></li>
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>WordPress &amp; WooCommerce</a></li>
-          <li><a href="index.html#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AI Automation</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Magento 2 Commerce</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>Shopify</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>SEO &amp; CRO</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AWS &amp; Server Setup</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>WordPress &amp; WooCommerce</a></li>
+          <li><a href="/#expertise" class="inline-flex items-center gap-2 text-[rgba(244,244,244,.46)] transition-all duration-300 hover:text-rv hover:gap-3"><span class="text-[rgba(200,16,46,.45)] text-[.6rem]">—</span>AI Automation</a></li>
         </ul>
       </div>
 
@@ -1625,37 +1570,37 @@
 
         <!-- Pills -->
         <div class="flex flex-wrap gap-[9px] mb-6">
-          <a href="blog.html?filter=magento-2"
+          <a href="/blog?filter=magento-2"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Magento 2</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">6</span>
           </a>
-          <a href="blog.html?filter=shopify"
+          <a href="/blog?filter=shopify"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Shopify</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">4</span>
           </a>
-          <a href="blog.html?filter=seo-cro"
+          <a href="/blog?filter=seo-cro"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">SEO &amp; CRO</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
           </a>
-          <a href="blog.html?filter=wordpress"
+          <a href="/blog?filter=wordpress"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">WordPress</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
           </a>
-          <a href="blog.html?filter=ai-automation"
+          <a href="/blog?filter=ai-automation"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">AI &amp; Automation</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">3</span>
           </a>
-          <a href="blog.html?filter=aws-server"
+          <a href="/blog?filter=aws-server"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">AWS &amp; Server</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">2</span>
           </a>
-          <a href="blog.html?filter=performance"
+          <a href="/blog?filter=performance"
              class="inline-flex items-center gap-[7px] h-[32px] px-[14px] rounded-full transition-all duration-300 touch-manipulation border hover:-translate-y-[2px] bg-[rgba(255,255,255,.02)] text-[rgba(244,244,244,.50)] border-[rgba(255,255,255,.10)] hover:text-[#f4f4f4] hover:border-[rgba(200,16,46,.40)] hover:bg-[rgba(200,16,46,.08)] hover:shadow-[0_6px_22px_rgba(200,16,46,.16)]">
             <span style="font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Performance</span>
             <span class="font-bebas leading-none" style="font-size:.78rem;letter-spacing:.06em;color:rgba(232,25,44,.75)">1</span>
@@ -1663,7 +1608,7 @@
         </div>
 
         <!-- View all -->
-        <a href="blog.html"
+        <a href="/blog"
            class="inline-flex items-center gap-2 transition-all duration-300 hover:gap-[13px] group"
            style="font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8192c">
           View All 22 Articles <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -2148,5 +2093,4 @@
   });
 })();
 </script>
-</body>
-</html>
+</div>

@@ -60,8 +60,41 @@ function doPost(e) {
   }
 }
 
-function doGet() {
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.export === 'csv') return exportCsv_(p.key);
   return jsonOut_({ ok: true, service: 'YR Lead API', time: new Date().toISOString() });
+}
+
+/* ── CSV export — download all leads as a .csv file ────────
+   URL:  <web-app-url>?export=csv&key=<your-secret-key>
+   The key is auto-generated; testSetup() prints it.        */
+function exportCsv_(key) {
+  const want = PropertiesService.getScriptProperties().getProperty('CSV_KEY');
+  if (!want || key !== want) {
+    return ContentService.createTextOutput('Forbidden — invalid key').setMimeType(ContentService.MimeType.TEXT);
+  }
+  const ss = getOrCreateSpreadsheet_();
+  const sheet = ss.getSheetByName(CONFIG.SHEET_TAB) || ss.getSheets()[0];
+  const csv = sheet.getDataRange().getValues().map(function (row) {
+    return row.map(function (c) {
+      c = String(c).replace(/"/g, '""');
+      return /[",\n]/.test(c) ? '"' + c + '"' : c;
+    }).join(',');
+  }).join('\r\n');
+  return ContentService.createTextOutput(csv)
+    .setMimeType(ContentService.MimeType.CSV)
+    .downloadAsFile('yuvrajraulji-leads.csv');
+}
+
+function ensureCsvKey_() {
+  const props = PropertiesService.getScriptProperties();
+  let key = props.getProperty('CSV_KEY');
+  if (!key) {
+    key = Utilities.getUuid().replace(/-/g, '');
+    props.setProperty('CSV_KEY', key);
+  }
+  return key;
 }
 
 /* ── Google Sheet (auto-generated, one time) ──────────────── */
@@ -263,6 +296,8 @@ function testSetup() {
   appendLead_(lead);
   sendOwnerEmail_(lead);
   sendClientEmail_(lead);
+  const csvKey = ensureCsvKey_();
   const url = SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID')).getUrl();
   console.log('✅ All good! Lead sheet: ' + url);
+  console.log('📥 CSV download (after deploying): <web-app-url>?export=csv&key=' + csvKey);
 }

@@ -1,0 +1,5 @@
+html { scroll-behavior: auto; }
+body { margin: 0; background: #060606; }
+/* Alpine sets overflow-hidden on the page wrapper (was <body> in the static site);
+   propagate the scroll lock to the real body */
+body:has(.alpine-body.overflow-hidden) { overflow: hidden; }
