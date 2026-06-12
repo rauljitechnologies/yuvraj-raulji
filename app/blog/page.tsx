@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import { pageHtml } from '../../lib/html';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO, AWS & E-Commerce',
   description: 'Expert insights on Magento 2, Shopify, SEO & CRO, AWS server setup, WordPress, and luxury e-commerce development by Yuvraj Raulji. 9+ years of hands-on expertise.',
   alternates: { canonical: 'https://yuvrajraulji.com/blog/' },

@@ -1,5 +1,16 @@
 // Auto-generated from blog data — 22 posts
-export const POSTS = {
+
+export interface Post {
+  cat: string;
+  filter: string;
+  date: string;
+  readTime: string;
+  img: string;
+  title: string;
+  excerpt: string;
+}
+
+export const POSTS: Record<string, Post> = {
   "magento2-seo-technical-audit": {
     "cat": "Magento 2",
     "filter": "magento-2",

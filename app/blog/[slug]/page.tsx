@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { pageHtml } from '../../../lib/html';
 import { POSTS } from '../../../lib/posts';
 
@@ -7,12 +8,14 @@ export function generateStaticParams() {
   return Object.keys(POSTS).map((slug) => ({ slug }));
 }
 
-function isoDate(d) {
+function isoDate(d: string): string {
   const t = Date.parse(d);
   return isNaN(t) ? '2026-01-01' : new Date(t).toISOString().split('T')[0];
 }
 
-export async function generateMetadata({ params }) {
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = POSTS[slug];
   const url = 'https://yuvrajraulji.com/blog/' + slug + '/';
@@ -39,7 +42,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Article({ params }) {
+export default async function Article({ params }: Props) {
   const { slug } = await params;
   const p = POSTS[slug];
   const url = 'https://yuvrajraulji.com/blog/' + slug + '/';

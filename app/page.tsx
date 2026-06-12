@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import { pageHtml } from '../lib/html';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Yuvraj Raulji | Luxury Brand Development & E-Commerce Architect',
   description: 'Full Stack E-commerce Developer & AI Consultant — Magento 2, Shopify, SEO & CRO, AWS infrastructure, and AI automation. 9+ years crafting luxury digital experiences.',
   alternates: { canonical: 'https://yuvrajraulji.com/' },

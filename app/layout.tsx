@@ -1,8 +1,9 @@
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
-export const viewport = { themeColor: '#060606' };
+export const viewport: Viewport = { themeColor: '#060606' };
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL('https://yuvrajraulji.com'),
   authors: [{ name: 'Yuvraj Raulji', url: 'https://yuvrajraulji.com' }],
   robots: {
@@ -12,7 +13,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
