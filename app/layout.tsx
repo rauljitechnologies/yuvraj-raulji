@@ -1,5 +1,21 @@
 import type { Metadata, Viewport } from 'next';
+import { Bebas_Neue, Space_Grotesk } from 'next/font/google';
+import { UIProvider } from '../components/ui-context';
 import './globals.css';
+
+const bebas = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bebas',
+});
+
+const grotesk = Space_Grotesk({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-grotesk',
+});
 
 export const viewport: Viewport = { themeColor: '#060606' };
 
@@ -15,16 +31,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>{children}</body>
+    <html lang="en" className={`${bebas.variable} ${grotesk.variable}`}>
+      <body className="bg-bg text-[#f4f4f4] font-grotesk overflow-x-hidden">
+        <UIProvider>{children}</UIProvider>
+      </body>
     </html>
   );
 }

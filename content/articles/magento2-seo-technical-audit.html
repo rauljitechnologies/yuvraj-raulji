@@ -1,0 +1,42 @@
+      <h2>Why Magento 2 Needs a Dedicated SEO Audit</h2>
+      <p>Magento 2 is one of the most powerful e-commerce platforms available — but it comes with SEO pitfalls that are unique to its architecture. Duplicate category/product URLs, incorrect canonical tags, bloated XML sitemaps, and slow TTFB are common issues that silently destroy organic rankings for even well-designed stores.</p>
+      <p>Over 9 years of working with Magento 2 stores, I've developed a systematic audit framework that consistently uncovers the 20% of issues causing 80% of the organic traffic loss. This guide walks through every layer.</p>
+      <h2>Phase 1: Crawlability & Indexability</h2>
+      <h3>1.1 XML Sitemap Configuration</h3>
+      <p>Magento 2 generates sitemaps automatically but the defaults are often wrong. Key issues to fix:</p>
+      <ul>
+        <li>Sitemap includes <code>?___store=</code> query parameters — these create duplicate URLs in Google Search Console</li>
+        <li>Out-of-stock products should typically be excluded from sitemaps using a custom plugin</li>
+        <li>Sitemap file size should not exceed 50MB / 50,000 URLs — split into sub-sitemaps if needed</li>
+        <li>Lastmod dates must update when product content changes — configure this in <code>Stores → Configuration → Catalog → XML Sitemap</code></li>
+      </ul>
+      <h3>1.2 Robots.txt</h3>
+      <p>Magento 2 has a built-in robots.txt editor under <code>Content → Design → Configuration → Edit → HTML Head → Default Robots</code>. Critical rules to verify:</p>
+      <pre><code>Disallow: /catalog/product/compare/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /catalogsearch/
+Allow: /catalogsearch/result/</code></pre>
+      <h3>1.3 Canonical Tags</h3>
+      <p>The most common Magento 2 SEO mistake is incorrect canonical implementation. Products accessible via multiple category paths (<code>/category-1/product.html</code> and <code>/category-2/product.html</code>) must all canonical to the primary product URL. Set this in <code>Stores → Configuration → Catalog → Catalog → Search Engine Optimization → Use Canonical Link Meta Tag for Products</code>.</p>
+      <blockquote><p>Always audit canonical tags with Screaming Frog or a custom crawl — do not trust that Magento's built-in settings are working correctly after upgrades or custom development.</p></blockquote>
+      <h2>Phase 2: On-Page SEO Signals</h2>
+      <h3>2.1 Title Tags & Meta Descriptions</h3>
+      <p>Magento 2 allows product-level meta overrides but most stores rely on the auto-generated format: <em>Product Name — Store Name</em>. For high-traffic categories, invest in manually optimised titles with primary keyword in positions 1-3. Use the <code>[store_name]</code> variable only at the end.</p>
+      <h3>2.2 Structured Data (Schema)</h3>
+      <p>Implement JSON-LD for all product pages with these schema types:</p>
+      <ul>
+        <li><strong>Product</strong> — name, description, image, sku, brand</li>
+        <li><strong>Offer</strong> — price, priceCurrency, availability, url</li>
+        <li><strong>AggregateRating</strong> — if reviews are enabled</li>
+        <li><strong>BreadcrumbList</strong> — critical for Magento 2 since navigation paths vary</li>
+      </ul>
+      <h2>Phase 3: Core Web Vitals</h2>
+      <h3>3.1 LCP (Largest Contentful Paint)</h3>
+      <p>The hero product image is almost always the LCP element on Magento 2 PDP pages. Common fixes: preload the LCP image in the theme's <code>default_head_blocks.xml</code>, serve WebP via Fastly or Cloudflare Image Resizing, and remove render-blocking third-party scripts from the <code>&lt;head&gt;</code>.</p>
+      <h3>3.2 CLS (Cumulative Layout Shift)</h3>
+      <p>Magento 2's lazy-loaded product images and promotional banners are primary CLS culprits. Always define explicit <code>width</code> and <code>height</code> attributes on all images and reserve space for above-the-fold banners.</p>
+      <h2>Phase 4: International & Multi-Store SEO</h2>
+      <p>For multi-store Magento 2 setups, hreflang implementation is critical. Each store view should declare all language/region variants. Use a custom module or Amasty SEO Suite to manage hreflang at scale across large catalogs.</p>
+      <hr>
+      <p>This audit framework is the same one I apply to every Magento 2 engagement. If you need a comprehensive SEO audit or want to implement these optimizations on your store, <a href="mailto:toyuvrajraulji@gmail.com?subject=Magento+2+SEO+Audit">reach out for a consultation</a>.</p>

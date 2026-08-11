@@ -1,0 +1,62 @@
+      <h2>Why PWA Studio for Magento 2?</h2>
+      <p>Magento 2 PWA Studio is Adobe's official headless frontend framework for Magento 2. It delivers app-like performance — instant page transitions, offline support, and 90+ Lighthouse scores — while keeping Magento 2 as the commerce engine powering catalog, cart, and checkout via GraphQL.</p>
+      <p>After deploying PWA Studio storefronts for fashion, electronics, and B2B clients, here's what I've learned about doing it right in 2025.</p>
+      <h2>Architecture Overview</h2>
+      <p>PWA Studio consists of three core packages:</p>
+      <ul>
+        <li><strong>Venia Storefront</strong> — the reference implementation and starting point for custom builds</li>
+        <li><strong>Peregrine</strong> — React hooks and logic layer (stateless, reusable across UI frameworks)</li>
+        <li><strong>Buildpack</strong> — Webpack configuration and extensibility layer</li>
+      </ul>
+      <p>The stack: <strong>React 18 + GraphQL (Apollo Client) + Venia UI + Webpack 5 + Workbox (service worker)</strong>. The Magento 2 backend exposes all commerce data via the GraphQL API.</p>
+      <h2>Local Development Setup</h2>
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>Node.js 18+ (LTS), Yarn 1.22+</li>
+        <li>Magento 2.4.6+ with GraphQL enabled</li>
+        <li>HTTPS for local dev (required for service worker)</li>
+      </ul>
+      <h3>Quick Start</h3>
+      <pre><code>yarn create @magento/pwa
+cd my-store
+# Set your Magento backend URL in .env:
+# MAGENTO_BACKEND_URL=https://your-magento-store.com/
+yarn watch</code></pre>
+      <h2>GraphQL Performance Optimization</h2>
+      <p>The biggest PWA Studio performance bottleneck is over-fetching from GraphQL. Key strategies:</p>
+      <ul>
+        <li><strong>Fragment colocation</strong> — each component requests only the fields it uses</li>
+        <li><strong>Apollo Client cache policy</strong> — use <code>cache-first</code> for static data (categories, CMS), <code>network-only</code> for cart/account</li>
+        <li><strong>Persisted queries</strong> — hash-based GET requests instead of POST for cacheable queries (CDN-cacheable)</li>
+        <li><strong>Varnish ESI</strong> — cache full page HTML at the edge, invalidate on content change</li>
+      </ul>
+      <h2>Achieving 90+ Lighthouse Scores</h2>
+      <ul>
+        <li><strong>Image optimization</strong> — use Magento's image resize API (<code>/media/catalog/product/cache/</code>) with WebP format + width params</li>
+        <li><strong>Code splitting</strong> — PWA Studio does this automatically per route; verify no large shared chunks</li>
+        <li><strong>Critical CSS</strong> — inline above-fold styles; Buildpack supports this via <code>HTMLWebpackPlugin</code></li>
+        <li><strong>Service Worker</strong> — Workbox pre-caches shell and static assets; configure <code>runtimeCaching</code> for product images</li>
+        <li><strong>LCP optimization</strong> — preload the hero image, ensure it's served from CDN with correct cache-control headers</li>
+      </ul>
+      <h2>Production Deployment on AWS CloudFront</h2>
+      <p>The recommended production stack for PWA Studio:</p>
+      <ul>
+        <li><strong>S3 + CloudFront</strong> — serve the React bundle as a static site via S3 origin</li>
+        <li><strong>Lambda@Edge</strong> — handle server-side redirects, URL rewrites, A/B testing at the edge</li>
+        <li><strong>CloudFront cache behaviors</strong> — separate cache policies for JS/CSS (1 year), HTML (5 min), API calls (no cache)</li>
+        <li><strong>Magento 2 backend</strong> — keep on EC2/RDS behind CloudFront, accessible only via GraphQL endpoint</li>
+      </ul>
+      <h2>Extensibility: Targets & Intercepts</h2>
+      <p>PWA Studio's extensibility model uses <em>Targets</em> (extension points) and <em>Intercepts</em> (the code that hooks into them). This allows third-party modules to modify the storefront without forking core code:</p>
+      <pre><code>// intercept.js in your custom module
+module.exports = targets => {
+  targets.of('@magento/venia-ui').routes.tap(routes => {
+    routes.push({
+      name: 'Custom Page',
+      pattern: '/custom',
+      path: require.resolve('./src/components/CustomPage')
+    });
+  });
+};</code></pre>
+      <hr>
+      <p>Building a PWA Studio storefront? Let's plan your architecture together. <a href="mailto:toyuvrajraulji@gmail.com?subject=PWA+Studio+Project">Book a consultation →</a></p>

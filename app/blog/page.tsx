@@ -1,9 +1,18 @@
 import type { Metadata } from 'next';
-import { pageHtml } from '../../lib/html';
+import { BlogCta } from '../../components/blog/blog-cta';
+import { BlogHero } from '../../components/blog/blog-hero';
+import { BlogListing, type ListPost } from '../../components/blog/blog-listing';
+import { ContactModal } from '../../components/contact-modal';
+import { Preloader } from '../../components/preloader';
+import { SiteEffects } from '../../components/site-effects';
+import { SiteFooter } from '../../components/site-footer';
+import { SiteHeader } from '../../components/site-header';
+import { POSTS } from '../../lib/posts';
 
 export const metadata: Metadata = {
   title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO, AWS & E-Commerce',
-  description: 'Expert insights on Magento 2, Shopify, SEO & CRO, AWS server setup, WordPress, and luxury e-commerce development by Yuvraj Raulji. 9+ years of hands-on expertise.',
+  description:
+    'Expert insights on Magento 2, Shopify, SEO & CRO, AWS server setup, WordPress, and luxury e-commerce development by Yuvraj Raulji. 9+ years of hands-on expertise.',
   alternates: { canonical: 'https://yuvrajraulji.com/blog/' },
   openGraph: {
     title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO & AWS',
@@ -20,5 +29,23 @@ export const metadata: Metadata = {
 };
 
 export default function Blog() {
-  return <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: pageHtml('blog.html') }} />;
+  const posts: ListPost[] = Object.entries(POSTS).map(([slug, p]) => ({ ...p, slug }));
+
+  return (
+    <div className="reveal-blog" style={{ ['--noise-o' as string]: 0.06 }}>
+      <div className="noise" aria-hidden="true" />
+      <Preloader tagline="Blog & Insights" />
+      <SiteHeader active="Blog" />
+      <SiteEffects />
+
+      <main>
+        <BlogHero />
+        <BlogListing posts={posts} />
+        <BlogCta />
+      </main>
+
+      <SiteFooter />
+      <ContactModal />
+    </div>
+  );
 }
