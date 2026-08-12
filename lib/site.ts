@@ -14,6 +14,14 @@ export const CONTACT = {
   location: 'Vadodara, Gujarat, India',
 } as const;
 
+/**
+ * Canonical origin, no trailing slash. Must match the host the site is actually
+ * served from — Vercel currently 308-redirects the apex to www, so canonical
+ * URLs, schema @ids and the sitemap all use www. If the Vercel primary domain is
+ * ever flipped back to the apex, change this one line.
+ */
+export const SITE_URL = 'https://www.yuvrajraulji.com';
+
 export const LEAD_ENDPOINT =
   'https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec';
 

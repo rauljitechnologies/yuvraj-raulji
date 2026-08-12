@@ -1,6 +1,6 @@
-import { CONTACT, FAQS } from './site';
+import { CONTACT, FAQS, SITE_URL } from './site';
 
-const PERSON_ID = 'https://yuvrajraulji.com/#person';
+const PERSON_ID = `${SITE_URL}/#person`;
 
 /** JSON-LD @graph previously inlined at the top of app/_html/home.html. */
 export function homeSchema() {
@@ -11,10 +11,10 @@ export function homeSchema() {
         '@type': 'Person',
         '@id': PERSON_ID,
         name: 'Yuvraj Raulji',
-        url: 'https://yuvrajraulji.com/',
+        url: `${SITE_URL}/`,
         email: CONTACT.email,
         telephone: CONTACT.phoneE164,
-        image: 'https://yuvrajraulji.com/og-image.jpg',
+        image: `${SITE_URL}/og-image.jpg`,
         jobTitle: 'Luxury Brand Developer & E-Commerce Architect',
         description:
           'Expert in luxury brand development and e-commerce architecture with 9+ years of experience. Specializing in Magento 2, Shopify, AWS infrastructure, SEO & CRO, and AI-powered commerce systems.',
@@ -40,8 +40,8 @@ export function homeSchema() {
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://yuvrajraulji.com/#website',
-        url: 'https://yuvrajraulji.com/',
+        '@id': `${SITE_URL}/#website`,
+        url: `${SITE_URL}/`,
         name: 'Yuvraj Raulji',
         description: 'Luxury brand development and premium e-commerce architecture',
         publisher: { '@id': PERSON_ID },
@@ -49,11 +49,11 @@ export function homeSchema() {
       },
       {
         '@type': 'ProfessionalService',
-        '@id': 'https://yuvrajraulji.com/#service',
+        '@id': `${SITE_URL}/#service`,
         name: 'Yuvraj Raulji',
         description:
           'Luxury brand development and premium e-commerce architecture — Magento 2, Shopify, AWS, SEO & CRO, WordPress.',
-        url: 'https://yuvrajraulji.com/',
+        url: `${SITE_URL}/`,
         telephone: CONTACT.phoneE164,
         email: CONTACT.email,
         founder: { '@id': PERSON_ID },
@@ -80,11 +80,11 @@ export function homeSchema() {
       },
       {
         '@type': 'BreadcrumbList',
-        itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://yuvrajraulji.com/' }],
+        itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` }],
       },
       {
         '@type': 'FAQPage',
-        '@id': 'https://yuvrajraulji.com/#faq',
+        '@id': `${SITE_URL}/#faq`,
         mainEntity: FAQS.map((f) => ({
           '@type': 'Question',
           name: f.q,

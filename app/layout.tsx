@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Bebas_Neue, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
-import { GA_MEASUREMENT_ID, GTM_CONTAINER_ID } from '../lib/site';
+import { GA_MEASUREMENT_ID, GTM_CONTAINER_ID, SITE_URL } from '../lib/site';
 import './globals.css';
 
 const bebas = Bebas_Neue({
@@ -22,8 +22,8 @@ const grotesk = Space_Grotesk({
 export const viewport: Viewport = { themeColor: '#060606' };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://yuvrajraulji.com'),
-  authors: [{ name: 'Yuvraj Raulji', url: 'https://yuvrajraulji.com' }],
+  metadataBase: new URL(SITE_URL),
+  authors: [{ name: 'Yuvraj Raulji', url: SITE_URL }],
   robots: {
     index: true,
     follow: true,

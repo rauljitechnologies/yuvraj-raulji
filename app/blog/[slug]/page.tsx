@@ -9,7 +9,7 @@ import { SiteFooter } from '../../../components/site-footer';
 import { SiteHeader } from '../../../components/site-header';
 import { getArticle } from '../../../lib/articles';
 import { POSTS } from '../../../lib/posts';
-import { CONTACT } from '../../../lib/site';
+import { CONTACT, SITE_URL } from '../../../lib/site';
 import { TAGS } from '../../../lib/tags';
 
 export const dynamicParams = false;
@@ -28,7 +28,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = POSTS[slug];
-  const url = `https://yuvrajraulji.com/blog/${slug}/`;
+  const url = `${SITE_URL}/blog/${slug}/`;
   return {
     title: `${p.title} — Yuvraj Raulji`,
     description: p.excerpt,
@@ -59,7 +59,7 @@ function relatedFor(slug: string) {
 export default async function Article({ params }: Props) {
   const { slug } = await params;
   const p = POSTS[slug];
-  const url = `https://yuvrajraulji.com/blog/${slug}/`;
+  const url = `${SITE_URL}/blog/${slug}/`;
   const { html, toc } = getArticle(slug);
   const tags = TAGS[slug] ?? [p.cat];
   const related = relatedFor(slug);
@@ -81,18 +81,18 @@ export default async function Article({ params }: Props) {
         inLanguage: 'en-US',
         author: {
           '@type': 'Person',
-          '@id': 'https://yuvrajraulji.com/#person',
+          '@id': `${SITE_URL}/#person`,
           name: 'Yuvraj Raulji',
-          url: 'https://yuvrajraulji.com/',
+          url: `${SITE_URL}/`,
           jobTitle: 'Full Stack E-commerce Developer & AI Consultant',
         },
-        publisher: { '@id': 'https://yuvrajraulji.com/#person' },
+        publisher: { '@id': `${SITE_URL}/#person` },
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://yuvrajraulji.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Blog & Insights', item: 'https://yuvrajraulji.com/blog/' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog & Insights', item: `${SITE_URL}/blog/` },
           { '@type': 'ListItem', position: 3, name: p.title, item: url },
         ],
       },

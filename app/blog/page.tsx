@@ -8,16 +8,17 @@ import { SiteEffects } from '../../components/site-effects';
 import { SiteFooter } from '../../components/site-footer';
 import { SiteHeader } from '../../components/site-header';
 import { POSTS } from '../../lib/posts';
+import { SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO, AWS & E-Commerce',
   description:
     'Expert insights on Magento 2, Shopify, SEO & CRO, AWS server setup, WordPress, and luxury e-commerce development by Yuvraj Raulji. 9+ years of hands-on expertise.',
-  alternates: { canonical: 'https://yuvrajraulji.com/blog/' },
+  alternates: { canonical: `${SITE_URL}/blog/` },
   openGraph: {
     title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO & AWS',
     description: 'Expert insights on Magento 2, Shopify, SEO & CRO, AWS, and luxury e-commerce development.',
-    url: 'https://yuvrajraulji.com/blog/',
+    url: `${SITE_URL}/blog/`,
     siteName: 'Yuvraj Raulji',
     type: 'website',
   },

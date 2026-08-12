@@ -15,6 +15,7 @@ import { SiteEffects } from '../components/site-effects';
 import { SiteFooter } from '../components/site-footer';
 import { SiteHeader } from '../components/site-header';
 import { homeSchema } from '../lib/schema';
+import { SITE_URL } from '../lib/site';
 
 const title = 'Yuvraj Raulji | Luxury Brand Development & E-Commerce Architect';
 const description =
@@ -25,20 +26,20 @@ const ogDescription =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: 'https://yuvrajraulji.com/' },
+  alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
     title,
     description: ogDescription,
-    url: 'https://yuvrajraulji.com/',
+    url: `${SITE_URL}/`,
     siteName: 'Yuvraj Raulji',
     type: 'website',
-    images: [{ url: 'https://yuvrajraulji.com/assets/yuvraj-raulji.jpg', alt: 'Yuvraj Raulji' }],
+    images: [{ url: `${SITE_URL}/assets/yuvraj-raulji.jpg`, alt: 'Yuvraj Raulji' }],
   },
   twitter: {
     card: 'summary_large_image',
     title,
     description: ogDescription,
-    images: ['https://yuvrajraulji.com/assets/yuvraj-raulji.jpg'],
+    images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`],
   },
 };
 
