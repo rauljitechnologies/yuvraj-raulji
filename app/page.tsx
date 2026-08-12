@@ -6,6 +6,7 @@ import { Expertise } from '../components/home/expertise';
 import { Faq } from '../components/home/faq';
 import { Hero } from '../components/home/hero';
 import { Industries } from '../components/home/industries';
+import { Introduction } from '../components/home/introduction';
 import { Infrastructure } from '../components/home/infrastructure';
 import { Analytics, Seo } from '../components/home/measurement';
 import { Insights } from '../components/home/insights';
@@ -57,6 +58,7 @@ export default function Home() {
 
       <main id="top">
         <Hero />
+        <Introduction />
         <Expertise />
         <Infrastructure />
         <Analytics />

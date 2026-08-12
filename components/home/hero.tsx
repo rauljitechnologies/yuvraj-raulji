@@ -92,8 +92,9 @@ export function Hero() {
             </motion.p>
 
             <motion.p variants={item} className="mt-4 max-w-[560px] text-[.95rem] leading-[1.75] text-ink-muted">
-              Helping B2B, B2C, D2C and marketplace businesses modernize digital commerce through strategy,
-              architecture, technology, analytics and AI.
+              I help B2B, B2C, D2C and marketplace businesses modernize digital commerce, make better
+              technology decisions, and build scalable digital ecosystems across commerce, architecture,
+              infrastructure, analytics and AI.
             </motion.p>
 
             {/* Business models — text, not color, carries the meaning */}
@@ -105,6 +106,10 @@ export function Hero() {
                   {m}
                 </li>
               ))}
+              <li aria-hidden="true" className="h-3 w-px bg-line-strong" />
+              <li className="text-label font-bold uppercase tracking-[.2em] text-ink-muted">
+                Commerce + Technology + AI
+              </li>
             </motion.ul>
 
             <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
