@@ -17,6 +17,12 @@ export const CONTACT = {
 export const LEAD_ENDPOINT =
   'https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec';
 
+/** GA4 measurement ID. Only loaded in production builds — see app/layout.tsx. */
+export const GA_MEASUREMENT_ID = 'G-5JHWRDWD9K';
+
+/** Google Tag Manager container. Production-only, same as GA4. */
+export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
+
 export const NAV_LINKS = [
   { label: 'Services', href: '/#expertise' },
   { label: 'Work', href: '/#work' },
