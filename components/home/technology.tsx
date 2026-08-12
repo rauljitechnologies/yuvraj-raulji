@@ -1,14 +1,28 @@
 'use client';
 
 import { TECH_GROUPS, type TechIcon } from '../../lib/site';
+import { Container, SectionHeading } from '../ui';
+import { Reveal, RevealGroup, RevealItem } from '../ui/reveal';
 import { useUI } from '../ui-context';
+
+/**
+ * §17 Technology & Architecture. Migrated to the design tokens.
+ *
+ * Beyond swapping inline rgba() for token classes, this fixes the small-text
+ * accent colours. globals.css states the rule plainly: #c8102e is 3.44:1 and is
+ * for large text, fills and borders only — #e8192c is the only accent safe for
+ * small text. The group subtitle, level badge, count strip and CTA were all
+ * setting #c8102e at 55–70% opacity at .58–.66rem, well under 3:1. They now use
+ * `text-accent-bright` at full opacity; #c8102e survives only in borders,
+ * fills and the icon strokes, where it is allowed.
+ */
 
 const svgProps = {
   width: 16,
   height: 16,
   viewBox: '0 0 24 24',
   fill: 'none',
-  stroke: '#c8102e',
+  stroke: 'currentColor',
   strokeWidth: 1.8,
   strokeLinecap: 'round' as const,
   strokeLinejoin: 'round' as const,
@@ -66,117 +80,94 @@ export function Technology() {
   const { setContactOpen } = useUI();
 
   return (
-    <section id="technology" className="relative overflow-hidden bg-bg2" style={{ padding: 'clamp(80px,10vw,140px) 0' }}>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,16,46,.06),transparent)' }} />
+    <section
+      id="technology"
+      aria-labelledby="technology-title"
+      className="relative overflow-hidden bg-surface py-section"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,16,46,.06),transparent)' }} />
 
-      <div className="relative z-[1] max-w-shell mx-auto px-6 md:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(280px,.55fr)] gap-10 items-end mb-[clamp(48px,7vw,80px)] reveal">
-          <div>
-            <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[10px]">
-              Command Center
-            </p>
-            <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2.2rem,5.5vw,4.8rem)' }}>
-              E-commerce Technology &amp; Architecture
-            </h2>
-          </div>
-          <p className="text-[rgba(244,244,244,.55)]" style={{ fontSize: 'clamp(.92rem,1.2vw,1.06rem)', lineHeight: 1.8 }}>
+      <Container className="relative z-[1]">
+        <Reveal className="mb-[clamp(48px,7vw,80px)] grid grid-cols-1 items-end gap-10 lg:grid-cols-[1fr_minmax(280px,.55fr)]">
+          <SectionHeading
+            id="technology-title"
+            eyebrow="Technology"
+            title={<>E-commerce Technology &amp; Architecture</>}
+            className="max-w-none"
+          />
+          <p className="text-body-lg leading-[1.8] text-ink-secondary">
             A living technology layer connecting commerce platforms, cloud infrastructure, AI automation, and high-performance experiences.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 reveal">
+        <RevealGroup as="ul" className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3" each={0.05}>
           {TECH_GROUPS.map((g) => (
-            <div
+            <RevealItem
               key={g.title + g.sub}
-              className="tc-card group relative overflow-hidden rounded-lg border border-[rgba(255,255,255,.07)] bg-[rgba(255,255,255,.025)] transition-all duration-300 hover:border-[rgba(200,16,46,.28)] hover:bg-[rgba(200,16,46,.04)]"
-              style={{ padding: '28px 28px 26px' }}
+              as="li"
+              className="tc-card group relative overflow-hidden rounded-lg border border-line bg-elevated px-7 pb-[26px] pt-7 transition-[border-color,background-color] duration-300 hover:border-accent/30 hover:bg-accent/5"
             >
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#c8102e] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div
+                aria-hidden="true"
+                className="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-accent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              />
 
-              <div className="flex items-center justify-between mb-5">
+              <div className="mb-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 8,
-                      border: '1px solid rgba(200,16,46,.25)',
-                      background: 'rgba(200,16,46,.08)',
-                      display: 'grid',
-                      placeItems: 'center',
-                      flexShrink: 0,
-                    }}
+                    aria-hidden="true"
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-accent/25 bg-accent/10 text-accent"
                   >
                     <Icon name={g.icon} />
                   </div>
                   <div>
-                    <p className="font-bebas uppercase tracking-[.08em] text-[1.05rem] leading-none text-[rgba(244,244,244,.88)]">{g.title}</p>
-                    <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(200,16,46,.55)', marginTop: 3 }}>
-                      {g.sub}
-                    </p>
+                    <h3 className="font-bebas text-[1.05rem] uppercase leading-none tracking-[.08em] text-ink">{g.title}</h3>
+                    <p className="mt-[3px] text-[.65rem] font-bold uppercase tracking-[.22em] text-accent-bright">{g.sub}</p>
                   </div>
                 </div>
-                <span
-                  style={{
-                    fontSize: '.62rem',
-                    fontWeight: 700,
-                    letterSpacing: '.20em',
-                    textTransform: 'uppercase',
-                    padding: '4px 9px',
-                    border: '1px solid rgba(200,16,46,.25)',
-                    borderRadius: 20,
-                    color: 'rgba(200,16,46,.60)',
-                  }}
-                >
+                <span className="rounded-full border border-accent/25 px-[9px] py-1 text-[.62rem] font-bold uppercase tracking-[.20em] text-accent-bright">
                   {g.level}
                 </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderTop: '1px solid rgba(255,255,255,.06)' }}>
+              <ul className="flex flex-col border-t border-line">
                 {g.items.map((it, i) => (
-                  <div
+                  <li
                     key={it.label}
-                    className={`flex items-center gap-3 py-[10px] ${i < g.items.length - 1 ? 'border-b border-[rgba(255,255,255,.05)]' : ''}`}
+                    className={`flex items-center gap-3 py-[10px] ${i < g.items.length - 1 ? 'border-b border-line' : ''}`}
                   >
-                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: it.strong ? '#c8102e' : 'rgba(200,16,46,.45)', flexShrink: 0 }} />
-                    <span style={{ fontSize: '.86rem', color: it.strong ? 'rgba(244,244,244,.75)' : 'rgba(244,244,244,.50)' }}>{it.label}</span>
-                  </div>
+                    <span
+                      aria-hidden="true"
+                      className={`h-[5px] w-[5px] shrink-0 rounded-full ${it.strong ? 'bg-accent' : 'bg-accent/50'}`}
+                    />
+                    <span className={`text-[.86rem] ${it.strong ? 'text-ink-secondary' : 'text-ink-muted'}`}>{it.label}</span>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
         {/* Count strip */}
-        <div
-          className="reveal"
-          style={{
-            marginTop: 40,
-            padding: '20px 24px',
-            border: '1px solid rgba(255,255,255,.06)',
-            borderRadius: 8,
-            background: 'rgba(255,255,255,.02)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e8192c', flexShrink: 0, boxShadow: '0 0 0 0 rgba(232,25,44,.5)', animation: 'avP 1.6s infinite' }} />
-            <span style={{ fontSize: '.58rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(244,244,244,.40)' }}>
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-3 rounded-md border border-line bg-white/[.02] px-6 py-5">
+          <div className="flex items-center gap-[10px]">
+            <span
+              aria-hidden="true"
+              className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent-bright"
+              style={{ boxShadow: '0 0 0 0 rgba(232,25,44,.5)', animation: 'avP 1.6s infinite' }}
+            />
+            <span className="text-[.58rem] font-bold uppercase tracking-[.22em] text-ink-muted">
               30+ Technologies · 6 Core Disciplines · 9+ Years Hands-On
             </span>
           </div>
           <button
             onClick={() => setContactOpen(true)}
-            className="inline-flex items-center gap-2 h-[38px] px-5 rounded border border-[rgba(200,16,46,.30)] bg-transparent text-[rgba(200,16,46,.70)] text-[.66rem] font-bold tracking-[.12em] uppercase cursor-pointer transition-all duration-200 hover:bg-[rgba(200,16,46,.10)] hover:text-rv hover:border-[rgba(200,16,46,.55)]"
+            className="inline-flex h-[38px] cursor-pointer items-center gap-2 rounded-sm border border-accent/30 bg-transparent px-5 text-[.66rem] font-bold uppercase tracking-[.12em] text-accent-bright transition-[background-color,border-color] duration-200 hover:border-accent/55 hover:bg-accent/10"
           >
             Discuss Your Tech Stack &nbsp;→
           </button>
-        </div>
-      </div>
+        </Reveal>
+      </Container>
     </section>
   );
 }

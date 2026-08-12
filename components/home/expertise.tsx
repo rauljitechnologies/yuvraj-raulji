@@ -22,7 +22,7 @@ export function Expertise() {
         <div className="mb-[clamp(48px,6vw,80px)] grid items-end gap-8 lg:grid-cols-[1fr_minmax(300px,.6fr)]">
           <SectionHeading
             id="capabilities-title"
-            eyebrow="Expertise"
+            eyebrow="Services"
             title="Strategic Capabilities"
             className="max-w-none"
           />

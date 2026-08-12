@@ -32,6 +32,15 @@
     --accent: #c8102e;
     --accent-bright: #e8192c;
     --accent-soft: rgba(200, 16, 46, 0.12);
+    /* Channel-only duplicates of the two accents. Tailwind v3 cannot apply an
+       alpha modifier (`border-accent/30`) to a colour whose value is a bare
+       var(--accent) — it silently drops the utility, so every such class was
+       falling back to Tailwind's default grey border. The config maps the
+       `accent` colours through these instead, via rgb(... / <alpha-value>).
+       Keep each pair in sync; --accent/--accent-bright stay as hex for the
+       plain var() references in this file and in inline styles. */
+    --accent-rgb: 200 16 46;
+    --accent-bright-rgb: 232 25 44;
     --focus: #e8192c;
 
     /* State */

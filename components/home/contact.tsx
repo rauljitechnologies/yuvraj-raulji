@@ -1,66 +1,71 @@
 'use client';
 
 import { CONTACT } from '../../lib/site';
+import { Button, Container, Eyebrow } from '../ui';
+import { Reveal } from '../ui/reveal';
 import { useUI } from '../ui-context';
 
-const rowCls = 'grid grid-cols-[86px_1fr] gap-3 items-center py-[14px]';
-const labelCls = 'text-[.64rem] font-bold tracking-[.18em] uppercase text-[rgba(244,244,244,.36)]';
+/**
+ * §22 Contact. Migrated to the design tokens: spacing, radii, borders and text
+ * colours now come from :root rather than inline rgba values.
+ *
+ * The heading intentionally uses `text-display` rather than `SectionHeading`
+ * (`text-h2`) — this is the closing call to action, not another content
+ * section, and it carried a display-scale size before the migration.
+ */
+
+const rowCls = 'grid grid-cols-[86px_1fr] items-center gap-3 py-[14px]';
+/** Was rgba(...,.36) — under 3:1 on --bg, and these are real labels, not decoration. */
+const labelCls = 'text-[.64rem] font-bold uppercase tracking-[.18em] text-ink-muted';
 
 export function Contact() {
   const { setContactOpen } = useUI();
 
   return (
-    <section id="contact" className="contact-sec relative overflow-hidden" style={{ padding: 'clamp(80px,10vw,140px) 0' }}>
-      <div className="max-w-shell mx-auto px-10">
-        <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 items-start border border-[rgba(200,16,46,.32)] rounded bg-[rgba(255,255,255,.035)] backdrop-blur-2xl shadow-[0_60px_150px_rgba(0,0,0,.52),0_0_80px_rgba(200,16,46,.08)] reveal"
-          style={{ padding: 'clamp(36px,5vw,72px)' }}
-        >
+    <section id="contact" aria-labelledby="contact-title" className="contact-sec relative overflow-hidden py-section">
+      <Container>
+        <Reveal className="grid grid-cols-1 items-start gap-12 rounded-sm border border-accent/30 bg-white/[.035] p-[clamp(36px,5vw,72px)] shadow-lifted backdrop-blur-2xl lg:grid-cols-[1fr_360px]">
           <div>
-            <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[14px]">
-              Private Consultation
-            </p>
-            <h2 className="font-bebas uppercase tracking-[.03em] leading-[.92] mb-4" style={{ fontSize: 'clamp(2.4rem,5.5vw,5.2rem)' }}>
+            <Eyebrow className="mb-[14px]">Private Consultation</Eyebrow>
+            <h2
+              id="contact-title"
+              className="mb-4 font-bebas text-display uppercase leading-[.92] tracking-[.03em] text-ink"
+            >
               Let&rsquo;s Build
               <br />
               What&rsquo;s Next
             </h2>
-            <p className="text-[.98rem] text-[rgba(244,244,244,.60)] leading-[1.74] mb-7 max-w-[500px]">
+            <p className="mb-7 max-w-[500px] text-body-lg leading-[1.74] text-ink-secondary">
               Whether you&rsquo;re scaling a commerce platform, implementing AI automation, or planning a transformation initiative — every engagement begins with a strategic conversation.
             </p>
-            <button
-              onClick={() => setContactOpen(true)}
-              className="btn-arr inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase whitespace-nowrap transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
-            >
-              Book Strategic Consultation
-            </button>
+            <Button onClick={() => setContactOpen(true)}>Book Strategic Consultation</Button>
           </div>
 
           <div className="grid gap-0">
-            <div className={`${rowCls} border-b border-[rgba(255,255,255,.08)]`}>
+            <div className={`${rowCls} border-b border-line`}>
               <span className={labelCls}>Email</span>
-              <span className="text-[.88rem] font-medium">
-                <a href={`mailto:${CONTACT.email}`} className="transition-colors hover:text-rv">
+              <span className="text-[.88rem] font-medium text-ink">
+                <a href={`mailto:${CONTACT.email}`} className="transition-colors hover:text-accent-bright">
                   {CONTACT.email}
                 </a>
               </span>
             </div>
-            <div className={`${rowCls} border-b border-[rgba(255,255,255,.08)]`}>
+            <div className={`${rowCls} border-b border-line`}>
               <span className={labelCls}>WhatsApp</span>
-              <span className="text-[.88rem] font-medium">
+              <span className="text-[.88rem] font-medium text-ink">
                 <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="transition-colors hover:text-[#25D366]">
                   {CONTACT.phoneDisplay}
                 </a>
               </span>
             </div>
-            <div className={`${rowCls} border-b border-[rgba(255,255,255,.08)]`}>
+            <div className={`${rowCls} border-b border-line`}>
               <span className={labelCls}>LinkedIn</span>
               <span className="text-[.88rem] font-medium">
                 <a
                   href={CONTACT.linkedin}
                   target="_blank"
                   rel="noopener"
-                  className="li-btn inline-flex items-center gap-[6px] h-[34px] px-[14px] rounded bg-[rgba(10,102,194,.18)] border border-[rgba(10,102,194,.32)] text-[.68rem] font-semibold tracking-[.10em] uppercase text-[rgba(244,244,244,.84)] transition-all hover:bg-[rgba(10,102,194,.32)] hover:border-[rgba(10,102,194,.52)]"
+                  className="li-btn inline-flex h-[34px] items-center gap-[6px] rounded-sm border border-[rgba(10,102,194,.32)] bg-[rgba(10,102,194,.18)] px-[14px] text-[.68rem] font-semibold uppercase tracking-[.10em] text-ink-secondary transition-colors hover:border-[rgba(10,102,194,.52)] hover:bg-[rgba(10,102,194,.32)]"
                 >
                   Yuvraj Raulji
                 </a>
@@ -68,11 +73,11 @@ export function Contact() {
             </div>
             <div className={rowCls}>
               <span className={labelCls}>Location</span>
-              <span className="text-[.88rem] font-medium">{CONTACT.location}</span>
+              <span className="text-[.88rem] font-medium text-ink">{CONTACT.location}</span>
             </div>
           </div>
-        </div>
-      </div>
+        </Reveal>
+      </Container>
     </section>
   );
 }

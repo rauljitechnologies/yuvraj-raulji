@@ -20,8 +20,10 @@ const config: Config = {
         'ink-secondary': 'var(--text-secondary)',
         'ink-muted': 'var(--text-muted)',
         'ink-faint': 'var(--text-faint)',
-        accent: 'var(--accent)',
-        'accent-bright': 'var(--accent-bright)',
+        // Routed through the channel-only vars so alpha modifiers such as
+        // `border-accent/30` actually compile — see the note in globals.css.
+        accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
+        'accent-bright': 'rgb(var(--accent-bright-rgb) / <alpha-value>)',
         'accent-soft': 'var(--accent-soft)',
         success: 'var(--success)',
         warning: 'var(--warning)',

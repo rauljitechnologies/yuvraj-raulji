@@ -102,9 +102,28 @@ export function SiteEffects({ fullpage = false }: { fullpage?: boolean }) {
     document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => {
       (el.offsetHeight * safeRatio > innerHeight ? ioTall : io).observe(el);
     });
+
+    // Counters used to run only as a side effect of a `.reveal` ancestor coming
+    // into view. Sections migrated to the design tokens animate with the motion
+    // <Reveal> wrapper instead and carry no `.reveal` class, which left their
+    // numbers frozen at 0. Observe the counter elements directly so the two
+    // concerns are independent; countUp is idempotent, so an element reached by
+    // both paths still animates once.
+    //
+    // Note the absence of a negative rootMargin, unlike the reveal observers
+    // above: the counters sit in the control strip pinned to the bottom of a
+    // 100vh section, so trimming the root's bottom edge would exclude them for
+    // the whole time they are on screen and leave every figure showing 0.
+    const ioCount = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && countUp(e.target as HTMLElement)),
+      { threshold: 0 },
+    );
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => ioCount.observe(el));
+
     cleanups.push(() => {
       io.disconnect();
       ioTall.disconnect();
+      ioCount.disconnect();
     });
 
     /* ── card tilt ── */

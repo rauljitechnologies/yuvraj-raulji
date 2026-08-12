@@ -2,6 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { WORK_METRICS, WORK_SLIDES } from '../../lib/site';
+import { Container, Eyebrow, SectionHeading } from '../ui';
+import { Reveal } from '../ui/reveal';
+
+/**
+ * §18 Selected Projects. Migrated to the design tokens.
+ *
+ * The full-bleed viewport-height layout is deliberate and stays: `py-section`
+ * is not used here because the top padding exists to clear the fixed header,
+ * not to space a content band.
+ */
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -27,7 +37,11 @@ export function Work() {
   };
 
   return (
-    <section id="work" className="relative overflow-hidden bg-bg flex flex-col" style={{ minHeight: '100vh' }}>
+    <section
+      id="work"
+      aria-labelledby="work-title"
+      className="relative flex min-h-screen flex-col overflow-hidden bg-bg"
+    >
       {/* Full-bleed backgrounds */}
       <div className="absolute inset-0" aria-hidden="true">
         {WORK_SLIDES.map((s, i) => (
@@ -58,20 +72,17 @@ export function Work() {
         />
       </div>
 
-      <div className="relative z-[2] max-w-shell mx-auto px-10 w-full flex-1 flex flex-col" style={{ paddingTop: 108, paddingBottom: 34 }}>
-        <div className="flex items-end justify-between gap-8 flex-wrap mb-[clamp(20px,3vh,44px)] reveal">
-          <div>
-            <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[10px]">
-              Impact Architecture
-            </p>
-            <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4.2vw,3.6rem)' }}>
-              Selected Projects &amp; Digital Commerce Experience
-            </h2>
-          </div>
-          <p className="hidden lg:block max-w-[340px] text-[rgba(244,244,244,.60)] text-[.94rem] leading-[1.7]">
+      <Container className="relative z-[2] flex flex-1 flex-col pb-[34px] pt-[108px]">
+        <Reveal className="mb-[clamp(20px,3vh,44px)] flex flex-wrap items-end justify-between gap-8">
+          <SectionHeading
+            id="work-title"
+            eyebrow="Selected Work"
+            title={<>Selected Projects &amp; Digital Commerce Experience</>}
+          />
+          <p className="hidden max-w-[340px] text-[.94rem] leading-[1.7] text-ink-secondary lg:block">
             Cinematic case studies built around strategy, measurement, and premium execution.
           </p>
-        </div>
+        </Reveal>
 
         <div className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-[clamp(20px,4vw,70px)]">
           {/* Slide content */}
@@ -83,16 +94,14 @@ export function Work() {
                   i === ws ? 'opacity-100 translate-y-0 delay-200' : 'opacity-0 translate-y-7 pointer-events-none'
                 }`}
               >
-                <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-bold tracking-[.22em] uppercase text-rv mb-4">
-                  {s.cat}
-                </p>
+                <Eyebrow className="mb-4">{s.cat}</Eyebrow>
                 <h3
-                  className="font-bebas uppercase tracking-[.03em] leading-[.95] mb-5 max-w-[14ch]"
+                  className="mb-5 max-w-[14ch] font-bebas uppercase leading-[.95] tracking-[.03em] text-ink"
                   style={{ fontSize: 'clamp(2.4rem,5.2vw,4.6rem)' }}
                 >
                   {s.title}
                 </h3>
-                <p className="text-[rgba(244,244,244,.62)] leading-[1.76] max-w-[480px] mb-8" style={{ fontSize: 'clamp(.92rem,1.2vw,1.04rem)' }}>
+                <p className="mb-8 max-w-[480px] leading-[1.76] text-ink-secondary" style={{ fontSize: 'clamp(.92rem,1.2vw,1.04rem)' }}>
                   {s.desc}
                 </p>
                 <div>
@@ -100,7 +109,7 @@ export function Work() {
                     href={s.url}
                     target="_blank"
                     rel="noopener"
-                    className="btn-arr inline-flex items-center gap-2 h-[50px] px-7 rounded bg-red text-white border border-red text-[.74rem] font-bold tracking-[.10em] uppercase whitespace-nowrap no-underline transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
+                    className="btn-arr inline-flex h-[50px] touch-manipulation items-center gap-2 whitespace-nowrap rounded-sm border border-accent bg-accent px-7 text-[.74rem] font-bold uppercase tracking-[.10em] text-white no-underline transition-[background-color,border-color,transform,box-shadow] duration-200 ease-out hover:-translate-y-[2px] hover:border-accent-bright hover:bg-accent-bright hover:shadow-accent active:scale-[.95]"
                   >
                     View Case Study
                   </a>
@@ -132,7 +141,7 @@ export function Work() {
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-between gap-6 flex-wrap pt-[clamp(16px,2.5vh,30px)] border-t border-[rgba(255,255,255,.08)] mt-[clamp(16px,2.5vh,30px)] reveal">
+        <Reveal className="mt-[clamp(16px,2.5vh,30px)] flex flex-wrap items-center justify-between gap-6 border-t border-line pt-[clamp(16px,2.5vh,30px)]">
           <div className="flex items-center gap-3">
             <button className="ws-arrow" onClick={() => go(ws - 1)} aria-label="Previous project">
               ←
@@ -154,8 +163,8 @@ export function Work() {
                 />
               ))}
             </div>
-            <span className="font-bebas text-[1.1rem] tracking-[.12em] text-[rgba(244,244,244,.50)] whitespace-nowrap">
-              <span className="text-rv">{pad(ws + 1)}</span>
+            <span className="whitespace-nowrap font-bebas text-[1.1rem] tracking-[.12em] text-ink-muted">
+              <span className="text-accent-bright">{pad(ws + 1)}</span>
               &nbsp;/&nbsp;
               <span>{pad(WORK_SLIDES.length)}</span>
             </span>
@@ -164,16 +173,16 @@ export function Work() {
           <div className="hidden xl:flex items-center gap-9">
             {WORK_METRICS.map((m) => (
               <div key={m.label} className="flex items-baseline gap-[10px]">
-                <span className="font-bebas text-rv text-[1.7rem] leading-none tracking-[.02em]">
+                <span className="font-bebas text-[1.7rem] leading-none tracking-[.02em] text-accent-bright">
                   <span data-count={m.count}>0</span>
                   {m.suffix}
                 </span>
-                <span className="text-[.64rem] font-semibold tracking-[.14em] uppercase text-[rgba(244,244,244,.55)]">{m.label}</span>
+                <span className="text-[.64rem] font-semibold uppercase tracking-[.14em] text-ink-muted">{m.label}</span>
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </Reveal>
+      </Container>
     </section>
   );
 }
