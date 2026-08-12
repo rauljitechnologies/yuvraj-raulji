@@ -2,7 +2,10 @@
 Thumbs.db
 *.log
 node_modules/
-node_modules/
 .next*
 out/
 .claude/
+
+# Incremental TypeScript build cache — rewritten by every tsc/next build, so
+# tracking it produced a ~260 kB single-line diff on unrelated commits.
+tsconfig.tsbuildinfo
