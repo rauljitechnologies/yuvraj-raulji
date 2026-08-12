@@ -38,6 +38,7 @@ export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
  * a link (it opens the enquiry modal), so it lives in the header component.
  */
 export const NAV_LINKS = [
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
   { label: 'Projects', href: '/#work' },
   { label: 'Technology', href: '/#technology' },
@@ -727,8 +728,139 @@ export const SERVICE_OPTIONS = [
   'AI Automation',
 ];
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   About page — every claim below traces to Yuvraj's own professional record.
+   Confirmed 12 Aug 2026: 9+ years, 50+ projects, Nxtby is an employer (not a
+   client). Nothing here may be embellished; see CONTENT-PRINCIPLES.md.
+   ───────────────────────────────────────────────────────────────────────────*/
+
+export interface Role {
+  title: string;
+  org: string;
+  period: string;
+  location?: string;
+  summary: string;
+  points: string[];
+}
+
+/** Current positions held alongside the employed role. */
+export const CURRENT_ROLES = [
+  { title: 'Team Leader', org: 'Nxtby.com', period: 'Jan 2023 — Present' },
+  { title: 'Founder', org: 'Ariya InfoTech', period: 'Mar 2016 — Dec 2025' },
+  { title: 'Director & Founder', org: 'Raulji Technologies Pvt. Ltd.', period: '' },
+  { title: 'Chairman', org: 'Raulji Group', period: '' },
+];
+
+export const EXPERIENCE: Role[] = [
+  {
+    title: 'Team Leader',
+    org: 'Nxtby.com',
+    period: 'Jan 2023 — Present',
+    location: 'Bengaluru · Remote',
+    summary:
+      'Leading a development team across Magento 2 and multi-platform commerce builds — architecture guidance, code review and delivery.',
+    points: [
+      'Led delivery of 12+ multi-store Magento 2 platforms handling 500K+ SKUs and 1M+ monthly users',
+      'Cut development cycle time by 30% by introducing structured workflows and approval processes',
+      'Designed 5-level approval workflows for development, B2B orders, quotes and vendor management',
+      'Set architecture direction for multi-store setups, custom modules and B2B workflows',
+      'Tuned server, caching, CDN and cloud infrastructure for performance and reliability',
+    ],
+  },
+  {
+    title: 'Sr. Magento Developer',
+    org: 'Nxtby.com',
+    period: 'Mar 2020 — Dec 2022',
+    location: 'Bengaluru · Remote',
+    summary:
+      'Full-stack Magento 2 development for high-traffic B2B commerce — custom modules, multi-store setups and end-to-end API integration.',
+    points: [
+      'Automated 90% of B2B order and quote processes, reducing approval cycle time by 40%',
+      'Improved site speed by 60% through Varnish, Redis, full-page cache, CDN and database tuning',
+      'Built B2B order and quote management with role-based permissions and multi-level approvals',
+      'Ran Magento 2 server setup on AWS — EC2, RDS, S3, load balancing and auto-scaling',
+      'Integrated payment gateways, logistics, CRM and ERP systems',
+    ],
+  },
+  {
+    title: 'Sr. Magento 2 Full Stack Developer',
+    org: 'Magneto IT Solutions',
+    period: 'Jul 2018 — May 2021',
+    location: 'Ahmedabad · On-site',
+    summary:
+      'Commerce builds for Saudi Arabian retail — grocery, commercial kitchen equipment and fashion, including Al Jazira Supermarkets.',
+    points: [
+      'Built B2B and B2C stores localised for the Saudi market',
+      'Implemented layered navigation, dynamic pricing and custom checkout flows',
+      'Delivered headless frontends over REST and GraphQL for mobile and PWA',
+      'Integrated loyalty programmes, discount engines and customer dashboards',
+    ],
+  },
+  {
+    title: 'Software Engineer',
+    org: 'OrionCoders Digital',
+    period: 'Mar 2018 — Jul 2018',
+    location: 'Vadodara',
+    summary:
+      'Shopify development for consumer brands, including skincare storefronts for Unilever.',
+    points: [
+      'Built customised Shopify storefronts with third-party app and API integration',
+      'Wrote custom JavaScript for dynamic product display and frontend behaviour',
+      'First hands-on exposure to Magento 2 and multi-platform commerce architecture',
+    ],
+  },
+  {
+    title: 'Magento Developer → Sr. Magento Developer',
+    org: 'Sinelogix Technologies',
+    period: 'Jun 2016 — May 2018',
+    location: 'Vadodara',
+    summary: 'Where the Magento work started — module development and store builds.',
+    points: [],
+  },
+];
+
+export const TECH_PROFICIENCIES = [
+  { group: 'Commerce', items: ['Magento 2 / Adobe Commerce', 'Shopify & Shopify Plus', 'WooCommerce', 'Headless & Composable'] },
+  { group: 'Languages & Frameworks', items: ['PHP', 'Next.js', 'React.js', 'GraphQL'] },
+  { group: 'Data', items: ['MySQL', 'MariaDB', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch'] },
+  { group: 'Infrastructure', items: ['AWS (EC2, S3, RDS)', 'Google Cloud', 'Azure', 'Docker', 'Jenkins', 'GitLab CI'] },
+  { group: 'Measurement & Growth', items: ['GA4', 'GTM', 'MoEngage', 'WebEngage', 'Technical SEO'] },
+];
+
+export const EDUCATION = [
+  { qualification: "Bachelor's Degree, Information Technology", period: '2013 — 2016' },
+  { qualification: 'Diploma, Information Technology', period: '2010 — 2013' },
+];
+
+export const CERTIFICATIONS = [
+  { name: 'Magento Appreciation', issuer: 'Parul University', date: 'Sep 2022', url: '' },
+  { name: 'Magento', issuer: 'TOPS Technologies', date: '', url: '' },
+  { name: 'PHP', issuer: 'TOPS Technologies', date: '', url: '' },
+  { name: 'Copilot for Startups', issuer: 'Microsoft', date: '', url: '' },
+  {
+    name: 'Create your e-commerce store with Shopify',
+    issuer: 'Coursera Project Network',
+    date: 'Oct 2025',
+    url: 'https://www.coursera.org/account/accomplishments/verify/XOAZTN8GS5HM',
+  },
+  {
+    name: 'AWS S3 Basics',
+    issuer: 'Coursera Project Network',
+    date: 'Oct 2025',
+    url: 'https://www.coursera.org/account/accomplishments/verify/FXRLTIZN71KI',
+  },
+];
+
+export const BUSINESS_MODEL_DETAIL = [
+  { model: 'B2B', note: 'Procurement platforms, quote and approval workflows, role-based account structures, ERP connectivity.' },
+  { model: 'B2C', note: 'High-traffic retail catalogues, checkout optimisation and conversion work across grocery, fashion and fitness.' },
+  { model: 'D2C', note: 'Brand-owned storefronts on Shopify and Magento with bespoke product experiences and one-page checkout.' },
+  { model: 'Marketplace', note: 'Multi-vendor and multi-category catalogues, vendor management and large-scale product data.' },
+];
+
 export const FOOTER_NAV = [
   { label: 'Home', href: '/', active: true },
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
   { label: 'Projects', href: '/#work' },
   { label: 'Technology', href: '/#technology' },

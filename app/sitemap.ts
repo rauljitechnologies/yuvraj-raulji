@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const buildDate = new Date();
   return [
     { url: BASE + '/', lastModified: buildDate, changeFrequency: 'weekly', priority: 1 },
+    { url: BASE + '/about/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
     { url: BASE + '/blog/', lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
     ...Object.entries(POSTS).map(([slug, p]) => ({
       url: `${BASE}/blog/${slug}/`,
