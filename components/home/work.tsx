@@ -15,6 +15,10 @@ import { Reveal } from '../ui/reveal';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
+/** Sibling .webp for a local .jpg cover; anything else is left alone so the
+    <source> is skipped rather than pointing at a file that does not exist. */
+const toWebp = (src: string) => (src.endsWith('.jpg') ? src.slice(0, -4) + '.webp' : null);
+
 export function Work() {
   const [ws, setWs] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -53,14 +57,24 @@ export function Work() {
           >
             {/* Real <img> rather than a CSS background: these are owned project
                 covers, and a background-image is invisible to image search and
-                carries no alt text. */}
-            <img
-              src={s.img}
-              alt={`${s.title}, ${s.cat}`}
-              loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+                carries no alt text.
+
+                WebP first, original JPEG as the fallback. The eleven covers were
+                6.2 MB of JPEG, one of them 1.8 MB at 1920x2880 for a strip that
+                is only ever ~1080px tall after object-cover crops it. Only one
+                source is ever fetched, so the JPEG costs nothing to the ~97% of
+                browsers that take the WebP. Next cannot help here: static export
+                runs with images.unoptimized. */}
+            <picture>
+              {toWebp(s.img) ? <source srcSet={toWebp(s.img)!} type="image/webp" /> : null}
+              <img
+                src={s.img}
+                alt={`${s.title}, ${s.cat}`}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
           </div>
         ))}
         <div
