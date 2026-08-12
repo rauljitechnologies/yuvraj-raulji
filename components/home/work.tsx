@@ -36,8 +36,18 @@ export function Work() {
             className={`absolute inset-0 transition-all duration-[1400ms] ease-[cubic-bezier(.19,1,.22,1)] ${
               i === ws ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.08]'
             }`}
-            style={{ background: `url('${s.img}') center/cover` }}
-          />
+          >
+            {/* Real <img> rather than a CSS background: these are owned project
+                covers, and a background-image is invisible to image search and
+                carries no alt text. */}
+            <img
+              src={s.img}
+              alt={`${s.title} — ${s.cat}`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
         ))}
         <div
           className="absolute inset-0"
@@ -52,10 +62,10 @@ export function Work() {
         <div className="flex items-end justify-between gap-8 flex-wrap mb-[clamp(20px,3vh,44px)] reveal">
           <div>
             <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[10px]">
-              Selected Work
+              Impact Architecture
             </p>
             <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4.2vw,3.6rem)' }}>
-              Impact Architecture
+              Selected Projects &amp; Digital Commerce Experience
             </h2>
           </div>
           <p className="hidden lg:block max-w-[340px] text-[rgba(244,244,244,.60)] text-[.94rem] leading-[1.7]">

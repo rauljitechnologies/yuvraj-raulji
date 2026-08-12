@@ -91,6 +91,7 @@ export function ContactModal() {
       }`}
       role="dialog"
       aria-modal="true"
+      aria-labelledby="contact-modal-title"
       aria-label="Contact Yuvraj Raulji"
     >
       <div className="absolute inset-0 bg-[rgba(0,0,0,.90)] backdrop-blur-2xl" onClick={close} />
@@ -139,12 +140,13 @@ export function ContactModal() {
                 </span>
               </div>
               <h2
+                id="contact-modal-title"
                 className="font-bebas uppercase"
                 style={{ fontSize: 'clamp(2.4rem,5vw,3.6rem)', lineHeight: 0.9, letterSpacing: '.02em', color: '#f4f4f4', marginBottom: 16 }}
               >
-                Let&rsquo;s Build
+                Start a
                 <br />
-                <span style={{ color: 'rgba(244,244,244,.38)' }}>What&rsquo;s Next</span>
+                <span style={{ color: 'rgba(244,244,244,.38)' }}>Conversation</span>
               </h2>
               <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'rgba(244,244,244,.45)', maxWidth: 300 }}>
                 Every great brand begins with a conversation. Tell me about your project and I&rsquo;ll be in touch within 24 hours.

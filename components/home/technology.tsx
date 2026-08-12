@@ -73,10 +73,10 @@ export function Technology() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(280px,.55fr)] gap-10 items-end mb-[clamp(48px,7vw,80px)] reveal">
           <div>
             <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[10px]">
-              Technology Stack
+              Command Center
             </p>
             <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2.2rem,5.5vw,4.8rem)' }}>
-              Command Center
+              E-commerce Technology &amp; Architecture
             </h2>
           </div>
           <p className="text-[rgba(244,244,244,.55)]" style={{ fontSize: 'clamp(.92rem,1.2vw,1.06rem)', lineHeight: 1.8 }}>

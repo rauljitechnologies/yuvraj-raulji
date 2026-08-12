@@ -37,7 +37,7 @@ export function Industries() {
               Global Industries
             </p>
             <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2.2rem,5.5vw,4.8rem)' }}>
-              Industries &amp; Brands
+              Industries &amp; Business Models
             </h2>
           </div>
           <p className="text-[rgba(244,244,244,.60)]" style={{ fontSize: 'clamp(.92rem,1.2vw,1.06rem)', lineHeight: 1.74 }}>

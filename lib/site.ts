@@ -51,11 +51,16 @@ export const HERO_CHIPS = [
   { label: '9+ Years Experience', pos: 'bottom-[18%] right-[7%]' },
 ];
 
+/**
+ * Every figure here must be verifiable. "100% — Precision" was removed: it was
+ * not a measurable claim, and an invented metric standing beside real ones
+ * undermines all of them. Replaced with catalogue scale, which is evidenced.
+ */
 export const HERO_STATS = [
-  { value: '9+', label: 'Years of Craft' },
-  { value: '50+', label: 'Brands Built' },
-  { value: '15+', label: 'Technologies' },
-  { value: '100%', label: 'Precision' },
+  { value: '9+', label: 'Years Experience' },
+  { value: '50+', label: 'Projects Delivered' },
+  { value: '500K+', label: 'SKUs Managed' },
+  { value: '1M+', label: 'Monthly Users' },
 ];
 
 export const MARQUEE_ITEMS = [
@@ -606,7 +611,7 @@ export const INDUSTRIES: Industry[] = [
   {
     t: 'Automotive',
     d: 'Dealers · Parts · Booking',
-    desc: 'Dealer platforms, parts catalogues, and seamless service booking systems.',
+    desc: 'Dealer platforms, parts catalogues with complex fitment data, and service booking flows.',
     img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
   },
   {

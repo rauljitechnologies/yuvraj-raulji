@@ -42,9 +42,9 @@ export function Faq() {
               Frequently Asked
             </p>
             <h2 className="font-bebas uppercase leading-[.90]" style={{ fontSize: 'clamp(2.8rem,5.2vw,5rem)', letterSpacing: '.02em' }}>
-              Questions
+              Frequently Asked
               <br />
-              <span style={{ color: 'rgba(244,244,244,.28)' }}>Answered</span>
+              <span style={{ color: 'rgba(244,244,244,.28)' }}>Questions</span>
             </h2>
             <p className="mt-6" style={{ fontSize: 'clamp(.92rem,1.1vw,1.02rem)', lineHeight: 1.8, color: 'rgba(244,244,244,.50)', maxWidth: 380 }}>
               Everything you need to know before we begin building your brand&rsquo;s digital future. Can&rsquo;t find your answer?

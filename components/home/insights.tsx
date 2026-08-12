@@ -17,7 +17,7 @@ export function Insights() {
               Insights
             </p>
             <h2 className="font-bebas uppercase tracking-[.03em] leading-[.94]" style={{ fontSize: 'clamp(2.2rem,5.5vw,4.8rem)' }}>
-              Future Signals
+              Future Signals: E-commerce, Technology &amp; AI
             </h2>
           </div>
           <div>
