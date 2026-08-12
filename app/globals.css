@@ -8,7 +8,107 @@
    which next/font defines in the root layout.
    ═══════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — source of truth: design-system/yuvraj-raulji/MASTER.md
+   Semantic only. Components must never hardcode raw hex values.
+   ═══════════════════════════════════════════════════════════════ */
 @layer base {
+  :root {
+    /* Surfaces */
+    --bg: #060606;
+    --surface: #0d0d0d;
+    --surface-elevated: #141414;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+
+    /* Text — contrast ratios measured against --bg */
+    --text: #f4f4f4; /* 18:1  */
+    --text-secondary: rgba(244, 244, 244, 0.72); /* ~9:1   */
+    --text-muted: rgba(244, 244, 244, 0.58); /* ~6.2:1 */
+    --text-faint: rgba(244, 244, 244, 0.42); /* ~3.6:1 — decorative/large only */
+
+    /* Accent — #c8102e is 3.44:1 (large text/fills/borders only).
+       #e8192c is 4.89:1 and is the ONLY accent safe for small text. */
+    --accent: #c8102e;
+    --accent-bright: #e8192c;
+    --accent-soft: rgba(200, 16, 46, 0.12);
+    --focus: #e8192c;
+
+    /* State */
+    --success: #22c55e;
+    --warning: #f5a524;
+    --error: #e8192c;
+
+    /* Radii */
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 14px;
+    --r-full: 999px;
+
+    /* Shadows */
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-lifted: 0 16px 48px rgba(0, 0, 0, 0.55);
+    --shadow-accent: 0 16px 48px rgba(200, 16, 46, 0.32);
+
+    /* Spacing — density 3 (spacious) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 56px;
+    --space-14: 72px;
+    --space-16: 96px;
+    --section-y: clamp(88px, 10vw, 160px);
+
+    /* Layout */
+    --container: 1400px;
+    --gutter: clamp(20px, 4vw, 48px);
+
+    /* Typography scale */
+    --fs-display: clamp(2.8rem, 5vw, 5rem);
+    --fs-h2: clamp(2rem, 3.6vw, 3.25rem);
+    --fs-h3: clamp(1.25rem, 1.8vw, 1.6rem);
+    --fs-body-lg: 1.02rem;
+    --fs-body: 1rem;
+    --fs-sm: 0.875rem;
+    --fs-label: 0.7rem;
+
+    /* Motion — one easing family, three duration levels */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-1: 200ms;
+    --dur-2: 380ms;
+    --dur-3: 900ms;
+
+    /* z-index scale */
+    --z-base: 1;
+    --z-sticky: 40;
+    --z-header: 50;
+    --z-modal: 90;
+    --z-toast: 100;
+  }
+
+  /* Global focus system — never removed, only replaced with something stronger */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: var(--r-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   *,
   *::before,
   *::after {

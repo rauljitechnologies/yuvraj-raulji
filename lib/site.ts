@@ -3,6 +3,8 @@
  * literal markup or inside Alpine `x-data` blobs. Extracted verbatim.
  */
 
+import type { IconName } from '../components/ui/icons';
+
 export const CONTACT = {
   email: 'toyuvrajraulji@gmail.com',
   phoneDisplay: '+91 9898 334 731',
@@ -38,16 +40,6 @@ export const NAV_LINKS = [
   { label: 'Blog', href: '/blog' },
 ] as const;
 
-export const ROTATING_ITEMS = [
-  'Luxury E-Commerce Architecture',
-  'Magento 2 Commerce',
-  'Shopify Brand Stores',
-  'AI-Powered Commerce',
-  'AWS Infrastructure',
-  'SEO & CRO Strategy',
-  'WordPress & WooCommerce',
-];
-
 export const HERO_CHIPS = [
   { label: 'Magento 2 Expert', pos: 'top-[22%] left-[6%]' },
   { label: 'SEO & CRO Specialist', pos: 'top-[36%] right-[8%]' },
@@ -69,58 +61,235 @@ export const MARQUEE_ITEMS = [
   'GraphQL', 'Headless Commerce', 'PHP', 'MySQL', 'Cloudflare',
 ];
 
-export interface ExpertiseCard {
-  icon: string;
+export interface Capability {
+  /** Display number, 01–13. Sequence is the information architecture, not a ranking. */
+  num: string;
+  icon: IconName;
   title: string;
+  /** WHAT it is + HOW I approach it, in first person consultant voice. */
   desc: string;
+  /** PROOF rail — concrete platforms/tools, not adjectives. */
+  stack: string[];
 }
 
-export const EXPERTISE: ExpertiseCard[] = [
+/**
+ * The 14 Strategic Capabilities. Ordered strategy → architecture → platform →
+ * engineering → growth → AI, so the grid reads as a consulting practice rather
+ * than a service menu.
+ */
+export const CAPABILITIES: Capability[] = [
   {
-    icon: '◆',
-    title: 'Magento 2 Commerce',
-    desc: 'Enterprise Adobe Commerce & Magento 2 architectures — custom modules, multi-store setups, B2B workflows, and scalable performance engineering.',
+    num: '01',
+    icon: 'strategy',
+    title: 'E-commerce Technology Strategy',
+    desc: 'I map commercial goals to a technology plan — platform selection, build-vs-buy, phasing and total cost — so the stack follows the business case instead of the other way round.',
+    stack: ['Platform Selection', 'Roadmapping', 'Technical Due Diligence'],
   },
   {
-    icon: '◇',
-    title: 'Shopify Plus',
-    desc: 'High-growth Shopify Plus ecosystems for premium storefronts, international scaling, theme customization, and conversion-led experiences.',
-  },
-  {
-    icon: '▲',
-    title: 'SEO & CRO Optimization',
-    desc: 'Technical SEO audits, Core Web Vitals, on-page & schema optimization, GA4 & GTM setup, heatmap analysis, and conversion rate strategies that grow organic revenue.',
-  },
-  {
-    icon: '☁',
-    title: 'Server & Cloud Setup',
-    desc: 'End-to-end server provisioning on AWS EC2 / RDS / S3, Nginx, Varnish, Redis — including Magento 2, WordPress, and WooCommerce production environments.',
-  },
-  {
-    icon: '⚡',
-    title: 'Performance Optimization',
-    desc: 'Deep code profiling, caching layers, CDN configuration, image optimization, and database tuning to achieve sub-2-second load times and 90+ PageSpeed scores.',
-  },
-  {
-    icon: '✦',
-    title: 'Headless Commerce',
-    desc: 'API-first commerce layers using Next.js, GraphQL, composable systems, and PWA Studio for lightning-fast, flexible storefronts.',
-  },
-  {
-    icon: '✧',
-    title: 'AI & n8n Automation',
-    desc: 'AI agents, n8n & Zapier workflows, GPT integrations, automated reporting, and intelligent systems that eliminate repetitive operations across teams.',
-  },
-  {
-    icon: '⌁',
-    title: 'WordPress & WooCommerce',
-    desc: 'Custom WordPress development, WooCommerce stores, plugin development, performance tuning, and secure managed hosting on AWS or WP Engine.',
-  },
-  {
-    icon: '●',
+    num: '02',
+    icon: 'transformation',
     title: 'Digital Transformation',
-    desc: 'Strategic modernization roadmaps — replacing legacy stacks with cloud-native, API-first ecosystems that turn technology into a measurable competitive advantage.',
+    desc: 'Strategic modernization roadmaps that replace legacy stacks with cloud-native, API-first ecosystems — sequenced so trading continues throughout the migration.',
+    stack: ['Legacy Migration', 'Process Redesign', 'Phased Rollout'],
   },
+  {
+    num: '03',
+    icon: 'architecture',
+    title: 'Enterprise Commerce Architecture',
+    desc: 'System design for multi-store, multi-currency and B2B commerce — data models, integration boundaries and service contracts that stay maintainable as catalogues and order volume grow.',
+    stack: ['Multi-store', 'B2B Workflows', 'ERP & PIM Integration'],
+  },
+  {
+    num: '04',
+    icon: 'magento',
+    title: 'Magento 2 & Adobe Commerce',
+    desc: 'Enterprise Magento 2 and Adobe Commerce builds — custom modules, multi-store setups, B2B workflows and the performance engineering that keeps large catalogues fast.',
+    stack: ['Custom Modules', 'Multi-store', 'Adobe Commerce'],
+  },
+  {
+    num: '05',
+    icon: 'shopify',
+    title: 'Shopify & Shopify Plus',
+    desc: 'High-growth Shopify Plus ecosystems for premium storefronts — international scaling, theme architecture, app integration and conversion-led merchandising.',
+    stack: ['Shopify Plus', 'Liquid & Hydrogen', 'International'],
+  },
+  {
+    num: '06',
+    icon: 'headless',
+    title: 'Headless & Composable Commerce',
+    desc: 'API-first commerce layers built on Next.js, GraphQL and composable services — decoupling the storefront so front-end iteration stops waiting on back-end release cycles.',
+    stack: ['Next.js', 'GraphQL', 'PWA Studio'],
+  },
+  {
+    num: '07',
+    icon: 'web',
+    title: 'Modern Web Architecture',
+    desc: 'Production front-end architecture in React and Next.js, plus Drupal builds — typed, componentized and structured so the codebase stays maintainable years after launch.',
+    stack: ['React', 'Next.js', 'Drupal'],
+  },
+  {
+    num: '08',
+    icon: 'cms',
+    title: 'WordPress & WooCommerce',
+    desc: 'Custom WordPress and WooCommerce builds — bespoke themes, plugin development, checkout and catalogue customization, plus the hardening and performance tuning these stacks usually arrive without.',
+    stack: ['WordPress', 'WooCommerce', 'Custom Plugins'],
+  },
+  {
+    num: '09',
+    icon: 'server',
+    title: 'Server & Cloud Infrastructure',
+    desc: 'End-to-end provisioning on AWS EC2, RDS and S3 with Nginx, Varnish and Redis — production environments for Magento 2, WordPress and WooCommerce, built to be reproducible.',
+    stack: ['AWS', 'Nginx & Varnish', 'Redis'],
+  },
+  {
+    num: '10',
+    icon: 'performance',
+    title: 'Performance Engineering',
+    desc: 'Code profiling, caching layers, CDN configuration, image pipelines and database tuning — measured against Core Web Vitals rather than synthetic scores alone.',
+    stack: ['Core Web Vitals', 'Caching', 'Database Tuning'],
+  },
+  {
+    num: '11',
+    icon: 'seo',
+    title: 'E-commerce SEO & Growth',
+    desc: 'Technical SEO for large catalogues — crawlability, indexation, structured data, category and product optimization, and the internal linking that compounds organic revenue.',
+    stack: ['Technical SEO', 'Structured Data', 'Indexation'],
+  },
+  {
+    num: '12',
+    icon: 'analytics',
+    title: 'Analytics & Measurement',
+    desc: 'Engineer-grade measurement — GA4 e-commerce events, GTM dataLayer design and server-side conversion tracking, so reporting reflects what actually happened.',
+    stack: ['GA4', 'GTM & dataLayer', 'Conversions API'],
+  },
+  {
+    num: '13',
+    icon: 'generative',
+    title: 'Generative AI & Automation',
+    desc: 'Applied generative AI for content workflows, product discovery and internal operations, wired into real systems through n8n and API integrations rather than left as demos.',
+    stack: ['OpenAI APIs', 'n8n', 'Content Workflows'],
+  },
+  {
+    num: '14',
+    icon: 'agentic',
+    title: 'Agentic AI & AI Agents',
+    desc: 'Where generative AI produces output, agentic AI reasons, plans and executes multi-step tasks inside defined systems — with explicit scope, tool access and human checkpoints.',
+    stack: ['Agent Architecture', 'Tool Use', 'Workflow Automation'],
+  },
+];
+
+export interface InfraLayer {
+  label: string;
+  role: string;
+  items: string[];
+}
+
+/**
+ * §10 architecture stack, top-down as a request travels it. Rendered as real
+ * HTML text with an SVG connector overlay — never baked into an image or canvas,
+ * so the layer names stay crawlable and screen-reader accessible.
+ */
+export const INFRA_LAYERS: InfraLayer[] = [
+  {
+    label: 'Frontend',
+    role: 'What the customer touches — rendering, routing and asset delivery.',
+    items: ['Next.js', 'React', 'PWA Studio', 'CDN'],
+  },
+  {
+    label: 'Application Layer',
+    role: 'Business logic, checkout, catalogue and integration surface.',
+    items: ['PHP', 'PHP-FPM', 'Node.js', 'Magento 2'],
+  },
+  {
+    label: 'Cache',
+    role: 'Absorbs repeat load before it ever reaches PHP or the database.',
+    items: ['Redis', 'Varnish', 'Full-page Cache'],
+  },
+  {
+    label: 'Database',
+    role: 'Transactional store — indexing, query plans and replication.',
+    items: ['MySQL', 'MariaDB', 'Query Optimization'],
+  },
+  {
+    label: 'Search',
+    role: 'Catalogue search and faceted navigation at catalogue scale.',
+    items: ['Elasticsearch', 'OpenSearch', 'Indexing Strategy'],
+  },
+  {
+    label: 'Infrastructure',
+    role: 'The ground everything runs on — provisioning, deployment, recovery.',
+    items: ['Linux', 'Nginx', 'Apache', 'Docker', 'CI/CD'],
+  },
+];
+
+/**
+ * Google's published Core Web Vitals "good" thresholds — cited targets, not
+ * measurements of this or any client site. §13 forbids presenting illustrative
+ * numbers as live data.
+ */
+export const CWV_TARGETS = [
+  { metric: 'LCP', target: '< 2.5s', name: 'Largest Contentful Paint', note: 'Loading' },
+  { metric: 'INP', target: '< 200ms', name: 'Interaction to Next Paint', note: 'Responsiveness' },
+  { metric: 'CLS', target: '< 0.1', name: 'Cumulative Layout Shift', note: 'Visual stability' },
+];
+
+export const PERF_AREAS = [
+  { title: 'Server & Application', desc: 'PHP-FPM tuning, opcode caching, worker sizing and request profiling to cut time-to-first-byte.' },
+  { title: 'Database', desc: 'Slow-query analysis, index design and schema tuning so catalogue and order queries stay flat as volume grows.' },
+  { title: 'Caching Strategy', desc: 'Full-page, block and object caching layered so invalidation is predictable rather than accidental.' },
+  { title: 'Search', desc: 'Index structure and query shaping to keep faceted navigation responsive on large catalogues.' },
+  { title: 'Frontend', desc: 'Critical path, bundle size, image pipelines and font loading — measured against real-user data, not lab scores alone.' },
+  { title: 'Scalability', desc: 'Load characterisation and capacity planning ahead of campaigns, migrations and seasonal peaks.' },
+];
+
+/** §15 — applied generative AI. Each entry states the work, not the technology. */
+export const GENERATIVE_AI = [
+  {
+    title: 'AI Strategy',
+    desc: 'Deciding where AI genuinely changes unit economics and where it is an expensive distraction — before any build starts.',
+  },
+  {
+    title: 'Content Workflows',
+    desc: 'Product copy, category descriptions and metadata generated against brand rules, with human review kept in the loop.',
+  },
+  {
+    title: 'Product Discovery',
+    desc: 'Semantic search, attribute enrichment and recommendation logic that help customers find products the catalogue already has.',
+  },
+  {
+    title: 'Customer Experience',
+    desc: 'Assisted support and pre-sales answers grounded in real product data, so responses stay accurate rather than plausible.',
+  },
+  {
+    title: 'AI Analytics',
+    desc: 'Turning reporting into questions a merchandiser can ask in plain language, answered from the warehouse rather than guessed.',
+  },
+  {
+    title: 'AI Operations',
+    desc: 'Back-office automation — data cleanup, catalogue QA, exception handling — where volume makes manual work the bottleneck.',
+  },
+];
+
+/**
+ * §16 — the agent loop. Deliberately ends at a human checkpoint: the brief
+ * forbids unsupported claims about fully autonomous operation, and scoping is
+ * the honest differentiator anyway.
+ */
+export const AGENT_LOOP = [
+  { step: 'Goal', desc: 'A defined objective with explicit constraints and success criteria.' },
+  { step: 'Plan', desc: 'The agent decomposes the goal into ordered, checkable steps.' },
+  { step: 'Act', desc: 'Execution through a fixed set of tools and APIs it is permitted to call.' },
+  { step: 'Observe', desc: 'Results are verified against the criteria, and the plan is revised.' },
+  { step: 'Checkpoint', desc: 'A person approves anything consequential before it takes effect.' },
+];
+
+export const AGENT_TYPES = [
+  { title: 'Shopping Agents', desc: 'Guided product selection across large or technical catalogues.' },
+  { title: 'Sales Agents', desc: 'Qualification and quote preparation inside defined B2B rules.' },
+  { title: 'Customer Service Agents', desc: 'Order, returns and status handling against real system data.' },
+  { title: 'Analytics Agents', desc: 'Recurring analysis and anomaly reporting on commerce data.' },
+  { title: 'SEO Agents', desc: 'Crawl, audit and content-gap analysis at a cadence humans will not sustain.' },
+  { title: 'Ops Agents', desc: 'Catalogue QA, data reconciliation and exception routing.' },
 ];
 
 export interface WorkSlide {
@@ -318,12 +487,6 @@ export interface Industry {
 
 export const INDUSTRIES: Industry[] = [
   {
-    t: 'Luxury Retail',
-    d: 'D2C · Multi-store · Premium',
-    desc: 'Flagship digital boutiques and multi-store premium retail experiences engineered for desire.',
-    img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80',
-  },
-  {
     t: 'Fashion & Apparel',
     d: 'B2C · Shopify · Magento',
     desc: 'High-conversion storefronts for fashion labels across Shopify and Magento.',
@@ -456,7 +619,8 @@ export const FAQS: Faq[] = [
 ];
 
 export const SERVICE_OPTIONS = [
-  'Luxury Brand Development',
+  'E-commerce Technology Strategy',
+  'Digital Transformation',
   'Magento 2 Development',
   'Shopify Brand Store',
   'SEO & CRO Strategy',

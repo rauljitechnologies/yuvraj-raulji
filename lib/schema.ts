@@ -15,9 +15,9 @@ export function homeSchema() {
         email: CONTACT.email,
         telephone: CONTACT.phoneE164,
         image: `${SITE_URL}/og-image.jpg`,
-        jobTitle: 'Luxury Brand Developer & E-Commerce Architect',
+        jobTitle: 'E-commerce & Digital Transformation Consultant',
         description:
-          'Expert in luxury brand development and e-commerce architecture with 9+ years of experience. Specializing in Magento 2, Shopify, AWS infrastructure, SEO & CRO, and AI-powered commerce systems.',
+          'E-commerce & Digital Transformation Consultant and Technology Strategist with 9+ years across B2B, B2C, D2C and marketplace commerce. Specializing in Magento 2, Shopify, headless commerce, modern web architecture, server infrastructure, analytics, SEO, Generative AI and Agentic AI.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Vadodara',
@@ -26,7 +26,7 @@ export function homeSchema() {
         },
         sameAs: [CONTACT.linkedin, CONTACT.instagram, CONTACT.facebook],
         knowsAbout: [
-          'Luxury Brand Development',
+          'Digital Transformation',
           'E-Commerce Architecture',
           'Magento 2',
           'Shopify',
@@ -43,7 +43,7 @@ export function homeSchema() {
         '@id': `${SITE_URL}/#website`,
         url: `${SITE_URL}/`,
         name: 'Yuvraj Raulji',
-        description: 'Luxury brand development and premium e-commerce architecture',
+        description: 'E-commerce technology strategy, digital transformation and enterprise commerce architecture',
         publisher: { '@id': PERSON_ID },
         inLanguage: 'en-US',
       },
@@ -52,7 +52,7 @@ export function homeSchema() {
         '@id': `${SITE_URL}/#service`,
         name: 'Yuvraj Raulji',
         description:
-          'Luxury brand development and premium e-commerce architecture — Magento 2, Shopify, AWS, SEO & CRO, WordPress.',
+          'E-commerce technology strategy, digital transformation and enterprise commerce architecture — Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI.',
         url: `${SITE_URL}/`,
         telephone: CONTACT.phoneE164,
         email: CONTACT.email,
@@ -68,7 +68,8 @@ export function homeSchema() {
           '@type': 'OfferCatalog',
           name: 'Services',
           itemListElement: [
-            'Luxury Brand Development',
+            'E-commerce Technology Strategy',
+            'Digital Transformation',
             'Magento 2 E-Commerce Development',
             'Shopify Brand Store Development',
             'SEO & CRO Strategy',

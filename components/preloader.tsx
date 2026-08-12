@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
  * 0→100 over 1s and the whole overlay lifts away at 1.5s, matching the original
  * setTimeout in the root x-init.
  */
-export function Preloader({ tagline = 'Luxury E-Commerce & AI Development' }: { tagline?: string }) {
+export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: { tagline?: string }) {
   const [pct, setPct] = useState(0);
   const [gone, setGone] = useState(false);
   const barRef = useRef<HTMLDivElement>(null);

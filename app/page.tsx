@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { ContactModal } from '../components/contact-modal';
+import { AgenticAI, GenerativeAI } from '../components/home/ai';
 import { Contact } from '../components/home/contact';
 import { Expertise } from '../components/home/expertise';
 import { Faq } from '../components/home/faq';
 import { Hero } from '../components/home/hero';
 import { Industries } from '../components/home/industries';
+import { Infrastructure } from '../components/home/infrastructure';
 import { Insights } from '../components/home/insights';
 import { Technology } from '../components/home/technology';
 import { Testimonials } from '../components/home/testimonials';
@@ -17,11 +19,11 @@ import { SiteHeader } from '../components/site-header';
 import { homeSchema } from '../lib/schema';
 import { SITE_URL } from '../lib/site';
 
-const title = 'Yuvraj Raulji | Luxury Brand Development & E-Commerce Architect';
+const title = 'Yuvraj Raulji | E-commerce & Digital Transformation Consultant';
 const description =
-  'Full Stack E-commerce Developer & AI Consultant — Magento 2, Shopify, SEO & CRO, AWS infrastructure, and AI automation. 9+ years crafting luxury digital experiences.';
+  'E-commerce & Digital Transformation Consultant and Technology Strategist — Magento 2, Shopify, headless commerce, modern web, server infrastructure, analytics, SEO, Generative AI and Agentic AI. 9+ years across B2B, B2C, D2C and marketplace.';
 const ogDescription =
-  'Full Stack E-commerce Developer & AI Consultant — Magento 2, Shopify, SEO & CRO, AWS, and AI automation.';
+  'Technology Strategist specializing in Magento 2, Shopify, headless commerce, modern web, analytics, SEO, Generative AI and Agentic AI. 9+ years across B2B, B2C, D2C and marketplace.';
 
 export const metadata: Metadata = {
   title,
@@ -55,6 +57,9 @@ export default function Home() {
       <main id="top">
         <Hero />
         <Expertise />
+        <Infrastructure />
+        <GenerativeAI />
+        <AgenticAI />
         <Work />
         <Technology />
         <Industries />

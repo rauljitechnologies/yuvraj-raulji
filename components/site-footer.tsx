@@ -64,7 +64,7 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="leading-[1.8] mb-7 max-w-[340px]" style={{ fontSize: '.86rem', color: 'rgba(244,244,244,.46)' }}>
-              Full Stack E-commerce Developer &amp; AI Consultant crafting luxury digital experiences — Magento 2, Shopify, AWS infrastructure, and growth-driven SEO from Vadodara, India.
+              E-commerce &amp; Digital Transformation Consultant and Technology Strategist — Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI, from Vadodara, India.
             </p>
             <div className="flex items-center gap-3">
               <a href={CONTACT.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" className={socialCls} style={socialStyle}>
@@ -178,7 +178,7 @@ export function SiteFooter() {
           </span>
           <span className="hidden md:inline-flex items-center gap-[10px] font-bold tracking-[.22em] uppercase" style={{ fontSize: '.58rem', color: 'rgba(200,16,46,.50)' }}>
             <span style={{ width: 18, height: 1, background: 'rgba(200,16,46,.45)' }} />
-            Luxury Brand Developer &amp; E-Commerce Architect
+            E-commerce &amp; Digital Transformation Consultant
             <span style={{ width: 18, height: 1, background: 'rgba(200,16,46,.45)' }} />
           </span>
           <button

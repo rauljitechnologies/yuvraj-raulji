@@ -13,11 +13,11 @@ import { SITE_URL } from '../../lib/site';
 export const metadata: Metadata = {
   title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO, AWS & E-Commerce',
   description:
-    'Expert insights on Magento 2, Shopify, SEO & CRO, AWS server setup, WordPress, and luxury e-commerce development by Yuvraj Raulji. 9+ years of hands-on expertise.',
+    'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS infrastructure, analytics and AI by Yuvraj Raulji. 9+ years of hands-on e-commerce and digital transformation experience.',
   alternates: { canonical: `${SITE_URL}/blog/` },
   openGraph: {
     title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO & AWS',
-    description: 'Expert insights on Magento 2, Shopify, SEO & CRO, AWS, and luxury e-commerce development.',
+    description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS, analytics and AI.',
     url: `${SITE_URL}/blog/`,
     siteName: 'Yuvraj Raulji',
     type: 'website',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Blog & Insights — Yuvraj Raulji',
-    description: 'Expert insights on Magento 2, Shopify, SEO & CRO, AWS, and luxury e-commerce by Yuvraj Raulji.',
+    description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS and AI by Yuvraj Raulji.',
   },
 };
 
