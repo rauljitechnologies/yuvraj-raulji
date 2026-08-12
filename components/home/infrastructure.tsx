@@ -167,7 +167,7 @@ export function Infrastructure() {
 
         <div className="mt-[clamp(40px,5vw,64px)] flex flex-col items-start gap-4 border-t border-line pt-10 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-[520px] text-[.95rem] leading-[1.7] text-ink-muted">
-            Slow checkout, failing migrations, a database that buckles under campaign traffic — these are usually
+            Slow checkout, failing migrations, a database that buckles under campaign traffic: these are usually
             diagnosable in a single conversation.
           </p>
           <Button onClick={() => setContactOpen(true)} className="group">

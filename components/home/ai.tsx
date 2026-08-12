@@ -34,7 +34,7 @@ export function GenerativeAI() {
             id="genai-title"
             eyebrow="Generative AI"
             title="Generative AI for E-commerce & Digital Transformation"
-            lede="The useful question is not what a model can generate — it is which parts of a commerce operation are bottlenecked by writing, classifying or summarising at volume. Those are the parts worth automating."
+            lede="The useful question is not what a model can generate. It is which parts of a commerce operation are bottlenecked by writing, classifying or summarising at volume. Those are the parts worth automating."
           />
         </Reveal>
 
@@ -74,14 +74,14 @@ export function AgenticAI() {
               <p className="text-label font-bold uppercase tracking-[.2em] text-ink-muted">Generative AI</p>
               <p className="mt-3 text-[.95rem] leading-[1.7] text-ink-secondary">
                 <strong className="font-semibold text-ink">Generates.</strong> You give it a prompt, it returns
-                content — text, code, an image, a summary.
+                content: text, code, an image, a summary.
               </p>
             </div>
             <div className="bg-surface p-6">
               <p className="text-label font-bold uppercase tracking-[.2em] text-accent-bright">Agentic AI</p>
               <p className="mt-3 text-[.95rem] leading-[1.7] text-ink-secondary">
                 <strong className="font-semibold text-ink">Reasons, plans and executes.</strong> You give it a goal,
-                and it works through steps using tools it is permitted to call — inside a defined system.
+                and it works through steps using tools it is permitted to call, inside a defined system.
               </p>
             </div>
           </div>
@@ -119,7 +119,7 @@ export function AgenticAI() {
             </span>
             <span>
               Scope is the whole discipline. I build agents with an explicit tool set, defined boundaries and a human
-              checkpoint before anything consequential commits — not systems that run a business unsupervised.
+              checkpoint before anything consequential commits. Not systems that run a business unsupervised.
             </span>
           </p>
         </div>

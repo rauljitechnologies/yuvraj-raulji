@@ -27,7 +27,7 @@ export function Expertise() {
             className="max-w-none"
           />
           <p className="text-body-lg leading-[1.74] text-ink-secondary">
-            Fourteen connected disciplines — from commercial strategy through architecture, platforms, engineering
+            Fourteen connected disciplines, from commercial strategy through architecture, platforms, engineering
             and AI. Most engagements draw on several at once, which is usually the point.
           </p>
         </div>

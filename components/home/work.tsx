@@ -56,7 +56,7 @@ export function Work() {
                 carries no alt text. */}
             <img
               src={s.img}
-              alt={`${s.title} — ${s.cat}`}
+              alt={`${s.title}, ${s.cat}`}
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
               className="absolute inset-0 h-full w-full object-cover"

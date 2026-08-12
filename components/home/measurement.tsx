@@ -24,7 +24,7 @@ export function Analytics() {
             id="analytics-title"
             eyebrow="Measurement"
             title="Analytics & Tracking"
-            lede="Engineer-grade measurement for digital commerce. Most tracking problems are not reporting problems — they are implementation problems that surface months later as numbers nobody trusts."
+            lede="Engineer-grade measurement for digital commerce. Most tracking problems are not reporting problems. They are implementation problems that surface months later as numbers nobody trusts."
           />
         </Reveal>
 

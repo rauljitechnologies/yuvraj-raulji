@@ -36,7 +36,7 @@ export function Contact() {
               What&rsquo;s Next
             </h2>
             <p className="mb-7 max-w-[500px] text-body-lg leading-[1.74] text-ink-secondary">
-              Whether you&rsquo;re scaling a commerce platform, implementing AI automation, or planning a transformation initiative — every engagement begins with a strategic conversation.
+              Whether you&rsquo;re scaling a commerce platform, implementing AI automation, or planning a transformation initiative, every engagement begins with a strategic conversation.
             </p>
             <Button onClick={() => setContactOpen(true)}>Book Strategic Consultation</Button>
           </div>
