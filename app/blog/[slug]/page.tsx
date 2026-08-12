@@ -84,7 +84,7 @@ export default async function Article({ params }: Props) {
           '@id': `${SITE_URL}/#person`,
           name: 'Yuvraj Raulji',
           url: `${SITE_URL}/`,
-          jobTitle: 'Full Stack E-commerce Developer & AI Consultant',
+          jobTitle: 'E-commerce & Digital Transformation Consultant',
         },
         publisher: { '@id': `${SITE_URL}/#person` },
       },
@@ -104,11 +104,11 @@ export default async function Article({ params }: Props) {
       <JsonLd data={ld} />
       <div className="noise" aria-hidden="true" />
       <Preloader tagline="Blog & Insights" />
-      <SiteHeader active="Blog" />
+      <SiteHeader active="Insights" />
       <ReadingProgress />
       <SiteEffects />
 
-      <main>
+      <main id="top">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(120px,16vh,170px) 0 clamp(40px,5vw,60px)' }}>
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">

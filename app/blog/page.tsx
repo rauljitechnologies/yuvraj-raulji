@@ -36,10 +36,10 @@ export default function Blog() {
     <div className="reveal-blog" style={{ ['--noise-o' as string]: 0.06 }}>
       <div className="noise" aria-hidden="true" />
       <Preloader tagline="Blog & Insights" />
-      <SiteHeader active="Blog" />
+      <SiteHeader active="Insights" />
       <SiteEffects />
 
-      <main>
+      <main id="top">
         <BlogHero />
         <BlogListing posts={posts} />
         <BlogCta />

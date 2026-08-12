@@ -33,11 +33,16 @@ export const GA_MEASUREMENT_ID = 'G-5JHWRDWD9K';
 /** Google Tag Manager container. Production-only, same as GA4. */
 export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
 
+/**
+ * Primary navigation. Kept deliberately short — the brief warns against
+ * overloaded nav. "Contact" is a button rather than a link (it opens the
+ * enquiry modal), so it lives in the header component, not this list.
+ */
 export const NAV_LINKS = [
-  { label: 'Services', href: '/#expertise' },
-  { label: 'Work', href: '/#work' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Projects', href: '/#work' },
   { label: 'Technology', href: '/#technology' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Insights', href: '/blog' },
 ] as const;
 
 export const HERO_CHIPS = [
@@ -720,10 +725,10 @@ export const SERVICE_OPTIONS = [
 
 export const FOOTER_NAV = [
   { label: 'Home', href: '/', active: true },
-  { label: 'Services', href: '/#expertise' },
-  { label: 'Work', href: '/#work' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Projects', href: '/#work' },
   { label: 'Technology', href: '/#technology' },
-  { label: 'Blog & Insights', href: '/blog' },
+  { label: 'Insights', href: '/blog' },
   { label: 'Contact', href: '/#contact' },
 ];
 
