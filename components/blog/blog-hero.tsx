@@ -14,9 +14,9 @@ const TICKER = [
 ];
 
 const STATS = [
-  { v: '22', l: 'Articles' },
+  { v: '8', l: 'Articles' },
   { v: '9+', l: 'Years Exp.' },
-  { v: '6', l: 'Topics' },
+  { v: '5', l: 'Topics' },
 ];
 
 const bebas = { fontFamily: 'var(--font-bebas), "Bebas Neue", sans-serif' } as const;
@@ -95,8 +95,8 @@ export function BlogHero() {
             {/* LEFT */}
             <div className="flex flex-col justify-between py-6 lg:py-10 reveal">
               <div>
-                <div className="leading-none mb-8" style={{ marginLeft: -2 }}>
-                  <div style={{ ...bebas, fontSize: 'clamp(5.5rem,14vw,13rem)', lineHeight: 0.87, letterSpacing: '.01em', WebkitTextStroke: '1.5px rgba(244,244,244,.11)', color: 'transparent', display: 'block' }}>
+                <h1 className="leading-none mb-8" style={{ marginLeft: -2 }} aria-label="Blog & Insights">
+                  <div style={{ ...bebas, fontSize: 'clamp(5.5rem,14vw,13rem)', lineHeight: 0.87, letterSpacing: '.01em', WebkitTextStroke: '1.5px rgba(244,244,244,.11)', color: 'transparent', display: 'block' }} aria-hidden="true">
                     BLOG
                   </div>
                   <div style={{ ...bebas, fontSize: 'clamp(3rem,8vw,7.5rem)', lineHeight: 0.88, letterSpacing: '.01em', color: '#e8192c', marginTop: '-.06em', display: 'block' }}>
@@ -105,7 +105,7 @@ export function BlogHero() {
                   <div style={{ ...bebas, fontSize: 'clamp(5.5rem,14vw,13rem)', lineHeight: 0.87, letterSpacing: '.01em', color: '#f4f4f4', marginTop: '-.06em', display: 'block' }}>
                     INSIGHTS
                   </div>
-                </div>
+                </h1>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
                   <div style={{ height: 1, flex: 1, background: 'linear-gradient(90deg,#c8102e 0%,rgba(200,16,46,.22) 60%,transparent 100%)' }} />

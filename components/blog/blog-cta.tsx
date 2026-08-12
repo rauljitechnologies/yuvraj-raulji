@@ -32,7 +32,7 @@ export function BlogCta() {
                 Book Free Consultation →
               </a>
               <Link
-                href="/#expertise"
+                href="/#services"
                 className="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-transparent border border-[rgba(255,255,255,.18)] text-[#f4f4f4] text-[.74rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(200,16,46,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
               >
                 View Services →

@@ -109,7 +109,7 @@ export function Hero() {
 
             <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
               <Button onClick={() => setContactOpen(true)}>Book a Consultation</Button>
-              <Button href="#expertise" variant="secondary">
+              <Button href="#services" variant="secondary">
                 Explore My Expertise
               </Button>
             </motion.div>

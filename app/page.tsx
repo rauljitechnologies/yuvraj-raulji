@@ -20,9 +20,9 @@ import { SiteHeader } from '../components/site-header';
 import { homeSchema } from '../lib/schema';
 import { SITE_URL } from '../lib/site';
 
-const title = 'Yuvraj Raulji | E-commerce & Digital Transformation Consultant';
+const title = 'Yuvraj Raulji | E-commerce Consultant & Technology Strategist';
 const description =
-  'E-commerce & Digital Transformation Consultant and Technology Strategist — Magento 2, Shopify, headless commerce, modern web, server infrastructure, analytics, SEO, Generative AI and Agentic AI. 9+ years across B2B, B2C, D2C and marketplace.';
+  'Yuvraj Raulji — E-commerce & Digital Transformation Consultant and Technology Strategist: commerce architecture, Magento 2, Shopify, headless, analytics and AI.';
 const ogDescription =
   'Technology Strategist specializing in Magento 2, Shopify, headless commerce, modern web, analytics, SEO, Generative AI and Agentic AI. 9+ years across B2B, B2C, D2C and marketplace.';
 

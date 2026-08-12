@@ -17,7 +17,7 @@ export function Expertise() {
   const { setContactOpen } = useUI();
 
   return (
-    <section id="expertise" aria-labelledby="capabilities-title" className="relative overflow-hidden bg-surface py-section">
+    <section id="services" aria-labelledby="capabilities-title" className="relative overflow-hidden bg-surface py-section">
       <Container>
         <div className="mb-[clamp(48px,6vw,80px)] grid items-end gap-8 lg:grid-cols-[1fr_minmax(300px,.6fr)]">
           <SectionHeading

@@ -56,47 +56,5 @@ export const TAGS: Record<string, string[]> = {
     "GPT-4",
     "Automation",
     "Revenue"
-  ],
-  "core-web-vitals-pagespeed-90": [
-    "Performance"
-  ],
-  "wordpress-performance-aws": [
-    "WordPress"
-  ],
-  "magento2-b2b-setup": [
-    "Magento 2"
-  ],
-  "seo-schema-markup-ecommerce": [
-    "SEO & CRO"
-  ],
-  "woocommerce-performance-optimization": [
-    "WordPress"
-  ],
-  "aws-rds-mysql-magento-optimization": [
-    "AWS & Server"
-  ],
-  "shopify-markets-international": [
-    "Shopify"
-  ],
-  "magento2-custom-module-development": [
-    "Magento 2"
-  ],
-  "google-analytics-4-seo-strategy": [
-    "SEO & CRO"
-  ],
-  "wordpress-gutenberg-block-dev": [
-    "WordPress"
-  ],
-  "n8n-ecommerce-automation": [
-    "AI & Automation"
-  ],
-  "ai-product-content-automation": [
-    "AI & Automation"
-  ],
-  "magento2-performance-optimization": [
-    "Magento 2"
-  ],
-  "shopify-conversion-rate-optimization": [
-    "Shopify"
   ]
 };

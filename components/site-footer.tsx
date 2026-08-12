@@ -103,7 +103,7 @@ export function SiteFooter() {
             <ul className="space-y-[14px] uppercase" style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.14em' }}>
               {FOOTER_EXPERTISE.map((label) => (
                 <li key={label}>
-                  <Link href="/#expertise" className={linkCls}>
+                  <Link href="/#services" className={linkCls}>
                     <span className={dashCls}>—</span>
                     {label}
                   </Link>
