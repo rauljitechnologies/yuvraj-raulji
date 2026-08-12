@@ -7,6 +7,7 @@ import { Faq } from '../components/home/faq';
 import { Hero } from '../components/home/hero';
 import { Industries } from '../components/home/industries';
 import { Infrastructure } from '../components/home/infrastructure';
+import { Analytics, Seo } from '../components/home/measurement';
 import { Insights } from '../components/home/insights';
 import { Technology } from '../components/home/technology';
 import { Testimonials } from '../components/home/testimonials';
@@ -58,6 +59,8 @@ export default function Home() {
         <Hero />
         <Expertise />
         <Infrastructure />
+        <Analytics />
+        <Seo />
         <GenerativeAI />
         <AgenticAI />
         <Work />

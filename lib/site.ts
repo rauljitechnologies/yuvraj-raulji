@@ -242,6 +242,95 @@ export const PERF_AREAS = [
   { title: 'Scalability', desc: 'Load characterisation and capacity planning ahead of campaigns, migrations and seasonal peaks.' },
 ];
 
+/**
+ * §12 — Analytics & Tracking. Each entry carries what it is, how it is built and
+ * what it changes commercially. The brief is explicit that listing tool names
+ * alone is not enough.
+ */
+export const ANALYTICS_STACK = [
+  {
+    title: 'GA4 E-commerce Events',
+    desc: 'The full purchase funnel instrumented as spec-compliant events — item lists, add-to-cart, checkout steps, purchase — with consistent item payloads.',
+    value: 'Drop-off becomes attributable to a step instead of a guess.',
+  },
+  {
+    title: 'GTM & dataLayer Design',
+    desc: 'A documented dataLayer contract implemented at the template level, so tags read structured data rather than scraping the DOM.',
+    value: 'Tags survive redesigns instead of breaking silently on deploy.',
+  },
+  {
+    title: 'Meta Pixel & Conversions API',
+    desc: 'Browser pixel paired with server-side CAPI, deduplicated by event ID and enriched with hashed customer parameters.',
+    value: 'Recovers conversions lost to ad blockers and cookie restrictions.',
+  },
+  {
+    title: 'TikTok & Snapchat Pixels',
+    desc: 'Channel pixels mapped to the same event taxonomy as GA4 and Meta, rather than each platform defining its own truth.',
+    value: 'Channel reporting becomes comparable instead of contradictory.',
+  },
+  {
+    title: 'Product Analytics',
+    desc: 'Mixpanel event modelling for behavioural questions GA4 answers poorly — cohorts, retention and feature-level funnels.',
+    value: 'Shows why users churn, not just that they did.',
+  },
+  {
+    title: 'Engagement Platforms',
+    desc: 'WebEngage, MoEngage and HubSpot wired to the same event stream that powers reporting, including identity resolution.',
+    value: 'Lifecycle campaigns trigger on real behaviour, not stale segments.',
+  },
+  {
+    title: 'Payment Gateway Tracking',
+    desc: 'Reconciling gateway callbacks against front-end purchase events to catch orders that complete off-site or after redirect.',
+    value: 'Closes the gap between analytics revenue and actual settled revenue.',
+  },
+  {
+    title: 'Performance Tracking',
+    desc: 'Real-user Core Web Vitals collected per template and correlated with conversion rate.',
+    value: 'Turns performance work into a revenue argument rather than a score.',
+  },
+];
+
+/**
+ * §14 — SEO framed as a systems discipline. The section must show SEO connecting
+ * to technology, architecture, performance, analytics, content and conversion.
+ */
+export const SEO_PILLARS = [
+  {
+    title: 'Technical SEO',
+    desc: 'Crawl budget, render behaviour, status codes, redirects and log-file analysis — the layer most catalogue sites lose rankings to without noticing.',
+  },
+  {
+    title: 'Crawlability & Indexation',
+    desc: 'Controlling what gets crawled and what deserves to be indexed: faceted navigation, parameter handling, pagination and thin-page suppression.',
+  },
+  {
+    title: 'Category & Product SEO',
+    desc: 'Category pages treated as the primary ranking asset, with product templates that scale metadata and copy without duplicating it.',
+  },
+  {
+    title: 'Structured Data',
+    desc: 'Product, Offer, Breadcrumb and Organization markup that validates and matches on-page reality, so rich results hold rather than flicker.',
+  },
+  {
+    title: 'Internal Linking',
+    desc: 'Deliberate link architecture between hubs, categories and content so authority reaches the pages that actually convert.',
+  },
+  {
+    title: 'Platform SEO',
+    desc: 'The platform-specific traps — Magento layered navigation, Shopify collection URLs, WooCommerce permalink and pagination behaviour.',
+  },
+];
+
+/** The disciplines §14 requires SEO to be shown connecting to. */
+export const SEO_CONNECTIONS = [
+  { label: 'Technology', note: 'Rendering and platform behaviour decide what Google can see.' },
+  { label: 'Architecture', note: 'URL and category structure is information architecture.' },
+  { label: 'Performance', note: 'Core Web Vitals are a ranking and conversion input.' },
+  { label: 'Analytics', note: 'Measurement proves which organic work paid.' },
+  { label: 'Content', note: 'Coverage and intent matching drive qualified traffic.' },
+  { label: 'Conversion', note: 'Traffic without conversion is a cost, not a result.' },
+];
+
 /** §15 — applied generative AI. Each entry states the work, not the technology. */
 export const GENERATIVE_AI = [
   {
