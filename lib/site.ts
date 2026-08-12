@@ -134,8 +134,8 @@ export const CAPABILITIES: Capability[] = [
     num: '07',
     icon: 'web',
     title: 'Modern Web Architecture',
-    desc: 'Production front-end architecture in React and Next.js, plus Drupal builds — typed, componentized and structured so the codebase stays maintainable years after launch.',
-    stack: ['React', 'Next.js', 'Drupal'],
+    desc: 'Production front-end architecture in React and Next.js — typed, componentized, and structured so the codebase stays maintainable years after launch rather than being rewritten.',
+    stack: ['React', 'Next.js', 'GraphQL'],
   },
   {
     num: '08',
@@ -218,12 +218,12 @@ export const INFRA_LAYERS: InfraLayer[] = [
   {
     label: 'Database',
     role: 'Transactional store — indexing, query plans and replication.',
-    items: ['MySQL', 'MariaDB', 'Query Optimization'],
+    items: ['MySQL', 'PostgreSQL', 'Query Optimization'],
   },
   {
     label: 'Search',
     role: 'Catalogue search and faceted navigation at catalogue scale.',
-    items: ['Elasticsearch', 'OpenSearch', 'Indexing Strategy'],
+    items: ['Elasticsearch', 'Indexing Strategy', 'Faceted Search'],
   },
   {
     label: 'Infrastructure',
@@ -519,8 +519,8 @@ export const TECH_GROUPS: TechGroup[] = [
       { label: 'AWS (EC2, S3, CloudFront)', strong: true },
       { label: 'Nginx / Apache', strong: true },
       { label: 'Redis & Varnish Cache', strong: true },
-      { label: 'MySQL / MariaDB', strong: true },
-      { label: 'Elasticsearch / OpenSearch', strong: false },
+      { label: 'MySQL / PostgreSQL', strong: true },
+      { label: 'Elasticsearch', strong: false },
     ],
   },
   {
@@ -822,7 +822,7 @@ export const EXPERIENCE: Role[] = [
 export const TECH_PROFICIENCIES = [
   { group: 'Commerce', items: ['Magento 2 / Adobe Commerce', 'Shopify & Shopify Plus', 'WooCommerce', 'Headless & Composable'] },
   { group: 'Languages & Frameworks', items: ['PHP', 'Next.js', 'React.js', 'GraphQL'] },
-  { group: 'Data', items: ['MySQL', 'MariaDB', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch'] },
+  { group: 'Data & Search', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch', 'RabbitMQ'] },
   { group: 'Infrastructure', items: ['AWS (EC2, S3, RDS)', 'Google Cloud', 'Azure', 'Docker', 'Jenkins', 'GitLab CI'] },
   { group: 'Measurement & Growth', items: ['GA4', 'GTM', 'MoEngage', 'WebEngage', 'Technical SEO'] },
 ];
