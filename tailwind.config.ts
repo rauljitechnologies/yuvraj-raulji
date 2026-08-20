@@ -30,14 +30,21 @@ const config: Config = {
         error: 'var(--error)',
 
         // Legacy aliases — do not use in new code
-        bg: '#060606',
+        bg: '#050505',
         bg2: '#0d0d0d',
-        red: '#c8102e',
-        rv: '#e8192c',
+        red: '#e50920',
+        rv: '#f0263c',
       },
       fontFamily: {
-        bebas: ['var(--font-bebas)', '"Bebas Neue"', 'sans-serif'],
-        grotesk: ['var(--font-grotesk)', '"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', '"Bebas Neue"', 'sans-serif'],
+        // Kept as an alias so any `font-bebas` still in a template resolves to
+        // the display face rather than silently falling back to the system
+        // stack. The site now sets all display type in Bebas Neue.
+        bebas: ['var(--font-display)', '"Bebas Neue"', 'sans-serif'],
+        body: ['var(--font-body)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        // Kept as an alias so any `font-grotesk` still in a template resolves to
+        // the body face rather than silently falling back to the system stack.
+        grotesk: ['var(--font-body)', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         display: 'var(--fs-display)',
@@ -57,7 +64,22 @@ const config: Config = {
         accent: 'var(--shadow-accent)',
       },
       maxWidth: { shell: 'var(--container)' },
-      spacing: { gutter: 'var(--gutter)', section: 'var(--section-y)' },
+      spacing: {
+        gutter: 'var(--gutter)',
+        section: 'var(--section-y)',
+        // Semantic vertical rhythm — see the block in globals.css for what
+        // each step is for. Use these rather than a numeric step for any
+        // gap that separates content; the numeric scale stays available for
+        // one-off optical corrections.
+        hair: 'var(--sp-hair)',
+        tight: 'var(--sp-tight)',
+        item: 'var(--sp-item)',
+        block: 'var(--sp-block)',
+        head: 'var(--sp-head)',
+        grid: 'var(--sp-grid)',
+        tail: 'var(--sp-tail)',
+        card: 'var(--sp-card)',
+      },
       transitionTimingFunction: {
         out: 'var(--ease-out)',
         inout: 'var(--ease-inout)',
