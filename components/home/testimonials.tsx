@@ -96,7 +96,7 @@ export function Testimonials() {
                     {t.m}
                   </span>
                   <span className="text-left">
-                    <span className="block font-bebas text-[1.15rem] uppercase leading-tight tracking-[.08em] text-ink">{t.n}</span>
+                    <span className="block font-display text-[1.15rem] uppercase leading-tight tracking-[.08em] text-ink">{t.n}</span>
                     <span className="mt-[3px] block text-label font-semibold uppercase tracking-[.18em] text-accent-bright">{t.r}</span>
                   </span>
                 </figcaption>

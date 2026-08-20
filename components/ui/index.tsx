@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { ElementType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Layout + surface primitives. Server components (no motion, no state) so they
@@ -58,13 +58,19 @@ export function SectionHeading({
   eyebrow?: string;
   title: ReactNode;
   lede?: ReactNode;
-  as?: ElementType;
+  /**
+   * Narrowed from `ElementType` deliberately. react-three-fiber augments the
+   * global JSX namespace with several hundred three.js elements, and a bare
+   * `ElementType` tag can no longer be resolved to a single signature against
+   * that union. These are the only tags this heading is ever rendered as.
+   */
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'div';
   className?: string;
 }) {
   return (
     <div className={`max-w-[760px] ${className}`}>
       {eyebrow ? <Eyebrow className="mb-5">{eyebrow}</Eyebrow> : null}
-      <Tag id={id} className="font-bebas text-h2 uppercase leading-[.98] tracking-[.02em] text-ink">
+      <Tag id={id} className="font-display text-h2 uppercase leading-[.98] tracking-[.02em] text-ink">
         {title}
       </Tag>
       {lede ? <p className="mt-5 text-body-lg leading-[1.7] text-ink-secondary">{lede}</p> : null}

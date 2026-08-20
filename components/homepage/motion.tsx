@@ -1,0 +1,153 @@
+'use client';
+
+import { motion, useReducedMotion } from 'motion/react';
+import { useState, type ReactNode } from 'react';
+import { EASE_OUT, viewportOnce } from '../../lib/motion';
+
+/**
+ * Motion used by the homepage. Three components, transform and opacity only,
+ * every one of them reduced-motion aware.
+ *
+ * There is no scroll hijacking anywhere on this page: nothing here reads the
+ * wheel, and the only scroll-linked value is the hero parallax offset. The rest
+ * is `whileInView`, which is an IntersectionObserver.
+ */
+
+/**
+ * Display headline. Each authored line rises out of its own clipped box, one
+ * after the next, which is why the lines arrive as separate strings from the
+ * content model rather than as one string with <br> in it.
+ *
+ * The visible text is split across several elements, so the heading carries an
+ * explicit aria-label with the whole sentence: without it a screen reader
+ * announces the lines as separate fragments.
+ */
+export function Lines({
+  lines,
+  as: Tag = 'h2',
+  id,
+  className = '',
+  size = '2',
+  softFrom,
+  delay = 0,
+}: {
+  lines: readonly string[];
+  as?: 'h1' | 'h2' | 'p' | 'div';
+  id?: string;
+  className?: string;
+  size?: '1' | '2' | '3';
+  /** Index from which lines drop to the muted tone. */
+  softFrom?: number;
+  delay?: number;
+}) {
+  const reduced = useReducedMotion();
+
+  return (
+    <Tag
+      id={id}
+      aria-label={lines.join(' ')}
+      className={`yr-display yr-display--${size} ${className}`}
+    >
+      {lines.map((line, i) => (
+        <span key={line} aria-hidden="true" className="yr-linemask">
+          <motion.span
+            className={`block ${softFrom !== undefined && i >= softFrom ? 'yr-display__soft' : ''}`}
+            initial={reduced ? { opacity: 0 } : { y: '105%', opacity: 0 }}
+            whileInView={reduced ? { opacity: 1 } : { y: '0%', opacity: 1 }}
+            viewport={viewportOnce}
+            transition={
+              reduced
+                ? { duration: 0.01 }
+                : { duration: 0.85, ease: EASE_OUT, delay: delay + i * 0.09 }
+            }
+          >
+            {line}
+          </motion.span>
+        </span>
+      ))}
+    </Tag>
+  );
+}
+
+/** Fade and rise. The workhorse for everything that is not a headline. */
+export function Rise({
+  children,
+  delay = 0,
+  y = 22,
+  className = '',
+  as = 'div',
+}: {
+  children: ReactNode;
+  delay?: number;
+  y?: number;
+  className?: string;
+  as?: 'div' | 'li' | 'p' | 'span';
+}) {
+  const reduced = useReducedMotion();
+  const M = motion[as];
+
+  return (
+    <M
+      className={className}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, y }}
+      whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={viewportOnce}
+      transition={reduced ? { duration: 0.01 } : { duration: 0.62, ease: EASE_OUT, delay }}
+    >
+      {children}
+    </M>
+  );
+}
+
+/**
+ * A horizontal hairline that draws itself in. Used to separate the parts of a
+ * section without adding another border that is simply there on load.
+ */
+export function DrawRule({ className = '', delay = 0 }: { className?: string; delay?: number }) {
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.span
+      aria-hidden="true"
+      className={`block h-px w-full origin-left bg-[var(--rule)] ${className}`}
+      initial={reduced ? { opacity: 1 } : { scaleX: 0 }}
+      whileInView={reduced ? { opacity: 1 } : { scaleX: 1 }}
+      viewport={viewportOnce}
+      transition={reduced ? { duration: 0.01 } : { duration: 1, ease: EASE_OUT, delay }}
+    />
+  );
+}
+
+/**
+ * Adds a class the first time the element enters the viewport, and never
+ * removes it. The CSS keyframe animations in app/home.css hang off that class,
+ * which is how a diagram that lives 4000px down the page draws itself when it
+ * is reached rather than while it is still out of sight.
+ *
+ * `onViewportEnter` is the same IntersectionObserver `whileInView` uses, so
+ * this costs one observer and no scroll listener.
+ */
+export function InView({
+  children,
+  className = '',
+  activeClassName,
+  as = 'div',
+}: {
+  children: ReactNode;
+  className?: string;
+  activeClassName: string;
+  as?: 'div' | 'li' | 'span';
+}) {
+  const [seen, setSeen] = useState(false);
+  const M = motion[as];
+
+  return (
+    <M
+      className={`${className} ${seen ? activeClassName : ''}`}
+      viewport={viewportOnce}
+      onViewportEnter={() => setSeen(true)}
+    >
+      {children}
+    </M>
+  );
+}

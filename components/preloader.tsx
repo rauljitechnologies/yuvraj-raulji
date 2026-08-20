@@ -51,7 +51,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(ellipse 55% 60% at 50% 58%,rgba(200,16,46,.13),transparent 72%)',
+            background: 'radial-gradient(ellipse 55% 60% at 50% 58%,rgba(229, 9, 32,.13),transparent 72%)',
           }}
         />
         <div
@@ -60,7 +60,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
             inset: 0,
             opacity: 0.05,
             backgroundImage:
-              'linear-gradient(rgba(200,16,46,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(200,16,46,.30) 1px,transparent 1px)',
+              'linear-gradient(rgba(229, 9, 32,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(229, 9, 32,.30) 1px,transparent 1px)',
             backgroundSize: '64px 64px',
           }}
         />
@@ -70,23 +70,23 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
       <span className="ldr-meta absolute top-7 right-7">Portfolio · 2026</span>
       <span className="ldr-meta absolute bottom-7 left-7 hidden sm:block">Vadodara &mdash; India</span>
       <div
-        className="absolute bottom-7 right-7 font-bebas text-rv"
+        className="absolute bottom-7 right-7 font-display text-rv"
         style={{ fontSize: '1.5rem', letterSpacing: '.10em', lineHeight: 1 }}
       >
         <span>{String(pct).padStart(2, '0')}</span>
-        <span style={{ color: 'rgba(232,25,44,.50)' }}>%</span>
+        <span style={{ color: 'rgba(240, 38, 60,.50)' }}>%</span>
       </div>
 
       <div className="absolute inset-0 grid place-items-center px-6">
         <div className="text-center">
           <div className="overflow-hidden">
             <div
-              className="ldr-word font-bebas"
+              className="ldr-word font-display"
               style={{
                 fontSize: 'clamp(3.4rem,10vw,7.5rem)',
                 lineHeight: 0.92,
                 letterSpacing: '.04em',
-                color: '#f4f4f4',
+                color: '#f5f5f2',
                 animationDelay: '.10s',
               }}
             >
@@ -95,13 +95,13 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
           </div>
           <div className="overflow-hidden">
             <div
-              className="ldr-word font-bebas"
+              className="ldr-word font-display"
               style={{
                 fontSize: 'clamp(3.4rem,10vw,7.5rem)',
                 lineHeight: 0.92,
                 letterSpacing: '.04em',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px rgba(232,25,44,.90)',
+                WebkitTextStroke: '1.5px rgba(240, 38, 60,.90)',
                 animationDelay: '.22s',
               }}
             >
@@ -120,12 +120,12 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
                 top: 0,
                 bottom: 0,
                 width: `${pct}%`,
-                background: 'linear-gradient(90deg,#c8102e,#e8192c)',
-                boxShadow: '0 0 16px rgba(232,25,44,.60)',
+                background: 'linear-gradient(90deg,#e50920,#f0263c)',
+                boxShadow: '0 0 16px rgba(240, 38, 60,.60)',
               }}
             />
           </div>
-          <p className="ldr-meta mt-5" style={{ color: 'rgba(244,244,244,.34)' }}>
+          <p className="ldr-meta mt-5" style={{ color: 'rgba(245, 245, 242,.34)' }}>
             {tagline}
           </p>
         </div>

@@ -4,7 +4,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
    Ported from the inline <style> blocks of app/_html/{home,blog,detail}.html.
-   Literal 'Bebas Neue' family names are replaced with var(--font-bebas),
+   Literal display family names are replaced with var(--font-display),
    which next/font defines in the root layout.
    ═══════════════════════════════════════════════════════════════ */
 
@@ -15,23 +15,23 @@
 @layer base {
   :root {
     /* Surfaces */
-    --bg: #060606;
+    --bg: #050505;
     --surface: #0d0d0d;
     --surface-elevated: #141414;
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.16);
 
     /* Text — contrast ratios measured against --bg */
-    --text: #f4f4f4; /* 18:1  */
-    --text-secondary: rgba(244, 244, 244, 0.72); /* ~9:1   */
-    --text-muted: rgba(244, 244, 244, 0.58); /* ~6.2:1 */
-    --text-faint: rgba(244, 244, 244, 0.42); /* ~3.6:1 — decorative/large only */
+    --text: #f5f5f2; /* 18:1  */
+    --text-secondary: rgba(245, 245, 242, 0.72); /* ~9:1   */
+    --text-muted: rgba(245, 245, 242, 0.58); /* ~6.2:1 */
+    --text-faint: rgba(245, 245, 242, 0.42); /* ~3.6:1 — decorative/large only */
 
-    /* Accent — #c8102e is 3.44:1 (large text/fills/borders only).
-       #e8192c is 4.89:1 and is the ONLY accent safe for small text. */
-    --accent: #c8102e;
-    --accent-bright: #e8192c;
-    --accent-soft: rgba(200, 16, 46, 0.12);
+    /* Accent — #e50920 is 4.26:1 on --bg: large text, fills and borders only.
+       #f0263c is 4.90:1 and is the ONLY accent safe for small text. */
+    --accent: #e50920;
+    --accent-bright: #f0263c;
+    --accent-soft: rgba(229, 9, 32, 0.12);
     /* Channel-only duplicates of the two accents. Tailwind v3 cannot apply an
        alpha modifier (`border-accent/30`) to a colour whose value is a bare
        var(--accent) — it silently drops the utility, so every such class was
@@ -39,14 +39,14 @@
        `accent` colours through these instead, via rgb(... / <alpha-value>).
        Keep each pair in sync; --accent/--accent-bright stay as hex for the
        plain var() references in this file and in inline styles. */
-    --accent-rgb: 200 16 46;
-    --accent-bright-rgb: 232 25 44;
-    --focus: #e8192c;
+    --accent-rgb: 229 9 32;
+    --accent-bright-rgb: 240 38 60;
+    --focus: #f0263c;
 
     /* State */
     --success: #22c55e;
     --warning: #f5a524;
-    --error: #e8192c;
+    --error: #f0263c;
 
     /* Radii */
     --r-sm: 4px;
@@ -57,7 +57,36 @@
     /* Shadows */
     --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
     --shadow-lifted: 0 16px 48px rgba(0, 0, 0, 0.55);
-    --shadow-accent: 0 16px 48px rgba(200, 16, 46, 0.32);
+    --shadow-accent: 0 16px 48px rgba(229, 9, 32, 0.32);
+
+    /* ── Vertical rhythm ──────────────────────────────────────────
+       Semantic layer over the raw --space-* steps below. A component
+       picks a step by the job it is doing, never by a pixel value, which
+       is what stops twelve sections each inventing their own idea of
+       "the gap under a headline".
+
+       Each is a clamp, so the rhythm compresses on a phone and opens up
+       on a desktop by the same ratio the type does. Exposed to Tailwind
+       as spacing keys in tailwind.config.ts: mt-item, mt-block, mt-head,
+       mt-grid, mt-tail and so on.
+
+       hair    label to the value it labels
+       tight   inside a single thought
+       item    between elements of one card
+       block   between blocks in a column
+       head    a heading group to the content it introduces
+       grid    a section intro to its grid or list
+       tail    a grid to the link that follows it */
+    --sp-hair: clamp(6px, 0.5vw, 8px);
+    --sp-tight: clamp(12px, 1.2vw, 18px);
+    --sp-item: clamp(18px, 1.9vw, 28px);
+    --sp-block: clamp(28px, 3.2vw, 46px);
+    --sp-head: clamp(40px, 4.6vw, 68px);
+    --sp-grid: clamp(52px, 6vw, 90px);
+    --sp-tail: clamp(40px, 4.6vw, 64px);
+    /* Card interior padding. One value, so every card on the page has the
+       same relationship between its edge and its content. */
+    --sp-card: clamp(26px, 2.6vw, 40px);
 
     /* Spacing — density 3 (spacious) */
     --space-1: 4px;
@@ -127,7 +156,7 @@
   }
 
   ::selection {
-    background: #c8102e;
+    background: #e50920;
     color: #fff;
   }
 
@@ -137,8 +166,13 @@
 
   body {
     margin: 0;
-    background: #060606;
+    background: #050505;
     -webkit-tap-highlight-color: transparent;
+    /* Off-white type on near-black renders heavier than it measures, and the
+       body face is used down to 0.62rem for labels. Antialiasing rather than
+       subpixel rendering keeps those from filling in. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Scroll lock when a modal/menu is open (set on <html> by the UI provider) */
@@ -169,7 +203,7 @@
   /* ── Keyframes ── */
   @keyframes rp {
     to {
-      box-shadow: 0 0 80px rgba(200, 16, 46, 0.28), inset 0 0 50px rgba(200, 16, 46, 0.12);
+      box-shadow: 0 0 80px rgba(229, 9, 32, 0.28), inset 0 0 50px rgba(229, 9, 32, 0.12);
     }
   }
   @keyframes sp {
@@ -238,7 +272,7 @@
   }
   @keyframes ldp {
     to {
-      box-shadow: 0 0 0 12px rgba(232, 25, 44, 0);
+      box-shadow: 0 0 0 12px rgba(240, 38, 60, 0);
     }
   }
   @keyframes su {
@@ -301,7 +335,7 @@
     content: '';
     position: absolute;
     inset: -26px;
-    border: 1px solid rgba(200, 16, 46, 0.12);
+    border: 1px solid rgba(229, 9, 32, 0.12);
     border-radius: 50%;
     animation: sp 8s linear infinite reverse;
   }
@@ -310,7 +344,7 @@
     font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(244, 244, 244, 0.3);
+    color: rgba(245, 245, 242, 0.3);
   }
   .ldr-word {
     transform: translateY(112%);
@@ -330,13 +364,13 @@
     bottom: 0;
     width: 100%;
     height: 1px;
-    background: #e8192c;
+    background: #f0263c;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.38s cubic-bezier(0.19, 1, 0.22, 1);
   }
   .nav-link:hover {
-    color: #f4f4f4;
+    color: #f5f5f2;
   }
   .nav-link:hover::after {
     transform: scaleX(1);
@@ -352,7 +386,7 @@
     width: 100%;
     height: 1.5px;
     border-radius: 2px;
-    background: #f4f4f4;
+    background: #f5f5f2;
     transition: transform 0.32s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.22s;
   }
 
@@ -364,7 +398,7 @@
     z-index: 1;
     background: linear-gradient(
         90deg,
-        #060606 0%,
+        #050505 0%,
         rgba(6, 6, 6, 0.8) 14%,
         rgba(6, 6, 6, 0.42) 34%,
         rgba(6, 6, 6, 0.1) 56%,
@@ -379,7 +413,7 @@
     content: '';
     width: 28px;
     height: 1px;
-    background: #e8192c;
+    background: #f0263c;
     flex-shrink: 0;
   }
   .hchip::before {
@@ -387,14 +421,14 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #e8192c;
+    background: #f0263c;
     flex-shrink: 0;
   }
   .scroll-h::after {
     content: '';
     width: 1px;
     height: 46px;
-    background: linear-gradient(#e8192c, transparent);
+    background: linear-gradient(#f0263c, transparent);
     animation: sd 2s infinite;
   }
 
@@ -403,17 +437,17 @@
     content: '';
     width: 26px;
     height: 1px;
-    background: #e8192c;
+    background: #f0263c;
     flex-shrink: 0;
   }
   .sec-kicker {
     font-size: 0.72rem !important;
   }
   .sec-num {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.18em;
-    color: rgba(200, 16, 46, 0.5);
+    color: rgba(229, 9, 32, 0.5);
   }
 
   /* ── Cards ── */
@@ -421,7 +455,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at var(--cx, 50%) var(--cy, 30%), rgba(200, 16, 46, 0.2) 0%, transparent 55%);
+    background: radial-gradient(circle at var(--cx, 50%) var(--cy, 30%), rgba(229, 9, 32, 0.2) 0%, transparent 55%);
     opacity: 0;
     transition: opacity 0.36s;
   }
@@ -433,7 +467,7 @@
     position: absolute;
     inset: 0;
     opacity: 0.1;
-    background: linear-gradient(110deg, transparent 20%, rgba(200, 16, 46, 0.3) 50%, transparent 80%);
+    background: linear-gradient(110deg, transparent 20%, rgba(229, 9, 32, 0.3) 50%, transparent 80%);
     transform: translateX(-120%);
     animation: sc 5s ease-in-out infinite;
   }
@@ -441,7 +475,7 @@
   /* ── Decorative text bits ── */
   .testi-q::before {
     content: '"';
-    color: #e8192c;
+    color: #f0263c;
     font-size: 1.4em;
     line-height: 0;
     vertical-align: -0.3em;
@@ -497,7 +531,7 @@
   .bfill {
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, #c8102e, #e8192c);
+    background: linear-gradient(90deg, #e50920, #f0263c);
     width: var(--w);
     transform: scaleX(0);
     transform-origin: left;
@@ -528,7 +562,7 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
-    color: #f4f4f4;
+    color: #f5f5f2;
     padding: 13px 15px;
     font-size: 0.88rem;
     font-family: inherit;
@@ -538,15 +572,15 @@
     appearance: none;
   }
   .cf-inp::placeholder {
-    color: rgba(244, 244, 244, 0.28);
+    color: rgba(245, 245, 242, 0.28);
   }
   .cf-inp:focus {
-    border-color: rgba(200, 16, 46, 0.55);
-    background: rgba(200, 16, 46, 0.04);
+    border-color: rgba(229, 9, 32, 0.55);
+    background: rgba(229, 9, 32, 0.04);
   }
   .cf-inp option {
     background: #0d0d0d;
-    color: #f4f4f4;
+    color: #f5f5f2;
   }
   .cf-lbl {
     display: block;
@@ -554,7 +588,7 @@
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(244, 244, 244, 0.45);
+    color: rgba(245, 245, 242, 0.45);
     margin-bottom: 8px;
   }
 
@@ -578,15 +612,15 @@
 
   /* ── Work slider ── */
   .ws-digit {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     line-height: 0.84;
     letter-spacing: -0.01em;
-    background: linear-gradient(180deg, rgba(232, 25, 44, 0.3), rgba(232, 25, 44, 0.03));
+    background: linear-gradient(180deg, rgba(240, 38, 60, 0.3), rgba(240, 38, 60, 0.03));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-text-stroke: 2px rgba(232, 25, 44, 0.55);
-    filter: drop-shadow(0 0 42px rgba(200, 16, 46, 0.45));
+    -webkit-text-stroke: 2px rgba(240, 38, 60, 0.55);
+    filter: drop-shadow(0 0 42px rgba(229, 9, 32, 0.45));
   }
   .ws-bar {
     width: 56px;
@@ -607,7 +641,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: #e8192c;
+    background: #f0263c;
     border-radius: inherit;
     transform: scaleX(0);
     transform-origin: left;
@@ -623,16 +657,16 @@
     background: transparent;
     display: grid;
     place-items: center;
-    color: rgba(244, 244, 244, 0.7);
+    color: rgba(245, 245, 242, 0.7);
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.25s;
   }
   .ws-arrow:hover {
-    border-color: rgba(200, 16, 46, 0.55);
-    color: #e8192c;
-    background: rgba(200, 16, 46, 0.08);
-    box-shadow: 0 8px 30px rgba(200, 16, 46, 0.2);
+    border-color: rgba(229, 9, 32, 0.55);
+    color: #f0263c;
+    background: rgba(229, 9, 32, 0.08);
+    box-shadow: 0 8px 30px rgba(229, 9, 32, 0.2);
   }
   .ws-arrow:active {
     transform: scale(0.9);
@@ -665,7 +699,7 @@
     width: 3px;
     height: 62%;
     border-radius: 2px;
-    background: linear-gradient(#e8192c, #c8102e);
+    background: linear-gradient(#f0263c, #e50920);
     transform: translateY(-50%) scaleY(0);
     transition: transform 0.35s cubic-bezier(0.19, 1, 0.22, 1);
   }
@@ -674,33 +708,33 @@
   }
   .ind-it.on {
     padding-left: 24px;
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.12), transparent 72%);
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.12), transparent 72%);
   }
   .ind-it:hover {
     background: rgba(255, 255, 255, 0.025);
   }
   .ind-it.on:hover {
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.14), transparent 72%);
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.14), transparent 72%);
   }
   .ind-num {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 1rem;
     letter-spacing: 0.08em;
-    color: rgba(232, 25, 44, 0.42);
+    color: rgba(240, 38, 60, 0.42);
     width: 30px;
     flex-shrink: 0;
     transition: color 0.3s;
   }
   .ind-it.on .ind-num {
-    color: #e8192c;
+    color: #f0263c;
   }
   .ind-name {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.035em;
     line-height: 1;
     font-size: clamp(1.5rem, 2.3vw, 2.3rem);
-    color: rgba(244, 244, 244, 0.48);
+    color: rgba(245, 245, 242, 0.48);
     transition: color 0.35s;
   }
   .ind-it.on .ind-name {
@@ -710,7 +744,7 @@
     width: 22px;
     height: 22px;
     margin-left: auto;
-    color: #e8192c;
+    color: #f0263c;
     opacity: 0;
     transform: translateX(-12px);
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -733,7 +767,7 @@
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(244, 244, 244, 0.9);
+    color: rgba(245, 245, 242, 0.9);
   }
   .ind-seg {
     position: relative;
@@ -748,7 +782,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: #e8192c;
+    background: #f0263c;
     transform: scaleX(0);
     transform-origin: left;
   }
@@ -768,27 +802,27 @@
     animation-duration: 5s;
   }
   .tst-mark {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(232, 25, 44, 0.22);
-    filter: drop-shadow(0 0 60px rgba(200, 16, 46, 0.18));
+    -webkit-text-stroke: 1.5px rgba(240, 38, 60, 0.22);
+    filter: drop-shadow(0 0 60px rgba(229, 9, 32, 0.18));
     user-select: none;
   }
   .tst-ava {
     width: 54px;
     height: 54px;
     border-radius: 50%;
-    border: 1px solid rgba(200, 16, 46, 0.45);
-    background: linear-gradient(160deg, rgba(200, 16, 46, 0.22), rgba(200, 16, 46, 0.05));
+    border: 1px solid rgba(229, 9, 32, 0.45);
+    background: linear-gradient(160deg, rgba(229, 9, 32, 0.22), rgba(229, 9, 32, 0.05));
     display: grid;
     place-items: center;
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 1.15rem;
     letter-spacing: 0.06em;
-    color: #e8192c;
+    color: #f0263c;
     flex-shrink: 0;
-    box-shadow: 0 0 30px rgba(200, 16, 46, 0.18);
+    box-shadow: 0 0 30px rgba(229, 9, 32, 0.18);
   }
 
   /* ── Chip animation delays ── */
@@ -834,7 +868,7 @@
     left: 0;
     width: 3px;
     height: 100%;
-    background: #e8192c;
+    background: #f0263c;
     transform: scaleY(0);
     transform-origin: top;
     transition: transform 0.32s cubic-bezier(0.19, 1, 0.22, 1);
@@ -844,13 +878,13 @@
     transform: scaleY(1);
   }
   .faq-item.faq-open {
-    background: rgba(200, 16, 46, 0.035);
+    background: rgba(229, 9, 32, 0.035);
   }
   .faq-item:hover {
     background: rgba(255, 255, 255, 0.018);
   }
   .faq-item.faq-open:hover {
-    background: rgba(200, 16, 46, 0.048);
+    background: rgba(229, 9, 32, 0.048);
   }
   .faq-row {
     display: flex;
@@ -860,10 +894,10 @@
     user-select: none;
   }
   .faq-num {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 0.92rem;
     letter-spacing: 0.08em;
-    color: rgba(232, 25, 44, 0.36);
+    color: rgba(240, 38, 60, 0.36);
     flex-shrink: 0;
     width: 26px;
     line-height: 1;
@@ -871,20 +905,20 @@
   }
   .faq-item.faq-open .faq-num,
   .faq-item:hover .faq-num {
-    color: rgba(232, 25, 44, 0.72);
+    color: rgba(240, 38, 60, 0.72);
   }
   .faq-q {
     flex: 1;
     font-size: clamp(0.96rem, 1.3vw, 1.1rem);
     font-weight: 600;
-    color: rgba(244, 244, 244, 0.75);
+    color: rgba(245, 245, 242, 0.75);
     letter-spacing: 0.008em;
     line-height: 1.42;
     transition: color 0.22s;
   }
   .faq-item.faq-open .faq-q,
   .faq-item:hover .faq-q {
-    color: rgba(244, 244, 244, 0.96);
+    color: rgba(245, 245, 242, 0.96);
   }
   .faq-icon {
     width: 34px;
@@ -894,25 +928,25 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    color: rgba(200, 16, 46, 0.55);
+    color: rgba(229, 9, 32, 0.55);
     transition: transform 0.38s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.22s, background 0.22s, color 0.22s;
   }
   .faq-item.faq-open .faq-icon {
     transform: rotate(180deg);
-    border-color: rgba(200, 16, 46, 0.36);
-    background: rgba(200, 16, 46, 0.07);
-    color: #e8192c;
+    border-color: rgba(229, 9, 32, 0.36);
+    background: rgba(229, 9, 32, 0.07);
+    color: #f0263c;
   }
   .faq-ans {
     padding: 0 28px 28px calc(32px + 44px);
   }
   .faq-ans p {
     font-size: 0.92rem;
-    color: rgba(244, 244, 244, 0.48);
+    color: rgba(245, 245, 242, 0.48);
     line-height: 1.82;
   }
   .faq-ans a {
-    color: #e8192c;
+    color: #f0263c;
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: color 0.2s;
@@ -929,16 +963,16 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #c8102e, transparent);
+    background: linear-gradient(90deg, transparent, #e50920, transparent);
   }
   .ft-lnk {
     font-size: 0.88rem !important;
-    color: rgba(244, 244, 244, 0.46);
+    color: rgba(245, 245, 242, 0.46);
     text-decoration: none;
     transition: color 0.22s;
   }
   .ft-lnk:hover {
-    color: #f4f4f4;
+    color: #f5f5f2;
   }
   .ft-ico {
     width: 36px;
@@ -948,15 +982,15 @@
     background: rgba(255, 255, 255, 0.04);
     display: grid;
     place-items: center;
-    color: rgba(244, 244, 244, 0.5);
+    color: rgba(245, 245, 242, 0.5);
     transition: border-color 0.22s, color 0.22s, background 0.22s;
     text-decoration: none;
     flex-shrink: 0;
   }
   .ft-ico:hover {
-    border-color: rgba(200, 16, 46, 0.32);
-    color: #e8192c;
-    background: rgba(200, 16, 46, 0.08);
+    border-color: rgba(229, 9, 32, 0.32);
+    color: #f0263c;
+    background: rgba(229, 9, 32, 0.08);
   }
 
   /* ═══ Blog listing ═══ */
@@ -969,8 +1003,8 @@
     transition: border-color 0.4s, box-shadow 0.4s;
   }
   .feat-card:hover {
-    border-color: rgba(200, 16, 46, 0.3);
-    box-shadow: 0 60px 120px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 16, 46, 0.1);
+    border-color: rgba(229, 9, 32, 0.3);
+    box-shadow: 0 60px 120px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(229, 9, 32, 0.1);
   }
   .feat-card .ci {
     transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
@@ -989,8 +1023,8 @@
     transition: border-color 0.45s, box-shadow 0.45s, transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
   }
   .bc:hover {
-    border-color: rgba(200, 16, 46, 0.28);
-    box-shadow: 0 60px 120px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(200, 16, 46, 0.1);
+    border-color: rgba(229, 9, 32, 0.28);
+    box-shadow: 0 60px 120px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(229, 9, 32, 0.1);
     transform: translateY(-12px);
   }
   .bc .ci {
@@ -1006,7 +1040,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #e8192c 0%, rgba(200, 16, 46, 0.45) 55%, transparent 100%);
+    background: linear-gradient(90deg, #f0263c 0%, rgba(229, 9, 32, 0.45) 55%, transparent 100%);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
@@ -1022,7 +1056,7 @@
     top: 20px;
     bottom: 20px;
     width: 2px;
-    background: linear-gradient(180deg, transparent, #e8192c 40%, #e8192c 60%, transparent);
+    background: linear-gradient(180deg, transparent, #f0263c 40%, #f0263c 60%, transparent);
     opacity: 0;
     transition: opacity 0.45s;
     z-index: 5;
@@ -1034,7 +1068,7 @@
   .img-tint {
     position: absolute;
     inset: 0;
-    background: linear-gradient(150deg, rgba(200, 16, 46, 0.12) 0%, transparent 60%);
+    background: linear-gradient(150deg, rgba(229, 9, 32, 0.12) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.6s;
     pointer-events: none;
@@ -1060,15 +1094,15 @@
     }
   }
   .pnum {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.2em;
-    color: rgba(200, 16, 46, 0.45);
+    color: rgba(229, 9, 32, 0.45);
     line-height: 1;
   }
   .card-div {
     height: 1px;
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.2), transparent);
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.2), transparent);
   }
   .sec-bar {
     display: flex;
@@ -1079,12 +1113,12 @@
   .sec-bar .sec-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.14), transparent);
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.14), transparent);
   }
   .sec-bar .sec-spine {
     width: 2px;
     height: 28px;
-    background: linear-gradient(180deg, #e8192c, rgba(200, 16, 46, 0.15));
+    background: linear-gradient(180deg, #f0263c, rgba(229, 9, 32, 0.15));
     border-radius: 2px;
     flex-shrink: 0;
   }
@@ -1094,13 +1128,13 @@
     height: 24px;
     padding: 0 12px;
     border-radius: 100px;
-    background: rgba(200, 16, 46, 0.1);
-    border: 1px solid rgba(200, 16, 46, 0.24);
+    background: rgba(229, 9, 32, 0.1);
+    border: 1px solid rgba(229, 9, 32, 0.24);
     font-size: 0.57rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #e8192c;
+    color: #f0263c;
   }
   .sl-card {
     width: 92%;
@@ -1150,7 +1184,7 @@
   }
   .prose h2 {
     counter-increment: sec;
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: clamp(1.9rem, 3.6vw, 2.7rem);
     letter-spacing: 0.025em;
     text-transform: uppercase;
@@ -1158,7 +1192,7 @@
     margin: 2.7em 0 0.85em;
     padding-top: 1.1em;
     border-top: 1px solid rgba(255, 255, 255, 0.07);
-    color: #f4f4f4;
+    color: #f5f5f2;
     scroll-margin-top: 110px;
   }
   .prose h2::before {
@@ -1166,7 +1200,7 @@
     display: block;
     font-size: 0.74rem;
     letter-spacing: 0.26em;
-    color: rgba(232, 25, 44, 0.85);
+    color: rgba(240, 38, 60, 0.85);
     margin-bottom: 12px;
   }
   .prose h2:first-child {
@@ -1175,28 +1209,28 @@
     border-top: none;
   }
   .prose h3 {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: clamp(1.35rem, 2.5vw, 1.85rem);
     letter-spacing: 0.03em;
     text-transform: uppercase;
     line-height: 1;
     margin: 2.2em 0 0.65em;
-    color: #e8192c;
+    color: #f0263c;
   }
   .prose p {
     overflow-wrap: break-word;
     font-size: clamp(0.99rem, 1.25vw, 1.1rem);
     line-height: 1.92;
-    color: rgba(244, 244, 244, 0.74);
+    color: rgba(245, 245, 242, 0.74);
     margin-bottom: 1.55em;
   }
   .prose > p:first-of-type::first-letter {
-    font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+    font-family: var(--font-display), 'Bebas Neue', sans-serif;
     font-size: 3.4em;
     line-height: 0.78;
     float: left;
     padding: 8px 14px 0 0;
-    color: #e8192c;
+    color: #f0263c;
   }
   .prose ul,
   .prose ol {
@@ -1206,42 +1240,42 @@
   .prose li {
     font-size: clamp(0.99rem, 1.25vw, 1.1rem);
     line-height: 1.84;
-    color: rgba(244, 244, 244, 0.74);
+    color: rgba(245, 245, 242, 0.74);
     margin-bottom: 0.62em;
     padding-left: 0.35em;
   }
   .prose ul li::marker {
-    color: #e8192c;
+    color: #f0263c;
   }
   .prose ol li::marker {
-    color: #e8192c;
+    color: #f0263c;
     font-weight: 700;
   }
   .prose strong {
-    color: #f4f4f4;
+    color: #f5f5f2;
     font-weight: 700;
   }
   .prose a {
-    color: #e8192c;
+    color: #f0263c;
     text-decoration: underline;
     text-underline-offset: 4px;
-    text-decoration-color: rgba(232, 25, 44, 0.4);
+    text-decoration-color: rgba(240, 38, 60, 0.4);
     transition: color 0.2s, text-decoration-color 0.2s;
   }
   .prose a:hover {
-    color: #f4f4f4;
-    text-decoration-color: #e8192c;
+    color: #f5f5f2;
+    text-decoration-color: #f0263c;
   }
   .prose blockquote {
     position: relative;
-    border-left: 2px solid #e8192c;
+    border-left: 2px solid #f0263c;
     padding: 1.2em 1.6em;
     margin: 2.2em 0;
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.08), rgba(200, 16, 46, 0.02));
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.08), rgba(229, 9, 32, 0.02));
     border-radius: 0 10px 10px 0;
   }
   .prose blockquote p {
-    color: rgba(244, 244, 244, 0.82);
+    color: rgba(245, 245, 242, 0.82);
     font-style: italic;
     margin: 0;
     font-size: 1.05em;
@@ -1249,8 +1283,8 @@
   .prose code {
     overflow-wrap: anywhere;
     font-size: 0.88em;
-    background: rgba(200, 16, 46, 0.1);
-    border: 1px solid rgba(200, 16, 46, 0.18);
+    background: rgba(229, 9, 32, 0.1);
+    border: 1px solid rgba(229, 9, 32, 0.18);
     padding: 2px 7px;
     border-radius: 5px;
     color: #ff8a96;
@@ -1266,20 +1300,20 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #e8192c;
+    color: #f0263c;
     text-align: left;
     padding: 10px 14px;
-    border-bottom: 1px solid rgba(200, 16, 46, 0.3);
+    border-bottom: 1px solid rgba(229, 9, 32, 0.3);
   }
   .prose td {
     padding: 12px 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    color: rgba(244, 244, 244, 0.7);
+    color: rgba(245, 245, 242, 0.7);
   }
   .prose hr {
     border: none;
     height: 1px;
-    background: linear-gradient(90deg, rgba(200, 16, 46, 0.35), rgba(255, 255, 255, 0.07), transparent);
+    background: linear-gradient(90deg, rgba(229, 9, 32, 0.35), rgba(255, 255, 255, 0.07), transparent);
     margin: 3em 0;
   }
 }

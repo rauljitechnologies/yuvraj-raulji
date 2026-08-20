@@ -30,7 +30,7 @@ export function Faq() {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 55% 55% at 100% 100%,rgba(200,16,46,.07),transparent),radial-gradient(ellipse 40% 40% at 0% 0%,rgba(200,16,46,.04),transparent)',
+            'radial-gradient(ellipse 55% 55% at 100% 100%,rgba(229, 9, 32,.07),transparent),radial-gradient(ellipse 40% 40% at 0% 0%,rgba(229, 9, 32,.04),transparent)',
         }}
       />
 
@@ -41,17 +41,17 @@ export function Faq() {
             <p className="sec-kicker inline-flex items-center gap-[10px] text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-[12px]">
               Frequently Asked
             </p>
-            <h2 className="font-bebas uppercase leading-[.90]" style={{ fontSize: 'clamp(2.8rem,5.2vw,5rem)', letterSpacing: '.02em' }}>
+            <h2 className="font-display uppercase leading-[.90]" style={{ fontSize: 'clamp(2.8rem,5.2vw,5rem)', letterSpacing: '.02em' }}>
               Frequently Asked
               <br />
-              <span style={{ color: 'rgba(244,244,244,.28)' }}>Questions</span>
+              <span style={{ color: 'rgba(245, 245, 242,.28)' }}>Questions</span>
             </h2>
-            <p className="mt-6" style={{ fontSize: 'clamp(.92rem,1.1vw,1.02rem)', lineHeight: 1.8, color: 'rgba(244,244,244,.50)', maxWidth: 380 }}>
+            <p className="mt-6" style={{ fontSize: 'clamp(.92rem,1.1vw,1.02rem)', lineHeight: 1.8, color: 'rgba(245, 245, 242,.50)', maxWidth: 380 }}>
               Everything you need to know before we begin building your brand&rsquo;s digital future. Can&rsquo;t find your answer?
             </p>
             <button
               onClick={() => setContactOpen(true)}
-              className="mt-6 inline-flex items-center gap-2 h-[44px] px-[22px] rounded-md border border-[rgba(200,16,46,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase bg-transparent cursor-pointer whitespace-nowrap transition-all duration-200 hover:bg-red hover:text-white hover:border-red hover:-translate-y-px"
+              className="mt-6 inline-flex items-center gap-2 h-[44px] px-[22px] rounded-md border border-[rgba(229, 9, 32,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase bg-transparent cursor-pointer whitespace-nowrap transition-all duration-200 hover:bg-red hover:text-white hover:border-red hover:-translate-y-px"
             >
               Ask Directly &nbsp;→
             </button>
@@ -73,7 +73,7 @@ export function Faq() {
                   );
                 })}
               </div>
-              <p className="font-bebas text-[1.05rem] tracking-[.14em] text-[rgba(244,244,244,.45)] mt-2">/ 08 &nbsp;Answered</p>
+              <p className="font-display text-[1.05rem] tracking-[.14em] text-[rgba(245, 245, 242,.45)] mt-2">/ 08 &nbsp;Answered</p>
             </div>
           </div>
 

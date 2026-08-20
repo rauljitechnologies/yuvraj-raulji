@@ -31,7 +31,7 @@ export function Analytics() {
         <RevealGroup as="ul" className="mt-[clamp(44px,5vw,68px)] grid gap-px overflow-hidden rounded-md border border-line sm:grid-cols-2" each={0.05}>
           {ANALYTICS_STACK.map((a) => (
             <RevealItem key={a.title} as="li" className="flex flex-col bg-bg p-7 transition-colors duration-200 hover:bg-elevated">
-              <h3 className="font-bebas text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
+              <h3 className="font-display text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
                 {a.title}
               </h3>
               <p className="mt-2.5 text-[.9rem] leading-[1.65] text-ink-secondary">{a.desc}</p>
@@ -71,7 +71,7 @@ export function Seo() {
               as="li"
               className="rounded-md border border-line bg-surface p-6 transition-[border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40"
             >
-              <h3 className="font-bebas text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
+              <h3 className="font-display text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
                 {p.title}
               </h3>
               <p className="mt-2.5 text-[.9rem] leading-[1.65] text-ink-secondary">{p.desc}</p>

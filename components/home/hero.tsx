@@ -56,7 +56,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 opacity-[.14]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(200,16,46,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(200,16,46,.08) 1px, transparent 1px)',
+            'linear-gradient(rgba(229, 9, 32,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(229, 9, 32,.08) 1px, transparent 1px)',
           backgroundSize: '72px 72px',
           maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 100%)',
           WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 100%)',
@@ -78,7 +78,7 @@ export function Hero() {
             <motion.h1
               variants={item}
               id="hero-title"
-              className="mt-6 font-bebas text-display uppercase leading-[.92] tracking-[.02em] text-ink"
+              className="mt-6 font-display text-display uppercase leading-[.92] tracking-[.02em] text-ink"
             >
               E-commerce &amp; Digital
               <br />
@@ -128,7 +128,7 @@ export function Hero() {
                 <div key={s.label} className="border-b border-r border-line px-5 py-4 last:border-r-0 sm:border-b-0">
                   <dt className="sr-only">{s.label}</dt>
                   <dd>
-                    <strong className="block font-bebas text-[clamp(1.5rem,2.4vw,2.1rem)] leading-none tracking-[.04em] text-accent-bright">
+                    <strong className="block font-display text-[clamp(1.5rem,2.4vw,2.1rem)] leading-none tracking-[.04em] text-accent-bright">
                       {s.value}
                     </strong>
                     <span aria-hidden="true" className="mt-1 block text-[.7rem] font-semibold uppercase tracking-[.12em] text-ink-muted">

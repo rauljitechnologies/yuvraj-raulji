@@ -41,7 +41,7 @@ export function GenerativeAI() {
         <RevealGroup as="ul" className="mt-[clamp(44px,5vw,68px)] grid gap-px overflow-hidden rounded-md border border-line sm:grid-cols-2 lg:grid-cols-3" each={0.05}>
           {GENERATIVE_AI.map((item) => (
             <RevealItem key={item.title} as="li" className="bg-bg p-7 transition-colors duration-200 hover:bg-elevated">
-              <h3 className="font-bebas text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
+              <h3 className="font-display text-[clamp(1.15rem,1.6vw,1.45rem)] uppercase tracking-[.04em] text-ink">
                 {item.title}
               </h3>
               <p className="mt-2.5 text-[.9rem] leading-[1.65] text-ink-secondary">{item.desc}</p>
@@ -102,10 +102,10 @@ export function AgenticAI() {
                   }`}
                 >
                   <div className="flex items-baseline gap-2.5">
-                    <span aria-hidden="true" className="font-bebas text-[.9rem] tracking-[.14em] text-accent-bright">
+                    <span aria-hidden="true" className="font-display text-[.9rem] tracking-[.14em] text-accent-bright">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <h4 className="font-bebas text-[1.15rem] uppercase tracking-[.04em] text-ink">{s.step}</h4>
+                    <h4 className="font-display text-[1.15rem] uppercase tracking-[.04em] text-ink">{s.step}</h4>
                   </div>
                   <p className="mt-2 text-[.85rem] leading-[1.6] text-ink-secondary">{s.desc}</p>
                 </RevealItem>

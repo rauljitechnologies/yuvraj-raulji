@@ -61,7 +61,7 @@ export function SiteHeader({ active }: { active?: string }) {
   };
 
   const panelLink =
-    'font-bebas text-[2.4rem] uppercase leading-none tracking-[.06em] text-[#f4f4f4] transition-colors duration-200 hover:text-rv focus-visible:text-rv';
+    'font-display text-[2.4rem] uppercase leading-none tracking-[.06em] text-[#f5f5f2] transition-colors duration-200 hover:text-rv focus-visible:text-rv';
 
   return (
     <>
@@ -105,7 +105,7 @@ export function SiteHeader({ active }: { active?: string }) {
       {/* ── Header ── */}
       <header
         className={`fixed inset-x-0 top-0 z-[800] border-b border-transparent transition-[background-color,border-color] duration-300 ${
-          scrolled ? 'border-[rgba(200,16,46,.14)] bg-[rgba(6,6,6,.88)] backdrop-blur-xl' : ''
+          scrolled ? 'border-[rgba(229, 9, 32,.14)] bg-[rgba(6,6,6,.88)] backdrop-blur-xl' : ''
         }`}
       >
         <div className="mx-auto flex h-[74px] max-w-shell items-center justify-between gap-6 px-6 md:px-10">
@@ -116,7 +116,7 @@ export function SiteHeader({ active }: { active?: string }) {
           >
             <span
               aria-hidden="true"
-              className="grid h-8 w-8 place-items-center rounded-full border border-[rgba(200,16,46,.32)] text-[.7rem] font-bold text-rv"
+              className="grid h-8 w-8 place-items-center rounded-full border border-[rgba(229, 9, 32,.32)] text-[.7rem] font-bold text-rv"
             >
               YR
             </span>
@@ -129,8 +129,8 @@ export function SiteHeader({ active }: { active?: string }) {
                 key={l.label}
                 href={l.href}
                 aria-current={active === l.label ? 'page' : undefined}
-                className={`nav-link text-[.74rem] font-semibold uppercase tracking-[.1em] transition-colors duration-200 hover:text-[#f4f4f4] ${
-                  active === l.label ? 'text-[#f4f4f4]' : 'text-[rgba(244,244,244,.60)]'
+                className={`nav-link text-[.74rem] font-semibold uppercase tracking-[.1em] transition-colors duration-200 hover:text-[#f5f5f2] ${
+                  active === l.label ? 'text-[#f5f5f2]' : 'text-[rgba(245, 245, 242,.60)]'
                 }`}
               >
                 {l.label}
@@ -140,7 +140,7 @@ export function SiteHeader({ active }: { active?: string }) {
             <button
               type="button"
               onClick={() => setContactOpen(true)}
-              className="nav-link cursor-pointer border-0 bg-transparent p-0 text-[.74rem] font-semibold uppercase tracking-[.1em] text-[rgba(244,244,244,.60)] transition-colors duration-200 hover:text-[#f4f4f4]"
+              className="nav-link cursor-pointer border-0 bg-transparent p-0 text-[.74rem] font-semibold uppercase tracking-[.1em] text-[rgba(245, 245, 242,.60)] transition-colors duration-200 hover:text-[#f5f5f2]"
             >
               Contact
             </button>
@@ -149,7 +149,7 @@ export function SiteHeader({ active }: { active?: string }) {
           <button
             type="button"
             onClick={() => setContactOpen(true)}
-            className="hidden h-10 items-center gap-[7px] whitespace-nowrap rounded bg-red px-5 text-[.72rem] font-bold uppercase tracking-[.1em] text-white transition-all duration-200 hover:-translate-y-px hover:bg-rv hover:shadow-[0_10px_36px_rgba(200,16,46,.32)] active:scale-[.96] lg:inline-flex touch-manipulation"
+            className="hidden h-10 items-center gap-[7px] whitespace-nowrap rounded bg-red px-5 text-[.72rem] font-bold uppercase tracking-[.1em] text-white transition-all duration-200 hover:-translate-y-px hover:bg-rv hover:shadow-[0_10px_36px_rgba(229, 9, 32,.32)] active:scale-[.96] lg:inline-flex touch-manipulation"
           >
             Consultation →
           </button>

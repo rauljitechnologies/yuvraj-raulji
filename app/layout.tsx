@@ -1,25 +1,44 @@
 import type { Metadata, Viewport } from 'next';
-import { Bebas_Neue, Space_Grotesk } from 'next/font/google';
+import { Bebas_Neue, Inter } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, GTM_CONTAINER_ID, SITE_URL } from '../lib/site';
 import './globals.css';
 
-const bebas = Bebas_Neue({
+/**
+ * Body face, and the only face paragraph copy is ever set in. The display
+ * faces below and above are drawn to be looked at; Inter is drawn to be read at
+ * 16px and at 0.66rem uppercase, which is where the other two get effortful.
+ *
+ * No `weight` array: that requests the variable font, so every weight from 400
+ * to 700 arrives in one file rather than four static cuts.
+ */
+const body = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+});
+
+/**
+ * The single display face, for every heading on every page, matching the face
+ * the production site sets its H1 in.
+ *
+ * Bebas Neue ships one cut only, so nothing here may ask for a bold weight:
+ * a `font-weight` above 400 makes the browser synthesise one by smearing the
+ * outlines. Every display rule pins 400 for that reason.
+ *
+ * It is condensed, so display type runs roughly a quarter shorter than a
+ * normal-width grotesque at the same size. Sizes tuned against a wider face
+ * will read small here.
+ */
+const display = Bebas_Neue({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-bebas',
+  variable: '--font-display',
 });
 
-const grotesk = Space_Grotesk({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-grotesk',
-});
-
-export const viewport: Viewport = { themeColor: '#060606' };
+export const viewport: Viewport = { themeColor: '#050505' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -35,8 +54,8 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bebas.variable} ${grotesk.variable}`}>
-      <body className="bg-bg text-[#f4f4f4] font-grotesk overflow-x-hidden">
+    <html lang="en" className={`${display.variable} ${body.variable}`}>
+      <body className="bg-bg text-[#f5f5f2] font-body overflow-x-hidden">
         {isProd && (
           <noscript>
             <iframe

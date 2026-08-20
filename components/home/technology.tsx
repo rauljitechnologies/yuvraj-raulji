@@ -9,11 +9,11 @@ import { useUI } from '../ui-context';
  * §17 Technology & Architecture. Migrated to the design tokens.
  *
  * Beyond swapping inline rgba() for token classes, this fixes the small-text
- * accent colours. globals.css states the rule plainly: #c8102e is 3.44:1 and is
- * for large text, fills and borders only — #e8192c is the only accent safe for
+ * accent colours. globals.css states the rule plainly: #e50920 is 3.44:1 and is
+ * for large text, fills and borders only — #f0263c is the only accent safe for
  * small text. The group subtitle, level badge, count strip and CTA were all
- * setting #c8102e at 55–70% opacity at .58–.66rem, well under 3:1. They now use
- * `text-accent-bright` at full opacity; #c8102e survives only in borders,
+ * setting #e50920 at 55–70% opacity at .58–.66rem, well under 3:1. They now use
+ * `text-accent-bright` at full opacity; #e50920 survives only in borders,
  * fills and the icon strokes, where it is allowed.
  */
 
@@ -85,7 +85,7 @@ export function Technology() {
       aria-labelledby="technology-title"
       className="relative overflow-hidden bg-surface py-section"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,16,46,.06),transparent)' }} />
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%,rgba(229, 9, 32,.06),transparent)' }} />
 
       <Container className="relative z-[1]">
         <Reveal className="mb-[clamp(48px,7vw,80px)] grid grid-cols-1 items-end gap-10 lg:grid-cols-[1fr_minmax(280px,.55fr)]">
@@ -121,7 +121,7 @@ export function Technology() {
                     <Icon name={g.icon} />
                   </div>
                   <div>
-                    <h3 className="font-bebas text-[1.05rem] uppercase leading-none tracking-[.08em] text-ink">{g.title}</h3>
+                    <h3 className="font-display text-[1.05rem] uppercase leading-none tracking-[.08em] text-ink">{g.title}</h3>
                     <p className="mt-[3px] text-[.65rem] font-bold uppercase tracking-[.22em] text-accent-bright">{g.sub}</p>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export function Technology() {
             <span
               aria-hidden="true"
               className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent-bright"
-              style={{ boxShadow: '0 0 0 0 rgba(232,25,44,.5)', animation: 'avP 1.6s infinite' }}
+              style={{ boxShadow: '0 0 0 0 rgba(240, 38, 60,.5)', animation: 'avP 1.6s infinite' }}
             />
             <span className="text-[.58rem] font-bold uppercase tracking-[.22em] text-ink-muted">
               30+ Technologies · 6 Core Disciplines · 9+ Years Hands-On

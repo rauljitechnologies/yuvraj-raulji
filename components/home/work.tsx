@@ -110,7 +110,7 @@ export function Work() {
               >
                 <Eyebrow className="mb-4">{s.cat}</Eyebrow>
                 <h3
-                  className="mb-5 max-w-[14ch] font-bebas uppercase leading-[.95] tracking-[.03em] text-ink"
+                  className="mb-5 max-w-[14ch] font-display uppercase leading-[.95] tracking-[.03em] text-ink"
                   style={{ fontSize: 'clamp(2.4rem,5.2vw,4.6rem)' }}
                 >
                   {s.title}
@@ -138,7 +138,7 @@ export function Work() {
             aria-hidden="true"
             style={{ animation: 'fl 7s ease-in-out infinite' }}
           >
-            <div className="absolute -inset-14 pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(200,16,46,.16) 0%,transparent 65%)' }} />
+            <div className="absolute -inset-14 pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(229, 9, 32,.16) 0%,transparent 65%)' }} />
             <div className="relative overflow-hidden" style={{ fontSize: 'clamp(9rem,18vw,20rem)', width: '1.18em', height: '.86em' }}>
               {WORK_SLIDES.map((s, i) => (
                 <span
@@ -177,7 +177,7 @@ export function Work() {
                 />
               ))}
             </div>
-            <span className="whitespace-nowrap font-bebas text-[1.1rem] tracking-[.12em] text-ink-muted">
+            <span className="whitespace-nowrap font-display text-[1.1rem] tracking-[.12em] text-ink-muted">
               <span className="text-accent-bright">{pad(ws + 1)}</span>
               &nbsp;/&nbsp;
               <span>{pad(WORK_SLIDES.length)}</span>
@@ -187,7 +187,7 @@ export function Work() {
           <div className="hidden xl:flex items-center gap-9">
             {WORK_METRICS.map((m) => (
               <div key={m.label} className="flex items-baseline gap-[10px]">
-                <span className="font-bebas text-[1.7rem] leading-none tracking-[.02em] text-accent-bright">
+                <span className="font-display text-[1.7rem] leading-none tracking-[.02em] text-accent-bright">
                   <span data-count={m.count}>0</span>
                   {m.suffix}
                 </span>

@@ -72,10 +72,10 @@ function ArchitectureDiagram() {
           <li key={layer.label} data-layer className="relative">
             <div className="rounded-md border border-line bg-gradient-to-r from-white/[.04] to-transparent p-5 transition-colors duration-200 hover:border-accent/30 sm:p-6">
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <span aria-hidden="true" className="font-bebas text-[.95rem] tracking-[.16em] text-accent-bright">
+                <span aria-hidden="true" className="font-display text-[.95rem] tracking-[.16em] text-accent-bright">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h4 className="font-bebas text-[clamp(1.15rem,1.6vw,1.5rem)] uppercase tracking-[.04em] text-ink">
+                <h4 className="font-display text-[clamp(1.15rem,1.6vw,1.5rem)] uppercase tracking-[.04em] text-ink">
                   {layer.label}
                 </h4>
               </div>
@@ -144,8 +144,8 @@ export function Infrastructure() {
               <dl className="grid grid-cols-3 gap-4">
                 {CWV_TARGETS.map((m) => (
                   <div key={m.metric}>
-                    <dt className="font-bebas text-[1.05rem] tracking-[.1em] text-ink-muted">{m.metric}</dt>
-                    <dd className="mt-1 font-bebas text-[clamp(1.3rem,2vw,1.7rem)] leading-none text-accent-bright">
+                    <dt className="font-display text-[1.05rem] tracking-[.1em] text-ink-muted">{m.metric}</dt>
+                    <dd className="mt-1 font-display text-[clamp(1.3rem,2vw,1.7rem)] leading-none text-accent-bright">
                       {m.target}
                     </dd>
                     <dd className="mt-1.5 text-[.68rem] leading-[1.4] text-ink-muted">{m.name}</dd>

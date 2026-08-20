@@ -29,7 +29,7 @@ export function Contact() {
             <Eyebrow className="mb-[14px]">Private Consultation</Eyebrow>
             <h2
               id="contact-title"
-              className="mb-4 font-bebas text-display uppercase leading-[.92] tracking-[.03em] text-ink"
+              className="mb-4 font-display text-display uppercase leading-[.92] tracking-[.03em] text-ink"
             >
               Let&rsquo;s Build
               <br />

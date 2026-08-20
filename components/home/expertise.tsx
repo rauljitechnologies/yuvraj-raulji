@@ -48,13 +48,13 @@ export function Expertise() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="font-bebas text-[1.35rem] leading-none tracking-[.08em] text-ink-faint transition-colors duration-200 group-hover:text-accent-bright"
+                  className="font-display text-[1.35rem] leading-none tracking-[.08em] text-ink-faint transition-colors duration-200 group-hover:text-accent-bright"
                 >
                   {c.num}
                 </span>
               </div>
 
-              <h3 className="mb-3 font-bebas text-[clamp(1.3rem,1.9vw,1.75rem)] uppercase leading-[1.05] tracking-[.03em] text-ink">
+              <h3 className="mb-3 font-display text-[clamp(1.3rem,1.9vw,1.75rem)] uppercase leading-[1.05] tracking-[.03em] text-ink">
                 {c.title}
               </h3>
 

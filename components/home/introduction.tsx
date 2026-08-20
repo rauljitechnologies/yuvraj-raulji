@@ -33,7 +33,7 @@ export function Introduction() {
             </p>
             <h2
               id="intro-title"
-              className="mt-5 font-bebas text-h2 uppercase leading-[.98] tracking-[.02em] text-ink"
+              className="mt-5 font-display text-h2 uppercase leading-[.98] tracking-[.02em] text-ink"
             >
               Yuvraj Raulji — E-commerce Technology Consultant &amp; Strategist
             </h2>
@@ -68,7 +68,7 @@ export function Introduction() {
             >
               {PROOF.map((p) => (
                 <RevealItem key={p.label} as="li" className="bg-surface px-5 py-5">
-                  <strong className="block font-bebas text-[clamp(1.5rem,2.4vw,2rem)] leading-none tracking-[.04em] text-accent-bright">
+                  <strong className="block font-display text-[clamp(1.5rem,2.4vw,2rem)] leading-none tracking-[.04em] text-accent-bright">
                     {p.value}
                   </strong>
                   <span className="mt-2 block text-[.7rem] font-semibold uppercase leading-[1.35] tracking-[.1em] text-ink-muted">

@@ -5,16 +5,16 @@ import type { Heading } from '../../lib/articles';
 import { CONTACT } from '../../lib/site';
 
 const panelCls = 'p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2';
-const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,#e8192c,rgba(200,16,46,.15))', borderRadius: 2, flexShrink: 0 }} />;
+const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,#f0263c,rgba(229, 9, 32,.15))', borderRadius: 2, flexShrink: 0 }} />;
 const shareBtnCls =
-  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(200,16,46,.28)]';
-const shareBtnStyle: React.CSSProperties = { border: '1px solid rgba(255,255,255,.12)', color: 'rgba(244,244,244,.55)', fontSize: '.74rem', fontWeight: 700 };
+  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(229, 9, 32,.28)]';
+const shareBtnStyle: React.CSSProperties = { border: '1px solid rgba(255,255,255,.12)', color: 'rgba(245, 245, 242,.55)', fontSize: '.74rem', fontWeight: 700 };
 
 function PanelHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       {spine}
-      <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">{children}</p>
+      <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245, 245, 242,.50)]">{children}</p>
     </div>
   );
 }
@@ -43,7 +43,7 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
     <div className={mobile ? `lg:hidden p-6 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2 mb-10` : `hidden lg:block ${panelCls}`}>
       <div className={`flex items-center gap-3 ${mobile ? 'mb-4' : 'mb-5'}`}>
         {spine}
-        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(244,244,244,.50)]">On This Page</p>
+        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245, 245, 242,.50)]">On This Page</p>
       </div>
       <nav className={`flex flex-col ${mobile ? 'gap-[10px]' : 'gap-[12px]'}`}>
         {toc.map((h, i) => {
@@ -57,11 +57,11 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
                 document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
               }}
               className={`flex items-start gap-[10px] text-[.79rem] leading-[1.5] transition-colors duration-200 ${
-                mobile ? 'text-[rgba(244,244,244,.50)] hover:text-rv' : on ? 'text-rv' : 'text-[rgba(244,244,244,.48)] hover:text-[#f4f4f4]'
+                mobile ? 'text-[rgba(245, 245, 242,.50)] hover:text-rv' : on ? 'text-rv' : 'text-[rgba(245, 245, 242,.48)] hover:text-[#f5f5f2]'
               }`}
             >
               <span
-                className={`font-bebas pt-[2px] flex-shrink-0 ${mobile ? 'text-[rgba(200,16,46,.50)]' : on ? 'text-rv' : 'text-[rgba(200,16,46,.45)]'}`}
+                className={`font-display pt-[2px] flex-shrink-0 ${mobile ? 'text-[rgba(229, 9, 32,.50)]' : on ? 'text-rv' : 'text-[rgba(229, 9, 32,.45)]'}`}
                 style={{ fontSize: '.74rem', letterSpacing: '.08em' }}
               >
                 {String(i + 1).padStart(2, '0')}
@@ -108,27 +108,27 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
         <PanelHeading>Written By</PanelHeading>
         <div className="flex items-center gap-4 mb-4">
           <div
-            className="w-14 h-14 rounded-full grid place-items-center font-bebas text-rv text-xl flex-shrink-0"
-            style={{ border: '1px solid rgba(200,16,46,.35)', background: 'rgba(200,16,46,.08)', boxShadow: '0 0 28px rgba(200,16,46,.14)' }}
+            className="w-14 h-14 rounded-full grid place-items-center font-display text-rv text-xl flex-shrink-0"
+            style={{ border: '1px solid rgba(229, 9, 32,.35)', background: 'rgba(229, 9, 32,.08)', boxShadow: '0 0 28px rgba(229, 9, 32,.14)' }}
           >
             YR
           </div>
           <div>
             <p className="font-bold text-[.92rem]">Yuvraj Raulji</p>
-            <p className="text-[.70rem] text-[rgba(244,244,244,.46)] leading-snug">
+            <p className="text-[.70rem] text-[rgba(245, 245, 242,.46)] leading-snug">
               Full Stack E-commerce &amp;
               <br />
               AI Consultant · 9+ Years
             </p>
           </div>
         </div>
-        <p className="text-[.82rem] text-[rgba(244,244,244,.52)] leading-[1.7] mb-5">
+        <p className="text-[.82rem] text-[rgba(245, 245, 242,.52)] leading-[1.7] mb-5">
           Magento 2 architect, SEO/CRO strategist, AWS infrastructure specialist, and AI automation engineer based in Vadodara, India.
         </p>
         <div className="flex flex-col gap-[10px]">
           <a
             href={`mailto:${CONTACT.email}?subject=Blog+Article+Consultation`}
-            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(200,16,46,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229, 9, 32,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
           >
             Hire Me →
           </a>
@@ -136,7 +136,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             href={CONTACT.linkedin}
             target="_blank"
             rel="noopener"
-            className="flex items-center justify-center gap-2 h-11 rounded border border-[rgba(255,255,255,.12)] text-[.70rem] font-semibold tracking-[.12em] uppercase text-[rgba(244,244,244,.60)] transition-all hover:border-[rgba(200,16,46,.36)] hover:text-rv touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded border border-[rgba(255,255,255,.12)] text-[.70rem] font-semibold tracking-[.12em] uppercase text-[rgba(245, 245, 242,.60)] transition-all hover:border-[rgba(229, 9, 32,.36)] hover:text-rv touch-manipulation"
           >
             Connect on LinkedIn
           </a>
@@ -162,7 +162,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             className={shareBtnCls}
             style={
               copied
-                ? { border: '1px solid #e8192c', color: '#e8192c', fontSize: '.80rem', fontWeight: 700 }
+                ? { border: '1px solid #f0263c', color: '#f0263c', fontSize: '.80rem', fontWeight: 700 }
                 : { ...shareBtnStyle, fontSize: '.80rem' }
             }
           >
@@ -173,18 +173,18 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
       </div>
 
       {/* Contact CTA */}
-      <div className="relative p-7 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(200,16,46,.26)', background: 'linear-gradient(160deg,rgba(200,16,46,.10),rgba(200,16,46,.03))' }}>
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,rgba(232,25,44,.65),transparent)' }} />
+      <div className="relative p-7 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(229, 9, 32,.26)', background: 'linear-gradient(160deg,rgba(229, 9, 32,.10),rgba(229, 9, 32,.03))' }}>
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,rgba(240, 38, 60,.65),transparent)' }} />
         <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-rv mb-3">Free Consultation</p>
-        <p className="font-bebas text-[1.55rem] uppercase tracking-[.03em] leading-[.98] mb-3">
+        <p className="font-display text-[1.55rem] uppercase tracking-[.03em] leading-[.98] mb-3">
           Need Help With
           <br />
           Your Project?
         </p>
-        <p className="text-[.78rem] text-[rgba(244,244,244,.52)] leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
+        <p className="text-[.78rem] text-[rgba(245, 245, 242,.52)] leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
         <a
           href={`mailto:${CONTACT.email}?subject=Consultation+Request`}
-          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(200,16,46,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229, 9, 32,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
         >
           Book Now →
         </a>
@@ -199,7 +199,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
               <span
                 key={tag}
                 className="inline-flex items-center h-[26px] px-3 rounded-full text-[.60rem] font-bold tracking-[.10em] uppercase"
-                style={{ border: '1px solid rgba(200,16,46,.20)', background: 'rgba(200,16,46,.05)', color: 'rgba(244,244,244,.55)' }}
+                style={{ border: '1px solid rgba(229, 9, 32,.20)', background: 'rgba(229, 9, 32,.05)', color: 'rgba(245, 245, 242,.55)' }}
               >
                 {tag}
               </span>
@@ -227,7 +227,7 @@ export function ReadingProgress() {
 
   return (
     <div className="fixed top-[74px] left-0 right-0 z-[810] h-[2px] bg-transparent" aria-hidden="true">
-      <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg,#c8102e,#e8192c)', transition: 'width .1s linear' }} />
+      <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg,#e50920,#f0263c)', transition: 'width .1s linear' }} />
     </div>
   );
 }

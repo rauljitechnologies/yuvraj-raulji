@@ -174,7 +174,7 @@ export function SiteEffects({ fullpage = false }: { fullpage?: boolean }) {
               const dy = (my - H / 2) * 0.009;
               const r = 0.7 + (i % 4) * 0.36;
               ctx.beginPath();
-              ctx.fillStyle = i % 9 === 0 ? 'rgba(200,16,46,.65)' : 'rgba(244,244,244,.10)';
+              ctx.fillStyle = i % 9 === 0 ? 'rgba(229, 9, 32,.65)' : 'rgba(245, 245, 242,.10)';
               ctx.arc(x + dx * ((i % 6) - 2.5), y + dy * ((i % 4) - 1.5), r, 0, Math.PI * 2);
               ctx.fill();
             }
@@ -201,7 +201,7 @@ export function SiteEffects({ fullpage = false }: { fullpage?: boolean }) {
                 const d = Math.hypot(p.x - q.x, p.y - q.y);
                 if (d < 210) {
                   ctx.globalAlpha = (1 - d / 210) * 0.15;
-                  ctx.strokeStyle = 'rgba(200,16,46,1)';
+                  ctx.strokeStyle = 'rgba(229, 9, 32,1)';
                   ctx.lineWidth = 0.7;
                   ctx.beginPath();
                   ctx.moveTo(p.x, p.y);

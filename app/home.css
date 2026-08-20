@@ -1,0 +1,559 @@
+/* ═══════════════════════════════════════════════════════════════
+   HOMEPAGE
+
+   Two things keep this file off the rest of the site. Every class is
+   `yr-` prefixed, so nothing here can collide with the ported styles in
+   globals.css; and every value the classes depend on is declared on
+   `.home`, which only app/page.tsx renders, so a `yr-` class used
+   anywhere else would simply have nothing to resolve against.
+
+   The prefix is `yr-` and not `h-` for a specific reason: Tailwind owns
+   `h-*` for height, and it generates a utility for every key in
+   `theme.spacing`. `spacing.section` exists in tailwind.config.ts, so a
+   class named `.h-section` is also a real height utility, and the two
+   definitions fight. `yr-` cannot collide with anything Tailwind emits.
+
+   Colours come from the token block in globals.css and are never
+   redeclared. The one genuine addition is the display type scale, which
+   is larger than the shared scale on purpose: this page is set to be
+   read from further away.
+   ═══════════════════════════════════════════════════════════════ */
+
+.home {
+  /* Display scale. Every clamp is viewport-width based, so the jump from
+     phone to 1440 is continuous and there is no breakpoint where a
+     headline suddenly reflows to four lines. */
+  --hd-1: clamp(1.9rem, 5vw, 4.75rem);
+  --hd-2: clamp(1.75rem, 4.5vw, 4.1rem);
+  --hd-3: clamp(1.35rem, 2.4vw, 2.05rem);
+  --hd-year: clamp(2.6rem, 6vw, 5rem);
+  --hd-quote: clamp(1.5rem, 2.6vw, 2.3rem);
+
+  --rule: rgba(255, 255, 255, 0.08);
+  --rule-strong: rgba(255, 255, 255, 0.16);
+
+  --pad-y: clamp(84px, 10vw, 168px);
+  --pad-y-tall: clamp(112px, 14vw, 232px);
+  --shell: 1440px;
+  --gut: clamp(20px, 4.4vw, 64px);
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Shell ───────────────────────────────────────────────────── */
+
+.yr-shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+.yr-section {
+  position: relative;
+  padding-block: var(--pad-y);
+  border-top: 1px solid var(--rule);
+}
+
+/* The hero owns the top of the document; a rule above it would read as a
+   band of chrome under the navigation. */
+.yr-section--open {
+  border-top: 0;
+}
+
+/* Philosophy and the closing statement. Both are one idea with nothing
+   else in the section, so they get the extra air rather than each one
+   inventing its own padding. */
+.yr-section--tall {
+  padding-block: var(--pad-y-tall);
+}
+
+/* ── Section marker ──────────────────────────────────────────────
+   The number/label pair that opens every section. On wide screens it
+   sits in the left margin as a running head; below 1180 it folds up
+   above the content as a single line. */
+
+.yr-marker {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: var(--sp-block);
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.yr-marker__num {
+  color: var(--accent-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.yr-marker__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+}
+
+/* ── Display type ────────────────────────────────────────────────
+   None of these carry `margin: 0`, deliberately. Tailwind's preflight
+   already zeroes heading and paragraph margins, so the declaration was
+   redundant — and worse than redundant: this file loads after the
+   utilities, and `.yr-note` and `.mt-item` have identical specificity, so
+   a `margin: 0` here silently beat every spacing utility written onto one
+   of these elements. That is not a hypothetical; it was killing eleven of
+   them, which is why the page read as though it had no rhythm at all.
+   Add no margin to a class in this file that a component also spaces with
+   a utility.
+
+   `text-wrap: balance` is deliberately not used: the line breaks in
+   these headlines are authored in the content model, and letting the
+   browser rebalance them would undo that. */
+
+.yr-display {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  /* Bebas Neue ships one cut. Anything above 400 is synthesised. */
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+/* Display 1 is set to the proportions the live site uses on its hero H1:
+   lighter than the rest of the display scale, and tracked open rather than
+   tight. At this size the wide grotesque does not need weight to hold the
+   page, and positive tracking keeps the uppercase counters apart. */
+.yr-display--1 {
+  font-size: var(--hd-1);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+}
+
+.yr-display--2 {
+  font-size: var(--hd-2);
+}
+
+.yr-display--3 {
+  font-size: var(--hd-3);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+/* The second line of a two-line headline, dropped to the muted tone so
+   the pair reads as one statement with a beat in the middle. */
+.yr-display__soft {
+  color: var(--text-faint);
+}
+
+.yr-lede {
+  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 62ch;
+}
+
+.yr-note {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.yr-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ── Line-mask reveal ────────────────────────────────────────────
+   A display line rises out of a clipped box. The clip lives on the
+   wrapper so the glyph descenders are never cut once the animation has
+   settled: the wrapper keeps 0.14em of bottom padding and pulls it back
+   with an equal negative margin. */
+
+.yr-linemask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────
+   No magnetic pull, no travel under the pointer, OS cursor throughout.
+   Hover changes colour and the arrow advances; the button itself does
+   not move, so the pointer never chases a target. */
+
+.yr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  padding-inline: 30px;
+  border: 1px solid transparent;
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
+    color 0.22s var(--ease-out);
+}
+
+.yr-btn__arrow {
+  transition: transform 0.28s var(--ease-out);
+}
+
+.yr-btn:hover .yr-btn__arrow,
+.yr-btn:focus-visible .yr-btn__arrow {
+  transform: translateX(4px);
+}
+
+.yr-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.yr-btn--primary:hover,
+.yr-btn--primary:focus-visible {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
+
+.yr-btn--ghost {
+  background: transparent;
+  border-color: var(--rule-strong);
+  color: var(--text);
+}
+
+.yr-btn--ghost:hover,
+.yr-btn--ghost:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-bright);
+}
+
+/* ── Text link with a drawn rule ─────────────────────────────── */
+
+.yr-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding-bottom: 6px;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.36s var(--ease-out), color 0.22s var(--ease-out);
+}
+
+.yr-link:hover,
+.yr-link:focus-visible {
+  color: var(--accent-bright);
+  background-size: 100% 1px;
+}
+
+/* ── Editorial cards ─────────────────────────────────────────────
+   Square corners, hairline borders, no glass and no shadow. The hover
+   state tints the surface and draws a rule across the top edge; the
+   card does not lift or scale, because a grid of tiles that jump on
+   hover reads as a widget, not as a page. */
+
+.yr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-card);
+  background: transparent;
+  border: 1px solid var(--rule);
+  transition: background-color 0.32s var(--ease-out), border-color 0.32s var(--ease-out);
+}
+
+.yr-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px auto auto -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.44s var(--ease-out);
+}
+
+.yr-card:hover,
+.yr-card:focus-within {
+  background: rgba(255, 255, 255, 0.022);
+  border-color: var(--rule-strong);
+}
+
+.yr-card:hover::before,
+.yr-card:focus-within::before {
+  transform: scaleX(1);
+}
+
+.yr-card__num {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.32s var(--ease-out);
+}
+
+.yr-card:hover .yr-card__num,
+.yr-card:focus-within .yr-card__num {
+  color: var(--accent-bright);
+}
+
+.yr-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding-inline: 11px;
+  border: 1px solid var(--rule);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── Horizontal rail ─────────────────────────────────────────────
+   Native overflow with scroll-snap. No scroll hijacking, no transform
+   driven by wheel events: the rail is a scroll container, so a trackpad,
+   a touch drag, Shift+wheel and the keyboard all work without any
+   JavaScript at all. */
+
+.yr-rail {
+  display: flex;
+  gap: var(--sp-item);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--gut);
+  padding-inline: var(--gut);
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.yr-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Same scrollbar suppression for a scroller that is not a full rail: the
+   learning-lab track list becomes horizontal below `lg`, and a default
+   scrollbar under four tabs reads as a broken widget rather than as an
+   affordance. The partially visible next tab is the affordance. */
+.yr-scroll-x {
+  overflow-x: auto;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.yr-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+.yr-rail > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* ── Media frames ────────────────────────────────────────────────
+   Monochrome at rest, colour on hover, over a two-layer grade: a low red
+   wash from the top left and a near-black floor, so a bright cover sits
+   in the page instead of punching a hole in it.
+
+   `filter` is the one non-composited property animated anywhere on this
+   page. It is confined to a handful of large images that are never
+   animated during scroll, and it is paired with a `transform` that is
+   composited, so the cost lands on hover rather than on the scroll
+   critical path. */
+
+.yr-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.yr-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+  transition: filter 0.6s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+/* The hero portrait keeps its colour and a lighter grade. It is a face,
+   and it is the one image on the page that has to read as a person
+   rather than as atmosphere. */
+.yr-frame--live img {
+  filter: none;
+}
+
+a:hover .yr-frame img,
+a:focus-visible .yr-frame img {
+  filter: grayscale(0) contrast(1);
+}
+
+.yr-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(200deg, rgba(229, 9, 32, 0.16) 0%, rgba(229, 9, 32, 0) 44%),
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 5, 0.32) 0%,
+      rgba(5, 5, 5, 0.06) 38%,
+      rgba(5, 5, 5, 0.62) 100%
+    );
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.yr-frame--live::after {
+  opacity: 0.5;
+}
+
+a:hover .yr-frame::after,
+a:focus-visible .yr-frame::after {
+  opacity: 0.4;
+}
+
+/* ── Diagram strokes ─────────────────────────────────────────────
+   The six commerce diagrams draw themselves once, when the module
+   enters the viewport. `--dash` is set per path in the component so a
+   long path and a short one finish together. */
+
+/* No `vector-effect: non-scaling-stroke` here on purpose. The drawings render
+   larger than their 120-unit viewBox, and pinning the stroke to device pixels
+   would leave them looking wiry at that size; letting the stroke scale with the
+   art is what keeps the weight consistent with the type around it. */
+
+.yr-dia--draw [data-draw] {
+  stroke-dasharray: var(--dash, 200);
+  stroke-dashoffset: var(--dash, 200);
+  animation: yr-draw 1.15s var(--ease-out) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes yr-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.yr-dia [data-pulse] {
+  transform-origin: center;
+  animation: yr-pulse 2.6s var(--ease-inout) infinite;
+}
+
+@keyframes yr-pulse {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── Status dot ──────────────────────────────────────────────── */
+
+.yr-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+}
+
+.yr-dot::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: yr-ping 2.8s var(--ease-out) infinite;
+}
+
+@keyframes yr-ping {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.75;
+  }
+  70%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ── Scroll cue ──────────────────────────────────────────────── */
+
+.yr-cue__line {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(var(--accent), transparent);
+  transform-origin: top;
+  animation: yr-cue 2.4s var(--ease-inout) infinite;
+}
+
+@keyframes yr-cue {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  35% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1) translateY(46px);
+    opacity: 0;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────
+   The global rule in globals.css already collapses durations. These
+   three are looping decorations rather than transitions, so they are
+   switched off outright and left in their resting state. */
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-cue__line,
+  .yr-dot::after,
+  .yr-dia [data-pulse] {
+    animation: none;
+  }
+
+  .yr-dia--draw [data-draw] {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .yr-dot::after {
+    opacity: 0;
+  }
+}
