@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         // Semantic tokens
+        ground: 'var(--bg)',
         surface: 'var(--surface)',
         elevated: 'var(--surface-elevated)',
         line: 'var(--border)',
@@ -24,23 +25,27 @@ const config: Config = {
         // `border-accent/30` actually compile — see the note in globals.css.
         accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
         'accent-bright': 'rgb(var(--accent-bright-rgb) / <alpha-value>)',
+        'accent-deep': 'var(--accent-deep)',
         'accent-soft': 'var(--accent-soft)',
         success: 'var(--success)',
         warning: 'var(--warning)',
         error: 'var(--error)',
 
-        // Legacy aliases — do not use in new code
-        bg: '#050505',
-        bg2: '#0d0d0d',
-        red: '#e50920',
-        rv: '#f0263c',
+        // Legacy aliases — do not use in new code. Routed through the tokens
+        // rather than repeating hex values, so the Phase 1 palette reaches the
+        // pages that still carry these classes.
+        bg: 'var(--bg)',
+        bg2: 'var(--surface)',
+        red: 'var(--accent)',
+        rv: 'var(--accent-bright)',
       },
       fontFamily: {
-        display: ['var(--font-display)', '"Bebas Neue"', 'sans-serif'],
+        display: ['var(--font-display)', '"Space Grotesk"', 'system-ui', 'sans-serif'],
         // Kept as an alias so any `font-bebas` still in a template resolves to
         // the display face rather than silently falling back to the system
-        // stack. The site now sets all display type in Bebas Neue.
-        bebas: ['var(--font-display)', '"Bebas Neue"', 'sans-serif'],
+        // stack. The display face is Space Grotesk now; the alias name is
+        // wrong and stays only until the last template using it is migrated.
+        bebas: ['var(--font-display)', '"Space Grotesk"', 'system-ui', 'sans-serif'],
         body: ['var(--font-body)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         // Kept as an alias so any `font-grotesk` still in a template resolves to
         // the body face rather than silently falling back to the system stack.
@@ -63,7 +68,7 @@ const config: Config = {
         lifted: 'var(--shadow-lifted)',
         accent: 'var(--shadow-accent)',
       },
-      maxWidth: { shell: 'var(--container)' },
+      maxWidth: { shell: 'var(--container)', measure: '62ch' },
       spacing: {
         gutter: 'var(--gutter)',
         section: 'var(--section-y)',

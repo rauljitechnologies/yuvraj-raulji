@@ -21,7 +21,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "8 min read",
     "img": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
     "title": "Magento 2 SEO: The Complete Technical Audit Guide 2026",
-    "excerpt": "A step-by-step framework for auditing Magento 2 stores — XML sitemaps, canonical tags, hreflang, structured data, crawl budget"
+    "excerpt": "A step-by-step framework for auditing Magento 2 stores: XML sitemaps, canonical tags, hreflang, structured data, crawl budget"
   },
   "ai-ecommerce-revenue-2025": {
     "seoTitle": "AI for E-commerce in 2026: Real Use Cases That Drive Revenue",
@@ -31,7 +31,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "11 min read",
     "img": "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1600&q=80",
     "title": "AI for E-commerce in 2026: Real Use Cases That Actually Drive Revenue",
-    "excerpt": "Six battle-tested AI implementations — product recommendations, dynamic pricing, inventory forecasting, GPT catalog content, chatbot sales agents"
+    "excerpt": "Six battle-tested AI implementations: product recommendations, dynamic pricing, inventory forecasting, GPT catalog content, chatbot sales agents"
   },
   "magento2-checkout-optimization": {
     "cat": "Magento 2",
@@ -40,7 +40,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "9 min read",
     "img": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80",
     "title": "Magento 2 Checkout Optimization: Cut Cart Abandonment by 40%",
-    "excerpt": "Proven checkout redesign framework — one-page checkout, guest checkout, address autocomplete, payment UX, mobile-first form design"
+    "excerpt": "Proven checkout redesign framework: one-page checkout, guest checkout, address autocomplete, payment UX, mobile-first form design"
   },
   "shopify-plus-vs-magento2-2025": {
     "seoTitle": "Shopify Plus vs Magento 2 in 2026: Enterprise Comparison",
@@ -50,7 +50,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "12 min read",
     "img": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1600&q=80",
     "title": "Shopify Plus vs Magento 2 in 2026: The Definitive Enterprise Comparison",
-    "excerpt": "Real-world breakdown — TCO, customisation depth, B2B features, API capabilities, and which platform wins for which business model in 2026."
+    "excerpt": "Real-world breakdown of TCO, customisation depth, B2B features, API capabilities, and which platform wins for which business model in 2026."
   },
   "aws-magento2-server-setup": {
     "cat": "AWS & Server",
@@ -69,7 +69,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "14 min read",
     "img": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1600&q=80",
     "title": "Shopify Headless with Next.js: Complete Implementation Guide 2026",
-    "excerpt": "Step-by-step headless Shopify build using Next.js 14, Hydrogen 2.0, and Storefront API — cart, checkout, ISR, SEO best practices, and Vercel deployment."
+    "excerpt": "Step-by-step headless Shopify build using Next.js 14, Hydrogen 2.0, and Storefront API: cart, checkout, ISR, SEO best practices, and Vercel deployment."
   },
   "cro-double-conversion": {
     "cat": "SEO & CRO",
@@ -78,7 +78,7 @@ export const POSTS: Record<string, Post> = {
     "readTime": "10 min read",
     "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
     "title": "CRO Strategies That Double E-commerce Conversion Rates",
-    "excerpt": "Data-backed CRO frameworks from real Magento and Shopify stores — A/B testing methodology, heatmap analysis, checkout optimisation"
+    "excerpt": "Data-backed CRO frameworks from real Magento and Shopify stores: A/B testing methodology, heatmap analysis, checkout optimisation"
   },
   "magento2-pwa-studio-headless": {
     "cat": "Magento 2",
@@ -87,6 +87,6 @@ export const POSTS: Record<string, Post> = {
     "readTime": "13 min read",
     "img": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1600&q=80",
     "title": "Magento 2 PWA Studio: Building a Headless Storefront in 2026",
-    "excerpt": "Hands-on guide to Magento 2 PWA Studio — Venia storefront, GraphQL API, local setup, performance tuning for 90+ Lighthouse"
+    "excerpt": "Hands-on guide to Magento 2 PWA Studio: Venia storefront, GraphQL API, local setup, performance tuning for 90+ Lighthouse"
   }
 };

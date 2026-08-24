@@ -8,11 +8,17 @@ import { Btn, Section, Shell } from './primitives';
 /**
  * Hero.
  *
- * Source order is the mobile order the brief asked for: portrait, headline,
- * supporting copy, calls to action. Desktop puts the portrait to the right of
- * the text with `lg:order-2` and a two-column grid, so the visual arrangement
- * changes without the DOM order changing, and a screen reader gets the same
- * sequence on both.
+ * Source order is the mobile order: portrait, name and role, headline,
+ * supporting copy, calls to action, discipline rail. Desktop puts the portrait
+ * to the right of the text with `lg:order-2` and a two-column grid, so the
+ * visual arrangement changes without the DOM order changing, and a screen
+ * reader gets the same sequence on both.
+ *
+ * The role sits above the H1 rather than inside it. It is the positioning
+ * string, repeated verbatim in the Person schema and the footer, and it belongs
+ * in the reading order before the claim it qualifies. The H1 itself is a
+ * sentence about the work, because an H1 that is only a job title tells a
+ * visitor nothing they did not get from the tab.
  *
  * The portrait is the real photograph the repository ships (400×400). If a
  * larger frame-filling shot is dropped in as public/assets/founder/
@@ -56,58 +62,53 @@ export function Hero() {
 
           {/* ── Text ── */}
           <div className="order-2 lg:order-1">
-            <Rise as="p" className="yr-label mb-item flex items-center gap-3">
+            {/* The positioning string, and the only eyebrow. The name is
+                already the nav wordmark two inches above this; repeating it
+                here spent the most valuable line on the page saying nothing.
+                One title, used identically here, in the Person schema and in
+                the footer. */}
+            <Rise as="p" className="mb-item flex items-center gap-3">
               <span aria-hidden="true" className="yr-dot" />
-              {HERO.name}
+              <span className="font-display text-[.8rem] uppercase tracking-[.24em] text-accent-bright">
+                {HERO.role}
+              </span>
             </Rise>
 
-            <Lines
-              as="h1"
-              id="hero-title"
-              size="1"
-              lines={HERO.headline}
-              softFrom={2}
-            />
+            <Lines as="h1" id="hero-title" size="1" lines={HERO.headline} softFrom={2} />
 
-            {/* Positioning strip. The separators are decorative, so they are
-                hidden and the three words are read as a list. */}
-            <Rise delay={0.24} className="mt-item flex flex-wrap items-center gap-x-4 gap-y-hair">
-              {HERO.highlight.map((word, i) => (
-                <span key={word} className="flex items-center gap-4">
-                  {i > 0 ? (
-                    <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
-                  ) : null}
-                  <span className="font-display text-[.76rem] uppercase tracking-[.26em] text-accent-bright">
-                    {word}
-                  </span>
-                </span>
-              ))}
-            </Rise>
-
-            <Rise delay={0.3} className="mt-item">
-              <p className="yr-lede max-w-[52ch]">{HERO.lede}</p>
-            </Rise>
-
-            <Rise delay={0.36} className="mt-tight">
-              <p className="text-[.72rem] font-medium uppercase tracking-[.16em] text-ink-faint">
-                {HERO.disciplines.join('  ·  ')}
-              </p>
+            <Rise delay={0.3} className="mt-block">
+              <p className="yr-lede max-w-[54ch]">{HERO.lede}</p>
             </Rise>
 
             <Rise delay={0.42} className="mt-block flex flex-wrap gap-3">
-              <Btn href={HERO.ctaPrimary.href}>{HERO.ctaPrimary.label}</Btn>
-              <ContactButton variant="ghost">{HERO.ctaSecondary.label}</ContactButton>
+              <ContactButton>{HERO.ctaPrimary.label}</ContactButton>
+              <Btn href={HERO.ctaSecondary.href} variant="ghost">
+                {HERO.ctaSecondary.label}
+              </Btn>
             </Rise>
 
-            <Rise delay={0.5} className="mt-block flex flex-wrap items-stretch gap-x-10 gap-y-tight border-t border-[var(--rule)] pt-item">
-              {HERO.meta.map((m) => (
-                <div key={m.label}>
-                  <p className="font-display text-[1.05rem] uppercase tracking-[.02em] text-ink">
-                    {m.value}
-                  </p>
-                  <p className="yr-label mt-hair">{m.label}</p>
-                </div>
-              ))}
+            {/* Discipline rail. Real text, not logos: these are the six things
+                the site is about, and a wall of vendor marks would say less
+                while weighing more. */}
+            <Rise
+              delay={0.5}
+              className="mt-block border-t border-[var(--rule)] pt-item"
+            >
+              <ul className="flex flex-wrap gap-x-5 gap-y-tight">
+                {HERO.disciplines.map((d, i) => (
+                  <li key={d} className="flex items-center gap-5">
+                    {i > 0 ? (
+                      <span
+                        aria-hidden="true"
+                        className="hidden h-1 w-1 rounded-full bg-accent sm:block"
+                      />
+                    ) : null}
+                    <span className="text-[.72rem] font-medium uppercase tracking-[.16em] text-ink-muted">
+                      {d}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </Rise>
           </div>
         </div>

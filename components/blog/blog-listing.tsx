@@ -179,7 +179,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
         <div className="max-w-shell mx-auto px-6 md:px-10">
           <div className="flex items-center justify-between gap-4 py-4">
             <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide flex-1 min-w-0">
-              <span className="flex-shrink-0 text-[.58rem] font-bold tracking-[.24em] uppercase text-[rgba(245, 245, 242,.28)] pr-2 border-r border-[rgba(255,255,255,.08)] mr-1 hidden sm:block">
+              <span className="flex-shrink-0 text-[.58rem] font-bold tracking-[.24em] uppercase text-[rgba(245,245,242,.28)] pr-2 border-r border-[rgba(255,255,255,.08)] mr-1 hidden sm:block">
                 Filter
               </span>
               {FILTERS.map((f) => (
@@ -188,8 +188,8 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                   onClick={() => setActiveFilter(f)}
                   className={`flex-shrink-0 h-[34px] px-[18px] rounded-full text-[.63rem] font-bold tracking-[.12em] uppercase whitespace-nowrap transition-all duration-200 touch-manipulation border ${
                     activeFilter === f
-                      ? 'bg-rv text-white border-rv shadow-[0_4px_18px_rgba(240, 38, 60,.38)]'
-                      : 'text-[rgba(245, 245, 242,.44)] border-[rgba(255,255,255,.08)] hover:text-[#f5f5f2] hover:border-[rgba(229, 9, 32,.24)] hover:bg-[rgba(229, 9, 32,.06)]'
+                      ? 'bg-rv text-white border-rv shadow-[0_4px_18px_rgba(240,38,60,.38)]'
+                      : 'text-[rgba(245,245,242,.44)] border-[rgba(255,255,255,.08)] hover:text-[#f5f5f2] hover:border-[rgba(229,9,32,.24)] hover:bg-[rgba(229,9,32,.06)]'
                   }`}
                 >
                   {FILTER_LABELS[f]}
@@ -198,7 +198,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
             </div>
             <div className="flex-shrink-0 flex items-center gap-2">
               <span className="w-[5px] h-[5px] rounded-full bg-rv" />
-              <span className="text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245, 245, 242,.32)]">{filtered.length} Articles</span>
+              <span className="text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.32)]">{filtered.length} Articles</span>
             </div>
           </div>
         </div>
@@ -323,7 +323,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                     onClick={() => setSlCur(i)}
                     aria-label={`Go to slide ${i + 1}`}
                     className={`rounded-full cursor-pointer border-0 transition-all duration-400 ${
-                      slCur === i ? 'bg-rv' : 'bg-[rgba(255,255,255,.20)] hover:bg-[rgba(229, 9, 32,.40)]'
+                      slCur === i ? 'bg-rv' : 'bg-[rgba(255,255,255,.20)] hover:bg-[rgba(229,9,32,.40)]'
                     }`}
                     style={slCur === i ? { width: 38, height: 11, boxShadow: '0 2px 16px rgba(240, 38, 60,.45)' } : { width: 11, height: 11 }}
                   />
@@ -356,12 +356,12 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
 
           {filtered.length === 0 && (
             <div className="text-center py-28">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border border-[rgba(229, 9, 32,.18)] mb-6" style={{ background: 'rgba(229, 9, 32,.05)' }}>
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border border-[rgba(229,9,32,.18)] mb-6" style={{ background: 'rgba(229, 9, 32,.05)' }}>
                 <span className="font-display text-rv" style={{ fontSize: '1.5rem' }}>
                   —
                 </span>
               </div>
-              <p className="text-[rgba(245, 245, 242,.30)] font-semibold tracking-[.14em] uppercase" style={{ fontSize: '.76rem' }}>
+              <p className="text-[rgba(245,245,242,.30)] font-semibold tracking-[.14em] uppercase" style={{ fontSize: '.76rem' }}>
                 No articles in this category yet
               </p>
             </div>

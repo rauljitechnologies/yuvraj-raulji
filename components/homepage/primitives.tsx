@@ -120,6 +120,55 @@ export function Btn({
   );
 }
 
+/**
+ * Descriptive prose link.
+ *
+ * The internal-linking system runs on this, not on `TextLink`. Anchor text on
+ * this site says where the link goes ("Magento 2 and Adobe Commerce consulting"
+ * rather than "read more"), and anchors that long are unreadable set in
+ * uppercase at 0.72rem, which is what `.yr-link` is.
+ *
+ * `lead` puts an arrow in front and is for a link standing on its own line;
+ * without it the link sits inside a sentence and takes an ordinary underline.
+ */
+export function InlineLink({
+  href,
+  children,
+  lead = false,
+  external = false,
+  className = '',
+}: {
+  href: string;
+  children: ReactNode;
+  lead?: boolean;
+  external?: boolean;
+  className?: string;
+}) {
+  const cls = `yr-inline ${lead ? 'yr-inline--lead' : ''} ${className}`;
+  /* The lead variant underlines a child <span> rather than the anchor itself,
+     so the arrow pseudo-element stays out of the underline. */
+  const inner = lead ? <span>{children}</span> : children;
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+        {inner}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+
+  return href.startsWith('#') ? (
+    <a href={href} className={cls}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={cls}>
+      {inner}
+    </Link>
+  );
+}
+
 export function TextLink({
   href,
   children,

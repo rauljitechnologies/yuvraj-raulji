@@ -1,7 +1,7 @@
 .DS_Store
 Thumbs.db
 *.log
-node_modules/
+node_modules
 .next*
 out/
 .claude/
@@ -9,3 +9,11 @@ out/
 # Incremental TypeScript build cache — rewritten by every tsc/next build, so
 # tracking it produced a ~260 kB single-line diff on unrelated commits.
 tsconfig.tsbuildinfo
+
+# node_modules lives in a .nosync dir so iCloud cannot evict its contents.
+# Dataless files there read as empty modules and hang every next build/dev.
+node_modules.nosync/
+.quarantine-root-owned/
+
+# Stray Next build output from a bad NEXT_DIST_DIR override (relative /private/tmp).
+private/

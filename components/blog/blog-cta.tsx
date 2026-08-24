@@ -21,19 +21,19 @@ export function BlogCta() {
               <br />
               With Your Project?
             </h2>
-            <p className="text-[rgba(245, 245, 242,.58)] leading-[1.78] mb-9 max-w-[500px]" style={{ fontSize: 'clamp(.94rem,1.2vw,1.06rem)' }}>
+            <p className="text-[rgba(245,245,242,.58)] leading-[1.78] mb-9 max-w-[500px]" style={{ fontSize: 'clamp(.94rem,1.2vw,1.06rem)' }}>
               Whether you need a Magento 2 overhaul, SEO &amp; CRO strategy, AWS server migration, or AI automation — let&rsquo;s have a focused consultation and map out your roadmap.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
                 href={`mailto:${CONTACT.email}?subject=Blog+Consultation+Request`}
-                className="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-red text-white border border-red text-[.74rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(229, 9, 32,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
+                className="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-red text-white border border-red text-[.74rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
               >
                 Book Free Consultation →
               </a>
               <Link
                 href="/#services"
-                className="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-transparent border border-[rgba(255,255,255,.18)] text-[#f5f5f2] text-[.74rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229, 9, 32,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
+                className="inline-flex items-center gap-2 h-[52px] px-8 rounded bg-transparent border border-[rgba(255,255,255,.18)] text-[#f5f5f2] text-[.74rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] touch-manipulation"
               >
                 View Services →
               </Link>
@@ -43,11 +43,11 @@ export function BlogCta() {
           <div className="grid grid-cols-2 gap-4">
             {STATS.map((s) => (
               <div key={s.l} className="p-7 rounded-lg border border-[rgba(255,255,255,.07)] bg-bg relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[rgba(229, 9, 32,.40)] to-transparent" />
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[rgba(229,9,32,.40)] to-transparent" />
                 <div className="font-display text-rv leading-none mb-2" style={{ fontSize: 'clamp(2.2rem,4vw,3rem)' }}>
                   {s.v}
                 </div>
-                <p className="text-[.70rem] font-semibold tracking-[.14em] uppercase text-[rgba(245, 245, 242,.50)]">{s.l}</p>
+                <p className="text-[.70rem] font-semibold tracking-[.14em] uppercase text-[rgba(245,245,242,.50)]">{s.l}</p>
               </div>
             ))}
           </div>

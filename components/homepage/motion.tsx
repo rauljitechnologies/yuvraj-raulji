@@ -18,10 +18,19 @@ import { EASE_OUT, viewportOnce } from '../../lib/motion';
  * after the next, which is why the lines arrive as separate strings from the
  * content model rather than as one string with <br> in it.
  *
+ * A line may be a plain string or `{ text, accent }`. `accent` paints that one
+ * line in the primary red, which is legal here and only here: the accent is
+ * 3.93:1 on the page ground, so it is restricted to text at or above 24px and
+ * every headline this component renders is far above it.
+ *
  * The visible text is split across several elements, so the heading carries an
  * explicit aria-label with the whole sentence: without it a screen reader
  * announces the lines as separate fragments.
  */
+export type DisplayLine = string | { text: string; accent?: boolean };
+
+const lineText = (l: DisplayLine) => (typeof l === 'string' ? l : l.text);
+
 export function Lines({
   lines,
   as: Tag = 'h2',
@@ -31,11 +40,11 @@ export function Lines({
   softFrom,
   delay = 0,
 }: {
-  lines: readonly string[];
+  lines: readonly DisplayLine[];
   as?: 'h1' | 'h2' | 'p' | 'div';
   id?: string;
   className?: string;
-  size?: '1' | '2' | '3';
+  size?: '1' | '2' | '3' | 'statement';
   /** Index from which lines drop to the muted tone. */
   softFrom?: number;
   delay?: number;
@@ -45,26 +54,33 @@ export function Lines({
   return (
     <Tag
       id={id}
-      aria-label={lines.join(' ')}
+      aria-label={lines.map(lineText).join(' ')}
       className={`yr-display yr-display--${size} ${className}`}
     >
-      {lines.map((line, i) => (
-        <span key={line} aria-hidden="true" className="yr-linemask">
-          <motion.span
-            className={`block ${softFrom !== undefined && i >= softFrom ? 'yr-display__soft' : ''}`}
-            initial={reduced ? { opacity: 0 } : { y: '105%', opacity: 0 }}
-            whileInView={reduced ? { opacity: 1 } : { y: '0%', opacity: 1 }}
-            viewport={viewportOnce}
-            transition={
-              reduced
-                ? { duration: 0.01 }
-                : { duration: 0.85, ease: EASE_OUT, delay: delay + i * 0.09 }
-            }
-          >
-            {line}
-          </motion.span>
-        </span>
-      ))}
+      {lines.map((line, i) => {
+        const text = lineText(line);
+        const accent = typeof line !== 'string' && line.accent;
+        const soft = !accent && softFrom !== undefined && i >= softFrom;
+        return (
+          <span key={text} aria-hidden="true" className="yr-linemask">
+            <motion.span
+              className={`block ${soft ? 'yr-display__soft' : ''} ${
+                accent ? 'yr-display__accent' : ''
+              }`}
+              initial={reduced ? { opacity: 0 } : { y: '105%', opacity: 0 }}
+              whileInView={reduced ? { opacity: 1 } : { y: '0%', opacity: 1 }}
+              viewport={viewportOnce}
+              transition={
+                reduced
+                  ? { duration: 0.01 }
+                  : { duration: 0.85, ease: EASE_OUT, delay: delay + i * 0.09 }
+              }
+            >
+              {text}
+            </motion.span>
+          </span>
+        );
+      })}
     </Tag>
   );
 }

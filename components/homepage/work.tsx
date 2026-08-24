@@ -28,7 +28,7 @@ export function Work() {
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
           <Lines as="h2" id="work-title" lines={WORK.headline} softFrom={1} />
           <Rise delay={0.18} className="self-end">
-            <p className="yr-lede max-w-[44ch]">{WORK.body}</p>
+            <p className="yr-lede max-w-[54ch]">{WORK.body}</p>
           </Rise>
         </div>
 
@@ -45,7 +45,7 @@ export function Work() {
                   <div className="yr-frame aspect-[16/11]">
                     <img
                       src={item.img}
-                      alt=""
+                      alt={item.alt}
                       width={item.imgW}
                       height={item.imgH}
                       /* Everything in this section is well below the fold. */
@@ -71,7 +71,7 @@ export function Work() {
                     />
                   </div>
 
-                  <p className="yr-note mt-item max-w-[46ch]">{item.summary}</p>
+                  <p className="yr-note mt-item max-w-[56ch]">{item.summary}</p>
 
                   <dl className="mt-item flex flex-wrap items-baseline gap-x-8 gap-y-tight border-t border-[var(--rule)] pt-item">
                     <div className="flex items-baseline gap-3">

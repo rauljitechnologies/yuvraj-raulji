@@ -97,13 +97,13 @@ export function ContactModal() {
       <div className="absolute inset-0 bg-[rgba(0,0,0,.90)] backdrop-blur-2xl" onClick={close} />
 
       <div
-        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto rounded-xl border border-[rgba(229, 9, 32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229, 9, 32,.10)] transition-all duration-[420ms] ${
+        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto rounded-xl border border-[rgba(229,9,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229,9,32,.10)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
         style={{ background: '#080808' }}
       >
         <button
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245, 245, 242,.50)] text-lg transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
+          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245, 243, 238, .50)] text-lg transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
           onClick={close}
           aria-label="Close"
         >
@@ -134,7 +134,7 @@ export function ContactModal() {
 
             <div className="relative z-[1]">
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                <span style={{ width: 24, height: 1, background: '#f0263c', flexShrink: 0 }} />
+                <span style={{ width: 24, height: 1, background: 'var(--accent-bright)', flexShrink: 0 }} />
                 <span style={{ fontSize: '.66rem', fontWeight: 700, letterSpacing: '.32em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.60)' }}>
                   Private Consultation
                 </span>
@@ -142,13 +142,13 @@ export function ContactModal() {
               <h2
                 id="contact-modal-title"
                 className="font-display uppercase"
-                style={{ fontSize: 'clamp(2.4rem,5vw,3.6rem)', lineHeight: 0.9, letterSpacing: '.02em', color: '#f5f5f2', marginBottom: 16 }}
+                style={{ fontSize: 'clamp(2.4rem,5vw,3.6rem)', lineHeight: 0.9, letterSpacing: '.02em', color: 'var(--text)', marginBottom: 16 }}
               >
                 Start a
                 <br />
-                <span style={{ color: 'rgba(245, 245, 242,.38)' }}>Conversation</span>
+                <span style={{ color: 'rgba(245, 243, 238, .38)' }}>Conversation</span>
               </h2>
-              <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'rgba(245, 245, 242,.45)', maxWidth: 300 }}>
+              <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'rgba(245, 243, 238, .45)', maxWidth: 300 }}>
                 Every great brand begins with a conversation. Tell me about your project and I&rsquo;ll be in touch within 24 hours.
               </p>
             </div>
@@ -158,7 +158,7 @@ export function ContactModal() {
             <div className="relative z-[1] flex flex-col gap-5">
               <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
                 <span
-                  className="group-hover:border-[rgba(229, 9, 32,.40)]"
+                  className="group-hover:border-[rgba(229,9,32,.40)]"
                   style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', display: 'grid', placeItems: 'center', flexShrink: 0, transition: 'border-color .22s' }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(229, 9, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -167,8 +167,8 @@ export function ContactModal() {
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.28)', marginBottom: 2 }}>Email</p>
-                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 245, 242,.70)', transition: 'color .22s' }}>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>Email</p>
+                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
                     {CONTACT.email}
                   </p>
                 </div>
@@ -184,8 +184,8 @@ export function ContactModal() {
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.28)', marginBottom: 2 }}>WhatsApp Business</p>
-                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 245, 242,.70)', transition: 'color .22s' }}>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>WhatsApp Business</p>
+                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
                     {CONTACT.phoneDisplay}
                   </p>
                 </div>
@@ -199,8 +199,8 @@ export function ContactModal() {
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.28)', marginBottom: 2 }}>Location</p>
-                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 245, 242,.70)' }}>{CONTACT.location}</p>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>Location</p>
+                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)' }}>{CONTACT.location}</p>
                 </div>
               </div>
 
@@ -246,16 +246,16 @@ export function ContactModal() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-display uppercase" style={{ fontSize: '2rem', letterSpacing: '.06em', color: '#f5f5f2', marginBottom: 8 }}>
+                  <p className="font-display uppercase" style={{ fontSize: '2rem', letterSpacing: '.06em', color: 'var(--text)', marginBottom: 8 }}>
                     Message Sent
                   </p>
-                  <p style={{ fontSize: '.90rem', color: 'rgba(245, 245, 242,.50)', lineHeight: 1.7 }}>
+                  <p style={{ fontSize: '.90rem', color: 'rgba(245, 243, 238, .50)', lineHeight: 1.7 }}>
                     Your message has been received and a confirmation email is on its way to you. I&rsquo;ll get back to you within 24 hours.
                   </p>
                 </div>
                 <button
                   onClick={reset}
-                  className="h-[44px] px-7 rounded border border-[rgba(255,255,255,.14)] text-[.72rem] font-bold tracking-[.10em] uppercase text-[rgba(245, 245, 242,.60)] transition-all hover:border-red hover:text-white"
+                  className="h-[44px] px-7 rounded border border-[rgba(255,255,255,.14)] text-[.72rem] font-bold tracking-[.10em] uppercase text-[rgba(245, 243, 238, .60)] transition-all hover:border-red hover:text-white"
                 >
                   Close
                 </button>
@@ -274,22 +274,22 @@ export function ContactModal() {
                 />
 
                 <div style={{ marginBottom: 28 }}>
-                  <p className="font-display uppercase" style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', letterSpacing: '.04em', color: '#f5f5f2', lineHeight: 1, marginBottom: 6 }}>
+                  <p className="font-display uppercase" style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', letterSpacing: '.04em', color: 'var(--text)', lineHeight: 1, marginBottom: 6 }}>
                     Start a Conversation
                   </p>
-                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 245, 242,.38)' }}>Fill in the details and I&rsquo;ll reach out shortly.</p>
+                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .38)' }}>Fill in the details and I&rsquo;ll reach out shortly.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="cf-lbl" htmlFor="cf-name">
-                      Full Name <span style={{ color: '#f0263c' }}>*</span>
+                      Full Name <span style={{ color: 'var(--accent-bright)' }}>*</span>
                     </label>
                     <input id="cf-name" className="cf-inp" type="text" placeholder="Yuvraj Raulji" value={f.name} onChange={set('name')} required />
                   </div>
                   <div>
                     <label className="cf-lbl" htmlFor="cf-email">
-                      Email Address <span style={{ color: '#f0263c' }}>*</span>
+                      Email Address <span style={{ color: 'var(--accent-bright)' }}>*</span>
                     </label>
                     <input id="cf-email" className="cf-inp" type="email" placeholder="you@company.com" value={f.email} onChange={set('email')} required />
                   </div>
@@ -312,36 +312,36 @@ export function ContactModal() {
                       style={phoneBad ? { borderColor: 'rgba(240, 38, 60,.70)', boxShadow: '0 0 0 1px rgba(240, 38, 60,.30)' } : undefined}
                     />
                     {phoneBad && (
-                      <p style={{ marginTop: 6, fontSize: '.68rem', letterSpacing: '.04em', color: '#f0263c' }}>
+                      <p style={{ marginTop: 6, fontSize: '.68rem', letterSpacing: '.04em', color: 'var(--accent-bright)' }}>
                         Enter a valid mobile number — e.g. 98983 34731 or +91 98983 34731
                       </p>
                     )}
                   </div>
                   <div>
                     <label className="cf-lbl" htmlFor="cf-service">
-                      I&rsquo;m Interested In
+                      What is this about?
                     </label>
                     <select id="cf-service" className="cf-inp" value={f.service} onChange={set('service')}>
-                      <option value="">Select a Service</option>
+                      <option value="">Pick the closest one</option>
                       {SERVICE_OPTIONS.map((s) => (
                         <option key={s} value={s}>
                           {s}
                         </option>
                       ))}
-                      <option value="Other">Other / Not Sure</option>
+                      <option value="Other">Something else</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="mb-7">
                   <label className="cf-lbl" htmlFor="cf-msg">
-                    Message <span style={{ color: '#f0263c' }}>*</span>
+                    Message <span style={{ color: 'var(--accent-bright)' }}>*</span>
                   </label>
                   <textarea
                     id="cf-msg"
                     className="cf-inp"
                     rows={5}
-                    placeholder="Tell me about your project, goals, and timeline..."
+                    placeholder="What are you trying to do, and what is in the way?"
                     value={f.message}
                     onChange={set('message')}
                     required
@@ -350,13 +350,13 @@ export function ContactModal() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                  <span style={{ fontSize: '.68rem', color: 'rgba(245, 245, 242,.24)', letterSpacing: '.08em' }}>
-                    <span style={{ color: '#f0263c' }}>*</span> Required fields
+                  <span style={{ fontSize: '.68rem', color: 'rgba(245, 243, 238, .24)', letterSpacing: '.08em' }}>
+                    <span style={{ color: 'var(--accent-bright)' }}>*</span> Required fields
                   </span>
                   <button
                     type="submit"
                     disabled={!valid || sending}
-                    className="inline-flex items-center gap-2 h-[50px] px-8 rounded bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_16px_48px_rgba(229, 9, 32,.32)] hover:-translate-y-[2px] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                    className="inline-flex items-center gap-2 h-[50px] px-8 rounded bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
                   >
                     {sending ? (
                       <span className="inline-flex items-center gap-2">

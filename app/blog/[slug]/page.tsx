@@ -159,7 +159,7 @@ export default async function Article({ params }: Props) {
           </div>
 
           <div className="relative z-[2] max-w-shell mx-auto px-6 md:px-10 xl:px-16">
-            <nav className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245, 245, 242,.34)] mb-10 reveal">
+            <nav className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.34)] mb-10 reveal">
               <Link href="/" className="hover:text-rv transition-colors">
                 Home
               </Link>
@@ -179,9 +179,9 @@ export default async function Article({ params }: Props) {
                 >
                   {p.cat}
                 </span>
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245, 245, 242,.38)]">{p.date}</span>
-                <span className="w-1 h-1 rounded-full bg-[rgba(229, 9, 32,.55)]" />
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245, 245, 242,.38)]">{p.readTime}</span>
+                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245,245,242,.38)]">{p.date}</span>
+                <span className="w-1 h-1 rounded-full bg-[rgba(229,9,32,.55)]" />
+                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245,245,242,.38)]">{p.readTime}</span>
               </div>
 
               <h1 className="font-display uppercase reveal" style={{ fontSize: 'clamp(2.6rem,6.5vw,5.6rem)', lineHeight: 0.92, letterSpacing: '.015em', marginBottom: 26 }}>
@@ -265,7 +265,7 @@ export default async function Article({ params }: Props) {
               <div className="flex items-center gap-4 mb-12">
                 <span style={{ width: 2, height: 30, background: 'linear-gradient(180deg,#f0263c,rgba(229, 9, 32,.15))', borderRadius: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(229, 9, 32,.60)] mb-1">Keep Reading</p>
+                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(229,9,32,.60)] mb-1">Keep Reading</p>
                   <h2 className="font-display uppercase tracking-[.02em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4vw,3.4rem)' }}>
                     Related Articles
                   </h2>
@@ -278,7 +278,7 @@ export default async function Article({ params }: Props) {
                   <Link
                     key={r.slug}
                     href={`/blog/${r.slug}`}
-                    className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(229, 9, 32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
+                    className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(229,9,32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
                   >
                     <div className="relative overflow-hidden" style={{ height: 190 }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -296,7 +296,7 @@ export default async function Article({ params }: Props) {
                         {r.title}
                       </h3>
                       <div className="flex items-center justify-between">
-                        <p className="text-[.64rem] font-semibold tracking-[.12em] uppercase text-[rgba(245, 245, 242,.36)]">{r.date}</p>
+                        <p className="text-[.64rem] font-semibold tracking-[.12em] uppercase text-[rgba(245,245,242,.36)]">{r.date}</p>
                         <span className="inline-flex items-center gap-1 text-[.62rem] font-bold tracking-[.14em] uppercase text-rv transition-all duration-300 group-hover:gap-[7px]">
                           Read <span>→</span>
                         </span>
@@ -319,19 +319,19 @@ export default async function Article({ params }: Props) {
               <br />
               Your Business?
             </h2>
-            <p className="text-[rgba(245, 245, 242,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
+            <p className="text-[rgba(245,245,242,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
               From Magento 2 builds and SEO audits to AWS server setup and AI automation — let&rsquo;s turn your digital presence into a growth engine.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a
                 href={`mailto:${CONTACT.email}?subject=Project+Inquiry`}
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(229, 9, 32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
+                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 Book Consultation
               </a>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f5f2] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229, 9, 32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
+                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f5f2] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 More Articles
               </Link>

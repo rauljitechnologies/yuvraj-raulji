@@ -1,116 +1,106 @@
 import type { Metadata } from 'next';
-import { ContactModal } from '../../components/contact-modal';
-import { AboutContent } from '../../components/about/about-content';
-import { JsonLd } from '../../components/json-ld';
-import { Preloader } from '../../components/preloader';
-import { SiteEffects } from '../../components/site-effects';
-import { SiteFooter } from '../../components/site-footer';
-import { SiteHeader } from '../../components/site-header';
-import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from '../../lib/site';
+import {
+  Beliefs,
+  Focus,
+  Journey,
+  Opening,
+  Personal,
+  Process,
+} from '../../components/brand/about-sections';
+import { Closing } from '../../components/brand/closing';
+import { Page, PageHero } from '../../components/chrome/page';
+import { ABOUT_HERO } from '../../lib/about';
+import { ABOUT_CLOSING } from '../../lib/brand';
+import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
+import type { Crumb } from '../../lib/schema';
+import { SITE_URL } from '../../lib/site';
 
-const title = 'About Yuvraj Raulji | E-commerce Consultant & Strategist';
-const description =
-  'Yuvraj Raulji — 9+ years across B2B, B2C, D2C and marketplace commerce. Magento 2, Shopify, headless commerce, infrastructure, analytics and AI.';
+const crumbs: Crumb[] = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about/' },
+];
+
+const title = 'About Yuvraj Raulji | AI, Business & eCommerce';
 
 export const metadata: Metadata = {
   title,
-  description,
+  description: ABOUT_DESCRIPTION,
+  /**
+   * The semantic field this page should own: the person, and the disciplines
+   * he is an authority in. Written as entities rather than as match types, and
+   * every one of them is a subject the visible page actually discusses.
+   */
+  keywords: [
+    'Yuvraj Raulji',
+    'AI consultant',
+    'eCommerce consultant',
+    'technology strategist',
+    'digital transformation',
+    'AI business strategy',
+    'commerce architecture',
+  ],
   alternates: { canonical: `${SITE_URL}/about/` },
   openGraph: {
     title,
-    description,
+    description: ABOUT_DESCRIPTION,
     url: `${SITE_URL}/about/`,
     siteName: 'Yuvraj Raulji',
     type: 'profile',
-    images: [{ url: `${SITE_URL}/assets/yuvraj-raulji.jpg`, alt: 'Yuvraj Raulji' }],
-  },
-  twitter: { card: 'summary_large_image', title, description, images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`] },
-};
-
-export default function About() {
-  /**
-   * ProfilePage + a fuller Person than the homepage carries: this is the page
-   * that should define the entity for Google and AI answer engines, so it adds
-   * worksFor, alumniOf and hasCredential.
-   */
-  const ld = {
-    '@context': 'https://schema.org',
-    '@graph': [
+    locale: 'en_US',
+    images: [
       {
-        '@type': 'ProfilePage',
-        '@id': `${SITE_URL}/about/#profilepage`,
-        url: `${SITE_URL}/about/`,
-        name: title,
-        description,
-        inLanguage: 'en-US',
-        mainEntity: { '@id': `${SITE_URL}/#person` },
-      },
-      {
-        '@type': 'Person',
-        '@id': `${SITE_URL}/#person`,
-        name: 'Yuvraj Raulji',
-        url: `${SITE_URL}/`,
-        email: CONTACT.email,
-        telephone: CONTACT.phoneE164,
-        image: `${SITE_URL}/assets/yuvraj-raulji.jpg`,
-        jobTitle: 'E-commerce & Digital Transformation Consultant',
-        description,
-        sameAs: [CONTACT.linkedin, CONTACT.instagram, CONTACT.facebook],
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Vadodara',
-          addressRegion: 'Gujarat',
-          addressCountry: 'IN',
-        },
-        worksFor: EXPERIENCE.slice(0, 1).map((r) => ({ '@type': 'Organization', name: r.org })),
-        alumniOf: EDUCATION.map((e) => ({ '@type': 'EducationalOrganization', name: e.qualification })),
-        hasCredential: CERTIFICATIONS.map((c) => ({
-          '@type': 'EducationalOccupationalCredential',
-          name: c.name,
-          credentialCategory: 'certificate',
-          recognizedBy: { '@type': 'Organization', name: c.issuer },
-          ...(c.url ? { url: c.url } : {}),
-        })),
-        knowsAbout: [
-          'E-commerce Architecture',
-          'Digital Transformation',
-          'Magento 2',
-          'Adobe Commerce',
-          'Shopify',
-          'Headless Commerce',
-          'Next.js',
-          'Server Infrastructure',
-          'Performance Engineering',
-          'E-commerce SEO',
-          'Analytics',
-          'Generative AI',
-          'Agentic AI',
-        ],
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'About', item: `${SITE_URL}/about/` },
-        ],
+        url: `${SITE_URL}/assets/yuvraj-raulji.jpg`,
+        width: 400,
+        height: 400,
+        alt: 'Yuvraj Raulji',
       },
     ],
-  };
+  },
+  twitter: {
+    card: 'summary',
+    title,
+    description: ABOUT_DESCRIPTION,
+    images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`],
+  },
+};
 
+/**
+ * About.
+ *
+ * Six sections: the short version, the journey, the beliefs, the current
+ * focus, the method, and the human bit. In that order, because a reader who
+ * stops after two has still got the two that matter most.
+ *
+ * This is the page that should define the entity for search engines and answer
+ * engines, so its ProfilePage graph carries the full Person node including
+ * education and credentials. It carries no Organization, and states no
+ * company, directorship or foundership, in copy or in markup.
+ */
+export default function About() {
   return (
-    <>
-      <JsonLd data={ld} />
-      <div className="noise" aria-hidden="true" />
-      <Preloader tagline="E-commerce & Digital Transformation" />
-      <SiteHeader active="About" />
-      <SiteEffects />
+    <Page schema={brandAboutSchema(crumbs)} active="About">
+      <PageHero
+        eyebrow={ABOUT_HERO.eyebrow}
+        lines={ABOUT_HERO.headline}
+        lede={ABOUT_HERO.opening}
+        crumbs={crumbs}
+      />
 
-      <main id="top">
-        <AboutContent />
-      </main>
+      {/* Order and ground are one decision here, not two.
+          Opening stays dark so it reads as the tail of the hero rather than as
+          a section, and from there the page alternates paper, black, paper,
+          black to the closing: journey, positions, method, focus, personal.
+          Method now precedes focus, which is also the order the reader needs
+          it in — how the thinking works, then what it is currently pointed at.
+          The running heads in about-sections.tsx were renumbered to match. */}
+      <Opening />
+      <Journey />
+      <Beliefs />
+      <Process />
+      <Focus />
+      <Personal />
 
-      <SiteFooter />
-      <ContactModal />
-    </>
+      <Closing headline={ABOUT_CLOSING.headline} body={ABOUT_CLOSING.body} />
+    </Page>
   );
 }

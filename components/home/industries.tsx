@@ -40,7 +40,7 @@ export function Industries() {
               Industries &amp; Business Models
             </h2>
           </div>
-          <p className="text-[rgba(245, 245, 242,.60)]" style={{ fontSize: 'clamp(.92rem,1.2vw,1.06rem)', lineHeight: 1.74 }}>
+          <p className="text-[rgba(245,245,242,.60)]" style={{ fontSize: 'clamp(.92rem,1.2vw,1.06rem)', lineHeight: 1.74 }}>
             Delivering enterprise commerce, SEO, server optimization, and AI automation across 12+ industries — from D2C brands to large-scale B2B enterprises.
           </p>
         </div>
@@ -116,7 +116,7 @@ export function Industries() {
                   </span>
                 ))}
               </div>
-              <p className="text-right font-display text-[1rem] tracking-[.14em] text-[rgba(245, 245, 242,.55)] mt-1">/ 08</p>
+              <p className="text-right font-display text-[1rem] tracking-[.14em] text-[rgba(245,245,242,.55)] mt-1">/ 08</p>
             </div>
 
             {/* Caption */}
@@ -140,7 +140,7 @@ export function Industries() {
                   <h3 className="font-display uppercase tracking-[.03em] leading-[.95] mb-4" style={{ fontSize: 'clamp(2.2rem,4vw,3.8rem)' }}>
                     {it.t}
                   </h3>
-                  <p className="text-[rgba(245, 245, 242,.78)] leading-[1.72] max-w-[520px]" style={{ fontSize: 'clamp(.92rem,1.15vw,1.05rem)' }}>
+                  <p className="text-[rgba(245,245,242,.78)] leading-[1.72] max-w-[520px]" style={{ fontSize: 'clamp(.92rem,1.15vw,1.05rem)' }}>
                     {it.desc}
                   </p>
                 </div>

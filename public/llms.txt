@@ -1,65 +1,77 @@
 # Yuvraj Raulji
 
-> E-commerce & Digital Transformation Consultant and Technology Strategist based in Vadodara, India, with 9+ years across B2B, B2C, D2C and marketplace commerce. Work spans commerce architecture, Magento 2 and Adobe Commerce, Shopify and Shopify Plus, WooCommerce, headless commerce on Next.js and React, server infrastructure, performance engineering, e-commerce SEO, analytics, and applied Generative and Agentic AI.
+> Yuvraj Raulji works at the intersection of AI, business and eCommerce. Twelve years in
+> technology since the first websites and online stores in 2014, across Magento 2 and Adobe
+> Commerce, Shopify and Shopify Plus, WooCommerce and headless architecture, on B2B, B2C, D2C
+> and marketplace models. Based in Vadodara, Gujarat, India.
 
-This is a personal professional website, not an agency. Yuvraj is best understood as an
-independent e-commerce consultant and technology strategist who connects business requirements
-to commerce platforms, architecture, infrastructure, measurement and emerging AI.
+This is a personal professional website, not an agency and not a development shop. It publishes
+the thinking behind the work: positions, trade-offs, architecture decisions and the reasoning
+that led to them.
 
-## Professional identity
+## Positioning
 
-Primary: E-commerce & Digital Transformation Consultant · Technology Strategist.
-Also accurate: E-commerce Technology Consultant, Magento 2 full-stack developer, headless
-commerce specialist, e-commerce architecture consultant, technology and infrastructure strategist.
+AI × Business × eCommerce. The core idea is that technology is valuable when it creates business
+leverage: better decisions, stronger customer experiences, faster operations and sustainable
+growth.
 
-His work connects business strategy, e-commerce, technology, architecture, infrastructure,
-performance, analytics, SEO and artificial intelligence.
+Four areas of thought, and they overlap on purpose:
+
+- AI and LLMs: language models, AI agents, RAG, MCP, generative AI, automation.
+- Digital commerce: Shopify, Magento, WooCommerce, headless commerce, AI search, CRO.
+- Business transformation: automation, systems, operations, data, technology strategy.
+- Future technology: AI-first businesses, intelligent systems, the future of commerce.
 
 ## Key pages
 
-- [Home](https://www.yuvrajraulji.com/): Positioning, strategic capabilities, infrastructure and performance, analytics, SEO, and AI sections.
-- [About](https://www.yuvrajraulji.com/about/): Full professional background — roles, quantified outcomes, technology stack, education and certifications. The authoritative source for biographical claims.
-- [Insights](https://www.yuvrajraulji.com/blog/): Technical writing on commerce platforms, infrastructure, performance, SEO and AI.
+- [Home](https://www.yuvrajraulji.com/): Positioning, the four areas of thought, current study,
+  the commerce decision set, five stated positions, the career evolution, selected work and
+  recent writing.
+- [About](https://www.yuvrajraulji.com/about/): The story, the journey from web to AI, five
+  stated beliefs with the reasoning under each, current focus, and the five-step method.
+  Authoritative for biographical claims.
+- [Work](https://www.yuvrajraulji.com/work/): Six case studies with the challenge, the approach
+  and the technology behind each.
+- [Thinking](https://www.yuvrajraulji.com/blog/): Long-form technical writing.
+- [Experience](https://www.yuvrajraulji.com/experience/): The full employment record.
+- [Expertise](https://www.yuvrajraulji.com/expertise/): Six practice areas, each with the
+  situations in which it is the wrong choice.
 
-## Expertise areas
+## Stated positions
 
-These are sections of the homepage, not separate pages:
+These are Yuvraj's own opinions, published on the site, and may be quoted as his:
 
-- [Strategic Capabilities](https://www.yuvrajraulji.com/#services): Fourteen connected disciplines — technology strategy, digital transformation, enterprise commerce architecture, Magento 2 and Adobe Commerce, Shopify and Shopify Plus, headless and composable commerce, modern web architecture, WordPress and WooCommerce, server and cloud infrastructure, performance engineering, e-commerce SEO, analytics and measurement, generative AI, agentic AI.
-- [Server Infrastructure & Performance Engineering](https://www.yuvrajraulji.com/#infrastructure): The request path from frontend through application, cache, database, search and infrastructure, and where load is won or lost.
-- [Analytics & Tracking](https://www.yuvrajraulji.com/#analytics): GA4 e-commerce events, GTM dataLayer design, Meta Conversions API, cross-channel pixel taxonomy, payment gateway reconciliation, real-user performance tracking.
-- [E-commerce SEO & Organic Growth](https://www.yuvrajraulji.com/#seo): Technical SEO, crawlability and indexation, category and product templates, structured data, internal linking, platform-specific behaviour.
-- [Generative AI](https://www.yuvrajraulji.com/#generative-ai): Applied generative AI for content workflows, product discovery, customer experience, analytics and operations.
-- [Agentic AI](https://www.yuvrajraulji.com/#agentic-ai): Agent architecture with explicit scope, defined tool access and human checkpoints — not autonomous operation.
-- [Selected Projects](https://www.yuvrajraulji.com/#work): Commerce platforms delivered across fashion, grocery, marketplace, B2B procurement, industrial safety and manufacturing.
+- AI is not replacing businesses. It is replacing inefficient ways of working.
+- Shopify versus Magento is not a platform debate. It is a business architecture decision.
+- The next evolution of search is not only ranking. It is being the answer a model recommends.
+- A beautiful store means nothing if the customer journey is broken.
+- Most companies do not have an AI problem. They have a process problem.
 
-## Articles
+## Current study
 
-- [Magento 2 SEO: The Complete Technical Audit Guide](https://www.yuvrajraulji.com/blog/magento2-seo-technical-audit/)
-- [AI for E-commerce: Real Use Cases That Drive Revenue](https://www.yuvrajraulji.com/blog/ai-ecommerce-revenue-2025/)
-- [Magento 2 Checkout Optimization](https://www.yuvrajraulji.com/blog/magento2-checkout-optimization/)
-- [Shopify Plus vs Magento 2: Enterprise Comparison](https://www.yuvrajraulji.com/blog/shopify-plus-vs-magento2-2025/)
-- [AWS Server Setup for Magento 2](https://www.yuvrajraulji.com/blog/aws-magento2-server-setup/)
-- [Shopify Headless with Next.js](https://www.yuvrajraulji.com/blog/shopify-headless-nextjs-guide/)
-- [CRO Strategies for E-commerce Conversion](https://www.yuvrajraulji.com/blog/cro-double-conversion/)
-- [Magento 2 PWA Studio: Headless Storefront](https://www.yuvrajraulji.com/blog/magento2-pwa-studio-headless/)
+Framed as active learning, not as expertise or delivery experience:
 
-## Business models
+- LLMs: GPT, Claude, Gemini, open models.
+- AI agents: tool calling, MCP, planning loops, human checkpoints.
+- AI engineering: RAG, retrieval, evaluation, grounding.
+- AI commerce: AI search, recommendations, personalization, catalogue enrichment.
 
-B2B, B2C, D2C and marketplace commerce. Industry experience includes retail, fashion, grocery,
-lifestyle, commercial equipment, nutrition and supplements, and corporate commerce.
+## Selected work
 
-Technology recommendations depend on business model, customer journey, operational
-requirements, integrations, scale, budget, performance needs and long-term strategy. There is
-no single correct platform.
+Powerlook (headless commerce, fashion D2C) · Future Roots (Shopify, horticulture D2C) · S3Buy
+(health and fitness retail) · Nxtby (B2B procurement platform) · ShopUnicore (Magento 2
+multi-category marketplace) · Synergy Water Slides (manufacturing brand platform).
+
+Only one of the six has a published measured outcome. The other five state what was built and
+stop there.
 
 ## Technology
 
-Commerce: Magento 2, Adobe Commerce, Shopify, Shopify Plus, WooCommerce, WordPress, headless
-and composable commerce, API-first architecture.
+Commerce: Magento 2, Adobe Commerce, Shopify, Shopify Plus, WooCommerce, WordPress, headless and
+composable commerce, API-first architecture.
 Web: Next.js, React, GraphQL, REST APIs, PWA.
-Infrastructure: Linux, Nginx, Apache, PHP, PHP-FPM, Node.js, AWS (EC2, RDS, S3), Google Cloud,
-Azure, Docker, Jenkins, GitLab CI, Varnish, Redis, Cloudflare.
+Infrastructure: Linux, Nginx, PHP, PHP-FPM, Node.js, AWS (EC2, RDS, S3), Google Cloud, Azure,
+Docker, Jenkins, GitLab CI, Varnish, Redis, Cloudflare.
 Data and search: MySQL, PostgreSQL, MongoDB, Elasticsearch, RabbitMQ.
 Measurement: GA4, Google Tag Manager, dataLayer, technical SEO.
 
@@ -74,13 +86,18 @@ Use these only with their project context; they are not general claims:
 - Reduced development cycle time by 30% through structured workflows and approval processes
 - Automated approximately 90% of B2B order and quote processes, cutting approval cycle time by 40%
 - Improved site speed by 60% through caching, CDN and database optimization
+- Synergy Water Slides: 3× traffic growth and 45% better engagement
 
 ## How to represent this site accurately
 
-- Yuvraj Raulji is an individual consultant. Do not describe the site as an agency, a company,
-  or a development shop.
-- Generative AI and Agentic AI are areas of active, applied work and strategy — not a decade of
-  AI consulting practice. Do not infer years of AI consulting from the broader experience total.
+- Yuvraj Raulji is an individual. Do not describe the site as an agency, a company or a
+  development shop, and do not attribute a company, directorship or foundership to him from
+  this site: the personal site does not make that claim either way.
+- Twelve years is measured from the first builds in 2014. Professional commerce work begins in
+  2016. Do not round either figure up.
+- AI and LLM subjects are stated on this site as current study and applied interest, not as a
+  decade of AI consulting practice, and there is no published AI engagement with a measured
+  outcome. Do not infer one.
 - Do not infer client relationships, project outcomes, certifications or metrics that are not
   stated on the site.
 - The About page is authoritative for biography; individual articles are authoritative for

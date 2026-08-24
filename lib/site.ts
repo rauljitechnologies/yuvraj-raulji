@@ -4,6 +4,7 @@
  */
 
 import type { IconName } from '../components/ui/icons';
+import { POSTS } from './posts';
 
 export const CONTACT = {
   email: 'toyuvrajraulji@gmail.com',
@@ -38,11 +39,10 @@ export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
  * a link (it opens the enquiry modal), so it lives in the header component.
  */
 export const NAV_LINKS = [
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Projects', href: '/#work' },
-  { label: 'Technology', href: '/#technology' },
-  { label: 'Insights', href: '/blog' },
+  { label: 'About', href: '/about/' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Insights', href: '/blog/' },
 ] as const;
 
 export const HERO_CHIPS = [
@@ -717,15 +717,26 @@ export const FAQS: Faq[] = [
   },
 ];
 
+/**
+ * The enquiry dropdown.
+ *
+ * Written as subjects to talk about rather than as services to buy. The
+ * previous list was eight service names ("Magento 2 Development", "AWS &
+ * Server Setup"), which turned the one modal on a personal site into a price
+ * list with no prices, and made the first question a visitor answered
+ * "which package am I choosing" rather than "what is my problem".
+ *
+ * They are also phrased as the situation, not the technology, because the
+ * person filling this in usually knows the former and is guessing at the
+ * latter.
+ */
 export const SERVICE_OPTIONS = [
-  'E-commerce Technology Strategy',
-  'Digital Transformation',
-  'Magento 2 Development',
-  'Shopify Brand Store',
-  'SEO & CRO Strategy',
-  'AWS & Server Setup',
-  'WordPress & WooCommerce',
-  'AI Automation',
+  'An AI idea I want a second opinion on',
+  'A commerce platform decision',
+  'A replatforming or migration',
+  'A store that is slow, or losing people at checkout',
+  'Automating a process that eats people',
+  'A technology strategy conversation',
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -860,29 +871,46 @@ export const BUSINESS_MODEL_DETAIL = [
 
 export const FOOTER_NAV = [
   { label: 'Home', href: '/', active: true },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Projects', href: '/#work' },
-  { label: 'Technology', href: '/#technology' },
-  { label: 'Insights', href: '/blog' },
+  { label: 'About', href: '/about/' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Insights', href: '/blog/' },
   { label: 'Contact', href: '/#contact' },
 ];
 
+/**
+ * Footer expertise column. Every entry previously linked to `/#services`, an
+ * anchor the redesigned homepage does not render, so all six landed at the top
+ * of the page. Each now points at the section or article that actually covers
+ * it, and the label is the anchor text rather than a generic one.
+ */
 export const FOOTER_EXPERTISE = [
-  'Magento 2 Commerce',
-  'Shopify',
-  'SEO & CRO',
-  'AWS & Server Setup',
-  'WordPress & WooCommerce',
-  'AI Automation',
+  { label: 'Magento & Adobe Commerce', href: '/#expertise' },
+  { label: 'Shopify & Shopify Plus', href: '/#expertise' },
+  { label: 'Headless Commerce', href: '/blog/shopify-headless-nextjs-guide/' },
+  { label: 'E-commerce SEO', href: '/blog/magento2-seo-technical-audit/' },
+  { label: 'CRO & Performance', href: '/blog/cro-double-conversion/' },
+  { label: 'AI Automation', href: '/blog/ai-ecommerce-revenue-2025/' },
 ];
 
-export const FOOTER_TOPICS = [
-  { label: 'Magento 2', filter: 'magento-2', count: 6 },
-  { label: 'Shopify', filter: 'shopify', count: 4 },
-  { label: 'SEO & CRO', filter: 'seo-cro', count: 3 },
-  { label: 'WordPress', filter: 'wordpress', count: 3 },
-  { label: 'AI & Automation', filter: 'ai-automation', count: 3 },
-  { label: 'AWS & Server', filter: 'aws-server', count: 2 },
-  { label: 'Performance', filter: 'performance', count: 1 },
-];
+const TOPIC_LABELS: Record<string, string> = {
+  'magento-2': 'Magento 2',
+  shopify: 'Shopify',
+  'seo-cro': 'SEO & CRO',
+  'ai-automation': 'AI & Automation',
+  'aws-server': 'AWS & Server',
+  wordpress: 'WordPress',
+  performance: 'Performance',
+};
+
+export const FOOTER_TOPICS = Object.entries(
+  Object.values(POSTS).reduce<Record<string, number>>((acc, p) => {
+    acc[p.filter] = (acc[p.filter] ?? 0) + 1;
+    return acc;
+  }, {}),
+)
+  .map(([filter, count]) => ({ label: TOPIC_LABELS[filter] ?? filter, filter, count }))
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+
+/** Total published articles. Drives the count the footer prints. */
+export const POST_COUNT = Object.keys(POSTS).length;

@@ -40,7 +40,7 @@ export interface FounderPhoto {
  * Raulji" ten times over is worse than useless to a screen reader.
  */
 const SLOT_ALT: Record<PhotoSlot, string> = {
-  'hero-portrait': 'Yuvraj Raulji',
+  'hero-portrait': 'Yuvraj Raulji, Founder of Raulji Technologies and eCommerce consultant',
   desk: 'Yuvraj Raulji working at his desk',
   walking: 'Yuvraj Raulji walking outdoors',
   research: 'Yuvraj Raulji reading technical research on screen',

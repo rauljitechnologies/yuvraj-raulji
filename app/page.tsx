@@ -1,50 +1,58 @@
 import type { Metadata } from 'next';
+import { SiteNav } from '../components/chrome/nav';
 import { ContactModal } from '../components/contact-modal';
-import { Closing } from '../components/homepage/closing';
-import { Commerce } from '../components/homepage/commerce';
-import { Company } from '../components/homepage/company';
-import { ContentHub } from '../components/homepage/content-hub';
-import { Hero } from '../components/homepage/hero';
-import { Lab } from '../components/homepage/lab';
-import { HomeNav } from '../components/homepage/nav';
-import { Now } from '../components/homepage/now';
-import { Philosophy } from '../components/homepage/philosophy';
-import { Pov } from '../components/homepage/pov';
-import { Thinking } from '../components/homepage/thinking';
-import { Timeline } from '../components/homepage/timeline';
-import { Work } from '../components/homepage/work';
+import { Closing } from '../components/brand/closing';
+import { Hero } from '../components/brand/hero';
+import {
+  Attention,
+  Commerce,
+  Evolution,
+  Learning,
+  PointOfView,
+  SelectedWork,
+  Statement,
+  ThoughtAreas,
+  Writing,
+} from '../components/brand/sections';
+import { SiteFooter } from '../components/chrome/footer';
 import { JsonLd } from '../components/json-ld';
-import { SiteFooter } from '../components/site-footer';
-import { homeSchema } from '../lib/schema';
+import { POSITIONING_PLAIN } from '../lib/brand';
+import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
 import { SITE_URL } from '../lib/site';
-import './home.css';
 
-const title = 'Yuvraj Raulji | AI & eCommerce Consultant';
-const description =
-  'Yuvraj Raulji explores AI, LLMs, eCommerce, digital transformation and the technologies shaping modern business.';
+/**
+ * Title and description carry the one positioning string, and the same one the
+ * H1 and the Person node carry. Three different descriptions of the same
+ * person across title, heading and markup is the fastest way to stop a search
+ * engine resolving an entity confidently, and it was the previous state of
+ * this file.
+ */
+const title = 'Yuvraj Raulji | AI, Business & eCommerce';
 
 export const metadata: Metadata = {
   title,
-  description,
+  description: HOME_DESCRIPTION,
+  /**
+   * Entities, not a keyword list. Every term here is a subject the page
+   * actually discusses in visible prose; none is repeated to hit a density.
+   */
   keywords: [
     'Yuvraj Raulji',
-    'AI',
-    'LLMs',
+    'AI and eCommerce',
     'AI agents',
-    'AI automation',
-    'business transformation',
-    'eCommerce',
-    'Shopify',
-    'Magento',
+    'LLMs',
+    'digital commerce',
     'headless commerce',
+    'business transformation',
+    'technology strategy',
     'AI search',
-    'CRO',
-    'digital transformation',
+    'Magento',
+    'Shopify',
   ],
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
     title,
-    description,
+    description: HOME_DESCRIPTION,
     url: `${SITE_URL}/`,
     siteName: 'Yuvraj Raulji',
     type: 'website',
@@ -54,67 +62,75 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/assets/yuvraj-raulji.jpg`,
         width: 400,
         height: 400,
-        alt: 'Yuvraj Raulji',
+        alt: `Yuvraj Raulji, working across ${POSITIONING_PLAIN}`,
       },
     ],
   },
   twitter: {
     /*
      * `summary`, not `summary_large_image`. The only real photograph in the
-     * repository is 400×400, and a square asset in a 1.91:1 card is either
-     * cropped through the subject's face or pillarboxed. Ship a 1200×630 card
+     * repository is 400x400, and a square asset in a 1.91:1 card is either
+     * cropped through the subject's face or pillarboxed. Ship a 1200x630 card
      * and this becomes summary_large_image.
      */
     card: 'summary',
     title,
-    description,
+    description: HOME_DESCRIPTION,
     images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`],
   },
 };
 
 /**
- * Homepage.
+ * Home.
  *
- * A server component. Every section below is a server component too, apart
- * from the five that genuinely need an event handler or local state: the
- * navigation, the learning lab tabs, the point-of-view rail, the content
- * filters, and the small motion wrappers. Everything else is HTML by the time
- * it reaches the browser.
+ * Eleven sections, in the order the brief fixes:
  *
- * There is no WebGL, no scroll library and no canvas on this page. The only
- * scroll-linked value in the whole document is the hero parallax offset; every
- * other animation is an IntersectionObserver firing once, or CSS.
+ *   01 Hero              who, in five seconds
+ *   02 Statement         the belief the rest of the page rests on
+ *   03 Thought areas     the four subjects
+ *   04 Learning          what is being studied now, framed as study
+ *   05 Commerce          eight decisions, not eight services
+ *   06 Point of view     five positions, each with its turn
+ *   07 Evolution         how the thinking got here
+ *   08 Selected work     six builds
+ *   09 Attention         what is live right now
+ *   10 Writing           six real, indexed articles
+ *   11 Closing           one question, one action
  *
- * Section order is fixed by SECTIONS in lib/home.ts, which also supplies each
- * section's number and running-head label, so the twelve stay in step.
+ * What is deliberately absent, and the absence is the design rather than an
+ * omission to tidy up later:
  *
- * `faq: false` because this page renders no FAQ block, and FAQPage markup
- * without the matching visible content is a structured-data violation rather
- * than a free win.
+ *   - Testimonials. The four on file attribute to phrases like "Enterprise
+ *     Client", and an unattributable quote is not proof of anything.
+ *   - Five of six outcome figures. One engagement has a published measured
+ *     result; the others say what was built and stop.
+ *   - Any company, directorship or foundership. This is the personal site.
+ *
+ * A server component, and so is every section. The only client modules on the
+ * page are the navigation, the entrance animations and the enquiry modal.
  */
 export default function Home() {
   return (
     <>
-      <JsonLd data={homeSchema({ faq: false })} />
+      <JsonLd data={brandHomeSchema()} />
 
-      <div className="home">
-        <HomeNav />
+      <div className="yr-page">
+        <SiteNav />
 
         {/* Film grain. Fixed, non-interactive, purely atmospheric. */}
         <div className="noise" aria-hidden="true" />
 
-        <main id="top">
+        <main id="main">
           <Hero />
-          <Philosophy />
-          <Thinking />
-          <Lab />
+          <Statement />
+          <ThoughtAreas />
+          <Learning />
           <Commerce />
-          <Pov />
-          <Timeline />
-          <Work />
-          <Now />
-          <ContentHub />
-          <Company />
+          <PointOfView />
+          <Evolution />
+          <SelectedWork />
+          <Attention />
+          <Writing />
           <Closing />
         </main>
 

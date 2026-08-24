@@ -1,11 +1,16 @@
 /* ═══════════════════════════════════════════════════════════════
-   HOMEPAGE
 
-   Two things keep this file off the rest of the site. Every class is
-   `yr-` prefixed, so nothing here can collide with the ported styles in
-   globals.css; and every value the classes depend on is declared on
-   `.home`, which only app/page.tsx renders, so a `yr-` class used
-   anywhere else would simply have nothing to resolve against.
+   EDITORIAL PAGE SYSTEM
+
+   Every class here is `yr-` prefixed, so nothing can collide with the
+   ported styles in globals.css, and every value the classes depend on is
+   declared on `.yr-page`. Any route that opts into this design language
+   renders a `.yr-page` wrapper; a `yr-` class used outside one has
+   nothing to resolve against and simply does not paint.
+
+   This was scoped to `.home` while the homepage was the only page using
+   it. It is now the shared page system: home, /expertise/, /work/,
+   /experience/, /about/ and /contact/ all render inside `.yr-page`.
 
    The prefix is `yr-` and not `h-` for a specific reason: Tailwind owns
    `h-*` for height, and it generates a utility for every key in
@@ -19,24 +24,77 @@
    read from further away.
    ═══════════════════════════════════════════════════════════════ */
 
-.home {
+/* ── Anchor offset ─────────────────────────────────────────────
+   The navigation is position: fixed and 77px tall, and nothing was
+   setting a scroll offset, so every in-page jump (the three nav
+   anchors, "Explore my work", "Where I would start") landed with the
+   target section's first 77px hidden underneath it. The section marker,
+   which is the first thing in every section, was the part being eaten.
+
+   scroll-padding-top has to sit on the scrolling element, so it is
+   scoped with :has() rather than declared on .home itself. Scoped that
+   way it cannot affect the interior pages, which have their own header
+   geometry. */
+
+:root:has(.yr-page) {
+  scroll-padding-top: calc(77px + var(--sp-block));
+}
+
+/* The token scope.
+   Split out of `.yr-page` so the site chrome can carry it too. The navigation
+   and the footer render on routes that do not wrap their content in
+   `.yr-page` (the blog, and anything added later), and a `yr-` class outside a
+   scope has nothing to resolve against and simply does not paint: the footer
+   labels came out as unstyled 16px text. `.yr-scope` declares the values and
+   nothing else; `.yr-page` adds the ground and the ink on top, which is the
+   part the header must not inherit or it can never be transparent. */
+
+.yr-scope,
+.yr-page {
   /* Display scale. Every clamp is viewport-width based, so the jump from
      phone to 1440 is continuous and there is no breakpoint where a
-     headline suddenly reflows to four lines. */
-  --hd-1: clamp(1.9rem, 5vw, 4.75rem);
-  --hd-2: clamp(1.75rem, 4.5vw, 4.1rem);
-  --hd-3: clamp(1.35rem, 2.4vw, 2.05rem);
-  --hd-year: clamp(2.6rem, 6vw, 5rem);
-  --hd-quote: clamp(1.5rem, 2.6vw, 2.3rem);
+     headline suddenly reflows to an extra line.
 
-  --rule: rgba(255, 255, 255, 0.08);
-  --rule-strong: rgba(255, 255, 255, 0.16);
+     Retuned for Space Grotesk. The previous values were drawn around Bebas
+     Neue, which is condensed: it sets roughly a quarter more characters per
+     line at the same size, so a clamp tuned for it overflows here. Each
+     ceiling below is the size at which the longest authored line in the
+     content model still fits the column it is set in, measured rather than
+     guessed. */
+  --hd-1: clamp(2.6rem, 6.4vw, 5.6rem); /* Hero H1, four short authored lines */
+  --hd-statement: clamp(2.3rem, 6.2vw, 5.4rem); /* A section that is one sentence */
+  --hd-2: clamp(1.9rem, 4.2vw, 3.5rem);
+  --hd-3: clamp(1.15rem, 1.9vw, 1.65rem);
+  --hd-year: clamp(2rem, 4.4vw, 3.6rem);
+  --hd-quote: clamp(1.35rem, 2.4vw, 2.1rem);
 
-  --pad-y: clamp(84px, 10vw, 168px);
-  --pad-y-tall: clamp(112px, 14vw, 232px);
-  --shell: 1440px;
+  /* The brief's one hairline, and a stronger cousin for interactive edges.
+     #202020 is a flat value rather than white-at-8%, so a rule reads the
+     same over --bg and over --surface instead of shifting between bands. */
+  --rule: var(--border);
+  --rule-strong: var(--border-strong);
+
+  /* The hover wash on a card. A token rather than a literal because the page
+     now has two grounds: on black the wash has to be white, on paper it has
+     to be black, and every consumer of it is the same declaration. */
+  --wash: rgba(255, 255, 255, 0.022);
+
+  /* The veil over an image in a .yr-frame. On black an image has to be sunk
+     into the ground or it punches a lit hole in the page; on paper the ground
+     already supplies the contrast and the same veil only makes the picture
+     muddy. Tokens rather than one opacity, so the `--live` and hover rules
+     that adjust `opacity` on the same pseudo-element keep working. */
+  --veil-top: 0.32;
+  --veil-mid: 0.06;
+  --veil-foot: 0.62;
+
+  --pad-y: clamp(88px, 10.5vw, 176px);
+  --pad-y-tall: clamp(120px, 15vw, 248px);
+  --shell: 1400px;
   --gut: clamp(20px, 4.4vw, 64px);
+}
 
+.yr-page {
   background: var(--bg);
   color: var(--text);
 }
@@ -115,60 +173,87 @@
    browser rebalance them would undo that. */
 
 .yr-display {
-  font-family: var(--font-display), 'Bebas Neue', sans-serif;
-  /* Bebas Neue ships one cut. Anything above 400 is synthesised. */
-  font-weight: 400;
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  /* 500, not 700. At these sizes a bold uppercase grotesque reads as a
+     shout; the weight that makes a headline feel expensive is the one just
+     above regular, carried by size and space instead. */
+  font-weight: 500;
   text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  line-height: 0.9;
+  letter-spacing: -0.025em;
 }
 
-/* Display 1 is set to the proportions the live site uses on its hero H1:
-   lighter than the rest of the display scale, and tracked open rather than
-   tight. At this size the wide grotesque does not need weight to hold the
-   page, and positive tracking keeps the uppercase counters apart. */
+/* Hero H1. Tighter still, because it is the only type on the page large
+   enough that the default tracking opens visible gaps between the caps. */
 .yr-display--1 {
   font-size: var(--hd-1);
-  font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: 0.02em;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+}
+
+/* One sentence, set as the whole section. Section 02 and the closing
+   question are the only two things that use it. */
+.yr-display--statement {
+  font-size: var(--hd-statement);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
 }
 
 .yr-display--2 {
   font-size: var(--hd-2);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 
 .yr-display--3 {
   font-size: var(--hd-3);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
 }
 
-/* The second line of a two-line headline, dropped to the muted tone so
+/* The trailing line of a multi-line headline, dropped to the muted tone so
    the pair reads as one statement with a beat in the middle. */
 .yr-display__soft {
   color: var(--text-faint);
 }
 
+/* The one word in a headline that carries the red. Used on BUSINESS in the
+   hero and nowhere else per headline: two accented words in one sentence
+   and neither is emphasis any more. */
+.yr-display__accent {
+  color: var(--accent);
+}
+
 .yr-lede {
-  font-size: clamp(1rem, 1.25vw, 1.18rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.15vw, 1.14rem);
+  line-height: 1.72;
   color: var(--text-secondary);
   max-width: 62ch;
 }
 
 .yr-note {
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 0.9rem;
+  line-height: 1.75;
   color: var(--text-muted);
 }
 
+/* The small uppercase eyebrow. Set in the body face, not the display face:
+   at 0.64rem a display grotesque loses its counters and the tracking has to
+   fight the drawing rather than work with it. */
 .yr-label {
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--text-muted);
+}
+
+/* Eyebrow variant that carries the red. --accent-bright, never --accent:
+   this is small text and the primary red is 3.93:1. */
+.yr-label--accent {
+  color: var(--accent-bright);
 }
 
 /* ── Line-mask reveal ────────────────────────────────────────────
@@ -266,6 +351,72 @@
   background-size: 100% 1px;
 }
 
+/* ── Inline prose link ───────────────────────────────────────────
+   The companion to .yr-link, and the one the internal-linking system
+   actually runs on.
+
+   .yr-link is a destination in its own right: uppercase, tracked open,
+   bold, sized like a control. It is right for "All writing" and wrong for
+   "headless commerce architecture, and the case against it", which is the
+   shape descriptive anchor text takes. Set in uppercase at 0.72rem, an
+   anchor that long stops being readable and starts being a wall.
+
+   So: sentence case, body size, and an underline that is always visible
+   rather than drawn on hover. A link a reader has to hover to discover is
+   not a link, and these carry the whole cross-linking structure between
+   the pillars, the case studies and the articles. */
+
+.yr-inline {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--accent-rgb) / 0.55);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color 0.22s var(--ease-out), text-decoration-color 0.22s var(--ease-out);
+}
+
+.yr-inline:hover,
+.yr-inline:focus-visible {
+  color: var(--accent-bright);
+  text-decoration-color: var(--accent-bright);
+}
+
+/* Arrow-led variant, for a descriptive link that stands on its own line
+   rather than inside a sentence. The arrow is a pseudo-element so it is
+   never read out and never selectable. */
+
+.yr-inline--lead {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.yr-inline--lead::before {
+  content: '\2192';
+  flex: none;
+  color: var(--accent-bright);
+  transition: transform 0.28s var(--ease-out);
+}
+
+.yr-inline--lead:hover::before,
+.yr-inline--lead:focus-visible::before {
+  transform: translateX(4px);
+}
+
+.yr-inline--lead > span {
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--accent-rgb) / 0.4);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 0.22s var(--ease-out);
+}
+
+.yr-inline--lead:hover > span,
+.yr-inline--lead:focus-visible > span {
+  text-decoration-color: var(--accent-bright);
+}
+
 /* ── Editorial cards ─────────────────────────────────────────────
    Square corners, hairline borders, no glass and no shadow. The hover
    state tints the surface and draws a rule across the top edge; the
@@ -296,7 +447,7 @@
 
 .yr-card:hover,
 .yr-card:focus-within {
-  background: rgba(255, 255, 255, 0.022);
+  background: var(--wash);
   border-color: var(--rule-strong);
 }
 
@@ -306,9 +457,9 @@
 }
 
 .yr-card__num {
-  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
   font-size: 0.78rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.18em;
   color: var(--text-faint);
   font-variant-numeric: tabular-nums;
@@ -415,18 +566,27 @@ a:focus-visible .yr-frame img {
   filter: grayscale(0) contrast(1);
 }
 
+/* A frame that resolves to colour on its own hover rather than on an
+   ancestor anchor's. The Work page case images are figures, not links: the
+   whole record is already on the page, so there is nowhere for a click to
+   usefully go. */
+.yr-frame--hover:hover img {
+  filter: grayscale(0) contrast(1);
+  transform: scale(1.02);
+}
+
 .yr-frame::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(200deg, rgba(229, 9, 32, 0.16) 0%, rgba(229, 9, 32, 0) 44%),
+    linear-gradient(200deg, rgb(var(--accent-rgb) / 0.16) 0%, rgb(var(--accent-rgb) / 0) 44%),
     linear-gradient(
       180deg,
-      rgba(5, 5, 5, 0.32) 0%,
-      rgba(5, 5, 5, 0.06) 38%,
-      rgba(5, 5, 5, 0.62) 100%
+      rgba(5, 5, 5, var(--veil-top)) 0%,
+      rgba(5, 5, 5, var(--veil-mid)) 38%,
+      rgba(5, 5, 5, var(--veil-foot)) 100%
     );
   transition: opacity 0.6s var(--ease-out);
 }
@@ -555,5 +715,346 @@ a:focus-visible .yr-frame::after {
 
   .yr-dot::after {
     opacity: 0;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 1 — PERSONAL BRAND SYSTEM
+
+   Everything below was added for the Home / About / Work rebuild.
+   Same rules as the rest of this file: no class declares a colour that
+   is not a token, no class sets a margin a component also sets with a
+   utility, and nothing animates a property that is not transform or
+   opacity, with the two documented exceptions already noted above.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Paper ───────────────────────────────────────────────────────
+
+   The page alternates black, paper, black, paper. This class is the
+   paper half, and it is the single most load-bearing rule in the file.
+
+   It was `.yr-band`, and it set `background: var(--surface)` — #0a0a0a
+   against a #050505 ground. That is a five-point step on a 255-point
+   scale: the rhythm existed in the markup and was invisible on screen,
+   so the whole site read as one continuous black. The brief is explicit
+   that it must not, and that white is what carries the editorial half of
+   the design.
+
+   ── Why this is a token swap and not a set of overrides ──────────────
+
+   Nothing below restyles a component. Every `yr-` class already resolves
+   its colour from --text / --text-muted / --rule / --accent and never
+   from a literal, so redeclaring those eight custom properties on this
+   scope inverts every descendant at once: cards, markers, rules, tags,
+   the ordinals, the filter buttons and the Tailwind token utilities
+   (`text-ink`, `border-line`) alike. A section is on paper because it
+   carries this class, and for no other reason. Adding a component means
+   using the tokens; it never means writing a `.yr-paper .thing` rule,
+   and there is not one of those in this file.
+
+   ── The red on paper ─────────────────────────────────────────────────
+
+   --accent stays #d71920 in both scopes; it is the brand and it must not
+   shift between grounds. --accent-bright cannot stay: #ee2a34 is drawn
+   to lift off black and lands at 3.4:1 on white, which fails AA for the
+   labels and marker numbers that use it. On paper it maps to the brief's
+   dark red, #a30f15, at 7.6:1. So "bright" means *further from the
+   ground* rather than literally lighter, and the accent reads as one
+   colour family across the whole page.
+
+   Contrast on #ffffff, measured:
+     --text            #050505   20.4:1
+     --text-secondary  ~#434343   9.9:1
+     --text-muted      #565656    7.4:1   passes AA at any size
+     --accent          #d71920    5.1:1   passes AA for body text
+     --accent-bright   #a30f15    7.6:1
+   --text-faint is decorative only and is used for large ordinals, the
+   same role it has on the dark scope.
+
+   The top hairline is dropped: the change of ground is already the
+   separation, and a rule drawn on top of it reads as an accident. */
+
+.yr-paper,
+.yr-nav.yr-nav--light {
+  --bg: #ffffff;
+  --surface: #f7f7f5;
+  --surface-elevated: #ffffff;
+  --border: #e5e5e5;
+  --border-strong: #d0d0d0;
+
+  --text: #050505;
+  --text-secondary: rgba(5, 5, 5, 0.74);
+  --text-muted: #565656;
+  --text-faint: rgba(5, 5, 5, 0.34);
+
+  --accent: #d71920;
+  --accent-bright: #a30f15;
+  --accent-deep: #7c0c11;
+  --accent-soft: rgba(215, 25, 32, 0.07);
+  --accent-rgb: 215 25 32;
+  --accent-bright-rgb: 163 15 21;
+
+  --rule: var(--border);
+  --rule-strong: var(--border-strong);
+  --wash: rgba(5, 5, 5, 0.028);
+
+  --veil-top: 0.1;
+  --veil-mid: 0.02;
+  --veil-foot: 0.2;
+}
+
+/* Only the section paints. The navigation shares the tokens above but must
+   stay transparent over the top of a hero, so it never takes the ground. */
+.yr-paper {
+  background: var(--bg);
+  color: var(--text);
+  border-top-color: transparent;
+}
+
+/* The section *after* a paper one drops its rule for the same reason the paper
+   one does: the boundary is already a change of ground, and a hairline drawn
+   across it reads as a seam rather than as a division. */
+.yr-paper + .yr-section {
+  border-top-color: transparent;
+}
+
+/* ── Navigation ──────────────────────────────────────────────────
+
+   The bar is fixed over a page that changes ground underneath it, so it
+   carries two states and switches between them: dark over the black
+   sections, paper over the white ones. The switch is a class toggled by
+   an IntersectionObserver in components/chrome/nav.tsx, which watches
+   which ground is under the bar rather than guessing from scroll depth.
+
+   `.yr-nav.yr-nav--light` is two classes on purpose. The header also
+   carries `.yr-scope`, and a single-class selector would only win on
+   source order; at 0,2,0 this beats it wherever either is declared.
+
+   Transparent until the page has moved, so a hero reads full bleed. Once
+   it has, the bar takes a translucent ground of whichever colour it is
+   currently over, plus the hairline. Both are on the same transition, so
+   crossing a section boundary is one 300ms crossfade rather than a flip. */
+
+.yr-nav {
+  --nav-bg: rgba(5, 5, 5, 0.88);
+  border-bottom: 1px solid transparent;
+  /* Ground and hairline crossfade; INK DOES NOT. `color` was in this list and
+     had to come out: the bar sets `color: var(--text)` and its children set
+     their own `color: var(--text)` through Tailwind's `text-ink`, so once the
+     token flips, parent and children transition against a value that is itself
+     still transitioning. The chase never resolves and the computed colour
+     sticks partway — measured at rgb(135,134,131) on a white bar, roughly
+     halfway between the two inks and unreadable against either ground.
+     Switching ink instantly is also the correct effect: a nav whose labels
+     fade through mid-grey while crossing a section edge reads as a rendering
+     fault, not as a transition. */
+  transition: background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out),
+    backdrop-filter 0.3s var(--ease-out);
+}
+
+.yr-nav.yr-nav--light {
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+}
+
+.yr-nav--solid {
+  background: var(--nav-bg);
+  border-bottom-color: var(--rule);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-nav {
+    transition: none;
+  }
+}
+
+/* ── Oversized ordinal ───────────────────────────────────────────
+   The 01/02/03/04 that opens a thought area. Decorative ordering, so
+   every consumer hides it from assistive technology; the label beside
+   it is the part worth announcing. */
+
+.yr-num {
+  display: block;
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+  transition: color 0.4s var(--ease-out);
+}
+
+.yr-thought:hover .yr-num,
+.yr-thought:focus-within .yr-num {
+  color: var(--accent);
+}
+
+/* ── Thought area ────────────────────────────────────────────────
+   Section 03 and the About focus list. Deliberately not a card: no
+   border box, no fill, no shadow. A rule on top, generous air, and the
+   red arriving only on the rule and the ordinal. The brief is explicit
+   that these are areas of thought rather than service tiles, and the
+   difference between the two is entirely whether they are boxed. */
+
+.yr-thought {
+  position: relative;
+  padding-top: var(--sp-item);
+  border-top: 1px solid var(--rule);
+}
+
+.yr-thought::before {
+  content: '';
+  position: absolute;
+  inset: -1px auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out);
+}
+
+.yr-thought:hover::before,
+.yr-thought:focus-within::before {
+  transform: scaleX(1);
+}
+
+/* ── Point of view ───────────────────────────────────────────────
+   A statement set large enough to be read as an argument rather than as
+   a caption. Mixed case, not uppercase: these are sentences with
+   punctuation, and uppercase strips the ascenders a reader uses to take
+   a long line in at a glance. */
+
+.yr-pov {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* The second sentence of a two-sentence position: the turn, dropped to
+   the muted tone so the pair reads as claim then correction. */
+.yr-pov__turn {
+  color: var(--text-muted);
+}
+
+/* ── Accent rule ─────────────────────────────────────────────────
+   A short red line under an eyebrow. Fades to the deep red rather than
+   to transparent, so it reads as drawn rather than as a gradient
+   artefact on a near-black ground. */
+
+.yr-rule-accent {
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+}
+
+/* ── Hero portrait plate ─────────────────────────────────────────
+   A very slow drift, 14s, 1.5% of travel. At that rate it is not read
+   as an animation; it is read as the image being alive. Transform only,
+   and it stops completely under reduced motion. */
+
+.yr-portrait {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+
+.yr-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: yr-drift 14s var(--ease-inout) infinite alternate;
+}
+
+@keyframes yr-drift {
+  from {
+    transform: scale(1.015) translate3d(-0.6%, 0.4%, 0);
+  }
+  to {
+    transform: scale(1.045) translate3d(0.6%, -0.4%, 0);
+  }
+}
+
+/* The grade. A low red wash from the top left and a near-black floor, so
+   a lit portrait sits in the page instead of punching a hole in it. */
+.yr-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(205deg, rgb(var(--accent-rgb) / 0.14) 0%, rgb(var(--accent-rgb) / 0) 46%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.28) 0%, rgba(5, 5, 5, 0.02) 40%, rgba(5, 5, 5, 0.7) 100%);
+}
+
+/* ── Filter control ──────────────────────────────────────────────
+   Work page. A real <button> in a real toolbar, so the pressed state is
+   carried by aria-pressed and not only by colour. */
+
+.yr-filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding-inline: 18px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
+    background-color 0.22s var(--ease-out);
+}
+
+.yr-filter:hover {
+  color: var(--text);
+  border-color: var(--rule-strong);
+}
+
+.yr-filter[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Process flow ────────────────────────────────────────────────
+   The About page's five steps. An ordered list, because it is one, with
+   the connector drawn as a pseudo-element so no empty <div> exists only
+   to hold a line. The last step drops its connector. */
+
+.yr-flow-step {
+  position: relative;
+  padding-bottom: var(--sp-block);
+}
+
+.yr-flow-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2.6em;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent-deep), var(--rule));
+}
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-portrait img {
+    animation: none;
   }
 }

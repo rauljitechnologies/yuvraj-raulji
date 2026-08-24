@@ -7,14 +7,14 @@ import { CONTACT } from '../../lib/site';
 const panelCls = 'p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2';
 const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,#f0263c,rgba(229, 9, 32,.15))', borderRadius: 2, flexShrink: 0 }} />;
 const shareBtnCls =
-  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(229, 9, 32,.28)]';
+  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-rv hover:shadow-[0_8px_28px_rgba(229,9,32,.28)]';
 const shareBtnStyle: React.CSSProperties = { border: '1px solid rgba(255,255,255,.12)', color: 'rgba(245, 245, 242,.55)', fontSize: '.74rem', fontWeight: 700 };
 
 function PanelHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       {spine}
-      <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245, 245, 242,.50)]">{children}</p>
+      <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245,245,242,.50)]">{children}</p>
     </div>
   );
 }
@@ -43,7 +43,7 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
     <div className={mobile ? `lg:hidden p-6 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2 mb-10` : `hidden lg:block ${panelCls}`}>
       <div className={`flex items-center gap-3 ${mobile ? 'mb-4' : 'mb-5'}`}>
         {spine}
-        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245, 245, 242,.50)]">On This Page</p>
+        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245,245,242,.50)]">On This Page</p>
       </div>
       <nav className={`flex flex-col ${mobile ? 'gap-[10px]' : 'gap-[12px]'}`}>
         {toc.map((h, i) => {
@@ -57,11 +57,11 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
                 document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
               }}
               className={`flex items-start gap-[10px] text-[.79rem] leading-[1.5] transition-colors duration-200 ${
-                mobile ? 'text-[rgba(245, 245, 242,.50)] hover:text-rv' : on ? 'text-rv' : 'text-[rgba(245, 245, 242,.48)] hover:text-[#f5f5f2]'
+                mobile ? 'text-[rgba(245,245,242,.50)] hover:text-rv' : on ? 'text-rv' : 'text-[rgba(245,245,242,.48)] hover:text-[#f5f5f2]'
               }`}
             >
               <span
-                className={`font-display pt-[2px] flex-shrink-0 ${mobile ? 'text-[rgba(229, 9, 32,.50)]' : on ? 'text-rv' : 'text-[rgba(229, 9, 32,.45)]'}`}
+                className={`font-display pt-[2px] flex-shrink-0 ${mobile ? 'text-[rgba(229,9,32,.50)]' : on ? 'text-rv' : 'text-[rgba(229,9,32,.45)]'}`}
                 style={{ fontSize: '.74rem', letterSpacing: '.08em' }}
               >
                 {String(i + 1).padStart(2, '0')}
@@ -115,20 +115,20 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
           </div>
           <div>
             <p className="font-bold text-[.92rem]">Yuvraj Raulji</p>
-            <p className="text-[.70rem] text-[rgba(245, 245, 242,.46)] leading-snug">
+            <p className="text-[.70rem] text-[rgba(245,245,242,.46)] leading-snug">
               Full Stack E-commerce &amp;
               <br />
               AI Consultant · 9+ Years
             </p>
           </div>
         </div>
-        <p className="text-[.82rem] text-[rgba(245, 245, 242,.52)] leading-[1.7] mb-5">
+        <p className="text-[.82rem] text-[rgba(245,245,242,.52)] leading-[1.7] mb-5">
           Magento 2 architect, SEO/CRO strategist, AWS infrastructure specialist, and AI automation engineer based in Vadodara, India.
         </p>
         <div className="flex flex-col gap-[10px]">
           <a
             href={`mailto:${CONTACT.email}?subject=Blog+Article+Consultation`}
-            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229, 9, 32,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229,9,32,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
           >
             Hire Me →
           </a>
@@ -136,7 +136,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             href={CONTACT.linkedin}
             target="_blank"
             rel="noopener"
-            className="flex items-center justify-center gap-2 h-11 rounded border border-[rgba(255,255,255,.12)] text-[.70rem] font-semibold tracking-[.12em] uppercase text-[rgba(245, 245, 242,.60)] transition-all hover:border-[rgba(229, 9, 32,.36)] hover:text-rv touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded border border-[rgba(255,255,255,.12)] text-[.70rem] font-semibold tracking-[.12em] uppercase text-[rgba(245,245,242,.60)] transition-all hover:border-[rgba(229,9,32,.36)] hover:text-rv touch-manipulation"
           >
             Connect on LinkedIn
           </a>
@@ -181,10 +181,10 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
           <br />
           Your Project?
         </p>
-        <p className="text-[.78rem] text-[rgba(245, 245, 242,.52)] leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
+        <p className="text-[.78rem] text-[rgba(245,245,242,.52)] leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
         <a
           href={`mailto:${CONTACT.email}?subject=Consultation+Request`}
-          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229, 9, 32,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(229,9,32,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
         >
           Book Now →
         </a>

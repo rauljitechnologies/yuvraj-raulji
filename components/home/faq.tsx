@@ -51,7 +51,7 @@ export function Faq() {
             </p>
             <button
               onClick={() => setContactOpen(true)}
-              className="mt-6 inline-flex items-center gap-2 h-[44px] px-[22px] rounded-md border border-[rgba(229, 9, 32,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase bg-transparent cursor-pointer whitespace-nowrap transition-all duration-200 hover:bg-red hover:text-white hover:border-red hover:-translate-y-px"
+              className="mt-6 inline-flex items-center gap-2 h-[44px] px-[22px] rounded-md border border-[rgba(229,9,32,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase bg-transparent cursor-pointer whitespace-nowrap transition-all duration-200 hover:bg-red hover:text-white hover:border-red hover:-translate-y-px"
             >
               Ask Directly &nbsp;→
             </button>
@@ -73,7 +73,7 @@ export function Faq() {
                   );
                 })}
               </div>
-              <p className="font-display text-[1.05rem] tracking-[.14em] text-[rgba(245, 245, 242,.45)] mt-2">/ 08 &nbsp;Answered</p>
+              <p className="font-display text-[1.05rem] tracking-[.14em] text-[rgba(245,245,242,.45)] mt-2">/ 08 &nbsp;Answered</p>
             </div>
           </div>
 
