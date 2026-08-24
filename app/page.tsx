@@ -1,20 +1,21 @@
 import type { Metadata } from 'next';
-import { SiteNav } from '../components/chrome/nav';
-import { ContactModal } from '../components/contact-modal';
-import { Closing } from '../components/brand/closing';
-import { Hero } from '../components/brand/hero';
+import { HomeFooter, HomeHeader } from '../components/homepage-sections/chrome';
+import { Hero } from '../components/homepage-sections/hero';
+import { NO_SCRIPT_REVEAL_CSS } from '../components/homepage-sections/rv';
 import {
-  Attention,
-  Commerce,
+  AiSystems,
+  Book,
+  Contact,
   Evolution,
-  Learning,
-  PointOfView,
+  Expertise,
+  FeaturedCase,
+  Insights,
+  Position,
+  QuoteBand,
   SelectedWork,
-  Statement,
-  ThoughtAreas,
-  Writing,
-} from '../components/brand/sections';
-import { SiteFooter } from '../components/chrome/footer';
+  Social,
+  Systems,
+} from '../components/homepage-sections/sections';
 import { JsonLd } from '../components/json-ld';
 import { POSITIONING_PLAIN } from '../lib/brand';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
@@ -81,63 +82,65 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home.
+ * Home, built to the Claude Design canvas "Yuvraj Raulji - Homepage.dc.html"
+ * (project 76be536d), section for section:
  *
- * Eleven sections, in the order the brief fixes:
+ *   01 Hero            the positioning statement, portrait plate, ticker
+ *   02 The position    the belief, the four numbers, the standing statement
+ *   03 What I build    four systems, not four services
+ *   04 Selected work   six builds on a snapping rail
+ *   05 Featured case   Powerlook, on the first light band
+ *   06 Expertise       the stack read left to right, as an architecture
+ *   07 AI              the eight tracks, over the circuit traces
+ *   08 The evolution   eight shifts, oldest first
+ *   --  Quote          the accent band
+ *   09 Insights        six real posts from lib/posts.ts
+ *   10 Social          where the writing is published
+ *   11 Hire / consult  six engagement shapes, on the second light band
+ *   12 Contact         the form, wired to the same endpoint as the site modal
  *
- *   01 Hero              who, in five seconds
- *   02 Statement         the belief the rest of the page rests on
- *   03 Thought areas     the four subjects
- *   04 Learning          what is being studied now, framed as study
- *   05 Commerce          eight decisions, not eight services
- *   06 Point of view     five positions, each with its turn
- *   07 Evolution         how the thinking got here
- *   08 Selected work     six builds
- *   09 Attention         what is live right now
- *   10 Writing           six real, indexed articles
- *   11 Closing           one question, one action
- *
- * What is deliberately absent, and the absence is the design rather than an
- * omission to tidy up later:
- *
- *   - Testimonials. The four on file attribute to phrases like "Enterprise
- *     Client", and an unattributable quote is not proof of anything.
- *   - Five of six outcome figures. One engagement has a published measured
- *     result; the others say what was built and stop.
- *   - Any company, directorship or foundership. This is the personal site.
- *
- * A server component, and so is every section. The only client modules on the
- * page are the navigation, the entrance animations and the enquiry modal.
+ * Rendering. Every section is a server component reading module-scope data, so
+ * this page prerenders to static HTML at build time (next.config.mjs sets
+ * `output: 'export'`, which is prerender-at-build rather than render-per-request;
+ * there is no Node server in front of it). The only JavaScript the page ships is
+ * the Motion scroll-reveal wrappers and the contact form.
  */
 export default function Home() {
   return (
     <>
       <JsonLd data={brandHomeSchema()} />
 
-      <div className="yr-page">
-        <SiteNav />
+      {/*
+        Motion writes its `initial` state into the server-rendered markup, so
+        every reveal ships as `opacity:0`. Crawlers read the DOM and are
+        unaffected, but a reader with JavaScript off would get a blank page.
+        This switches all of it back on, and never loads when scripting works.
+      */}
+      <noscript>
+        <style dangerouslySetInnerHTML={{ __html: NO_SCRIPT_REVEAL_CSS }} />
+      </noscript>
 
-        {/* Film grain. Fixed, non-interactive, purely atmospheric. */}
-        <div className="noise" aria-hidden="true" />
+      <div className="bg-ground font-manrope text-ink [overflow-x:clip]">
+        <HomeHeader />
 
         <main id="main">
           <Hero />
-          <Statement />
-          <ThoughtAreas />
-          <Learning />
-          <Commerce />
-          <PointOfView />
-          <Evolution />
+          <Position />
+          <Systems />
           <SelectedWork />
-          <Attention />
-          <Writing />
-          <Closing />
+          <FeaturedCase />
+          <Expertise />
+          <AiSystems />
+          <Evolution />
+          <QuoteBand />
+          <Insights />
+          <Social />
+          <Book />
+          <Contact />
         </main>
 
-        <SiteFooter />
+        <HomeFooter />
       </div>
-
-      <ContactModal />
     </>
   );
 }

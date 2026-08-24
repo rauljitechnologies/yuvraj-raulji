@@ -39,6 +39,9 @@
   "//exclude": "The `include` globs above are `**/*.ts` and `**/*.tsx`, which walk the whole repo. There are ~30 abandoned Next build directories at the root (.next-ro-*, .next-rootowned-*, .next-stale-*, and several one-off names), each containing generated .ts and .d.ts files, and tsc was type-checking all of them: a --noEmit run took over fifteen minutes and a production build never finished. They are all gitignored build output and can be deleted; until they are, they are excluded by name here. `.next` and `.next-dev` are deliberately NOT excluded, because the typed-routes definitions Next generates under .next/types are listed in `include` and are needed.",
   "exclude": [
     "node_modules",
+    "node_modules.nosync",
+    ".quarantine-root-owned",
+    "private",
     "out",
     "app/_about_root_owned",
     "app/about 2",

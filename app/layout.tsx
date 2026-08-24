@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, JetBrains_Mono, Manrope, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, GTM_CONTAINER_ID, SITE_URL } from '../lib/site';
@@ -43,6 +43,32 @@ const display = Space_Grotesk({
   variable: '--font-display',
 });
 
+/**
+ * The homepage pair, from the design canvas the homepage is built to.
+ *
+ * They are declared here because next/font has to be called at module scope in
+ * a layout or page to be hoisted into the build, but nothing in `<body>` uses
+ * them by default: only components under components/homepage-sections reach for
+ * `font-manrope` / `font-mono`. The rest of the site keeps Space Grotesk and
+ * Inter.
+ *
+ * Both are self-hosted by next/font at build time, so there is no render-blocking
+ * request to fonts.googleapis.com and no layout shift, which is what the raw
+ * `<link>` in the canvas mockup would have cost.
+ */
+const manrope = Manrope({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-manrope',
+});
+
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400', '500'],
+  variable: '--font-mono',
+});
+
 export const viewport: Viewport = { themeColor: '#050505' };
 
 export const metadata: Metadata = {
@@ -59,7 +85,10 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${manrope.variable} ${mono.variable}`}
+    >
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {isProd && (
           <noscript>

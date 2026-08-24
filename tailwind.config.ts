@@ -50,6 +50,19 @@ const config: Config = {
         // Kept as an alias so any `font-grotesk` still in a template resolves to
         // the body face rather than silently falling back to the system stack.
         grotesk: ['var(--font-body)', 'Inter', 'system-ui', 'sans-serif'],
+
+        /**
+         * The two faces the homepage design canvas is drawn in. Scoped to the
+         * homepage rather than swapped in globally: the rest of the site is set
+         * in Space Grotesk and Inter, and changing those here would restyle
+         * every route as a side effect of a homepage redesign.
+         *
+         * Manrope is requested as a variable font across 200-800, because the
+         * design leans on 200 for display and 700 for the emphasis half of each
+         * heading. Both cuts come from the one file.
+         */
+        manrope: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         display: 'var(--fs-display)',
@@ -102,6 +115,49 @@ const config: Config = {
         lg: '1024px',
         xl: '1280px',
         '2xl': '1440px',
+      },
+      /**
+       * Ambient loops carried over from the homepage design canvas. These are
+       * decorative and infinite, so they are CSS rather than Framer Motion:
+       * Motion is reserved for the scroll-triggered reveals, which need to know
+       * about the viewport. Every consumer is `aria-hidden` or purely visual.
+       *
+       * `prefers-reduced-motion` is honoured globally in app/globals.css, which
+       * collapses animation-duration for the whole document, so none of these
+       * need their own media query.
+       */
+      keyframes: {
+        'yr-dash': {
+          '0%': { strokeDashoffset: '620' },
+          '55%': { strokeDashoffset: '0' },
+          '100%': { strokeDashoffset: '-620' },
+        },
+        'yr-float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-14px)' },
+        },
+        // Travels exactly half the track; the track renders its content twice,
+        // so the wrap is invisible.
+        'yr-marquee': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'yr-blink': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '.15' },
+        },
+        'yr-sweep': {
+          from: { transform: 'scaleX(0)' },
+          to: { transform: 'scaleX(1)' },
+        },
+      },
+      animation: {
+        'yr-dash': 'yr-dash 7s linear infinite',
+        'yr-dash-slow': 'yr-dash 12s linear infinite',
+        'yr-float': 'yr-float 9s ease-in-out infinite',
+        'yr-marquee': 'yr-marquee 34s linear infinite',
+        'yr-blink': 'yr-blink 2.6s ease-in-out infinite',
+        'yr-sweep': 'yr-sweep 2.4s var(--ease-out) both',
       },
     },
   },
