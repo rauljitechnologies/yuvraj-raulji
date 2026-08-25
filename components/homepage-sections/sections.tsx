@@ -119,7 +119,7 @@ export function Position() {
           </p>
           <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-7 gap-y-3.5 font-mono text-[13px] leading-[1.5]">
             <dt className="uppercase tracking-[0.16em] text-ink/35">Role</dt>
-            <dd className="m-0 text-ink/75">eCommerce &amp; technology architect</dd>
+            <dd className="m-0 text-ink/75">eCommerce and technology architect</dd>
             <dt className="uppercase tracking-[0.16em] text-ink/35">Focus</dt>
             <dd className="m-0 text-ink/75">Magento 2 · Headless · AI systems</dd>
             <dt className="uppercase tracking-[0.16em] text-ink/35">Based</dt>
@@ -128,22 +128,46 @@ export function Position() {
         </div>
       </Rv>
 
-      {/* The four-word banner. Decorative typography, so it is one line of text. */}
-      <RvGroup className="mt-20 flex flex-wrap gap-x-[clamp(24px,4vw,64px)] lg:mt-24">
+      {/*
+        The four-word banner, closing the section.
+
+        It used to be one wrapping line, and wrap is not a layout: at desktop
+        width it broke as COMMERCE / TECHNOLOGY AI / GROWTH, leaving two lines
+        that ended in a third of a screen of dead space, so a deliberate piece
+        of typography looked like text that had run out of room.
+
+        One word per line now, each on a rule that runs the full measure, which
+        is what bounds the space beside the short words instead of abandoning
+        it. The note on the right does the rest of that work, and earns the row
+        at the same time: section 6 of BRAND-DESIGN-GUIDELINE.md says not to
+        leave a keyword list standing on the visible page, and four bare nouns
+        is precisely that. Every note summarises material already on this page,
+        so nothing here is a new claim.
+      */}
+      <RvGroup
+        as="ul"
+        className="m-0 mt-20 list-none border-t border-ink/10 p-0 lg:mt-24"
+        each={0.07}
+      >
         {(
           [
-            ['COMMERCE', 'font-bold'],
-            ['TECHNOLOGY', 'font-extralight text-ink/35'],
-            ['AI', 'font-bold text-accent'],
-            ['GROWTH', 'font-extralight text-ink/35'],
+            ['COMMERCE', 'font-bold text-ink', 'Storefronts, catalogues, checkout'],
+            ['TECHNOLOGY', 'font-extralight text-ink/35', 'Architecture, performance, cloud'],
+            ['AI', 'font-bold text-accent', 'Agents, retrieval, automation'],
+            ['GROWTH', 'font-extralight text-ink/35', 'Search, speed, conversion'],
           ] as const
-        ).map(([word, skin]) => (
-          <RvItem key={word} as="div">
-            <span
-              className={`font-manrope text-[clamp(40px,10vw,150px)] leading-none tracking-[-0.05em] ${skin}`}
-            >
-              {word}
-            </span>
+        ).map(([word, skin, note]) => (
+          <RvItem key={word} as="li" className="border-b border-ink/10">
+            <div className="flex items-baseline justify-between gap-8">
+              <span
+                className={`block py-2 font-manrope text-[clamp(38px,8.6vw,116px)] leading-[0.98] tracking-[-0.05em] ${skin}`}
+              >
+                {word}
+              </span>
+              <span className="hidden shrink-0 pb-3 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.18em] text-ink/30 md:block">
+                {note}
+              </span>
+            </div>
           </RvItem>
         ))}
       </RvGroup>
