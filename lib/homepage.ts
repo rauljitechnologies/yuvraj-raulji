@@ -49,8 +49,9 @@ export const HERO = {
    * and a third would read as noise.
    */
   eyebrow: '01 / Yuvraj Raulji · AI, Business and eCommerce',
-  /** The one-line statement under the H1. */
-  subLead: 'AI, eCommerce and digital transformation for modern businesses.',
+  /** The one-line statement under the H1. Section 7, verbatim. */
+  subLead:
+    'Exploring AI, digital commerce and technology systems that help modern businesses operate, sell and grow.',
   /**
    * The longer lead paragraph is not here: the canvas links "AI" and
    * "eCommerce" inside the sentence to #ai and #expertise, so it is JSX and it

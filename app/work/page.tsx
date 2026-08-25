@@ -14,7 +14,8 @@ const crumbs: Crumb[] = [
   { name: 'Work', href: '/work/' },
 ];
 
-const title = 'Selected Work | Yuvraj Raulji';
+/* Section 25, verbatim. */
+const title = 'Yuvraj Raulji | eCommerce and Technology Work';
 
 export const metadata: Metadata = {
   title,

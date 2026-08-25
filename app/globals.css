@@ -62,8 +62,13 @@
     --focus: #ee2a34;
 
     /* State */
-    --success: #22c55e;
-    --warning: #f5a524;
+    /*
+     * Retired 26 Aug 2026. Section 32 of BRAND-DESIGN-GUIDELINE.md allows
+     * black, white and red and names green among the accents not to introduce,
+     * so a green success token is a rule violation with a friendly name. The
+     * confirmation states are drawn in the accent instead; nothing else read
+     * these two.
+     */
     --error: #ee2a34;
 
     /* Radii */

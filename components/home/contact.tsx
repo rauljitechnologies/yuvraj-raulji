@@ -53,7 +53,7 @@ export function Contact() {
             <div className={`${rowCls} border-b border-line`}>
               <span className={labelCls}>WhatsApp</span>
               <span className="text-[.88rem] font-medium text-ink">
-                <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="transition-colors hover:text-[#25D366]">
+                <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="transition-colors hover:text-[var(--accent-bright)]">
                   {CONTACT.phoneDisplay}
                 </a>
               </span>

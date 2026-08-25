@@ -12,12 +12,12 @@ import { POSTS } from '../../lib/posts';
 import { SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
-  title: 'Insights on E-commerce Technology & AI | Yuvraj Raulji',
+  title: 'Insights on eCommerce Technology and AI | Yuvraj Raulji',
   description:
     'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI, from hands-on e-commerce and digital transformation work.',
   alternates: { canonical: `${SITE_URL}/blog/` },
   openGraph: {
-    title: 'Blog & Insights | Yuvraj Raulji',
+    title: 'Blog and Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS, analytics and AI.',
     url: `${SITE_URL}/blog/`,
     siteName: 'Yuvraj Raulji',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog & Insights | Yuvraj Raulji',
+    title: 'Blog and Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS and AI by Yuvraj Raulji.',
   },
 };

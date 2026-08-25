@@ -65,6 +65,15 @@ export interface Pillar {
   num: string;
   /** The single H1. Held as lines because each break does typographic work. */
   h1: readonly string[];
+  /**
+   * The call to action for this pillar, in its own words.
+   *
+   * Section 21 of BRAND-DESIGN-GUIDELINE.md asks for a contextual CTA per page
+   * and says in as many words not to put a generic one everywhere; every
+   * pillar used to render "Discuss a project" twice. Written in sentence case
+   * because the button styling uppercases it.
+   */
+  cta: string;
   /** <title>. Kept under ~60 characters so it survives the SERP pixel budget. */
   title: string;
   /** Meta description. Kept under ~155 characters for the same reason. */
@@ -124,10 +133,11 @@ export const PILLARS: Pillar[] = [
   /* ── 01 ──────────────────────────────────────────────────────── */
   {
     slug: 'ecommerce-consulting',
+    cta: 'Discuss a platform decision',
     label: 'eCommerce Consulting',
     num: '01',
     h1: ['eCommerce consulting', 'for decisions that', 'are hard to reverse.'],
-    title: 'eCommerce Consultant | Yuvraj Raulji',
+    title: 'eCommerce Consulting | Yuvraj Raulji',
     description:
       'Independent eCommerce consulting: platform selection, build versus buy, phasing and technical due diligence, from nine years inside Magento, Shopify and headless builds.',
     eyebrow: 'eCommerce consulting',
@@ -214,10 +224,11 @@ export const PILLARS: Pillar[] = [
   /* ── 02 ──────────────────────────────────────────────────────── */
   {
     slug: 'magento-2',
+    cta: 'Discuss your Magento architecture',
     label: 'Magento 2 & Adobe Commerce',
     num: '02',
     h1: ['Magento 2', 'where the catalogue', 'is the hard part.'],
-    title: 'Magento 2 Consultant & Adobe Commerce Expert | Yuvraj Raulji',
+    title: 'Magento Commerce | Yuvraj Raulji',
     description:
       'Magento 2 and Adobe Commerce consulting: multi-store catalogues at 500K+ SKUs, B2B approval workflows, performance engineering and migrations run without going offline.',
     eyebrow: 'Magento 2 & Adobe Commerce',
@@ -318,10 +329,11 @@ export const PILLARS: Pillar[] = [
   /* ── 03 ──────────────────────────────────────────────────────── */
   {
     slug: 'shopify',
+    cta: 'Discuss your Shopify project',
     label: 'Shopify & Shopify Plus',
     num: '03',
     h1: ['Shopify, where', 'the constraints', 'do useful work.'],
-    title: 'Shopify Consultant & Shopify Plus Expert | Yuvraj Raulji',
+    title: 'Shopify Commerce | Yuvraj Raulji',
     description:
       'Shopify and Shopify Plus consulting: speed to market as a strategy, checkout and PDP work, app architecture, and an honest account of where the platform stops fitting.',
     eyebrow: 'Shopify & Shopify Plus',
@@ -408,10 +420,11 @@ export const PILLARS: Pillar[] = [
   /* ── 04 ──────────────────────────────────────────────────────── */
   {
     slug: 'headless-commerce',
+    cta: 'Discuss your commerce architecture',
     label: 'Headless Commerce',
     num: '04',
     h1: ['Headless commerce,', 'and the honest', 'case against it.'],
-    title: 'Headless Commerce Consultant & Architect | Yuvraj Raulji',
+    title: 'Headless Commerce | Yuvraj Raulji',
     description:
       'Headless and composable commerce on Next.js, GraphQL and the Storefront API. When decoupling pays, when it only adds a deployment surface, and how to sequence it.',
     eyebrow: 'Headless commerce',
@@ -498,10 +511,11 @@ export const PILLARS: Pillar[] = [
   /* ── 05 ──────────────────────────────────────────────────────── */
   {
     slug: 'ai-commerce',
+    cta: 'Discuss an AI opportunity',
     label: 'AI Commerce',
     num: '05',
     h1: ['AI in commerce,', 'once the process', 'is worth automating.'],
-    title: 'AI Commerce Consultant | Yuvraj Raulji',
+    title: 'AI Commerce | Yuvraj Raulji',
     description:
       'AI for eCommerce: catalogue enrichment, semantic search, retrieval and operations automation, wired into platforms carrying real order volume rather than left as demos.',
     eyebrow: 'AI commerce',
@@ -588,10 +602,11 @@ export const PILLARS: Pillar[] = [
   /* ── 06 ──────────────────────────────────────────────────────── */
   {
     slug: 'digital-transformation',
+    cta: 'Discuss a transformation plan',
     label: 'Digital Transformation',
     num: '06',
     h1: ['Digital transformation', 'that survives', 'contact with the business.'],
-    title: 'Digital Transformation Consultant | Yuvraj Raulji',
+    title: 'Digital Transformation | Yuvraj Raulji',
     description:
       'Modernising legacy commerce stacks into API-first systems: process redesign, phased migration and integration boundaries, sequenced so trading continues throughout.',
     eyebrow: 'Digital transformation',

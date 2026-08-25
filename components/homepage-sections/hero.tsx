@@ -59,7 +59,7 @@ export function Hero() {
           */}
           <Rv>
             <p className="mt-10 max-w-[640px] font-manrope text-[19px] font-light leading-[1.65] text-ink/60">
-              Yuvraj Raulji works on{' '}
+              Yuvraj Raulji explores{' '}
               <a href="#ai" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
                 AI
               </a>
@@ -67,9 +67,10 @@ export function Hero() {
               <a href="#expertise" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
                 eCommerce
               </a>{' '}
-              and digital transformation: intelligent systems, digital commerce, automation and the
-              technology decisions that create measurable business value. The work runs across
-              storefronts, mobile app APIs, B2B systems and the operations behind them.
+              and digital transformation, with a focus on intelligent systems, digital commerce,
+              automation and the technology decisions that create measurable business value. The
+              work runs across storefronts, mobile app APIs, B2B systems and the operations behind
+              them.
             </p>
           </Rv>
 

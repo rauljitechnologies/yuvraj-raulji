@@ -30,7 +30,8 @@ import { SITE_URL } from '../lib/site';
  * engine resolving an entity confidently, and it was the previous state of
  * this file.
  */
-const title = 'Yuvraj Raulji | AI, Business & eCommerce';
+/* Section 25 of BRAND-DESIGN-GUIDELINE.md gives this title verbatim. */
+const title = 'Yuvraj Raulji | AI, Business and eCommerce';
 
 export const metadata: Metadata = {
   title,

@@ -132,7 +132,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
         lede={pillar.lede}
         crumbs={crumbs}
       >
-        <ContactButton>Discuss a project</ContactButton>
+        <ContactButton>{pillar.cta}</ContactButton>
         <Btn href="#approach" variant="ghost">
           How I approach it
         </Btn>
@@ -431,7 +431,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
             </p>
           </Rise>
           <Rise delay={0.3} className="mt-block flex flex-wrap gap-3">
-            <ContactButton>Discuss a project</ContactButton>
+            <ContactButton>{pillar.cta}</ContactButton>
             <Btn href="/contact/" variant="ghost">
               Other ways to reach me
             </Btn>
