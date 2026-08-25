@@ -39,9 +39,19 @@ export const CONTACT = {
 } as const;
 
 export const HERO = {
-  eyebrow: '01 — Yuvraj Raulji',
-  lead:
-    'End-to-end technology consulting for companies and agencies: eCommerce platforms, mobile apps, custom software and AI-driven systems. 12+ years, 15+ brands, and an operating belief that every layer of a modern business should be AI-driven by design, not retrofitted later.',
+  /**
+   * The canvas eyebrow, verbatim. The previous value was `01 — Yuvraj Raulji`,
+   * which put an em-dash into rendered copy.
+   */
+  eyebrow: '01 / Yuvraj Raulji · AI × Business × eCommerce',
+  /** The one-line statement under the H1. */
+  subLead: 'AI, eCommerce and digital transformation for modern businesses.',
+  /**
+   * The longer lead paragraph is not here: the canvas links "AI" and
+   * "eCommerce" inside the sentence to #ai and #expertise, so it is JSX and it
+   * lives in hero.tsx rather than as a string that a component would have to
+   * split apart to re-link.
+   */
   marquee: [
     'Magento 2',
     'Shopify',
@@ -54,11 +64,23 @@ export const HERO = {
 
 export type Stat = { value: string; label: string };
 
+/**
+ * The four tiles under the position statement.
+ *
+ * Tiles 2 to 4 are the canvas values. Two tiles previously both read "12+",
+ * which reads as a rendering bug rather than as two facts, and the canvas stat
+ * that had been dropped (90% of B2B order and quote processing automated at
+ * Nxtby) is the same figure the Nxtby entry in TIMELINE already carries.
+ *
+ * Tile 1 is left at 12+ deliberately. The canvas says "9+ years" and this said
+ * "12+"; both are the same person's own claim and only he can say which is
+ * right, so it is unchanged until he does.
+ */
 export const STATS: readonly Stat[] = [
   { value: '12+', label: 'Years in technology' },
-  { value: '12+', label: 'Multi-store Magento 2 platforms' },
-  { value: '500K+', label: 'SKUs under architecture' },
-  { value: '1M+', label: 'Monthly users served' },
+  { value: '90%', label: 'Of B2B order and quote processing automated, Nxtby' },
+  { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms' },
+  { value: '1M+', label: 'Monthly users on platforms under architecture' },
 ];
 
 export type SystemCard = {
@@ -308,6 +330,100 @@ export const TIMELINE: readonly TimelineEntry[] = [
   },
 ];
 
+export type QaBlock = { no: string; q: string; a: string };
+
+/**
+ * 08 — Direct answers.
+ *
+ * Four definitions, written to be quotable in isolation. This is the section an
+ * answer engine lifts from, so each body is a complete answer to its own
+ * heading and depends on nothing above it on the page.
+ */
+export const ANSWERS: readonly QaBlock[] = [
+  {
+    no: '01',
+    q: 'What does Yuvraj Raulji work on?',
+    a: 'AI, eCommerce and digital transformation. Practical work across Magento, Shopify, WooCommerce and headless commerce, the APIs behind mobile apps, cloud and performance architecture, AI search and automation.',
+  },
+  {
+    no: '02',
+    q: 'What is AI commerce?',
+    a: 'AI commerce uses artificial intelligence across product discovery, search, recommendations, catalogue enrichment, customer support and purchasing workflows to create more relevant digital shopping experiences.',
+  },
+  {
+    no: '03',
+    q: 'What is headless commerce?',
+    a: 'Headless commerce separates the customer-facing frontend from the commerce backend through APIs, so a business can build a custom experience while keeping the underlying commerce platform.',
+  },
+  {
+    no: '04',
+    q: 'What is GEO?',
+    a: 'Generative Engine Optimization focuses on making information clear, authoritative and structurally understandable, so AI-powered search and answer systems can accurately interpret and reference a brand or topic.',
+  },
+];
+
+/**
+ * 12 — Questions.
+ *
+ * The ten questions that come up before a first call. This array is the single
+ * source for both the visible section and the FAQPage node in
+ * lib/schema-brand.ts: FAQPage markup that does not match visible text on the
+ * page is a structured-data violation, so the two can never be allowed to
+ * drift apart.
+ */
+export const FAQS: readonly QaBlock[] = [
+  {
+    no: '01',
+    q: 'What does Yuvraj Raulji specialize in?',
+    a: 'AI, eCommerce and digital transformation. The practical work spans commerce platforms, the APIs behind mobile apps, performance and cloud architecture, and AI systems such as agents, retrieval and automation.',
+  },
+  {
+    no: '02',
+    q: 'What kind of AI work does Yuvraj Raulji explore?',
+    a: 'LLM applications, agents with a deliberate tool boundary, retrieval augmented generation, MCP-based integrations, AI search, catalogue enrichment and process automation, with evaluation and human review around anything consequential.',
+  },
+  {
+    no: '03',
+    q: 'Which eCommerce platforms does Yuvraj Raulji work with?',
+    a: 'Magento 2 and Adobe Commerce, Shopify and Shopify Plus, WooCommerce on WordPress, and headless storefronts built over REST and GraphQL APIs.',
+  },
+  {
+    no: '04',
+    q: 'How is AI changing eCommerce?',
+    a: 'Four layers move first: discovery, where search interprets intent instead of matching keywords; merchandising, where recommendations use behaviour and catalogue context; catalogue operations, where enrichment is drafted by a model and reviewed by a person; and support, where grounded answers resolve order and product questions.',
+  },
+  {
+    no: '05',
+    q: 'What is AI search?',
+    a: 'AI search interprets intent rather than matching keywords. A full sentence, such as a gift request under a budget for a specific occasion, can return products, categories or guidance, because the query is read as a goal instead of a string.',
+  },
+  {
+    no: '06',
+    q: 'When should a business consider AI automation?',
+    a: 'When the process is repetitive and already documented, the data behind it is reliable, the cost of a mistake is measurable, and a person can review the output. Automating an undefined process only makes the confusion faster.',
+  },
+  {
+    no: '07',
+    q: 'What is the difference between Shopify and Magento?',
+    a: 'Shopify is hosted and favours speed of launch and operational simplicity, which suits D2C brands with a focused catalogue. Magento 2 and Adobe Commerce are open architectures that carry complex catalogues, multi-store setups, B2B pricing and approval rules, at the cost of more engineering ownership.',
+  },
+  {
+    no: '08',
+    q: 'How does Yuvraj Raulji approach digital transformation?',
+    a: 'Understand the business, map the process, choose technology against that process, build it, then measure. The technology decision comes fourth, not first.',
+  },
+  {
+    no: '09',
+    q: 'What does a 30-minute consultation cover?',
+    a: 'The constraint you are actually hitting, the architecture or platform decision behind it, what AI should and should not touch in your operation, and the next practical step.',
+  },
+  {
+    no: '10',
+    q: 'How can someone work with Yuvraj Raulji?',
+    a: 'Start a conversation by email at hello@yuvrajraulji.com, or book a 30-minute consultation. Replies usually arrive within 24 hours on IST business days.',
+  },
+];
+
 /** What the contact form's subject select offers. */
 export const ENQUIRY_TOPICS: readonly string[] = [
   'A commerce platform decision',
@@ -316,4 +432,5 @@ export const ENQUIRY_TOPICS: readonly string[] = [
   'An AI idea I want a second opinion on',
   'Automating a process that eats people',
   'A technology strategy conversation',
+  'Search, discovery or AI visibility',
 ];

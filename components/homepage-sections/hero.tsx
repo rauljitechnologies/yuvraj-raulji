@@ -35,25 +35,50 @@ export function Hero() {
 
           <Rv>
             <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] font-extralight leading-[0.94] tracking-[-0.045em] [text-wrap:balance]">
-              I build the systems{' '}
+              I build with technology.{' '}
               <span className="block font-bold">
-                behind digital <span className="text-accent">commerce.</span>
+                I think in <span className="text-accent">business.</span>
               </span>
             </h1>
           </Rv>
 
           <Rv>
-            <p className="mt-9 max-w-[640px] font-manrope text-[19px] font-light leading-[1.65] text-ink/60">
-              {HERO.lead}
+            <p className="mt-6 font-manrope text-[clamp(17px,1.6vw,22px)] font-medium leading-[1.4] tracking-[-0.01em] text-ink/90">
+              {HERO.subLead}
+            </p>
+          </Rv>
+
+          {/*
+            The lead is JSX rather than a string in lib/homepage.ts because the
+            canvas links two of its own nouns to the sections that answer them.
+            Those are the page's first two internal links and the only ones
+            above the fold, so they are worth the JSX.
+
+            No year count here on purpose: the number lives in STATS and only
+            in STATS, so it can never contradict itself across the page.
+          */}
+          <Rv>
+            <p className="mt-10 max-w-[640px] font-manrope text-[19px] font-light leading-[1.65] text-ink/60">
+              Yuvraj Raulji works on{' '}
+              <a href="#ai" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
+                AI
+              </a>
+              ,{' '}
+              <a href="#expertise" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
+                eCommerce
+              </a>{' '}
+              and digital transformation: intelligent systems, digital commerce, automation and the
+              technology decisions that create measurable business value. The work runs across
+              storefronts, mobile app APIs, B2B systems and the operations behind them.
             </p>
           </Rv>
 
           <Rv className="mt-11 flex flex-wrap gap-4">
-            <Cta href="#contact" variant="solid">
-              Work with me <span className="font-mono">→</span>
+            <Cta href="#work" variant="solid">
+              Explore my work <span className="font-mono">→</span>
             </Cta>
-            <Cta href="#book" variant="outline">
-              Book a 30-min consult
+            <Cta href="#insights" variant="outline">
+              Read my thinking
             </Cta>
           </Rv>
         </div>

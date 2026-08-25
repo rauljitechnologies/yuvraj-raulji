@@ -1,7 +1,9 @@
 import {
   AI_TRACKS,
+  ANSWERS,
   CONTACT,
   ENGAGEMENTS,
+  FAQS,
   FEATURED,
   PORTRAITS,
   PROJECTS,
@@ -55,8 +57,9 @@ export function Position() {
         <div>
           <Rv>
             <p className="mb-7 font-manrope text-[19px] font-light leading-[1.7] text-ink/60">
-              I build digital commerce systems from the technology layer up, combining engineering,
-              architecture, performance, experience and growth.
+              I build digital commerce systems from the technology layer up: engineering,
+              architecture, performance, customer experience and growth, treated as one system
+              rather than five projects.
             </p>
           </Rv>
           <Rv>
@@ -427,7 +430,7 @@ export function Expertise() {
                 >
                   <span>{item}</span>
                   <span aria-hidden="true" className="text-ink/25">
-                    —
+                    ·
                   </span>
                 </li>
               ))}
@@ -485,7 +488,9 @@ export function AiSystems() {
         </Rv>
         <Rv>
           <p className="mb-16 mt-9 max-w-[620px] font-manrope text-[19px] font-light leading-[1.7] text-ink/55 lg:mb-16">
-            AI is changing how businesses discover, sell, operate and grow. The useful half is
+            AI Search changes the discovery layer of commerce. Instead of matching a query to a
+            keyword, the system interprets intent and returns products, categories or guidance
+            based on what the customer is trying to accomplish. The rest of the value is
             unglamorous: retrieval that returns the right passage, evaluation you can trust, and
             grounding that stops a fluent answer from being a confident wrong one.
           </p>
@@ -520,13 +525,73 @@ export function AiSystems() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   08 — The evolution
+   08 — Direct answers. The definitions, written to be quoted.
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * Four short definitions on the surface band.
+ *
+ * This is the section an answer engine lifts from, so each block is a heading
+ * and one self-contained paragraph, with no shared setup above it and no
+ * pronoun reaching back into the previous block. The `auto-fit` track reflows
+ * from four columns to two to one without a breakpoint of its own.
+ */
+export function Answers() {
+  return (
+    <section id="answers" className="border-y border-ink/10 bg-surface">
+      <div className={`${SHELL} py-24 lg:py-[130px]`}>
+        <SectionLabel no="08" className="mb-10">
+          Direct answers
+        </SectionLabel>
+
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
+          <Rv>
+            <h2 className={H2}>
+              Short answers, <span className="font-bold">before the pitch.</span>
+            </h2>
+          </Rv>
+          <p className="m-0 max-w-[420px] font-manrope text-[17px] font-light leading-[1.7] text-ink/45">
+            The four definitions that decide most first conversations, written plainly enough to
+            quote.
+          </p>
+        </div>
+
+        <RvGroup
+          as="ul"
+          className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]"
+          each={0.05}
+        >
+          {ANSWERS.map((item) => (
+            <RvItem
+              key={item.no}
+              as="li"
+              className="flex flex-col gap-[18px] bg-surface p-8 transition-colors duration-300 hover:bg-ground lg:px-9 lg:py-11"
+            >
+              <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent-bright">
+                {item.no}
+              </span>
+              <h3 className="m-0 font-manrope text-[22px] font-semibold leading-[1.2] tracking-[-0.02em]">
+                {item.q}
+              </h3>
+              <p className="m-0 font-manrope text-base font-light leading-[1.7] text-ink/55">
+                {item.a}
+              </p>
+            </RvItem>
+          ))}
+        </RvGroup>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   09 — The evolution
    ───────────────────────────────────────────────────────────── */
 
 export function Evolution() {
   return (
     <section className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="08" className="mb-10">
+      <SectionLabel no="09" className="mb-10">
         The evolution
       </SectionLabel>
 
@@ -603,7 +668,7 @@ export function QuoteBand() {
             className="h-[290px] w-[230px] border border-white/40 object-cover object-[50%_15%] grayscale contrast-[1.05]"
           />
           <span className="font-mono text-xs font-medium uppercase leading-none tracking-[0.24em]">
-            — Yuvraj Raulji
+            Yuvraj Raulji
           </span>
         </div>
       </div>
@@ -612,7 +677,7 @@ export function QuoteBand() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   09 — Insights. Reads the real post index, not the mockup's fixture.
+   10 — Insights. Reads the real post index, not the mockup's fixture.
    ───────────────────────────────────────────────────────────── */
 
 export function Insights() {
@@ -623,7 +688,7 @@ export function Insights() {
 
   return (
     <section id="insights" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="09" className="mb-10">
+      <SectionLabel no="10" className="mb-10">
         Insights
       </SectionLabel>
 
@@ -685,8 +750,8 @@ export function Social() {
         className={`${SHELL} grid items-center gap-12 py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-[70px] lg:py-[120px]`}
       >
         <div>
-          <SectionLabel no="10" className="mb-8">
-            Social authority
+          <SectionLabel no="11" className="mb-8">
+            Writing &amp; profiles
           </SectionLabel>
           <Rv>
             <h2 className="mb-6 m-0 font-manrope text-[clamp(30px,3.8vw,58px)] font-extralight leading-[1.05] tracking-[-0.035em]">
@@ -742,7 +807,74 @@ export function Social() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   11 — Hire / consult. The second light band.
+   12 — Questions.
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The ten questions that come up before a first call.
+ *
+ * FAQS also feeds the FAQPage node in lib/schema-brand.ts. That is why every
+ * answer renders as open text rather than inside a <details>: the markup has to
+ * correspond to text a reader can actually see, and collapsed-by-default
+ * answers are the usual way that correspondence gets argued about. Ten short
+ * answers cost less height than the argument.
+ */
+export function Faq() {
+  return (
+    <section id="faq" className={`${SHELL} ${SECTION_Y}`}>
+      <SectionLabel no="12" className="mb-10">
+        Questions
+      </SectionLabel>
+
+      <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
+        <Rv>
+          <h2 className={H2}>
+            What people ask <span className="font-bold">before a first call.</span>
+          </h2>
+        </Rv>
+        <p className="m-0 max-w-[400px] font-manrope text-[17px] font-light leading-[1.7] text-ink/45">
+          Ten answers, in the words I would use on the call itself.
+        </p>
+      </div>
+
+      <RvGroup
+        as="ul"
+        className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]"
+        each={0.04}
+      >
+        {FAQS.map((item) => (
+          <RvItem
+            key={item.no}
+            as="li"
+            className="flex flex-col gap-4 bg-ground p-8 lg:px-[34px] lg:py-[38px]"
+          >
+            <div className="flex items-baseline gap-3.5">
+              <span className="shrink-0 font-mono text-[10px] font-medium leading-[1.4] tracking-[0.18em] text-accent-bright">
+                {item.no}
+              </span>
+              <h3 className="m-0 font-manrope text-xl font-semibold leading-[1.3] tracking-[-0.015em]">
+                {item.q}
+              </h3>
+            </div>
+            <p className="m-0 ml-6 font-manrope text-base font-light leading-[1.7] text-ink/55">
+              {item.a}
+            </p>
+          </RvItem>
+        ))}
+      </RvGroup>
+
+      <div className="mt-11 flex flex-wrap items-center gap-[18px]">
+        <span className="font-manrope text-[17px] font-light leading-[1.6] text-ink/50">
+          Question not answered here?
+        </span>
+        <RuleLink href="#contact">Start a conversation →</RuleLink>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   13 — Consultation. The second light band.
    ───────────────────────────────────────────────────────────── */
 
 export function Book() {
@@ -752,8 +884,8 @@ export function Book() {
         className={`${SHELL} grid items-center gap-12 py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-[70px] lg:py-[120px]`}
       >
         <div>
-          <SectionLabel no="11" tone="light" className="mb-8">
-            Hire / consult
+          <SectionLabel no="13" tone="light" className="mb-8">
+            Consultation
           </SectionLabel>
           <Rv>
             <h2 className="m-0 mb-6 font-manrope text-[clamp(32px,4.4vw,66px)] font-extralight leading-[1.02] tracking-[-0.04em]">
@@ -762,9 +894,9 @@ export function Book() {
             </h2>
           </Rv>
           <p className="mb-9 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ground/60">
-            Hire me as your end-to-end technology consultant: eCommerce, mobile apps, custom
-            software, cloud and AI. One call is usually enough to name the real constraint, the
-            platform decision behind it, and what AI should and should not touch in your operation.
+            Thirty minutes on your constraint, not on my slides. Bring a commerce, architecture or
+            AI problem and we will name the decision behind it, what AI should and should not touch
+            in your operation, and the next practical step.
           </p>
           <div className="flex flex-wrap gap-3.5">
             <Cta
@@ -811,7 +943,7 @@ export function Book() {
 export function Contact() {
   return (
     <section id="contact" className={`${SHELL} py-24 lg:pb-[120px] lg:pt-[150px]`}>
-      <SectionLabel no="12" className="mb-11">
+      <SectionLabel no="14" className="mb-11">
         Contact
       </SectionLabel>
 
@@ -827,15 +959,15 @@ export function Contact() {
       <div className="mt-14 grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
           <p className="mb-9 font-manrope text-[19px] font-light leading-[1.7] text-ink/55">
-            Have a commerce, technology or digital transformation challenge? Tell me about it and
-            I&rsquo;ll be in touch within 24 hours.
+            Have a commerce, AI or technology problem that needs a clearer decision? Describe it
+            in a few lines and I will reply within 24 hours, IST business days.
           </p>
           <div className="flex flex-wrap gap-4">
             <Cta href={`mailto:${CONTACT.email}`} variant="accent">
               Start a conversation
             </Cta>
             <Cta href={CONTACT.whatsapp} variant="outline">
-              Book a strategy call
+              Book 30 minutes
             </Cta>
           </div>
           <dl className="mt-14 grid grid-cols-[auto_1fr] gap-x-7 gap-y-4 font-mono text-[13px] leading-[1.5]">

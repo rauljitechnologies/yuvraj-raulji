@@ -4,10 +4,12 @@ import { Hero } from '../components/homepage-sections/hero';
 import { NO_SCRIPT_REVEAL_CSS } from '../components/homepage-sections/rv';
 import {
   AiSystems,
+  Answers,
   Book,
   Contact,
   Evolution,
   Expertise,
+  Faq,
   FeaturedCase,
   Insights,
   Position,
@@ -92,12 +94,14 @@ export const metadata: Metadata = {
  *   05 Featured case   Powerlook, on the first light band
  *   06 Expertise       the stack read left to right, as an architecture
  *   07 AI              the eight tracks, over the circuit traces
- *   08 The evolution   eight shifts, oldest first
+ *   08 Direct answers  four definitions, written to be quoted
+ *   09 The evolution   eight shifts, oldest first
  *   --  Quote          the accent band
- *   09 Insights        six real posts from lib/posts.ts
- *   10 Social          where the writing is published
- *   11 Hire / consult  six engagement shapes, on the second light band
- *   12 Contact         the form, wired to the same endpoint as the site modal
+ *   10 Insights        six real posts from lib/posts.ts
+ *   11 Writing         where the writing is published
+ *   12 Questions       ten answers, and the FAQPage node behind them
+ *   13 Consultation    six engagement shapes, on the second light band
+ *   14 Contact         the form, wired to the same endpoint as the site modal
  *
  * Rendering. Every section is a server component reading module-scope data, so
  * this page prerenders to static HTML at build time (next.config.mjs sets
@@ -131,10 +135,12 @@ export default function Home() {
           <FeaturedCase />
           <Expertise />
           <AiSystems />
+          <Answers />
           <Evolution />
           <QuoteBand />
           <Insights />
           <Social />
+          <Faq />
           <Book />
           <Contact />
         </main>

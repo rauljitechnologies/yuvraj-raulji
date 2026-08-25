@@ -20,8 +20,10 @@
  */
 
 import { CASES, POSITIONING_PLAIN, WRITING } from './brand';
+import { FAQS } from './homepage';
 import {
   breadcrumbNode,
+  faqNode,
   personNode,
   personRef,
   webPageNode,
@@ -66,6 +68,13 @@ export function brandHomeSchema() {
       height: 400,
       caption: 'Yuvraj Raulji',
     },
+    /*
+     * FAQPage, from the same FAQS array the Questions section renders. The
+     * node is only legitimate because those ten questions and answers are
+     * visible text on this page; if that section is ever removed, this comes
+     * out with it.
+     */
+    faqNode('/', FAQS),
   ]);
 }
 
