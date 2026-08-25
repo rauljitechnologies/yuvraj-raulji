@@ -308,7 +308,20 @@ export const ENGAGEMENTS: readonly Engagement[] = [
   { no: '06', name: 'Fractional CTO', note: 'Architecture direction and team leadership for companies and agencies.' },
 ];
 
-export type TimelineEntry = { year: string; title: string; org: string; body: string };
+export type TimelineEntry = {
+  /** Year span. En-dashes are fine here: a range is a number span, not a clause. */
+  period: string;
+  place: string;
+  /** The role held, which is the thing a reader is actually scanning for. */
+  role: string;
+  /** What kind of organisation, never which one. See the note on the array. */
+  org: string;
+  body: string;
+  /** What was actually built or changed. */
+  points: readonly string[];
+  /** Platforms and tools, not adjectives. */
+  tags: readonly string[];
+};
 
 /**
  * The record, told as shifts rather than as an employment history.
@@ -322,52 +335,118 @@ export type TimelineEntry = { year: string; title: string; org: string; body: st
  */
 export const TIMELINE: readonly TimelineEntry[] = [
   {
-    year: '2010–13',
-    title: 'Foundations',
-    org: 'Education',
-    body: 'Six years of formal study in information technology, diploma in 2010, degree in 2013. The point at which this stopped being a hobby.',
+    period: '2010–2016',
+    place: 'Gujarat, India',
+    role: 'Formal study in information technology',
+    org: 'Diploma, then degree',
+    body: 'Six years of formal education in two stages: a three-year diploma in information technology from 2010 to 2013, then a three-year degree from 2013 to 2016. The point at which this stopped being a hobby and started being a discipline.',
+    points: [
+      '2010 to 2013, diploma in information technology',
+      '2013 to 2016, degree in information technology',
+      'The fundamentals that still decide architecture: data modelling, networking, systems',
+    ],
+    tags: ['Diploma', 'Degree', 'Information technology'],
   },
   {
-    year: '2016',
-    title: 'Independent practice',
-    org: 'Independent · 2016–2025',
-    body: 'Started taking my own clients in Vadodara and never stopped. Magento 2 full-stack and headless commerce for B2B, B2C, D2C and marketplace brands, plus engagement-platform and multi-currency gateway work.',
+    period: '2016–2025',
+    place: 'Vadodara, India',
+    role: 'Independent practice',
+    org: 'Own clients, alongside the employed roles',
+    body: 'Started taking my own clients in Vadodara and never stopped. The engagements ran in parallel with the full-time roles below, which is why the dates overlap.',
+    points: [
+      'Magento 2 full-stack and headless commerce for B2B, B2C, D2C and marketplace brands',
+      'Engagement-platform and multi-currency gateway work',
+      'Incorporated as a private limited company in 2025',
+    ],
+    tags: ['Magento 2', 'Headless', 'Independent'],
   },
   {
-    year: '2016',
-    title: 'Magento, professionally',
-    org: 'Magento developer, then senior · 2016–2018',
-    body: 'Module development and store builds, full time. The platform that turns a catalogue into an architecture problem, which is the lesson the next ten years kept re-teaching.',
+    period: '2016–2018',
+    place: 'Vadodara, India',
+    role: 'Magento Developer, then Sr. Magento Developer',
+    org: 'Commerce agency',
+    body: 'Two years building Magento stores and modules professionally. Magento is the platform that turns a catalogue into an architecture problem, and that reframing shaped everything after it.',
+    points: [
+      'Custom module and extension development on Magento',
+      'Store builds and platform customisation for client brands',
+      'Promoted to Sr. Magento Developer within the first year',
+    ],
+    tags: ['Magento', 'PHP', 'Module development'],
   },
   {
-    year: '2018',
-    title: 'Shopify at brand scale',
-    org: 'Shopify development · 2018',
-    body: 'Custom storefronts, app and gateway integrations for global personal-care brands, and a first look at Salesforce Commerce Cloud. Different platform, same question: what does the catalogue actually need.',
+    period: '2018',
+    place: 'Vadodara, India',
+    role: 'Software Engineer',
+    org: 'Digital agency',
+    body: 'Shopify development for global personal-care brands: fully customised storefronts with JavaScript enhancements, third-party tools and custom features.',
+    points: [
+      'Built and customised Shopify storefronts with advanced functionality and responsive design',
+      'Integrated third-party apps, payment gateways and APIs to automate workflows',
+      'Custom JavaScript for interactive features and dynamic product displays',
+      'Optimised store performance, page load times and UX workflows',
+      'First exposure to Salesforce Commerce Cloud and to Magento 2 multi-platform architecture',
+    ],
+    tags: ['Shopify', 'JavaScript', 'SFCC, beginner', 'Integrations'],
   },
   {
-    year: '2018',
-    title: 'Gulf retail, full-stack',
-    org: 'Senior Magento 2 full-stack · 2018–2021',
-    body: 'Grocery, commercial kitchen equipment and fashion for leading Saudi retail groups. Mobile app APIs, custom payment gateways, multi-vendor and multi-store, in a market where the operational constraints are not the ones a European catalogue trains you for.',
+    period: '2018–2021',
+    place: 'Ahmedabad, India',
+    role: 'Sr. Magento 2 Full Stack Developer',
+    org: 'Commerce agency, Gulf retail',
+    body: 'Nearly three years building scalable, high-performance commerce for leading Saudi Arabian retail groups, across grocery, commercial kitchen equipment and fashion.',
+    points: [
+      'Full-stack Magento 2: custom modules, extensions, frontend and backend',
+      'Mobile app API development, and headless over REST and GraphQL',
+      'Custom payment gateway integration with localised payment and shipping methods',
+      'Multi-vendor and multi-store setups, with ERP and POS integration',
+      'Advanced filtering, layered navigation, dynamic pricing and custom checkout flows',
+      'Loyalty programmes, discount engines and customer dashboards',
+      'Performance and speed optimisation for high-traffic stores',
+    ],
+    tags: ['Magento 2', 'Elasticsearch', 'GraphQL', 'B2B and B2C', 'Saudi market'],
   },
   {
-    year: '2020',
-    title: 'B2B systems and performance',
-    org: 'B2B commerce platform · 2020–2022',
-    body: 'Five-level approval workflows, B2B order and quote management with role-based permissions, AWS with EC2, RDS and auto-scaling. 90% of order and quote processing automated; approval cycles down 40%; page load down 60%.',
+    period: '2020–2022',
+    place: 'India, remote',
+    role: 'Sr. Magento Developer, B2B systems and performance',
+    org: 'B2B commerce platform',
+    body: 'B2B procurement is not a cart. It is a request, a quote, an approval chain and a budget holder. I built the systems that model that, and the infrastructure to hold them.',
+    points: [
+      'Five-level approval workflows with role-based permissions',
+      'B2B order and quote management, with 90% of processing automated',
+      'Approval cycle times reduced by 40%',
+      'AWS architecture on EC2, RDS and auto-scaling, with Varnish, Redis and full-page cache',
+      'Page load times cut by 60% on high-traffic B2B commerce',
+    ],
+    tags: ['Magento 2', 'AWS', 'Redis and Varnish', 'Workflows', 'APIs'],
   },
   {
-    year: '2023',
-    title: 'Leading the team',
-    org: 'Team Lead · 2023–present',
-    body: 'Architecture guidance, code review and mentorship across 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users. Structured workflows cut development cycle time by 30%.',
+    period: '2023–now',
+    place: 'India, remote',
+    role: 'Team Lead, architecture and delivery',
+    org: 'B2B commerce platform',
+    body: 'The work stopped being code and became process: architecture guidance, code review and mentorship across a platform estate rather than a single store.',
+    points: [
+      'Architecture direction across 12+ multi-store Magento 2 platforms',
+      '500K+ SKUs and 1M+ monthly users under architecture',
+      'Structured workflows and review cut development cycle time by 30%',
+      'Mentorship and technical documentation for team onboarding',
+    ],
+    tags: ['Architecture', 'Team leadership', 'Code review', 'Multi-store'],
   },
   {
-    year: 'Now',
-    title: 'AI in the operating layer',
+    period: 'Now',
+    place: 'Vadodara, remote',
+    role: 'AI in the operating layer',
     org: 'Consulting',
-    body: 'Agents with a deliberate tool boundary, retrieval grounded in a real catalogue, AI search, and automation pointed at the processes that absorb people who should be doing something else. Evaluated before rollout, and reviewed by a person wherever the output reaches a customer or a ledger.',
+    body: 'Where the work is now: agents with a deliberate tool boundary, retrieval grounded in a real catalogue, AI search, and automation pointed at the processes that absorb people who should be doing something else.',
+    points: [
+      'AI agents, retrieval and automation grounded in real business data',
+      'AI search and GEO, for discovery beyond the ranked result',
+      'Fractional CTO engagements and architecture direction',
+      'Evaluated before rollout, and reviewed by a person wherever the output reaches a customer or a ledger',
+    ],
+    tags: ['AI systems', 'Automation', 'Fractional CTO', 'Cloud'],
   },
 ];
 

@@ -649,39 +649,96 @@ export function Evolution() {
 
       <div className="mb-16 flex flex-wrap items-end justify-between gap-10 lg:mb-[70px]">
         <p className="m-0 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ink/50">
-          Eight shifts, each one forced by a problem the previous way of working could not hold.
-          The technology changed roughly every three years. What it was for did not.
+          Eight shifts, each one forced by a problem the previous way of working could not hold. The
+          technology changed roughly every three years. What it was for did not.
         </p>
         <RuleLink href="/experience/">Full experience ↗</RuleLink>
       </div>
 
-      <RvGroup as="ol" className="m-0 list-none p-0">
+      {/*
+        A timeline, not a table of three columns.
+        
+        The previous version gave each shift a year, a heading and a paragraph,
+        which is a summary of a career rather than a record of one: no role
+        title, no place, nothing built, no stack. It also read as a list because
+        nothing joined the entries together.
+        
+        The rail does that joining. A single hairline runs down the left of the
+        content column with an accent node at each entry, so the eye follows one
+        line from 2010 to now, and the period and place sit out in the left
+        margin where they can be scanned without reading the prose.
+      */}
+      <RvGroup as="ol" className="m-0 list-none p-0" each={0.05}>
         {TIMELINE.map((entry) => (
-          <RvItem
-            key={`${entry.year}-${entry.title}`}
-            as="li"
-            className="grid gap-6 border-t border-ink/10 py-9 transition-colors duration-300 hover:bg-surface lg:grid-cols-[160px_1fr] lg:gap-12"
-          >
-            <div className="pt-2 font-mono text-[13px] font-medium leading-none tracking-[0.2em] text-accent-bright">
-              {entry.year}
-            </div>
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-10">
-              <div>
-                <h3 className="mb-3 font-manrope text-[clamp(22px,2.4vw,34px)] font-semibold leading-[1.08] tracking-[-0.025em]">
-                  {entry.title}
-                </h3>
-                <span className="font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/40">
-                  {entry.org}
-                </span>
+          <RvItem key={`${entry.period}-${entry.role}`} as="li">
+            <div className="grid gap-x-10 gap-y-3 lg:grid-cols-[190px_minmax(0,1fr)]">
+              {/* Left margin: the two things worth scanning without reading. */}
+              <div className="pt-8 lg:pt-9">
+                <div className="font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright">
+                  {entry.period}
+                </div>
+                <div className="mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/35">
+                  {entry.place}
+                </div>
               </div>
-              <p className="m-0 font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
-                {entry.body}
-              </p>
+
+              {/*
+                The rail. `before` draws the hairline down the full height of the
+                entry and the node sits on it, so the line is continuous between
+                entries instead of restarting at each one.
+              */}
+              <div className="relative border-t border-ink/10 pb-10 pt-8 lg:border-t-0 lg:border-l lg:border-l-ink/10 lg:pl-10 lg:pt-9">
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-[38px] hidden h-[7px] w-[7px] -translate-x-1/2 bg-accent lg:block"
+                />
+
+                <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
+                  {entry.role}
+                </h3>
+                <div className="mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/40">
+                  {entry.org}
+                </div>
+
+                <p className="m-0 mt-5 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                  {entry.body}
+                </p>
+
+                <ul className="m-0 mt-6 grid list-none gap-x-10 gap-y-2.5 p-0 xl:grid-cols-2">
+                  {entry.points.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-3.5 font-manrope text-[15px] font-light leading-[1.6] text-ink/60"
+                    >
+                      {/*
+                        A rule, not an em dash. The source for this section used
+                        "—" as its bullet character, which section 2 bans from
+                        the project and which a screen reader reads aloud.
+                      */}
+                      <span
+                        aria-hidden="true"
+                        className="mt-[11px] h-px w-3 shrink-0 bg-accent/50"
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {entry.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="border border-ink/15 px-3 py-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.14em] text-ink/55"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </RvItem>
         ))}
       </RvGroup>
-      <div className="border-t border-ink/10" />
     </section>
   );
 }
