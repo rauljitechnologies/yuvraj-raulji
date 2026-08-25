@@ -19,7 +19,7 @@
  *
  *   - The long-form founder statement. POSITION below carries Yuvraj's own
  *     philosophy line, which is his, but it is a position and not a story.
- *   - The featured case-study narrative. Synergy Water Slides is the only
+ *   - The featured case-study narrative. The manufacturer platform is the only
  *     engagement with a published outcome, and the reasoning behind it is
  *     written down nowhere.
  *   - Testimonials. The four on file are anonymised to the point of being
@@ -425,7 +425,7 @@ export const DISCIPLINES: Discipline[] = [
    chosen to cover headless, Shopify, Magento, marketplace and B2B.
 
    `outcome` is present only where the record states a measured result,
-   which today is Synergy Water Slides alone. The remaining five render
+   which today is the manufacturer platform alone. The remaining five render
    without an outcome row rather than with an invented one.
 
    `alt` was previously an empty string on all six. The cover is inside a
@@ -457,79 +457,79 @@ export const WORK = {
 
 export const WORK_ITEMS: WorkItem[] = [
   {
-    id: 'powerlook',
-    name: 'Powerlook',
+    id: 'fashion-d2c',
+    name: 'Headless fashion storefront',
     category: 'Headless commerce · Fashion',
     summary:
       'High-performance headless commerce architecture for India’s fastest-growing men’s fashion brand.',
     stack: ['Headless', 'Storefront API', 'Performance'],
-    img: '/assets/case-covers/powerlook-cover.webp',
-    alt: 'Powerlook headless commerce storefront',
+    img: '/assets/case-covers/fashion-d2c-cover.webp',
+    alt: 'Fashion D2C storefront headless commerce storefront',
     imgW: 1920,
     imgH: 1290,
     href: '/work/',
   },
   {
-    id: 'future-roots',
-    name: 'Future Roots',
+    id: 'plant-store',
+    name: 'Online plant store',
     category: 'Shopify · D2C',
     summary:
       'India’s most trusted online plant store on Shopify, with OTP login, GoKwik one-page checkout and custom product pages.',
     stack: ['Shopify', 'GoKwik checkout', 'Custom PDP'],
-    img: '/assets/case-covers/future-roots-cover.webp',
-    alt: 'Future Roots Shopify storefront',
+    img: '/assets/case-covers/plant-store-cover.webp',
+    alt: 'Online plant store Shopify storefront',
     imgW: 1920,
     imgH: 1280,
     href: '/work/',
   },
   {
-    id: 's3buy',
-    name: 'S3Buy',
+    id: 'sports-nutrition',
+    name: 'Sports nutrition store',
     category: 'E-commerce · Health & fitness',
     summary:
       'Online fitness and supplement store delivering authentic sports nutrition at speed.',
     stack: ['Commerce build', 'Catalogue', 'Checkout'],
-    img: '/assets/case-covers/s3buy-cover.webp',
-    alt: 'S3Buy sports nutrition storefront',
+    img: '/assets/case-covers/sports-nutrition-cover.webp',
+    alt: 'Sports nutrition store sports nutrition storefront',
     imgW: 1920,
     imgH: 1047,
     href: '/work/',
   },
   {
-    id: 'nxtby',
-    name: 'B2B procurement platform',
+    id: 'b2b-procurement',
+    name: 'Procurement and approvals platform',
     category: 'Custom platform · B2B',
     summary:
       'Scalable B2B procurement platform streamlining purchase requests and approvals.',
     stack: ['B2B workflows', 'Approvals', 'Integrations'],
-    img: '/assets/case-covers/nxtby-cover.webp',
+    img: '/assets/case-covers/b2b-procurement-cover.webp',
     alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
     imgH: 1080,
     href: '/work/',
   },
   {
-    id: 'shopunicore',
-    name: 'ShopUnicore',
+    id: 'marketplace',
+    name: 'Multi-category marketplace',
     category: 'Magento 2 · Marketplace',
     summary:
       'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',
     stack: ['Magento 2', 'Multi-category', 'Scale'],
-    img: '/assets/case-covers/shopunicore-cover.webp',
-    alt: 'ShopUnicore Magento 2 marketplace',
+    img: '/assets/case-covers/marketplace-cover.webp',
+    alt: 'Multi-category marketplace Magento 2 marketplace',
     imgW: 1920,
     imgH: 1440,
     href: '/work/',
   },
   {
-    id: 'synergy',
-    name: 'Synergy Water Slides',
+    id: 'manufacturing',
+    name: 'Engineering manufacturer platform',
     category: 'Web platform · Manufacturing',
     summary: 'A modern engineering brand platform built for discovery and enquiry.',
     stack: ['Web platform', 'Technical SEO', 'Content'],
     outcome: '3x traffic growth and 45% better engagement',
-    img: '/assets/case-covers/synergy-water-slides-cover.webp',
-    alt: 'Synergy Water Slides engineering brand platform',
+    img: '/assets/case-covers/manufacturing-cover.webp',
+    alt: 'Engineering manufacturer platform engineering brand platform',
     imgW: 1920,
     imgH: 867,
     href: '/work/',
@@ -764,7 +764,7 @@ export const HOME_FAQS: HomeFaq[] = [
   },
   {
     q: 'Does Yuvraj Raulji work with Shopify and headless commerce?',
-    a: 'Both. Shopify since 2018, for brand-owned D2C storefronts where speed to market is the strategy, and headless since the REST and GraphQL frontends built at Magneto IT Solutions, most visibly in the Powerlook headless architecture. Headless is the one I qualify hardest: without an independent front-end roadmap it buys an extra deployment surface and nothing else.',
+    a: 'Both. Shopify since 2018, for brand-owned D2C storefronts where speed to market is the strategy, and headless since those first REST and GraphQL frontends, most visibly in the fashion D2C headless architecture. Headless is the one I qualify hardest: without an independent front-end roadmap it buys an extra deployment surface and nothing else.',
     link: { href: '/expertise/headless-commerce/', label: 'headless commerce architecture, and the case against it' },
   },
   {

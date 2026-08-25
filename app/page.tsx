@@ -91,7 +91,7 @@ export const metadata: Metadata = {
  *   02 The position    the belief, the four numbers, the standing statement
  *   03 What I build    four systems, not four services
  *   04 Selected work   six builds on a snapping rail
- *   05 Featured case   Powerlook, on the first light band
+ *   05 Featured case   the fashion D2C build, on the first light band
  *   06 Expertise       the stack read left to right, as an architecture
  *   07 AI              the eight tracks, over the circuit traces
  *   08 Direct answers  four definitions, written to be quoted

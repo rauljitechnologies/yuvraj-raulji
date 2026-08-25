@@ -404,7 +404,7 @@ export const ERAS: Era[] = [
    of the deliverable. Neither invents a constraint, a metric or a client
    requirement that is not already in the summary and the stack.
 
-   `outcome` is present on exactly one. Synergy Water Slides is the only
+   `outcome` is present on exactly one. The manufacturer platform is the only
    engagement with a published measured result, and five rows carrying a
    plausible percentage would cost more credibility than the one real figure
    buys. WORK_NOTE below says that out loud rather than leaving a reader to
@@ -449,9 +449,9 @@ export const WORK_INTRO = {
 
 export const CASES: CaseStudy[] = [
   {
-    id: 'powerlook',
+    id: 'fashion-d2c',
     num: '01',
-    name: 'Powerlook',
+    name: 'Headless fashion storefront',
     industry: 'Fashion retail · D2C',
     challenge:
       'A fast-growing fashion brand whose storefront had to keep getting faster while the catalogue and the traffic behind it kept moving.',
@@ -459,15 +459,15 @@ export const CASES: CaseStudy[] = [
       'Headless architecture: the storefront decoupled from the commerce engine and served over a storefront API. Front-end releases stop waiting on back-end ones, and performance becomes a budget the front end can actually hold rather than an outcome it inherits.',
     technology: ['Headless', 'Storefront API', 'Performance'],
     facets: ['ecommerce', 'headless'],
-    img: '/assets/case-covers/powerlook-cover.webp',
-    alt: 'The Powerlook headless commerce storefront, a mens fashion brand',
+    img: '/assets/case-covers/fashion-d2c-cover.webp',
+    alt: 'The Fashion D2C storefront headless commerce storefront, a mens fashion brand',
     imgW: 1920,
     imgH: 1290,
   },
   {
-    id: 'future-roots',
+    id: 'plant-store',
     num: '02',
-    name: 'Future Roots',
+    name: 'Online plant store',
     industry: 'Horticulture · D2C',
     challenge:
       'An online plant store selling a product that is fragile, seasonal and hard to photograph, to customers who abandon at any friction in the buy.',
@@ -475,15 +475,15 @@ export const CASES: CaseStudy[] = [
       'Shopify, chosen for speed to market rather than for flexibility, with the customisation spent where it converts: OTP login, a one-page checkout through GoKwik, and product pages built for a catalogue that does not behave like apparel.',
     technology: ['Shopify', 'GoKwik checkout', 'Custom PDP', 'OTP login'],
     facets: ['ecommerce', 'shopify'],
-    img: '/assets/case-covers/future-roots-cover.webp',
-    alt: 'The Future Roots Shopify storefront, an online plant store',
+    img: '/assets/case-covers/plant-store-cover.webp',
+    alt: 'The Online plant store Shopify storefront, an online plant store',
     imgW: 1920,
     imgH: 1280,
   },
   {
-    id: 's3buy',
+    id: 'sports-nutrition',
     num: '03',
-    name: 'S3Buy',
+    name: 'Sports nutrition store',
     industry: 'Health & fitness · Retail',
     challenge:
       'Sports nutrition is a category where authenticity is the purchase decision and delivery speed is the repeat one. The storefront has to carry both.',
@@ -491,15 +491,15 @@ export const CASES: CaseStudy[] = [
       'A commerce build organised around catalogue clarity and a short checkout, on the principle that in a trust-led category the product page is doing the selling and everything after it should get out of the way.',
     technology: ['Commerce build', 'Catalogue', 'Checkout'],
     facets: ['ecommerce'],
-    img: '/assets/case-covers/s3buy-cover.webp',
-    alt: 'The S3Buy storefront, an online sports nutrition retailer',
+    img: '/assets/case-covers/sports-nutrition-cover.webp',
+    alt: 'The Sports nutrition store storefront, an online sports nutrition retailer',
     imgW: 1920,
     imgH: 1047,
   },
   {
-    id: 'nxtby',
+    id: 'b2b-procurement',
     num: '04',
-    name: 'B2B procurement platform',
+    name: 'Procurement and approvals platform',
     industry: 'B2B procurement · Platform',
     challenge:
       'B2B buying is not a cart. It is a request, a quote, an approval chain and a budget holder, and a consumer checkout models none of that.',
@@ -507,15 +507,15 @@ export const CASES: CaseStudy[] = [
       'A custom procurement platform built around the approval structure rather than around the catalogue: purchase requests, quotes and multi-level sign-off with role-based permissions, wired into the systems that already held the order data.',
     technology: ['B2B workflows', 'Approvals', 'Role-based permissions', 'Integrations'],
     facets: ['ecommerce', 'transformation'],
-    img: '/assets/case-covers/nxtby-cover.webp',
+    img: '/assets/case-covers/b2b-procurement-cover.webp',
     alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
     imgH: 1080,
   },
   {
-    id: 'shopunicore',
+    id: 'marketplace',
     num: '05',
-    name: 'ShopUnicore',
+    name: 'Multi-category marketplace',
     industry: 'Multi-category retail · Marketplace',
     challenge:
       'A wide multi-category catalogue, which is the point at which catalogue size stops being a number and starts being an architecture problem.',
@@ -523,15 +523,15 @@ export const CASES: CaseStudy[] = [
       'Magento 2, which is the right answer precisely here and the wrong one for a small single-store catalogue: the platform earns its complexity when the category tree, the attribute model and the scale are all genuinely hard.',
     technology: ['Magento 2', 'Multi-category', 'Scale'],
     facets: ['ecommerce', 'magento'],
-    img: '/assets/case-covers/shopunicore-cover.webp',
-    alt: 'The ShopUnicore Magento 2 multi-category marketplace',
+    img: '/assets/case-covers/marketplace-cover.webp',
+    alt: 'The Multi-category marketplace Magento 2 multi-category marketplace',
     imgW: 1920,
     imgH: 1440,
   },
   {
-    id: 'synergy',
+    id: 'manufacturing',
     num: '06',
-    name: 'Synergy Water Slides',
+    name: 'Engineering manufacturer platform',
     industry: 'Manufacturing · Engineering',
     challenge:
       'An engineering manufacturer whose buyers research for months and never fill in a form, on a site that search could not read.',
@@ -540,8 +540,8 @@ export const CASES: CaseStudy[] = [
     technology: ['Web platform', 'Technical SEO', 'Content'],
     outcome: '3x traffic growth and 45% better engagement',
     facets: ['transformation'],
-    img: '/assets/case-covers/synergy-water-slides-cover.webp',
-    alt: 'The Synergy Water Slides engineering brand platform',
+    img: '/assets/case-covers/manufacturing-cover.webp',
+    alt: 'The Engineering manufacturer platform engineering brand platform',
     imgW: 1920,
     imgH: 867,
   },

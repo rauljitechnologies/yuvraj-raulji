@@ -31,7 +31,7 @@ and their absence is the design rather than an omission to be tidied up later:
 | Missing | Why | Unblocks when |
 | --- | --- | --- |
 | Long-form founder statement | `POSITION` carries Yuvraj's own philosophy line, which is his, but it is a position and not a story | He writes 150 to 200 words in the first person |
-| Featured case-study narrative | Synergy Water Slides is the only engagement with a published outcome, and the reasoning behind it is recorded nowhere | He supplies the problem, the decision and the cost |
+| Featured case-study narrative | The manufacturer platform is the only engagement with a published outcome, and the reasoning behind it is recorded nowhere | He supplies the problem, the decision and the cost |
 | Testimonials | The four on file attribute to "Growth-Focused Business" and "Enterprise Client" | One named, attributable quote with permission |
 
 `CONTENT-PRINCIPLES.md` §1 treats writing around a gap like these as the one

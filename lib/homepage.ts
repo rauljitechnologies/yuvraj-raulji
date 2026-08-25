@@ -138,77 +138,77 @@ export type Project = {
 export const PROJECTS: readonly Project[] = [
   {
     no: '01',
-    short: 'PWL',
-    name: 'Powerlook',
+    short: 'FSH',
+    name: 'Headless fashion storefront',
     industry: 'Fashion · D2C',
     challenge:
       'A fast-growing fashion brand whose storefront had to keep getting faster while the catalogue and traffic behind it kept moving.',
     role: 'Architecture + delivery',
     stack: 'Magento 2 · Next.js · Varnish',
-    cover: '/assets/case-covers/powerlook-cover.webp',
+    cover: '/assets/case-covers/fashion-d2c-cover.webp',
   },
   {
     no: '02',
-    short: 'FR',
-    name: 'Future Roots',
+    short: 'PLT',
+    name: 'Online plant store',
     industry: 'Horticulture · D2C',
     challenge:
       'An online plant store selling a product that is fragile, seasonal and hard to photograph, to customers who abandon at any friction in the buy.',
     role: 'Commerce build',
     stack: 'Shopify · CRO',
-    cover: '/assets/case-covers/future-roots-cover.webp',
+    cover: '/assets/case-covers/plant-store-cover.webp',
   },
   {
     no: '03',
-    short: 'S3',
-    name: 'S3Buy',
+    short: 'SPN',
+    name: 'Sports nutrition store',
     industry: 'Health & fitness',
     challenge:
       'Sports nutrition is a category where authenticity is the purchase decision and delivery speed is the repeat one. The storefront has to carry both.',
     role: 'Platform + growth',
     stack: 'Magento 2 · SEO',
-    cover: '/assets/case-covers/s3buy-cover.webp',
+    cover: '/assets/case-covers/sports-nutrition-cover.webp',
   },
   {
     no: '04',
     short: 'B2B',
-    name: 'B2B procurement platform',
+    name: 'Procurement and approvals platform',
     industry: 'B2B procurement',
     challenge:
       'B2B buying is not a cart. It is a request, a quote, an approval chain and a budget holder, and a consumer checkout models none of that.',
     role: 'Systems architecture',
     stack: 'Magento 2 · Workflows · API',
-    cover: '/assets/case-covers/nxtby-cover.webp',
+    cover: '/assets/case-covers/b2b-procurement-cover.webp',
   },
   {
     no: '05',
-    short: 'SU',
-    name: 'ShopUnicore',
+    short: 'MKT',
+    name: 'Multi-category marketplace',
     industry: 'Marketplace',
     challenge:
       'A wide multi-category catalogue, which is the point at which catalogue size stops being a number and starts being an architecture problem.',
     role: 'Architecture direction',
     stack: 'Magento 2 multi-store · Redis',
-    cover: '/assets/case-covers/shopunicore-cover.webp',
+    cover: '/assets/case-covers/marketplace-cover.webp',
   },
   {
     no: '06',
-    short: 'SWS',
-    name: 'Synergy Water Slides',
+    short: 'MFG',
+    name: 'Engineering manufacturer platform',
     industry: 'Manufacturing',
     challenge:
       'An engineering manufacturer whose buyers research for months and never fill in a form, on a site that search could not read.',
     role: 'Technical SEO + build',
     stack: 'WordPress · Schema · GA4',
-    cover: '/assets/case-covers/synergy-water-slides-cover.webp',
+    cover: '/assets/case-covers/manufacturing-cover.webp',
   },
 ];
 
 /** The light-ground featured case study. */
 export const FEATURED = {
-  name: 'POWERLOOK',
+  name: 'FASHION D2C',
   kicker: 'Headless commerce',
-  cover: '/assets/case-covers/powerlook-cover.webp',
+  cover: '/assets/case-covers/fashion-d2c-cover.webp',
   facts: [
     {
       label: 'Challenge',

@@ -347,7 +347,7 @@ export function FeaturedCase() {
         <Rv className="relative mt-12 aspect-[21/9] overflow-hidden border border-ground/10 bg-[#F5F5F5]">
           <img
             src={FEATURED.cover}
-            alt="Powerlook storefront"
+            alt="Fashion D2C storefront storefront"
             width={1600}
             height={686}
             loading="lazy"

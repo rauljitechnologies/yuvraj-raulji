@@ -329,7 +329,7 @@ export const PILLARS: Pillar[] = [
       'Shopify is the right answer more often than platform debates admit. The interesting question is not whether it can do something, it is whether the thing you are about to build against it is worth the fight.',
     what: [
       'Shopify buys speed to market and takes away the parts of commerce nobody should be maintaining: PCI scope, checkout reliability, uptime, platform upgrades. On a brand-owned storefront that trade is close to free, which is why so much D2C work belongs here and not on an enterprise platform.',
-      'The work is therefore mostly about restraint. Theme architecture that survives a redesign, a considered app list rather than an accumulated one, product pages built for the specific way this catalogue is browsed, and checkout customisation kept inside what the platform actually supports. On Future Roots that meant OTP login, a GoKwik one-page checkout and custom product pages, built for an Indian D2C audience buying live plants.',
+      'The work is therefore mostly about restraint. Theme architecture that survives a redesign, a considered app list rather than an accumulated one, product pages built for the specific way this catalogue is browsed, and checkout customisation kept inside what the platform actually supports. On the plant store that meant OTP login, a GoKwik one-page checkout and custom product pages, built for an Indian D2C audience buying live plants.',
       'My Shopify work goes back to 2018, building customised storefronts and third-party app integrations for consumer brands before the Magento years, and it has stayed in the practice since because a meaningful share of the businesses that ask about Magento should be on Shopify instead.',
     ],
     problems: [
@@ -420,7 +420,7 @@ export const PILLARS: Pillar[] = [
     what: [
       'A headless build separates the storefront from the commerce platform, talking to it over an API instead of rendering from its templates. Next.js on the front, GraphQL or a Storefront API in between, the platform still doing catalogue, pricing, cart and order behind it.',
       'What that buys is independence. The front end gets its own roadmap, its own release cadence and its own performance budget, and a merchandising change stops being a platform deployment. What it costs is a second system: another build pipeline, another hosting surface, another place for state to be wrong, and a rendering and caching strategy somebody now has to own.',
-      'I built my first headless frontends over REST and GraphQL for mobile and PWA, and the pattern has recurred since, most visibly in the Powerlook headless architecture. It is the right call more often at the large end than the small one, and the deciding factor is almost never the technology.',
+      'I built my first headless frontends over REST and GraphQL for mobile and PWA, and the pattern has recurred since, most visibly in the fashion D2C headless architecture. It is the right call more often at the large end than the small one, and the deciding factor is almost never the technology.',
     ],
     problems: [
       {
