@@ -104,13 +104,13 @@ export const HERO = {
   /**
    * The credibility line, and the only number in the hero.
    *
-   * Twelve years is measured from the first websites and online stores in
-   * 2014, which is the date the professional record gives. It is deliberately
-   * a broader claim than the commerce-specific one the record also supports
-   * (first paid Magento role, 2016), and the note says which it is, because a
-   * figure without its start date is the kind of number nobody can check.
+   * Nine years, measured from the first Magento role in June 2016. Yuvraj
+   * settled this on 26 Aug 2026 against his own record; the earlier 12+ was
+   * measured from the first websites in 2014, which is a broader claim than he
+   * wants to make. The note carries the start date, because a figure without
+   * one is the kind of number nobody can check.
    */
-  credibility: { value: '12+', label: 'Years in technology', note: 'Since the first builds in 2014.' },
+  credibility: { value: '9+', label: 'Years in technology', note: 'Since the first Magento role in 2016.' },
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════

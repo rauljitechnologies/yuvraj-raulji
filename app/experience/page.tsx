@@ -47,11 +47,11 @@ export const metadata: Metadata = {
  * do", role by role with the points from lib/site.ts, and is the version
  * someone evaluating a proposal reads.
  *
- * One conflict in the record is carried openly rather than smoothed over: the
- * employment history has the Gulf retail role running Jul 2018 to May 2021 and
- * the B2B platform starting Mar 2020, which overlap by fourteen months. Both are
- * printed as the record states them. Quietly adjusting one to remove the
- * overlap would be inventing a fact to make a layout tidier.
+ * The fourteen-month overlap is real, not a data error. The Gulf retail role
+ * runs Jul 2018 to May 2021 and the B2B platform starts Mar 2020; Yuvraj
+ * confirmed both against his own record on 26 Aug 2026. Printing them as
+ * stated is correct, and quietly adjusting one to remove the overlap would be
+ * inventing a fact to make a layout tidier.
  */
 export default function ExperiencePage() {
   return (
@@ -141,8 +141,8 @@ export default function ExperiencePage() {
             <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} softFrom={1} />
             <Rise delay={0.18} className="self-end">
               <p className="yr-lede max-w-[54ch]">
-                The Gulf retail and B2B platform periods overlap by fourteen months. Both are
-                printed as the record states them rather than adjusted to remove the overlap.
+                The Gulf retail and B2B platform periods overlap by fourteen months. That is
+                what the record says, so that is what is printed here.
               </p>
             </Rise>
           </div>

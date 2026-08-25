@@ -108,7 +108,7 @@ export function Position() {
             className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.55)_0%,rgba(5,5,5,.2)_34%,rgba(5,5,5,.85)_100%)]"
           />
           <span className="absolute bottom-5 left-6 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/75">
-            Est. 2010 · 12+ years
+            Since 2016 · 9+ years
           </span>
         </div>
         <div className="flex flex-col justify-between gap-9 bg-surface p-8 lg:p-[52px_46px]">

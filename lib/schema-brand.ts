@@ -41,7 +41,7 @@ export const HOME_DESCRIPTION =
   'Yuvraj Raulji works at the intersection of technology and business, exploring how AI, digital commerce and intelligent systems change the way companies operate, sell and grow.';
 
 export const ABOUT_DESCRIPTION =
-  'Twelve years in technology, from the first builds in 2014 through Magento, Shopify, headless commerce and digital transformation to AI. The thinking behind the work, and how the decisions get made.';
+  'Nine years in technology, from the first Magento role in 2016 through Magento, Shopify, headless commerce and digital transformation to AI. The thinking behind the work, and how the decisions get made.';
 
 export const WORK_DESCRIPTION =
   'Six builds across headless commerce, Shopify, Magento 2, B2B procurement and marketplace catalogues, with the business decision inside each one.';

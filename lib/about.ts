@@ -23,11 +23,12 @@ export const ABOUT_HERO = {
     'I work at the intersection of technology and business, exploring how AI, digital commerce and intelligent systems can create better ways to operate, sell and grow.',
   /**
    * The second paragraph, which is where the record goes. Every figure is from
-   * the employment history: twelve years measured from the first builds in
-   * 2014, the platforms actually worked on, and the scale actually carried.
+   * the employment history: nine years measured from the first Magento role in
+   * June 2016, the platforms actually worked on, and the scale actually
+   * carried.
    */
   record:
-    'Twelve years of that, starting with the first websites and online stores in 2014. Since then: Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, across B2B, B2C, D2C and marketplace models, on catalogues running to 500K+ SKUs and platforms serving 1M+ monthly users.',
+    'Nine years of that, starting with the first Magento role in 2016. Since then: Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, across B2B, B2C, D2C and marketplace models, on catalogues running to 500K+ SKUs and platforms serving 1M+ monthly users.',
 } as const;
 
 /**

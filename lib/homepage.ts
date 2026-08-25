@@ -78,12 +78,14 @@ export type Stat = { value: string; label: string };
  * the B2B platform) is the same figure the 2020 entry in TIMELINE already
  * carries.
  *
- * Tile 1 is left at 12+ deliberately. The canvas says "9+ years" and this said
- * "12+"; both are the same person's own claim and only he can say which is
- * right, so it is unchanged until he does.
+ * Tile 1 reads 9+, settled by Yuvraj on 26 Aug 2026 against his own
+ * professional record. The count runs from the first Magento role in June
+ * 2016, not from the first websites in 2014, which is why it is 9+ and not
+ * the 12+ this used to claim. Note the other "12+" on this page is a count of
+ * platforms, not of years, and is a different confirmed figure.
  */
 export const STATS: readonly Stat[] = [
-  { value: '12+', label: 'Years in technology' },
+  { value: '9+', label: 'Years in technology' },
   { value: '90%', label: 'Of B2B order and quote processing automated' },
   { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms' },
   { value: '1M+', label: 'Monthly users on platforms under architecture' },

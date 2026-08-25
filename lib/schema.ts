@@ -74,7 +74,7 @@ const ADDRESS = {
  * node; Home, About and Work do not.
  */
 export const PERSON_DESCRIPTION =
-  'Yuvraj Raulji works at the intersection of AI, business and eCommerce. Twelve years in technology since the first builds in 2014, across Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, on B2B, B2C, D2C and marketplace models.';
+  'Yuvraj Raulji works at the intersection of AI, business and eCommerce. Nine years in technology since the first Magento role in 2016, across Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, on B2B, B2C, D2C and marketplace models.';
 
 /** The positioning string, as a job title. One string, used everywhere. */
 export const PERSON_JOB_TITLE = 'AI & eCommerce Consultant';
@@ -398,7 +398,7 @@ export function experienceSchema(crumbs: Crumb[]) {
     webPageNode({
       path: '/experience/',
       name: 'Experience',
-      description: 'Nine years of commerce work, from the first builds in 2014 to independent practice today.',
+      description: 'Nine years of commerce work, from the first Magento role in 2016 to independent practice today.',
       type: 'ProfilePage',
       crumbs,
     }),

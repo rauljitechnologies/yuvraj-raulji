@@ -845,7 +845,7 @@ export const TECH_PROFICIENCIES = [
 ];
 
 export const EDUCATION = [
-  { qualification: "Bachelor's Degree, Information Technology", period: '2013 to 2016' },
+  { qualification: 'Bachelor of Engineering, Information Technology', period: '2013 to 2016' },
   { qualification: 'Diploma, Information Technology', period: '2010 to 2013' },
 ];
 

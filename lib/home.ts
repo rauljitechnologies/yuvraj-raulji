@@ -626,11 +626,10 @@ export const CONTENT_FORMATS: ContentFormat[] = (
    Dates from the education and employment record in lib/site.ts, plus
    the three biographical dates supplied by Yuvraj (2014, 2016, 2025).
 
-   One conflict is carried openly rather than smoothed over: the record
-   has the Gulf retail role running Jul 2018 to May 2021 and the B2B
-   platform starting Mar 2020. Those overlap by fourteen months. The
-   timeline below states start years only, which is true either way, and
-   the conflict is flagged for Yuvraj to resolve.
+   The fourteen-month overlap is real: the Gulf retail role runs Jul 2018
+   to May 2021 and the B2B platform starts Mar 2020, both confirmed by
+   Yuvraj on 26 Aug 2026. The timeline below states start years only,
+   which is true either way.
 
    No company names. Section 4 of BRAND-DESIGN-GUIDELINE.md keeps
    corporate and historical brand names off this site and section 3 keeps
