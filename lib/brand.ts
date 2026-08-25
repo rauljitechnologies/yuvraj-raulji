@@ -34,8 +34,14 @@ import { POSTS } from './posts';
 
 export const NAME = 'Yuvraj Raulji';
 
-/** The one positioning string. Used in every eyebrow and every meta title. */
-export const POSITIONING = 'AI × Business × eCommerce';
+/**
+ * The one positioning string. Used in every eyebrow and every meta title.
+ *
+ * The separator is a pipe, not a multiplication sign. Section 1 of
+ * BRAND-DESIGN-GUIDELINE.md bans that character outright and names
+ * `AI | BUSINESS | ECOMMERCE` as the preferred visual brand line.
+ */
+export const POSITIONING = 'AI | BUSINESS | ECOMMERCE';
 
 /** Machine-readable variant, for metadata where the multiplication sign reads badly. */
 export const POSITIONING_PLAIN = 'AI, business and eCommerce';
@@ -493,7 +499,7 @@ export const CASES: CaseStudy[] = [
   {
     id: 'nxtby',
     num: '04',
-    name: 'Nxtby',
+    name: 'B2B procurement platform',
     industry: 'B2B procurement · Platform',
     challenge:
       'B2B buying is not a cart. It is a request, a quote, an approval chain and a budget holder, and a consumer checkout models none of that.',
@@ -502,7 +508,7 @@ export const CASES: CaseStudy[] = [
     technology: ['B2B workflows', 'Approvals', 'Role-based permissions', 'Integrations'],
     facets: ['ecommerce', 'transformation'],
     img: '/assets/case-covers/nxtby-cover.webp',
-    alt: 'The Nxtby B2B procurement platform',
+    alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
     imgH: 1080,
   },
@@ -532,7 +538,7 @@ export const CASES: CaseStudy[] = [
     approach:
       'A brand platform built for discovery rather than for transaction: technical content structured so a crawler and a buyer can both follow it, and an enquiry path short enough to survive a long consideration cycle.',
     technology: ['Web platform', 'Technical SEO', 'Content'],
-    outcome: '3× traffic growth and 45% better engagement',
+    outcome: '3x traffic growth and 45% better engagement',
     facets: ['transformation'],
     img: '/assets/case-covers/synergy-water-slides-cover.webp',
     alt: 'The Synergy Water Slides engineering brand platform',

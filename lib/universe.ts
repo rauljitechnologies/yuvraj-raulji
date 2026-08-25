@@ -225,7 +225,7 @@ export const WORK_ITEMS: WorkItem[] = [
     tech: 'Headless commerce',
     scope: 'High-performance headless commerce architecture for a fast-growing men’s fashion brand.',
     img: '/assets/case-covers/powerlook-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/powerlook/',
+    url: '/work/',
   },
   {
     id: 'future-roots',
@@ -234,7 +234,7 @@ export const WORK_ITEMS: WorkItem[] = [
     tech: 'Shopify',
     scope: 'Shopify storefront with OTP login, GoKwik one-page checkout and custom product detail pages.',
     img: '/assets/case-covers/future-roots-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/future-roots/',
+    url: '/work/',
   },
   {
     id: 'nxtby',
@@ -245,7 +245,7 @@ export const WORK_ITEMS: WorkItem[] = [
       'B2B procurement platform with multi-level purchase approval, quote management and role-based accounts.',
     role: 'Team Leader, Nxtby.com',
     img: '/assets/case-covers/nxtby-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/nxtby/',
+    url: '/work/',
   },
   {
     id: 'al-jazira',
@@ -254,7 +254,7 @@ export const WORK_ITEMS: WorkItem[] = [
     tech: 'Magento 2',
     scope: 'Magento 2 grocery commerce serving thousands of supermarket products online.',
     img: '/assets/case-covers/al-jazira-supermarket-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/al-jazira-supermarket/',
+    url: '/work/',
   },
   {
     id: 'sure-safety',
@@ -263,7 +263,7 @@ export const WORK_ITEMS: WorkItem[] = [
     tech: 'Magento 2',
     scope: 'Magento 2 commerce for a manufacturer of PPE and industrial safety equipment.',
     img: '/assets/case-covers/sure-safety-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/sure-safety/',
+    url: '/work/',
   },
   {
     id: 'shopunicore',
@@ -272,7 +272,7 @@ export const WORK_ITEMS: WorkItem[] = [
     tech: 'Magento 2',
     scope: 'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',
     img: '/assets/case-covers/shopunicore-cover.webp',
-    url: 'https://www.rauljitechnologies.com/case-study/shopunicore/',
+    url: '/work/',
   },
 ];
 

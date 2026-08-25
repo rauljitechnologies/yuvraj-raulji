@@ -121,7 +121,7 @@ type ButtonProps = {
 };
 
 /**
- * 52px tall — comfortably above the 44×44 touch minimum. Renders as Link for
+ * 52px tall — comfortably above the 44x44 touch minimum. Renders as Link for
  * internal hrefs, <a> for hash/external, <button> otherwise.
  */
 export function Button({

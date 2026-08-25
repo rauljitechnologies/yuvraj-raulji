@@ -405,77 +405,77 @@ export const WORK_SLIDES: WorkSlide[] = [
     title: 'Powerlook',
     desc: 'High-performance headless commerce architecture for India’s fastest-growing men’s fashion brand.',
     img: '/assets/case-covers/powerlook-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/powerlook/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Marketplace',
     title: 'ShopUnicore',
     desc: 'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',
     img: '/assets/case-covers/shopunicore-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/shopunicore/',
+    url: '/work/',
   },
   {
     cat: 'E-Commerce · Health & Fitness',
     title: 'S3Buy',
     desc: 'Online fitness and supplement store delivering authentic sports nutrition at speed.',
     img: '/assets/case-covers/s3buy-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/s3buy/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Textiles',
     title: 'Modern Fabrics',
     desc: 'A powerful, flexible Magento 2 commerce build for a premium fabric retailer.',
     img: '/assets/case-covers/modern-fabrics-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/modern-fabrics/',
+    url: '/work/',
   },
   {
     cat: 'Shopify · D2C',
     title: 'Future Roots',
     desc: 'India’s most trusted online plant store on Shopify — OTP login, GoKwik one-page checkout, custom PDPs.',
     img: '/assets/case-covers/future-roots-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/future-roots/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Fabrics',
     title: 'Regal Fabric Gallery',
     desc: 'High-performance Magento 2 storefront serving fabric customers worldwide.',
     img: '/assets/case-covers/regal-fabric-gallery-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/regal/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Luxury Fashion',
     title: 'Africa Fashion House',
     desc: 'A Magento 2 flagship showcasing luxury African fashion collections.',
     img: '/assets/case-covers/africa-fashion-house-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/africa-fashion-house/',
+    url: '/work/',
   },
   {
     cat: 'Custom Platform · B2B',
-    title: 'Nxtby',
+    title: 'B2B procurement platform',
     desc: 'Scalable B2B procurement platform streamlining purchase requests and approvals.',
     img: '/assets/case-covers/nxtby-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/nxtby/',
+    url: '/work/',
   },
   {
     cat: 'Web Platform · Manufacturing',
     title: 'Synergy Water Slides',
-    desc: 'A modern engineering brand platform — 3× traffic growth and 45% better engagement.',
+    desc: 'A modern engineering brand platform. 3x traffic growth and 45% better engagement.',
     img: '/assets/case-covers/synergy-water-slides-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/synergy-water-slides/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Industrial Safety',
     title: 'Sure Safety',
     desc: 'Magento 2 commerce for a leading manufacturer of PPE and industrial safety solutions.',
     img: '/assets/case-covers/sure-safety-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/sure-safety/',
+    url: '/work/',
   },
   {
     cat: 'Magento 2 · Grocery',
     title: 'Al Jazira Supermarket',
     desc: 'Scalable Magento 2 grocery commerce serving thousands of supermarket products online.',
     img: '/assets/case-covers/al-jazira-supermarket-cover.jpg',
-    url: 'https://www.rauljitechnologies.com/case-study/al-jazira-supermarket/',
+    url: '/work/',
   },
 ];
 
@@ -741,8 +741,14 @@ export const SERVICE_OPTIONS = [
 
 /* ─────────────────────────────────────────────────────────────────────────────
    About page — every claim below traces to Yuvraj's own professional record.
-   Confirmed 12 Aug 2026: 9+ years, 50+ projects, Nxtby is an employer (not a
-   client). Nothing here may be embellished; see CONTENT-PRINCIPLES.md.
+   Confirmed 12 Aug 2026: 9+ years, 50+ projects, the B2B platform is an
+   employer (not a client). Nothing here may be embellished; see
+   CONTENT-PRINCIPLES.md.
+
+   Employers and clients are described, not named. Section 4 of
+   BRAND-DESIGN-GUIDELINE.md keeps corporate and historical brand names off
+   this site. CURRENT_ROLES below is the one exception and is deliberately
+   left as written: it renders nowhere, and it is the factual record.
    ───────────────────────────────────────────────────────────────────────────*/
 
 export interface Role {
@@ -756,8 +762,8 @@ export interface Role {
 
 /** Current positions held alongside the employed role. */
 export const CURRENT_ROLES = [
-  { title: 'Team Leader', org: 'Nxtby.com', period: 'Jan 2023 — Present' },
-  { title: 'Founder', org: 'Ariya InfoTech', period: 'Mar 2016 — Dec 2025' },
+  { title: 'Team Leader', org: 'Nxtby.com', period: 'Jan 2023 to present' },
+  { title: 'Founder', org: 'Ariya InfoTech', period: 'Mar 2016 to Dec 2025' },
   { title: 'Director & Founder', org: 'Raulji Technologies Pvt. Ltd.', period: '' },
   { title: 'Chairman', org: 'Raulji Group', period: '' },
 ];
@@ -765,11 +771,11 @@ export const CURRENT_ROLES = [
 export const EXPERIENCE: Role[] = [
   {
     title: 'Team Leader',
-    org: 'Nxtby.com',
-    period: 'Jan 2023 — Present',
+    org: 'B2B commerce platform',
+    period: 'Jan 2023 to present',
     location: 'Bengaluru · Remote',
     summary:
-      'Leading a development team across Magento 2 and multi-platform commerce builds — architecture guidance, code review and delivery.',
+      'Leading a development team across Magento 2 and multi-platform commerce builds: architecture guidance, code review and delivery.',
     points: [
       'Led delivery of 12+ multi-store Magento 2 platforms handling 500K+ SKUs and 1M+ monthly users',
       'Cut development cycle time by 30% by introducing structured workflows and approval processes',
@@ -780,26 +786,26 @@ export const EXPERIENCE: Role[] = [
   },
   {
     title: 'Sr. Magento Developer',
-    org: 'Nxtby.com',
-    period: 'Mar 2020 — Dec 2022',
+    org: 'B2B commerce platform',
+    period: 'Mar 2020 to Dec 2022',
     location: 'Bengaluru · Remote',
     summary:
-      'Full-stack Magento 2 development for high-traffic B2B commerce — custom modules, multi-store setups and end-to-end API integration.',
+      'Full-stack Magento 2 development for high-traffic B2B commerce: custom modules, multi-store setups and end-to-end API integration.',
     points: [
       'Automated 90% of B2B order and quote processes, reducing approval cycle time by 40%',
       'Improved site speed by 60% through Varnish, Redis, full-page cache, CDN and database tuning',
       'Built B2B order and quote management with role-based permissions and multi-level approvals',
-      'Ran Magento 2 server setup on AWS — EC2, RDS, S3, load balancing and auto-scaling',
+      'Ran Magento 2 server setup on AWS: EC2, RDS, S3, load balancing and auto-scaling',
       'Integrated payment gateways, logistics, CRM and ERP systems',
     ],
   },
   {
     title: 'Sr. Magento 2 Full Stack Developer',
-    org: 'Magneto IT Solutions',
-    period: 'Jul 2018 — May 2021',
+    org: 'Commerce agency, Gulf retail',
+    period: 'Jul 2018 to May 2021',
     location: 'Ahmedabad · On-site',
     summary:
-      'Commerce builds for Saudi Arabian retail — grocery, commercial kitchen equipment and fashion, including Al Jazira Supermarkets.',
+      'Commerce builds for Saudi Arabian retail groups: grocery, commercial kitchen equipment and fashion.',
     points: [
       'Built B2B and B2C stores localised for the Saudi market',
       'Implemented layered navigation, dynamic pricing and custom checkout flows',
@@ -809,11 +815,11 @@ export const EXPERIENCE: Role[] = [
   },
   {
     title: 'Software Engineer',
-    org: 'OrionCoders Digital',
-    period: 'Mar 2018 — Jul 2018',
+    org: 'Digital agency',
+    period: 'Mar 2018 to Jul 2018',
     location: 'Vadodara',
     summary:
-      'Shopify development for consumer brands, including skincare storefronts for Unilever.',
+      'Shopify development for consumer brands, including skincare storefronts for a global personal-care group.',
     points: [
       'Built customised Shopify storefronts with third-party app and API integration',
       'Wrote custom JavaScript for dynamic product display and frontend behaviour',
@@ -822,10 +828,10 @@ export const EXPERIENCE: Role[] = [
   },
   {
     title: 'Magento Developer → Sr. Magento Developer',
-    org: 'Sinelogix Technologies',
-    period: 'Jun 2016 — May 2018',
+    org: 'Commerce agency',
+    period: 'Jun 2016 to May 2018',
     location: 'Vadodara',
-    summary: 'Where the Magento work started — module development and store builds.',
+    summary: 'Where the Magento work started: module development and store builds.',
     points: [],
   },
 ];
@@ -839,8 +845,8 @@ export const TECH_PROFICIENCIES = [
 ];
 
 export const EDUCATION = [
-  { qualification: "Bachelor's Degree, Information Technology", period: '2013 — 2016' },
-  { qualification: 'Diploma, Information Technology', period: '2010 — 2013' },
+  { qualification: "Bachelor's Degree, Information Technology", period: '2013 to 2016' },
+  { qualification: 'Diploma, Information Technology', period: '2010 to 2013' },
 ];
 
 export const CERTIFICATIONS = [

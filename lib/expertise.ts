@@ -9,8 +9,8 @@
  * Two things this file will not do, and both are deliberate:
  *
  *   - No client is named that the record does not already name publicly.
- *     Al Jazira Supermarkets appears in lib/site.ts EXPERIENCE and is used;
- *     the Unilever skincare work in the same record is not, because naming a
+ *     Client and employer names are described rather than named, per section 4
+ *     of BRAND-DESIGN-GUIDELINE.md. The rule used to be narrower, because naming a
  *     brand in marketing copy needs its permission and that permission has not
  *     been given.
  *   - No pillar claims a measured result it does not have. AI commerce is the
@@ -136,7 +136,7 @@ export const PILLARS: Pillar[] = [
     what: [
       'Consulting here means the decisions above the build: which platform, built or bought, in what order, at what total cost, and what has to be true before any of it starts. It is deliberately separable from delivery. I have sat on both sides of that line for nine years, and the advice is more useful when it is not also a quote.',
       'The work usually starts as a technical due diligence. What is actually running, what it costs to change, where the data model is fighting the business, and which of the current problems are platform problems as opposed to process problems wearing a platform costume. That distinction decides almost everything that follows.',
-      'The output is a plan a business can act on without me: a target architecture, a sequence, the integration boundaries, and an honest account of what each phase risks. Delivery can then run through Raulji Technologies or through an existing team, and the plan does not change either way.',
+      'The output is a plan a business can act on without me: a target architecture, a sequence, the integration boundaries, and an honest account of what each phase risks. Delivery can then run through my own practice or through an existing team, and the plan does not change either way.',
     ],
     problems: [
       {
@@ -198,7 +198,7 @@ export const PILLARS: Pillar[] = [
     faqs: [
       {
         q: 'Do you consult without doing the build?',
-        a: 'Yes, and it is often the better arrangement. The advice is worth more when it is not also a quote. Where delivery is wanted afterwards it runs through Raulji Technologies, and the plan does not change depending on who executes it.',
+        a: 'Yes, and it is often the better arrangement. The advice is worth more when it is not also a quote. Where delivery is wanted afterwards it runs through my own practice, and the plan does not change depending on who executes it.',
       },
       {
         q: 'What does a technical due diligence cover?',
@@ -225,8 +225,8 @@ export const PILLARS: Pillar[] = [
       'Nine years on Magento, most of it on the awkward end: multi-store catalogues, five-level approval chains, and the ERP and PIM boundaries no theme setting will ever express.',
     what: [
       'Magento earns its cost in exactly one situation, and it is not the one it is usually sold into. It earns it when the catalogue, the pricing logic or the approval structure is genuinely complicated, and when that complication is the business rather than an accident of how the last system was built.',
-      'At Nxtby I led delivery of 12+ multi-store Magento 2 platforms handling 500K+ SKUs and 1M+ monthly users, and designed five-level approval workflows covering development, B2B orders, quotes and vendor management. Before that, at Magneto IT Solutions, Magento builds for Saudi retail across grocery, commercial kitchen equipment and fashion, including Al Jazira Supermarkets, with layered navigation, dynamic pricing and custom checkout flows.',
-      'The performance half is not separable from the build. Magento at catalogue scale is a caching and query problem long before it is a front-end problem, which is why the Nxtby work included cutting page load times by 60% through Varnish, Redis, full-page cache, CDN and database tuning, and running the platform on AWS EC2, RDS and S3 with load balancing and auto-scaling.',
+      'On a high-traffic B2B commerce platform I led delivery of 12+ multi-store Magento 2 platforms handling 500K+ SKUs and 1M+ monthly users, and designed five-level approval workflows covering development, B2B orders, quotes and vendor management. Before that, Magento builds for Saudi retail groups across grocery, commercial kitchen equipment and fashion, with layered navigation, dynamic pricing and custom checkout flows.',
+      'The performance half is not separable from the build. Magento at catalogue scale is a caching and query problem long before it is a front-end problem, which is why that work included cutting page load times by 60% through Varnish, Redis, full-page cache, CDN and database tuning, and running the platform on AWS EC2, RDS and S3 with load balancing and auto-scaling.',
     ],
     problems: [
       {
@@ -235,7 +235,7 @@ export const PILLARS: Pillar[] = [
       },
       {
         symptom: 'Every B2B order needs a human, twice',
-        body: 'Quotes, negotiated pricing and approval chains being run through email and a spreadsheet. At Nxtby, automating that took 90% of B2B order and quote processing off people and cut approval cycle time by 40%.',
+        body: 'Quotes, negotiated pricing and approval chains being run through email and a spreadsheet. Automating that took 90% of B2B order and quote processing off people and cut approval cycle time by 40%.',
       },
       {
         symptom: 'Multi-store has become multi-copy',
@@ -298,7 +298,7 @@ export const PILLARS: Pillar[] = [
     faqs: [
       {
         q: 'How much Magento 2 experience is behind this?',
-        a: 'Magento work since 2016, and Magento 2 specifically across Sinelogix, Magneto IT Solutions and Nxtby. At Nxtby that meant 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users, first as a senior developer and since 2023 as team leader setting architecture direction.',
+        a: 'Magento work since 2016, and Magento 2 specifically across three commerce teams since then. Most recently that has meant 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users, first as a senior developer and since 2023 as team leader setting architecture direction.',
       },
       {
         q: 'Is Adobe Commerce different from Magento 2 for this work?',
@@ -420,7 +420,7 @@ export const PILLARS: Pillar[] = [
     what: [
       'A headless build separates the storefront from the commerce platform, talking to it over an API instead of rendering from its templates. Next.js on the front, GraphQL or a Storefront API in between, the platform still doing catalogue, pricing, cart and order behind it.',
       'What that buys is independence. The front end gets its own roadmap, its own release cadence and its own performance budget, and a merchandising change stops being a platform deployment. What it costs is a second system: another build pipeline, another hosting surface, another place for state to be wrong, and a rendering and caching strategy somebody now has to own.',
-      'I built my first headless frontends at Magneto IT Solutions, over REST and GraphQL for mobile and PWA, and the pattern has recurred since, most visibly in the Powerlook headless architecture. It is the right call more often at the large end than the small one, and the deciding factor is almost never the technology.',
+      'I built my first headless frontends over REST and GraphQL for mobile and PWA, and the pattern has recurred since, most visibly in the Powerlook headless architecture. It is the right call more often at the large end than the small one, and the deciding factor is almost never the technology.',
     ],
     problems: [
       {
@@ -510,7 +510,7 @@ export const PILLARS: Pillar[] = [
     what: [
       'The applications that hold up in commerce are unglamorous and specific: catalogue enrichment at a scale nobody can staff, semantic and retrieval-based search that understands a query the keyword index cannot, ranking and recommendation fed by real behaviour, and operations automation across quotes, approvals and data reconciliation.',
       'What separates those from the demos is where they sit. An AI feature is only worth building if it is wired into a platform already carrying order volume, with the catalogue, pricing and permission rules it has to respect. Retrieval that ignores the price scope, or an agent with no defined tool access, is a prototype with a support burden.',
-      'This is the newest practice area on the site and I would rather say that than dress it up. The automation and integration record behind it is real, including taking 90% of B2B order and quote processing off people at Nxtby, and the AI layer is where that work is now going. If you want a delivered AI case study with a published metric, I do not have one to show you yet.',
+      'This is the newest practice area on the site and I would rather say that than dress it up. The automation and integration record behind it is real, including taking 90% of B2B order and quote processing off people on a B2B commerce platform, and the AI layer is where that work is now going. If you want a delivered AI case study with a published metric, I do not have one to show you yet.',
     ],
     problems: [
       {
@@ -599,7 +599,7 @@ export const PILLARS: Pillar[] = [
       'The phrase usually arrives attached to a two-year programme and a slide deck. The version worth paying for is narrower: replace the parts of the stack that are actively costing money, in an order that lets the business keep trading, and stop.',
     what: [
       'Transformation here means moving a legacy commerce operation onto a cloud-native, API-first footing without a big-bang cutover. Process redesign first, then the architecture that supports the redesigned process, then a phased rollout with the riskiest work deliberately not scheduled into peak season.',
-      'The process half is not a soft preamble to the technical work, it is where most of the return is. At Nxtby, introducing structured workflows and approval processes cut development cycle time by 30%, and modelling five-level approval chains for development, B2B orders, quotes and vendor management took 90% of B2B order and quote processing off people, reducing approval cycle time by 40%. None of that required a new platform.',
+      'The process half is not a soft preamble to the technical work, it is where most of the return is. Introducing structured workflows and approval processes cut development cycle time by 30%, and modelling five-level approval chains for development, B2B orders, quotes and vendor management took 90% of B2B order and quote processing off people, reducing approval cycle time by 40%. None of that required a new platform.',
       'What makes these programmes fail is almost never the technology. It is sequencing: cutovers scheduled by convenience rather than risk, integrations discovered late, and a phase whose success depends on a phase that has not started. Getting the order right is the deliverable.',
     ],
     problems: [

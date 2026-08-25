@@ -213,7 +213,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                 <span className="sec-spine" />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.34em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.55)' }}>
-                    01 — Cover
+                    01 / Cover
                   </span>
                   <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>
                     Top Stories
@@ -334,7 +334,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
 
           {filtered.length > 5 && (
             <>
-              <SectionBar num="02 — Archive" label="All Articles" badge={`${filtered.slice(5).length} More`} />
+              <SectionBar num="02 / Archive" label="All Articles" badge={`${filtered.slice(5).length} More`} />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 xl:gap-10">
                 {filtered.slice(5, 15).map((post) => (
                   <GridCard key={post.slug} post={post} imgHeight={240} titleSize="clamp(1.28rem,2.2vw,1.68rem)" excerptSize=".86rem" showDate />

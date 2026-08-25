@@ -1,18 +1,18 @@
       <h2>Why Go Headless with Shopify?</h2>
-      <p>Shopify's default Liquid themes are excellent for most stores. But as brands grow, they hit limitations — slow page transitions, rigid layout constraints, inability to share components across channels. Going headless solves this: Shopify becomes the commerce backend (inventory, orders, payments), and Next.js becomes the frontend you fully control.</p>
+      <p>Shopify's default Liquid themes are excellent for most stores. But as brands grow, they hit limitations: slow page transitions, rigid layout constraints, inability to share components across channels. Going headless solves this: Shopify becomes the commerce backend (inventory, orders, payments), and Next.js becomes the frontend you fully control.</p>
       <p>The result: 90+ Core Web Vitals, instant page transitions, and a React component library you own completely.</p>
       <h2>Architecture Decision: Hydrogen 2.0 vs Custom Next.js</h2>
       <h3>Hydrogen 2.0 (Remix-based)</h3>
       <ul>
-        <li>Shopify's official headless framework — built on Remix</li>
+        <li>Shopify's official headless framework: built on Remix</li>
         <li>Best-in-class for Shopify-specific patterns (cart, checkout, metafields)</li>
-        <li>Deploys to Oxygen (Shopify's edge hosting) — free with Shopify Plus</li>
+        <li>Deploys to Oxygen (Shopify's edge hosting): free with Shopify Plus</li>
         <li>Choose if: you're going fully Shopify-native and want the fastest time-to-launch</li>
       </ul>
       <h3>Next.js + Storefront API</h3>
       <ul>
-        <li>More flexibility — mix Shopify data with other APIs (CMS, ERP, reviews)</li>
-        <li>Larger ecosystem — React component libraries, Vercel deployment, edge caching</li>
+        <li>More flexibility: mix Shopify data with other APIs (CMS, ERP, reviews)</li>
+        <li>Larger ecosystem: React component libraries, Vercel deployment, edge caching</li>
         <li>Choose if: you need a multi-source data architecture or prefer the React/Next.js ecosystem</li>
       </ul>
       <p>This guide covers the <strong>Next.js 14 + Storefront API</strong> path.</p>
@@ -30,7 +30,7 @@ export const shopify = createStorefrontApiClient({
   publicAccessToken: process.env.SHOPIFY_STOREFRONT_TOKEN!,
 });</code></pre>
       <h2>Product Pages with ISR</h2>
-      <p>Use Incremental Static Regeneration (ISR) for product pages — they're statically generated at build time but revalidated in the background when products change:</p>
+      <p>Use Incremental Static Regeneration (ISR) for product pages: they are statically generated at build time but revalidated in the background when products change:</p>
       <pre><code>// app/products/[handle]/page.tsx
 export const revalidate = 3600; // revalidate every hour
 
@@ -46,33 +46,33 @@ export default async function ProductPage({ params }) {
       <h2>Cart Architecture</h2>
       <p>Use Shopify's Cart API with a React Context for global cart state:</p>
       <ul>
-        <li>Create cart on first item add — <code>cartCreate</code> mutation</li>
-        <li>Store <code>cartId</code> in a cookie (not localStorage — works on server components)</li>
+        <li>Create cart on first item add: <code>cartCreate</code> mutation</li>
+        <li>Store <code>cartId</code> in a cookie, not localStorage, so it works on server components</li>
         <li>Use optimistic updates for instant UI response on add/remove</li>
-        <li>Cart drawer as a Server Component — renders cart items SSR for performance</li>
+        <li>Cart drawer as a Server Component: renders cart items SSR for performance</li>
       </ul>
       <h2>Checkout Redirect</h2>
-      <p>Shopify headless checkout uses a redirect — the cart's <code>checkoutUrl</code> sends users to Shopify's hosted checkout. This is intentional: Shopify's checkout handles PCI compliance, payment processing, and fraud detection.</p>
+      <p>Shopify headless checkout uses a redirect: the cart's <code>checkoutUrl</code> sends users to Shopify's hosted checkout. This is intentional: Shopify's checkout handles PCI compliance, payment processing, and fraud detection.</p>
       <p>With Shopify Plus, you can use <strong>Checkout Extensions</strong> to customize the checkout UI (add custom fields, upsells, payment method ordering) while keeping it on Shopify's infrastructure.</p>
       <h2>SEO Best Practices</h2>
       <ul>
-        <li>Use Next.js <code>generateMetadata()</code> — fetch product title, description, and OG image server-side</li>
-        <li>Canonical URLs — always point to the primary domain, not <code>*.myshopify.com</code></li>
-        <li>Structured data — output <code>Product</code> + <code>Offer</code> JSON-LD in the page head</li>
-        <li>XML sitemap — generate dynamically from Storefront API product/collection lists</li>
-        <li>hreflang — if multi-market, output correct language/region tags per page</li>
+        <li>Use Next.js <code>generateMetadata()</code>: fetch product title, description, and OG image server-side</li>
+        <li>Canonical URLs: always point to the primary domain, not <code>*.myshopify.com</code></li>
+        <li>Structured data: output <code>Product</code> + <code>Offer</code> JSON-LD in the page head</li>
+        <li>XML sitemap: generate dynamically from Storefront API product/collection lists</li>
+        <li>hreflang: if multi-market, output correct language/region tags per page</li>
       </ul>
       <h2>Core Web Vitals Targets</h2>
       <ul>
-        <li><strong>LCP &lt; 2.5s</strong> — preload hero image, serve from Shopify CDN with width params</li>
-        <li><strong>CLS = 0</strong> — reserve image dimensions with aspect-ratio CSS, avoid layout shifts from font loading</li>
-        <li><strong>INP &lt; 200ms</strong> — keep client-side JS lean; defer analytics scripts</li>
+        <li><strong>LCP &lt; 2.5s</strong>: preload hero image, serve from Shopify CDN with width params</li>
+        <li><strong>CLS = 0</strong>: reserve image dimensions with aspect-ratio CSS, avoid layout shifts from font loading</li>
+        <li><strong>INP &lt; 200ms</strong>: keep client-side JS lean; defer analytics scripts</li>
       </ul>
       <h2>Deployment: Vercel</h2>
       <p>Next.js + Vercel is the natural production stack. Key config:</p>
       <ul>
-        <li>Enable Edge Runtime for product and collection pages — served from 100+ global PoPs</li>
-        <li>Use Vercel's Image Optimization — <code>next/image</code> serves WebP with correct sizing automatically</li>
+        <li>Enable Edge Runtime for product and collection pages: served from 100+ global PoPs</li>
+        <li>Use Vercel's Image Optimization: <code>next/image</code> serves WebP with correct sizing automatically</li>
         <li>Environment variables: store Shopify tokens in Vercel project settings, not in code</li>
       </ul>
       <hr>

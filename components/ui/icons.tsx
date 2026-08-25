@@ -4,7 +4,7 @@ import type { SVGProps } from 'react';
  * The site's single icon system — see design-system/yuvraj-raulji/MASTER.md §6.
  *
  * Hand-rolled rather than pulled from a library: 13 icons do not justify a
- * dependency, and this guarantees one consistent grammar (24×24 box, 1.5 stroke,
+ * dependency, and this guarantees one consistent grammar (24x24 box, 1.5 stroke,
  * round caps/joins, currentColor). Never mix in emoji, glyph characters or a
  * second icon set.
  *

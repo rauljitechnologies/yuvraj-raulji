@@ -13,7 +13,7 @@
 import { ERAS } from './brand';
 
 export const ABOUT_HERO = {
-  eyebrow: 'AI × Business × eCommerce',
+  eyebrow: 'AI | BUSINESS | ECOMMERCE',
   /**
    * The H1. Two lines, and the second is the argument: everybody has the same
    * technology available, so the technology is not the differentiator.

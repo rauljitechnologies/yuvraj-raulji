@@ -103,11 +103,19 @@ export function ContactModal() {
         style={{ background: '#080808' }}
       >
         <button
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245, 243, 238, .50)] text-lg transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
+          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245,243,238,.50)] transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
           onClick={close}
           aria-label="Close"
         >
-          ×
+          {/*
+            Drawn, not typed. This was the multiplication sign, which section 2
+            of BRAND-DESIGN-GUIDELINE.md bans from the project outright. A
+            stroked cross is the shape that character was standing in for
+            anyway, and it scales with the button instead of with the font.
+          */}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">

@@ -58,7 +58,7 @@ const EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png'] as const;
 const DIR = path.join(process.cwd(), 'public', 'assets', 'founder');
 
 /**
- * The one photograph the repository already ships. It is a real 400×400
+ * The one photograph the repository already ships. It is a real 400x400
  * portrait, so the hero has a genuine face from day one; a larger frame-filling
  * shot dropped in as hero-portrait.* takes precedence.
  */

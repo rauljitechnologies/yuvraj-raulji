@@ -14,10 +14,10 @@ import { SITE_URL } from '../../lib/site';
 export const metadata: Metadata = {
   title: 'Insights on E-commerce Technology & AI | Yuvraj Raulji',
   description:
-    'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI — from hands-on e-commerce and digital transformation work.',
+    'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI, from hands-on e-commerce and digital transformation work.',
   alternates: { canonical: `${SITE_URL}/blog/` },
   openGraph: {
-    title: 'Blog & Insights — Yuvraj Raulji | Magento 2, Shopify, SEO & AWS',
+    title: 'Blog & Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS, analytics and AI.',
     url: `${SITE_URL}/blog/`,
     siteName: 'Yuvraj Raulji',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog & Insights — Yuvraj Raulji',
+    title: 'Blog & Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS and AI by Yuvraj Raulji.',
   },
 };
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function Blog() {
   const posts: ListPost[] = Object.entries(POSTS).map(([slug, p]) => ({ ...p, slug }));
 
-  /** The hub had no structured data at all — articles were described, the collection was not. */
+  /** The hub had no structured data at all: articles were described, the collection was not. */
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [

@@ -34,7 +34,7 @@ export function HomeHeader() {
               Yuvraj Raulji
             </span>
             <span className="font-mono text-[10px] uppercase leading-[1.4] tracking-[0.16em] text-ink/40">
-              AI × Business × eCommerce
+              AI | BUSINESS | ECOMMERCE
             </span>
           </span>
         </a>

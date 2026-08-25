@@ -170,20 +170,20 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
  * other. What is gone is the claim about *which* relationship it is. That is a
  * weaker signal than `founder` and it is a deliberate trade.
  */
-export function organizationNode() {
-  return {
-    '@type': 'Organization',
-    '@id': COMPANY_ID,
-    name: COMPANY_NAME,
-    alternateName: COMPANY_SHORT,
-    url: RAULJI_TECHNOLOGIES_URL,
-    foundingDate: COMPANY_FOUNDED,
-    employee: personRef,
-    address: ADDRESS,
-    description:
-      'eCommerce and digital transformation company building and modernising commerce platforms.',
-  };
-}
+/*
+ * The Organization node was removed on 25 Aug 2026.
+ *
+ * Section 27 of BRAND-DESIGN-GUIDELINE.md lists the structured data this site
+ * may emit (Person, WebSite, BreadcrumbList, Article, FAQPage, ImageObject) and
+ * Organization is not on it; section 4 keeps the corporate name out of markup
+ * as well as out of copy. lib/schema-brand.ts had already reached the same
+ * conclusion for Home, About and Work, so this brings the remaining routes into
+ * line rather than inventing a new rule.
+ *
+ * Nothing pointed at COMPANY_ID by reference: `provider` and `publisher` both
+ * carry `personRef`, so entity resolution runs through the Person and is
+ * unaffected.
+ */
 
 export function websiteNode() {
   return {
@@ -332,7 +332,6 @@ const graph = (nodes: unknown[]) => ({ '@context': 'https://schema.org', '@graph
 export function expertiseHubSchema(crumbs: Crumb[]) {
   return graph([
     personNode(),
-    organizationNode(),
     webPageNode({
       path: '/expertise/',
       name: 'Expertise',
@@ -362,7 +361,6 @@ export function pillarSchema(pillar: Pillar, crumbs: Crumb[]) {
   const path = pillarHref(pillar.slug);
   return graph([
     personNode(),
-    organizationNode(),
     webPageNode({
       path,
       name: pillar.label,
@@ -397,11 +395,10 @@ export function pillarSchema(pillar: Pillar, crumbs: Crumb[]) {
 export function experienceSchema(crumbs: Crumb[]) {
   return graph([
     personNode({ full: true }),
-    organizationNode(),
     webPageNode({
       path: '/experience/',
       name: 'Experience',
-      description: `Nine years of commerce work, from the first builds in 2014 to ${COMPANY_SHORT} today.`,
+      description: 'Nine years of commerce work, from the first builds in 2014 to independent practice today.',
       type: 'ProfilePage',
       crumbs,
     }),
@@ -424,7 +421,6 @@ export function experienceSchema(crumbs: Crumb[]) {
 export function contactSchema(crumbs: Crumb[]) {
   return graph([
     personNode(),
-    organizationNode(),
     serviceNode(),
     webPageNode({
       path: '/contact/',
@@ -457,7 +453,6 @@ export function articleSchema({
 
   return graph([
     personNode(),
-    organizationNode(),
     breadcrumbNode(crumbs),
     {
       '@type': 'BlogPosting',
@@ -483,7 +478,6 @@ export function blogHubSchema(crumbs: Crumb[]) {
   const posts = Object.entries(POSTS);
   return graph([
     personNode(),
-    organizationNode(),
     breadcrumbNode(crumbs),
     {
       '@type': 'Blog',

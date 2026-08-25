@@ -20,7 +20,7 @@ import { Btn, Section, Shell } from './primitives';
  * sentence about the work, because an H1 that is only a job title tells a
  * visitor nothing they did not get from the tab.
  *
- * The portrait is the real photograph the repository ships (400×400). If a
+ * The portrait is the real photograph the repository ships (400x400). If a
  * larger frame-filling shot is dropped in as public/assets/founder/
  * hero-portrait.*, it is picked up automatically and used instead.
  */

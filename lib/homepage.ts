@@ -40,10 +40,15 @@ export const CONTACT = {
 
 export const HERO = {
   /**
-   * The canvas eyebrow, verbatim. The previous value was `01 — Yuvraj Raulji`,
-   * which put an em-dash into rendered copy.
+   * The section-01 eyebrow.
+   *
+   * Not the canvas string. The canvas writes the brand line with a
+   * multiplication sign, which section 1 of BRAND-DESIGN-GUIDELINE.md bans;
+   * the guideline outranks the canvas. The comma form is used here rather than
+   * the pipe form because this line already carries two separators of its own
+   * and a third would read as noise.
    */
-  eyebrow: '01 / Yuvraj Raulji · AI × Business × eCommerce',
+  eyebrow: '01 / Yuvraj Raulji · AI, Business and eCommerce',
   /** The one-line statement under the H1. */
   subLead: 'AI, eCommerce and digital transformation for modern businesses.',
   /**
@@ -70,7 +75,8 @@ export type Stat = { value: string; label: string };
  * Tiles 2 to 4 are the canvas values. Two tiles previously both read "12+",
  * which reads as a rendering bug rather than as two facts, and the canvas stat
  * that had been dropped (90% of B2B order and quote processing automated at
- * Nxtby) is the same figure the Nxtby entry in TIMELINE already carries.
+ * the B2B platform) is the same figure the 2020 entry in TIMELINE already
+ * carries.
  *
  * Tile 1 is left at 12+ deliberately. The canvas says "9+ years" and this said
  * "12+"; both are the same person's own claim and only he can say which is
@@ -78,7 +84,7 @@ export type Stat = { value: string; label: string };
  */
 export const STATS: readonly Stat[] = [
   { value: '12+', label: 'Years in technology' },
-  { value: '90%', label: 'Of B2B order and quote processing automated, Nxtby' },
+  { value: '90%', label: 'Of B2B order and quote processing automated' },
   { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms' },
   { value: '1M+', label: 'Monthly users on platforms under architecture' },
 ];
@@ -165,8 +171,8 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '04',
-    short: 'NXT',
-    name: 'Nxtby',
+    short: 'B2B',
+    name: 'B2B procurement platform',
     industry: 'B2B procurement',
     challenge:
       'B2B buying is not a cart. It is a request, a quote, an approval chain and a budget holder, and a consumer checkout models none of that.',
@@ -279,6 +285,16 @@ export const ENGAGEMENTS: readonly Engagement[] = [
 
 export type TimelineEntry = { year: string; title: string; org: string; body: string };
 
+/**
+ * The record, told as shifts rather than as an employment history.
+ *
+ * No company names. Section 4 of BRAND-DESIGN-GUIDELINE.md keeps corporate and
+ * historical brand names off this site, and section 3 keeps the word "Founder"
+ * off it, so `org` carries the role and the dates instead of an employer. The
+ * facts, the dates and the numbers are unchanged: what was removed is the
+ * letterhead, not the record. Client names went the same way, which also
+ * settles the standing question about naming them without permission.
+ */
 export const TIMELINE: readonly TimelineEntry[] = [
   {
     year: '2010–13',
@@ -288,45 +304,45 @@ export const TIMELINE: readonly TimelineEntry[] = [
   },
   {
     year: '2016',
-    title: 'Founder, Ariya InfoTech',
-    org: 'Ariya InfoTech · 2016–2025',
-    body: 'Started my own consultancy in Vadodara and never closed it. Magento 2 full-stack and headless commerce for B2B, B2C, D2C and marketplace brands, plus MoEngage, WebEngage and multi-currency gateway work.',
+    title: 'Independent practice',
+    org: 'Independent · 2016–2025',
+    body: 'Started taking my own clients in Vadodara and never stopped. Magento 2 full-stack and headless commerce for B2B, B2C, D2C and marketplace brands, plus engagement-platform and multi-currency gateway work.',
   },
   {
     year: '2016',
     title: 'Magento, professionally',
-    org: 'Sinelogix Technologies · 2016–2018',
-    body: 'Magento developer, then Sr. Magento developer: module development and store builds. The platform that turns a catalogue into an architecture problem.',
+    org: 'Magento developer, then senior · 2016–2018',
+    body: 'Module development and store builds, full time. The platform that turns a catalogue into an architecture problem, which is the lesson the next ten years kept re-teaching.',
   },
   {
     year: '2018',
     title: 'Shopify at brand scale',
-    org: 'OrionCoders Digital · 2018',
-    body: 'Shopify development for top brands including Unilever face and skincare stores: custom storefronts, app and gateway integrations, and my first exposure to Salesforce Commerce Cloud.',
+    org: 'Shopify development · 2018',
+    body: 'Custom storefronts, app and gateway integrations for global personal-care brands, and a first look at Salesforce Commerce Cloud. Different platform, same question: what does the catalogue actually need.',
   },
   {
     year: '2018',
-    title: 'Saudi retail, full-stack',
-    org: 'Magneto IT Solutions · 2018–2021',
-    body: 'Sr. Magento 2 full-stack developer for leading Saudi brands, Haymart, Kawader and Aljazira Supermarkets, across grocery, commercial kitchen equipment and fashion. Mobile app APIs, custom payment gateways, multi-vendor and multi-store.',
+    title: 'Gulf retail, full-stack',
+    org: 'Senior Magento 2 full-stack · 2018–2021',
+    body: 'Grocery, commercial kitchen equipment and fashion for leading Saudi retail groups. Mobile app APIs, custom payment gateways, multi-vendor and multi-store, in a market where the operational constraints are not the ones a European catalogue trains you for.',
   },
   {
     year: '2020',
-    title: 'B2B systems & performance',
-    org: 'Nxtby.com · 2020–2022',
-    body: 'Five-level approval workflows, B2B order and quote management with role-based permissions, AWS setup with EC2/RDS/auto-scaling. 90% of order and quote processing automated; approval cycles down 40%; page load down 60%.',
+    title: 'B2B systems and performance',
+    org: 'B2B commerce platform · 2020–2022',
+    body: 'Five-level approval workflows, B2B order and quote management with role-based permissions, AWS with EC2, RDS and auto-scaling. 90% of order and quote processing automated; approval cycles down 40%; page load down 60%.',
   },
   {
     year: '2023',
     title: 'Leading the team',
-    org: 'Nxtby.com · 2023–present',
-    body: 'Team Lead: architecture guidance, code review and mentorship across 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users. Structured workflows cut development cycle time by 30%.',
+    org: 'Team Lead · 2023–present',
+    body: 'Architecture guidance, code review and mentorship across 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users. Structured workflows cut development cycle time by 30%.',
   },
   {
     year: 'Now',
-    title: 'Fully AI-driven',
+    title: 'AI in the operating layer',
     org: 'Consulting',
-    body: 'Every layer of the stack designed AI-first: agents, retrieval and automation aimed at the parts of a company that absorb people who should be doing something else, for companies and agencies planning their next phase of growth.',
+    body: 'Agents with a deliberate tool boundary, retrieval grounded in a real catalogue, AI search, and automation pointed at the processes that absorb people who should be doing something else. Evaluated before rollout, and reviewed by a person wherever the output reaches a customer or a ledger.',
   },
 ];
 

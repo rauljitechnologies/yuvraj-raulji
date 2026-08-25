@@ -119,7 +119,7 @@ Primitives in `components/ui/`: `Container`, `Section`, `SectionHeading`, `Eyebr
 `Button`, `Card`, `Badge`, `Reveal`. Compose these — do not re-implement spacing, borders,
 focus rings or motion per section.
 
-Rules: 44×44px minimum touch targets · visible focus ring on every interactive element ·
+Rules: 44x44px minimum touch targets · visible focus ring on every interactive element ·
 icon-only buttons carry `aria-label` · hover is never the only signal · one SVG icon system
 (no emoji, no mixed libraries) · every section provides WHAT / WHY / HOW / PROOF / CTA.
 

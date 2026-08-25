@@ -603,9 +603,8 @@ export function Evolution() {
 
       <div className="mb-16 flex flex-wrap items-end justify-between gap-10 lg:mb-[70px]">
         <p className="m-0 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ink/50">
-          Eight shifts across Sinelogix, OrionCoders, Magneto IT Solutions, Nxtby and my own Ariya
-          InfoTech, each one forced by a problem the previous way of working could not hold. The
-          technology changed roughly every three years. What it was for did not.
+          Eight shifts, each one forced by a problem the previous way of working could not hold.
+          The technology changed roughly every three years. What it was for did not.
         </p>
         <RuleLink href="/experience/">Full experience ↗</RuleLink>
       </div>

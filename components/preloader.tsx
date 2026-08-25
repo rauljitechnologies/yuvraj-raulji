@@ -68,7 +68,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
 
       <span className="ldr-meta absolute top-7 left-7">Yuvraj Raulji</span>
       <span className="ldr-meta absolute top-7 right-7">Portfolio · 2026</span>
-      <span className="ldr-meta absolute bottom-7 left-7 hidden sm:block">Vadodara &mdash; India</span>
+      <span className="ldr-meta absolute bottom-7 left-7 hidden sm:block">Vadodara, India</span>
       <div
         className="absolute bottom-7 right-7 font-display text-rv"
         style={{ fontSize: '1.5rem', letterSpacing: '.10em', lineHeight: 1 }}

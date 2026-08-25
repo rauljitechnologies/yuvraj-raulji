@@ -22,7 +22,7 @@ export function BlogCta() {
               With Your Project?
             </h2>
             <p className="text-[rgba(245,245,242,.58)] leading-[1.78] mb-9 max-w-[500px]" style={{ fontSize: 'clamp(.94rem,1.2vw,1.06rem)' }}>
-              Whether you need a Magento 2 overhaul, SEO &amp; CRO strategy, AWS server migration, or AI automation — let&rsquo;s have a focused consultation and map out your roadmap.
+              Whether you need a Magento 2 overhaul, SEO &amp; CRO strategy, AWS server migration or AI automation, let&rsquo;s have a focused consultation and map out your roadmap.
             </p>
             <div className="flex flex-wrap gap-3">
               <a

@@ -320,7 +320,7 @@ export default async function Article({ params }: Props) {
               Your Business?
             </h2>
             <p className="text-[rgba(245,245,242,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
-              From Magento 2 builds and SEO audits to AWS server setup and AI automation — let&rsquo;s turn your digital presence into a growth engine.
+              From Magento 2 builds and SEO audits to AWS server setup and AI automation. Let&rsquo;s turn your digital presence into a growth engine.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a

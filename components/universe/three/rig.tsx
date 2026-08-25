@@ -10,7 +10,7 @@ import { SEGMENT } from './palette';
 /**
  * The camera walks a single continuous path through the world. Scroll does not
  * cut between scenes; it advances a floating-point position along that path, so
- * section 3 is literally 3 × SEGMENT further into the world than section 0.
+ * section 3 is literally 3 x SEGMENT further into the world than section 0.
  *
  * The float index is derived from the *measured DOM sections* rather than raw
  * page progress. That matters: sections differ in height, and deriving the path

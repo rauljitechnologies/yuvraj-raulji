@@ -3,11 +3,11 @@
       <h2>Phase 1: Infrastructure Stack</h2>
       <h3>Recommended AWS Services</h3>
       <ul>
-        <li><strong>EC2</strong> — Application server. Start with <code>c6i.2xlarge</code> for mid-traffic stores (8 vCPU, 16GB RAM). Use <code>c6i.4xlarge</code> for high-traffic.</li>
-        <li><strong>RDS MySQL 8.0</strong> — Managed database. Use <code>db.r6g.large</code> minimum. Enable Multi-AZ for production. Separate read replica for heavy catalog queries.</li>
-        <li><strong>ElastiCache Redis</strong> — Sessions + full-page cache backend. <code>cache.r6g.large</code> with cluster mode disabled for Magento 2 compatibility.</li>
-        <li><strong>S3 + CloudFront</strong> — Media storage and CDN. Use S3 for <code>pub/media</code> and CloudFront distribution for global edge caching.</li>
-        <li><strong>Elastic Load Balancer</strong> — Required for multi-node setups and SSL termination.</li>
+        <li><strong>EC2</strong>: Application server. Start with <code>c6i.2xlarge</code> for mid-traffic stores (8 vCPU, 16GB RAM). Use <code>c6i.4xlarge</code> for high-traffic.</li>
+        <li><strong>RDS MySQL 8.0</strong>: Managed database. Use <code>db.r6g.large</code> minimum. Enable Multi-AZ for production. Separate read replica for heavy catalog queries.</li>
+        <li><strong>ElastiCache Redis</strong>: Sessions + full-page cache backend. <code>cache.r6g.large</code> with cluster mode disabled for Magento 2 compatibility.</li>
+        <li><strong>S3 + CloudFront</strong>: Media storage and CDN. Use S3 for <code>pub/media</code> and CloudFront distribution for global edge caching.</li>
+        <li><strong>Elastic Load Balancer</strong>: Required for multi-node setups and SSL termination.</li>
       </ul>
       <h2>Phase 2: Web Server Configuration</h2>
       <h3>Nginx + PHP-FPM Setup</h3>
@@ -25,11 +25,11 @@ pm.max_requests = 500</code></pre>
         <li>Use Magento's built-in VCL export from <code>System → Cache Management → Varnish Configuration</code></li>
         <li>Configure <code>BACKEND_HOST</code> to point to Nginx (not public), listening on port 8080</li>
         <li>Set <code>BACKEND_PORT</code> to 8080, Varnish listens on 80/443 via ELB</li>
-        <li>TTL for full-page cache: 86400s (24h) — Magento handles cache invalidation via ban</li>
+        <li>TTL for full-page cache: 86400s (24h): Magento handles cache invalidation via ban</li>
       </ul>
       <h2>Phase 3: Redis Configuration</h2>
       <h3>Separate Redis Instances for Sessions & Cache</h3>
-      <p>Using a single Redis instance for both sessions and cache is a common mistake — cache eviction can clear session data, causing unexpected logouts. Use two separate Redis databases or instances:</p>
+      <p>Using a single Redis instance for both sessions and cache is a common mistake: cache eviction can clear session data, causing unexpected logouts. Use two separate Redis databases or instances:</p>
       <pre><code># app/etc/env.php
 'session' => [
     'save' => 'redis',

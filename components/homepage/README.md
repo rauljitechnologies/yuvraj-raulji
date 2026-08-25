@@ -103,10 +103,10 @@ renders a typographic layout that is finished in its own right. See
 `public/assets/founder/README.md` for the slot list and the shot direction.
 
 The hero currently falls back to `public/assets/yuvraj-raulji.jpg`, which is
-400×400 and is being displayed at up to 420px. A larger frame-filling portrait
+400x400 and is being displayed at up to 420px. A larger frame-filling portrait
 dropped in as `hero-portrait.*` is picked up automatically. The same 400px square
 is why the Twitter card is `summary` rather than `summary_large_image`; a
-1200×630 asset changes that one line in `app/page.tsx`.
+1200x630 asset changes that one line in `app/page.tsx`.
 
 ## Typefaces
 

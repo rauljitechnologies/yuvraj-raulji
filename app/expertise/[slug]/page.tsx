@@ -268,18 +268,13 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
               label="Related work"
               id="cases-title"
               lines={['Where this', 'has been built.']}
-              lede="Full case studies are published on the Raulji Technologies site, which is where delivery lives."
+              lede="The builds where this practice area shows up, with the decision inside each one."
             />
             <ul className="mt-grid grid gap-grid sm:grid-cols-2 lg:grid-cols-3">
               {cases.map((w, i) => (
                 <li key={w.id}>
                   <Rise delay={Math.min(i, 3) * 0.07}>
-                    <a
-                      href={w.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="yr-card h-full"
-                    >
+                    <a href={w.href} className="yr-card h-full">
                       <span className="yr-frame relative block aspect-[16/10] w-full">
                         <img
                           src={w.img}

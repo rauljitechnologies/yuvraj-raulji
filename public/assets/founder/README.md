@@ -41,8 +41,8 @@ Shot direction, in the order they matter:
 
 1. **`hero-portrait`** — the one that matters most. Head and shoulders, room
    above the head, shot against a dark or neutral background so it sits in a
-   near-black page. **Square, at least 1200×1200.** The file currently standing
-   in is 400×400, which is under 1× on a retina display at the size it renders;
+   near-black page. **Square, at least 1200x1200.** The file currently standing
+   in is 400x400, which is under 1x on a retina display at the size it renders;
    it is a real photograph and it is doing the job, but it is the single biggest
    image quality win available on this page.
 2. **`portrait-close`** — tighter than the hero. Eyes sharp.

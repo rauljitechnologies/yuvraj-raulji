@@ -76,7 +76,12 @@ export const HOME_NAV = [
 export const ROLE = 'eCommerce Consultant & Digital Commerce Architect';
 
 /** Official site of the execution brand. Same origin the case studies live on. */
-export const RAULJI_TECHNOLOGIES_URL = 'https://www.rauljitechnologies.com/';
+/**
+ * Retired 25 Aug 2026. Section 4 of BRAND-DESIGN-GUIDELINE.md keeps corporate
+ * brand references off this site, and an outbound link carries the brand in the
+ * href whether or not the anchor text names it. Case cards point at /work/.
+ */
+export const RAULJI_TECHNOLOGIES_URL = '/work/';
 
 /**
  * Registered name of the company, and the year it was incorporated.
@@ -129,7 +134,7 @@ export const HERO = {
 /* ═══════════════════════════════════════════════════════════════
    02 — CREDIBILITY
 
-   Four figures, all four traceable to the Nxtby entries in lib/site.ts
+   Four figures, all four traceable to the B2B platform entries in lib/site.ts
    EXPERIENCE. The old site's "50+ projects delivered" is deliberately
    absent: it appears nowhere in the record and there is no way to
    source it.
@@ -447,7 +452,7 @@ export interface WorkItem {
 export const WORK = {
   headline: ['Real work.', 'Real systems.'] as const,
   body:
-    'Full case studies are published on the Raulji Technologies site, which is where delivery lives. Each card links through to the write-up.',
+    'Full case studies are published on the delivery site, which is where the build write-ups live. Each card links through to the write-up.',
 } as const;
 
 export const WORK_ITEMS: WorkItem[] = [
@@ -462,7 +467,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Powerlook headless commerce storefront',
     imgW: 1920,
     imgH: 1290,
-    href: 'https://www.rauljitechnologies.com/case-study/powerlook/',
+    href: '/work/',
   },
   {
     id: 'future-roots',
@@ -475,7 +480,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Future Roots Shopify storefront',
     imgW: 1920,
     imgH: 1280,
-    href: 'https://www.rauljitechnologies.com/case-study/future-roots/',
+    href: '/work/',
   },
   {
     id: 's3buy',
@@ -488,20 +493,20 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'S3Buy sports nutrition storefront',
     imgW: 1920,
     imgH: 1047,
-    href: 'https://www.rauljitechnologies.com/case-study/s3buy/',
+    href: '/work/',
   },
   {
     id: 'nxtby',
-    name: 'Nxtby',
+    name: 'B2B procurement platform',
     category: 'Custom platform · B2B',
     summary:
       'Scalable B2B procurement platform streamlining purchase requests and approvals.',
     stack: ['B2B workflows', 'Approvals', 'Integrations'],
     img: '/assets/case-covers/nxtby-cover.webp',
-    alt: 'Nxtby B2B procurement platform',
+    alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
     imgH: 1080,
-    href: 'https://www.rauljitechnologies.com/case-study/nxtby/',
+    href: '/work/',
   },
   {
     id: 'shopunicore',
@@ -514,7 +519,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'ShopUnicore Magento 2 marketplace',
     imgW: 1920,
     imgH: 1440,
-    href: 'https://www.rauljitechnologies.com/case-study/shopunicore/',
+    href: '/work/',
   },
   {
     id: 'synergy',
@@ -522,12 +527,12 @@ export const WORK_ITEMS: WorkItem[] = [
     category: 'Web platform · Manufacturing',
     summary: 'A modern engineering brand platform built for discovery and enquiry.',
     stack: ['Web platform', 'Technical SEO', 'Content'],
-    outcome: '3× traffic growth and 45% better engagement',
+    outcome: '3x traffic growth and 45% better engagement',
     img: '/assets/case-covers/synergy-water-slides-cover.webp',
     alt: 'Synergy Water Slides engineering brand platform',
     imgW: 1920,
     imgH: 867,
-    href: 'https://www.rauljitechnologies.com/case-study/synergy-water-slides/',
+    href: '/work/',
   },
 ];
 
@@ -622,10 +627,15 @@ export const CONTENT_FORMATS: ContentFormat[] = (
    the three biographical dates supplied by Yuvraj (2014, 2016, 2025).
 
    One conflict is carried openly rather than smoothed over: the record
-   has Magneto IT Solutions running Jul 2018 to May 2021 and Nxtby
-   starting Mar 2020. Those overlap by fourteen months. The timeline
-   below states start years only, which is true either way, and the
-   conflict is flagged for Yuvraj to resolve.
+   has the Gulf retail role running Jul 2018 to May 2021 and the B2B
+   platform starting Mar 2020. Those overlap by fourteen months. The
+   timeline below states start years only, which is true either way, and
+   the conflict is flagged for Yuvraj to resolve.
+
+   No company names. Section 4 of BRAND-DESIGN-GUIDELINE.md keeps
+   corporate and historical brand names off this site and section 3 keeps
+   the word "Founder" off it, so each entry is titled by what changed
+   rather than by who was paying.
 
    No achievement, client or revenue figure is attached to any entry
    beyond what the employment record already states.
@@ -658,31 +668,31 @@ export const TIMELINE: TimelineEntry[] = [
   },
   {
     year: '2016',
-    title: 'Ariya InfoTech',
-    body: 'Founded, and established as a working business the following year.',
+    title: 'Working independently',
+    body: 'Started taking my own clients, and established it as a working practice the following year.',
   },
   {
     year: '2018',
-    title: 'Magneto IT Solutions',
+    title: 'Gulf retail, at scale',
     body:
-      'Commerce builds for Saudi retail: grocery, commercial kitchen equipment and fashion, including Al Jazira Supermarkets. First headless frontends over REST and GraphQL.',
+      'Commerce builds for Saudi retail groups: grocery, commercial kitchen equipment and fashion. First headless frontends over REST and GraphQL.',
   },
   {
     year: '2020',
-    title: 'Nxtby, senior Magento',
+    title: 'Senior Magento, B2B',
     body:
       'High-traffic B2B commerce. Automated 90% of order and quote processing, and cut page load times by 60% through Varnish, Redis, full-page cache and database tuning.',
   },
   {
     year: '2023',
-    title: 'Nxtby, team leader',
+    title: 'Team leader',
     body:
       'Architecture direction across multi-store Magento 2 builds. Five-level approval workflows for development, B2B orders, quotes and vendor management.',
   },
   {
     year: '2025',
-    title: 'Raulji Technologies',
-    body: 'Raulji Technologies Private Limited incorporated.',
+    title: 'Incorporated',
+    body: 'The practice incorporated as a private limited company.',
   },
 ];
 

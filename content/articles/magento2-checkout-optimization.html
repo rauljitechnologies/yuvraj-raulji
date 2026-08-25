@@ -1,41 +1,41 @@
 <h2>Why Checkout Is Your Biggest Revenue Lever</h2>
-<p>The average e-commerce cart abandonment rate is 70–75%. For Magento 2 stores, a poorly configured checkout is often the single largest revenue leak — and it's entirely fixable. In this guide I walk through the exact optimizations I've applied across 20+ Magento 2 stores that consistently deliver a 35–45% reduction in checkout abandonment.</p>
-<blockquote><p>A 1% improvement in checkout conversion on a ₹1 crore/month store is ₹1 lakh in additional monthly revenue — with zero new traffic needed.</p></blockquote>
+<p>The average e-commerce cart abandonment rate is 70–75%. For Magento 2 stores, a poorly configured checkout is often the single largest revenue leak, and it is entirely fixable. In this guide I walk through the exact optimizations I've applied across 20+ Magento 2 stores that consistently deliver a 35–45% reduction in checkout abandonment.</p>
+<blockquote><p>A 1% improvement in checkout conversion on a ₹1 crore/month store is ₹1 lakh in additional monthly revenue, with zero new traffic needed.</p></blockquote>
 <h2>Step 1: Enable & Configure One-Page Checkout</h2>
 <p>Magento 2 ships with a two-step checkout by default. While it's cleaner than Magento 1, it still has friction. The most impactful first move:</p>
 <ul>
-  <li>Switch to a single-page layout — all steps visible without a page reload</li>
+  <li>Switch to a single-page layout: all steps visible without a page reload</li>
   <li>Use <code>Amasty One Step Checkout</code> or <code>IWD Agency Checkout</code> for production-grade implementations</li>
-  <li>Remove the "Review & Payments" heading — users don't need to be told what they're doing</li>
-  <li>Disable the Order Summary accordion — keep it open on desktop by default</li>
+  <li>Remove the "Review & Payments" heading: users don't need to be told what they're doing</li>
+  <li>Disable the Order Summary accordion: keep it open on desktop by default</li>
 </ul>
 <h2>Step 2: Guest Checkout as the Default Path</h2>
 <p>Forcing account creation before purchase is the single biggest conversion killer in Magento 2. The fix is two-part:</p>
 <ul>
   <li>In Admin → Stores → Configuration → Sales → Checkout → Guest Checkout: set to <strong>Enabled</strong></li>
-  <li>On the checkout page, make "Continue as Guest" the primary button — larger, higher contrast than the Login option</li>
+  <li>On the checkout page, make "Continue as Guest" the primary button: larger, higher contrast than the Login option</li>
   <li>After the order, prompt for account creation with a single click (password auto-set from email)</li>
 </ul>
 <h3>Account Creation Prompt Copy</h3>
-<p>Replace the default "Create an Account" with: <strong>"Save your details for faster checkout next time — takes 2 seconds."</strong> This framing consistently outperforms the default copy by 20–30% in opt-in rate.</p>
+<p>Replace the default "Create an Account" with: <strong>"Save your details for faster checkout next time. Takes 2 seconds."</strong> This framing consistently outperforms the default copy by 20–30% in opt-in rate.</p>
 <h2>Step 3: Address Autocomplete</h2>
 <p>Manual address entry is the biggest friction point on mobile. Implement Google Places Autocomplete on the address fields:</p>
 <ul>
   <li>Use the <code>mageplaza/module-google-address-suggestion</code> module or custom JS integration</li>
   <li>Enable for both shipping and billing address fields</li>
-  <li>Form completion time drops by ~40% — significant impact on mobile conversion</li>
+  <li>Form completion time drops by ~40%: significant impact on mobile conversion</li>
 </ul>
 <h2>Step 4: Payment UX Optimization</h2>
 <p>The payment step has the highest abandonment rate of any checkout step. Critical fixes:</p>
 <ul>
-  <li><strong>Show all payment options immediately</strong> — don't hide them behind an accordion</li>
-  <li><strong>Order payment methods by popularity</strong> — UPI/Razorpay first for India markets, card second, COD last</li>
-  <li><strong>Inline card validation</strong> — real-time feedback as user types card number, not on submit</li>
-  <li><strong>Remove "Place Order" dead zone</strong> — the button should be visible without scrolling on mobile</li>
-  <li><strong>Sticky CTA on mobile</strong> — fix the "Place Order" button to the bottom of the viewport</li>
+  <li><strong>Show all payment options immediately</strong>: don't hide them behind an accordion</li>
+  <li><strong>Order payment methods by popularity</strong>: UPI/Razorpay first for India markets, card second, COD last</li>
+  <li><strong>Inline card validation</strong>: real-time feedback as user types card number, not on submit</li>
+  <li><strong>Remove "Place Order" dead zone</strong>: the button should be visible without scrolling on mobile</li>
+  <li><strong>Sticky CTA on mobile</strong>: fix the "Place Order" button to the bottom of the viewport</li>
 </ul>
 <h2>Step 5: Trust Signals at the Right Moment</h2>
-<p>Place trust signals directly adjacent to the payment button — not in the footer or header:</p>
+<p>Place trust signals directly adjacent to the payment button, not in the footer or header:</p>
 <ul>
   <li>SSL padlock icon + "Secure Checkout" text immediately above the Place Order button</li>
   <li>Return policy summary (e.g. "Easy 30-day returns") near the order total</li>
@@ -43,11 +43,11 @@
 </ul>
 <h2>Step 6: Mobile-First Form Design</h2>
 <ul>
-  <li>Minimum input height: 48px — prevents accidental taps on small screens</li>
-  <li>Set correct <code>inputmode</code> attributes — <code>inputmode="numeric"</code> for phone/pincode/card fields</li>
-  <li>Use <code>autocomplete</code> attributes — <code>autocomplete="email"</code>, <code>autocomplete="tel"</code>, etc. for browser autofill</li>
+  <li>Minimum input height: 48px: prevents accidental taps on small screens</li>
+  <li>Set correct <code>inputmode</code> attributes, such as <code>inputmode="numeric"</code> for phone/pincode/card fields</li>
+  <li>Use <code>autocomplete</code> attributes, such as <code>autocomplete="email"</code>, <code>autocomplete="tel"</code>, etc. for browser autofill</li>
   <li>Error messages inline below the field, not in a banner at the top</li>
-  <li>Remove all non-essential fields — every extra field costs ~10% conversion</li>
+  <li>Remove all non-essential fields: every extra field costs ~10% conversion</li>
 </ul>
 <h2>Measuring the Impact</h2>
 <p>Track these GA4 events to quantify the improvement:</p>

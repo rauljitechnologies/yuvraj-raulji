@@ -3,7 +3,7 @@ import { Page, PageHero } from '../../components/chrome/page';
 import { ContactButton } from '../../components/homepage/contact-button';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
-import { COMPANY_NAME, STATS, TIMELINE } from '../../lib/home';
+import { STATS, TIMELINE } from '../../lib/home';
 import { experienceSchema, type Crumb } from '../../lib/schema';
 import {
   CERTIFICATIONS,
@@ -21,7 +21,7 @@ const crumbs: Crumb[] = [
 
 const title = 'Experience | Yuvraj Raulji, eCommerce Consultant';
 const description =
-  'Nine years of commerce work: Magento since 2016, Shopify since 2018, Saudi retail builds, multi-store Magento 2 at Nxtby, and Raulji Technologies from 2025.';
+  'Nine years of commerce work: Magento since 2016, Shopify since 2018, Saudi retail builds, multi-store Magento 2 at B2B scale, and independent practice incorporated in 2025.';
 
 export const metadata: Metadata = {
   title,
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
  * someone evaluating a proposal reads.
  *
  * One conflict in the record is carried openly rather than smoothed over: the
- * employment history has Magneto IT Solutions running Jul 2018 to May 2021 and
- * Nxtby starting Mar 2020, which overlap by fourteen months. Both periods are
+ * employment history has the Gulf retail role running Jul 2018 to May 2021 and
+ * the B2B platform starting Mar 2020, which overlap by fourteen months. Both are
  * printed as the record states them. Quietly adjusting one to remove the
  * overlap would be inventing a fact to make a layout tidier.
  */
@@ -59,7 +59,7 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="Experience"
         lines={['Built.', 'Migrated.', 'Scaled.']}
-        lede="Nine years building the same thing from different angles: systems a business can actually run on. The first websites go back to 2014, the Magento work to 2016, and Raulji Technologies to 2025."
+        lede="Nine years building the same thing from different angles: systems a business can actually run on. The first websites go back to 2014, the Magento work to 2016, and the incorporated practice to 2025."
         crumbs={crumbs}
       >
         <ContactButton>Work with me</ContactButton>
@@ -100,8 +100,8 @@ export default function ExperiencePage() {
             <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} softFrom={1} />
             <Rise delay={0.18} className="self-end">
               <p className="yr-lede max-w-[54ch]">
-                Seven points where the work changed shape, from a diploma in information technology
-                to incorporating {COMPANY_NAME}.
+                Seven points where the work changed shape, from a diploma in information
+                technology to incorporating the practice.
               </p>
             </Rise>
           </div>
@@ -141,7 +141,7 @@ export default function ExperiencePage() {
             <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} softFrom={1} />
             <Rise delay={0.18} className="self-end">
               <p className="yr-lede max-w-[54ch]">
-                The Magneto IT Solutions and Nxtby periods overlap by fourteen months. Both are
+                The Gulf retail and B2B platform periods overlap by fourteen months. Both are
                 printed as the record states them rather than adjusted to remove the overlap.
               </p>
             </Rise>

@@ -115,7 +115,7 @@ export function BlogHero() {
                 </div>
 
                 <p style={{ fontSize: 'clamp(.96rem,1.25vw,1.10rem)', lineHeight: 1.82, color: 'rgba(245, 245, 242,.52)', maxWidth: 430 }}>
-                  In-depth guides from <strong style={{ color: '#f5f5f2', fontWeight: 600 }}>9+ years</strong> hands-on experience — Magento 2, SEO &amp; CRO, AWS infrastructure, WordPress performance, and AI automation.
+                  In-depth guides from <strong style={{ color: '#f5f5f2', fontWeight: 600 }}>9+ years</strong> hands-on experience: Magento 2, SEO &amp; CRO, AWS infrastructure, WordPress performance and AI automation.
                 </p>
               </div>
 
@@ -257,7 +257,7 @@ export function BlogHero() {
                     Real Use Cases That Drive Revenue
                   </h2>
                   <p style={{ fontSize: '.90rem', lineHeight: 1.7, color: 'rgba(245, 245, 242,.52)', maxWidth: 460, marginBottom: 22 }}>
-                    Six battle-tested implementations — AI recommendations, dynamic pricing, inventory forecasting, GPT catalog content, and predictive churn reduction.
+                    Six battle-tested implementations: AI recommendations, dynamic pricing, inventory forecasting, GPT catalog content and predictive churn reduction.
                   </p>
                   <div style={{ height: 1, background: 'rgba(255,255,255,.10)', marginBottom: 18 }} />
                   <span
