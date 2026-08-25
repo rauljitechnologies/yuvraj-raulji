@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { CTA_LABEL, NAV } from '../../lib/brand';
 import { useUI } from '../ui-context';
+import { Wordmark } from '../wordmark';
 
 /**
  * Primary navigation, for every route.
@@ -146,15 +147,20 @@ export function SiteNav({ active }: { active?: string }) {
           aria-label="Primary"
           className="yr-shell flex h-[68px] items-center justify-between gap-6 md:h-[78px]"
         >
-          {/* Wordmark. The full name, not initials and not a monogram: the
-              entire site is an argument that this name means something, and a
-              logo mark would be the one place it is abbreviated away. */}
+          {/*
+            Wordmark. This used to be the name alone, on the argument that the
+            site is one long case for the name meaning something and a mark
+            would be the single place it got abbreviated away. Yuvraj asked for
+            YR alongside it on 26 Aug 2026, so the name is still there in full
+            and the initials sit in front of it rather than instead of it.
+            Shared with the homepage header via components/wordmark.tsx.
+          */}
           <Link
             href="/"
             aria-label="Yuvraj Raulji, home"
-            className="font-display text-[.8rem] font-medium uppercase tracking-[.22em] text-ink transition-colors duration-200 hover:text-accent-bright md:text-[.84rem]"
+            className="shrink-0 transition-opacity duration-200 hover:opacity-70"
           >
-            Yuvraj Raulji
+            <Wordmark size="sm" />
           </Link>
 
           <ul className="hidden items-center gap-10 lg:flex">

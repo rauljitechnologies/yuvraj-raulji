@@ -59,6 +59,12 @@
        Keep each pair in sync with the hex above. */
     --accent-rgb: 215 25 32;
     --accent-bright-rgb: 238 42 52;
+    /* Same reason, for the foreground. Without this every `text-ink/45`,
+       `border-ink/10` and `bg-ink/10` on the site compiles to nothing: 20
+       distinct utilities, all silently dropped, which left every hairline
+       border falling back to Tailwind's preflight #e5e7eb. Keep in sync with
+       --text above. */
+    --text-rgb: 245 243 238;
     --focus: #ee2a34;
 
     /* State */

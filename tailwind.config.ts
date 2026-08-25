@@ -17,7 +17,7 @@ const config: Config = {
         elevated: 'var(--surface-elevated)',
         line: 'var(--border)',
         'line-strong': 'var(--border-strong)',
-        ink: 'var(--text)',
+        ink: 'rgb(var(--text-rgb) / <alpha-value>)',
         'ink-secondary': 'var(--text-secondary)',
         'ink-muted': 'var(--text-muted)',
         'ink-faint': 'var(--text-faint)',

@@ -1,5 +1,6 @@
 import { CONTACT } from '../../lib/homepage';
 import { Cta, Monogram, StatusPill } from './primitives';
+import { Wordmark } from '../wordmark';
 
 /**
  * Header and footer for the redesigned homepage.
@@ -27,16 +28,12 @@ export function HomeHeader() {
   return (
     <header className="sticky top-0 z-header border-b border-ink/10 bg-ground/70 backdrop-blur-[14px]">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-8 px-6 py-4 lg:px-12 lg:py-[18px]">
-        <a href="#top" className="flex items-center gap-3.5" aria-label="Yuvraj Raulji, back to top">
-          <Monogram size={34} />
-          <span className="flex flex-col leading-[1.05]">
-            <span className="font-manrope text-[13px] font-bold uppercase leading-none tracking-[0.14em]">
-              Yuvraj Raulji
-            </span>
-            <span className="font-mono text-[10px] uppercase leading-[1.4] tracking-[0.16em] text-ink/40">
-              AI | BUSINESS | ECOMMERCE
-            </span>
-          </span>
+        <a
+          href="#top"
+          aria-label="Yuvraj Raulji, back to top"
+          className="shrink-0 transition-opacity duration-200 hover:opacity-70"
+        >
+          <Wordmark />
         </a>
 
         {/*
