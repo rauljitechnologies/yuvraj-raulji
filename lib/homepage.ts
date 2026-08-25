@@ -305,7 +305,7 @@ export const ENGAGEMENTS: readonly Engagement[] = [
   { no: '03', name: 'Custom software', note: 'Internal tools, approval workflows, ERP/CRM/POS integration.' },
   { no: '04', name: 'AI systems', note: 'Agents, RAG and automation wired into the operation, not bolted on.' },
   { no: '05', name: 'Cloud & DevOps', note: 'AWS, Docker, CI/CD, Varnish/Redis/CDN, scaled to real traffic.' },
-  { no: '06', name: 'Fractional CTO', note: 'Architecture direction and team leadership for companies and agencies.' },
+  { no: '06', name: 'Fractional CTO', note: 'Architecture direction and team leadership, without the full-time hire.' },
 ];
 
 export type TimelineEntry = {
