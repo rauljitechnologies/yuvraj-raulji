@@ -253,6 +253,14 @@ export const FEATURED = {
 
 export type StackLayer = { no: string; title: string; items: readonly string[] };
 
+/**
+ * One entry per thing, not per line of a mockup.
+ *
+ * Three of these used to pack two names into one row with a middot ("Redis ·
+ * Varnish", "AWS · Cloudflare"), which made those rows read as one item with a
+ * stray character in it while every other row held exactly one name. The
+ * ampersands went at the same time, per section 1 of BRAND-DESIGN-GUIDELINE.md.
+ */
 export const STACK_LAYERS: readonly StackLayer[] = [
   {
     no: '01',
@@ -267,12 +275,12 @@ export const STACK_LAYERS: readonly StackLayer[] = [
   {
     no: '03',
     title: 'Platform layer',
-    items: ['Node.js', 'PHP', 'MySQL', 'Redis · Varnish'],
+    items: ['Node.js', 'PHP', 'MySQL', 'Redis', 'Varnish'],
   },
   {
     no: '04',
-    title: 'Growth & intelligence',
-    items: ['AWS · Cloudflare', 'GA4 · Analytics', 'Technical SEO', 'AI & automation'],
+    title: 'Growth and intelligence',
+    items: ['AWS', 'Cloudflare', 'GA4 and analytics', 'Technical SEO', 'AI and automation'],
   },
 ];
 

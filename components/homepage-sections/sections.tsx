@@ -407,31 +407,53 @@ export function Expertise() {
           Where technology <span className="font-bold">meets commerce.</span>
         </h2>
       </Rv>
-      <p className="mb-16 max-w-[600px] font-manrope text-lg font-light leading-[1.7] text-ink/50 lg:mb-[70px]">
+      <p className="mb-14 max-w-[600px] font-manrope text-lg font-light leading-[1.7] text-ink/50 lg:mb-[70px]">
         Not a logo grid. An architecture, read left to right, the way a request travels through it.
       </p>
 
-      <RvGroup className="grid items-start gap-7 sm:grid-cols-2 lg:grid-cols-4">
+      {/*
+        Four layers, not four cards.
+
+        The paragraph above promises an architecture rather than a logo grid,
+        and the previous version rendered exactly the logo grid it disclaims:
+        every entry in an identical bordered chip, each with a decorative middot
+        stranded on its right edge that read as a stray character in the text.
+
+        What carries the idea instead is the rule across the top of each column
+        with an accent node at its head. Four segments of one line, stepping
+        left to right, is the request travelling through the stack; the names
+        below hang off their layer as an index rather than sitting in boxes.
+      */}
+      <RvGroup className="grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-4" each={0.06}>
         {STACK_LAYERS.map((layer) => (
-          <RvItem key={layer.no} className="border-t-2 border-accent pt-5.5">
-            <div className="mb-5 flex items-baseline gap-2.5">
-              <span className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/35">
+          <RvItem key={layer.no}>
+            <div aria-hidden="true" className="relative mb-5 h-px w-full bg-ink/15">
+              <span className="absolute -top-[3px] left-0 block h-[7px] w-[7px] bg-accent" />
+            </div>
+
+            <div className="mb-6 flex items-baseline gap-3">
+              <span className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright">
                 {layer.no}
               </span>
               <span className="font-manrope text-[15px] font-semibold uppercase leading-none tracking-[0.06em]">
                 {layer.title}
               </span>
             </div>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+
+            <ul className="m-0 list-none p-0">
               {layer.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center justify-between gap-3 border border-ink/15 px-4 py-3.5 font-mono text-xs font-medium leading-none tracking-[0.1em] text-ink/70 transition-colors duration-200 hover:border-accent hover:bg-[#111] hover:text-ink"
-                >
-                  <span>{item}</span>
-                  <span aria-hidden="true" className="text-ink/25">
-                    ·
-                  </span>
+                <li key={item} className="group border-b border-ink/10 last:border-b-0">
+                  <div className="flex items-center py-3.5 font-mono text-xs font-medium leading-none tracking-[0.1em] text-ink/65 transition-colors duration-200 group-hover:text-ink">
+                    {/*
+                      The tick reserves its width at all times and only fades,
+                      so hovering a row never nudges the text sideways.
+                    */}
+                    <span
+                      aria-hidden="true"
+                      className="mr-3 h-px w-3 shrink-0 bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    />
+                    {item}
+                  </div>
                 </li>
               ))}
             </ul>
