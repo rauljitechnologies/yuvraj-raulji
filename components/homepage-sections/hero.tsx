@@ -104,8 +104,8 @@ export function Hero() {
             <img
               src={PORTRAITS.hero}
               alt="Yuvraj Raulji"
-              width={1500}
-              height={2100}
+              width={1200}
+              height={1680}
               // Above the fold and the page's largest paint. Eager, high
               // priority, and never lazy: the LCP element must not wait on the
               // intersection observer.

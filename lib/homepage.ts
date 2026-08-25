@@ -15,15 +15,29 @@
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
 export const PORTRAITS = {
   /**
-   * The canvas project also holds `yr-hero.png` and `yr-quote.png`. Both exceed
-   * the 256 KiB read cap on the design API and came back truncated, so the two
-   * complete files stand in for all four slots. Drop the real PNGs into
-   * `public/assets/home/` and repoint `hero` and `quote` when they are exported.
+   * Background-removed cutouts, not the raw studio files.
+   *
+   * The two source photographs are shot on pure white. Every slot that uses
+   * them sits on either the near-black ground or the accent band, and the hero
+   * plate additionally lays a dark gradient over the image, so a white backdrop
+   * rendered as a lit rectangle punched into the page: exactly what the
+   * `--veil-*` tokens exist to prevent.
+   *
+   * The canvas ships its own `yr-hero.png` and `yr-quote.png`, which are
+   * already cut out, but both exceed the 256 KiB read cap on the design API and
+   * come back truncated with no IEND chunk. These are the equivalent, derived
+   * from the two JPEGs that are in the repo. The masters stay beside them.
+   *
+   * Opaque, not alpha. The hero plate stacks a red rectangle behind the photo
+   * and offsets it down-right by 34px so it reads as a sliver down two edges;
+   * a transparent backdrop lets that red flood the whole panel instead. So the
+   * subject is cut out and then given a dark studio sweep of its own, which is
+   * what the plate wants: a photo panel, on a page that is already near-black.
    */
-  hero: '/assets/home/yr-about.jpg',
-  about: '/assets/home/yr-about.jpg',
-  quote: '/assets/home/yr-contact.jpg',
-  contact: '/assets/home/yr-contact.jpg',
+  hero: '/assets/home/yr-hero.webp',
+  about: '/assets/home/yr-hero.webp',
+  quote: '/assets/home/yr-quote.webp',
+  contact: '/assets/home/yr-quote.webp',
 } as const;
 
 export const CONTACT = {

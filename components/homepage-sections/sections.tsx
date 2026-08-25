@@ -97,8 +97,8 @@ export function Position() {
           <img
             src={PORTRAITS.about}
             alt="Yuvraj Raulji"
-            width={1500}
-            height={2100}
+            width={1200}
+            height={1680}
             loading="lazy"
             decoding="async"
             className="absolute inset-0 h-full w-full object-cover object-[50%_12%] grayscale contrast-[1.12] brightness-[.72]"
@@ -660,8 +660,8 @@ export function QuoteBand() {
           <img
             src={PORTRAITS.quote}
             alt="Yuvraj Raulji"
-            width={1500}
-            height={2100}
+            width={1200}
+            height={1680}
             loading="lazy"
             decoding="async"
             className="h-[290px] w-[230px] border border-white/40 object-cover object-[50%_15%] grayscale contrast-[1.05]"
@@ -765,8 +765,8 @@ export function Social() {
             <img
               src={PORTRAITS.contact}
               alt="Yuvraj Raulji"
-              width={1500}
-              height={2100}
+              width={1200}
+              height={1680}
               loading="lazy"
               decoding="async"
               className="h-[88px] w-[88px] shrink-0 object-cover object-[50%_14%] grayscale contrast-[1.05]"
