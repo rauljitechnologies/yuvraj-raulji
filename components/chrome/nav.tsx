@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { CTA_LABEL, NAV } from '../../lib/brand';
 import { useUI } from '../ui-context';
+import { HEADER_CTA_CLASS } from '../header-cta';
 import { Wordmark } from '../wordmark';
 
 /**
@@ -183,7 +184,14 @@ export function SiteNav({ active }: { active?: string }) {
             <button
               type="button"
               onClick={() => setContactOpen(true)}
-              className="hidden h-[42px] items-center border border-line-strong px-5 text-[.64rem] font-bold uppercase tracking-[.18em] text-ink transition-colors duration-200 hover:border-accent hover:text-accent-bright sm:inline-flex"
+              /*
+                `max-sm:hidden`, not `hidden sm:inline-flex`: the shared class
+                already sets `inline-flex`, and two bare display utilities on
+                one element are decided by Tailwind's output order rather than
+                by the order written here. A media-query variant always wins
+                over the base utility, so this cannot flip.
+              */
+              className={`max-sm:hidden ${HEADER_CTA_CLASS}`}
             >
               {CTA_LABEL}
             </button>

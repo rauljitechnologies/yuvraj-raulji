@@ -1,4 +1,6 @@
+import { CTA_LABEL } from '../../lib/brand';
 import { CONTACT } from '../../lib/homepage';
+import { HEADER_CTA_CLASS } from '../header-cta';
 import { Cta, Monogram, StatusPill } from './primitives';
 import { Wordmark } from '../wordmark';
 
@@ -53,11 +55,13 @@ export function HomeHeader() {
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          className="shrink-0 bg-accent px-5 py-3.5 font-manrope text-xs font-bold uppercase leading-none tracking-[0.14em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright motion-reduce:hover:translate-y-0 lg:px-[26px] lg:py-[15px]"
-        >
-          Let&rsquo;s talk
+        {/*
+          An anchor, not the modal: this page has a real contact form in
+          section 14, and a modal on top of it would be the same form twice.
+          The styling is shared so it still matches every other bar.
+        */}
+        <a href="#contact" className={HEADER_CTA_CLASS}>
+          {CTA_LABEL}
         </a>
       </div>
     </header>
