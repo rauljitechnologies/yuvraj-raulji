@@ -1,7 +1,6 @@
 import { HERO, PORTRAITS } from '../../lib/homepage';
-import { fadeUp } from '../../lib/motion';
 import { Cta, Marquee } from './primitives';
-import { Rv } from './rv';
+import { Eager } from './rv';
 
 /**
  * Homepage hero, from the design canvas.
@@ -26,27 +25,27 @@ export function Hero() {
 
       <div className="relative grid items-end gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)]">
         <div>
-          <Rv className="mb-8 flex items-center gap-3.5">
+          <Eager className="mb-8 flex items-center gap-3.5">
             <span className="h-px w-11 bg-accent" aria-hidden="true" />
             <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-ink/55">
               {HERO.eyebrow}
             </span>
-          </Rv>
+          </Eager>
 
-          <Rv>
+          <Eager delay={0.06}>
             <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] font-extralight leading-[0.94] tracking-[-0.045em] [text-wrap:balance]">
               I build with technology.{' '}
               <span className="block font-bold">
                 I think in <span className="text-accent">business.</span>
               </span>
             </h1>
-          </Rv>
+          </Eager>
 
-          <Rv>
+          <Eager delay={0.12}>
             <p className="mt-6 font-manrope text-[clamp(17px,1.6vw,22px)] font-medium leading-[1.4] tracking-[-0.01em] text-ink/90">
               {HERO.subLead}
             </p>
-          </Rv>
+          </Eager>
 
           {/*
             The lead is JSX rather than a string in lib/homepage.ts because the
@@ -57,7 +56,7 @@ export function Hero() {
             No year count here on purpose: the number lives in STATS and only
             in STATS, so it can never contradict itself across the page.
           */}
-          <Rv>
+          <Eager delay={0.18}>
             <p className="mt-10 max-w-[640px] font-manrope text-[19px] font-light leading-[1.65] text-ink/60">
               Yuvraj Raulji explores{' '}
               <a href="#ai" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
@@ -72,16 +71,16 @@ export function Hero() {
               work runs across storefronts, mobile app APIs, B2B systems and the operations behind
               them.
             </p>
-          </Rv>
+          </Eager>
 
-          <Rv className="mt-11 flex flex-wrap gap-4">
+          <Eager className="mt-11 flex flex-wrap gap-4" delay={0.24}>
             <Cta href="#work" variant="solid">
               Explore my work <span className="font-mono">→</span>
             </Cta>
             <Cta href="#insights" variant="outline">
               Read my thinking
             </Cta>
-          </Rv>
+          </Eager>
         </div>
 
         {/*
@@ -90,7 +89,7 @@ export function Hero() {
           34px offsets are what give the stack its depth, so they are literal
           rather than a token.
         */}
-        <Rv variants={fadeUp} delay={0.1}>
+        <Eager delay={0.3}>
           <div className="relative flex h-[420px] items-end justify-center lg:h-[560px]">
             <div
               aria-hidden="true"
@@ -169,7 +168,7 @@ export function Hero() {
               <circle cx="74" cy="106" r="4.5" fill="var(--accent-bright)" className="animate-yr-blink" />
             </svg>
           </div>
-        </Rv>
+        </Eager>
       </div>
 
       <Marquee items={HERO.marquee} />

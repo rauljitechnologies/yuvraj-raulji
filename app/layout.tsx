@@ -101,6 +101,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </noscript>
         )}
         <UIProvider>{children}</UIProvider>
+
+        {/*
+          Scroll-reveal failsafe.
+
+          The reveals write `opacity:0` into the server-rendered HTML and rely
+          on the bundle hydrating and an IntersectionObserver firing to clear
+          it. When that does not happen, and it does not on a failed chunk, a
+          blocked script or a tab Chrome has throttled the observer in, the
+          reader gets a painted but empty page and reads it as still loading.
+          The <noscript> block only covers scripting being switched off, which
+          is the one case that never actually happens in the wild.
+
+          This only touches elements that are in the viewport and still
+          invisible after two seconds, so it can never reveal below-the-fold
+          content early and never fights a reveal that is working. The hero
+          does not rely on it at all: that animates from CSS and carries no
+          .yr-rv marker.
+
+          Raw script rather than next/script, deliberately. It has to survive
+          the framework runtime not arriving, which is the failure it exists
+          for.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var t;function s(){var h=innerHeight,n=document.querySelectorAll('.yr-rv');for(var i=0;i<n.length;i++){var e=n[i],r=e.getBoundingClientRect();if(r.top<h&&r.bottom>0&&parseFloat(getComputedStyle(e).opacity)<0.05){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}}}addEventListener('load',function(){setTimeout(s,2000)});addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(s,600)},{passive:true})})();",
+          }}
+        />
         {isProd && (
           <>
             <Script id="gtm-init" strategy="afterInteractive">

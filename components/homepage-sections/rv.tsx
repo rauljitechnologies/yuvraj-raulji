@@ -83,6 +83,40 @@ export function RvItem({
 }
 
 /**
+ * Above-the-fold entrance. Same look as `Rv`, no JavaScript.
+ *
+ * `Rv` hides its content in the server-rendered HTML and waits for hydration
+ * plus an IntersectionObserver before showing it, which is correct below the
+ * fold and wrong in the first screen: until the bundle runs, the hero is
+ * painted and empty. This renders the element visible-by-default and animates
+ * it in from CSS, so the first screen cannot depend on JavaScript arriving.
+ *
+ * Not a client component, and it carries no `.yr-rv` marker, so the noscript
+ * failsafe and the in-viewport sweep both leave it alone.
+ */
+export function Eager({
+  children,
+  className = '',
+  delay,
+  as: Tag = 'div',
+}: {
+  children: ReactNode;
+  className?: string;
+  /** Seconds, to stagger a group by hand. */
+  delay?: number;
+  as?: 'div' | 'span';
+}) {
+  return (
+    <Tag
+      className={`yr-enter ${className}`}
+      style={delay ? { animationDelay: `${delay}s` } : undefined}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/**
  * The stylesheet that undoes the hidden state when scripting is off. Rendered
  * inside `<noscript>` by the homepage, so it never reaches a scripted browser.
  */

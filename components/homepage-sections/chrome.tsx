@@ -149,8 +149,8 @@ export function HomeFooter() {
               </span>
             </div>
             <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/45">
-              End-to-end technology consulting: eCommerce, mobile apps, custom software and AI
-              systems for companies and agencies building their next phase of growth.
+              Technology that creates business leverage. Writing and building at the intersection
+              of AI, business and eCommerce, from Vadodara, India.
             </p>
             <StatusPill>Available for Q3 projects</StatusPill>
           </div>

@@ -230,6 +230,40 @@
   }
 
   /* ── Keyframes ── */
+  /*
+   * The above-the-fold entrance, done in CSS.
+   *
+   * The scroll reveals serialise `opacity:0` into the server-rendered HTML and
+   * only clear it once the bundle has hydrated and an IntersectionObserver has
+   * fired. For anything below the fold that is fine, because the reader has to
+   * scroll to reach it. For the hero it is not: on a slow connection, a slow
+   * device, or any load where the bundle fails, the first screen is painted
+   * and empty, which reads as a page that never finished loading.
+   *
+   * A CSS animation needs no JavaScript, no hydration and no observer, so the
+   * hero cannot get stuck. It also sits above inline styles in the cascade,
+   * which is what lets it win.
+   */
+  @keyframes yr-enter {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .yr-enter {
+    animation: yr-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yr-enter {
+      animation-duration: 0.01ms;
+      animation-delay: 0ms !important;
+    }
+  }
+
   @keyframes rp {
     to {
       box-shadow: 0 0 80px rgb(var(--accent-rgb) / 0.28), inset 0 0 50px rgb(var(--accent-rgb) / 0.12);
