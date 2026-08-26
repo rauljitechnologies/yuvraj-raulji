@@ -37,7 +37,6 @@ export const PORTRAITS = {
   hero: '/assets/home/yr-hero.webp',
   about: '/assets/home/yr-hero.webp',
   quote: '/assets/home/yr-quote.webp',
-  contact: '/assets/home/yr-quote.webp',
 } as const;
 
 export const CONTACT = {
@@ -54,7 +53,8 @@ export const CONTACT = {
 
 export const HERO = {
   /**
-   * The section-01 eyebrow.
+   * The hero eyebrow. No ordinal: this string used to open with "01 /" back
+   * when every band carried a number, and the numbers are off the page now.
    *
    * Not the canvas string. The canvas writes the brand line with a
    * multiplication sign, which section 1 of BRAND-DESIGN-GUIDELINE.md bans;
@@ -62,7 +62,7 @@ export const HERO = {
    * the pipe form because this line already carries two separators of its own
    * and a third would read as noise.
    */
-  eyebrow: '01 / Yuvraj Raulji · AI, Business and eCommerce',
+  eyebrow: 'Yuvraj Raulji · AI, Business and eCommerce',
   /** The one-line statement under the H1. Section 7, verbatim. */
   subLead:
     'Exploring AI, digital commerce and technology systems that help modern businesses operate, sell and grow.',

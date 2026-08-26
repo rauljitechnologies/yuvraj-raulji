@@ -86,7 +86,11 @@ export const metadata: Metadata = {
 
 /**
  * Home, built to the Claude Design canvas "Yuvraj Raulji - Homepage.dc.html"
- * (project 76be536d), section for section:
+ * (project 76be536d), section for section.
+ *
+ * The numbers below are the canvas's order and this file's order. They are no
+ * longer drawn: the section eyebrows used to open with a red ordinal and now
+ * carry the name alone, so nothing on the page counts itself.
  *
  *   01 Hero            the positioning statement, portrait plate, ticker
  *   02 The position    the belief, the four numbers, the standing statement

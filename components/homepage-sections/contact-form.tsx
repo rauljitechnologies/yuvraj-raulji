@@ -14,6 +14,10 @@ import { LEAD_ENDPOINT } from '../../lib/site';
  * message sent from here lands in the same place as one sent from anywhere else.
  *
  * The only client component on the homepage besides the reveal wrappers.
+ *
+ * Drawn for the white band it sits in, not the page ground: rules and text are
+ * `ground`, and the panel carries no border or padding of its own because the
+ * cell in section 14 provides both.
  */
 
 const EMPTY = { name: '', email: '', topic: ENQUIRY_TOPICS[0], message: '', hp: '' };
@@ -70,9 +74,9 @@ export function ContactForm() {
   };
 
   const field =
-    'bg-transparent border-0 border-b border-ink/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ink outline-none transition-colors focus:border-accent';
+    'bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/35 focus:border-accent';
   const label =
-    'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ink/45';
+    'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/45';
 
   if (sent) {
     return (
@@ -81,12 +85,12 @@ export function ContactForm() {
         // knows the send succeeded without having to hunt for the change.
         role="status"
         aria-live="polite"
-        className="flex min-h-[420px] flex-col justify-center gap-4 border border-ink/15 p-10"
+        className="flex min-h-[420px] flex-col justify-center gap-4"
       >
-        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent-bright">
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent">
           Message sent
         </span>
-        <p className="m-0 font-manrope text-2xl font-light leading-[1.35] text-ink">
+        <p className="m-0 font-manrope text-2xl font-light leading-[1.35] text-ground">
           Thank you. I read every message myself and will reply within 24 hours.
         </p>
       </div>
@@ -94,8 +98,8 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-6 border border-ink/15 p-9">
-      <div className="flex items-center gap-3 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/40">
+    <form onSubmit={submit} className="flex flex-col gap-6">
+      <div className="flex items-center gap-3 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ground/40">
         <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-accent animate-yr-blink" />
         Responds within 24 hours
       </div>
@@ -131,7 +135,7 @@ export function ContactForm() {
         <select
           value={f.topic}
           onChange={(e) => setF({ ...f, topic: e.target.value })}
-          className={`${field} bg-ground text-ink/80`}
+          className={`${field} bg-white text-ground/80`}
         >
           {ENQUIRY_TOPICS.map((topic) => (
             <option key={topic}>{topic}</option>
@@ -165,7 +169,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={!valid || sending}
-        className="mt-2 self-start bg-white px-8 py-5 font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] text-ground transition-colors duration-200 hover:bg-accent hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-ground"
+        className="mt-2 self-start bg-ground px-8 py-5 font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] text-white transition-colors duration-200 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ground"
       >
         {sending ? 'Sending…' : 'Send message →'}
       </button>

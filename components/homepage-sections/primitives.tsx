@@ -9,20 +9,17 @@ import type { ReactNode } from 'react';
  */
 
 /**
- * The numbered section eyebrow: a red ordinal, then the section name.
+ * The section eyebrow: the section name, set small and letterspaced.
  *
- * The canvas set the ordinal in its primary red at 11px. That red is
- * `--accent` (#d71920), which measures 3.93:1 on the page ground and is not
- * legal for text this small, so the ordinal uses `--accent-bright` (#ee2a34,
- * 4.87:1) instead. Same role in the design, and it passes AA.
+ * The canvas put a red ordinal in front of the name and this component used to
+ * render it from a `no` prop. The ordinals are gone from the page, so the prop
+ * is gone with them rather than left accepting a value nothing draws.
  */
 export function SectionLabel({
-  no,
   children,
   tone = 'dark',
   className = '',
 }: {
-  no: string;
   children: ReactNode;
   /** `light` is for the two white-ground sections, which invert the name colour. */
   tone?: 'dark' | 'light';
@@ -30,9 +27,6 @@ export function SectionLabel({
 }) {
   return (
     <div className={`flex items-center gap-3.5 ${className}`}>
-      <span className="font-mono text-[11px] font-medium leading-none tracking-[0.3em] text-accent-bright">
-        {no}
-      </span>
       <span
         className={`font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] ${
           tone === 'light' ? 'text-ground/50' : 'text-ink/45'

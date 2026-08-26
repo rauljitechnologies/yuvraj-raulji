@@ -56,7 +56,7 @@ export function RevealGroup({
   className?: string;
   each?: number;
   delayChildren?: number;
-  as?: 'div' | 'ul' | 'ol' | 'section';
+  as?: 'div' | 'ul' | 'ol' | 'dl' | 'section';
 }) {
   const reduced = useReducedMotion();
   const MotionTag = motion[as];

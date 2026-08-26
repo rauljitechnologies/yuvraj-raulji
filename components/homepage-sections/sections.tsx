@@ -43,7 +43,7 @@ const H2 = 'm-0 font-manrope text-[clamp(34px,4.6vw,68px)] font-extralight leadi
 export function Position() {
   return (
     <section id="about" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="02" className="mb-14">
+      <SectionLabel className="mb-14">
         The position
       </SectionLabel>
 
@@ -183,7 +183,7 @@ export function Systems() {
   return (
     <section className="border-y border-ink/10 bg-surface">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel no="03" className="mb-10">
+        <SectionLabel className="mb-10">
           What I build
         </SectionLabel>
 
@@ -255,7 +255,7 @@ export function SelectedWork() {
   return (
     <section id="work" className="mx-auto max-w-[1440px] py-24 lg:pb-[120px] lg:pt-[140px]">
       <div className="px-6 lg:px-12">
-        <SectionLabel no="04" className="mb-10">
+        <SectionLabel className="mb-10">
           Selected work
         </SectionLabel>
         <div className="mb-14 flex flex-wrap items-end justify-between gap-10">
@@ -353,7 +353,7 @@ export function FeaturedCase() {
   return (
     <section className="bg-white text-ground">
       <div className={`${SHELL} py-24 lg:py-[130px]`}>
-        <SectionLabel no="05" tone="light" className="mb-8">
+        <SectionLabel tone="light" className="mb-8">
           Featured case study
         </SectionLabel>
 
@@ -422,7 +422,7 @@ export function FeaturedCase() {
 export function Expertise() {
   return (
     <section id="expertise" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="06" className="mb-10">
+      <SectionLabel className="mb-10">
         Expertise
       </SectionLabel>
 
@@ -523,7 +523,7 @@ export function AiSystems() {
       </div>
 
       <div className={`${SHELL} relative py-24 lg:py-[150px]`}>
-        <SectionLabel no="07" className="mb-10">
+        <SectionLabel className="mb-10">
           AI
         </SectionLabel>
 
@@ -575,53 +575,58 @@ export function AiSystems() {
    ───────────────────────────────────────────────────────────── */
 
 /**
- * Four short definitions on the surface band.
+ * Four short definitions, on white.
  *
- * This is the section an answer engine lifts from, so each block is a heading
+ * This is the section an answer engine lifts from, so each entry is a question
  * and one self-contained paragraph, with no shared setup above it and no
- * pronoun reaching back into the previous block. The `auto-fit` track reflows
- * from four columns to two to one without a breakpoint of its own.
+ * pronoun reaching back into the previous entry.
+ *
+ * Two changes from the version this replaces. It is a definition list rather
+ * than four cards in an `auto-fit` grid: these are definitions, the markup now
+ * says so, and a full-width row lets each answer run at a readable measure
+ * instead of being squeezed into a 300px column. And it sits on white between
+ * two dark bands, which is the point of putting it here at all: the part of
+ * the page written to be quoted is the part that stops looking like the rest.
  */
 export function Answers() {
   return (
-    <section id="answers" className="border-y border-ink/10 bg-surface">
+    <section id="answers" className="border-y border-ground/10 bg-white text-ground">
       <div className={`${SHELL} py-24 lg:py-[130px]`}>
-        <SectionLabel no="08" className="mb-10">
+        <SectionLabel tone="light" className="mb-10">
           Direct answers
         </SectionLabel>
 
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[70px]">
           <Rv>
             <h2 className={H2}>
               Short answers, <span className="font-bold">before the pitch.</span>
             </h2>
           </Rv>
-          <p className="m-0 max-w-[420px] font-manrope text-[17px] font-light leading-[1.7] text-ink/45">
+          <p className="m-0 max-w-[420px] font-manrope text-[17px] font-light leading-[1.7] text-ground/50">
             The four definitions that decide most first conversations, written plainly enough to
             quote.
           </p>
         </div>
 
-        <RvGroup
-          as="ul"
-          className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]"
-          each={0.05}
-        >
+        {/*
+          A `div` wrapping each dt/dd pair is the one grouping HTML allows
+          inside a `dl`, and it is what carries the row's rule and its reveal.
+        */}
+        <RvGroup as="dl" className="m-0 border-t border-ground/15" each={0.05}>
           {ANSWERS.map((item) => (
             <RvItem
               key={item.no}
-              as="li"
-              className="flex flex-col gap-[18px] bg-surface p-8 transition-colors duration-300 hover:bg-ground lg:px-9 lg:py-11"
+              className="grid items-baseline gap-x-10 gap-y-4 border-b border-ground/15 py-9 lg:grid-cols-[52px_minmax(0,0.8fr)_minmax(0,1.5fr)] lg:py-12"
             >
-              <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent-bright">
+              <span className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent">
                 {item.no}
               </span>
-              <h3 className="m-0 font-manrope text-[22px] font-semibold leading-[1.2] tracking-[-0.02em]">
+              <dt className="m-0 font-manrope text-[clamp(21px,2.1vw,29px)] font-semibold leading-[1.22] tracking-[-0.025em]">
                 {item.q}
-              </h3>
-              <p className="m-0 font-manrope text-base font-light leading-[1.7] text-ink/55">
+              </dt>
+              <dd className="m-0 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/65">
                 {item.a}
-              </p>
+              </dd>
             </RvItem>
           ))}
         </RvGroup>
@@ -637,7 +642,7 @@ export function Answers() {
 export function Evolution() {
   return (
     <section className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="09" className="mb-10">
+      <SectionLabel className="mb-10">
         The evolution
       </SectionLabel>
 
@@ -790,7 +795,7 @@ export function Insights() {
 
   return (
     <section id="insights" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="10" className="mb-10">
+      <SectionLabel className="mb-10">
         Insights
       </SectionLabel>
 
@@ -835,69 +840,107 @@ export function Insights() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   10 — Social authority
+   11 — Writing and profiles
    ───────────────────────────────────────────────────────────── */
 
+/**
+ * The four places the work is published, in the order a reader meets them.
+ *
+ * Each row carries its own line about what is actually there. The four cells
+ * used to be a 2x2 of name-only boxes, which told a reader nothing and marked
+ * the two internal links with the same outbound arrow as the two external
+ * ones. Both are fixed here: the arrow now follows the destination.
+ */
 const CHANNELS = [
-  { href: CONTACT.linkedin, kicker: 'Professional', name: 'LinkedIn', external: true },
-  { href: '/blog/', kicker: 'Technical writing', name: 'Insights', external: false },
-  { href: CONTACT.instagram, kicker: 'Behind the work', name: 'Instagram', external: true },
-  { href: '/work/', kicker: 'Case studies', name: 'Projects', external: false },
+  {
+    no: '01',
+    href: CONTACT.linkedin,
+    kicker: 'Professional',
+    name: 'LinkedIn',
+    detail: 'Platform commentary and notes from work in progress.',
+    external: true,
+  },
+  {
+    no: '02',
+    href: '/blog/',
+    kicker: 'Technical writing',
+    name: 'Insights',
+    detail: 'Long-form articles on architecture, performance and AI.',
+    external: false,
+  },
+  {
+    no: '03',
+    href: CONTACT.instagram,
+    kicker: 'Behind the work',
+    name: 'Instagram',
+    detail: 'The less formal side of building and shipping.',
+    external: true,
+  },
+  {
+    no: '04',
+    href: '/work/',
+    kicker: 'Case studies',
+    name: 'Projects',
+    detail: 'Selected engagements, written up with the trade-offs.',
+    external: false,
+  },
 ] as const;
 
 export function Social() {
   return (
     <section className="border-t border-ink/10 bg-surface">
-      <div
-        className={`${SHELL} grid items-center gap-12 py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-[70px] lg:py-[120px]`}
-      >
-        <div>
-          <SectionLabel no="11" className="mb-8">
-            Writing &amp; profiles
-          </SectionLabel>
+      <div className={`${SHELL} ${SECTION_Y}`}>
+        <SectionLabel className="mb-10">
+          Writing &amp; profiles
+        </SectionLabel>
+
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
           <Rv>
-            <h2 className="mb-6 m-0 font-manrope text-[clamp(30px,3.8vw,58px)] font-extralight leading-[1.05] tracking-[-0.035em]">
+            <h2 className={H2}>
               Follow the <span className="font-bold">journey.</span>
             </h2>
           </Rv>
-          <p className="mb-9 font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+          <p className="m-0 max-w-[420px] font-manrope text-[17px] font-light leading-[1.7] text-ink/45">
             Long-form technical writing, build notes and platform opinions, published where the
             conversation already happens.
           </p>
-          <div className="flex items-center gap-5 border-t border-ink/10 pt-7">
-            <img
-              src={PORTRAITS.contact}
-              alt="Yuvraj Raulji"
-              width={1200}
-              height={1680}
-              loading="lazy"
-              decoding="async"
-              className="h-[88px] w-[88px] shrink-0 object-cover object-[50%_14%] grayscale contrast-[1.05]"
-            />
-            <div className="flex flex-col gap-2">
-              <span className="font-manrope text-[17px] font-semibold leading-none tracking-[-0.01em]">
-                Yuvraj Raulji
-              </span>
-              <span className="font-mono text-xs leading-[1.5] text-ink/45">
-                Writes about commerce architecture, performance and AI
-              </span>
-            </div>
-          </div>
         </div>
 
-        <RvGroup className="grid grid-cols-2 gap-px border border-ink/10 bg-ink/10">
+        {/*
+          Same hairline band as the stat row: a 1px gap over ink/10 draws the
+          rules, so the cells carry no borders of their own. Cells sit on
+          ground against the section's surface, which is what separates this
+          band from the article list directly above it.
+        */}
+        <RvGroup
+          className="grid grid-cols-1 gap-px bg-ink/10 sm:grid-cols-2 lg:grid-cols-4"
+          each={0.05}
+        >
           {CHANNELS.map((channel) => (
             <RvItem key={channel.name}>
               <a
                 href={channel.href}
                 {...(channel.external ? { target: '_blank', rel: 'noopener' } : {})}
-                className="flex h-full flex-col justify-between gap-8 bg-surface p-7 transition-colors duration-300 hover:bg-ground"
+                className="flex h-full flex-col gap-8 bg-ground p-8 transition-colors duration-300 hover:bg-surface lg:px-[34px] lg:py-[38px]"
               >
-                <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/40">
-                  {channel.kicker}
+                <span className="flex items-baseline gap-3.5">
+                  <span className="font-mono text-[10px] font-medium leading-none tracking-[0.18em] text-accent-bright">
+                    {channel.no}
+                  </span>
+                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/40">
+                    {channel.kicker}
+                  </span>
                 </span>
-                <span className="font-manrope text-2xl font-semibold leading-none">
-                  {channel.name} <span className="text-accent">↗</span>
+                <span className="mt-auto flex flex-col gap-3">
+                  <span className="font-manrope text-[26px] font-semibold leading-none tracking-[-0.02em]">
+                    {channel.name}{' '}
+                    <span aria-hidden="true" className="text-accent">
+                      {channel.external ? '↗' : '→'}
+                    </span>
+                  </span>
+                  <span className="font-manrope text-[15px] font-light leading-[1.6] text-ink/50">
+                    {channel.detail}
+                  </span>
                 </span>
               </a>
             </RvItem>
@@ -924,7 +967,7 @@ export function Social() {
 export function Faq() {
   return (
     <section id="faq" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel no="12" className="mb-10">
+      <SectionLabel className="mb-10">
         Questions
       </SectionLabel>
 
@@ -986,7 +1029,7 @@ export function Book() {
         className={`${SHELL} grid items-center gap-12 py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-[70px] lg:py-[120px]`}
       >
         <div>
-          <SectionLabel no="13" tone="light" className="mb-8">
+          <SectionLabel tone="light" className="mb-8">
             Consultation
           </SectionLabel>
           <Rv>
@@ -1039,60 +1082,102 @@ export function Book() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   12 — Contact
+   14 — Contact. The closing light band.
    ───────────────────────────────────────────────────────────── */
 
+/** The three standing facts, so the markup below is a loop and not three copies. */
+const DETAILS = [
+  { label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { label: 'Phone', value: CONTACT.phone, href: CONTACT.phoneHref },
+  { label: 'Based in', value: `${CONTACT.location} · ${CONTACT.timezone}`, href: null },
+] as const;
+
+/**
+ * Contact, on white.
+ *
+ * The section used to sit on the page ground, which put a form of hairline
+ * fields on near-black immediately under the white Consultation band. White
+ * closes the page as one light act instead: 13 makes the offer, 14 takes the
+ * message, and the dark footer ends it. The seam between the two white bands
+ * is a rule, not a change of tint, which is how every other seam on this page
+ * is drawn.
+ *
+ * The panel is one hairline grid of two cells rather than two loose columns.
+ * On the dark ground the form's own border was enough to hold it together; on
+ * white a floating form has no edge to sit against, and the details beside it
+ * were reading as a stray list.
+ */
 export function Contact() {
   return (
-    <section id="contact" className={`${SHELL} py-24 lg:pb-[120px] lg:pt-[150px]`}>
-      <SectionLabel no="14" className="mb-11">
-        Contact
-      </SectionLabel>
+    <section id="contact" className="border-t border-ground/10 bg-white text-ground">
+      <div className={`${SHELL} py-24 lg:pb-[130px] lg:pt-[150px]`}>
+        <SectionLabel tone="light" className="mb-11">
+          Contact
+        </SectionLabel>
 
-      <Rv>
-        <h2 className="m-0 font-manrope text-[clamp(38px,6.6vw,104px)] font-extralight leading-[0.96] tracking-[-0.05em]">
-          Let&rsquo;s build something{' '}
-          <span className="block font-bold">
-            that <span className="text-accent">matters.</span>
-          </span>
-        </h2>
-      </Rv>
+        <Rv>
+          <h2 className="m-0 font-manrope text-[clamp(38px,6.6vw,104px)] font-extralight leading-[0.96] tracking-[-0.05em]">
+            Let&rsquo;s build something{' '}
+            <span className="block font-bold">
+              that <span className="text-accent">matters.</span>
+            </span>
+          </h2>
+        </Rv>
 
-      <div className="mt-14 grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <p className="mb-9 font-manrope text-[19px] font-light leading-[1.7] text-ink/55">
-            Have a commerce, AI or technology problem that needs a clearer decision? Describe it
-            in a few lines and I will reply within 24 hours, IST business days.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Cta href={`mailto:${CONTACT.email}`} variant="accent">
-              Start a conversation
-            </Cta>
-            <Cta href={CONTACT.whatsapp} variant="outline">
-              Book 30 minutes
-            </Cta>
+        {/*
+          A 1px gap over ground/15 draws the rule between the two cells, the
+          same way the stat band and the profile band draw theirs. The form
+          side is the wider of the two because it holds four fields.
+        */}
+        <Rv className="mt-14 grid gap-px border border-ground/15 bg-ground/15 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="flex flex-col gap-10 bg-white p-8 lg:p-12">
+            <p className="m-0 max-w-[46ch] font-manrope text-[19px] font-light leading-[1.7] text-ground/60">
+              Have a commerce, AI or technology problem that needs a clearer decision? Describe it
+              in a few lines and I will reply within 24 hours, IST business days.
+            </p>
+
+            <dl className="m-0">
+              {DETAILS.map((detail) => (
+                <div
+                  key={detail.label}
+                  className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-ground/15 py-4"
+                >
+                  <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ground/40">
+                    {detail.label}
+                  </dt>
+                  <dd className="m-0 font-mono text-[13px] leading-[1.5] text-ground/75">
+                    {detail.href ? (
+                      <a href={detail.href} className="transition-colors hover:text-accent">
+                        {detail.value}
+                      </a>
+                    ) : (
+                      detail.value
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            {/*
+              Held at the foot of the cell so the two ways of starting a
+              conversation, these and the form's own send, end on the same
+              line. It also puts the empty space at the bottom of the column
+              rather than in a hole between the lede and the details.
+            */}
+            <div className="mt-auto flex flex-wrap gap-3.5 pt-2">
+              <Cta href={`mailto:${CONTACT.email}`} variant="accent">
+                Start a conversation
+              </Cta>
+              <Cta href={CONTACT.whatsapp} variant="outline" tone="light">
+                Book 30 minutes
+              </Cta>
+            </div>
           </div>
-          <dl className="mt-14 grid grid-cols-[auto_1fr] gap-x-7 gap-y-4 font-mono text-[13px] leading-[1.5]">
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Email</dt>
-            <dd className="m-0">
-              <a href={`mailto:${CONTACT.email}`} className="hover:text-accent-bright">
-                {CONTACT.email}
-              </a>
-            </dd>
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Phone</dt>
-            <dd className="m-0">
-              <a href={CONTACT.phoneHref} className="hover:text-accent-bright">
-                {CONTACT.phone}
-              </a>
-            </dd>
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Based in</dt>
-            <dd className="m-0 text-ink/70">
-              {CONTACT.location} · {CONTACT.timezone}
-            </dd>
-          </dl>
-        </div>
 
-        <ContactForm />
+          <div className="bg-white p-8 lg:p-12">
+            <ContactForm />
+          </div>
+        </Rv>
       </div>
     </section>
   );

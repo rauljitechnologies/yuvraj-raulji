@@ -55,7 +55,7 @@ export function RvGroup({
   className?: string;
   each?: number;
   delayChildren?: number;
-  as?: 'div' | 'ul' | 'ol' | 'section';
+  as?: 'div' | 'ul' | 'ol' | 'dl' | 'section';
 }) {
   return (
     <RevealGroup className={`${MARK} ${className}`} each={each} delayChildren={delayChildren} as={as}>
