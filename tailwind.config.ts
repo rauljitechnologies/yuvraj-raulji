@@ -12,7 +12,9 @@ const config: Config = {
     extend: {
       colors: {
         // Semantic tokens
-        ground: 'var(--bg)',
+        // Routed through the channel-only var so `text-ground/60` and the
+        // hairlines on the white bands compile. Same reason as `ink` below.
+        ground: 'rgb(var(--bg-rgb) / <alpha-value>)',
         surface: 'var(--surface)',
         elevated: 'var(--surface-elevated)',
         line: 'var(--border)',

@@ -65,6 +65,13 @@
        border falling back to Tailwind's preflight #e5e7eb. Keep in sync with
        --text above. */
     --text-rgb: 245 243 238;
+    /* And again for the ground, which the two white bands need: on white the
+       hairlines and the muted text are the page ground at low alpha, so
+       `border-ground/15`, `bg-ground/15` and `text-ground/60` are load-bearing
+       there. Without this they compiled to nothing, the rules fell back to
+       Tailwind's preflight #e5e7eb and the muted text fell back to solid
+       black. Keep in sync with --bg above. */
+    --bg-rgb: 5 5 5;
     --focus: #ee2a34;
 
     /* State */
