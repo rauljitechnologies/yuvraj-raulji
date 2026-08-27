@@ -47,26 +47,45 @@ export function Position() {
         The position
       </SectionLabel>
 
-      <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12 lg:gap-20">
+      <div className="grid items-start gap-10 md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] md:gap-12 lg:gap-20">
         <Rv>
+          {/*
+            Same two-weight heading the hero sets: the concession in
+            extralight, the claim in bold, and the accent carried by the last
+            phrase only. Red lands on "business forward" rather than on the
+            whole bold line, so the colour marks the point of the sentence
+            instead of shouting the sentence.
+          */}
           <h2 className={H2}>
             More than code.{' '}
-            <span className="block font-bold">Technology should move the business forward.</span>
+            <span className="block font-bold">
+              Technology should move the <span className="text-accent">business forward.</span>
+            </span>
           </h2>
         </Rv>
-        <div>
+
+        {/*
+          The two paragraphs were the same shape at two opacities, which read
+          as one paragraph that had faded out. They are a lead and a principle,
+          so they are drawn as two: the lead at reading size, the principle
+          behind an accent hairline, with its last sentence kept at full
+          strength because it is the part that draws the line.
+        */}
+        <div className="md:pt-2">
           <Rv>
-            <p className="mb-7 font-manrope text-[19px] font-light leading-[1.7] text-ink/60">
+            <p className="m-0 font-manrope text-[18px] font-light leading-[1.7] text-ink/70 sm:text-[19px] [text-wrap:pretty]">
               I build digital commerce systems from the technology layer up: engineering,
               architecture, performance, customer experience and growth, treated as one system
               rather than five projects.
             </p>
           </Rv>
           <Rv>
-            <p className="m-0 font-manrope text-[17px] font-light leading-[1.75] text-ink/45">
+            <p className="mt-7 border-l-2 border-accent/50 pl-5 font-manrope text-[16px] font-light leading-[1.75] text-ink/50 sm:mt-9 sm:pl-6 sm:text-[17px] [text-wrap:pretty]">
               Technology is valuable when it creates leverage: better decisions, stronger customer
-              experiences, faster operations and sustainable growth. Not because it is possible, and
-              not because it is new.
+              experiences, faster operations and sustainable growth.{' '}
+              <span className="text-ink/80">
+                Not because it is possible, and not because it is new.
+              </span>
             </p>
           </Rv>
         </div>
@@ -91,41 +110,51 @@ export function Position() {
         ))}
       </RvGroup>
 
-      {/* Portrait plus the standing statement. */}
-      <Rv className="mt-14 grid gap-px border border-ink/10 bg-ink/10 sm:mt-20 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:mt-24">
-        <div className="relative min-h-[260px] overflow-hidden bg-surface sm:min-h-[320px] lg:min-h-[420px]">
-          <img
-            src={PORTRAITS.about}
-            alt="Yuvraj Raulji"
-            width={1200}
-            height={1680}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[50%_12%] grayscale contrast-[1.12] brightness-[.72]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.55)_0%,rgba(5,5,5,.2)_34%,rgba(5,5,5,.85)_100%)]"
-          />
-          <span className="absolute bottom-5 left-6 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/75">
-            Since 2016 · 9+ years
-          </span>
-        </div>
-        <div className="flex flex-col justify-between gap-7 bg-surface p-6 sm:gap-9 sm:p-8 lg:p-[52px_46px]">
-          <p className="m-0 font-manrope text-[clamp(20px,2.2vw,32px)] font-light leading-[1.45] tracking-[-0.02em] text-ink/85 [text-wrap:pretty]">
+      {/*
+        The standing statement.
+
+        A portrait used to sit beside it. The photograph is gone: the page
+        already carries the same face twice, in the hero and at the quote, and a
+        third print made this section about the person when the section is about
+        the position.
+
+        Nothing decorative took its place. Without the image column the
+        statement takes the full plate at pull-quote size, and the facts below
+        are drawn with the page's own device, cells over a 1px gap on a light
+        ground, which is exactly how the stat band above draws its hairlines.
+
+        The caption on the photograph read "Since 2016 · 9+ years". The year
+        count is not repeated here: it belongs to STATS and only to STATS, which
+        is the same rule the hero lead follows, so the fact band keeps the start
+        date and lets the stat above own the span.
+      */}
+      <Rv className="mt-14 border border-ink/10 bg-surface sm:mt-20 lg:mt-24">
+        <div className="p-6 sm:p-9 lg:px-14 lg:py-16">
+          <span aria-hidden="true" className="mb-7 block h-px w-11 bg-accent sm:mb-10" />
+          <p className="m-0 max-w-[1100px] font-manrope text-[clamp(23px,3.05vw,44px)] font-light leading-[1.3] tracking-[-0.025em] text-ink/90 [text-wrap:pretty]">
             I don&rsquo;t sell platforms. I make decisions, about architecture, about catalogue,
             about where the business actually loses money, and then I build the system that holds
             those decisions.
           </p>
-          <dl className="m-0 grid gap-x-7 gap-y-1 font-mono text-[13px] leading-[1.5] sm:grid-cols-[auto_1fr] sm:gap-y-3.5">
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Role</dt>
-            <dd className="m-0 text-ink/75">eCommerce and technology architect</dd>
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Focus</dt>
-            <dd className="m-0 text-ink/75">Magento 2 · Headless · AI systems</dd>
-            <dt className="uppercase tracking-[0.16em] text-ink/35">Based</dt>
-            <dd className="m-0 text-ink/75">Vadodara, Gujarat · IST</dd>
-          </dl>
         </div>
+
+        <dl className="m-0 grid gap-px border-t border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['Role', 'eCommerce and technology architect'],
+            ['Focus', 'Magento 2 · Headless · AI systems'],
+            ['Based', 'Vadodara, Gujarat · IST'],
+            ['Since', '2016'],
+          ].map(([term, fact]) => (
+            <div key={term} className="bg-surface px-6 py-6 sm:px-7 sm:py-7 lg:px-9 lg:py-8">
+              <dt className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/40">
+                {term}
+              </dt>
+              <dd className="m-0 mt-3 font-manrope text-[15px] font-light leading-[1.5] text-ink/80">
+                {fact}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </Rv>
 
       {/*
@@ -138,11 +167,26 @@ export function Position() {
 
         One word per line now, each on a rule that runs the full measure, which
         is what bounds the space beside the short words instead of abandoning
-        it. The note on the right does the rest of that work, and earns the row
-        at the same time: section 6 of BRAND-DESIGN-GUIDELINE.md says not to
-        leave a keyword list standing on the visible page, and four bare nouns
-        is precisely that. Every note summarises material already on this page,
-        so nothing here is a new claim.
+        it. The note beside it does the rest of that work, and earns the row at
+        the same time: section 6 of BRAND-DESIGN-GUIDELINE.md says not to leave
+        a keyword list standing on the visible page, and four bare nouns is
+        precisely that. Every note summarises material already on this page, so
+        nothing here is a new claim.
+
+        Two things the first version got wrong.
+
+        The notes were `hidden ... md:block`, so every screen narrower than
+        768px got the four bare nouns and nothing else, which is the exact
+        arrangement the note existed to prevent. They are part of the row now
+        and set under the word on a phone, above the rule that closes it.
+
+        The words alternated bold ink and extralight ink/35, which reads as a
+        ranking: commerce and AI lit, technology and growth dimmed. This section
+        argues the four are one system rather than five projects, so a beat that
+        ranks them argues against the paragraph above it. One weight now, one
+        strength, and the accent on AI as the single mark in the stack. The
+        emphasis comes from scale, which is the only thing at this size that
+        does not have to be spent.
       */}
       <RvGroup
         as="ul"
@@ -151,20 +195,28 @@ export function Position() {
       >
         {(
           [
-            ['COMMERCE', 'font-bold text-ink', 'Storefronts, catalogues, checkout'],
-            ['TECHNOLOGY', 'font-extralight text-ink/35', 'Architecture, performance, cloud'],
-            ['AI', 'font-bold text-accent', 'Agents, retrieval, automation'],
-            ['GROWTH', 'font-extralight text-ink/35', 'Search, speed, conversion'],
+            ['COMMERCE', 'Storefronts, catalogues, checkout', false],
+            ['TECHNOLOGY', 'Architecture, performance, cloud', false],
+            ['AI', 'Agents, retrieval, automation', true],
+            ['GROWTH', 'Search, speed, conversion', false],
           ] as const
-        ).map(([word, skin, note]) => (
+        ).map(([word, note, isAccent]) => (
           <RvItem key={word} as="li" className="border-b border-ink/10">
-            <div className="flex items-baseline justify-between gap-8">
+            {/*
+              The note sits in a column of its own rather than being pushed to
+              the far edge, so the four notes share a left edge and read down as
+              a column. Baseline alignment sets each one on the word's own
+              baseline, which is what ties the pair together at this size gap.
+            */}
+            <div className="grid gap-2 py-3 sm:py-4 md:grid-cols-[minmax(0,1fr)_minmax(210px,0.3fr)] md:items-baseline md:gap-10">
               <span
-                className={`block py-2 font-manrope text-[clamp(38px,8.6vw,116px)] leading-[0.98] tracking-[-0.05em] ${skin}`}
+                className={`block font-manrope text-[clamp(40px,8.4vw,112px)] font-extralight leading-[0.98] tracking-[-0.05em] ${
+                  isAccent ? 'text-accent' : 'text-ink/90'
+                }`}
               >
                 {word}
               </span>
-              <span className="hidden shrink-0 pb-3 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.18em] text-ink/30 md:block">
+              <span className="pb-1 font-mono text-[10px] font-medium uppercase leading-[1.6] tracking-[0.18em] text-ink/40 sm:text-[11px] md:pb-3">
                 {note}
               </span>
             </div>
