@@ -116,7 +116,7 @@ export function RuleLink({
   return (
     <a
       href={href}
-      className={`inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] border-b border-ink/30 pb-2 transition-colors duration-200 hover:border-accent ${className}`}
+      className={`inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] border-b border-ink/30 pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent ${className}`}
     >
       {children}
     </a>
@@ -137,7 +137,7 @@ export function Cta({
   tone?: 'dark' | 'light';
 }) {
   const base =
-    'inline-flex items-center gap-3 font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] px-8 py-5 transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0';
+    'inline-flex max-w-full items-center justify-center gap-3 text-center font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] px-6 py-[18px] sm:px-8 sm:py-5 transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0';
 
   const skin =
     variant === 'accent'
@@ -199,7 +199,7 @@ export function Marquee({ items }: { items: readonly string[] }) {
   return (
     <div
       aria-hidden="true"
-      className="relative mt-[88px] overflow-hidden border-y border-ink/10 py-5"
+      className="relative mt-14 overflow-hidden border-y border-ink/10 py-5 sm:mt-[88px]"
     >
       <div className="flex w-max gap-12 animate-yr-marquee">
         {row}

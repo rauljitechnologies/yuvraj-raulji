@@ -47,9 +47,15 @@ function TickerRun() {
   );
 }
 
+/**
+ * `svh`, not `vh`. On a phone `100vh` measures the viewport with the browser
+ * chrome retracted, so a hero sized to it is always taller than what the reader
+ * can actually see and the first screen never fits. `min-h-screen` stays as the
+ * fallback for anything without the small-viewport units.
+ */
 export function BlogHero() {
   return (
-    <section className="relative bg-bg overflow-hidden flex flex-col" style={{ minHeight: '100vh' }}>
+    <section className="relative flex min-h-screen flex-col overflow-hidden bg-bg supports-[min-height:100svh]:min-h-[100svh]">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 65% 80% at -5% 45%,rgba(229, 9, 32,.22) 0%,transparent 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 50% 60% at 105% 90%,rgba(140,8,22,.18) 0%,transparent 100%)' }} />

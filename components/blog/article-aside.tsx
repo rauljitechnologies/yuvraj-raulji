@@ -56,7 +56,10 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
                 e.preventDefault();
                 document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className={`flex items-start gap-[10px] text-[.79rem] leading-[1.5] transition-colors duration-200 ${
+              // `py-1.5` for the touch target. These rows were 20px tall, and
+              // in the mobile sheet they are the only way to move around a long
+              // article.
+              className={`flex items-start gap-[10px] py-1.5 text-[.79rem] leading-[1.5] transition-colors duration-200 ${
                 mobile ? 'text-[rgba(245,245,242,.50)] hover:text-rv' : on ? 'text-rv' : 'text-[rgba(245,245,242,.48)] hover:text-[#f5f5f2]'
               }`}
             >

@@ -26,14 +26,21 @@ import { CONTACT, POST_COUNT } from '../../lib/site';
  * crawlers and most keyboard users ever get.
  */
 
+/*
+ * `py-1.5` is here for the touch target, not the rhythm. At 0.82rem these links
+ * measured 20px tall, which is half of any usable tap target on a phone, and
+ * there are thirteen of them stacked in the sitemap columns. The padding takes
+ * each row to 32px; the `space-y` on the list comes down to match so the column
+ * ends up the same height it was.
+ */
 const linkCls =
-  'inline-block text-[.82rem] leading-[1.5] text-ink-muted transition-colors duration-200 hover:text-ink';
+  'inline-block py-1.5 text-[.82rem] leading-[1.5] text-ink-muted transition-colors duration-200 hover:text-ink';
 
 function Column({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
     <div>
       <h2 className="yr-label">{heading}</h2>
-      <ul className="mt-item space-y-3">{children}</ul>
+      <ul className="mt-item space-y-0">{children}</ul>
     </div>
   );
 }
@@ -59,7 +66,7 @@ export function SiteFooter() {
           <div>
             <Link
               href="/"
-              className="font-display text-[1.15rem] font-medium uppercase leading-none tracking-[.14em] text-ink transition-colors duration-200 hover:text-accent-bright"
+              className="inline-block py-1 font-display text-[1.15rem] font-medium uppercase leading-none tracking-[.14em] text-ink transition-colors duration-200 hover:text-accent-bright"
             >
               {NAME}
             </Link>
@@ -69,7 +76,7 @@ export function SiteFooter() {
             </p>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="yr-link mt-block inline-flex text-[.82rem]"
+              className="yr-link mt-block inline-flex py-1 text-[.82rem]"
             >
               {CONTACT.email}
             </a>

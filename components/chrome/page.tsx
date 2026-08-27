@@ -75,13 +75,13 @@ export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
                 </span>
               ) : null}
               {last ? (
-                <span aria-current="page" className="yr-label text-ink-muted">
+                <span aria-current="page" className="yr-label inline-block py-2 text-ink-muted">
                   {c.name}
                 </span>
               ) : (
                 <Link
                   href={c.href}
-                  className="yr-label transition-colors duration-200 hover:text-accent-bright"
+                  className="yr-label inline-block py-2 transition-colors duration-200 hover:text-accent-bright"
                 >
                   {c.name}
                 </Link>

@@ -316,17 +316,28 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
               </div>
 
               {/* Dots */}
-              <div className="flex items-center justify-center gap-[10px] mt-7">
+              {/*
+                The dot is 11px tall and the button around it is 44px, because
+                the thing a thumb has to hit is the control and not the mark it
+                draws. The horizontal padding replaces the row's old gap, so the
+                dots still sit 10px apart.
+              */}
+              <div className="flex items-center justify-center mt-3">
                 {slides.map((p, i) => (
                   <button
                     key={p.slug}
                     onClick={() => setSlCur(i)}
                     aria-label={`Go to slide ${i + 1}`}
-                    className={`rounded-full cursor-pointer border-0 transition-all duration-400 ${
-                      slCur === i ? 'bg-rv' : 'bg-[rgba(255,255,255,.20)] hover:bg-[rgba(229,9,32,.40)]'
-                    }`}
-                    style={slCur === i ? { width: 38, height: 11, boxShadow: '0 2px 16px rgba(240, 38, 60,.45)' } : { width: 11, height: 11 }}
-                  />
+                    className="grid h-11 cursor-pointer place-items-center border-0 bg-transparent px-[5px]"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`block rounded-full transition-all duration-400 ${
+                        slCur === i ? 'bg-rv' : 'bg-[rgba(255,255,255,.20)] hover:bg-[rgba(229,9,32,.40)]'
+                      }`}
+                      style={slCur === i ? { width: 38, height: 11, boxShadow: '0 2px 16px rgba(240, 38, 60,.45)' } : { width: 11, height: 11 }}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

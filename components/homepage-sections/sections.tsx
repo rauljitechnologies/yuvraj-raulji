@@ -30,8 +30,8 @@ import { Rv, RvGroup, RvItem } from './rv';
  * throughout; both are kept, with the gutter dropping to 24px under `lg` where
  * 48px would eat a phone's width.
  */
-const SHELL = 'mx-auto max-w-[1440px] px-6 lg:px-12';
-const SECTION_Y = 'py-24 lg:py-[140px]';
+const SHELL = 'mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12';
+const SECTION_Y = 'py-16 sm:py-20 md:py-24 lg:py-[140px]';
 
 /** The two-weight display heading the canvas repeats in every section. */
 const H2 = 'm-0 font-manrope text-[clamp(34px,4.6vw,68px)] font-extralight leading-[1.02] tracking-[-0.035em]';
@@ -43,11 +43,11 @@ const H2 = 'm-0 font-manrope text-[clamp(34px,4.6vw,68px)] font-extralight leadi
 export function Position() {
   return (
     <section id="about" className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel className="mb-14">
+      <SectionLabel className="mb-10 sm:mb-14">
         The position
       </SectionLabel>
 
-      <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12 lg:gap-20">
         <Rv>
           <h2 className={H2}>
             More than code.{' '}
@@ -76,9 +76,9 @@ export function Position() {
         The stat band. A 1px gap over a light background is what draws the
         hairlines between cells, so the grid needs no borders of its own.
       */}
-      <RvGroup className="mt-20 grid grid-cols-2 gap-px bg-ink/10 lg:mt-24 lg:grid-cols-4">
+      <RvGroup className="mt-14 grid grid-cols-2 gap-px bg-ink/10 sm:mt-20 lg:mt-24 lg:grid-cols-4">
         {STATS.map((stat) => (
-          <RvItem key={stat.label} className="bg-ground px-7 py-9">
+          <RvItem key={stat.label} className="bg-ground px-5 py-7 sm:px-7 sm:py-9">
             <div className="font-manrope text-[clamp(40px,5vw,76px)] font-extralight leading-none tracking-[-0.04em]">
               {/* The trailing "+" is the accent; the number stays foreground. */}
               {stat.value.replace('+', '')}
@@ -92,8 +92,8 @@ export function Position() {
       </RvGroup>
 
       {/* Portrait plus the standing statement. */}
-      <Rv className="mt-20 grid gap-px border border-ink/10 bg-ink/10 lg:mt-24 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]">
-        <div className="relative min-h-[320px] overflow-hidden bg-surface lg:min-h-[420px]">
+      <Rv className="mt-14 grid gap-px border border-ink/10 bg-ink/10 sm:mt-20 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:mt-24">
+        <div className="relative min-h-[260px] overflow-hidden bg-surface sm:min-h-[320px] lg:min-h-[420px]">
           <img
             src={PORTRAITS.about}
             alt="Yuvraj Raulji"
@@ -111,13 +111,13 @@ export function Position() {
             Since 2016 · 9+ years
           </span>
         </div>
-        <div className="flex flex-col justify-between gap-9 bg-surface p-8 lg:p-[52px_46px]">
+        <div className="flex flex-col justify-between gap-7 bg-surface p-6 sm:gap-9 sm:p-8 lg:p-[52px_46px]">
           <p className="m-0 font-manrope text-[clamp(20px,2.2vw,32px)] font-light leading-[1.45] tracking-[-0.02em] text-ink/85 [text-wrap:pretty]">
             I don&rsquo;t sell platforms. I make decisions, about architecture, about catalogue,
             about where the business actually loses money, and then I build the system that holds
             those decisions.
           </p>
-          <dl className="m-0 grid grid-cols-[auto_1fr] gap-x-7 gap-y-3.5 font-mono text-[13px] leading-[1.5]">
+          <dl className="m-0 grid gap-x-7 gap-y-1 font-mono text-[13px] leading-[1.5] sm:grid-cols-[auto_1fr] sm:gap-y-3.5">
             <dt className="uppercase tracking-[0.16em] text-ink/35">Role</dt>
             <dd className="m-0 text-ink/75">eCommerce and technology architect</dd>
             <dt className="uppercase tracking-[0.16em] text-ink/35">Focus</dt>
@@ -146,7 +146,7 @@ export function Position() {
       */}
       <RvGroup
         as="ul"
-        className="m-0 mt-20 list-none border-t border-ink/10 p-0 lg:mt-24"
+        className="m-0 mt-14 list-none border-t border-ink/10 p-0 sm:mt-20 lg:mt-24"
         each={0.07}
       >
         {(
@@ -193,19 +193,19 @@ export function Systems() {
           </h2>
         </Rv>
         <Rv>
-          <p className="mb-16 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ink/50 lg:mb-[72px]">
+          <p className="mb-10 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ink/50 sm:mb-16 lg:mb-[72px]">
             They overlap on purpose: a commerce decision is an architecture decision before it is a
             platform decision, and an AI decision is a process decision before it is a model
             decision.
           </p>
         </Rv>
 
-        <RvGroup className="grid gap-px bg-ink/10 lg:grid-cols-2">
+        <RvGroup className="grid gap-px bg-ink/10 md:grid-cols-2">
           {SYSTEMS.map((system) => (
             <RvItem
               key={system.no}
               as="article"
-              className="group bg-surface p-8 transition-colors duration-300 hover:bg-ground lg:p-[52px_44px]"
+              className="group bg-surface p-6 transition-colors duration-300 hover:bg-ground sm:p-8 lg:p-[52px_44px]"
             >
               <div className="flex items-start justify-between">
                 <span className="font-mono text-xs font-medium leading-none tracking-[0.2em] text-accent-bright">
@@ -253,8 +253,8 @@ export function Systems() {
 
 export function SelectedWork() {
   return (
-    <section id="work" className="mx-auto max-w-[1440px] py-24 lg:pb-[120px] lg:pt-[140px]">
-      <div className="px-6 lg:px-12">
+    <section id="work" className="mx-auto max-w-[1440px] py-16 sm:py-20 md:py-24 lg:pb-[120px] lg:pt-[140px]">
+      <div className="px-5 sm:px-6 md:px-8 lg:px-12">
         <SectionLabel className="mb-10">
           Selected work
         </SectionLabel>
@@ -276,11 +276,11 @@ export function SelectedWork() {
         row, with the shell gutter reproduced as padding so the first card lines
         up with the heading above it.
       */}
-      <ul className="flex list-none gap-6 overflow-x-auto px-6 pb-10 pt-2 [scroll-snap-type:x_mandatory] lg:px-12">
+      <ul className="flex list-none gap-4 overflow-x-auto px-5 pb-10 pt-2 [scroll-snap-type:x_mandatory] sm:gap-6 sm:px-6 md:px-8 lg:px-12">
         {PROJECTS.map((project) => (
           <li
             key={project.no}
-            className="group flex-[0_0_clamp(300px,34vw,480px)] border border-ink/15 bg-surface transition-[transform,border-color] duration-300 [scroll-snap-align:start] hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
+            className="group flex-[0_0_min(300px,82vw)] border border-ink/15 bg-surface sm:flex-[0_0_clamp(300px,34vw,480px)] transition-[transform,border-color] duration-300 [scroll-snap-align:start] hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
           >
             <div className="relative flex aspect-[4/3] items-end overflow-hidden border-b border-ink/10 bg-[#111] p-6">
               {project.cover ? (
@@ -311,9 +311,9 @@ export function SelectedWork() {
               </span>
             </div>
 
-            <div className="p-7 pb-8">
+            <div className="p-6 pb-7 sm:p-7 sm:pb-8">
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="m-0 font-manrope text-[30px] font-semibold leading-[1.05] tracking-[-0.03em]">
+                <h3 className="m-0 font-manrope text-[26px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[30px]">
                   {project.name}
                 </h3>
               </div>
@@ -334,10 +334,10 @@ export function SelectedWork() {
         ))}
       </ul>
 
-      <div className="flex items-center gap-4 px-6 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35 lg:px-12">
+      <div className="flex items-center gap-4 px-5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35 sm:px-6 md:px-8 lg:px-12">
         <span aria-hidden="true">Scroll →</span>
         <span aria-hidden="true" className="h-px flex-1 bg-ink/10" />
-        <a href="/work/" className="text-ink transition-colors hover:text-accent-bright">
+        <a href="/work/" className="py-2.5 text-ink transition-colors hover:text-accent-bright">
           View all work
         </a>
       </div>
@@ -352,7 +352,7 @@ export function SelectedWork() {
 export function FeaturedCase() {
   return (
     <section className="bg-white text-ground">
-      <div className={`${SHELL} py-24 lg:py-[130px]`}>
+      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[130px]`}>
         <SectionLabel tone="light" className="mb-8">
           Featured case study
         </SectionLabel>
@@ -368,7 +368,7 @@ export function FeaturedCase() {
           </span>
         </div>
 
-        <Rv className="relative mt-12 aspect-[21/9] overflow-hidden border border-ground/10 bg-[#F5F5F5]">
+        <Rv className="relative mt-10 aspect-[4/3] overflow-hidden border border-ground/10 bg-[#F5F5F5] sm:aspect-[16/9] sm:mt-12 lg:aspect-[21/9]">
           <img
             src={FEATURED.cover}
             alt="Fashion D2C storefront storefront"
@@ -380,7 +380,7 @@ export function FeaturedCase() {
           />
         </Rv>
 
-        <RvGroup className="mt-16 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        <RvGroup className="mt-12 grid gap-x-12 gap-y-10 sm:gap-y-14 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {FEATURED.facts.map((fact) => (
             <RvItem key={fact.label}>
               <h3 className="mb-3 font-manrope text-[15px] font-semibold uppercase leading-none tracking-[0.06em]">
@@ -431,7 +431,7 @@ export function Expertise() {
           Where technology <span className="font-bold">meets commerce.</span>
         </h2>
       </Rv>
-      <p className="mb-14 max-w-[600px] font-manrope text-lg font-light leading-[1.7] text-ink/50 lg:mb-[70px]">
+      <p className="mb-10 max-w-[600px] font-manrope text-lg font-light leading-[1.7] text-ink/50 sm:mb-14 lg:mb-[70px]">
         Not a logo grid. An architecture, read left to right, the way a request travels through it.
       </p>
 
@@ -522,7 +522,7 @@ export function AiSystems() {
         </svg>
       </div>
 
-      <div className={`${SHELL} relative py-24 lg:py-[150px]`}>
+      <div className={`${SHELL} relative py-16 sm:py-20 md:py-24 lg:py-[150px]`}>
         <SectionLabel className="mb-10">
           AI
         </SectionLabel>
@@ -533,7 +533,7 @@ export function AiSystems() {
           </h2>
         </Rv>
         <Rv>
-          <p className="mb-16 mt-9 max-w-[620px] font-manrope text-[19px] font-light leading-[1.7] text-ink/55 lg:mb-16">
+          <p className="mb-10 mt-7 max-w-[620px] font-manrope text-[19px] font-light leading-[1.7] text-ink/55 sm:mb-16 sm:mt-9">
             AI Search changes the discovery layer of commerce. Instead of matching a query to a
             keyword, the system interprets intent and returns products, categories or guidance
             based on what the customer is trying to accomplish. The rest of the value is
@@ -591,12 +591,12 @@ export function AiSystems() {
 export function Answers() {
   return (
     <section id="answers" className="border-y border-ground/10 bg-white text-ground">
-      <div className={`${SHELL} py-24 lg:py-[130px]`}>
+      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[130px]`}>
         <SectionLabel tone="light" className="mb-10">
           Direct answers
         </SectionLabel>
 
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[70px]">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10 lg:mb-[70px]">
           <Rv>
             <h2 className={H2}>
               Short answers, <span className="font-bold">before the pitch.</span>
@@ -616,7 +616,7 @@ export function Answers() {
           {ANSWERS.map((item) => (
             <RvItem
               key={item.no}
-              className="grid items-baseline gap-x-10 gap-y-4 border-b border-ground/15 py-9 lg:grid-cols-[52px_minmax(0,0.8fr)_minmax(0,1.5fr)] lg:py-12"
+              className="grid items-baseline gap-x-8 gap-y-3 border-b border-ground/15 py-7 sm:gap-x-10 sm:gap-y-4 sm:py-9 md:grid-cols-[44px_minmax(0,0.8fr)_minmax(0,1.5fr)] lg:grid-cols-[52px_minmax(0,0.8fr)_minmax(0,1.5fr)] lg:py-12"
             >
               <span className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent">
                 {item.no}
@@ -652,7 +652,7 @@ export function Evolution() {
         </h2>
       </Rv>
 
-      <div className="mb-16 flex flex-wrap items-end justify-between gap-10 lg:mb-[70px]">
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-16 sm:gap-10 lg:mb-[70px]">
         <p className="m-0 max-w-[620px] font-manrope text-lg font-light leading-[1.7] text-ink/50">
           Eight shifts, each one forced by a problem the previous way of working could not hold. The
           technology changed roughly every three years. What it was for did not.
@@ -676,9 +676,9 @@ export function Evolution() {
       <RvGroup as="ol" className="m-0 list-none p-0" each={0.05}>
         {TIMELINE.map((entry) => (
           <RvItem key={`${entry.period}-${entry.role}`} as="li">
-            <div className="grid gap-x-10 gap-y-3 lg:grid-cols-[190px_minmax(0,1fr)]">
+            <div className="grid gap-x-8 gap-y-3 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]">
               {/* Left margin: the two things worth scanning without reading. */}
-              <div className="pt-8 lg:pt-9">
+              <div className="pt-7 md:pt-8 lg:pt-9">
                 <div className="font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright">
                   {entry.period}
                 </div>
@@ -692,10 +692,10 @@ export function Evolution() {
                 entry and the node sits on it, so the line is continuous between
                 entries instead of restarting at each one.
               */}
-              <div className="relative border-t border-ink/10 pb-10 pt-8 lg:border-t-0 lg:border-l lg:border-l-ink/10 lg:pl-10 lg:pt-9">
+              <div className="relative border-t border-ink/10 pb-8 pt-6 sm:pb-10 sm:pt-8 md:border-l md:border-t-0 md:border-l-ink/10 md:pl-8 md:pt-8 lg:pl-10 lg:pt-9">
                 <span
                   aria-hidden="true"
-                  className="absolute left-0 top-[38px] hidden h-[7px] w-[7px] -translate-x-1/2 bg-accent lg:block"
+                  className="absolute left-0 top-[38px] hidden h-[7px] w-[7px] -translate-x-1/2 bg-accent md:block"
                 />
 
                 <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
@@ -756,7 +756,7 @@ export function QuoteBand() {
   return (
     <section className="bg-accent text-white">
       <div
-        className={`${SHELL} grid items-center gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_auto] lg:py-[110px]`}
+        className={`${SHELL} grid items-center gap-10 py-14 sm:gap-12 sm:py-20 md:grid-cols-[minmax(0,1fr)_auto] lg:py-[110px]`}
       >
         <Rv>
           <blockquote className="m-0 font-manrope text-[clamp(28px,4.4vw,64px)] font-light leading-[1.1] tracking-[-0.035em] [text-wrap:pretty]">
@@ -764,7 +764,7 @@ export function QuoteBand() {
             <span className="font-bold">It should make growth easier.&rdquo;</span>
           </blockquote>
         </Rv>
-        <div className="flex flex-col items-start gap-4 lg:items-end">
+        <div className="flex flex-col items-start gap-4 md:items-end">
           <img
             src={PORTRAITS.quote}
             alt="Yuvraj Raulji"
@@ -772,7 +772,7 @@ export function QuoteBand() {
             height={1680}
             loading="lazy"
             decoding="async"
-            className="h-[290px] w-[230px] border border-white/40 object-cover object-[50%_15%] grayscale contrast-[1.05]"
+            className="h-[230px] w-[182px] border border-white/40 object-cover object-[50%_15%] grayscale contrast-[1.05] sm:h-[290px] sm:w-[230px]"
           />
           <span className="font-mono text-xs font-medium uppercase leading-none tracking-[0.24em]">
             Yuvraj Raulji
@@ -799,7 +799,7 @@ export function Insights() {
         Insights
       </SectionLabel>
 
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-10">
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10">
         <Rv>
           <h2 className={H2}>
             Things I&rsquo;m <span className="font-bold">thinking about.</span>
@@ -813,7 +813,7 @@ export function Insights() {
           <RvItem key={slug} as="li" className="border-t border-ink/10">
             <a
               href={`/blog/${slug}/`}
-              className="grid items-center gap-4 px-2 py-8 transition-[background-color,padding-left] duration-300 hover:bg-surface hover:pl-5 lg:grid-cols-[150px_minmax(0,1fr)_190px_60px] lg:gap-9"
+              className="grid items-center gap-3 px-1 py-6 transition-[background-color,padding-left] duration-300 hover:bg-surface hover:pl-5 sm:gap-4 sm:px-2 sm:py-8 md:grid-cols-[130px_minmax(0,1fr)_auto] md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_190px_60px] lg:gap-9"
             >
               <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-accent-bright">
                 {post.cat}
@@ -826,7 +826,7 @@ export function Insights() {
               </span>
               <span
                 aria-hidden="true"
-                className="font-mono text-[22px] leading-none text-ink/35 lg:justify-self-end"
+                className="hidden font-mono text-[22px] leading-none text-ink/35 lg:block lg:justify-self-end"
               >
                 →
               </span>
@@ -894,7 +894,7 @@ export function Social() {
           Writing &amp; profiles
         </SectionLabel>
 
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10 lg:mb-[60px]">
           <Rv>
             <h2 className={H2}>
               Follow the <span className="font-bold">journey.</span>
@@ -921,7 +921,7 @@ export function Social() {
               <a
                 href={channel.href}
                 {...(channel.external ? { target: '_blank', rel: 'noopener' } : {})}
-                className="flex h-full flex-col gap-8 bg-ground p-8 transition-colors duration-300 hover:bg-surface lg:px-[34px] lg:py-[38px]"
+                className="flex h-full flex-col gap-6 bg-ground p-6 transition-colors duration-300 hover:bg-surface sm:gap-8 sm:p-8 lg:px-[34px] lg:py-[38px]"
               >
                 <span className="flex items-baseline gap-3.5">
                   <span className="font-mono text-[10px] font-medium leading-none tracking-[0.18em] text-accent-bright">
@@ -971,7 +971,7 @@ export function Faq() {
         Questions
       </SectionLabel>
 
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-10 lg:mb-[60px]">
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10 lg:mb-[60px]">
         <Rv>
           <h2 className={H2}>
             What people ask <span className="font-bold">before a first call.</span>
@@ -984,14 +984,14 @@ export function Faq() {
 
       <RvGroup
         as="ul"
-        className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))]"
+        className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]"
         each={0.04}
       >
         {FAQS.map((item) => (
           <RvItem
             key={item.no}
             as="li"
-            className="flex flex-col gap-4 bg-ground p-8 lg:px-[34px] lg:py-[38px]"
+            className="flex flex-col gap-4 bg-ground p-6 sm:p-8 lg:px-[34px] lg:py-[38px]"
           >
             <div className="flex items-baseline gap-3.5">
               <span className="shrink-0 font-mono text-[10px] font-medium leading-[1.4] tracking-[0.18em] text-accent-bright">
@@ -1026,7 +1026,7 @@ export function Book() {
   return (
     <section id="book" className="bg-white text-ground">
       <div
-        className={`${SHELL} grid items-center gap-12 py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-[70px] lg:py-[120px]`}
+        className={`${SHELL} grid items-center gap-10 py-16 sm:gap-12 sm:py-20 md:py-24 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-[70px] lg:py-[120px]`}
       >
         <div>
           <SectionLabel tone="light" className="mb-8">
@@ -1056,11 +1056,11 @@ export function Book() {
           </div>
         </div>
 
-        <RvGroup className="grid grid-cols-2 gap-px border border-ground/15 bg-ground/15" each={0.05}>
+        <RvGroup className="grid grid-cols-1 gap-px border border-ground/15 bg-ground/15 xs:grid-cols-2" each={0.05}>
           {ENGAGEMENTS.map((engagement) => (
             <RvItem
               key={engagement.no}
-              className="flex min-h-[132px] flex-col justify-between gap-4 bg-white p-6"
+              className="flex min-h-[120px] flex-col justify-between gap-4 bg-white p-5 sm:min-h-[132px] sm:p-6"
             >
               <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent">
                 {engagement.no}
@@ -1110,8 +1110,8 @@ const DETAILS = [
 export function Contact() {
   return (
     <section id="contact" className="border-t border-ground/10 bg-white text-ground">
-      <div className={`${SHELL} py-24 lg:pb-[130px] lg:pt-[150px]`}>
-        <SectionLabel tone="light" className="mb-11">
+      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:pb-[130px] lg:pt-[150px]`}>
+        <SectionLabel tone="light" className="mb-8 sm:mb-11">
           Contact
         </SectionLabel>
 
@@ -1129,8 +1129,16 @@ export function Contact() {
           same way the stat band and the profile band draw theirs. The form
           side is the wider of the two because it holds four fields.
         */}
-        <Rv className="mt-14 grid gap-px border border-ground/15 bg-ground/15 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="flex flex-col gap-10 bg-white p-8 lg:p-12">
+        {/*
+          `min-w-0` on both cells, because a grid item defaults to
+          `min-width: auto` and therefore refuses to shrink below the widest
+          thing inside it. The form's controls were that widest thing, which
+          held this panel at 449px and pushed it off the right edge of a phone.
+          The controls now shrink (see contact-form.tsx) and these let the cells
+          follow them down.
+        */}
+        <Rv className="mt-12 grid gap-px border border-ground/15 bg-ground/15 sm:mt-14 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="flex min-w-0 flex-col gap-8 bg-white p-6 sm:gap-10 sm:p-8 lg:p-12">
             <p className="m-0 max-w-[46ch] font-manrope text-[19px] font-light leading-[1.7] text-ground/60">
               Have a commerce, AI or technology problem that needs a clearer decision? Describe it
               in a few lines and I will reply within 24 hours, IST business days.
@@ -1140,14 +1148,17 @@ export function Contact() {
               {DETAILS.map((detail) => (
                 <div
                   key={detail.label}
-                  className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-ground/15 py-4"
+                  className="flex flex-col gap-1 border-t border-ground/15 py-4 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-8"
                 >
                   <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ground/40">
                     {detail.label}
                   </dt>
-                  <dd className="m-0 font-mono text-[13px] leading-[1.5] text-ground/75">
+                  <dd className="m-0 min-w-0 break-words font-mono text-[13px] leading-[1.5] text-ground/75">
                     {detail.href ? (
-                      <a href={detail.href} className="transition-colors hover:text-accent">
+                      <a
+                        href={detail.href}
+                        className="inline-block py-1.5 transition-colors hover:text-accent"
+                      >
                         {detail.value}
                       </a>
                     ) : (
@@ -1174,7 +1185,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-white p-8 lg:p-12">
+          <div className="min-w-0 bg-white p-6 sm:p-8 lg:p-12">
             <ContactForm />
           </div>
         </Rv>

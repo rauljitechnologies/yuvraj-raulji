@@ -26,33 +26,57 @@ const NAV = [
   { href: '#insights', label: 'Insights' },
 ] as const;
 
+/**
+ * The section links, drawn once and placed twice: inline in the bar from the
+ * tablet breakpoint up, and as a scrolling index row underneath it on a phone.
+ */
+function NavLinks({ className = '' }: { className?: string }) {
+  return (
+    <>
+      {NAV.map(({ href, label }) => (
+        <a
+          key={href}
+          href={href}
+          className={`shrink-0 whitespace-nowrap border-b border-transparent font-manrope font-medium uppercase leading-none tracking-[0.1em] text-ink/60 transition-colors duration-200 hover:border-accent hover:text-ink ${className}`}
+        >
+          {label}
+        </a>
+      ))}
+    </>
+  );
+}
+
 export function HomeHeader() {
   return (
     <header className="sticky top-0 z-header border-b border-ink/10 bg-ground/70 backdrop-blur-[14px]">
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-8 px-6 py-4 lg:px-12 lg:py-[18px]">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-5 py-3.5 sm:gap-8 sm:px-6 md:px-8 lg:px-12 lg:py-[18px]">
         <a
           href="#top"
           aria-label="Yuvraj Raulji, back to top"
-          className="shrink-0 transition-opacity duration-200 hover:opacity-70"
+          className="flex shrink-0 items-center py-2 transition-opacity duration-200 hover:opacity-70"
         >
           <Wordmark />
         </a>
 
         {/*
-          Hidden below lg rather than collapsed into a drawer: a toggle would
-          make this a client component and ship JS for five links. The same five
-          sections are reachable by scrolling, and the footer lists them all.
+          Five links, laid out two ways rather than hidden behind a toggle.
+
+          This bar used to render the nav at `lg` and nothing below it, so every
+          phone and every tablet got a header with no navigation in it at all.
+          A drawer would have fixed that at the cost of making this a client
+          component, and a `<details>` disclosure would stay open over the
+          content after a reader taps an in-page anchor.
+
+          Neither is needed. From 768px there is room to set all five inline
+          beside the wordmark, and below that they sit in a scrolling index row
+          under the bar, where they are always visible and have no open state to
+          get wrong. Still no JavaScript.
         */}
-        <nav aria-label="Homepage sections" className="hidden items-center gap-[34px] lg:flex">
-          {NAV.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="border-b border-transparent py-1.5 font-manrope text-[13px] font-medium uppercase leading-none tracking-[0.1em] text-ink/60 transition-colors duration-200 hover:border-accent hover:text-ink"
-            >
-              {label}
-            </a>
-          ))}
+        <nav
+          aria-label="Homepage sections"
+          className="hidden items-center md:flex md:gap-6 lg:gap-[34px]"
+        >
+          <NavLinks className="py-2.5 text-[12px] lg:text-[13px]" />
         </nav>
 
         {/*
@@ -64,6 +88,20 @@ export function HomeHeader() {
           {CTA_LABEL}
         </a>
       </div>
+
+      {/*
+        The phone row. `overflow-x-auto` is a safety valve rather than the
+        expected state: the five labels fit inside 375px, and the scroll only
+        engages on the narrowest devices or at a large text setting. The
+        scrollbar itself is suppressed because the row is 34px tall and a
+        visible one would take a third of it.
+      */}
+      <nav
+        aria-label="Homepage sections"
+        className="flex gap-5 overflow-x-auto border-t border-ink/10 px-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden"
+      >
+        <NavLinks className="py-3.5 text-[11px]" />
+      </nav>
     </header>
   );
 }
@@ -112,9 +150,9 @@ const SOCIAL = [
 export function HomeFooter() {
   return (
     <footer className="overflow-hidden border-t border-ink/10 bg-ground">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12">
         {/* Closing call to action. */}
-        <div className="grid items-center gap-14 border-b border-ink/10 py-20 lg:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="grid items-center gap-10 border-b border-ink/10 py-14 sm:gap-14 sm:py-20 md:grid-cols-[minmax(0,1fr)_auto]">
           <div>
             <span className="mb-5 block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35">
               Next step
@@ -135,7 +173,12 @@ export function HomeFooter() {
         </div>
 
         {/* Sitemap columns. */}
-        <div className="grid gap-x-10 gap-y-11 py-16 [grid-template-columns:repeat(auto-fit,minmax(190px,1fr))]">
+        {/*
+          `min(190px,100%)` rather than a bare 190px: on a 375px screen the
+          gutters leave less than 190px of track, and auto-fit will hold a
+          column at its stated minimum even when that overflows the grid.
+        */}
+        <div className="grid gap-x-10 gap-y-10 py-12 sm:gap-y-11 sm:py-16 [grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr))]">
           <div>
             <div className="mb-6 flex items-center gap-3">
               <Monogram size={40} />
@@ -156,7 +199,7 @@ export function HomeFooter() {
           </div>
 
           {FOOTER_COLUMNS.map((column) => (
-            <div key={column.heading} className="flex flex-col gap-3">
+            <div key={column.heading} className="flex flex-col gap-0.5">
               <span className="mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35">
                 {column.heading}
               </span>
@@ -164,7 +207,7 @@ export function HomeFooter() {
                 <a
                   key={`${column.heading}-${link.label}`}
                   href={link.href}
-                  className="font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
+                  className="py-1.5 font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
                 >
                   {link.label}
                 </a>
@@ -172,23 +215,23 @@ export function HomeFooter() {
             </div>
           ))}
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-0.5">
             <span className="mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35">
               Contact
             </span>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
+              className="break-words py-1.5 font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
             >
               {CONTACT.email}
             </a>
             <a
               href={CONTACT.phoneHref}
-              className="font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
+              className="py-1.5 font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright"
             >
               {CONTACT.phone}
             </a>
-            <span className="font-manrope text-[15px] leading-[1.5] text-ink/45">
+            <span className="mt-1.5 font-manrope text-[15px] leading-[1.5] text-ink/45">
               {CONTACT.location}
               <br />
               {CONTACT.timezone}
@@ -215,16 +258,16 @@ export function HomeFooter() {
           <div className="absolute inset-0 origin-left bg-accent animate-yr-sweep" />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-8 py-8 font-mono text-xs leading-[1.6] text-ink/40">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/40 sm:py-8">
           <span>© {new Date().getFullYear()} Yuvraj Raulji. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
-            <a href="/blog/" className="text-ink/55 transition-colors hover:text-ink">
+            <a href="/blog/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Insights
             </a>
-            <a href="/work/" className="text-ink/55 transition-colors hover:text-ink">
+            <a href="/work/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Work
             </a>
-            <a href="#top" className="text-ink/55 transition-colors hover:text-ink">
+            <a href="#top" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Back to top ↑
             </a>
           </div>

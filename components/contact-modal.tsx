@@ -97,7 +97,7 @@ export function ContactModal() {
       <div className="absolute inset-0 bg-[rgba(0,0,0,.90)] backdrop-blur-2xl" onClick={close} />
 
       <div
-        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto rounded-xl border border-[rgba(229,9,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229,9,32,.10)] transition-all duration-[420ms] ${
+        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] rounded-xl border border-[rgba(229,9,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229,9,32,.10)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
         style={{ background: '#080808' }}
@@ -121,7 +121,7 @@ export function ContactModal() {
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
           {/* ── LEFT: brand panel ── */}
           <div
-            className="relative overflow-hidden rounded-tl-xl rounded-bl-xl p-8 lg:p-10 flex flex-col gap-8"
+            className="relative overflow-hidden rounded-tl-xl rounded-tr-xl p-6 sm:p-8 lg:rounded-tr-none lg:rounded-bl-xl lg:p-10 flex flex-col gap-6 sm:gap-8"
             style={{
               background: 'linear-gradient(135deg,#0d0d0d 0%,#0a0a0a 100%)',
               borderRight: '1px solid rgba(255,255,255,.06)',

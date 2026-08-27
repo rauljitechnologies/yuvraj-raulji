@@ -288,9 +288,24 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
+  /* Never wider than the column it sits in. Without this a long label such as
+     "Discuss your Magento architecture" holds the button at its nowrap width
+     and pushes the whole page sideways on a phone. */
+  max-width: 100%;
   cursor: pointer;
   transition: background-color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
     color 0.22s var(--ease-out);
+}
+
+/* Below the small breakpoint a long label wraps onto a second line rather than
+   overflowing. `nowrap` is the right default everywhere it fits, and a phone is
+   the one place it does not. */
+@media (max-width: 639px) {
+  .yr-btn {
+    white-space: normal;
+    text-align: center;
+    padding-inline: 22px;
+  }
 }
 
 .yr-btn__arrow {

@@ -159,7 +159,7 @@ export function SiteNav({ active }: { active?: string }) {
           <Link
             href="/"
             aria-label="Yuvraj Raulji, home"
-            className="shrink-0 transition-opacity duration-200 hover:opacity-70"
+            className="flex shrink-0 items-center py-2.5 transition-opacity duration-200 hover:opacity-70"
           >
             <Wordmark size="sm" />
           </Link>

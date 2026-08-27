@@ -73,8 +73,20 @@ export function ContactForm() {
     }
   };
 
+  /*
+   * `w-full min-w-0` is load-bearing, not decoration. A bare input, select or
+   * textarea carries an intrinsic width of roughly twenty characters, and that
+   * width is also its min-content width, so it refuses to shrink. Inside a grid
+   * cell (which is `min-width: auto` by default) that pinned the whole contact
+   * panel at 449px and pushed it past the right edge of a 375px phone, where
+   * the page's `overflow-x: clip` cut the text off rather than letting it
+   * scroll. Shrinking the controls is what lets the cell shrink.
+   *
+   * `appearance-none` is on the select for the same reason: a native control
+   * sizes itself to its widest option, and the topic list has long ones.
+   */
   const field =
-    'bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/35 focus:border-accent';
+    'w-full min-w-0 bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/35 focus:border-accent';
   const label =
     'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/45';
 
@@ -85,7 +97,7 @@ export function ContactForm() {
         // knows the send succeeded without having to hunt for the change.
         role="status"
         aria-live="polite"
-        className="flex min-h-[420px] flex-col justify-center gap-4"
+        className="flex min-h-[260px] flex-col justify-center gap-4 lg:min-h-[420px]"
       >
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent">
           Message sent
@@ -135,7 +147,12 @@ export function ContactForm() {
         <select
           value={f.topic}
           onChange={(e) => setF({ ...f, topic: e.target.value })}
-          className={`${field} bg-white text-ground/80`}
+          /*
+            `appearance-none` takes the native chevron with it, so one is drawn
+            back as a background mark. Without it the topic control reads as a
+            text field that will not accept typing.
+          */
+          className={`${field} appearance-none bg-white bg-[length:9px] bg-[right_2px_center] bg-no-repeat pr-7 text-ground/80 [background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%206%27%3E%3Cpath%20d%3D%27M1%201l4%204%204-4%27%20stroke%3D%27%23050505%27%20stroke-opacity%3D%27.45%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%2F%3E%3C%2Fsvg%3E")]`}
         >
           {ENQUIRY_TOPICS.map((topic) => (
             <option key={topic}>{topic}</option>
@@ -169,7 +186,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={!valid || sending}
-        className="mt-2 self-start bg-ground px-8 py-5 font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] text-white transition-colors duration-200 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ground"
+        className="mt-2 w-full bg-ground px-8 py-5 font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] text-white transition-colors duration-200 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-ground xs:w-auto xs:self-start"
       >
         {sending ? 'Sending…' : 'Send message →'}
       </button>

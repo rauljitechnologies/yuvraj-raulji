@@ -13,7 +13,7 @@ import { Eager } from './rv';
  */
 export function Hero() {
   return (
-    <section id="top" className="relative mx-auto max-w-[1440px] px-6 pt-24 lg:px-12 lg:pt-[120px]">
+    <section id="top" className="relative mx-auto max-w-[1440px] px-5 pt-14 sm:px-6 sm:pt-20 md:px-8 lg:px-12 lg:pt-[120px]">
       {/*
         The faint blueprint grid. Two repeating linear-gradients, masked to a
         soft radial so it fades out before it reaches any edge. Decorative.
@@ -23,11 +23,16 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 [background-image:linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] [background-size:88px_88px] [mask-image:radial-gradient(70%_60%_at_50%_30%,#000,transparent)]"
       />
 
-      <div className="relative grid items-end gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)]">
+      <div className="relative grid items-end gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)]">
         <div>
-          <Eager className="mb-8 flex items-center gap-3.5">
+          <Eager className="mb-6 flex items-center gap-3.5 sm:mb-8">
             <span className="h-px w-11 bg-accent" aria-hidden="true" />
-            <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-ink/55">
+            {/*
+              `leading-none` was fine while the eyebrow held one line and
+              illegible the moment it wrapped, which it does on any phone: two
+              lines of 11px caps at 0.3em tracking set solid all but touch.
+            */}
+            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55 lg:leading-none">
               {HERO.eyebrow}
             </span>
           </Eager>
@@ -57,7 +62,7 @@ export function Hero() {
             in STATS, so it can never contradict itself across the page.
           */}
           <Eager delay={0.18}>
-            <p className="mt-10 max-w-[640px] font-manrope text-[19px] font-light leading-[1.65] text-ink/60">
+            <p className="mt-7 max-w-[640px] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:mt-10 sm:text-[19px]">
               Yuvraj Raulji explores{' '}
               <a href="#ai" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
                 AI
@@ -73,7 +78,7 @@ export function Hero() {
             </p>
           </Eager>
 
-          <Eager className="mt-11 flex flex-wrap gap-4" delay={0.24}>
+          <Eager className="mt-8 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
             <Cta href="#work" variant="solid">
               Explore my work <span className="font-mono">→</span>
             </Cta>
@@ -90,7 +95,7 @@ export function Hero() {
           rather than a token.
         */}
         <Eager delay={0.3}>
-          <div className="relative flex h-[420px] items-end justify-center lg:h-[560px]">
+          <div className="relative mx-auto flex h-[380px] w-full max-w-[400px] items-end justify-center sm:h-[420px] lg:mx-0 lg:h-[560px] lg:max-w-none">
             <div
               aria-hidden="true"
               className="absolute inset-x-0 bottom-[34px] top-0 border border-ink/15 bg-surface"

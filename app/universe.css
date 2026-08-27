@@ -272,6 +272,9 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
   white-space: nowrap;
+  /* Same reason as .yr-btn in home.css: a nowrap button with a long label is
+     the usual way a page acquires a horizontal scrollbar on a phone. */
+  max-width: 100%;
   cursor: pointer;
   /* Colour only, and quick. The buttons used to drift toward the cursor and
      needed `will-change: transform` and a hand-written property list to keep
@@ -280,6 +283,15 @@
   transition: background-color var(--dur-1) var(--ease-out),
     border-color var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out),
     color var(--dur-1) var(--ease-out);
+}
+
+/* A long label wraps rather than overflowing on a phone. */
+@media (max-width: 639px) {
+  .u-cta {
+    white-space: normal;
+    text-align: center;
+    padding: 0 22px;
+  }
 }
 
 .u-cta > span {
