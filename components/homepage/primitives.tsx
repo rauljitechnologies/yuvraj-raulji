@@ -51,16 +51,18 @@ export function Section({
  * hidden from assistive technology; the label is the part worth announcing,
  * and it is not a heading because the section's own <h2> is.
  */
-export function Marker({ num, label }: { num: string; label: string }) {
-  return (
-    <p className="yr-marker">
-      <span aria-hidden="true" className="yr-marker__num">
-        {num}
-      </span>
-      <span>{label}</span>
-      <span aria-hidden="true" className="yr-marker__rule" />
-    </p>
-  );
+/**
+ * The section eyebrow.
+ *
+ * `num` is still accepted and is deliberately not drawn. The homepage dropped
+ * its ordinals when its eyebrows were rewritten, so a numbered section on an
+ * interior page read as the older design however well the rest of it matched;
+ * the rule that ran out to the right margin went with them. The prop stays
+ * because a dozen call sites pass it and the ordering it records is still true,
+ * it is simply not something the page says out loud any more.
+ */
+export function Marker({ label }: { num?: string; label: string }) {
+  return <p className="yr-marker">{label}</p>;
 }
 
 export function Lede({ children, className = '' }: { children: ReactNode; className?: string }) {

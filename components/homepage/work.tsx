@@ -26,7 +26,7 @@ export function Work() {
         <Marker num={meta.num} label={meta.label} />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="work-title" lines={WORK.headline} softFrom={1} />
+          <Lines as="h2" id="work-title" lines={WORK.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[54ch]">{WORK.body}</p>
           </Rise>

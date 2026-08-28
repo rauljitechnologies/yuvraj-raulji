@@ -37,7 +37,7 @@ export function Lines({
   id,
   className = '',
   size = '2',
-  softFrom,
+  strongFrom,
   delay = 0,
 }: {
   lines: readonly DisplayLine[];
@@ -45,8 +45,16 @@ export function Lines({
   id?: string;
   className?: string;
   size?: '1' | '2' | '3' | 'statement';
-  /** Index from which lines drop to the muted tone. */
-  softFrom?: number;
+  /**
+   * Index of the line the sentence turns on. That line and everything after it
+   * take the solid 600; the lines before it stay light and a shade back.
+   * Defaults to the last line, which is where a headline usually lands.
+   *
+   * This replaces `softFrom`, which ran the other way: it dropped the trailing
+   * lines to the faint tone, so an interior headline faded out exactly where
+   * the homepage leans in.
+   */
+  strongFrom?: number;
   delay?: number;
 }) {
   const reduced = useReducedMotion();
@@ -60,11 +68,11 @@ export function Lines({
       {lines.map((line, i) => {
         const text = lineText(line);
         const accent = typeof line !== 'string' && line.accent;
-        const soft = !accent && softFrom !== undefined && i >= softFrom;
+        const strong = i >= (strongFrom ?? lines.length - 1);
         return (
           <span key={text} aria-hidden="true" className="yr-linemask">
             <motion.span
-              className={`block ${soft ? 'yr-display__soft' : ''} ${
+              className={`block ${strong ? 'yr-display__strong' : 'yr-display__soft'} ${
                 accent ? 'yr-display__accent' : ''
               }`}
               initial={reduced ? { opacity: 0 } : { y: '105%', opacity: 0 }}

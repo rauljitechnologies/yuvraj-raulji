@@ -128,14 +128,20 @@ export function PageHero({
       <Shell>
         <Breadcrumbs crumbs={crumbs} />
 
-        <Rise as="p" className="mb-item flex items-center gap-3">
-          <span aria-hidden="true" className="yr-dot" />
-          <span className="font-display text-[.8rem] uppercase tracking-[.24em] text-accent-bright">
+        {/* The homepage's hero eyebrow, to the pixel: a red hairline dash and
+            the line set in the mono face. It used to be a red dot and 0.8rem of
+            letterspaced display type in the accent, which is a different mark
+            for the same job and the loudest thing on the page after the H1. */}
+        <Rise as="p" className="mb-item flex items-center gap-3.5">
+          <span aria-hidden="true" className="h-px w-11 bg-accent" />
+          <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
             {eyebrow}
           </span>
         </Rise>
 
-        <Lines as="h1" id="page-title" size="1" lines={lines} softFrom={2} />
+        {/* No `strongFrom`: the default puts the weight on the last line, which
+            is where every one of these headlines lands. */}
+        <Lines as="h1" id="page-title" size="1" lines={lines} />
 
         <Rise delay={0.28} className="mt-block">
           <p className="yr-lede max-w-[58ch]">{lede}</p>

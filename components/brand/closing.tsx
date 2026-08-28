@@ -36,7 +36,7 @@ export function Closing({
           id="closing-title"
           size="statement"
           lines={headline}
-          softFrom={1}
+          strongFrom={1}
           className="max-w-[16ch]"
         />
 

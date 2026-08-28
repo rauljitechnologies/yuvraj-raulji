@@ -44,7 +44,7 @@ export function Founder() {
 
         <div className="grid items-start gap-x-16 gap-y-block lg:grid-cols-[1.15fr_.85fr]">
           <div>
-            <Lines as="h2" id="founder-title" lines={FOUNDER.headline} softFrom={1} />
+            <Lines as="h2" id="founder-title" lines={FOUNDER.headline} strongFrom={1} />
 
             <Rise delay={0.18} className="mt-head">
               <p className="yr-lede max-w-[56ch]">{FOUNDER.statement}</p>

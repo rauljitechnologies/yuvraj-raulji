@@ -62,7 +62,7 @@ export function Statement() {
           id="position-title"
           size="statement"
           lines={STATEMENT.headline}
-          softFrom={1}
+          strongFrom={1}
           className="max-w-[19ch]"
         />
         <Rise delay={0.24} className="mt-head">
@@ -91,7 +91,7 @@ export function ThoughtAreas() {
         <Marker num="03" label="Areas of thought" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="thinking-title" lines={THOUGHT_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="thinking-title" lines={THOUGHT_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{THOUGHT_INTRO.body}</p>
           </Rise>
@@ -137,7 +137,7 @@ export function Learning() {
         <Marker num="04" label="Current study" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="learning-title" lines={LEARNING_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="learning-title" lines={LEARNING_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{LEARNING_INTRO.body}</p>
           </Rise>
@@ -185,7 +185,7 @@ export function Commerce() {
         <Marker num="05" label="The commerce system" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="commerce-title" lines={COMMERCE_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="commerce-title" lines={COMMERCE_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{COMMERCE_INTRO.body}</p>
           </Rise>
@@ -225,7 +225,7 @@ export function PointOfView() {
         <Marker num="06" label="Positions" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="pov-title" lines={POV_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="pov-title" lines={POV_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{POV_INTRO.body}</p>
           </Rise>
@@ -270,7 +270,7 @@ export function Evolution() {
         <Marker num="07" label="The evolution" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="evolution-title" lines={EVOLUTION_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="evolution-title" lines={EVOLUTION_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{EVOLUTION_INTRO.body}</p>
           </Rise>
@@ -313,7 +313,7 @@ export function SelectedWork() {
         <Marker num="08" label="Selected work" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="work-title" lines={WORK_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="work-title" lines={WORK_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{WORK_INTRO.body}</p>
           </Rise>
@@ -370,7 +370,7 @@ export function Attention() {
     <Section id="attention" labelledBy="attention-title">
       <Shell>
         <Marker num="09" label="Right now" />
-        <Lines as="h2" id="attention-title" lines={ATTENTION_INTRO.headline} softFrom={1} />
+        <Lines as="h2" id="attention-title" lines={ATTENTION_INTRO.headline} strongFrom={1} />
 
         <ul className="mt-grid grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {ATTENTION.map((a, i) => (
@@ -406,7 +406,7 @@ export function Writing() {
         <Marker num="10" label="Writing" />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="writing-title" lines={WRITING_INTRO.headline} softFrom={1} />
+          <Lines as="h2" id="writing-title" lines={WRITING_INTRO.headline} strongFrom={1} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[52ch]">{WRITING_INTRO.body}</p>
           </Rise>

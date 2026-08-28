@@ -32,7 +32,7 @@ export function Closing() {
             id="contact-title"
             size="1"
             lines={CLOSING.headline}
-            softFrom={1}
+            strongFrom={1}
             className="max-w-[19ch]"
           />
 

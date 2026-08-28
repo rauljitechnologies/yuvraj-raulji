@@ -27,7 +27,7 @@ export function Timeline() {
         <Marker num={meta.num} label={meta.label} />
 
         <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-          <Lines as="h2" id="experience-title" lines={EXPERIENCE.headline} softFrom={2} />
+          <Lines as="h2" id="experience-title" lines={EXPERIENCE.headline} strongFrom={2} />
           <Rise delay={0.18} className="self-end">
             <p className="yr-lede max-w-[54ch]">{EXPERIENCE.body}</p>
           </Rise>

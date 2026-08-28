@@ -27,7 +27,7 @@ export function Position() {
           as="h2"
           id="position-title"
           lines={POSITION.headline}
-          softFrom={1}
+          strongFrom={1}
           className="max-w-[18ch]"
         />
 

@@ -25,19 +25,28 @@
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Anchor offset ─────────────────────────────────────────────
-   The navigation is position: fixed and 77px tall, and nothing was
-   setting a scroll offset, so every in-page jump (the three nav
-   anchors, "Explore my work", "Where I would start") landed with the
-   target section's first 77px hidden underneath it. The section marker,
-   which is the first thing in every section, was the part being eaten.
+   The header is position: fixed, so without an offset every in-page jump
+   ("Explore my work", "Where I would start", the footer's contact link)
+   landed with the target section's first bar-height hidden underneath it.
+   The section marker, which is the first thing in every section, was the
+   part being eaten.
 
    scroll-padding-top has to sit on the scrolling element, so it is
-   scoped with :has() rather than declared on .home itself. Scoped that
-   way it cannot affect the interior pages, which have their own header
-   geometry. */
+   declared on :root. It is site-wide because the header is: one bar, one
+   height, one offset for every anchor on every page. */
 
-:root:has(.yr-page) {
-  scroll-padding-top: calc(77px + var(--sp-block));
+:root {
+  /* The bar is 68px with a 34px link row under it, and 78px alone from `md`.
+     Not scoped to `.yr-page` any more: the same header ships on every route,
+     including the homepage and the article pages, and an in-page anchor landed
+     under the bar on all of them. */
+  scroll-padding-top: calc(102px + var(--sp-block));
+}
+
+@media (min-width: 768px) {
+  :root {
+    scroll-padding-top: calc(78px + var(--sp-block));
+  }
 }
 
 /* The token scope.
@@ -94,9 +103,16 @@
   --gut: clamp(20px, 4.4vw, 64px);
 }
 
+/* The interior ground, and the interior face.
+   Manrope, not Inter. The homepage sets `font-manrope` on its own wrapper and
+   every other route was reading Inter for body copy and Space Grotesk for
+   headings, which is what made the interior pages read as a different site
+   rather than as the same one. The blog keeps its own type: it does not render
+   inside `.yr-page`. */
 .yr-page {
   background: var(--bg);
   color: var(--text);
+  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
 }
 
 /* ── Shell ───────────────────────────────────────────────────── */
@@ -132,29 +148,25 @@
    sits in the left margin as a running head; below 1180 it folds up
    above the content as a single line. */
 
+/* The section eyebrow. The homepage's, exactly: mono, 11px, wide tracking,
+   the section name and nothing else.
+
+   The red ordinal and the rule that ran to the right margin are gone. The
+   homepage dropped its own ordinals when the eyebrows were rewritten (nothing
+   on that page counts itself), so a page that still numbered its sections read
+   as the older design even when everything else matched. */
 .yr-marker {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 14px;
   margin-bottom: var(--sp-block);
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.26em;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--text-faint);
-}
-
-.yr-marker__num {
-  color: var(--accent-bright);
-  font-variant-numeric: tabular-nums;
-}
-
-.yr-marker__rule {
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
-  transform-origin: left;
+  line-height: 1;
+  color: rgb(var(--text-rgb) / 0.45);
 }
 
 /* ── Display type ────────────────────────────────────────────────
@@ -173,49 +185,59 @@
    browser rebalance them would undo that. */
 
 .yr-display {
-  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
-  /* 500, not 700. At these sizes a bold uppercase grotesque reads as a
-     shout; the weight that makes a headline feel expensive is the one just
-     above regular, carried by size and space instead. */
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: -0.025em;
+  /* Manrope, mixed case, 300. Was Space Grotesk at 500 in all caps, which is a
+     poster voice; the homepage sets every headline as a light mixed-case line
+     with one weight change inside it, and that is the voice being matched here.
+     Caps also cost width, which is why these clamps still fit after the swap:
+     the same string sets narrower in mixed case than it did in capitals. */
+  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
 }
 
 /* Hero H1. Tighter still, because it is the only type on the page large
    enough that the default tracking opens visible gaps between the caps. */
 .yr-display--1 {
   font-size: var(--hd-1);
-  line-height: 0.86;
-  letter-spacing: -0.035em;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 /* One sentence, set as the whole section. Section 02 and the closing
    question are the only two things that use it. */
 .yr-display--statement {
   font-size: var(--hd-statement);
-  line-height: 0.88;
-  letter-spacing: -0.035em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
 }
 
 .yr-display--2 {
   font-size: var(--hd-2);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
 }
 
 .yr-display--3 {
   font-size: var(--hd-3);
   font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-/* The trailing line of a multi-line headline, dropped to the muted tone so
-   the pair reads as one statement with a beat in the middle. */
+/* The two-tone headline, which is the homepage's one typographic move: the
+   opening lines are set light and a shade back, and the line the sentence turns
+   on is set solid at 600. It used to run the other way here, with the trailing
+   line dropped to the faint tone, so an interior headline faded out exactly
+   where the homepage leans in. */
 .yr-display__soft {
-  color: var(--text-faint);
+  font-weight: 300;
+  color: rgb(var(--text-rgb) / 0.8);
+}
+
+.yr-display__strong {
+  font-weight: 600;
+  color: var(--text);
 }
 
 /* The one word in a headline that carries the red. Used on BUSINESS in the
@@ -226,28 +248,31 @@
 }
 
 .yr-lede {
-  font-size: clamp(1rem, 1.15vw, 1.14rem);
-  line-height: 1.72;
-  color: var(--text-secondary);
+  font-size: clamp(17px, 1.5vw, 19px);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgb(var(--text-rgb) / 0.6);
   max-width: 62ch;
 }
 
 .yr-note {
-  font-size: 0.9rem;
-  line-height: 1.75;
-  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgb(var(--text-rgb) / 0.5);
 }
 
-/* The small uppercase eyebrow. Set in the body face, not the display face:
-   at 0.64rem a display grotesque loses its counters and the tracking has to
-   fight the drawing rather than work with it. */
+/* The small uppercase eyebrow, in the mono face the homepage uses for every
+   label on the page. A monospace at 10px keeps its counters and its rhythm
+   under 0.24em of tracking, which is what a text face at this size does not. */
 .yr-label {
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  line-height: 1.5;
+  color: rgb(var(--text-rgb) / 0.35);
 }
 
 /* Eyebrow variant that carries the red. --accent-bright, never --accent:
@@ -282,8 +307,8 @@
   min-height: 54px;
   padding-inline: 30px;
   border: 1px solid transparent;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 0.72rem;
+  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -294,7 +319,21 @@
   max-width: 100%;
   cursor: pointer;
   transition: background-color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
-    color 0.22s var(--ease-out);
+    color 0.22s var(--ease-out), transform 0.22s var(--ease-out);
+}
+
+/* The homepage buttons lift on hover; these did not, so the same action felt
+   different depending on the route. */
+.yr-btn:hover,
+.yr-btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yr-btn:hover,
+  .yr-btn:focus-visible {
+    transform: none;
+  }
 }
 
 /* Below the small breakpoint a long label wraps onto a second line rather than
@@ -472,8 +511,8 @@
 }
 
 .yr-card__num {
-  font-family: var(--font-display), 'Space Grotesk', sans-serif;
-  font-size: 0.78rem;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.18em;
   color: var(--text-faint);
@@ -489,14 +528,15 @@
 .yr-tag {
   display: inline-flex;
   align-items: center;
-  height: 26px;
-  padding-inline: 11px;
+  height: 28px;
+  padding-inline: 12px;
   border: 1px solid var(--rule);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: rgb(var(--text-rgb) / 0.6);
   white-space: nowrap;
 }
 
@@ -790,8 +830,7 @@ a:focus-visible .yr-frame::after {
    The top hairline is dropped: the change of ground is already the
    separation, and a rule drawn on top of it reads as an accident. */
 
-.yr-paper,
-.yr-nav.yr-nav--light {
+.yr-paper {
   --bg: #ffffff;
   --surface: #f7f7f5;
   --surface-elevated: #ffffff;
@@ -823,8 +862,6 @@ a:focus-visible .yr-frame::after {
   --veil-foot: 0.2;
 }
 
-/* Only the section paints. The navigation shares the tokens above but must
-   stay transparent over the top of a hero, so it never takes the ground. */
 .yr-paper {
   background: var(--bg);
   color: var(--text);
@@ -840,55 +877,12 @@ a:focus-visible .yr-frame::after {
 
 /* ── Navigation ──────────────────────────────────────────────────
 
-   The bar is fixed over a page that changes ground underneath it, so it
-   carries two states and switches between them: dark over the black
-   sections, paper over the white ones. The switch is a class toggled by
-   an IntersectionObserver in components/chrome/nav.tsx, which watches
-   which ground is under the bar rather than guessing from scroll depth.
-
-   `.yr-nav.yr-nav--light` is two classes on purpose. The header also
-   carries `.yr-scope`, and a single-class selector would only win on
-   source order; at 0,2,0 this beats it wherever either is declared.
-
-   Transparent until the page has moved, so a hero reads full bleed. Once
-   it has, the bar takes a translucent ground of whichever colour it is
-   currently over, plus the hairline. Both are on the same transition, so
-   crossing a section boundary is one 300ms crossfade rather than a flip. */
-
-.yr-nav {
-  --nav-bg: rgba(5, 5, 5, 0.88);
-  border-bottom: 1px solid transparent;
-  /* Ground and hairline crossfade; INK DOES NOT. `color` was in this list and
-     had to come out: the bar sets `color: var(--text)` and its children set
-     their own `color: var(--text)` through Tailwind's `text-ink`, so once the
-     token flips, parent and children transition against a value that is itself
-     still transitioning. The chase never resolves and the computed colour
-     sticks partway — measured at rgb(135,134,131) on a white bar, roughly
-     halfway between the two inks and unreadable against either ground.
-     Switching ink instantly is also the correct effect: a nav whose labels
-     fade through mid-grey while crossing a section edge reads as a rendering
-     fault, not as a transition. */
-  transition: background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out),
-    backdrop-filter 0.3s var(--ease-out);
-}
-
-.yr-nav.yr-nav--light {
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  color: var(--text);
-}
-
-.yr-nav--solid {
-  background: var(--nav-bg);
-  border-bottom-color: var(--rule);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .yr-nav {
-    transition: none;
-  }
-}
+   Nothing here. The bar used to be transparent over the hero and had to
+   invert itself over the paper sections, which took a scroll listener, an
+   IntersectionObserver and its own token scope. The site header is one
+   opaque bar on every route now (components/chrome/nav.tsx), legible over
+   either ground without knowing which one it is over, so all of that CSS
+   went with the component that needed it. */
 
 /* ── Oversized ordinal ───────────────────────────────────────────
    The 01/02/03/04 that opens a thought area. Decorative ordering, so
@@ -1028,12 +1022,12 @@ a:focus-visible .yr-frame::after {
   padding-inline: 18px;
   border: 1px solid var(--rule);
   background: transparent;
-  font-family: var(--font-body), Inter, system-ui, sans-serif;
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: rgb(var(--text-rgb) / 0.6);
   cursor: pointer;
   transition: color 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
     background-color 0.22s var(--ease-out);

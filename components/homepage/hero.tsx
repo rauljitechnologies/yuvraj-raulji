@@ -74,7 +74,7 @@ export function Hero() {
               </span>
             </Rise>
 
-            <Lines as="h1" id="hero-title" size="1" lines={HERO.headline} softFrom={2} />
+            <Lines as="h1" id="hero-title" size="1" lines={HERO.headline} strongFrom={2} />
 
             <Rise delay={0.3} className="mt-block">
               <p className="yr-lede max-w-[54ch]">{HERO.lede}</p>
