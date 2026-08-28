@@ -12,6 +12,8 @@
  * carries no em-dashes.
  */
 
+import { CONTACT as SITE_CONTACT } from './site';
+
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
 export const PORTRAITS = {
   /**
@@ -40,7 +42,16 @@ export const PORTRAITS = {
 } as const;
 
 export const CONTACT = {
-  email: 'hello@yuvrajraulji.com',
+  /*
+   * Derived from lib/site.ts rather than typed again. This module carried its
+   * own literal, hello@yuvrajraulji.com, while every other part of the site
+   * printed the address in lib/site.ts, so the homepage and the interior pages
+   * named a different mailbox for the same person, and one of them was not a
+   * mailbox at all. Deriving it is what stops the two drifting apart again. The
+   * phone and timezone fields stay local because lib/site.ts holds those in a
+   * different shape.
+   */
+  email: SITE_CONTACT.email,
   phone: '+91 9898 334 731',
   phoneHref: 'tel:+919898334731',
   whatsapp: 'https://wa.me/919898334731',
@@ -540,7 +551,7 @@ export const FAQS: readonly QaBlock[] = [
   {
     no: '10',
     q: 'How can someone work with Yuvraj Raulji?',
-    a: 'Start a conversation by email at hello@yuvrajraulji.com, or book a 30-minute consultation. Replies usually arrive within 24 hours on IST business days.',
+    a: 'Start a conversation by email at toyuvrajraulji@gmail.com, or book a 30-minute consultation. Replies usually arrive within 24 hours on IST business days.',
   },
 ];
 

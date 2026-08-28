@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ENQUIRY_TOPICS } from '../../lib/homepage';
-import { LEAD_ENDPOINT } from '../../lib/site';
+import { CONTACT, LEAD_ENDPOINT } from '../../lib/site';
 
 /**
  * The homepage contact form.
@@ -32,7 +32,10 @@ export function ContactForm() {
   const mailtoFallback = () => {
     const subject = encodeURIComponent(`Enquiry: ${f.topic}`);
     const body = encodeURIComponent(`${f.message}\n\n${f.name}\n${f.email}`);
-    window.location.href = `mailto:hello@yuvrajraulji.com?subject=${subject}&body=${body}`;
+    /* CONTACT.email, not a literal. This was hardcoded to an address that
+       is not the mailbox, so every enquiry that fell back to mailto (a
+       missing endpoint, or a failed fetch) was addressed to nobody. */
+    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
   };
 
   const submit = async (e: React.FormEvent) => {

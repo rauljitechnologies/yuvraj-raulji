@@ -49,6 +49,7 @@ const EXPLORE = [
   { href: '/experience/', label: 'Experience' },
   { href: '/blog/', label: `Insights (${POST_COUNT} articles)` },
   { href: '/#ai', label: 'AI' },
+  { href: '/contact/', label: 'Contact' },
 ] as const;
 
 /**

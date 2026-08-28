@@ -88,14 +88,15 @@ export function SiteNav({ active }: { active?: string }) {
           </nav>
 
           {/*
-            An anchor, not the enquiry modal. The homepage carries a real
-            contact form in its last section, so this is a link to it from
-            wherever the reader is, and the same element on every page. The
-            modal is still there for the in-page calls to action that open it.
+            A link to the contact page, not the enquiry modal. It used to point
+            at `/#contact`, which is the homepage's form: a reader on
+            /experience/ who wanted to write a message was sent back to the
+            homepage to do it. The modal is still there for the in-page calls
+            to action that open it.
           */}
-          <a href="/#contact" className={HEADER_CTA_CLASS}>
+          <Link href="/contact/" className={HEADER_CTA_CLASS}>
             {CTA_LABEL}
-          </a>
+          </Link>
         </div>
 
         {/*
