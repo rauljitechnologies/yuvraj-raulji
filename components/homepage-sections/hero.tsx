@@ -13,7 +13,7 @@ import { Eager } from './rv';
  */
 export function Hero() {
   return (
-    <section id="top" className="relative mx-auto max-w-[1440px] px-5 pt-14 sm:px-6 sm:pt-20 md:px-8 lg:px-12 lg:pt-[120px]">
+    <section id="top" className="relative mx-auto max-w-[1440px] px-5 pt-[138px] sm:px-6 sm:pt-[148px] md:px-8 lg:px-12 lg:pt-[196px]">
       {/*
         The faint blueprint grid. Two repeating linear-gradients, masked to a
         soft radial so it fades out before it reaches any edge. Decorative.
@@ -37,11 +37,36 @@ export function Hero() {
             </span>
           </Eager>
 
+          {/*
+            The title, set as one ladder in the three brand colours: the first
+            sentence in quiet white, the second at full white, and the red on a
+            single word. Section 32 of BRAND-DESIGN-GUIDELINE.md asks for black,
+            white and red and asks for the red not to be overused, so it lands
+            on "business." and on nothing else in the heading.
+
+            The rag is authored. `text-wrap: balance` was re-breaking these four
+            lines at every width, which is the opposite of deciding where they
+            break; the <br>s do it instead, and they are display:none below 640
+            where the column is too narrow for an authored break to mean
+            anything and the browser has to wrap on its own.
+
+            Weights: 300 and 600, not 200 and 700. The first sentence already
+            steps back on tone, so a hairline weight on top of that made it read
+            as a caption rather than as half of the H1, and 700 against 200 read
+            as two faces instead of one voice at two strengths. The light
+            sentence carries a touch more negative tracking than the semibold
+            one, because at this size the lighter cut opens visible gaps at the
+            tracking the heavier one needs.
+          */}
           <Eager delay={0.06}>
-            <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] font-extralight leading-[0.94] tracking-[-0.045em] [text-wrap:balance]">
-              I build with technology.{' '}
-              <span className="block font-bold">
-                I think in <span className="text-accent">business.</span>
+            <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] leading-[0.94] tracking-[-0.04em]">
+              <span className="block font-light tracking-[-0.05em] text-ink/80">
+                I build with <br className="hidden sm:inline" />
+                technology.
+              </span>
+              <span className="mt-[0.1em] block font-semibold">
+                I think in <br className="hidden sm:inline" />
+                <span className="text-accent">business.</span>
               </span>
             </h1>
           </Eager>

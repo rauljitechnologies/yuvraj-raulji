@@ -73,7 +73,7 @@ export default function Blog() {
       <SiteHeader active="Insights" />
       <SiteEffects />
 
-      <main id="top">
+      <main id="main">
         <BlogHero />
         <BlogListing posts={posts} />
         <BlogCta />

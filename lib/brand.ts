@@ -58,17 +58,30 @@ export const DOING =
 export const CORE_IDEA = 'Technology that creates business leverage.';
 
 /**
- * Primary navigation. Three destinations and one action, as specified.
+ * Primary navigation. One list, rendered by the one header on every route.
  *
- * "Thinking" points at /blog/, which is the indexed path carrying the article
- * history. Renaming it to /thinking/ would move eight ranking URLs to buy a
- * nicer slug, which is a bad trade; the label is what the reader sees and the
- * label is the one asked for.
+ * Five destinations and one action. It used to be three, from the days when
+ * the header linked only to the personal-brand set; the homepage carried a
+ * sixth, entirely separate bar whose five links were in-page anchors to its own
+ * sections, so "About" meant a section on the homepage and a page everywhere
+ * else. Every item here is a real, indexed route, which is what lets the same
+ * bar ship on every page and what makes a click a navigation rather than a
+ * scroll.
+ *
+ * "Thinking" was the old label for /blog/; the header and the footer both say
+ * Insights now, because the page itself is titled Insights and a label that
+ * disagrees with its destination costs a reader a click to work out.
+ *
+ * /blog/ is the indexed path carrying the article history. Renaming it to
+ * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
+ * trade.
  */
 export const NAV = [
-  { label: 'Thinking', href: '/blog/' },
-  { label: 'Work', href: '/work/' },
   { label: 'About', href: '/about/' },
+  { label: 'Expertise', href: '/expertise/' },
+  { label: 'Work', href: '/work/' },
+  { label: 'Experience', href: '/experience/' },
+  { label: 'Insights', href: '/blog/' },
 ] as const;
 
 export const CTA_LABEL = "Let's talk";

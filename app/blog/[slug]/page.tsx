@@ -108,7 +108,7 @@ export default async function Article({ params }: Props) {
       <ReadingProgress />
       <SiteEffects />
 
-      <main id="top">
+      <main id="main">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(120px,16vh,170px) 0 clamp(40px,5vw,60px)' }}>
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">

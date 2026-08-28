@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { HomeFooter, HomeHeader } from '../components/homepage-sections/chrome';
+import { SiteFooter } from '../components/chrome/footer';
+import { SiteNav } from '../components/chrome/nav';
 import { Hero } from '../components/homepage-sections/hero';
 import { NO_SCRIPT_REVEAL_CSS } from '../components/homepage-sections/rv';
 import {
@@ -130,7 +131,7 @@ export default function Home() {
       </noscript>
 
       <div className="bg-ground font-manrope text-ink [overflow-x:clip]">
-        <HomeHeader />
+        <SiteNav />
 
         <main id="main">
           <Hero />
@@ -150,7 +151,7 @@ export default function Home() {
           <Contact />
         </main>
 
-        <HomeFooter />
+        <SiteFooter />
       </div>
     </>
   );
