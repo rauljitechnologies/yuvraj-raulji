@@ -95,6 +95,14 @@ export interface Pillar {
   /** Concrete platforms and tools, not adjectives. */
   stack: readonly string[];
   /** Case-study ids, matching WorkItem.id in lib/home.ts. */
+  /**
+   * Work item ids, resolved against WORK_ITEMS at render time. These carried
+   * the client brand names until d00fd91 renamed every case study by what the
+   * build actually was; this list was not renamed with them, so the resolver
+   * dropped all six ids and Related work rendered empty on all seven pillar
+   * pages. An id with no match is still dropped rather than printed as a
+   * broken row, which is why it failed silently for as long as it did.
+   */
   cases: readonly string[];
   /** Article slugs, matching keys in lib/posts.ts. */
   posts: readonly string[];
@@ -198,7 +206,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['Platform selection', 'Technical due diligence', 'Integration design', 'Phasing', 'Total cost modelling'],
-    cases: ['nxtby', 'shopunicore', 'powerlook'],
+    cases: ['b2b-procurement', 'marketplace', 'fashion-d2c'],
     posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit', 'cro-double-conversion'],
     related: [
       { href: pillarHref('digital-transformation'), label: 'digital transformation and legacy replatforming', note: 'When the answer is a programme rather than a project.' },
@@ -293,7 +301,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['Magento 2', 'Adobe Commerce', 'Custom modules', 'Multi-store', 'B2B workflows', 'GraphQL', 'Varnish & Redis', 'AWS EC2 / RDS / S3'],
-    cases: ['shopunicore', 'nxtby'],
+    cases: ['marketplace', 'b2b-procurement'],
     posts: [
       'magento2-seo-technical-audit',
       'magento2-checkout-optimization',
@@ -394,7 +402,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['Shopify', 'Shopify Plus', 'Liquid', 'Checkout extensions', 'Storefront API', 'Hydrogen', 'GA4 & GTM'],
-    cases: ['future-roots', 's3buy'],
+    cases: ['plant-store', 'sports-nutrition'],
     posts: ['shopify-plus-vs-magento2-2025', 'shopify-headless-nextjs-guide', 'cro-double-conversion'],
     related: [
       { href: pillarHref('magento-2'), label: 'Magento 2 for quote-driven and multi-store commerce', note: 'Where Shopify stops fitting.' },
@@ -485,7 +493,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['Next.js', 'React', 'GraphQL', 'Storefront API', 'Magento PWA Studio', 'Hydrogen', 'Edge caching'],
-    cases: ['powerlook', 'nxtby'],
+    cases: ['fashion-d2c', 'b2b-procurement'],
     posts: ['shopify-headless-nextjs-guide', 'magento2-pwa-studio-headless', 'aws-magento2-server-setup'],
     related: [
       { href: pillarHref('magento-2'), label: 'Magento 2 as the commerce layer behind a headless front end', note: 'PWA Studio, GraphQL and the catalogue underneath.' },
@@ -576,7 +584,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['OpenAI APIs', 'Retrieval & semantic search', 'Catalogue enrichment', 'n8n', 'Workflow automation', 'Structured data'],
-    cases: ['nxtby'],
+    cases: ['b2b-procurement'],
     posts: ['ai-ecommerce-revenue-2025', 'magento2-seo-technical-audit'],
     related: [
       { href: pillarHref('digital-transformation'), label: 'digital transformation and process redesign', note: 'The half that has to happen before automation.' },
@@ -667,7 +675,7 @@ export const PILLARS: Pillar[] = [
       },
     ],
     stack: ['Legacy migration', 'Process redesign', 'API-first architecture', 'Phased rollout', 'ERP & PIM integration', 'AWS', 'Workflow automation'],
-    cases: ['nxtby', 'synergy', 'shopunicore'],
+    cases: ['b2b-procurement', 'manufacturing', 'marketplace'],
     posts: ['shopify-plus-vs-magento2-2025', 'aws-magento2-server-setup', 'ai-ecommerce-revenue-2025'],
     related: [
       { href: pillarHref('ecommerce-consulting'), label: 'eCommerce consulting and technical due diligence', note: 'Where a transformation programme should start.' },

@@ -323,8 +323,13 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                     <div className="flex flex-1 flex-col p-6">
                       <span className={`${LABEL} text-accent-bright`}>{w.category}</span>
                       <h3 className="m-0 mt-4 font-manrope text-[21px] font-semibold leading-[1.15] tracking-[-0.02em]">
+                        {/* `#id` rather than the bare /work/ in the record:
+                            every case on the Work page carries an anchor with
+                            this same id, so the link lands on the case rather
+                            than at the top of a page of six, and the site-wide
+                            scroll offset keeps it clear of the header. */}
                         <a
-                          href={w.href}
+                          href={`${w.href}#${w.id}`}
                           className="transition-colors duration-200 after:absolute after:inset-0 after:content-[''] group-hover:text-accent-bright"
                         >
                           {w.name}
