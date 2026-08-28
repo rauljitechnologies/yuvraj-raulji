@@ -7,10 +7,8 @@ import {
   Personal,
   Process,
 } from '../../components/brand/about-sections';
-import { Closing } from '../../components/brand/closing';
 import { Page, PageHero } from '../../components/chrome/page';
 import { ABOUT_HERO } from '../../lib/about';
-import { ABOUT_CLOSING } from '../../lib/brand';
 import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
 import { SITE_URL } from '../../lib/site';
@@ -100,8 +98,6 @@ export default function About() {
       <Process />
       <Focus />
       <Personal />
-
-      <Closing headline={ABOUT_CLOSING.headline} body={ABOUT_CLOSING.body} />
     </Page>
   );
 }

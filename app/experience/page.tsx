@@ -53,6 +53,11 @@ export const metadata: Metadata = {
  * stated is correct, and quietly adjusting one to remove the overlap would be
  * inventing a fact to make a layout tidier.
  */
+/* The one mono eyebrow used inside the sections below, so four of them cannot
+   drift into four different small-caps treatments. */
+const LABEL =
+  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+
 export default function ExperiencePage() {
   return (
     <Page schema={experienceSchema(crumbs)} active="Experience">
@@ -68,63 +73,80 @@ export default function ExperiencePage() {
         </Btn>
       </PageHero>
 
-      {/* ── The four figures ──────────────────────────────────────── */}
+      {/* ── The four figures ────────────────────────────────────────
+          The homepage's stat band, cell for cell: a 1px gap draws the
+          hairlines, the figure is set extralight at display size with the
+          trailing "+" in the accent, and the label sits under it in mono. It
+          was four numbers hung under top rules with the figure itself painted
+          red, which is the one thing the homepage's band does not do: the
+          number is the fact, and the accent marks the "+" that qualifies it. */}
       <Section id="record" labelledBy="record-title">
         <Shell>
-          <Marker num="01" label="The record" />
-          <Lines as="h2" id="record-title" lines={['Four numbers', 'I can point at.']} softFrom={1} />
+          <Marker label="The record" />
+          <div className="mb-10 sm:mb-14">
+            <Lines as="h2" id="record-title" lines={['Four numbers', 'I can point at.']} />
+          </div>
 
-          <dl className="mt-grid grid gap-x-8 gap-y-grid sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="m-0 grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
             {STATS.map((s, i) => (
-              <div key={s.label} className="border-t border-[var(--rule)] pt-item">
-                <Rise delay={i * 0.07}>
-                  <div className="flex flex-col-reverse">
-                    <dt className="yr-label mt-hair">{s.label}</dt>
-                    <dd className="font-display text-[length:var(--hd-3)] uppercase leading-none tracking-[-.01em] text-accent-bright">
-                      {s.value}
-                    </dd>
-                  </div>
-                  <p className="yr-note mt-item max-w-[34ch]">{s.note}</p>
-                </Rise>
-              </div>
+              <Rise key={s.label} delay={i * 0.07} className="flex flex-col bg-[var(--bg)] px-5 py-7 sm:px-7 sm:py-9">
+                <dd className="m-0 font-manrope text-[clamp(38px,4.4vw,64px)] font-extralight leading-none tracking-[-0.04em] text-ink">
+                  {s.value.replace('+', '')}
+                  {s.value.includes('+') && <span className="text-accent">+</span>}
+                </dd>
+                <dt className="m-0 mt-4 font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-ink/45">
+                  {s.label}
+                </dt>
+                <p className="m-0 mt-5 max-w-[34ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                  {s.note}
+                </p>
+              </Rise>
             ))}
           </dl>
         </Shell>
       </Section>
 
-      {/* ── Timeline ──────────────────────────────────────────────── */}
+      {/* ── Timeline ────────────────────────────────────────────────
+          The homepage's rail: the year out in the left margin where it can be
+          scanned, one continuous hairline down the content column with an
+          accent node at each point. It was a three-column row with the year set
+          as 3.6rem of display type, which competed with the entry titles beside
+          it for the same eye. */}
       <Section id="timeline" labelledBy="timeline-title">
         <Shell>
-          <Marker num="02" label="Timeline" />
-          <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-            <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} softFrom={1} />
-            <Rise delay={0.18} className="self-end">
-              <p className="yr-lede max-w-[54ch]">
+          <Marker label="Timeline" />
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+            <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} />
+            <Rise delay={0.18}>
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
                 Seven points where the work changed shape, from a diploma in information
                 technology to incorporating the practice.
               </p>
             </Rise>
           </div>
 
-          <ol className="mt-grid">
+          <ol className="m-0 list-none p-0">
             {TIMELINE.map((t, i) => (
-              <li
-                key={t.year}
-                className="border-t border-[var(--rule)] py-block last:border-b last:border-[var(--rule)]"
-              >
-                <Rise delay={Math.min(i, 3) * 0.05}>
-                  <div className="grid gap-x-12 gap-y-item lg:grid-cols-[minmax(0,.4fr)_minmax(0,.8fr)_minmax(0,1.3fr)]">
-                    <p
+              <li key={t.year}>
+                <Rise
+                  delay={Math.min(i, 5) * 0.05}
+                  className="grid gap-x-8 gap-y-2 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]"
+                >
+                  <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright md:pt-8 lg:pt-9">
+                    {t.year}
+                  </p>
+                  <div className="relative border-t border-line pb-8 pt-6 sm:pb-10 sm:pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-8 lg:pl-10 lg:pt-9">
+                    <span
                       aria-hidden="true"
-                      className="font-display text-[length:var(--hd-year)] uppercase leading-[.85] tracking-[.01em] text-accent/70"
-                    >
-                      {t.year}
-                    </p>
-                    <h3 className="yr-display yr-display--3 self-start">
+                      className="absolute left-0 top-[38px] hidden h-[7px] w-[7px] -translate-x-1/2 bg-accent md:block"
+                    />
+                    <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
                       <span className="sr-only">{t.year}: </span>
                       {t.title}
                     </h3>
-                    <p className="yr-note max-w-[58ch] self-start">{t.body}</p>
+                    <p className="m-0 mt-4 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                      {t.body}
+                    </p>
                   </div>
                 </Rise>
               </li>
@@ -133,55 +155,69 @@ export default function ExperiencePage() {
         </Shell>
       </Section>
 
-      {/* ── Employment record ─────────────────────────────────────── */}
+      {/* ── Employment record ───────────────────────────────────────
+          The same rail, carrying what the homepage's evolution entries carry:
+          period and place in the left margin, then the role, the organisation
+          in mono, the summary, and the points marked with a rule rather than a
+          dot, which is the mark the homepage uses inside an entry. */}
       <Section id="roles" labelledBy="roles-title">
         <Shell>
-          <Marker num="03" label="Employment record" />
-          <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-            <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} softFrom={1} />
-            <Rise delay={0.18} className="self-end">
-              <p className="yr-lede max-w-[54ch]">
+          <Marker label="Employment record" />
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+            <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} />
+            <Rise delay={0.18}>
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
                 The Gulf retail and B2B platform periods overlap by fourteen months. That is
                 what the record says, so that is what is printed here.
               </p>
             </Rise>
           </div>
 
-          <ol className="mt-grid">
+          <ol className="m-0 list-none p-0">
             {EXPERIENCE.map((r, i) => (
-              <li
-                key={`${r.org}-${r.period}`}
-                className="border-t border-[var(--rule)] py-block last:border-b last:border-[var(--rule)]"
-              >
-                <Rise delay={Math.min(i, 3) * 0.05}>
-                  <div className="grid gap-x-12 gap-y-item lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
-                    <div>
-                      <h3 className="yr-display yr-display--3 max-w-[22ch]">{r.title}</h3>
-                      <p className="mt-tight text-[.94rem] font-semibold text-accent-bright">
-                        {r.org}
+              <li key={`${r.org}-${r.period}`}>
+                <Rise
+                  delay={Math.min(i, 3) * 0.05}
+                  className="grid gap-x-8 gap-y-2 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]"
+                >
+                  <div className="md:pt-8 lg:pt-9">
+                    <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright">
+                      {r.period}
+                    </p>
+                    {r.location ? (
+                      <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/35">
+                        {r.location}
                       </p>
-                      <p className="yr-label mt-hair">{r.period}</p>
-                      {r.location ? <p className="yr-label mt-hair">{r.location}</p> : null}
-                    </div>
-                    <div>
-                      <p className="yr-note max-w-[60ch]">{r.summary}</p>
-                      {r.points.length ? (
-                        <ul className="mt-item space-y-2">
-                          {r.points.map((pt) => (
-                            <li
-                              key={pt}
-                              className="flex gap-4 text-[.92rem] leading-[1.65] text-ink-secondary"
-                            >
-                              <span
-                                aria-hidden="true"
-                                className="mt-[.6em] h-1 w-1 flex-none rounded-full bg-accent"
-                              />
-                              {pt}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </div>
+                    ) : null}
+                  </div>
+
+                  <div className="relative border-t border-line pb-8 pt-6 sm:pb-10 sm:pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-8 lg:pl-10 lg:pt-9">
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-0 top-[38px] hidden h-[7px] w-[7px] -translate-x-1/2 bg-accent md:block"
+                    />
+                    <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
+                      {r.title}
+                    </h3>
+                    <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/40">
+                      {r.org}
+                    </p>
+                    <p className="m-0 mt-5 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                      {r.summary}
+                    </p>
+                    {r.points.length ? (
+                      <ul className="m-0 mt-6 grid list-none gap-x-10 gap-y-2.5 p-0 xl:grid-cols-2">
+                        {r.points.map((pt) => (
+                          <li
+                            key={pt}
+                            className="flex gap-3.5 font-manrope text-[15px] font-light leading-[1.6] text-ink/60"
+                          >
+                            <span aria-hidden="true" className="mt-[11px] h-px w-3 shrink-0 bg-accent/50" />
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
                 </Rise>
               </li>
@@ -206,25 +242,26 @@ export default function ExperiencePage() {
       {/* ── Technologies, education, credentials ──────────────────── */}
       <Section id="credentials" labelledBy="credentials-title">
         <Shell>
-          <Marker num="04" label="Technologies & credentials" />
-          <Lines
-            as="h2"
-            id="credentials-title"
-            lines={['What I work with,', 'and what I studied.']}
-            softFrom={1}
-          />
+          <Marker label="Technologies & credentials" />
+          <div className="mb-10 sm:mb-14 lg:mb-[70px]">
+            <Lines
+              as="h2"
+              id="credentials-title"
+              lines={['What I work with,', 'and what I studied.']}
+            />
+          </div>
 
-          <div className="mt-grid grid gap-x-12 gap-y-grid lg:grid-cols-[1.3fr_1fr]">
+          <div className="grid gap-x-12 gap-y-14 lg:grid-cols-[1.3fr_1fr]">
             <Rise>
-              <h3 className="yr-label">Technologies</h3>
-              <dl className="mt-item border-t border-[var(--rule)]">
+              <h3 className={LABEL}>Technologies</h3>
+              <dl className="m-0 mt-6 border-t border-line">
                 {TECH_PROFICIENCIES.map((g) => (
                   <div
                     key={g.group}
-                    className="grid gap-x-8 gap-y-tight border-b border-[var(--rule)] py-item sm:grid-cols-[11rem_1fr]"
+                    className="grid gap-x-8 gap-y-4 border-b border-line py-6 sm:grid-cols-[11rem_1fr]"
                   >
-                    <dt className="yr-label">{g.group}</dt>
-                    <dd className="flex flex-wrap gap-x-1.5 gap-y-2">
+                    <dt className={LABEL}>{g.group}</dt>
+                    <dd className="m-0 flex flex-wrap gap-2">
                       {g.items.map((it) => (
                         <Tag key={it}>{it}</Tag>
                       ))}
@@ -235,21 +272,23 @@ export default function ExperiencePage() {
             </Rise>
 
             <Rise delay={0.12}>
-              <h3 className="yr-label">Education</h3>
-              <ul className="mt-item border-t border-[var(--rule)]">
+              <h3 className={LABEL}>Education</h3>
+              <ul className="m-0 mt-6 list-none border-t border-line p-0">
                 {EDUCATION.map((e) => (
-                  <li key={e.qualification} className="border-b border-[var(--rule)] py-item">
-                    <p className="text-[.94rem] text-ink-secondary">{e.qualification}</p>
-                    <p className="yr-label mt-hair">{e.period}</p>
+                  <li key={e.qualification} className="border-b border-line py-5">
+                    <p className="m-0 font-manrope text-[16px] font-light leading-[1.5] text-ink/70">
+                      {e.qualification}
+                    </p>
+                    <p className={`mt-2 ${LABEL}`}>{e.period}</p>
                   </li>
                 ))}
               </ul>
 
-              <h3 className="yr-label mt-block">Certifications</h3>
-              <ul className="mt-item border-t border-[var(--rule)]">
+              <h3 className={`mt-12 ${LABEL}`}>Certifications</h3>
+              <ul className="m-0 mt-6 list-none border-t border-line p-0">
                 {CERTIFICATIONS.map((c) => (
-                  <li key={c.name} className="border-b border-[var(--rule)] py-item">
-                    <p className="text-[.94rem] text-ink-secondary">
+                  <li key={c.name} className="border-b border-line py-5">
+                    <p className="m-0 font-manrope text-[16px] font-light leading-[1.5] text-ink/70">
                       {c.url ? (
                         <InlineLink href={c.url} external>
                           {c.name}
@@ -258,7 +297,7 @@ export default function ExperiencePage() {
                         c.name
                       )}
                     </p>
-                    <p className="yr-label mt-hair">
+                    <p className={`mt-2 ${LABEL}`}>
                       {c.issuer}
                       {c.date ? ` · ${c.date}` : ''}
                     </p>
@@ -270,29 +309,9 @@ export default function ExperiencePage() {
         </Shell>
       </Section>
 
-      <Section id="contact" labelledBy="exp-cta-title" tall>
-        <Shell>
-          <Lines
-            as="h2"
-            id="exp-cta-title"
-            lines={['Nine years,', 'one conversation away.']}
-            softFrom={1}
-            className="max-w-[20ch]"
-          />
-          <Rise delay={0.2} className="mt-head">
-            <p className="yr-lede max-w-[56ch]">
-              If any of the above matches the problem in front of you, the first conversation costs
-              nothing and usually shortens the second one.
-            </p>
-          </Rise>
-          <Rise delay={0.3} className="mt-block flex flex-wrap gap-3">
-            <ContactButton>Work with me</ContactButton>
-            <Btn href="/about/" variant="ghost">
-              About Yuvraj Raulji
-            </Btn>
-          </Rise>
-        </Shell>
-      </Section>
+      {/* The page used to close with its own call to action. That is the
+          footer's job on every route now, and the page's own CTA is in the
+          hero, where it carries this page's wording. */}
     </Page>
   );
 }

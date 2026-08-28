@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { CASES, WORK_FILTERS, type WorkFilter } from '../../lib/brand';
 import { Rise } from '../homepage/motion';
-import { Tag } from '../homepage/primitives';
 
 /**
  * The Work page case list, with its filters.
@@ -19,11 +18,20 @@ import { Tag } from '../homepage/primitives';
  *
  * ── Layout ─────────────────────────────────────────────────────────────────
  *
- * Alternating full-width blocks, not a three-column grid. A grid forces six
- * projects into one aspect ratio and three lines each, which is exactly wrong
- * for six builds whose interesting differences are structural. The alternation
- * is a `lg:` order swap, so on a phone every block reads in the same order:
- * number, name, record, image.
+ * Cards, in the homepage's card language: a bordered panel that lifts on
+ * hover and takes the accent on its edge, a cover that is monochrome at rest
+ * and colour under the pointer, the number and the industry set in mono over
+ * the image, and the record underneath as hairline rows.
+ *
+ * This replaces six alternating full-width blocks, which was the older
+ * editorial layout: a block per screen, the record on one side and the picture
+ * on the other, flipping sides every other case. It read well and it read
+ * nothing like the homepage, where the same six builds are cards. Two columns
+ * from `lg`, one below it, because a case whose record is four rows long is not
+ * a thumbnail and does not want a third column.
+ *
+ * The alternation is gone with it, and so is the reason it existed: nothing
+ * here needs to flip, because every card has the same internal order.
  *
  * ── Accessibility ──────────────────────────────────────────────────────────
  *
@@ -32,6 +40,10 @@ import { Tag } from '../homepage/primitives';
  * is a live region, so a keyboard or screen-reader user is told what changed
  * instead of having to go and find out.
  */
+
+const dt = 'font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+const dd = 'm-0 mt-2.5 font-manrope text-[15px] font-light leading-[1.6] text-ink/55';
+
 export function WorkCases() {
   const [active, setActive] = useState<WorkFilter>('all');
 
@@ -48,7 +60,7 @@ export function WorkCases() {
       <div
         role="toolbar"
         aria-label="Filter work by discipline"
-        className="flex flex-wrap gap-2 border-y border-line py-item"
+        className="flex flex-wrap items-center gap-2 border-y border-ink/10 py-5"
       >
         {WORK_FILTERS.map((f) => (
           <button
@@ -63,7 +75,10 @@ export function WorkCases() {
         ))}
       </div>
 
-      <p aria-live="polite" className="yr-label mt-item">
+      <p
+        aria-live="polite"
+        className="mt-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35"
+      >
         {shown.length === 0
           ? `No case studies under ${activeLabel}`
           : `${shown.length} of ${CASES.length} shown`}
@@ -75,94 +90,101 @@ export function WorkCases() {
           with a measured outcome yet, and reframing one of the other five
           to fill the gap is the single thing this site does not do. */}
       {shown.length === 0 ? (
-        <div className="mt-grid border-t border-line pt-block">
-          <p className="yr-pov max-w-[24ch]">
+        <div className="mt-10 border border-ink/10 bg-surface p-8 sm:p-10">
+          <p className="m-0 max-w-[34ch] font-manrope text-[clamp(20px,2.2vw,28px)] font-light leading-[1.25] tracking-[-0.02em] text-ink/80">
             Nothing published here yet.{' '}
-            <span className="yr-pov__turn">
-              When an engagement in this discipline has a measured outcome, it appears on this
-              page and not before.
+            <span className="text-ink/40">
+              When an engagement in this discipline has a measured outcome, it appears on this page
+              and not before.
             </span>
           </p>
         </div>
       ) : null}
 
       {/* ── Cases ───────────────────────────────────────────────── */}
-      <ul className="mt-grid">
-        {shown.map((c, i) => {
-          const flip = i % 2 === 1;
-          return (
-            <li
-              key={c.id}
-              id={c.id}
-              className="border-t border-line py-[clamp(48px,6vw,96px)] last:border-b last:border-line"
-              /* The anchor target has to clear the fixed navigation, which
-                 :root:has(.yr-page) already handles with scroll-padding-top. */
+      <ul className="mt-10 grid list-none gap-4 sm:gap-6 lg:mt-12 lg:grid-cols-2">
+        {shown.map((c, i) => (
+          <li key={c.id} id={c.id} className="flex">
+            <Rise
+              delay={(i % 2) * 0.08}
+              className="group flex w-full flex-col border border-ink/15 bg-surface transition-[transform,border-color] duration-300 hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
             >
-              <Rise className="grid gap-x-14 gap-y-block lg:grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)]">
-                {/* ── The record ── */}
-                <div className={flip ? 'lg:order-2' : 'lg:order-1'}>
-                  <p className="flex items-baseline gap-4">
-                    <span aria-hidden="true" className="yr-num">
-                      {c.num}
-                    </span>
-                    <span className="yr-label yr-label--accent">{c.industry}</span>
-                  </p>
+              {/* ── The cover ── monochrome at rest, colour under the pointer ── */}
+              <div className="relative flex aspect-[16/10] items-end overflow-hidden border-b border-ink/10 bg-[#111] p-6">
+                <img
+                  src={c.img}
+                  alt={c.alt}
+                  width={c.imgW}
+                  height={c.imgH}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  sizes="(max-width: 1024px) 92vw, 46vw"
+                  className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:grayscale-0 motion-reduce:group-hover:scale-100"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute right-6 top-6 font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/60"
+                >
+                  {c.num}
+                </span>
+                <span className="relative font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  {c.industry}
+                </span>
+              </div>
 
-                  <h3 className="yr-display yr-display--2 mt-item">{c.name}</h3>
+              {/* ── The record ── */}
+              <div className="flex flex-1 flex-col p-6 pb-7 sm:p-7 sm:pb-8">
+                <h3 className="m-0 font-manrope text-[26px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[30px]">
+                  {c.name}
+                </h3>
 
-                  <dl className="mt-block border-t border-line">
-                    <div className="grid gap-x-8 gap-y-hair border-b border-line py-item sm:grid-cols-[8.5rem_1fr]">
-                      <dt className="yr-label">Challenge</dt>
-                      <dd className="text-[.95rem] leading-[1.7] text-ink-secondary">
-                        {c.challenge}
+                <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/50">
+                  {c.challenge}
+                </p>
+
+                {/* `divide-y` rather than a border on each row: the last row used to
+                    draw a hairline just above the card padding, which reads as a rule
+                    with nothing under it. */}
+                <dl className="mt-6 divide-y divide-ink/10 border-t border-ink/10">
+                  <div className="py-5">
+                    <dt className={dt}>Approach</dt>
+                    <dd className={dd}>{c.approach}</dd>
+                  </div>
+
+                  <div className="py-5">
+                    <dt className={dt}>Technology</dt>
+                    <dd className="m-0 mt-3 flex flex-wrap gap-1.5">
+                      {c.technology.map((t) => (
+                        <span
+                          key={t}
+                          className="inline-flex items-center border border-ink/15 px-2.5 py-1.5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.16em] text-ink/60"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+
+                  {/* Five of the six carry no outcome line, because five of the
+                      six have no published measured result. The row is absent
+                      rather than empty. */}
+                  {c.outcome ? (
+                    <div className="py-5">
+                      <dt className={dt}>Outcome</dt>
+                      <dd className="m-0 mt-2.5 font-manrope text-[15px] font-semibold leading-[1.5] text-accent-bright">
+                        {c.outcome}
                       </dd>
                     </div>
-
-                    <div className="grid gap-x-8 gap-y-hair border-b border-line py-item sm:grid-cols-[8.5rem_1fr]">
-                      <dt className="yr-label">Approach</dt>
-                      <dd className="text-[.95rem] leading-[1.7] text-ink-secondary">
-                        {c.approach}
-                      </dd>
-                    </div>
-
-                    <div className="grid gap-x-8 gap-y-hair border-b border-line py-item sm:grid-cols-[8.5rem_1fr]">
-                      <dt className="yr-label">Technology</dt>
-                      <dd className="flex flex-wrap gap-x-1.5 gap-y-2">
-                        {c.technology.map((t) => (
-                          <Tag key={t}>{t}</Tag>
-                        ))}
-                      </dd>
-                    </div>
-
-                    {c.outcome ? (
-                      <div className="grid gap-x-8 gap-y-hair border-b border-line py-item sm:grid-cols-[8.5rem_1fr]">
-                        <dt className="yr-label">Outcome</dt>
-                        <dd className="text-[.95rem] font-semibold text-accent-bright">
-                          {c.outcome}
-                        </dd>
-                      </div>
-                    ) : null}
-                  </dl>
-                </div>
-
-                {/* ── The image ── monochrome at rest, colour on hover ── */}
-                <div className={flip ? 'lg:order-1' : 'lg:order-2'}>
-                  <figure className="yr-frame yr-frame--hover relative block aspect-[16/10] w-full">
-                    <img
-                      src={c.img}
-                      alt={c.alt}
-                      width={c.imgW}
-                      height={c.imgH}
-                      loading={i < 2 ? 'eager' : 'lazy'}
-                      decoding="async"
-                      sizes="(max-width: 1024px) 92vw, 46vw"
-                    />
-                  </figure>
-                </div>
-              </Rise>
-            </li>
-          );
-        })}
+                  ) : null}
+                </dl>
+              </div>
+            </Rise>
+          </li>
+        ))}
       </ul>
     </>
   );

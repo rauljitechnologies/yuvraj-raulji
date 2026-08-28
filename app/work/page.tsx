@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Closing } from '../../components/brand/closing';
 import { WorkCases } from '../../components/brand/work-cases';
 import { Page, PageHero } from '../../components/chrome/page';
 import { Lines, Rise } from '../../components/homepage/motion';
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
 /**
  * Selected work.
  *
- * Six engagements as alternating full-width editorial blocks. What each block
+ * Six engagements as cards, in the homepage's card language. What each card
  * shows is bounded by what the record supports: challenge, approach and
  * technology on all six, and an outcome on the one engagement that has a
  * published measured result.
@@ -69,34 +68,47 @@ export default function WorkPage() {
         </Btn>
       </PageHero>
 
-      <Section id="cases" labelledBy="cases-title" className="yr-paper">
+      {/*
+        The case list sits on the black ground, not on the paper band it used
+        to have. The homepage shows these same six builds as cards on black;
+        putting the full list on white made the page a reader arrives at from
+        that section look like a different site's.
+
+        The heading is the homepage's line for this exact content, reused
+        rather than rewritten, and it carries no supporting paragraph: the hero
+        lede three hundred pixels above already says what the six are.
+      */}
+      <Section id="cases" labelledBy="cases-title">
         <Shell>
-          <Marker num="01" label="Case studies" />
-          <h2 id="cases-title" className="sr-only">
-            Case studies
-          </h2>
+          <Marker label="Case studies" />
+          <div className="mb-10 lg:mb-14">
+            <Lines as="h2" id="cases-title" lines={['Real work.', 'Real systems.']} />
+          </div>
           <WorkCases />
         </Shell>
       </Section>
 
-      {/* ── What is not here, said out loud ───────────────────────── */}
+      {/* ── What is not here, said out loud ─────────────────────────
+          The homepage's section header, which is a heading and its supporting
+          paragraph on one baseline with the space between them doing the
+          separating, rather than two halves of a split grid. */}
       <Section id="note" labelledBy="note-title">
         <Shell>
-          <Marker num="02" label="A note on proof" />
-          <div className="grid gap-x-16 gap-y-block lg:grid-cols-[1fr_1fr]">
-            <Lines as="h2" id="note-title" lines={WORK_NOTE.headline} softFrom={1} />
-            <Rise delay={0.18}>
-              <p className="yr-lede max-w-[54ch]">{WORK_NOTE.body}</p>
-              <p className="yr-note mt-block max-w-[54ch]">{WORK_NOTE.note}</p>
+          <Marker label="A note on proof" />
+          <div className="flex flex-wrap items-end justify-between gap-x-16 gap-y-10">
+            <Lines as="h2" id="note-title" lines={WORK_NOTE.headline} />
+            <Rise delay={0.18} className="max-w-[460px]">
+              <p className="m-0 font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+                {WORK_NOTE.body}
+              </p>
+              <p className="m-0 mt-6 font-manrope text-[15px] font-light leading-[1.7] text-ink/35">
+                {WORK_NOTE.note}
+              </p>
             </Rise>
           </div>
         </Shell>
       </Section>
 
-      <Closing
-        headline={["Let's discuss", { text: 'what you are building.', accent: true }]}
-        body="A replatforming you have been putting off, a checkout that loses people you already paid for, a catalogue that has outgrown its architecture, or an AI idea that needs someone to tell you which half of it is real."
-      />
     </Page>
   );
 }
