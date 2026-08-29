@@ -147,7 +147,7 @@ export const PILLARS: Pillar[] = [
     h1: ['eCommerce consulting', 'for decisions that', 'are hard to reverse.'],
     title: 'eCommerce Consulting | Yuvraj Raulji',
     description:
-      'Independent eCommerce consulting: platform selection, build versus buy, phasing and technical due diligence, from nine years inside Magento, Shopify and headless builds.',
+      'Independent eCommerce consulting: platform selection, build versus buy, phasing and technical due diligence, from nine years of Magento and Shopify builds.',
     eyebrow: 'eCommerce consulting',
     lede:
       'Most of the expensive mistakes in commerce are made in the first three weeks, before anyone writes code. Platform chosen before the sales process is understood, integrations scoped as an afterthought, a migration sequenced so the riskiest work lands in peak season.',

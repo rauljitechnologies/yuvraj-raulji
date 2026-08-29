@@ -527,6 +527,14 @@ export function blogHubSchema(crumbs: Crumb[]) {
   const posts = Object.entries(POSTS);
   return graph([
     personNode(),
+    webPageNode({
+      path: '/blog/',
+      name: 'Insights',
+      description:
+        'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI.',
+      type: 'CollectionPage',
+      crumbs,
+    }),
     breadcrumbNode(crumbs),
     {
       '@type': 'Blog',

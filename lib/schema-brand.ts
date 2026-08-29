@@ -38,10 +38,10 @@ const graph = (nodes: unknown[]) => ({ '@context': 'https://schema.org', '@graph
 const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
 
 export const HOME_DESCRIPTION =
-  'Yuvraj Raulji works at the intersection of technology and business, exploring how AI, digital commerce and intelligent systems change the way companies operate, sell and grow.';
+  'Yuvraj Raulji works at the intersection of AI, business and eCommerce, on how technology changes the way companies operate, sell and grow.';
 
 export const ABOUT_DESCRIPTION =
-  'Nine years in technology, from the first Magento role in 2016 through Magento, Shopify, headless commerce and digital transformation to AI. The thinking behind the work, and how the decisions get made.';
+  'Nine years in technology, from the first Magento role in 2016 through Shopify, headless commerce and AI. The thinking behind the work, and how it is decided.';
 
 export const WORK_DESCRIPTION =
   'Six builds across headless commerce, Shopify, Magento 2, B2B procurement and marketplace catalogues, with the business decision inside each one.';

@@ -23,7 +23,7 @@ const crumbs: Crumb[] = [
 
 const title = 'Experience | Yuvraj Raulji, eCommerce Consultant';
 const description =
-  'Nine years of commerce work: Magento since 2016, Shopify since 2018, Saudi retail builds, multi-store Magento 2 at B2B scale, and independent practice incorporated in 2025.';
+  'Nine years of commerce work: Magento since 2016, Shopify since 2018, Saudi retail builds, and multi-store Magento 2 at B2B scale.';
 
 export const metadata: Metadata = {
   title,

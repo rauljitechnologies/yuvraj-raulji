@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CORE_IDEA, NAME } from '../../lib/brand';
 import { PILLAR_LINKS } from '../../lib/expertise';
+import { AI_LINKS, PLATFORM_LINKS } from '../../lib/technology';
 import { CONTACT, POST_COUNT } from '../../lib/site';
 import { Cta, Monogram, StatusPill } from '../homepage-sections/primitives';
 
@@ -240,7 +241,24 @@ export function SiteFooter() {
             ))}
           </Column>
 
-          <Column heading="Topics">
+          <Column heading="Platforms">
+            {PLATFORM_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={linkCls}>
+                {link.label}
+              </Link>
+            ))}
+          </Column>
+
+          {/* The AI pages and the one discipline that is not a technology.
+              Split across two columns rather than stacked into one so neither
+              runs to ten rows, and grouped the way a reader would group them
+              rather than in registry order. */}
+          <Column heading="AI & strategy">
+            {AI_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={linkCls}>
+                {link.label}
+              </Link>
+            ))}
             {PILLAR_LINKS.map((link) => (
               <Link key={link.href} href={link.href} className={linkCls}>
                 {link.label}

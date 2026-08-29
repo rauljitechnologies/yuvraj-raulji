@@ -8,6 +8,7 @@ import { SiteEffects } from '../../components/site-effects';
 import { SiteFooter } from '../../components/site-footer';
 import { JsonLd } from '../../components/json-ld';
 import { SiteHeader } from '../../components/site-header';
+import { blogHubSchema, type Crumb } from '../../lib/schema';
 import { POSTS } from '../../lib/posts';
 import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 
@@ -33,44 +34,25 @@ export const metadata: Metadata = {
   },
 };
 
+const crumbs: Crumb[] = [
+  { name: 'Home', href: '/' },
+  { name: 'Insights', href: '/blog/' },
+];
+
 export default function Blog() {
   const posts: ListPost[] = Object.entries(POSTS).map(([slug, p]) => ({ ...p, slug }));
 
-  /** The hub had no structured data at all: articles were described, the collection was not. */
-  const ld = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Blog',
-        '@id': `${SITE_URL}/blog/#blog`,
-        url: `${SITE_URL}/blog/`,
-        name: 'Insights on E-commerce Technology & AI',
-        description:
-          'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI.',
-        inLanguage: 'en-US',
-        publisher: { '@id': `${SITE_URL}/#person` },
-        blogPost: posts.map((p) => ({
-          '@type': 'BlogPosting',
-          '@id': `${SITE_URL}/blog/${p.slug}/#article`,
-          headline: p.title,
-          url: `${SITE_URL}/blog/${p.slug}/`,
-          image: `${SITE_URL}${p.ogImg}`,
-          author: { '@id': `${SITE_URL}/#person` },
-        })),
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'Insights', item: `${SITE_URL}/blog/` },
-        ],
-      },
-    ],
-  };
-
+  /*
+   * Structured data comes from lib/schema.ts rather than from an object built
+   * here. The inline graph this replaces referenced the Person node by @id for
+   * both publisher and author without ever defining it, so /blog/ was the one
+   * page on the site emitting a dangling entity reference and the only one with
+   * no Person in its graph at all. The shared builder defines the node, adds the
+   * CollectionPage every other hub carries, and carries publication dates.
+   */
   return (
     <div className="reveal-blog" style={{ ['--noise-o' as string]: 0.06 }}>
-      <JsonLd data={ld} />
+      <JsonLd data={blogHubSchema(crumbs)} />
       <div className="noise" aria-hidden="true" />
       <Preloader tagline="Blog & Insights" />
       <SiteHeader active="Insights" />

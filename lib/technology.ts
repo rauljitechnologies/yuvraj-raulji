@@ -552,7 +552,7 @@ const AI_SEARCH: Technology = {
   cta: 'Discuss an AI search opportunity',
   title: 'AI Search and GEO | Yuvraj Raulji',
   description:
-    'AI search and Generative Engine Optimization: semantic on-site search, and being understood and cited by AI answer engines. What works, and what is still speculation.',
+    'AI search and Generative Engine Optimization: semantic on-site search, and being cited by AI answer engines. What works, and what is still speculation.',
 
   quickAnswer: {
     answer:
@@ -1171,7 +1171,7 @@ const WOOCOMMERCE: Technology = {
   cta: 'Discuss your WooCommerce project',
   title: 'WooCommerce | Yuvraj Raulji',
   description:
-    'WooCommerce builds, integrations and performance work: bespoke themes, plugin development, checkout and catalogue customisation, and the hardening these stacks arrive without.',
+    'WooCommerce builds and performance work: bespoke themes, plugin development, checkout and catalogue customisation, and the hardening these stacks lack.',
 
   quickAnswer: {
     answer:
@@ -1736,7 +1736,7 @@ const HEADLESS: Technology = {
   cta: 'Discuss your commerce architecture',
   title: 'Headless Commerce | Yuvraj Raulji',
   description:
-    'Headless and composable commerce on Next.js, GraphQL and the Storefront API. When decoupling pays, when it only adds a deployment surface, and how to sequence it.',
+    'Headless and composable commerce on Next.js, GraphQL and the Storefront API. When decoupling pays, when it only adds a deployment surface, and how.',
 
   quickAnswer: {
     answer:
@@ -2019,7 +2019,7 @@ const AI_COMMERCE: Technology = {
   cta: 'Discuss an AI opportunity',
   title: 'AI Commerce | Yuvraj Raulji',
   description:
-    'AI for eCommerce: catalogue enrichment, semantic search, retrieval and operations automation, wired into platforms carrying real order volume rather than left as demos.',
+    'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume rather than left as demos.',
 
   quickAnswer: {
     answer:
@@ -2616,7 +2616,7 @@ const DIGITAL_TRANSFORMATION: Technology = {
   cta: 'Discuss a transformation plan',
   title: 'Digital Transformation | Yuvraj Raulji',
   description:
-    'Modernising legacy commerce stacks into API-first systems: process redesign, phased migration and integration boundaries, sequenced so trading continues throughout.',
+    'Modernising legacy commerce stacks into API-first systems: process redesign, phased migration and integration boundaries, sequenced so trading continues.',
 
   quickAnswer: {
     answer:
@@ -2917,3 +2917,41 @@ export const TECHNOLOGY_LINKS = TECHNOLOGIES.map((t) => ({
   href: techHref(t.slug),
   label: t.label,
 }));
+
+/**
+ * The same links, grouped for the footer.
+ *
+ * Grouped here rather than sliced by index inside the footer component, so
+ * adding a technology cannot silently drop it out of one column and into the
+ * other. A slug named here that no longer exists throws at build time, which is
+ * the failure mode to want: the alternative is a footer that quietly stops
+ * linking a page.
+ *
+ * The footer is where these links matter most. Every older page on the site
+ * collects inbound internal links from the header and footer on all 25 routes;
+ * before this, the technology pages were reachable only from the hub and from
+ * each other, which left the pages built to rank with the least internal link
+ * equity on the site.
+ */
+function group(slugs: readonly string[]) {
+  return slugs.map((slug) => {
+    const t = TECHNOLOGIES_BY_SLUG[slug];
+    if (!t) throw new Error(`Unknown technology slug in footer group: ${slug}`);
+    return { href: techHref(t.slug), label: t.label };
+  });
+}
+
+export const PLATFORM_LINKS = group([
+  'shopify',
+  'magento',
+  'woocommerce',
+  'wordpress',
+  'headless-commerce',
+]);
+
+export const AI_LINKS = group([
+  'ai-commerce',
+  'ai-search',
+  'ai-automation',
+  'digital-transformation',
+]);
