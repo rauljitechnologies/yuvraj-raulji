@@ -30,6 +30,7 @@ import {
   TIMELINE,
 } from './home';
 import { PILLARS, pillarHref, type Pillar } from './expertise';
+import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS } from './posts';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from './site';
 
@@ -336,22 +337,33 @@ export function expertiseHubSchema(crumbs: Crumb[]) {
       path: '/expertise/',
       name: 'Expertise',
       description:
-        'Six practice areas: eCommerce consulting, Magento 2, Shopify, headless commerce, AI commerce and digital transformation.',
+        'Nine technology pages plus eCommerce consulting: Shopify, Magento, WooCommerce, WordPress, headless commerce, AI commerce, AI search, AI automation and digital transformation.',
       type: 'CollectionPage',
       crumbs,
     }),
     breadcrumbNode(crumbs),
     {
+      /* The list is what the hub actually renders: the nine technology pages
+         first, then the disciplines that are not technologies. Listing only the
+         pillars would have described a page that no longer exists. */
       '@type': 'ItemList',
       '@id': `${SITE_URL}/expertise/#list`,
       itemListOrder: 'https://schema.org/ItemListOrderAscending',
-      numberOfItems: PILLARS.length,
-      itemListElement: PILLARS.map((p, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: p.label,
-        url: `${SITE_URL}${pillarHref(p.slug)}`,
-      })),
+      numberOfItems: TECHNOLOGIES.length + PILLARS.length,
+      itemListElement: [
+        ...TECHNOLOGIES.map((t, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: t.label,
+          url: `${SITE_URL}${techHref(t.slug)}`,
+        })),
+        ...PILLARS.map((p, i) => ({
+          '@type': 'ListItem',
+          position: TECHNOLOGIES.length + i + 1,
+          name: p.label,
+          url: `${SITE_URL}${pillarHref(p.slug)}`,
+        })),
+      ],
     },
   ]);
 }
@@ -381,6 +393,43 @@ export function pillarSchema(pillar: Pillar, crumbs: Crumb[]) {
          price is either empty or an invitation to invent one. */
     },
     faqNode(path, pillar.faqs),
+  ]);
+}
+
+/**
+ * A technology landing page.
+ *
+ * Person, WebPage, BreadcrumbList, Service and FAQPage. The FAQ node is built
+ * from the same `faqs` array the page renders as open text, so the markup can
+ * never claim a question the visitor cannot see, which is the one thing that
+ * turns FAQ structured data from an asset into a manual action.
+ *
+ * No `offers` node, for the same reason as the pillars: there is no published
+ * price, and an Offer without one is either empty or an invitation to invent
+ * a number.
+ */
+export function technologySchema(tech: Technology, crumbs: Crumb[]) {
+  const path = techHref(tech.slug);
+  return graph([
+    personNode(),
+    webPageNode({
+      path,
+      name: tech.label,
+      description: tech.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: tech.label,
+      serviceType: tech.label,
+      description: tech.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+    },
+    faqNode(path, tech.faqs),
   ]);
 }
 

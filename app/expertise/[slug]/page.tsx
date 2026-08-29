@@ -22,8 +22,8 @@ import '../../home.css';
 /**
  * Expertise pillar page.
  *
- * One route serves all six. The alternative was six near-identical page files,
- * which is six places for a section to go missing and six places to fix a
+ * One route serves them all. The alternative was five near-identical page files,
+ * which is five places for a section to go missing and five places to fix a
  * heading level.
  *
  * Page structure follows the brief's requirement for each expertise area in
@@ -130,7 +130,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
   ];
 
   /* Cross-links are resolved from ids rather than duplicated, so a case study
-     renamed in lib/home.ts is renamed on all six of these pages at once. An id
+     renamed in lib/home.ts is renamed on every one of these pages at once. An id
      with no match is dropped rather than rendered as a broken row. */
   const cases = pillar.cases
     .map((id) => WORK_ITEMS.find((w) => w.id === id))
@@ -250,10 +250,10 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                 </p>
               </div>
               <p className={`m-0 mt-6 max-w-[46ch] ${BODY}`}>
-                Every one of the six pages under{' '}
-                <InlineLink href="/expertise/">expertise</InlineLink> carries one of these. A
-                consultant who recommends everything for everyone is a vendor with a wider
-                catalogue.
+                Every{' '}
+                <InlineLink href="/expertise/">technology page on this site</InlineLink> carries
+                one of these. A consultant who recommends everything for everyone is a vendor
+                with a wider catalogue.
               </p>
             </Rise>
           </div>
@@ -332,7 +332,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                         {/* `#id` rather than the bare /work/ in the record:
                             every case on the Work page carries an anchor with
                             this same id, so the link lands on the case rather
-                            than at the top of a page of six, and the site-wide
+                            than at the top of a page of cases, and the site-wide
                             scroll offset keeps it clear of the header. */}
                         <a
                           href={`${w.href}#${w.id}`}

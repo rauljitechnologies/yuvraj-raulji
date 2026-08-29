@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { PILLARS, pillarHref } from '../lib/expertise';
+import { TECHNOLOGIES, techHref } from '../lib/technology';
 import { POSTS } from '../lib/posts';
 import { SITE_URL } from '../lib/site';
 
@@ -33,6 +34,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE + '/experience/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/expertise/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/contact/', lastModified: buildDate, changeFrequency: 'yearly', priority: 0.7 },
+    /* The technology landing pages, at the root. Priority above the pillars:
+       these are the pages a platform search lands on. */
+    ...TECHNOLOGIES.map((t) => ({
+      url: `${BASE}${techHref(t.slug)}`,
+      lastModified: buildDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     ...PILLARS.map((p) => ({
       url: `${BASE}${pillarHref(p.slug)}`,
       lastModified: buildDate,

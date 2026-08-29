@@ -4,6 +4,7 @@ import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
 import { ContactButton } from '../../components/homepage/contact-button';
 import { EXPERTISE_HUB, PILLARS, pillarHref } from '../../lib/expertise';
+import { TECHNOLOGIES, techHref } from '../../lib/technology';
 import { expertiseHubSchema, type Crumb } from '../../lib/schema';
 import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 import '../home.css';
@@ -37,16 +38,13 @@ export const metadata: Metadata = {
 /**
  * Expertise hub.
  *
- * Six rows, not a card grid. Each row carries the discipline, what it is, the
- * situation it is wrong for, and its stack, which is enough for a visitor to
- * self-select without opening anything. That is the point of a hub: it should
- * be usable on its own, not a menu that forces six clicks to find out what is
- * behind each label.
+ * The index for the nine technology pages at the root of the site, plus the one
+ * discipline that is not a technology.
  *
- * The `wrong` line is on the hub as well as the pillar page on purpose. A
- * service index where every entry is a recommendation reads as a menu; one
- * where each entry names its own limit reads as a point of view, and it is the
- * fastest way to establish that this is not a vendor page.
+ * Every card names its own limit. A visitor should be able to rule a technology
+ * out from this page without opening it, which is the point of a hub: it should
+ * be usable on its own rather than a menu that forces a click per row to find
+ * out what is behind each label.
  */
 export default function ExpertiseHub() {
   return (
@@ -64,28 +62,27 @@ export default function ExpertiseHub() {
       </PageHero>
 
       {/*
-        The six practice areas, in the homepage's card grid: cells over a 1px
-        gap, a mono ordinal, the discipline at display size with the accent
-        rule under it, and the stack as chips at the foot.
+        The nine technology pages, in the homepage's card grid: cells over a 1px
+        gap, a mono ordinal, the technology at display size with the accent rule
+        under it, and the limit named inside the card.
 
-        What each card keeps that the homepage's has no equivalent for is the
-        limit. A service index where every entry is a recommendation reads as a
+        The limit is here rather than only on the page it belongs to, and that
+        is deliberate. An index where every entry is a recommendation reads as a
         menu; one where each entry names the case against itself reads as a
-        point of view, and it is the fastest way to establish that this is not
-        a vendor page. It sits behind a red hairline inside the card, directly
-        under the description it qualifies.
+        point of view, and it is the fastest way to establish that this is not a
+        vendor page.
 
-        The heading carries the link, so the anchor text is the discipline name
+        The heading carries the link, so the anchor text is the technology name
         and nothing else has to carry it, and `after:absolute after:inset-0`
         stretches that one link over the whole card so the entire cell is a
         target without a second, competing anchor in the markup.
       */}
-      <Section id="pillars" labelledBy="pillars-title">
+      <Section id="technology" labelledBy="technology-title">
         <Shell>
-          <Marker label="Practice areas" />
+          <Marker label="By technology" />
 
           <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
-            <Lines as="h2" id="pillars-title" lines={['Six areas.', 'Six honest limits.']} />
+            <Lines as="h2" id="technology-title" lines={['Nine technologies.', 'Nine honest limits.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
                 {EXPERTISE_HUB.body}
@@ -94,8 +91,8 @@ export default function ExpertiseHub() {
           </div>
 
           <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2">
-            {PILLARS.map((p, i) => (
-              <li key={p.slug} className="flex">
+            {TECHNOLOGIES.map((t, i) => (
+              <li key={t.slug} className="flex">
                 <Rise
                   delay={Math.min(i, 3) * 0.06}
                   className="group relative flex w-full flex-col bg-surface p-6 transition-colors duration-300 hover:bg-[var(--bg)] sm:p-8 lg:p-10"
@@ -105,7 +102,7 @@ export default function ExpertiseHub() {
                       aria-hidden="true"
                       className="font-mono text-xs font-medium leading-none tracking-[0.2em] text-accent-bright"
                     >
-                      {p.num}
+                      {String(i + 1).padStart(2, '0')}
                     </span>
                     <span aria-hidden="true" className="font-mono text-xl leading-none text-ink/30">
                       ↗
@@ -114,10 +111,10 @@ export default function ExpertiseHub() {
 
                   <h3 className="mb-4 mt-7 font-manrope text-[clamp(22px,2.2vw,32px)] font-semibold leading-[1.08] tracking-[-0.03em]">
                     <a
-                      href={pillarHref(p.slug)}
+                      href={techHref(t.slug)}
                       className="transition-colors duration-200 after:absolute after:inset-0 after:content-[''] group-hover:text-accent-bright"
                     >
-                      {p.label}
+                      {t.label}
                     </a>
                   </h3>
 
@@ -127,26 +124,20 @@ export default function ExpertiseHub() {
                   />
 
                   <p className="mt-6 max-w-[52ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50">
-                    {p.lede}
+                    {t.description}
                   </p>
 
-                  <div className="mt-6 border-l border-accent/40 pl-5">
-                    <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
-                      Wrong choice when
-                    </p>
-                    <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
-                      {p.wrong}
-                    </p>
-                  </div>
-
-                  {/* `mt-auto` so the chips sit on the floor of every card
-                      whatever the description above them runs to, which is what
+                  {/* `mt-auto` so the limit sits on the floor of every card
+                      whatever the description above it runs to, which is what
                       keeps a two-column grid of unequal text from looking
                       ragged along the bottom. */}
-                  <div className="mt-auto flex flex-wrap gap-2 pt-8">
-                    {p.stack.slice(0, 3).map((sTag) => (
-                      <Tag key={sTag}>{sTag}</Tag>
-                    ))}
+                  <div className="mt-auto border-l border-accent/40 pl-5 pt-8">
+                    <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                      Think twice when
+                    </p>
+                    <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                      {t.fit.thinkTwice[0]}.
+                    </p>
                   </div>
                 </Rise>
               </li>
@@ -155,6 +146,57 @@ export default function ExpertiseHub() {
         </Shell>
       </Section>
 
+      {/* ── The discipline ────────────────────────────────────────
+          Every card above is a technology. This is the one entry that is not:
+          the conversation that happens before a technology has been chosen, and
+          the one a fair number of these engagements should start with. It sits
+          apart from the grid because putting it inside would file a discipline
+          as a tenth platform. */}
+      {PILLARS.map((p) => (
+        <Section key={p.slug} id="consulting" labelledBy="consulting-title">
+          <Shell>
+            <Marker label="Before the technology" />
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14">
+              <Lines as="h2" id="consulting-title" lines={['When the platform', 'is still an open question.']} />
+            </div>
+            <div className="grid gap-x-16 gap-y-8 border-t border-line pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+              <Rise>
+                <h3 className="m-0 font-manrope text-[clamp(22px,2.2vw,32px)] font-semibold leading-[1.08] tracking-[-0.03em]">
+                  <a
+                    href={pillarHref(p.slug)}
+                    className="transition-colors duration-200 hover:text-accent-bright"
+                  >
+                    {p.label}
+                  </a>
+                </h3>
+                <div
+                  aria-hidden="true"
+                  className="mt-4 h-0.5 w-16 bg-accent"
+                />
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {p.stack.slice(0, 4).map((sTag) => (
+                    <Tag key={sTag}>{sTag}</Tag>
+                  ))}
+                </div>
+              </Rise>
+              <Rise delay={0.12}>
+                <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+                  {p.lede}
+                </p>
+                <div className="mt-6 border-l border-accent/40 pl-5">
+                  <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                    Wrong choice when
+                  </p>
+                  <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                    {p.wrong}
+                  </p>
+                </div>
+              </Rise>
+            </div>
+          </Shell>
+        </Section>
+      ))}
+
       {/* The question the index leaves a reader with, set as the homepage sets
           a statement: one line, large and light, with the turn at 600. */}
       <Section id="next" labelledBy="next-title" tall>
@@ -162,7 +204,7 @@ export default function ExpertiseHub() {
           <Lines
             as="h2"
             id="next-title"
-            lines={['Not sure which', 'of the six this is?']}
+            lines={['Not sure which', 'of these it is?']}
             className="max-w-[20ch]"
           />
           <Rise delay={0.2} className="mt-10">
