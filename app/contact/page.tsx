@@ -4,7 +4,7 @@ import { ContactForm } from '../../components/homepage-sections/contact-form';
 import { Rise } from '../../components/homepage/motion';
 import { Marker, Section, Shell } from '../../components/homepage/primitives';
 import { contactSchema, type Crumb } from '../../lib/schema';
-import { CONTACT, SITE_URL } from '../../lib/site';
+import { CONTACT, OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 import '../home.css';
 
 const crumbs: Crumb[] = [
@@ -27,8 +27,9 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'website',
     locale: 'en_US',
+    images: [OG_IMAGE],
   },
-  twitter: { card: 'summary', title, description },
+  twitter: { card: 'summary_large_image', title, description, images: [OG_IMAGE_URL] },
 };
 
 /**

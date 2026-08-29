@@ -16,7 +16,7 @@ import { PILLARS, PILLARS_BY_SLUG, pillarHref, type Pillar } from '../../../lib/
 import { WORK_ITEMS } from '../../../lib/home';
 import { POSTS } from '../../../lib/posts';
 import { pillarSchema, type Crumb } from '../../../lib/schema';
-import { SITE_URL } from '../../../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../../lib/site';
 import '../../home.css';
 
 /**
@@ -64,8 +64,14 @@ export async function generateMetadata({
       siteName: 'Yuvraj Raulji',
       type: 'article',
       locale: 'en_US',
+      images: [OG_IMAGE],
     },
-    twitter: { card: 'summary', title: pillar.title, description: pillar.description },
+    twitter: {
+      card: 'summary_large_image',
+      title: pillar.title,
+      description: pillar.description,
+      images: [OG_IMAGE_URL],
+    },
   };
 }
 

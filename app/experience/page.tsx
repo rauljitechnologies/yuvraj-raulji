@@ -9,6 +9,8 @@ import {
   CERTIFICATIONS,
   EDUCATION,
   EXPERIENCE,
+  OG_IMAGE,
+  OG_IMAGE_URL,
   SITE_URL,
   TECH_PROFICIENCIES,
 } from '../../lib/site';
@@ -34,8 +36,9 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'profile',
     locale: 'en_US',
+    images: [OG_IMAGE],
   },
-  twitter: { card: 'summary', title, description },
+  twitter: { card: 'summary_large_image', title, description, images: [OG_IMAGE_URL] },
 };
 
 /**

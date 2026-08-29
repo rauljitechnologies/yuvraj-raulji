@@ -9,7 +9,7 @@ import { SiteFooter } from '../../components/site-footer';
 import { JsonLd } from '../../components/json-ld';
 import { SiteHeader } from '../../components/site-header';
 import { POSTS } from '../../lib/posts';
-import { SITE_URL } from '../../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Insights on eCommerce Technology and AI | Yuvraj Raulji',
@@ -22,11 +22,14 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/blog/`,
     siteName: 'Yuvraj Raulji',
     type: 'website',
+    locale: 'en_US',
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Blog and Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS and AI by Yuvraj Raulji.',
+    images: [OG_IMAGE_URL],
   },
 };
 
@@ -51,7 +54,7 @@ export default function Blog() {
           '@id': `${SITE_URL}/blog/${p.slug}/#article`,
           headline: p.title,
           url: `${SITE_URL}/blog/${p.slug}/`,
-          image: p.img,
+          image: `${SITE_URL}${p.ogImg}`,
           author: { '@id': `${SITE_URL}/#person` },
         })),
       },

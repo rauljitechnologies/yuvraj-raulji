@@ -41,9 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       publishedTime: isoDate(p.date),
       authors: ['Yuvraj Raulji'],
-      images: [{ url: p.img, width: 1600, height: 900, alt: p.title }],
+      images: [{ url: p.ogImg, width: 1600, height: 900, alt: p.title }],
     },
-    twitter: { card: 'summary_large_image', title: p.title, description: p.excerpt, images: [p.img] },
+    twitter: { card: 'summary_large_image', title: p.title, description: p.excerpt, images: [p.ogImg] },
   };
 }
 
@@ -73,7 +73,7 @@ export default async function Article({ params }: Props) {
         mainEntityOfPage: url,
         headline: p.title,
         description: p.excerpt,
-        image: p.img,
+        image: `${SITE_URL}${p.ogImg}`,
         articleSection: p.cat,
         keywords: tags.join(', '),
         datePublished: isoDate(p.date),

@@ -20,9 +20,8 @@ import {
   Systems,
 } from '../components/homepage-sections/sections';
 import { JsonLd } from '../components/json-ld';
-import { POSITIONING_PLAIN } from '../lib/brand';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
-import { SITE_URL } from '../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../lib/site';
 
 /**
  * Title and description carry the one positioning string, and the same one the
@@ -62,26 +61,13 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'website',
     locale: 'en_US',
-    images: [
-      {
-        url: `${SITE_URL}/assets/yuvraj-raulji.jpg`,
-        width: 400,
-        height: 400,
-        alt: `Yuvraj Raulji, working across ${POSITIONING_PLAIN}`,
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
-    /*
-     * `summary`, not `summary_large_image`. The only real photograph in the
-     * repository is 400x400, and a square asset in a 1.91:1 card is either
-     * cropped through the subject's face or pillarboxed. Ship a 1200x630 card
-     * and this becomes summary_large_image.
-     */
-    card: 'summary',
+    card: 'summary_large_image',
     title,
     description: HOME_DESCRIPTION,
-    images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`],
+    images: [OG_IMAGE_URL],
   },
 };
 

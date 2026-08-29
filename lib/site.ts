@@ -25,6 +25,34 @@ export const CONTACT = {
  */
 export const SITE_URL = 'https://www.yuvrajraulji.com';
 
+/**
+ * The share card every route falls back to.
+ *
+ * It is declared here rather than on the root layout because Next only
+ * inherits `openGraph` into a page that sets no `openGraph` of its own, and
+ * every page here sets one. A parent default would therefore have reached no
+ * page at all; a constant each page spreads in reaches all of them.
+ *
+ * 1200x630 is the ratio every platform crops to, so nothing is cut. It
+ * replaces the 400x400 portrait, which was the only photograph in the
+ * repository and forced every card to `summary`: a square asset in a 1.91:1
+ * frame is cropped through the face. The card carries the positioning line,
+ * the name and the core idea, so a shared link says what the site is before
+ * anyone clicks it.
+ *
+ * Rebuilt from scripts/og-card.html — edit that, re-screenshot at 2x, and
+ * downscale to 1200x630.
+ */
+export const OG_IMAGE = {
+  url: `${SITE_URL}/assets/og-card.jpg`,
+  width: 1200,
+  height: 630,
+  alt: 'Yuvraj Raulji, working across AI, business and eCommerce',
+} as const;
+
+/** The same asset in the shape the `twitter.images` field takes. */
+export const OG_IMAGE_URL = OG_IMAGE.url;
+
 export const LEAD_ENDPOINT =
   'https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec';
 

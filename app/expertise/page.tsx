@@ -5,7 +5,7 @@ import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/prim
 import { ContactButton } from '../../components/homepage/contact-button';
 import { EXPERTISE_HUB, PILLARS, pillarHref } from '../../lib/expertise';
 import { expertiseHubSchema, type Crumb } from '../../lib/schema';
-import { SITE_URL } from '../../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 import '../home.css';
 
 const crumbs: Crumb[] = [
@@ -24,8 +24,14 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'website',
     locale: 'en_US',
+    images: [OG_IMAGE],
   },
-  twitter: { card: 'summary', title: EXPERTISE_HUB.title, description: EXPERTISE_HUB.description },
+  twitter: {
+    card: 'summary_large_image',
+    title: EXPERTISE_HUB.title,
+    description: EXPERTISE_HUB.description,
+    images: [OG_IMAGE_URL],
+  },
 };
 
 /**

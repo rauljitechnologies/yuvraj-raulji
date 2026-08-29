@@ -1,4 +1,14 @@
 import Link from 'next/link';
+import { POSTS } from '../../lib/posts';
+
+/**
+ * The featured card. Its cover used to be a hard-coded Unsplash URL sitting
+ * next to a link to the same article, so the two could drift apart and the
+ * page's largest image came off a third-party origin. Both now come from the
+ * post record.
+ */
+const FEATURED_SLUG = 'ai-ecommerce-revenue-2025';
+const FEATURED = POSTS[FEATURED_SLUG];
 
 const TICKER = [
   'Magento 2',
@@ -175,14 +185,14 @@ export function BlogHero() {
             {/* RIGHT: featured */}
             <div className="relative lg:py-10 reveal" style={{ animationDelay: '.18s' }}>
               <Link
-                href="/blog/ai-ecommerce-revenue-2025"
+                href={`/blog/${FEATURED_SLUG}/`}
                 className="group block relative h-full rounded-2xl overflow-hidden"
                 style={{ minHeight: 'clamp(400px,55vh,680px)', border: '1px solid rgba(255,255,255,.09)', boxShadow: '0 40px 100px rgba(0,0,0,.60)' }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=1400&q=80"
-                  alt="AI for E-commerce in 2026"
+                  src={FEATURED.img}
+                  alt={FEATURED.title}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg,rgba(6,6,6,.08) 0%,rgba(6,6,6,.20) 30%,rgba(6,6,6,.85) 80%,rgba(6,6,6,.97) 100%)' }} />

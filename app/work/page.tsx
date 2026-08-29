@@ -6,7 +6,7 @@ import { Btn, Marker, Section, Shell } from '../../components/homepage/primitive
 import { WORK_NOTE } from '../../lib/brand';
 import { brandWorkSchema, WORK_DESCRIPTION } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
-import { SITE_URL } from '../../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
@@ -36,8 +36,9 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'website',
     locale: 'en_US',
+    images: [OG_IMAGE],
   },
-  twitter: { card: 'summary', title, description: WORK_DESCRIPTION },
+  twitter: { card: 'summary_large_image', title, description: WORK_DESCRIPTION, images: [OG_IMAGE_URL] },
 };
 
 /**

@@ -11,7 +11,7 @@ import { Page, PageHero } from '../../components/chrome/page';
 import { ABOUT_HERO } from '../../lib/about';
 import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
-import { SITE_URL } from '../../lib/site';
+import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
@@ -46,20 +46,13 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'profile',
     locale: 'en_US',
-    images: [
-      {
-        url: `${SITE_URL}/assets/yuvraj-raulji.jpg`,
-        width: 400,
-        height: 400,
-        alt: 'Yuvraj Raulji',
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title,
     description: ABOUT_DESCRIPTION,
-    images: [`${SITE_URL}/assets/yuvraj-raulji.jpg`],
+    images: [OG_IMAGE_URL],
   },
 };
 
