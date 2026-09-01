@@ -53,7 +53,15 @@ function GridCard({ post, imgHeight, titleSize, excerptSize, showDate }: { post:
     <article className="bc reveal group">
       <Link href={`/blog/${post.slug}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: imgHeight }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={post.img} alt={post.title} className="ci w-full h-full object-cover" loading="lazy" />
+        <img
+          src={post.img}
+          alt={post.title}
+          width={1600}
+          height={900}
+          loading="lazy"
+          decoding="async"
+          className="ci w-full h-full object-cover"
+        />
         <div className="img-tint" />
         {showDate && (
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg,transparent 50%,rgba(6,6,6,.40) 100%)', pointerEvents: 'none' }} />
@@ -244,8 +252,11 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                         <img
                           src={post.img}
                           alt={post.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-[1.04]"
+                          width={1600}
+                          height={900}
                           loading="lazy"
+                          decoding="async"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-[1.04]"
                         />
                         <div
                           style={{

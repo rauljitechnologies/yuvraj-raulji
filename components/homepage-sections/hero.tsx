@@ -62,7 +62,7 @@ export function Hero() {
             <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] leading-[0.94] tracking-[-0.04em]">
               <span className="block font-light tracking-[-0.05em] text-ink/80">
                 I build with <br className="hidden sm:inline" />
-                technology.
+                technology.{' '}
               </span>
               <span className="mt-[0.1em] block font-semibold">
                 I think in <br className="hidden sm:inline" />

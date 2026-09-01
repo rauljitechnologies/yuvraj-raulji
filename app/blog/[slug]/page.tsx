@@ -8,6 +8,7 @@ import { SiteEffects } from '../../../components/site-effects';
 import { SiteFooter } from '../../../components/site-footer';
 import { SiteHeader } from '../../../components/site-header';
 import { getArticle } from '../../../lib/articles';
+import { articleSchema, type Crumb } from '../../../lib/schema';
 import { POSTS } from '../../../lib/posts';
 import { CONTACT, SITE_URL } from '../../../lib/site';
 import { TAGS } from '../../../lib/tags';
@@ -47,6 +48,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/*
+  The trail. The middle crumb is named "Insights", which is what app/blog/page.tsx
+  calls the same URL; this page previously called it "Blog & Insights", so the two
+  BreadcrumbLists described /blog/ under two different names.
+*/
+function articleCrumbs(title: string, url: string): Crumb[] {
+  return [
+    { name: 'Home', href: '/' },
+    { name: 'Insights', href: '/blog/' },
+    { name: title, href: url.replace(SITE_URL, '') },
+  ];
+}
+
 /** Same rule as the original: same-category first, topped up with any others. */
 function relatedFor(slug: string) {
   const p = POSTS[slug];
@@ -64,40 +78,22 @@ export default async function Article({ params }: Props) {
   const tags = TAGS[slug] ?? [p.cat];
   const related = relatedFor(slug);
 
-  const ld = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'BlogPosting',
-        '@id': `${url}#article`,
-        mainEntityOfPage: url,
-        headline: p.title,
-        description: p.excerpt,
-        image: `${SITE_URL}${p.ogImg}`,
-        articleSection: p.cat,
-        keywords: tags.join(', '),
-        datePublished: isoDate(p.date),
-        dateModified: isoDate(p.date),
-        inLanguage: 'en-US',
-        author: {
-          '@type': 'Person',
-          '@id': `${SITE_URL}/#person`,
-          name: 'Yuvraj Raulji',
-          url: `${SITE_URL}/`,
-          jobTitle: 'E-commerce & Digital Transformation Consultant',
-        },
-        publisher: { '@id': `${SITE_URL}/#person` },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'Blog & Insights', item: `${SITE_URL}/blog/` },
-          { '@type': 'ListItem', position: 3, name: p.title, item: url },
-        ],
-      },
-    ],
-  };
+  /*
+    The graph comes from lib/schema.ts, not from a literal built here.
+
+    The literal that stood here declared `publisher: { '@id': '.../#person' }`
+    and emitted no Person node on the page, so the publisher reference resolved
+    to nothing: a bare `@id` with no `@type` and no matching node is not an
+    entity Google can read, and `publisher` is required on an Article. It also
+    repeated the author inline with a `jobTitle` of "E-commerce & Digital
+    Transformation Consultant", contradicting the single PERSON_JOB_TITLE every
+    other page on the site states.
+
+    `articleSchema` emits the full Person node and points both `author` and
+    `publisher` at it by reference, which is what ties eight articles to the
+    one entity the rest of the site defines.
+  */
+  const ld = articleSchema({ slug, crumbs: articleCrumbs(p.title, url), keywords: tags });
 
   return (
     <div className="reveal-article">
@@ -239,7 +235,16 @@ export default async function Article({ params }: Props) {
         <div className="max-w-shell mx-auto px-6 md:px-10" style={{ marginBottom: 'clamp(56px,7vw,90px)' }}>
           <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[400px] md:h-[560px]" style={{ border: '1px solid rgba(255,255,255,.09)', boxShadow: '0 50px 110px rgba(0,0,0,.60)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.img} alt={p.title} className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'imgIn 1.5s cubic-bezier(.19,1,.22,1) both .2s' }} />
+            <img
+              src={p.img}
+              alt={p.title}
+              width={1600}
+              height={900}
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ animation: 'imgIn 1.5s cubic-bezier(.19,1,.22,1) both .2s' }}
+            />
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(6,6,6,.28) 0%,transparent 35%,rgba(6,6,6,.55) 100%)' }} />
             <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(229, 9, 32,.16)' }} />
           </div>
@@ -282,7 +287,15 @@ export default async function Article({ params }: Props) {
                   >
                     <div className="relative overflow-hidden" style={{ height: 190 }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={r.img} alt={r.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
+                      <img
+                        src={r.img}
+                        alt={r.title}
+                        width={1600}
+                        height={900}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      />
                       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,rgba(6,6,6,.55) 100%)' }} />
                       <span
                         className="absolute top-4 left-4 inline-flex items-center h-[24px] px-3 rounded-full bg-rv text-white text-[.56rem] font-bold tracking-[.14em] uppercase"

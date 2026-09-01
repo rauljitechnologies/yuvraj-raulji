@@ -492,9 +492,13 @@ export function contactSchema(crumbs: Crumb[]) {
 export function articleSchema({
   slug,
   crumbs,
+  keywords,
 }: {
   slug: string;
   crumbs: Crumb[];
+  /** The article's tags. Left off the node entirely when there are none,
+      rather than emitted as an empty string. */
+  keywords?: string[];
 }) {
   const post = POSTS[slug];
   const path = `/blog/${slug}/`;
@@ -513,6 +517,7 @@ export function articleSchema({
       datePublished: published,
       dateModified: published,
       articleSection: post.cat,
+      ...(keywords?.length ? { keywords: keywords.join(', ') } : {}),
       inLanguage: 'en-US',
       author: personRef,
       publisher: personRef,

@@ -113,10 +113,10 @@ export function BlogHero() {
               <div>
                 <h1 className="leading-none mb-8" style={{ marginLeft: -2 }} aria-label="Blog & Insights">
                   <div style={{ ...displayFace, fontSize: 'clamp(4rem,10.2vw,9.6rem)', lineHeight: 0.87, letterSpacing: '.01em', WebkitTextStroke: '1.5px rgba(245, 245, 242,.11)', color: 'transparent', display: 'block' }} aria-hidden="true">
-                    BLOG
+                    BLOG{' '}
                   </div>
                   <div style={{ ...displayFace, fontSize: 'clamp(2.4rem,5.8vw,5.5rem)', lineHeight: 0.88, letterSpacing: '.01em', color: '#f0263c', marginTop: '-.06em', display: 'block' }}>
-                    &amp;
+                    &amp;{' '}
                   </div>
                   <div style={{ ...displayFace, fontSize: 'clamp(4rem,10.2vw,9.6rem)', lineHeight: 0.87, letterSpacing: '.01em', color: '#f5f5f2', marginTop: '-.06em', display: 'block' }}>
                     INSIGHTS
@@ -193,6 +193,10 @@ export function BlogHero() {
                 <img
                   src={FEATURED.img}
                   alt={FEATURED.title}
+                  width={1600}
+                  height={900}
+                  fetchPriority="high"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg,rgba(6,6,6,.08) 0%,rgba(6,6,6,.20) 30%,rgba(6,6,6,.85) 80%,rgba(6,6,6,.97) 100%)' }} />

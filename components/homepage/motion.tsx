@@ -84,7 +84,19 @@ export function Lines({
                   : { duration: 0.85, ease: EASE_OUT, delay: delay + i * 0.09 }
               }
             >
-              {text}
+              {/*
+                The trailing space is deliberate and load-bearing.
+
+                Each line is its own element, so the heading's text nodes
+                concatenate with nothing between them: "How we think about it"
+                followed by "matters more." read as "itmatters more." in the
+                served HTML. A browser hides that because the spans are block
+                boxes, but anything reading the markup without laying it out,
+                which is most AI crawlers and every social scraper, sees the
+                glued form. The space costs nothing visually and separates the
+                lines for them.
+              */}
+              {text}{' '}
             </motion.span>
           </span>
         );
