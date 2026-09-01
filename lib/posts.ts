@@ -1,4 +1,6 @@
-// Auto-generated from blog data — 22 posts
+// Auto-generated from blog data. Eight posts, which is what POSTS below holds
+// and what /blog/ and the sitemap render. The count previously read 22, a
+// figure left over from an earlier data set and true of nothing in this repo.
 
 export interface Post {
   cat: string;
