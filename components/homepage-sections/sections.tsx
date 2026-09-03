@@ -301,16 +301,27 @@ export function Capabilities() {
         </RvGroup>
 
         <Rv className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/12 pt-10">
-          <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
-            Not sure which of these the problem sits in? That is usually the first thing worth
-            establishing, and it is what{' '}
+          {/*
+            Two lines, and the measure is 44ch to hold it there.
+
+            The link was added to this sentence without shortening it, and the
+            measure was widened to 52ch to fit the extra words. The result set
+            in three lines with "actually for." alone on the third, at 17% of
+            the measure: a two-word widow under a heading, next to the only
+            accent button in the section. Both of the other section closes on
+            this page set in two, so this one was the odd row rather than a new
+            idea. The sentence is shorter now instead of the column being
+            wider, which keeps the link and drops the orphan.
+          */}
+          <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
+            Not sure which of these the problem sits in? Establishing that is what{' '}
             <a
               href="/expertise/ecommerce-consulting/"
               className="border-b border-accent/60 text-ink/75 transition-colors hover:border-accent-bright hover:text-ink"
             >
               eCommerce consulting
             </a>{' '}
-            is actually for.
+            is for.
           </p>
           <Cta href="#contact" variant="accent">
             Book a 30-minute consultation
