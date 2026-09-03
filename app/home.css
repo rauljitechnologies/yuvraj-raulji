@@ -166,7 +166,7 @@
   letter-spacing: 0.3em;
   text-transform: uppercase;
   line-height: 1;
-  color: rgb(var(--text-rgb) / 0.45);
+  color: rgb(var(--text-rgb) / 0.55);
 }
 
 /* ── Display type ────────────────────────────────────────────────
@@ -259,7 +259,7 @@
   font-size: 15px;
   font-weight: 300;
   line-height: 1.7;
-  color: rgb(var(--text-rgb) / 0.5);
+  color: rgb(var(--text-rgb) / 0.58);
 }
 
 /* The small uppercase eyebrow, in the mono face the homepage uses for every
@@ -272,7 +272,7 @@
   letter-spacing: 0.24em;
   text-transform: uppercase;
   line-height: 1.5;
-  color: rgb(var(--text-rgb) / 0.35);
+  color: rgb(var(--text-rgb) / 0.55);
 }
 
 /* Eyebrow variant that carries the red. --accent-bright, never --accent:
@@ -840,7 +840,7 @@ a:focus-visible .yr-frame::after {
   --text: #050505;
   --text-secondary: rgba(5, 5, 5, 0.74);
   --text-muted: #565656;
-  --text-faint: rgba(5, 5, 5, 0.34);
+  --text-faint: rgba(5, 5, 5, 0.55);
 
   --accent: #d71920;
   --accent-bright: #a30f15;

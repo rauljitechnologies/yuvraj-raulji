@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Page, PageHero } from '../chrome/page';
 import { ContactButton } from '../homepage/contact-button';
-import { Lines, Rise } from '../homepage/motion';
+import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../homepage/primitives';
 import { WORK_ITEMS } from '../../lib/home';
 import { POSTS } from '../../lib/posts';
@@ -11,44 +11,81 @@ import { techHref, type Technology } from '../../lib/technology';
 /**
  * The technology landing page. One component, nine pages.
  *
- * ── The band rhythm ────────────────────────────────────────────────────────
+ * ── The ground ──────────────────────────────────────────────────────────────────
  *
- * The page alternates black and paper, and paper is `.yr-paper` from
- * app/home.css. That class is a token swap, not a set of overrides: it
- * redeclares --bg, --text, --rule and the accent channels on its own scope, so
- * every component inside it inverts without knowing it has. Nothing in this
- * file styles for the light band, and nothing should. If a section needs a
- * colour, it takes a token.
+ * The page is paper end to end: white ground, near-black text, red accents.
+ * That is `.yr-paper` from app/home.css, passed to `Page` as `scope` so it
+ * lands on <main> and every section inherits it. The class is a token swap,
+ * not a set of overrides: it redeclares --bg, --text, --rule and the accent
+ * channels on its own scope, so every component inside inverts without knowing
+ * it has.
  *
- * Order, and which ground each section sits on:
+ * The red is the reason the swap is a class and not a palette rewrite here.
+ * --accent stays #d71920 on both grounds because it is the brand. What cannot
+ * stay is --accent-bright: #ee2a34 is drawn to lift off black and lands at
+ * 3.4:1 on white, failing AA for the labels and marker numbers that use it, so
+ * on paper it maps to #a30f15 at 7.6:1. Reach for a token and the contrast is
+ * handled; hardcode a hex and it is not.
  *
- *   01 Hero            black    the H1, the lede, two calls to action
- *   02 Quick answer    paper    the extractable definition
- *   03 Problems        black    symptom, cost, then what the technology does
- *   04 Approach        paper    the five stages, same five on every page
- *   05 Capabilities    black    grouped, not a wall of service cards
- *   06 AI              paper    the signature section
- *   07 Architecture    black    the diagram
- *   08 Fit             paper    good fit against think twice, same weight
- *   09 Comparison      paper    continues the band; it is the same decision
- *   10 Work            black    real builds only
- *   11 Outcomes        black    verified figures, with their context attached
- *   12 FAQ             paper    open text, because the schema has to match it
- *   13 Related         paper    the internal linking
- *   14 Final CTA       black    the closing question
+ * So nothing in this file styles for a ground. There is no `.yr-paper .thing`
+ * rule anywhere, and there should not be one. If a section needs a colour it
+ * takes a token, which is what lets the whole page change ground by one prop.
+ *
+ * Section order:
+ *
+ *   01 Hero            the H1, the lede, two calls to action
+ *   02 Quick answer    the extractable definition
+ *   03 Problems        symptom, cost, then what the technology does
+ *   04 Approach        the five stages, same five on every page
+ *   05 Capabilities    grouped, not a wall of service cards
+ *   06 AI              the signature section
+ *   07 Architecture    the diagram
+ *   08 Fit             good fit against think twice, same weight
+ *   09 Comparison      how it reads against the alternatives
+ *   10 Work            real builds only
+ *   11 Outcomes        verified figures, with their context attached
+ *   12 FAQ             open text, because the schema has to match it
+ *   13 Related         the other pages worth a click
+ *   14 Final CTA       the closing question
  *
  * ── Headings ───────────────────────────────────────────────────────────────
  *
  * One H1, in the hero. Every section opens an H2. Repeated items inside a
- * section are H3. No level is skipped, on any of the nine pages.
+ * section are H3, and a named sub-part of one of those items is an H4:
+ * "Opportunity" under a problem, "Where this came from" under an outcome, and
+ * the article titles under Related. No level is skipped, on any of the nine
+ * pages.
+ *
+ * It stops at H4 because the content stops at H4. The outline runs section,
+ * item, named part of an item, and there is no fifth thing under the fourth to
+ * describe. The one place that looks like it goes deeper, the <dl> of "What it
+ * does" / "How it works" terms in the AI section, is a definition list rather
+ * than a heading level, and <dt> may not contain heading content under the
+ * HTML content model, so those terms stay <dt>. Adding H5 and H6 here would
+ * mean inventing nesting the page does not have, which reads to a screen
+ * reader as structure that is not there.
  */
+
+/* Headlines land in the red.
+
+   `Lines` paints a line in --accent when it is handed `{ text, accent: true }`,
+   which is how BUSINESS carries the red on the homepage. Here it marks the
+   last line, the same one the default `strongFrom` sets solid at 600, so the
+   weight and the colour arrive together rather than on two different lines.
+   Used by the H1 and by every section H2, so the red marks where a headline
+   turns rather than appearing once at the top of the page.
+
+   Doing it here rather than in lib/technology.ts keeps the authored headlines
+   as plain strings and applies the treatment to all nine pages at once. */
+const accentLastLine = (lines: readonly string[]): readonly DisplayLine[] =>
+  lines.map((text, i) => (i === lines.length - 1 ? { text, accent: true } : text));
 
 /* One mono label, shared by every eyebrow below, matching the pillar pages. */
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 /* One body size, so fourteen sections cannot drift into fourteen body sizes. */
-const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/50';
+const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/55';
 
 function Head({
   label,
@@ -65,7 +102,7 @@ function Head({
     <>
       <Marker label={label} />
       <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
-        <Lines as="h2" id={id} lines={lines} />
+        <Lines as="h2" id={id} lines={accentLastLine(lines)} />
         {lede ? (
           <Rise delay={0.18}>
             <p className={`m-0 max-w-[520px] ${BODY}`}>{lede}</p>
@@ -94,9 +131,14 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
     .filter((p): p is { slug: string } & (typeof POSTS)[string] => Boolean(p));
 
   return (
-    <Page schema={technologySchema(tech, crumbs)} active="Expertise">
+    <Page schema={technologySchema(tech, crumbs)} active="Expertise" scope="yr-paper">
       {/* ── 01 Hero ─────────────────────────────────────────────── */}
-      <PageHero eyebrow={tech.eyebrow} lines={tech.h1} lede={tech.lede} crumbs={crumbs}>
+      <PageHero
+        eyebrow={tech.eyebrow}
+        lines={accentLastLine(tech.h1)}
+        lede={tech.lede}
+        crumbs={crumbs}
+      >
         <ContactButton>{tech.cta}</ContactButton>
         <Btn href="#work" variant="ghost">
           View relevant work
@@ -107,7 +149,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           The passage an AI system quotes. It is written to stand alone, which
           is why it names the technology instead of saying "the platform", and
           why it is one paragraph rather than four. */}
-      <Section id="what" labelledBy="what-title" className="yr-paper">
+      <Section id="what" labelledBy="what-title">
         <Shell>
           <Head label="Quick answer" id="what-title" lines={['What is', `${tech.name}?`]} />
           <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
@@ -163,10 +205,12 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                     {p.symptom}
                   </h3>
                   <p className={`m-0 max-w-[52ch] ${BODY}`}>{p.body}</p>
-                  <p className="m-0 max-w-[52ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/65">
-                    <span className={`${LABEL} mb-3 block text-accent-bright`}>Opportunity</span>
-                    {p.opportunity}
-                  </p>
+                  <div>
+                    <h4 className={`${LABEL} mb-3 block text-accent-bright`}>Opportunity</h4>
+                    <p className="m-0 max-w-[52ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/65">
+                      {p.opportunity}
+                    </p>
+                  </div>
                 </Rise>
               </li>
             ))}
@@ -177,7 +221,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
       {/* ── 04 Approach ─────────────────────────────────────────────
           The same five stages on every technology page, because the method
           genuinely is the same one. Only the bodies change. */}
-      <Section id="approach" labelledBy="approach-title" className="yr-paper">
+      <Section id="approach" labelledBy="approach-title">
         <Shell>
           <Head
             label="Approach"
@@ -201,7 +245,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   <h3 className="m-0 mt-6 font-manrope text-[clamp(20px,2vw,28px)] font-semibold uppercase leading-[1.15] tracking-[-0.02em]">
                     {stage.title}
                   </h3>
-                  <p className="m-0 mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/40">
+                  <p className="m-0 mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/55">
                     {stage.covers.map((c) => (
                       <span key={c}>{c}</span>
                     ))}
@@ -257,7 +301,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           are the ones that make it worth reading: where a human still checks,
           and what it does not do. An entry that cannot fill those two does not
           belong on the page. */}
-      <Section id="ai" labelledBy="ai-title" className="yr-paper">
+      <Section id="ai" labelledBy="ai-title">
         <Shell>
           <Head
             label="AI and technology"
@@ -354,7 +398,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           The two halves are deliberately the same size. Sizing the
           qualification smaller than the pitch is how a point of view quietly
           turns back into a sales page. */}
-      <Section id="fit" labelledBy="fit-title" className="yr-paper">
+      <Section id="fit" labelledBy="fit-title">
         <Shell>
           <Head
             label="When to use it"
@@ -401,7 +445,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           Stays on the paper band: it is the second half of the same decision.
           The table scrolls inside its own container rather than making the
           page scroll sideways on a phone. */}
-      <Section id="comparison" labelledBy="comparison-title" className="yr-paper">
+      <Section id="comparison" labelledBy="comparison-title">
         <Shell>
           <Head
             label="Comparison"
@@ -445,7 +489,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                       <td
                         key={row.criterion + String(i)}
                         className={`py-5 pr-6 align-top font-manrope text-[15px] font-light leading-[1.6] ${
-                          i === 0 ? 'text-ink/80' : 'text-ink/50'
+                          i === 0 ? 'text-ink/80' : 'text-ink/55'
                         }`}
                       >
                         {cell}
@@ -488,7 +532,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                     delay={Math.min(i, 3) * 0.07}
                     className="group relative flex w-full flex-col border border-ink/15 bg-surface transition-[transform,border-color] duration-300 hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden border-b border-ink/10 bg-[#111]">
+                    <div className="relative aspect-[16/10] overflow-hidden border-b border-ink/10 bg-surface">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={w.img}
@@ -511,7 +555,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                           {w.name}
                         </a>
                       </h3>
-                      <p className="m-0 mt-4 font-manrope text-[15px] font-light leading-[1.65] text-ink/50">
+                      <p className="m-0 mt-4 font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                         {w.summary}
                       </p>
                       <p className="m-0 mt-6 flex flex-wrap gap-2">
@@ -570,10 +614,12 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   </h3>
                   <p className={`m-0 mt-4 max-w-[52ch] ${BODY}`}>{o.body}</p>
                   {o.context ? (
-                    <p className="m-0 mt-auto pt-6 font-manrope text-[14px] font-light leading-[1.6] text-ink/40">
-                      <span className={`${LABEL} mb-2 block`}>Where this came from</span>
-                      {o.context}
-                    </p>
+                    <div className="mt-auto pt-6">
+                      <h4 className={`${LABEL} mb-2 block`}>Where this came from</h4>
+                      <p className="m-0 font-manrope text-[14px] font-light leading-[1.6] text-ink/55">
+                        {o.context}
+                      </p>
+                    </div>
                   ) : null}
                 </Rise>
               </li>
@@ -590,7 +636,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           would quote, and FAQPage markup has to correspond to text a visitor
           can actually see. lib/schema.ts builds that markup from this same
           array, so the two cannot disagree. */}
-      <Section id="questions" labelledBy="faq-title" className="yr-paper">
+      <Section id="questions" labelledBy="faq-title">
         <Shell>
           <Head label="FAQ" id="faq-title" lines={['Frequently asked', 'questions.']} />
           <dl className="m-0 border-t border-line">
@@ -620,7 +666,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
       {/* ── 13 Related, and the writing behind it ───────────────────
           Contextual links with the anchor text written for each pairing. A
           block of technology names would be a keyword list wearing a nav. */}
-      <Section id="related" labelledBy="related-title" className="yr-paper">
+      <Section id="related" labelledBy="related-title">
         <Shell>
           <Head
             label="Related"
@@ -638,7 +684,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                     </InlineLink>
                   </h3>
                   {r.note ? (
-                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                       {r.note}
                     </p>
                   ) : null}
@@ -660,7 +706,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                       <h4 className="m-0 max-w-[30ch] font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.025em] transition-colors duration-200 group-hover:text-accent-bright">
                         {p.title}
                       </h4>
-                      <p className="m-0 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                      <p className="m-0 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                         {p.excerpt}
                       </p>
                       <p className={`${LABEL} self-center whitespace-nowrap`}>{p.readTime}</p>
@@ -680,7 +726,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
       <Section id="next" labelledBy="next-title" tall>
         <Shell>
           <Marker label="Next step" />
-          <Lines as="h2" id="next-title" lines={tech.finalHeadline} />
+          <Lines as="h2" id="next-title" lines={accentLastLine(tech.finalHeadline)} />
           <Rise delay={0.16} className="mt-10 max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Let us look at your business model, the systems you already run and where you are

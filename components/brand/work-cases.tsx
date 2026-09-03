@@ -41,7 +41,7 @@ import { Rise } from '../homepage/motion';
  * instead of having to go and find out.
  */
 
-const dt = 'font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+const dt = 'font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 const dd = 'm-0 mt-2.5 font-manrope text-[15px] font-light leading-[1.6] text-ink/55';
 
 export function WorkCases() {
@@ -77,7 +77,7 @@ export function WorkCases() {
 
       <p
         aria-live="polite"
-        className="mt-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35"
+        className="mt-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/55"
       >
         {shown.length === 0
           ? `No case studies under ${activeLabel}`
@@ -93,7 +93,7 @@ export function WorkCases() {
         <div className="mt-10 border border-ink/10 bg-surface p-8 sm:p-10">
           <p className="m-0 max-w-[34ch] font-manrope text-[clamp(20px,2.2vw,28px)] font-light leading-[1.25] tracking-[-0.02em] text-ink/80">
             Nothing published here yet.{' '}
-            <span className="text-ink/40">
+            <span className="text-ink/55">
               When an engagement in this discipline has a measured outcome, it appears on this page
               and not before.
             </span>
@@ -142,7 +142,7 @@ export function WorkCases() {
                   {c.name}
                 </h3>
 
-                <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/50">
+                <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/55">
                   {c.challenge}
                 </p>
 

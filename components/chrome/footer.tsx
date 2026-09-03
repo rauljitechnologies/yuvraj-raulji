@@ -80,7 +80,7 @@ const linkCls =
   'py-1.5 font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright';
 
 const headingCls =
-  'mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/35';
+  'mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/55';
 
 function Column({ heading, children }: { heading: string; children: React.ReactNode }) {
   return (
@@ -132,7 +132,7 @@ export function SiteFooter() {
             <div>
               <div className="mb-6 flex items-center gap-3.5 sm:mb-8">
                 <span aria-hidden="true" className="h-px w-11 bg-accent" />
-                <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/45">
+                <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/50">
                   Next step
                 </span>
               </div>
@@ -183,7 +183,7 @@ export function SiteFooter() {
                       <span className="block font-manrope text-[17px] font-semibold leading-[1.25] tracking-[-0.01em] text-ink">
                         {step.title}
                       </span>
-                      <span className="mt-1.5 block font-manrope text-[14px] font-light leading-[1.55] text-ink/45">
+                      <span className="mt-1.5 block font-manrope text-[14px] font-light leading-[1.55] text-ink/50">
                         {step.note}
                       </span>
                     </span>
@@ -221,12 +221,12 @@ export function SiteFooter() {
                 <span className="font-manrope text-[13px] font-bold uppercase leading-none tracking-[0.14em]">
                   {NAME}
                 </span>
-                <span className="font-mono text-[10px] uppercase leading-[1.5] tracking-[0.14em] text-ink/40">
+                <span className="font-mono text-[10px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
                   Technology consultant
                 </span>
               </span>
             </Link>
-            <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/45">
+            <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/50">
               {CORE_IDEA} Writing and building at the intersection of AI, business and eCommerce,
               from Vadodara, India.
             </p>
@@ -273,7 +273,7 @@ export function SiteFooter() {
             <a href={`tel:${CONTACT.phoneE164}`} className={linkCls}>
               {CONTACT.phoneDisplay}
             </a>
-            <span className="mt-1.5 font-manrope text-[15px] leading-[1.5] text-ink/45">
+            <span className="mt-1.5 font-manrope text-[15px] leading-[1.5] text-ink/50">
               {CONTACT.location}
               <br />
               IST · GMT+5:30
@@ -301,7 +301,7 @@ export function SiteFooter() {
           <div className="absolute inset-0 origin-left bg-accent animate-yr-sweep" />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/40 sm:py-8">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
             <Link href="/blog/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">

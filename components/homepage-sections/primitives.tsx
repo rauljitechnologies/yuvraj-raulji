@@ -29,7 +29,7 @@ export function SectionLabel({
     <div className={`flex items-center gap-3.5 ${className}`}>
       <span
         className={`font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] ${
-          tone === 'light' ? 'text-ground/50' : 'text-ink/45'
+          tone === 'light' ? 'text-ground/55' : 'text-ink/55'
         }`}
       >
         {children}
@@ -103,6 +103,14 @@ export function Tag({ children, tone = 'dark' }: { children: ReactNode; tone?: '
  * The underlined text link with a trailing arrow that closes most sections.
  * The border is the hover target, so it is on the element itself rather than a
  * pseudo-element, and it transitions colour only (no layout shift).
+ *
+ * `relative` is load-bearing and has nothing to do with the look. Tailwind's
+ * `sr-only` is `position:absolute`, so an off-screen label inside one of these
+ * links resolves its containing block to the nearest positioned ancestor. In
+ * the work rail there was none, so the label escaped the rail's own
+ * `overflow-x:auto`, landed at its static position roughly 1600px into the
+ * document, and gave the whole page 1250px of horizontal scroll on a phone
+ * that nothing was drawn in. Positioning the link contains it.
  */
 export function RuleLink({
   href,
@@ -116,28 +124,40 @@ export function RuleLink({
   return (
     <a
       href={href}
-      className={`inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] border-b border-ink/30 pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent ${className}`}
+      className={`relative inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] border-b border-ink/30 pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent ${className}`}
     >
       {children}
     </a>
   );
 }
 
-/** Primary (filled) and secondary (outlined) calls to action. */
+/**
+ * Primary (filled) and secondary (outlined) calls to action.
+ *
+ * `external` is for the buttons that leave the site, which on this page is the
+ * WhatsApp one. It adds the tab target, the `rel` that goes with it, and an
+ * off-screen note, because a button labelled "Book a 30-minute consultation"
+ * that silently opens a messaging app is a promise the label did not make.
+ */
 export function Cta({
   href,
   children,
   variant = 'solid',
   tone = 'dark',
+  external,
 }: {
   href: string;
   children: ReactNode;
   variant?: 'solid' | 'outline' | 'accent';
   /** Which ground the button sits on, which flips the outline colours. */
   tone?: 'dark' | 'light';
+  /** Where the link goes, named for a reader who cannot see the target. */
+  external?: string;
 }) {
+  /* `relative` for the same reason as RuleLink: it is the containing block for
+     the `sr-only` note below, which is absolutely positioned. */
   const base =
-    'inline-flex max-w-full items-center justify-center gap-3 text-center font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] px-6 py-[18px] sm:px-8 sm:py-5 transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0';
+    'relative inline-flex max-w-full items-center justify-center gap-3 text-center font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] px-6 py-[18px] sm:px-8 sm:py-5 transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0';
 
   const skin =
     variant === 'accent'
@@ -151,8 +171,13 @@ export function Cta({
           : 'border border-ink/25 text-ink hover:border-accent';
 
   return (
-    <a href={href} className={`${base} ${skin}`}>
+    <a
+      href={href}
+      className={`${base} ${skin}`}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
       {children}
+      {external ? <span className="sr-only"> (opens {external} in a new tab)</span> : null}
     </a>
   );
 }
@@ -186,7 +211,7 @@ export function StatusPill({ children }: { children: ReactNode }) {
  */
 export function Marquee({ items }: { items: readonly string[] }) {
   const row = (
-    <div className="flex gap-12 font-mono text-xs font-medium uppercase leading-none tracking-[0.22em] text-ink/40">
+    <div className="flex gap-12 font-mono text-xs font-medium uppercase leading-none tracking-[0.22em] text-ink/55">
       {items.map((item) => (
         <span key={item} className="flex items-center gap-12 whitespace-nowrap">
           {item}

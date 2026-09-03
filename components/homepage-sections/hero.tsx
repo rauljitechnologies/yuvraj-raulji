@@ -3,17 +3,24 @@ import { Cta, Marquee } from './primitives';
 import { Eager } from './rv';
 
 /**
- * Homepage hero, from the design canvas.
+ * Homepage hero.
  *
- * The canvas offered two headline variants behind a `heroVariant` prop
- * ("statement" and "verbs"). Only the default, "statement", ships here. The
- * second was an alternate for the same slot rather than a state the page needs
- * at runtime, and carrying both would mean shipping two H1s and hiding one,
- * which is a real SEO cost for no reader benefit.
+ * What this section has to do, in order: name the person, name the job, say
+ * which problems he is called for, and offer one obvious next step. The
+ * previous hero did the first and the fourth and left the middle two to be
+ * inferred from a headline about how he thinks. A visitor who has to infer the
+ * job leaves before the second section.
+ *
+ * The portrait plate stays. It is the strongest asset on the page and it is
+ * what separates a consultant's homepage from an agency's: an agency shows the
+ * work first because there is no one person to show.
  */
 export function Hero() {
   return (
-    <section id="top" className="relative mx-auto max-w-[1440px] px-5 pt-[138px] sm:px-6 sm:pt-[148px] md:px-8 lg:px-12 lg:pt-[196px]">
+    <section
+      id="top"
+      className="relative mx-auto max-w-[1440px] px-5 pt-[128px] sm:px-6 sm:pt-[140px] md:px-8 lg:px-12 lg:pt-[176px]"
+    >
       {/*
         The faint blueprint grid. Two repeating linear-gradients, masked to a
         soft radial so it fades out before it reaches any edge. Decorative.
@@ -25,90 +32,93 @@ export function Hero() {
 
       <div className="relative grid items-end gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)]">
         <div>
-          <Eager className="mb-6 flex items-center gap-3.5 sm:mb-8">
-            <span className="h-px w-11 bg-accent" aria-hidden="true" />
-            {/*
-              `leading-none` was fine while the eyebrow held one line and
-              illegible the moment it wrapped, which it does on any phone: two
-              lines of 11px caps at 0.3em tracking set solid all but touch.
-            */}
-            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55 lg:leading-none">
-              {HERO.eyebrow}
+          {/*
+            Two lines: the name, then the remit. `leading-none` was fine while
+            this held one line and illegible the moment it wrapped, which it
+            does on any phone.
+          */}
+          <Eager className="mb-6 flex items-start gap-3.5 sm:mb-8">
+            <span className="mt-[7px] h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
+            <span className="flex flex-col gap-1.5">
+              <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
+                {HERO.eyebrow}
+              </span>
+              <span className="font-mono text-[11px] font-medium uppercase leading-[1.4] tracking-[0.3em] text-ink/55">
+                {HERO.eyebrowSub}
+              </span>
             </span>
           </Eager>
 
           {/*
-            The title, set as one ladder in the three brand colours: the first
-            sentence in quiet white, the second at full white, and the red on a
-            single word. Section 32 of BRAND-DESIGN-GUIDELINE.md asks for black,
-            white and red and asks for the red not to be overused, so it lands
-            on "business." and on nothing else in the heading.
+            One H1, and it names the role.
 
-            The rag is authored. `text-wrap: balance` was re-breaking these four
-            lines at every width, which is the opposite of deciding where they
-            break; the <br>s do it instead, and they are display:none below 640
-            where the column is too narrow for an authored break to mean
-            anything and the browser has to wrap on its own.
+            Set as one sentence in two weights rather than as a two-sentence
+            ladder: "eCommerce, AI and Technology" is the subject and
+            "Consultant" is the noun that makes it a job, so the weight change
+            lands on the word that does the work. The red sits on nothing here.
+            Section 32 of BRAND-DESIGN-GUIDELINE.md asks for the accent not to
+            be overused, and an H1 that is already the largest thing on the
+            page does not need colour to be found.
 
-            Weights: 300 and 600, not 200 and 700. The first sentence already
-            steps back on tone, so a hairline weight on top of that made it read
-            as a caption rather than as half of the H1, and 700 against 200 read
-            as two faces instead of one voice at two strengths. The light
-            sentence carries a touch more negative tracking than the semibold
-            one, because at this size the lighter cut opens visible gaps at the
-            tracking the heavier one needs.
+            The rag is authored below `sm`, where the column is too narrow for
+            an authored break to mean anything and the browser wraps on its own.
           */}
           <Eager delay={0.06}>
-            <h1 className="m-0 font-manrope text-[clamp(44px,7.4vw,112px)] leading-[0.94] tracking-[-0.04em]">
-              <span className="block font-light tracking-[-0.05em] text-ink/80">
-                I build with <br className="hidden sm:inline" />
-                technology.{' '}
-              </span>
-              <span className="mt-[0.1em] block font-semibold">
-                I think in <br className="hidden sm:inline" />
-                <span className="text-accent">business.</span>
-              </span>
+            <h1 className="m-0 max-w-[15ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-light leading-[1.0] tracking-[-0.042em] text-ink/85">
+              eCommerce, AI <br className="hidden sm:inline" />
+              &amp; Technology <span className="font-semibold text-ink">Consultant</span>
             </h1>
           </Eager>
 
           <Eager delay={0.12}>
-            <p className="mt-6 font-manrope text-[clamp(17px,1.6vw,22px)] font-medium leading-[1.4] tracking-[-0.01em] text-ink/90">
+            <p className="mt-7 max-w-[62ch] font-manrope text-[clamp(17px,1.5vw,21px)] font-normal leading-[1.5] tracking-[-0.01em] text-ink/85">
               {HERO.subLead}
             </p>
           </Eager>
 
           {/*
-            The lead is JSX rather than a string in lib/homepage.ts because the
-            canvas links two of its own nouns to the sections that answer them.
-            Those are the page's first two internal links and the only ones
-            above the fold, so they are worth the JSX.
+            The second paragraph links three of its own nouns to the sections
+            that answer them. These are the page's first internal links and the
+            only ones above the fold, which is why the sentence is JSX rather
+            than a string in lib/homepage.ts.
 
-            No year count here on purpose: the number lives in STATS and only
-            in STATS, so it can never contradict itself across the page.
+            No year count here on purpose: the number lives in STATS and only in
+            STATS, so it can never contradict itself across the page.
           */}
           <Eager delay={0.18}>
-            <p className="mt-7 max-w-[640px] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:mt-10 sm:text-[19px]">
-              Yuvraj Raulji explores{' '}
-              <a href="#ai" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
-                AI
+            <p className="mt-6 max-w-[600px] font-manrope text-[16px] font-light leading-[1.7] text-ink/55 sm:text-[17px]">
+              The work is{' '}
+              <a
+                href="#expertise"
+                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
+              >
+                commerce strategy and architecture
               </a>
               ,{' '}
-              <a href="#expertise" className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink">
-                eCommerce
+              <a
+                href="#growth"
+                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
+              >
+                performance and conversion
               </a>{' '}
-              and digital transformation, with a focus on intelligent systems, digital commerce,
-              automation and the technology decisions that create measurable business value. The
-              work runs across storefronts, mobile app APIs, B2B systems and the operations behind
-              them.
+              and{' '}
+              <a
+                href="#ai"
+                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
+              >
+                practical AI
+              </a>
+              , for businesses deciding what to build, what to fix and what to
+              leave alone.
             </p>
           </Eager>
 
-          <Eager className="mt-8 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
-            <Cta href="#work" variant="solid">
-              Explore my work <span className="font-mono">→</span>
+          <Eager className="mt-9 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
+            <Cta href="#contact" variant="accent">
+              Book a 30-minute consultation
             </Cta>
-            <Cta href="#insights" variant="outline">
-              Read my thinking
+            <Cta href="#work" variant="outline">
+              Explore my work <span className="font-mono">→</span>
             </Cta>
           </Eager>
         </div>
@@ -130,9 +140,18 @@ export function Hero() {
               className="absolute bottom-0 right-0 h-[calc(100%-34px)] w-[calc(100%-34px)] bg-accent"
             />
 
+            {/*
+              Two cuts of one photograph. The plate is at most 400px wide under
+              `lg`, so a phone was decoding a 1200px file to paint 400: the 700
+              cut is a third of the bytes on the element that decides mobile
+              LCP. `sizes` is written against the plate's own widths, not the
+              viewport's.
+            */}
             <img
               src={PORTRAITS.hero}
-              alt="Yuvraj Raulji"
+              srcSet={`${PORTRAITS.heroSmall} 700w, ${PORTRAITS.hero} 1200w`}
+              sizes="(min-width: 1024px) 480px, min(400px, 100vw)"
+              alt="Yuvraj Raulji, eCommerce, AI and technology consultant"
               width={1200}
               height={1680}
               // Above the fold and the page's largest paint. Eager, high
@@ -195,7 +214,13 @@ export function Hero() {
                 strokeDasharray="120 500"
                 className="animate-yr-dash [stroke-dashoffset:620]"
               />
-              <circle cx="74" cy="106" r="4.5" fill="var(--accent-bright)" className="animate-yr-blink" />
+              <circle
+                cx="74"
+                cy="106"
+                r="4.5"
+                fill="var(--accent-bright)"
+                className="animate-yr-blink"
+              />
             </svg>
           </div>
         </Eager>

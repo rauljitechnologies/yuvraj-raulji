@@ -99,10 +99,10 @@ export default function WorkPage() {
           <div className="flex flex-wrap items-end justify-between gap-x-16 gap-y-10">
             <Lines as="h2" id="note-title" lines={WORK_NOTE.headline} />
             <Rise delay={0.18} className="max-w-[460px]">
-              <p className="m-0 font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+              <p className="m-0 font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 {WORK_NOTE.body}
               </p>
-              <p className="m-0 mt-6 font-manrope text-[15px] font-light leading-[1.7] text-ink/35">
+              <p className="m-0 mt-6 font-manrope text-[15px] font-light leading-[1.7] text-ink/55">
                 {WORK_NOTE.note}
               </p>
             </Rise>

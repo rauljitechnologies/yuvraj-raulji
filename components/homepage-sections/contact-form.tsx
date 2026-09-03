@@ -89,9 +89,9 @@ export function ContactForm() {
    * sizes itself to its widest option, and the topic list has long ones.
    */
   const field =
-    'w-full min-w-0 bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/35 focus:border-accent';
+    'w-full min-w-0 bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/55 focus:border-accent';
   const label =
-    'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/45';
+    'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/55';
 
   if (sent) {
     return (
@@ -114,7 +114,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-6">
-      <div className="flex items-center gap-3 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ground/40">
+      <div className="flex items-center gap-3 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ground/55">
         <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-accent animate-yr-blink" />
         Responds within 24 hours
       </div>

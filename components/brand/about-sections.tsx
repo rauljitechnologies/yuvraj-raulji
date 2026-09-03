@@ -51,7 +51,7 @@ import { InlineLink, Marker, Section, Shell } from '../homepage/primitives';
  */
 
 /* Shared with every section header below, so the six agree by construction. */
-const SUPPORT = 'm-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50';
+const SUPPORT = 'm-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55';
 
 /* ═══════════════════════════════════════════════════════════════
    THE OPENING
@@ -80,7 +80,7 @@ export function Opening() {
             </p>
           </Rise>
           <Rise delay={0.16} className="self-end">
-            <p className="m-0 max-w-[52ch] border-l border-accent/60 pl-6 font-manrope text-[16px] font-light leading-[1.75] text-ink/50">
+            <p className="m-0 max-w-[52ch] border-l border-accent/60 pl-6 font-manrope text-[16px] font-light leading-[1.75] text-ink/55">
               {ABOUT_HERO.record}
             </p>
           </Rise>
@@ -196,7 +196,7 @@ export function Beliefs() {
                 <h3 className="m-0 mt-6 max-w-[26ch] font-manrope text-[clamp(20px,2vw,27px)] font-semibold leading-[1.22] tracking-[-0.025em]">
                   {b.claim}
                 </h3>
-                <p className="m-0 mt-4 max-w-[62ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50">
+                <p className="m-0 mt-4 max-w-[62ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
                   {b.because}
                 </p>
               </Rise>
@@ -277,7 +277,7 @@ export function Process() {
                   {step.num}
                 </span>
                 <h3 className="m-0 font-manrope text-[clamp(21px,2.1vw,29px)] font-semibold leading-[1.22] tracking-[-0.025em]">
-                  {step.verb} <span className="font-light text-ink/50">{step.object}</span>
+                  {step.verb} <span className="font-light text-ink/55">{step.object}</span>
                 </h3>
                 <p className="m-0 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/60">
                   {step.body}
@@ -323,7 +323,7 @@ export function Personal() {
               <dt className="m-0 font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.02em]">
                 {f.label}
               </dt>
-              <dd className="m-0 mt-4 font-manrope text-[16px] font-light leading-[1.7] text-ink/50">
+              <dd className="m-0 mt-4 font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
                 {f.body}
               </dd>
             </Rise>

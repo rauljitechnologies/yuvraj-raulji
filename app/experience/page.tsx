@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 /* The one mono eyebrow used inside the sections below, so four of them cannot
    drift into four different small-caps treatments. */
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function ExperiencePage() {
   return (
@@ -97,10 +97,10 @@ export default function ExperiencePage() {
                   {s.value.replace('+', '')}
                   {s.value.includes('+') && <span className="text-accent">+</span>}
                 </dd>
-                <dt className="m-0 mt-4 font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-ink/45">
+                <dt className="m-0 mt-4 font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-ink/55">
                   {s.label}
                 </dt>
-                <p className="m-0 mt-5 max-w-[34ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                <p className="m-0 mt-5 max-w-[34ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                   {s.note}
                 </p>
               </Rise>
@@ -121,7 +121,7 @@ export default function ExperiencePage() {
           <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
             <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} />
             <Rise delay={0.18}>
-              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 Seven points where the work changed shape, from a diploma in information
                 technology to incorporating the practice.
               </p>
@@ -169,7 +169,7 @@ export default function ExperiencePage() {
           <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
             <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} />
             <Rise delay={0.18}>
-              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 The Gulf retail and B2B platform periods overlap by fourteen months. That is
                 what the record says, so that is what is printed here.
               </p>
@@ -188,7 +188,7 @@ export default function ExperiencePage() {
                       {r.period}
                     </p>
                     {r.location ? (
-                      <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/35">
+                      <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
                         {r.location}
                       </p>
                     ) : null}
@@ -202,7 +202,7 @@ export default function ExperiencePage() {
                     <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
                       {r.title}
                     </h3>
-                    <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/40">
+                    <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
                       {r.org}
                     </p>
                     <p className="m-0 mt-5 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">

@@ -47,7 +47,7 @@ export function BlogCta() {
                 <div className="font-display text-rv leading-none mb-2" style={{ fontSize: 'clamp(2.2rem,4vw,3rem)' }}>
                   {s.v}
                 </div>
-                <p className="text-[.70rem] font-semibold tracking-[.14em] uppercase text-[rgba(245,245,242,.50)]">{s.l}</p>
+                <p className="text-[.70rem] font-semibold tracking-[.14em] uppercase text-[rgba(245,245,242,.55)]">{s.l}</p>
               </div>
             ))}
           </div>

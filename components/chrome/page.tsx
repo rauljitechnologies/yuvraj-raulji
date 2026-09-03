@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { Crumb } from '../../lib/schema';
 import { JsonLd } from '../json-ld';
 import { ContactModal } from '../contact-modal';
-import { Lines, Rise } from '../homepage/motion';
+import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Shell } from '../homepage/primitives';
 import { SiteFooter } from './footer';
 import { SiteNav } from './nav';
@@ -26,6 +26,7 @@ export function Page({
   children,
   schema,
   active,
+  scope,
 }: {
   children: ReactNode;
   /** The page's JSON-LD graph. `object`, not `unknown`: JsonLd serialises it,
@@ -34,6 +35,12 @@ export function Page({
   schema: object;
   /** Nav label to mark with aria-current. */
   active?: string;
+  /** A token scope for the page body, currently only `yr-paper`. It lands on
+      `<main>` rather than on `.yr-page` so the ground changes under the
+      content while the nav and footer stay the one arrangement they are on
+      every route. A page that wants a light band per section puts the class on
+      those sections instead and leaves this alone. */
+  scope?: string;
 }) {
   return (
     <>
@@ -42,7 +49,9 @@ export function Page({
         <SiteNav active={active} />
         {/* Film grain. Fixed, non-interactive, purely atmospheric. */}
         <div className="noise" aria-hidden="true" />
-        <main id="main">{children}</main>
+        <main id="main" className={scope}>
+          {children}
+        </main>
         <SiteFooter />
       </div>
       <ContactModal />
@@ -114,7 +123,8 @@ export function PageHero({
   children,
 }: {
   eyebrow: string;
-  lines: readonly string[];
+  /** Plain strings, or `{ text, accent: true }` for a line set in the red. */
+  lines: readonly DisplayLine[];
   lede: string;
   crumbs: Crumb[];
   /** Calls to action, rendered under the lede. */

@@ -43,7 +43,7 @@ function TickerRun() {
         fontWeight: 700,
         letterSpacing: '.24em',
         textTransform: 'uppercase',
-        color: 'rgba(245, 245, 242,.28)',
+        color: 'rgba(245, 245, 242,.55)',
         whiteSpace: 'nowrap',
       }}
     >
@@ -94,7 +94,7 @@ export function BlogHero() {
               fontSize: '.55rem',
               fontWeight: 700,
               letterSpacing: '.32em',
-              color: 'rgba(245, 245, 242,.18)',
+              color: 'rgba(245, 245, 242,.55)',
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
             }}
@@ -125,12 +125,12 @@ export function BlogHero() {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
                   <div style={{ height: 1, flex: 1, background: 'linear-gradient(90deg,#e50920 0%,rgba(229, 9, 32,.22) 60%,transparent 100%)' }} />
-                  <span style={{ fontSize: '.54rem', fontWeight: 700, letterSpacing: '.30em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.55)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  <span style={{ fontSize: '.54rem', fontWeight: 700, letterSpacing: '.30em', textTransform: 'uppercase', color: '#ee2a34', whiteSpace: 'nowrap', flexShrink: 0 }}>
                     Vadodara, India
                   </span>
                 </div>
 
-                <p style={{ fontSize: 'clamp(.96rem,1.25vw,1.10rem)', lineHeight: 1.82, color: 'rgba(245, 245, 242,.52)', maxWidth: 430 }}>
+                <p style={{ fontSize: 'clamp(.96rem,1.25vw,1.10rem)', lineHeight: 1.82, color: 'rgba(245, 245, 242,.55)', maxWidth: 430 }}>
                   In-depth guides from <strong style={{ color: '#f5f5f2', fontWeight: 600 }}>9+ years</strong> hands-on experience: Magento 2, SEO &amp; CRO, AWS infrastructure, WordPress performance and AI automation.
                 </p>
               </div>
@@ -144,7 +144,7 @@ export function BlogHero() {
                         {i > 0 && <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,.08)' }} />}
                         <div>
                           <div style={{ ...displayFace, fontSize: 'clamp(2rem,4vw,2.8rem)', lineHeight: 1, color: '#f0263c' }}>{s.v}</div>
-                          <div style={{ fontSize: '.58rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.36)', marginTop: 3 }}>
+                          <div style={{ fontSize: '.58rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)', marginTop: 3 }}>
                             {s.l}
                           </div>
                         </div>
@@ -156,7 +156,7 @@ export function BlogHero() {
                     className="hidden lg:flex flex-col items-center gap-[10px] pb-1 border-0 bg-transparent cursor-pointer group"
                     aria-label="Scroll to articles"
                   >
-                    <span className="group-hover:!text-rv" style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.26)', transition: 'color .3s' }}>
+                    <span className="group-hover:!text-rv" style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.28em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)', transition: 'color .3s' }}>
                       Explore
                     </span>
                     <div
@@ -169,7 +169,7 @@ export function BlogHero() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: 'rgba(229, 9, 32,.55)',
+                        color: '#ee2a34',
                         fontSize: '.80rem',
                         animation: 'scrollBounce 2.2s ease-in-out infinite',
                         transition: 'border-color .3s,color .3s,box-shadow .3s',
@@ -266,7 +266,7 @@ export function BlogHero() {
                     >
                       AI &amp; Automation
                     </span>
-                    <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.38)' }}>08 Jun 2026</span>
+                    <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>08 Jun 2026</span>
                   </div>
                   <h2
                     className="group-hover:text-rv"
@@ -276,7 +276,7 @@ export function BlogHero() {
                     <br />
                     Real Use Cases That Drive Revenue
                   </h2>
-                  <p style={{ fontSize: '.90rem', lineHeight: 1.7, color: 'rgba(245, 245, 242,.52)', maxWidth: 460, marginBottom: 22 }}>
+                  <p style={{ fontSize: '.90rem', lineHeight: 1.7, color: 'rgba(245, 245, 242,.55)', maxWidth: 460, marginBottom: 22 }}>
                     Six battle-tested implementations: AI recommendations, dynamic pricing, inventory forecasting, GPT catalog content and predictive churn reduction.
                   </p>
                   <div style={{ height: 1, background: 'rgba(255,255,255,.10)', marginBottom: 18 }} />

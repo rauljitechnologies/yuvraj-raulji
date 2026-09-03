@@ -84,7 +84,7 @@ export default function ExpertiseHub() {
           <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
             <Lines as="h2" id="technology-title" lines={['Nine technologies.', 'Nine honest limits.']} />
             <Rise delay={0.18}>
-              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 {EXPERTISE_HUB.body}
               </p>
             </Rise>
@@ -123,7 +123,7 @@ export default function ExpertiseHub() {
                     className="h-0.5 w-16 origin-left bg-accent transition-transform duration-500 group-hover:scale-x-[1.6]"
                   />
 
-                  <p className="mt-6 max-w-[52ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50">
+                  <p className="mt-6 max-w-[52ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
                     {t.description}
                   </p>
 
@@ -135,7 +135,7 @@ export default function ExpertiseHub() {
                     <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                       Think twice when
                     </p>
-                    <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                    <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                       {t.fit.thinkTwice[0]}.
                     </p>
                   </div>
@@ -180,14 +180,14 @@ export default function ExpertiseHub() {
                 </div>
               </Rise>
               <Rise delay={0.12}>
-                <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+                <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                   {p.lede}
                 </p>
                 <div className="mt-6 border-l border-accent/40 pl-5">
                   <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     Wrong choice when
                   </p>
-                  <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                  <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
                     {p.wrong}
                   </p>
                 </div>
@@ -208,7 +208,7 @@ export default function ExpertiseHub() {
             className="max-w-[20ch]"
           />
           <Rise delay={0.2} className="mt-10">
-            <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/50 sm:text-[19px]">
+            <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/55 sm:text-[19px]">
               That is usually the right starting position. Most engagements begin as one of these
               and turn out to be another, which is what the first conversation is for.
             </p>

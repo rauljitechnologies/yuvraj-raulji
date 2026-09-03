@@ -37,6 +37,15 @@ export const PORTRAITS = {
    * what the plate wants: a photo panel, on a page that is already near-black.
    */
   hero: '/assets/home/yr-hero.webp',
+  /**
+   * The same cutout at 700px, for phones.
+   *
+   * The hero plate is at most 400px wide under `lg`, so a 1200px source is
+   * three times the pixels a phone can show and it is the page's LCP element.
+   * The two are offered as a srcset rather than swapped, so a desktop still
+   * gets the full-resolution file.
+   */
+  heroSmall: '/assets/home/yr-hero-700.webp',
   about: '/assets/home/yr-hero.webp',
   quote: '/assets/home/yr-quote.webp',
 } as const;
@@ -64,31 +73,42 @@ export const CONTACT = {
 
 export const HERO = {
   /**
-   * The hero eyebrow. No ordinal: this string used to open with "01 /" back
-   * when every band carried a number, and the numbers are off the page now.
+   * Two lines, not one. The name and the disciplines were a single run of
+   * middots, which at 11px and 0.3em tracking reads as one long string that a
+   * visitor skips. Split, the first line is the brand and the second is the
+   * remit, and the eye takes both.
    *
-   * Not the canvas string. The canvas writes the brand line with a
-   * multiplication sign, which section 1 of BRAND-DESIGN-GUIDELINE.md bans;
-   * the guideline outranks the canvas. The comma form is used here rather than
-   * the pipe form because this line already carries two separators of its own
-   * and a third would read as noise.
+   * The separator is a middot. The brand line used a multiplication sign for a
+   * long time; section 1 of BRAND-DESIGN-GUIDELINE.md bans it and the
+   * guideline outranks any mockup.
    */
-  eyebrow: 'Yuvraj Raulji · AI, Business and eCommerce',
-  /** The one-line statement under the H1. Section 7, verbatim. */
-  subLead:
-    'Exploring AI, digital commerce and technology systems that help modern businesses operate, sell and grow.',
+  eyebrow: 'Yuvraj Raulji',
+  eyebrowSub: 'eCommerce · AI · Technology',
   /**
-   * The longer lead paragraph is not here: the canvas links "AI" and
-   * "eCommerce" inside the sentence to #ai and #expertise, so it is JSX and it
-   * lives in hero.tsx rather than as a string that a component would have to
-   * split apart to re-link.
+   * The H1 is a role, not a slogan.
+   *
+   * It previously read "I build with technology. I think in business.", which
+   * is a good line and answers none of the four questions a visitor arrives
+   * with. A consultant's homepage has to name the job in the H1, because that
+   * is both what a buyer scans for and what a search engine resolves the
+   * entity against. The personality moved down to the positioning section,
+   * where it now has a section of its own rather than competing with the role.
+   */
+  h1: 'eCommerce, AI & Technology Consultant',
+  /** The one-line statement under the H1. */
+  subLead:
+    'I help businesses improve eCommerce performance, technology architecture, customer experience and AI adoption across Shopify, Magento, WooCommerce and modern commerce platforms.',
+  /**
+   * The longer lead paragraph is not here: it links three of its own nouns to
+   * the sections that answer them, so it is JSX and it lives in hero.tsx
+   * rather than as a string a component would have to split apart to re-link.
    */
   marquee: [
     'Magento 2',
-    'Shopify',
+    'Shopify Plus',
     'Headless commerce',
-    'AI & automation',
-    'SEO',
+    'AI and automation',
+    'Technical SEO',
     'Digital transformation',
   ],
 } as const;
@@ -117,42 +137,15 @@ export const STATS: readonly Stat[] = [
   { value: '1M+', label: 'Monthly users on platforms under architecture' },
 ];
 
-export type SystemCard = {
-  no: string;
-  title: string;
-  body: string;
-  tags: readonly string[];
-};
-
-export const SYSTEMS: readonly SystemCard[] = [
-  {
-    no: '01',
-    title: 'Commerce systems',
-    body: 'The platform is rarely the problem. It is where the problem becomes visible, usually as a catalogue, a checkout, or an architecture that has outgrown the decision behind it.',
-    tags: ['Magento 2', 'Shopify', 'WooCommerce', 'Headless'],
-  },
-  {
-    no: '02',
-    title: 'Digital architecture',
-    body: 'Frontends over REST and GraphQL, caching that holds under traffic, and infrastructure sized to the order book rather than to the pitch deck.',
-    tags: ['Next.js', 'GraphQL', 'AWS', 'Varnish · Redis'],
-  },
-  {
-    no: '03',
-    title: 'Growth systems',
-    body: 'A beautiful store means nothing if the customer journey is broken. Search, speed and checkout are the growth levers people keep looking past.',
-    tags: ['Technical SEO', 'CRO', 'Performance', 'GA4'],
-  },
-  {
-    no: '04',
-    title: 'AI systems',
-    body: 'Where language models stop being a demo and start being infrastructure: grounded in real data, scoped to real tasks, checked by a person before anything consequential happens.',
-    tags: ['AI agents', 'RAG', 'MCP', 'Automation'],
-  },
-];
-
 export type Project = {
   no: string;
+  /**
+   * The id of the same case in CASES (lib/brand.ts), which is also the anchor
+   * that case renders on /work/. It exists so each card here deep-links to the
+   * case it is a summary of, rather than six cards linking at the top of one
+   * page with the same anchor text.
+   */
+  id: string;
   short: string;
   name: string;
   industry: string;
@@ -166,6 +159,7 @@ export type Project = {
 export const PROJECTS: readonly Project[] = [
   {
     no: '01',
+    id: 'fashion-d2c',
     short: 'FSH',
     name: 'Headless fashion storefront',
     industry: 'Fashion · D2C',
@@ -177,6 +171,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '02',
+    id: 'plant-store',
     short: 'PLT',
     name: 'Online plant store',
     industry: 'Horticulture · D2C',
@@ -188,6 +183,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '03',
+    id: 'sports-nutrition',
     short: 'SPN',
     name: 'Sports nutrition store',
     industry: 'Health & fitness',
@@ -199,6 +195,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '04',
+    id: 'b2b-procurement',
     short: 'B2B',
     name: 'Procurement and approvals platform',
     industry: 'B2B procurement',
@@ -210,6 +207,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '05',
+    id: 'marketplace',
     short: 'MKT',
     name: 'Multi-category marketplace',
     industry: 'Marketplace',
@@ -221,6 +219,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     no: '06',
+    id: 'manufacturing',
     short: 'MFG',
     name: 'Engineering manufacturer platform',
     industry: 'Manufacturing',
@@ -229,69 +228,6 @@ export const PROJECTS: readonly Project[] = [
     role: 'Technical SEO + build',
     stack: 'WordPress · Schema · GA4',
     cover: '/assets/case-covers/manufacturing-cover.webp',
-  },
-];
-
-/** The light-ground featured case study. */
-export const FEATURED = {
-  name: 'FASHION D2C',
-  kicker: 'Headless commerce',
-  cover: '/assets/case-covers/fashion-d2c-cover.webp',
-  facts: [
-    {
-      label: 'Challenge',
-      body: 'A fast-growing fashion brand whose storefront had to keep getting faster while the catalogue and the traffic behind it kept moving.',
-    },
-    {
-      label: 'Architecture',
-      body: 'A decoupled storefront over the commerce API, with caching pushed to the edge of every layer that could hold it.',
-    },
-    {
-      label: 'My role',
-      body: 'Architecture direction and delivery: platform decisions, performance strategy and the engineering behind them.',
-    },
-    {
-      label: 'Performance',
-      body: 'Varnish, Redis, full-page cache and database tuning, the same stack that cut page load times by 60% on high-traffic B2B commerce.',
-    },
-    {
-      label: 'Outcome',
-      body: 'A storefront that scales with the catalogue instead of against it. Detailed metrics on request rather than on a marketing page.',
-    },
-  ],
-  tech: ['Magento 2', 'Next.js', 'React', 'GraphQL', 'Redis', 'Varnish', 'Cloud'],
-} as const;
-
-export type StackLayer = { no: string; title: string; items: readonly string[] };
-
-/**
- * One entry per thing, not per line of a mockup.
- *
- * Three of these used to pack two names into one row with a middot ("Redis ·
- * Varnish", "AWS · Cloudflare"), which made those rows read as one item with a
- * stray character in it while every other row held exactly one name. The
- * ampersands went at the same time, per section 1 of BRAND-DESIGN-GUIDELINE.md.
- */
-export const STACK_LAYERS: readonly StackLayer[] = [
-  {
-    no: '01',
-    title: 'Commerce layer',
-    items: ['Magento 2', 'Shopify Plus', 'WooCommerce', 'Headless storefronts'],
-  },
-  {
-    no: '02',
-    title: 'Experience layer',
-    items: ['Next.js', 'React', 'GraphQL', 'AI search'],
-  },
-  {
-    no: '03',
-    title: 'Platform layer',
-    items: ['Node.js', 'PHP', 'MySQL', 'Redis', 'Varnish'],
-  },
-  {
-    no: '04',
-    title: 'Growth and intelligence',
-    items: ['AWS', 'Cloudflare', 'GA4 and analytics', 'Technical SEO', 'AI and automation'],
   },
 ];
 
@@ -308,195 +244,12 @@ export const AI_TRACKS: readonly AiTrack[] = [
   { no: '08', name: 'Business intelligence', note: 'Decisions carried by data instead of by the loudest opinion in the room.' },
 ];
 
-export type Engagement = { no: string; name: string; note: string };
-
-export const ENGAGEMENTS: readonly Engagement[] = [
-  { no: '01', name: 'eCommerce platforms', note: 'Magento 2, Shopify Plus, headless: B2B, B2C, D2C and marketplace.' },
-  { no: '02', name: 'Mobile apps', note: 'App architecture and the commerce APIs behind it: REST, GraphQL, PWA.' },
-  { no: '03', name: 'Custom software', note: 'Internal tools, approval workflows, ERP/CRM/POS integration.' },
-  { no: '04', name: 'AI systems', note: 'Agents, RAG and automation wired into the operation, not bolted on.' },
-  { no: '05', name: 'Cloud & DevOps', note: 'AWS, Docker, CI/CD, Varnish/Redis/CDN, scaled to real traffic.' },
-  { no: '06', name: 'Fractional CTO', note: 'Architecture direction and team leadership, without the full-time hire.' },
-];
-
-export type TimelineEntry = {
-  /** Year span. En-dashes are fine here: a range is a number span, not a clause. */
-  period: string;
-  place: string;
-  /** The role held, which is the thing a reader is actually scanning for. */
-  role: string;
-  /** What kind of organisation, never which one. See the note on the array. */
-  org: string;
-  body: string;
-  /** What was actually built or changed. */
-  points: readonly string[];
-  /** Platforms and tools, not adjectives. */
-  tags: readonly string[];
-};
-
-/**
- * The record, told as shifts rather than as an employment history.
- *
- * No company names. Section 4 of BRAND-DESIGN-GUIDELINE.md keeps corporate and
- * historical brand names off this site, and section 3 keeps the word "Founder"
- * off it, so `org` carries the role and the dates instead of an employer. The
- * facts, the dates and the numbers are unchanged: what was removed is the
- * letterhead, not the record. Client names went the same way, which also
- * settles the standing question about naming them without permission.
- */
-export const TIMELINE: readonly TimelineEntry[] = [
-  {
-    period: '2010–2016',
-    place: 'Gujarat, India',
-    role: 'Formal study in information technology',
-    org: 'Diploma, then degree',
-    body: 'Six years of formal education in two stages: a three-year diploma in information technology from 2010 to 2013, then a three-year degree from 2013 to 2016. The point at which this stopped being a hobby and started being a discipline.',
-    points: [
-      '2010 to 2013, diploma in information technology',
-      '2013 to 2016, degree in information technology',
-      'The fundamentals that still decide architecture: data modelling, networking, systems',
-    ],
-    tags: ['Diploma', 'Degree', 'Information technology'],
-  },
-  {
-    period: '2016–2025',
-    place: 'Vadodara, India',
-    role: 'Independent practice',
-    org: 'Own clients, alongside the employed roles',
-    body: 'Started taking my own clients in Vadodara and never stopped. The engagements ran in parallel with the full-time roles below, which is why the dates overlap.',
-    points: [
-      'Magento 2 full-stack and headless commerce for B2B, B2C, D2C and marketplace brands',
-      'Engagement-platform and multi-currency gateway work',
-      'Incorporated as a private limited company in 2025',
-    ],
-    tags: ['Magento 2', 'Headless', 'Independent'],
-  },
-  {
-    period: '2016–2018',
-    place: 'Vadodara, India',
-    role: 'Magento Developer, then Sr. Magento Developer',
-    org: 'Commerce agency',
-    body: 'Two years building Magento stores and modules professionally. Magento is the platform that turns a catalogue into an architecture problem, and that reframing shaped everything after it.',
-    points: [
-      'Custom module and extension development on Magento',
-      'Store builds and platform customisation for client brands',
-      'Promoted to Sr. Magento Developer within the first year',
-    ],
-    tags: ['Magento', 'PHP', 'Module development'],
-  },
-  {
-    period: '2018',
-    place: 'Vadodara, India',
-    role: 'Software Engineer',
-    org: 'Digital agency',
-    body: 'Shopify development for global personal-care brands: fully customised storefronts with JavaScript enhancements, third-party tools and custom features.',
-    points: [
-      'Built and customised Shopify storefronts with advanced functionality and responsive design',
-      'Integrated third-party apps, payment gateways and APIs to automate workflows',
-      'Custom JavaScript for interactive features and dynamic product displays',
-      'Optimised store performance, page load times and UX workflows',
-      'First exposure to Salesforce Commerce Cloud and to Magento 2 multi-platform architecture',
-    ],
-    tags: ['Shopify', 'JavaScript', 'SFCC, beginner', 'Integrations'],
-  },
-  {
-    period: '2018–2021',
-    place: 'Ahmedabad, India',
-    role: 'Sr. Magento 2 Full Stack Developer',
-    org: 'Commerce agency, Gulf retail',
-    body: 'Nearly three years building scalable, high-performance commerce for leading Saudi Arabian retail groups, across grocery, commercial kitchen equipment and fashion.',
-    points: [
-      'Full-stack Magento 2: custom modules, extensions, frontend and backend',
-      'Mobile app API development, and headless over REST and GraphQL',
-      'Custom payment gateway integration with localised payment and shipping methods',
-      'Multi-vendor and multi-store setups, with ERP and POS integration',
-      'Advanced filtering, layered navigation, dynamic pricing and custom checkout flows',
-      'Loyalty programmes, discount engines and customer dashboards',
-      'Performance and speed optimisation for high-traffic stores',
-    ],
-    tags: ['Magento 2', 'Elasticsearch', 'GraphQL', 'B2B and B2C', 'Saudi market'],
-  },
-  {
-    period: '2020–2022',
-    place: 'India, remote',
-    role: 'Sr. Magento Developer, B2B systems and performance',
-    org: 'B2B commerce platform',
-    body: 'B2B procurement is not a cart. It is a request, a quote, an approval chain and a budget holder. I built the systems that model that, and the infrastructure to hold them.',
-    points: [
-      'Five-level approval workflows with role-based permissions',
-      'B2B order and quote management, with 90% of processing automated',
-      'Approval cycle times reduced by 40%',
-      'AWS architecture on EC2, RDS and auto-scaling, with Varnish, Redis and full-page cache',
-      'Page load times cut by 60% on high-traffic B2B commerce',
-    ],
-    tags: ['Magento 2', 'AWS', 'Redis and Varnish', 'Workflows', 'APIs'],
-  },
-  {
-    period: '2023–now',
-    place: 'India, remote',
-    role: 'Team Lead, architecture and delivery',
-    org: 'B2B commerce platform',
-    body: 'The work stopped being code and became process: architecture guidance, code review and mentorship across a platform estate rather than a single store.',
-    points: [
-      'Architecture direction across 12+ multi-store Magento 2 platforms',
-      '500K+ SKUs and 1M+ monthly users under architecture',
-      'Structured workflows and review cut development cycle time by 30%',
-      'Mentorship and technical documentation for team onboarding',
-    ],
-    tags: ['Architecture', 'Team leadership', 'Code review', 'Multi-store'],
-  },
-  {
-    period: 'Now',
-    place: 'Vadodara, remote',
-    role: 'AI in the operating layer',
-    org: 'Consulting',
-    body: 'Where the work is now: agents with a deliberate tool boundary, retrieval grounded in a real catalogue, AI search, and automation pointed at the processes that absorb people who should be doing something else.',
-    points: [
-      'AI agents, retrieval and automation grounded in real business data',
-      'AI search and GEO, for discovery beyond the ranked result',
-      'Fractional CTO engagements and architecture direction',
-      'Evaluated before rollout, and reviewed by a person wherever the output reaches a customer or a ledger',
-    ],
-    tags: ['AI systems', 'Automation', 'Fractional CTO', 'Cloud'],
-  },
-];
-
 export type QaBlock = { no: string; q: string; a: string };
-
-/**
- * 08 — Direct answers.
- *
- * Four definitions, written to be quotable in isolation. This is the section an
- * answer engine lifts from, so each body is a complete answer to its own
- * heading and depends on nothing above it on the page.
- */
-export const ANSWERS: readonly QaBlock[] = [
-  {
-    no: '01',
-    q: 'What does Yuvraj Raulji work on?',
-    a: 'AI, eCommerce and digital transformation. Practical work across Magento, Shopify, WooCommerce and headless commerce, the APIs behind mobile apps, cloud and performance architecture, AI search and automation.',
-  },
-  {
-    no: '02',
-    q: 'What is AI commerce?',
-    a: 'AI commerce uses artificial intelligence across product discovery, search, recommendations, catalogue enrichment, customer support and purchasing workflows to create more relevant digital shopping experiences.',
-  },
-  {
-    no: '03',
-    q: 'What is headless commerce?',
-    a: 'Headless commerce separates the customer-facing frontend from the commerce backend through APIs, so a business can build a custom experience while keeping the underlying commerce platform.',
-  },
-  {
-    no: '04',
-    q: 'What is GEO?',
-    a: 'Generative Engine Optimization focuses on making information clear, authoritative and structurally understandable, so AI-powered search and answer systems can accurately interpret and reference a brand or topic.',
-  },
-];
 
 /**
  * 12 — Questions.
  *
- * The ten questions that come up before a first call. This array is the single
+ * The questions that come up before a first call. This array is the single
  * source for both the visible section and the FAQPage node in
  * lib/schema-brand.ts: FAQPage markup that does not match visible text on the
  * page is a structured-data violation, so the two can never be allowed to
@@ -535,21 +288,41 @@ export const FAQS: readonly QaBlock[] = [
   },
   {
     no: '07',
+    q: 'What is eCommerce consulting?',
+    a: 'eCommerce consulting is independent advice on the commerce decisions a business cannot easily reverse: which platform to be on, what the architecture has to carry, where performance and conversion are actually being lost, and which of those to fix first. It is judgement about trade-offs rather than the delivery of a fixed package.',
+  },
+  {
+    no: '08',
+    q: 'What is AI commerce?',
+    a: 'AI commerce uses artificial intelligence across product discovery, search, recommendations, catalogue enrichment, customer support and purchasing workflows to create more relevant digital shopping experiences.',
+  },
+  {
+    no: '09',
+    q: 'What is headless commerce?',
+    a: 'Headless commerce separates the customer-facing frontend from the commerce backend through APIs, so a business can build a custom experience while keeping the underlying commerce platform.',
+  },
+  {
+    no: '10',
+    q: 'Can an existing store be audited for technical SEO and conversion?',
+    a: 'Yes, and it is the most common starting point. An audit covers crawlability and indexation, Core Web Vitals on real devices, checkout and search behaviour, analytics you can trust, and the architecture underneath all four. The output is a prioritised list of what is costing the most, not a list of everything that could be improved.',
+  },
+  {
+    no: '11',
     q: 'What is the difference between Shopify and Magento?',
     a: 'Shopify is hosted and favours speed of launch and operational simplicity, which suits D2C brands with a focused catalogue. Magento 2 and Adobe Commerce are open architectures that carry complex catalogues, multi-store setups, B2B pricing and approval rules, at the cost of more engineering ownership.',
   },
   {
-    no: '08',
+    no: '12',
     q: 'How does Yuvraj Raulji approach digital transformation?',
     a: 'Understand the business, map the process, choose technology against that process, build it, then measure. The technology decision comes fourth, not first.',
   },
   {
-    no: '09',
+    no: '13',
     q: 'What does a 30-minute consultation cover?',
     a: 'The constraint you are actually hitting, the architecture or platform decision behind it, what AI should and should not touch in your operation, and the next practical step.',
   },
   {
-    no: '10',
+    no: '14',
     q: 'How can someone work with Yuvraj Raulji?',
     a: 'Start a conversation by email at toyuvrajraulji@gmail.com, or book a 30-minute consultation. Replies usually arrive within 24 hours on IST business days.',
   },
@@ -564,4 +337,259 @@ export const ENQUIRY_TOPICS: readonly string[] = [
   'Automating a process that eats people',
   'A technology strategy conversation',
   'Search, discovery or AI visibility',
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   The consultant homepage
+   ═══════════════════════════════════════════════════════════════
+
+   The constants below were added when the homepage was restructured from a
+   personal-interest narrative ("what I'm exploring") to a consulting page
+   ("what I solve, and what it is worth to you"). The older constants above are
+   still the source for the sections that survived that change, which is why
+   both sets live in one file rather than in two that could drift.
+
+   Nothing here carries a number. Every figure on the page comes from STATS,
+   which is the one place a verified figure is written down. */
+
+export type Problem = { no: string; name: string; note: string };
+
+/**
+ * 03 — What is actually holding the business back.
+ *
+ * Symptoms as the person with the problem would describe them, not as a
+ * services list. The note says what it costs, because a symptom a reader does
+ * not recognise as expensive is a symptom they will keep living with.
+ */
+export const PROBLEMS: readonly Problem[] = [
+  {
+    no: '01',
+    name: 'Slow commerce experience',
+    note: 'Pages that pass a lab score and still feel slow on a real phone, on a real network.',
+  },
+  {
+    no: '02',
+    name: 'Low conversion',
+    note: 'Traffic arrives and does not buy, and the analytics say where but not why.',
+  },
+  {
+    no: '03',
+    name: 'Checkout friction',
+    note: 'The last four steps lose the customers the first forty earned.',
+  },
+  {
+    no: '04',
+    name: 'Technical SEO issues',
+    note: 'Crawl budget spent on pages that should never have been indexed.',
+  },
+  {
+    no: '05',
+    name: 'Poor search experience',
+    note: 'On-site search that matches words instead of understanding what was asked.',
+  },
+  {
+    no: '06',
+    name: 'ERP and CRM integration',
+    note: 'Stock, price and order sync built as scripts, so every schema change is an outage.',
+  },
+  {
+    no: '07',
+    name: 'Manual operations',
+    note: 'Work that absorbs people who should be doing something the business cannot automate.',
+  },
+  {
+    no: '08',
+    name: 'Weak analytics',
+    note: 'Numbers nobody trusts, so decisions get made on the loudest opinion instead.',
+  },
+  {
+    no: '09',
+    name: 'Scattered technology systems',
+    note: 'Tools bought one problem at a time, now holding each other up.',
+  },
+];
+
+export type Capability = {
+  no: string;
+  name: string;
+  /** What this area is for, in the client's terms rather than the tooling's. */
+  body: string;
+  items: readonly string[];
+};
+
+/**
+ * 04 — The four areas.
+ *
+ * Four, not nine. A consultant who lists nine specialisms is read as a
+ * generalist, and the four below are the shape the actual engagements take.
+ */
+export const CAPABILITIES: readonly Capability[] = [
+  {
+    no: '01',
+    name: 'eCommerce strategy',
+    body: 'The decision before the build. Which platform the business should be on, what the architecture has to carry, and what a migration is genuinely worth.',
+    items: [
+      'Platform strategy',
+      'Commerce architecture',
+      'Technology planning',
+      'Migration planning',
+      'Performance strategy',
+      'Digital commerce optimization',
+    ],
+  },
+  {
+    no: '02',
+    name: 'Commerce technology',
+    body: 'The platforms themselves, and the integrations that decide whether they hold. Most commerce problems turn out to be integration problems wearing a storefront.',
+    items: [
+      'Shopify and Shopify Plus',
+      'Magento 2 and Adobe Commerce',
+      'WooCommerce',
+      'Headless commerce',
+      'APIs and integrations',
+      'ERP and CRM connectivity',
+    ],
+  },
+  {
+    no: '03',
+    name: 'Growth and experience',
+    body: 'What happens after the platform is right. Speed, search, checkout and measurement, which is where revenue is quietly won or lost.',
+    items: [
+      'Conversion optimization',
+      'Technical SEO',
+      'Core Web Vitals',
+      'Analytics',
+      'Search experience',
+      'Checkout optimization',
+      'Performance optimization',
+      'Customer experience',
+    ],
+  },
+  {
+    no: '04',
+    name: 'AI and automation',
+    body: 'Where AI earns its place in an operation, and where it does not. The useful question is which process it should touch, not which model to use.',
+    items: [
+      'AI search',
+      'AI agents',
+      'LLM applications',
+      'RAG systems',
+      'Business automation',
+      'Product discovery',
+      'Customer support automation',
+      'Content and catalog intelligence',
+    ],
+  },
+];
+
+export type ApproachStep = { no: string; name: string; body: string };
+
+/** 09 — How an engagement actually runs. */
+export const APPROACH: readonly ApproachStep[] = [
+  {
+    no: '01',
+    name: 'Audit',
+    body: 'Understand the business, the technology and the customer experience as they are, not as the last deck described them.',
+  },
+  {
+    no: '02',
+    name: 'Diagnose',
+    body: 'Identify the technical and commercial issues actually affecting performance, and separate them from the ones that only look urgent.',
+  },
+  {
+    no: '03',
+    name: 'Prioritize',
+    body: 'Focus on the problems that matter most, in the order that pays for the next one.',
+  },
+  {
+    no: '04',
+    name: 'Optimize',
+    body: 'Implement practical improvements across commerce, technology and growth, and measure whether they moved anything.',
+  },
+  {
+    no: '05',
+    name: 'Scale',
+    body: 'Build systems that support long-term growth, so the next stage does not require starting again.',
+  },
+];
+
+/**
+ * One entry in the stack list.
+ *
+ * `href` is set only where the site actually publishes a page about that
+ * technology. Nine of them do, at the root: /shopify/, /magento/,
+ * /woocommerce/, /wordpress/, /headless-commerce/, /ai-commerce/, /ai-search/,
+ * /ai-automation/ and /digital-transformation/. Those pages were built to be
+ * the landing page for a platform search, and until this section linked to
+ * them the homepage named every one of their subjects in plain text and passed
+ * nothing on. The rest carry no href because there is no page to send a reader
+ * to, and a link to a page that does not exist is worse than no link.
+ */
+export type EcoItem = { name: string; href?: string };
+
+export type EcosystemGroup = { name: string; items: readonly EcoItem[] };
+
+/**
+ * 08 — The ecosystem, grouped by what a thing is for.
+ *
+ * Set as type rather than as logos on purpose. A logo wall says "we have heard
+ * of these"; a grouped list says which layer each one sits in, which is the
+ * only part a client's technical reviewer will actually read.
+ *
+ * It is also the page's technology index: each name that has a page behind it
+ * is the link to that page, with the technology's own name as the anchor text.
+ */
+export const ECOSYSTEM: readonly EcosystemGroup[] = [
+  {
+    name: 'Commerce',
+    items: [
+      { name: 'Shopify', href: '/shopify/' },
+      { name: 'Shopify Plus', href: '/shopify/' },
+      { name: 'Magento 2', href: '/magento/' },
+      { name: 'Adobe Commerce', href: '/magento/' },
+      { name: 'WooCommerce', href: '/woocommerce/' },
+      { name: 'WordPress', href: '/wordpress/' },
+    ],
+  },
+  {
+    name: 'Frontend',
+    items: [
+      { name: 'Next.js' },
+      { name: 'React' },
+      { name: 'Headless commerce', href: '/headless-commerce/' },
+    ],
+  },
+  {
+    name: 'AI',
+    items: [
+      { name: 'AI search', href: '/ai-search/' },
+      { name: 'AI commerce', href: '/ai-commerce/' },
+      { name: 'LLMs' },
+      { name: 'RAG' },
+      { name: 'AI agents', href: '/ai-automation/' },
+      { name: 'Automation', href: '/ai-automation/' },
+    ],
+  },
+  {
+    name: 'Data and infrastructure',
+    items: [
+      { name: 'GraphQL' },
+      { name: 'Node.js' },
+      { name: 'PHP' },
+      { name: 'MySQL' },
+      { name: 'Redis' },
+      { name: 'Varnish' },
+      { name: 'AWS' },
+      { name: 'Cloudflare' },
+    ],
+  },
+  {
+    name: 'Analytics and growth',
+    items: [
+      { name: 'GA4' },
+      { name: 'Technical SEO' },
+      { name: 'CRO' },
+      { name: 'Digital transformation', href: '/digital-transformation/' },
+    ],
+  },
 ];

@@ -43,8 +43,14 @@ export const NAME = 'Yuvraj Raulji';
  */
 export const POSITIONING = 'AI | BUSINESS | ECOMMERCE';
 
-/** Machine-readable variant, for metadata where the multiplication sign reads badly. */
-export const POSITIONING_PLAIN = 'AI, business and eCommerce';
+/*
+ * POSITIONING_PLAIN, 'AI, business and eCommerce', used to live here as the
+ * metadata variant of the line above. Its only consumer was the homepage
+ * WebPage node, where it produced a fourth account of this person after the
+ * <title>, the H1 and the Person node, all three of which name the role. That
+ * node carries the role now (HOME_NAME in lib/schema-brand.ts), so the string
+ * is gone rather than left as a second positioning anything could pick up.
+ */
 
 /**
  * The job description, written as what he does rather than as a title. No

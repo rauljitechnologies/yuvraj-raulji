@@ -114,7 +114,7 @@ export default function ContactPage() {
             {CHANNELS.map((c, i) => (
               <li key={c.label} className="bg-[var(--bg)]">
                 <Rise delay={Math.min(i, 3) * 0.06} className="group flex h-full flex-col p-6 sm:p-8 lg:p-10">
-                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35">
+                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
                     {c.label}
                   </span>
                   <p className="m-0 mt-5 font-manrope text-[clamp(20px,2vw,28px)] font-semibold leading-[1.15] tracking-[-0.025em]">
@@ -128,7 +128,7 @@ export default function ContactPage() {
                       {c.value}
                     </a>
                   </p>
-                  <p className="m-0 mt-4 max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50">
+                  <p className="m-0 mt-4 max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
                     {c.note}
                   </p>
                 </Rise>
@@ -167,7 +167,7 @@ export default function ContactPage() {
                 The constraint, the system it sits in, and what you have already tried. That is
                 enough for a useful first reply; the rest is what the conversation is for.
               </p>
-              <p className="m-0 max-w-[42ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/45">
+              <p className="m-0 max-w-[42ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
                 Nothing here is sold on. Messages go to one inbox, they are read by me, and an
                 enquiry that turns out to be a bad fit gets told so rather than quoted for.
               </p>

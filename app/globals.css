@@ -198,6 +198,24 @@
 
   html {
     scroll-behavior: smooth;
+
+    /*
+     * The header is fixed, so without this every in-page anchor lands with its
+     * heading underneath the bar. On the homepage that is every call to action
+     * on the page: #contact, #work, #ai and #expertise all scrolled the thing
+     * they named out of sight.
+     *
+     * 112px is the tall case: a 68px bar plus the 34px condensed link row that
+     * only exists under `md`, plus a little air. From `md` the row is gone and
+     * the bar is 78px, so the padding comes down with it.
+     */
+    scroll-padding-top: 112px;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 96px;
+    }
   }
 
   body {

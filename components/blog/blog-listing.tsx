@@ -35,7 +35,7 @@ function SectionBar({ num, label, badge }: { num: string; label: string; badge?:
     <div className="sec-bar mt-16 reveal">
       <span className="sec-spine" />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.34em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.55)' }}>
+        <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.34em', textTransform: 'uppercase', color: '#ee2a34' }}>
           {num}
         </span>
         <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>
@@ -72,11 +72,11 @@ function GridCard({ post, imgHeight, titleSize, excerptSize, showDate }: { post:
         <div className="flex items-center flex-wrap gap-[8px] mb-4">
           <span style={{ fontSize: '.62rem', fontWeight: 700, letterSpacing: '.15em', textTransform: 'uppercase', color: '#f0263c' }}>{post.cat}</span>
           <span style={{ color: 'rgba(255,255,255,.20)', fontSize: '.75rem', lineHeight: 1 }}>·</span>
-          <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.36)' }}>{post.readTime}</span>
+          <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.12em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>{post.readTime}</span>
           {showDate && (
             <>
               <span style={{ color: 'rgba(255,255,255,.20)', fontSize: '.75rem', lineHeight: 1 }}>·</span>
-              <span style={{ fontSize: '.58rem', fontWeight: 600, letterSpacing: '.10em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.28)' }}>{post.date}</span>
+              <span style={{ fontSize: '.58rem', fontWeight: 600, letterSpacing: '.10em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>{post.date}</span>
             </>
           )}
         </div>
@@ -88,7 +88,7 @@ function GridCard({ post, imgHeight, titleSize, excerptSize, showDate }: { post:
           {post.title}
         </h2>
 
-        <p className="leading-[1.74] line-clamp-2 flex-1 mb-5" style={{ fontSize: excerptSize, color: showDate ? 'rgba(245, 245, 242,.46)' : 'rgba(245, 245, 242,.42)' }}>
+        <p className="leading-[1.74] line-clamp-2 flex-1 mb-5" style={{ fontSize: excerptSize, color: showDate ? 'rgba(245, 245, 242,.55)' : 'rgba(245, 245, 242,.55)' }}>
           {post.excerpt}
         </p>
 
@@ -187,7 +187,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
         <div className="max-w-shell mx-auto px-6 md:px-10">
           <div className="flex items-center justify-between gap-4 py-4">
             <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide flex-1 min-w-0">
-              <span className="flex-shrink-0 text-[.58rem] font-bold tracking-[.24em] uppercase text-[rgba(245,245,242,.28)] pr-2 border-r border-[rgba(255,255,255,.08)] mr-1 hidden sm:block">
+              <span className="flex-shrink-0 text-[.58rem] font-bold tracking-[.24em] uppercase text-[rgba(245,245,242,.55)] pr-2 border-r border-[rgba(255,255,255,.08)] mr-1 hidden sm:block">
                 Filter
               </span>
               {FILTERS.map((f) => (
@@ -196,8 +196,8 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                   onClick={() => setActiveFilter(f)}
                   className={`flex-shrink-0 h-[34px] px-[18px] rounded-full text-[.63rem] font-bold tracking-[.12em] uppercase whitespace-nowrap transition-all duration-200 touch-manipulation border ${
                     activeFilter === f
-                      ? 'bg-rv text-white border-rv shadow-[0_4px_18px_rgba(240,38,60,.38)]'
-                      : 'text-[rgba(245,245,242,.44)] border-[rgba(255,255,255,.08)] hover:text-[#f5f5f2] hover:border-[rgba(229,9,32,.24)] hover:bg-[rgba(229,9,32,.06)]'
+                      ? 'bg-accent text-white border-accent shadow-[0_4px_18px_rgba(240,38,60,.38)]'
+                      : 'text-[rgba(245,245,242,.55)] border-[rgba(255,255,255,.08)] hover:text-[#f5f5f2] hover:border-[rgba(229,9,32,.24)] hover:bg-[rgba(229,9,32,.06)]'
                   }`}
                 >
                   {FILTER_LABELS[f]}
@@ -206,7 +206,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
             </div>
             <div className="flex-shrink-0 flex items-center gap-2">
               <span className="w-[5px] h-[5px] rounded-full bg-rv" />
-              <span className="text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.32)]">{filtered.length} Articles</span>
+              <span className="text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.55)]">{filtered.length} Articles</span>
             </div>
           </div>
         </div>
@@ -220,7 +220,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
               <div className="sec-bar">
                 <span className="sec-spine" />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                  <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.34em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.55)' }}>
+                  <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.34em', textTransform: 'uppercase', color: '#ee2a34' }}>
                     01 / Cover
                   </span>
                   <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>
@@ -228,7 +228,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                   </span>
                 </div>
                 <span className="sec-line" />
-                <span className="font-display" style={{ fontSize: '1.20rem', letterSpacing: '.06em', color: 'rgba(245, 245, 242,.18)' }}>
+                <span className="font-display" style={{ fontSize: '1.20rem', letterSpacing: '.06em', color: 'rgba(245, 245, 242,.55)' }}>
                   <span style={{ color: '#f0263c' }}>{pad(slCur + 1)}</span>
                   <span style={{ color: 'rgba(255,255,255,.12)' }}> / </span>
                   <span>{pad(slides.length)}</span>
@@ -278,13 +278,13 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                           >
                             {post.cat}
                           </span>
-                          <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.50)' }}>
+                          <span style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)' }}>
                             {post.readTime}
                           </span>
                         </div>
 
                         <div className="sl-body absolute bottom-0 left-0 right-0">
-                          <div style={{ fontSize: '.62rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.38)', marginBottom: 10 }}>
+                          <div style={{ fontSize: '.62rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.55)', marginBottom: 10 }}>
                             {post.date}
                           </div>
                           <h2
@@ -293,7 +293,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                           >
                             {post.title}
                           </h2>
-                          <p className="hidden sm:block leading-[1.74] line-clamp-2" style={{ fontSize: '.90rem', color: 'rgba(245, 245, 242,.52)', maxWidth: 580, marginBottom: 20 }}>
+                          <p className="hidden sm:block leading-[1.74] line-clamp-2" style={{ fontSize: '.90rem', color: 'rgba(245, 245, 242,.55)', maxWidth: 580, marginBottom: 20 }}>
                             {post.excerpt}
                           </p>
                           <div style={{ height: 1, background: 'linear-gradient(90deg,rgba(229, 9, 32,.24),rgba(255,255,255,.06),transparent)', marginBottom: 16 }} />
@@ -307,7 +307,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                               </div>
                               <div>
                                 <div style={{ fontSize: '.72rem', fontWeight: 600, color: 'rgba(245, 245, 242,.78)' }}>Yuvraj Raulji</div>
-                                <div style={{ fontSize: '.58rem', fontWeight: 500, letterSpacing: '.06em', color: 'rgba(245, 245, 242,.36)' }}>
+                                <div style={{ fontSize: '.58rem', fontWeight: 500, letterSpacing: '.06em', color: 'rgba(245, 245, 242,.55)' }}>
                                   Full Stack E-commerce &amp; AI Consultant
                                 </div>
                               </div>
@@ -383,7 +383,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                   —
                 </span>
               </div>
-              <p className="text-[rgba(245,245,242,.30)] font-semibold tracking-[.14em] uppercase" style={{ fontSize: '.76rem' }}>
+              <p className="text-[rgba(245,245,242,.55)] font-semibold tracking-[.14em] uppercase" style={{ fontSize: '.76rem' }}>
                 No articles in this category yet
               </p>
             </div>

@@ -77,8 +77,14 @@ const ADDRESS = {
 export const PERSON_DESCRIPTION =
   'Yuvraj Raulji works at the intersection of AI, business and eCommerce. Nine years in technology since the first Magento role in 2016, across Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, on B2B, B2C, D2C and marketplace models.';
 
-/** The positioning string, as a job title. One string, used everywhere. */
-export const PERSON_JOB_TITLE = 'AI & eCommerce Consultant';
+/**
+ * The positioning string, as a job title. One string, used everywhere.
+ *
+ * Matched to the homepage H1 and <title>. It read "AI & eCommerce Consultant"
+ * while the homepage called him an "eCommerce, AI & Technology Consultant",
+ * which is two job titles for one person across markup and visible text.
+ */
+export const PERSON_JOB_TITLE = 'eCommerce, AI & Technology Consultant';
 
 /** Points at a file that exists in public/. Verified, not assumed. */
 const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
