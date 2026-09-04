@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { PILLARS, pillarHref } from '../lib/expertise';
 import { TECHNOLOGIES, techHref } from '../lib/technology';
-import { POSTS } from '../lib/posts';
+import { POSTS, postDateUTC } from '../lib/posts';
 import { SITE_URL } from '../lib/site';
 
 export const dynamic = 'force-static';
@@ -20,8 +20,7 @@ const BASE = SITE_URL;
  * linked pages that the sitemap simply did not mention.
  */
 function postDate(date: string): Date {
-  const t = Date.parse(date);
-  return isNaN(t) ? new Date() : new Date(t);
+  return postDateUTC(date) ?? new Date();
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

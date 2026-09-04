@@ -108,3 +108,30 @@ export const POSTS: Record<string, Post> = {
     "excerpt": "Hands-on guide to Magento 2 PWA Studio: Venia storefront, GraphQL API, local setup, performance tuning for 90+ Lighthouse"
   }
 };
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * `Post.date` is the display string the article renders ("12 Jun 2026"), and it
+ * carries no timezone. `new Date()` on it therefore resolves against whatever
+ * zone the build machine is in, and on IST that lands at 18:30 UTC the previous
+ * day: every article rendered "12 Jun 2026" on the page while `datePublished`,
+ * `dateModified`, `article:published_time` and the sitemap `lastmod` all said
+ * the 11th. Parsing to UTC midnight instead makes the build machine's zone
+ * irrelevant and the four agree with the page.
+ *
+ * Returns null on an unparseable string rather than guessing, so each caller
+ * picks its own fallback.
+ */
+export function postDateUTC(date: string): Date | null {
+  const m = /^(\d{1,2})\s+([A-Za-z]{3,})\s+(\d{4})$/.exec(date.trim());
+  if (!m) return null;
+  const month = MONTHS.findIndex((n) => n.toLowerCase() === m[2].slice(0, 3).toLowerCase());
+  if (month < 0) return null;
+  return new Date(Date.UTC(Number(m[3]), month, Number(m[1])));
+}
+
+/** The same date as an ISO 8601 instant, for structured data. */
+export function postDateISO(date: string): string {
+  return (postDateUTC(date) ?? new Date(Date.UTC(2026, 0, 1))).toISOString();
+}

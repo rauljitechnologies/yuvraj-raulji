@@ -31,7 +31,7 @@ import {
 } from './home';
 import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
-import { POSTS } from './posts';
+import { POSTS, postDateISO } from './posts';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from './site';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -508,7 +508,7 @@ export function articleSchema({
 }) {
   const post = POSTS[slug];
   const path = `/blog/${slug}/`;
-  const published = new Date(post.date).toISOString();
+  const published = postDateISO(post.date);
 
   return graph([
     personNode(),
@@ -563,7 +563,7 @@ export function blogHubSchema(crumbs: Crumb[]) {
         headline: p.title,
         url: `${SITE_URL}/blog/${slug}/`,
         image: `${SITE_URL}${p.ogImg}`,
-        datePublished: new Date(p.date).toISOString(),
+        datePublished: postDateISO(p.date),
         author: personRef,
       })),
     },

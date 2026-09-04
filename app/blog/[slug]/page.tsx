@@ -9,7 +9,7 @@ import { SiteFooter } from '../../../components/site-footer';
 import { SiteHeader } from '../../../components/site-header';
 import { getArticle } from '../../../lib/articles';
 import { articleSchema, type Crumb } from '../../../lib/schema';
-import { POSTS } from '../../../lib/posts';
+import { POSTS, postDateISO } from '../../../lib/posts';
 import { CONTACT, SITE_URL } from '../../../lib/site';
 import { TAGS } from '../../../lib/tags';
 
@@ -17,11 +17,6 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return Object.keys(POSTS).map((slug) => ({ slug }));
-}
-
-function isoDate(d: string): string {
-  const t = Date.parse(d);
-  return isNaN(t) ? '2026-01-01' : new Date(t).toISOString().split('T')[0];
 }
 
 type Props = { params: Promise<{ slug: string }> };
@@ -40,7 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       siteName: 'Yuvraj Raulji',
       type: 'article',
-      publishedTime: isoDate(p.date),
+      locale: 'en_US',
+      publishedTime: postDateISO(p.date),
       authors: ['Yuvraj Raulji'],
       images: [{ url: p.ogImg, width: 1600, height: 900, alt: p.title }],
     },

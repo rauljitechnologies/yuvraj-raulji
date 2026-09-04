@@ -45,7 +45,7 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
  * account of it in all four places.
  */
 export const HOME_DESCRIPTION =
-  'Yuvraj Raulji is an eCommerce, AI and technology consultant helping businesses improve commerce architecture, performance, customer experience, AI adoption, technical SEO and digital growth.';
+  'Yuvraj Raulji is an eCommerce, AI and technology consultant working on commerce architecture, performance, customer experience, AI adoption and technical SEO.';
 
 export const ABOUT_DESCRIPTION =
   'Nine years in technology, from the first Magento role in 2016 through Shopify, headless commerce and AI. The thinking behind the work, and how it is decided.';
