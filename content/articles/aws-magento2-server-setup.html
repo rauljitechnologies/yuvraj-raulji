@@ -10,6 +10,7 @@
         <li><strong>Elastic Load Balancer</strong>: Required for multi-node setups and SSL termination. Terminating TLS here is infrastructure work, not <a href="/magento/security/">Magento security work</a>, and the two get confused often enough to be worth separating.</li>
       </ul>
       <h2>Phase 2: Web Server Configuration</h2>
+      <p>Most of this section transfers directly to <a href="/wordpress/optimization/">WordPress and WooCommerce hosting</a>, where the same Nginx and PHP-FPM tuning applies to a much lighter application.</p>
       <h3>Nginx + PHP-FPM Setup</h3>
       <p>The official Magento 2 Nginx configuration is a good starting point but requires tuning for production:</p>
       <pre><code># PHP-FPM pool config (/etc/php/8.2/fpm/pool.d/magento.conf)

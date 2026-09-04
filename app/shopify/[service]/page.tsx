@@ -4,18 +4,18 @@ import { serviceMetadata, serviceParams, type ServiceRouteProps } from '../../..
 import { findService } from '../../../lib/platform-services';
 
 /**
- * /magento/{service}/
+ * /shopify/{service}/
  *
- * One route for all seven Magento service pages, and the first of the five
- * platform routes. The shared metadata and params live in lib/platform-route.ts
- * so the five cannot drift apart on a canonical or an og:type.
+ * One route for every Shopify service page. The shared metadata and params
+ * live in lib/platform-route.ts so the five platform routes cannot drift apart
+ * on a canonical or an og:type.
  *
  * `dynamicParams = false` so a slug outside `generateStaticParams` is a build
  * error rather than a page that renders empty. Under `output: 'export'` there
  * is no request-time fallback to catch it later.
  */
 
-const PLATFORM = 'magento';
+const PLATFORM = 'shopify';
 
 export const dynamicParams = false;
 
@@ -27,7 +27,7 @@ export function generateMetadata(props: ServiceRouteProps): Promise<Metadata> {
   return serviceMetadata(PLATFORM, props);
 }
 
-export default async function MagentoService({ params }: ServiceRouteProps) {
+export default async function ShopifyService({ params }: ServiceRouteProps) {
   const { service: slug } = await params;
   /* Non-null: `dynamicParams = false` means only the slugs above ever render,
      and the registry is the same source `generateStaticParams` reads. */

@@ -2,6 +2,7 @@
       <p>Shopify's default Liquid themes are excellent for most stores. But as brands grow, they hit limitations: slow page transitions, rigid layout constraints, inability to share components across channels. <a href="/headless-commerce/">Going headless</a> solves this: <a href="/shopify/">Shopify</a> becomes the commerce backend (inventory, orders, payments), and Next.js becomes the frontend you fully control.</p>
       <p>The result: 90+ Core Web Vitals, instant page transitions, and a React component library you own completely.</p>
       <h2>Architecture Decision: Hydrogen 2.0 vs Custom Next.js</h2>
+      <p>This is the decision the rest of the build inherits, and it is worth taking slowly. The framework choice matters less than the rendering and caching model behind it, which is the part of <a href="/headless-commerce/architecture/">headless architecture</a> that decides whether the storefront ends up faster than the theme it replaced.</p>
       <h3>Hydrogen 2.0 (Remix-based)</h3>
       <ul>
         <li>Shopify's official headless framework: built on Remix</li>
@@ -30,7 +31,7 @@ export const shopify = createStorefrontApiClient({
   publicAccessToken: process.env.SHOPIFY_STOREFRONT_TOKEN!,
 });</code></pre>
       <h2>Product Pages with ISR</h2>
-      <p>Use Incremental Static Regeneration (ISR) for product pages: they are statically generated at build time but revalidated in the background when products change:</p>
+      <p>Use Incremental Static Regeneration (ISR) for product pages: they are statically generated at build time but revalidated in the background when products change. Moving templates into this tier one at a time is also the safest way to run a <a href="/headless-commerce/migration/">migration from an existing theme</a>, because each move is small enough to measure and reverse:</p>
       <pre><code>// app/products/[handle]/page.tsx
 export const revalidate = 3600; // revalidate every hour
 

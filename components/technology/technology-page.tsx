@@ -83,6 +83,19 @@ const accentLastLine = (lines: readonly string[]): readonly DisplayLine[] =>
   lines.map((text, i) => (i === lines.length - 1 ? { text, accent: true } : text));
 
 /* One mono label, shared by every eyebrow below, matching the pillar pages. */
+/* The services lede counts the spokes in words, and the count differs per
+   platform: seven on Magento, five on Shopify, WooCommerce and WordPress, four
+   on headless commerce. It read "Seven pieces" on all of them for one build,
+   which is the kind of copy bug that only appears once a second cluster ships. */
+const SERVICE_COUNT: Record<number, string> = {
+  3: 'Three',
+  4: 'Four',
+  5: 'Five',
+  6: 'Six',
+  7: 'Seven',
+  8: 'Eight',
+};
+
 const LABEL =
   'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
@@ -199,7 +212,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
               label="Services"
               id="services-title"
               lines={[`Working with`, `${tech.name}.`]}
-              lede={`Seven pieces of ${tech.name} work, each with its own page, because they are bought separately and by different people. The one you need is rarely the one the problem is labelled as.`}
+              lede={`${SERVICE_COUNT[services.length] ?? services.length} pieces of ${tech.name} work, each with its own page, because they are bought separately and by different people. The one you need is rarely the one the problem is labelled as.`}
             />
             <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-3">
               {services.map((svc, i) => (
