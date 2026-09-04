@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { PILLARS, pillarHref } from '../lib/expertise';
 import { TECHNOLOGIES, techHref } from '../lib/technology';
+import { ALL_PLATFORM_SERVICES, serviceHref } from '../lib/platform-services';
 import { POSTS, postDateUTC } from '../lib/posts';
 import { SITE_URL } from '../lib/site';
 
@@ -40,6 +41,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: buildDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+    })),
+    /* Platform service pages, one level under their technology hub. Priority
+       below the hubs at 0.8: a hub is the page a platform search lands on and
+       the spokes are the pages a service search lands on, which is the less
+       common query of the two. Driven off the same registry the routes are,
+       so a service cannot ship unlisted. */
+    ...ALL_PLATFORM_SERVICES.map((svc) => ({
+      url: `${BASE}${serviceHref(svc.platform, svc.slug)}`,
+      lastModified: buildDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     })),
     ...PILLARS.map((p) => ({
       url: `${BASE}${pillarHref(p.slug)}`,

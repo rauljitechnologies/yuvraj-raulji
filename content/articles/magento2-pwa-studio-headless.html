@@ -23,7 +23,7 @@ cd my-store
 # MAGENTO_BACKEND_URL=https://your-magento-store.com/
 yarn watch</code></pre>
       <h2>GraphQL Performance Optimization</h2>
-      <p>The biggest PWA Studio performance bottleneck is over-fetching from GraphQL. Key strategies:</p>
+      <p>The biggest PWA Studio performance bottleneck is over-fetching from GraphQL, and the same APIs carry the traffic behind the storefront, so the shape of your <a href="/magento/integrations/">Magento integration boundary</a> shows up here too. Key strategies:</p>
       <ul>
         <li><strong>Fragment colocation</strong>: each component requests only the fields it uses</li>
         <li><strong>Apollo Client cache policy</strong>: use <code>cache-first</code> for static data (categories, CMS), <code>network-only</code> for cart/account</li>

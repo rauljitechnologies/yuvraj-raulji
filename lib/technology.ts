@@ -518,6 +518,11 @@ const SHOPIFY: Technology = {
 
   related: [
     { href: '/magento/', label: 'Magento commerce', note: 'Where Shopify stops fitting: quotes, approvals, multi-store.' },
+    {
+      href: '/magento/migration/',
+      label: 'Moving a store onto Magento 2',
+      note: 'The shape of the work when the complexity turns out to be real.',
+    },
     { href: '/headless-commerce/', label: 'Headless commerce', note: 'When the front end needs its own roadmap.' },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'The catalogue and search work that pays on a D2C store.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Being findable when the answer arrives before the link.' },
@@ -1427,6 +1432,11 @@ const WOOCOMMERCE: Technology = {
     { href: '/wordpress/', label: 'WordPress', note: 'The host system, and what it is good at on its own.' },
     { href: '/shopify/', label: 'Shopify', note: 'Where most WooCommerce stores go when they outgrow it.' },
     { href: '/magento/', label: 'Magento', note: 'If the growth is in pricing and approval complexity.' },
+    {
+      href: '/magento/migration/',
+      label: 'Migrating a WooCommerce catalogue onto Magento 2',
+      note: 'Catalogue remodelling and URL preservation, which is where these moves fail.',
+    },
     { href: '/headless-commerce/', label: 'Headless commerce', note: 'Decoupling the front end from WordPress.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Search across articles and products together.' },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'Product data and content workflows.' },
@@ -1991,6 +2001,11 @@ const HEADLESS: Technology = {
 
   related: [
     { href: '/magento/', label: 'Magento', note: 'The commerce layer, over GraphQL and PWA Studio.' },
+    {
+      href: '/magento/integrations/',
+      label: 'Magento API and integration boundaries',
+      note: 'The same GraphQL and REST surface, pointed at the back office.',
+    },
     { href: '/shopify/', label: 'Shopify', note: 'The commerce layer, over the Storefront API.' },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'What the API boundary makes cheaper to add.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Retrieval served through the same layer.' },
@@ -2592,6 +2607,11 @@ const AI_AUTOMATION: Technology = {
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Retrieval pointed at customers instead of at staff.' },
     { href: '/digital-transformation/', label: 'Digital transformation', note: 'Redesigning the process before automating it.' },
     { href: '/magento/', label: 'Magento', note: 'Where the approval and quote automation was built.' },
+    {
+      href: '/magento/integrations/',
+      label: 'Magento B2B workflow and ERP integration',
+      note: 'The platform side of the quote and approval automation.',
+    },
     { href: '/expertise/ecommerce-consulting/', label: 'eCommerce consulting', note: 'If the question is whether to build this at all.' },
     { href: '/work/', label: 'Selected work', note: 'The record behind the automation figures.' },
   ],
@@ -2878,6 +2898,11 @@ const DIGITAL_TRANSFORMATION: Technology = {
   related: [
     { href: '/ai-automation/', label: 'AI automation', note: 'What to automate once the process is worth keeping.' },
     { href: '/magento/', label: 'Magento', note: 'A common target platform for complex commerce.' },
+    {
+      href: '/magento/consulting/',
+      label: 'Testing whether Magento is the right target at all',
+      note: 'The platform decision, taken before the modernisation programme commits to one.',
+    },
     { href: '/headless-commerce/', label: 'Headless commerce', note: 'A common target architecture for the front end.' },
     { href: '/shopify/', label: 'Shopify', note: 'The simpler answer, when the complexity is not real.' },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'Where the recovered capacity usually goes next.' },

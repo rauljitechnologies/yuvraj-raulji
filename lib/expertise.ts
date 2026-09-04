@@ -211,6 +211,11 @@ export const PILLARS: Pillar[] = [
     related: [
       { href: '/digital-transformation/', label: 'digital transformation and legacy replatforming', note: 'When the answer is a programme rather than a project.' },
       { href: '/magento/', label: 'Magento 2 and Adobe Commerce consulting', note: 'Where the shortlist lands for multi-store and B2B.' },
+      {
+        href: '/magento/consulting/',
+        label: 'Magento consulting, once the shortlist has narrowed to it',
+        note: 'The data model and scope decisions that come next, and are hard to reverse.',
+      },
       { href: '/shopify/', label: 'Shopify and Shopify Plus consulting', note: 'Where it lands when speed to market wins.' },
     ],
     faqs: [

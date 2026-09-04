@@ -7,7 +7,7 @@
         <li><strong>RDS MySQL 8.0</strong>: Managed database. Use <code>db.r6g.large</code> minimum. Enable Multi-AZ for production. Separate read replica for heavy catalog queries.</li>
         <li><strong>ElastiCache Redis</strong>: Sessions + full-page cache backend. <code>cache.r6g.large</code> with cluster mode disabled for Magento 2 compatibility.</li>
         <li><strong>S3 + CloudFront</strong>: Media storage and CDN. Use S3 for <code>pub/media</code> and CloudFront distribution for global edge caching.</li>
-        <li><strong>Elastic Load Balancer</strong>: Required for multi-node setups and SSL termination.</li>
+        <li><strong>Elastic Load Balancer</strong>: Required for multi-node setups and SSL termination. Terminating TLS here is infrastructure work, not <a href="/magento/security/">Magento security work</a>, and the two get confused often enough to be worth separating.</li>
       </ul>
       <h2>Phase 2: Web Server Configuration</h2>
       <h3>Nginx + PHP-FPM Setup</h3>
@@ -29,7 +29,7 @@ pm.max_requests = 500</code></pre>
       </ul>
       <h2>Phase 3: Redis Configuration</h2>
       <h3>Separate Redis Instances for Sessions & Cache</h3>
-      <p>Using a single Redis instance for both sessions and cache is a common mistake: cache eviction can clear session data, causing unexpected logouts. Use two separate Redis databases or instances:</p>
+      <p>Using a single Redis instance for both sessions and cache is a common mistake: cache eviction can clear session data, causing unexpected logouts. It is also one of the cheapest wins in <a href="/magento/performance/">Magento performance work</a>, because it costs nothing but configuration. Use two separate Redis databases or instances:</p>
       <pre><code># app/etc/env.php
 'session' => [
     'save' => 'redis',
@@ -53,7 +53,7 @@ pm.max_requests = 500</code></pre>
     ],
 ],</code></pre>
       <h2>Phase 4: Deployment Pipeline</h2>
-      <p>A reliable Magento 2 deployment pipeline on AWS should include:</p>
+      <p>A pipeline anyone on the team can run is the difference between <a href="/magento/maintenance/">maintainable Magento</a> and a platform that waits on one person. A reliable Magento 2 deployment pipeline on AWS should include:</p>
       <ul>
         <li>GitHub Actions or CodePipeline triggering on merge to <code>main</code></li>
         <li>Composer install in the CI environment (not on the server)</li>

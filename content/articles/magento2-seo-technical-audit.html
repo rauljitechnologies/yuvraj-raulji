@@ -19,7 +19,7 @@ Disallow: /catalogsearch/
 Allow: /catalogsearch/result/</code></pre>
       <h3>1.3 Canonical Tags</h3>
       <p>The most common Magento 2 SEO mistake is incorrect canonical implementation. Products accessible via multiple category paths (<code>/category-1/product.html</code> and <code>/category-2/product.html</code>) must all canonical to the primary product URL. Set this in <code>Stores → Configuration → Catalog → Catalog → Search Engine Optimization → Use Canonical Link Meta Tag for Products</code>.</p>
-      <blockquote><p>Always audit canonical tags with Screaming Frog or a custom crawl. Do not trust that Magento's built-in settings are working correctly after upgrades or custom development.</p></blockquote>
+      <blockquote><p>Always audit canonical tags with Screaming Frog or a custom crawl. Do not trust that Magento's built-in settings are working correctly after <a href="/magento/upgrade/">a version upgrade</a> or custom development.</p></blockquote>
       <h2>Phase 2: On-Page SEO Signals</h2>
       <h3>2.1 Title Tags & Meta Descriptions</h3>
       <p>Magento 2 allows product-level meta overrides but most stores rely on the auto-generated format: <em>Product Name - Store Name</em>. For high-traffic categories, invest in manually optimised titles with primary keyword in positions 1-3. Use the <code>[store_name]</code> variable only at the end.</p>
@@ -33,7 +33,7 @@ Allow: /catalogsearch/result/</code></pre>
       </ul>
       <h2>Phase 3: Core Web Vitals</h2>
       <h3>3.1 LCP (Largest Contentful Paint)</h3>
-      <p>The hero product image is almost always the LCP element on Magento 2 PDP pages. Common fixes: preload the LCP image in the theme's <code>default_head_blocks.xml</code>, serve WebP via Fastly or Cloudflare Image Resizing, and remove render-blocking third-party scripts from the <code>&lt;head&gt;</code>.</p>
+      <p>The hero product image is almost always the LCP element on Magento 2 PDP pages, though on a large catalogue the server response usually dominates before any image does, which is why <a href="/magento/performance/">Magento speed work starts at the caching layer</a>. Common fixes: preload the LCP image in the theme's <code>default_head_blocks.xml</code>, serve WebP via Fastly or Cloudflare Image Resizing, and remove render-blocking third-party scripts from the <code>&lt;head&gt;</code>.</p>
       <h3>3.2 CLS (Cumulative Layout Shift)</h3>
       <p>Magento 2's lazy-loaded product images and promotional banners are primary CLS culprits. Always define explicit <code>width</code> and <code>height</code> attributes on all images and reserve space for above-the-fold banners.</p>
       <h2>Phase 4: International & Multi-Store SEO</h2>

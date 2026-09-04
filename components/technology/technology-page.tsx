@@ -7,6 +7,7 @@ import { WORK_ITEMS } from '../../lib/home';
 import { POSTS } from '../../lib/posts';
 import { technologySchema, type Crumb } from '../../lib/schema';
 import { techHref, type Technology } from '../../lib/technology';
+import { serviceHref, servicesFor } from '../../lib/platform-services';
 
 /**
  * The technology landing page. One component, nine pages.
@@ -35,6 +36,7 @@ import { techHref, type Technology } from '../../lib/technology';
  *
  *   01 Hero            the H1, the lede, two calls to action
  *   02 Quick answer    the extractable definition
+ *   02b Services      the spokes, on the platforms that have them
  *   03 Problems        symptom, cost, then what the technology does
  *   04 Approach        the five stages, same five on every page
  *   05 Capabilities    grouped, not a wall of service cards
@@ -130,6 +132,10 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
     .map((s) => (POSTS[s] ? { slug: s, ...POSTS[s] } : null))
     .filter((p): p is { slug: string } & (typeof POSTS)[string] => Boolean(p));
 
+  /* The service pages under this platform, or an empty list on the eight
+     technologies that do not have them yet. */
+  const services = servicesFor(tech.slug);
+
   return (
     <Page schema={technologySchema(tech, crumbs)} active="Expertise" scope="yr-paper">
       {/* ── 01 Hero ─────────────────────────────────────────────── */}
@@ -175,6 +181,45 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           </div>
         </Shell>
       </Section>
+
+      {/* ── 02b Services ────────────────────────────────────────────
+          The spokes, on the platforms that have them, and nothing at all on
+          the ones that do not. This sits directly under the quick answer
+          rather than at the foot of the page for two reasons: a visitor who
+          has just read what the platform is wants to know what can be done
+          about it, and these are the pages the hub exists to pass authority
+          to, which it does badly from below fourteen other sections.
+
+          Anchor text is each service's own `label` plus the sentence under it,
+          never the exact-match keyword repeated seven times. */}
+      {services.length ? (
+        <Section id="services" labelledBy="services-title">
+          <Shell>
+            <Head
+              label="Services"
+              id="services-title"
+              lines={[`Working with`, `${tech.name}.`]}
+              lede={`Seven pieces of ${tech.name} work, each with its own page, because they are bought separately and by different people. The one you need is rarely the one the problem is labelled as.`}
+            />
+            <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((svc, i) => (
+                <li key={svc.slug} className="bg-[var(--bg)]">
+                  <Rise delay={Math.min(i, 3) * 0.06} className="flex h-full flex-col p-6 sm:p-8">
+                    <h3 className="m-0 font-manrope text-[19px] font-semibold leading-[1.25] tracking-[-0.02em]">
+                      <InlineLink href={serviceHref(svc.platform, svc.slug)} lead>
+                        {svc.label}
+                      </InlineLink>
+                    </h3>
+                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
+                      {svc.quickAnswer.bestFor[0]}, and the decisions underneath it.
+                    </p>
+                  </Rise>
+                </li>
+              ))}
+            </ul>
+          </Shell>
+        </Section>
+      ) : null}
 
       {/* ── 03 Business problems ────────────────────────────────────
           Three columns: the symptom as the reader would say it, why it costs

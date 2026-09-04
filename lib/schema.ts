@@ -32,6 +32,7 @@ import {
 import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
+import { serviceHref, type PlatformService } from './platform-services';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from './site';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -436,6 +437,50 @@ export function technologySchema(tech: Technology, crumbs: Crumb[]) {
       areaServed: 'Worldwide',
     },
     faqNode(path, tech.faqs),
+  ]);
+}
+
+/**
+ * A platform service page, one level under a technology hub.
+ *
+ * Person, WebPage, BreadcrumbList, Service and FAQPage, the same shape the
+ * technology pages emit, with two additions that matter for entity resolution:
+ *
+ *   - `isPartOf` on the Service points at the parent platform's Service node,
+ *     so the seven Magento services resolve as parts of Magento rather than as
+ *     seven unrelated offerings from the same person.
+ *   - `serviceType` carries the service's own primary keyword rather than its
+ *     label, because that is the phrase the page is written to answer and the
+ *     one an answer engine matches against.
+ *
+ * No `offers` node, for the same reason as the pillars and the technology
+ * pages: there is no published price, and an Offer without one is either empty
+ * or an invitation to invent a number.
+ */
+export function platformServiceSchema(service: PlatformService, crumbs: Crumb[]) {
+  const path = serviceHref(service.platform, service.slug);
+  const parent = techHref(service.platform);
+  return graph([
+    personNode(),
+    webPageNode({
+      path,
+      name: service.label,
+      description: service.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: service.label,
+      serviceType: service.primaryKeyword,
+      description: service.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      isPartOf: { '@id': `${SITE_URL}${parent}#service` },
+    },
+    faqNode(path, service.faqs),
   ]);
 }
 
