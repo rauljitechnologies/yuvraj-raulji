@@ -196,8 +196,27 @@
     color: #fff;
   }
 
+  /*
+   * Smooth scrolling is opt-in per interaction, not global.
+   *
+   * `scroll-behavior: smooth` on the scrolling element applies to *every*
+   * programmatic scroll, including the `scrollTo(0, 0)` the App Router performs
+   * on a client-side navigation. The result was that leaving a long page
+   * animated the whole way back to the top before the next page appeared: the
+   * reader watched the page they were finished with scroll past them. It reads
+   * as a broken navigation rather than as a nicety.
+   *
+   * The only place smooth actually earns its place here is an in-page anchor
+   * (#work, #hire, #models and the rest), so the class is added by the delegated
+   * click handler in app/layout.tsx for exactly those clicks and removed a
+   * second later. Route changes therefore land instantly, which is what a page
+   * switch should do, and anchors still glide.
+   *
+   * Explicit `scrollIntoView({ behavior: 'smooth' })` calls elsewhere in the
+   * codebase are unaffected: an argument beats the CSS property.
+   */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 
     /*
      * The header is fixed, so without this every in-page anchor lands with its
@@ -216,6 +235,11 @@
     html {
       scroll-padding-top: 96px;
     }
+  }
+
+  /* Set only while an in-page anchor navigation is in flight. */
+  html.yr-smooth {
+    scroll-behavior: smooth;
   }
 
   body {

@@ -122,11 +122,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Raw script rather than next/script, deliberately. It has to survive
           the framework runtime not arriving, which is the failure it exists
           for.
+
+          The second half is the smooth-scroll opt-in. `scroll-behavior: smooth`
+          used to sit on `html` unconditionally, which meant the App Router's
+          scroll-to-top on every client navigation was *animated*: leaving a long
+          page scrolled the reader all the way back up before the next page
+          appeared, which reads as a broken navigation rather than a nicety.
+
+          Smooth is now a class, added here only for a click on a link whose
+          target is a fragment on the page you are already on, and dropped a
+          second later. Route changes land instantly; anchors still glide. The
+          listener is delegated on the document and capturing, so it survives
+          every client-side navigation without re-binding, and it costs no
+          bundle.
         */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){var t;function s(){var h=innerHeight,n=document.querySelectorAll('.yr-rv');for(var i=0;i<n.length;i++){var e=n[i],r=e.getBoundingClientRect();if(r.top<h&&r.bottom>0&&parseFloat(getComputedStyle(e).opacity)<0.05){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}}}addEventListener('load',function(){setTimeout(s,2000)});addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(s,600)},{passive:true})})();",
+              "(function(){var t;function s(){var h=innerHeight,n=document.querySelectorAll('.yr-rv');for(var i=0;i<n.length;i++){var e=n[i],r=e.getBoundingClientRect();if(r.top<h&&r.bottom>0&&parseFloat(getComputedStyle(e).opacity)<0.05){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}}}addEventListener('load',function(){setTimeout(s,2000)});addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(s,600)},{passive:true});var m,d=document.documentElement;addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(!a)return;var u;try{u=new URL(a.getAttribute('href'),location.href)}catch(x){return}if(!u.hash||u.origin!==location.origin||u.pathname!==location.pathname)return;d.classList.add('yr-smooth');clearTimeout(m);m=setTimeout(function(){d.classList.remove('yr-smooth')},1000)},true)})();",
           }}
         />
         {isProd && (
