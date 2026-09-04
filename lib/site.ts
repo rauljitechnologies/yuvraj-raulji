@@ -79,11 +79,44 @@ export const OG_IMAGE = {
   url: `${SITE_URL}/assets/og-card.jpg`,
   width: 1200,
   height: 630,
-  alt: 'Yuvraj Raulji, working across AI, business and eCommerce',
+  /* The alt names the person and the role, matching the card and the Person
+     node. It used to say "working across AI, business and eCommerce", which is
+     the old brand line the card itself was rebuilt to stop repeating. */
+  alt: 'Yuvraj Raulji, eCommerce, AI and Technology Consultant',
 } as const;
 
 /** The same asset in the shape the `twitter.images` field takes. */
 export const OG_IMAGE_URL = OG_IMAGE.url;
+
+/**
+ * Section cards.
+ *
+ * One card for fifty four pages meant an article, a platform page and the
+ * hiring page all shared a portrait that said nothing about any of them. These
+ * three cover the sections where the shared link is doing different work, and
+ * every page outside them still falls back to OG_IMAGE.
+ *
+ * All four are rebuilt from scripts/og/*.html. To change one: edit the HTML,
+ * re-render with headless Chrome at 1200x630 and a device scale factor of 1,
+ * then convert to progressive JPEG. **Not at 2x**: the only photograph on the
+ * record is 400x400, and rendering the 330px plate at 2x upscales it from a
+ * 400px source, which is exactly what made the previous card soft.
+ */
+function card(file: string, alt: string) {
+  return { url: `${SITE_URL}/assets/${file}`, width: 1200, height: 630, alt } as const;
+}
+
+/** Platform hubs and their service pages. */
+export const OG_EXPERTISE = card(
+  'og-expertise.jpg',
+  'Nine technologies, and where each one is the wrong choice',
+);
+
+/** /hire/ */
+export const OG_HIRE = card('og-hire.jpg', 'One consultant, not a team to manage');
+
+/** /blog/ */
+export const OG_INSIGHTS = card('og-insights.jpg', 'Insights written for the people making the decision');
 
 export const LEAD_ENDPOINT =
   'https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec';

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { findService, serviceHref, servicesFor } from './platform-services';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from './site';
+import { OG_EXPERTISE, SITE_URL } from './site';
 
 /**
  * The shared half of a platform service route.
@@ -51,13 +51,13 @@ export async function serviceMetadata(
       siteName: 'Yuvraj Raulji',
       type: 'article',
       locale: 'en_US',
-      images: [OG_IMAGE],
+      images: [OG_EXPERTISE],
     },
     twitter: {
       card: 'summary_large_image',
       title: service.title,
       description: service.description,
-      images: [OG_IMAGE_URL],
+      images: [OG_EXPERTISE.url],
     },
   };
 }

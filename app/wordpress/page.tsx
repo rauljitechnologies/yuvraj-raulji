@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { TechnologyPage } from '../../components/technology/technology-page';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_EXPERTISE, SITE_URL } from '../../lib/site';
 import { TECHNOLOGIES_BY_SLUG } from '../../lib/technology';
 
 /**
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'article',
     locale: 'en_US',
-    images: [OG_IMAGE],
+    images: [OG_EXPERTISE],
   },
   twitter: {
     card: 'summary_large_image',
     title: tech.title,
     description: tech.description,
-    images: [OG_IMAGE_URL],
+    images: [OG_EXPERTISE.url],
   },
 };
 

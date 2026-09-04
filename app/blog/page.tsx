@@ -10,7 +10,7 @@ import { JsonLd } from '../../components/json-ld';
 import { SiteHeader } from '../../components/site-header';
 import { blogHubSchema, type Crumb } from '../../lib/schema';
 import { POSTS } from '../../lib/posts';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_INSIGHTS, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Insights on eCommerce Technology and AI | Yuvraj Raulji',
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'website',
     locale: 'en_US',
-    images: [OG_IMAGE],
+    images: [OG_INSIGHTS],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Blog and Insights | Yuvraj Raulji',
     description: 'Expert insights on Magento 2, Shopify, headless commerce, SEO, AWS and AI by Yuvraj Raulji.',
-    images: [OG_IMAGE_URL],
+    images: [OG_INSIGHTS.url],
   },
 };
 

@@ -1,0 +1,178 @@
+/*
+ * Shared styling for every share card.
+ *
+ * The card is the site's own design system at 1200x630, not a separate visual
+ * identity: --ink #f5f3ee on --ground #050505, Space Grotesk for display,
+ * JetBrains Mono for labels, Inter for body, accent #d71920 with the brighter
+ * #ee2a34 reserved for the rule and the rim. Anything invented here would show
+ * up as a share card that does not look like the site it links to.
+ *
+ * Rendered at 1200x630 and NOT at 2x, deliberately. The only photograph on the
+ * record is 400x400, so a 2x render upscales a 340px plate to 680px from a
+ * 400px source, which is what made the previous card soft. At 1x the plate is a
+ * slight downscale and stays sharp.
+ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { width: 1200px; height: 630px; }
+
+body {
+  background: #050505;
+  color: #f5f3ee;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 84px;
+}
+
+/* The hero glow, at card scale. */
+.glow {
+  position: absolute;
+  width: 880px; height: 880px;
+  right: -300px; top: -330px;
+  background: radial-gradient(circle, rgba(215,25,32,.28) 0%, rgba(215,25,32,0) 62%);
+}
+.glow--left {
+  right: auto; left: -380px; top: auto; bottom: -420px;
+  background: radial-gradient(circle, rgba(215,25,32,.16) 0%, rgba(215,25,32,0) 64%);
+}
+
+/* The 6px accent rule the site carries at the top of interior pages. */
+.rule { position: absolute; left: 0; top: 0; width: 100%; height: 6px; background: #d71920; }
+
+.col { position: relative; z-index: 2; flex: 1; min-width: 0; max-height: 470px; }
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,.5);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  width: 40px; height: 2px;
+  background: #ee2a34;
+  flex: none;
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -.032em;
+  line-height: .95;
+}
+
+/*
+ * The job title, and the reason these cards were rebuilt.
+ *
+ * The previous card led with "AI | BUSINESS | ECOMMERCE", which is the old
+ * brand line. Every one of the 52 Person nodes on this site states
+ * "eCommerce, AI & Technology Consultant", so the share card was the one
+ * surface contradicting the entity it was advertising. It now says what the
+ * markup says.
+ */
+.role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.28;
+  letter-spacing: -.012em;
+  color: #ee2a34;
+  margin-top: 22px;
+}
+
+.idea {
+  font-size: 24px;
+  line-height: 1.5;
+  color: rgba(245,243,238,.6);
+  margin-top: 20px;
+  max-width: 26ch;
+}
+
+.foot {
+  position: absolute;
+  left: 84px; bottom: 48px;
+  z-index: 3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,.4);
+}
+.foot b { color: #ee2a34; font-weight: 500; }
+
+/*
+ * The portrait plate.
+ *
+ * Two changes from the previous card, both about the source rather than the
+ * layout. The studio photograph has a light grey gradient background, and
+ * dropping it into a hard-edged circle on a black card left a visible grey
+ * halo that read as a pasted cut-out. A radial mask now fades the plate into
+ * the ground, and a slight desaturation pulls the grey toward the card instead
+ * of fighting it. Neither alters the photograph itself.
+ */
+figure {
+  position: relative;
+  z-index: 2;
+  width: 330px; height: 330px;
+  flex: none;
+  margin-left: 56px;
+}
+figure img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  filter: grayscale(.3) contrast(1.1) brightness(.9);
+  -webkit-mask-image: radial-gradient(circle at 50% 44%, #000 52%, rgba(0,0,0,.78) 76%, rgba(0,0,0,0) 97%);
+  mask-image: radial-gradient(circle at 50% 44%, #000 52%, rgba(0,0,0,.78) 76%, rgba(0,0,0,0) 97%);
+}
+/* The rim, drawn under the mask so it does not get cut by it. */
+figure::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(238,42,52,.42);
+  box-shadow: 0 0 70px rgba(215,25,32,.24);
+}
+
+/* Typographic cards: a list of what the page covers, set as mono chips. */
+/* 560px, not a ch measure: these are mono chips of wildly different widths,
+   and a ch max-width wrapped them into a single column that collided with the
+   footer on both typographic cards. */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; max-width: 560px; }
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,.62);
+  border: 1px solid rgba(245,243,238,.16);
+  padding: 7px 12px;
+}
+
+/* The oversized outlined wordmark, for the cards with no portrait. */
+.ghost {
+  position: absolute;
+  right: 64px; top: 50%;
+  transform: translateY(-46%);
+  z-index: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 210px;
+  line-height: .78;
+  letter-spacing: -.05em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(245,243,238,.08);
+  text-align: right;
+  white-space: nowrap;
+}

@@ -5,7 +5,7 @@ import { Lines, Rise, type DisplayLine } from '../../components/homepage/motion'
 import { Btn, InlineLink, Marker, Section, Shell } from '../../components/homepage/primitives';
 import { HIRE, TECH_HIRE } from '../../lib/hire';
 import { hireSchema, type Crumb } from '../../lib/schema';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_HIRE, SITE_URL } from '../../lib/site';
 import { TECHNOLOGIES_BY_SLUG, techHref } from '../../lib/technology';
 import '../home.css';
 
@@ -50,13 +50,13 @@ export const metadata: Metadata = {
     siteName: 'Yuvraj Raulji',
     type: 'profile',
     locale: 'en_US',
-    images: [OG_IMAGE],
+    images: [OG_HIRE],
   },
   twitter: {
     card: 'summary_large_image',
     title: HIRE.title,
     description: HIRE.description,
-    images: [OG_IMAGE_URL],
+    images: [OG_HIRE.url],
   },
 };
 
