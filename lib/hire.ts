@@ -393,6 +393,34 @@ export const TECH_HIRE: Record<string, TechHire> = {
     ],
   },
 
+  nextjs: {
+    slug: 'nextjs',
+    headline: ['Hire the rendering decision,', 'not the framework.'],
+    body:
+      'Anyone can scaffold a Next.js storefront. What decides whether it is faster than the theme it replaced is which templates are cached, what invalidates them, and how much the GraphQL boundary is asked to return. That is judgement rather than output, and it is the part worth engaging one person for.',
+    usuallyMeans:
+      'On Next.js this usually starts as a rebuild request and turns into a rendering and caching conversation, because that is what actually decides the result.',
+    routes: [
+      { href: '/headless-commerce/consulting/', label: 'Testing whether decoupling would pay at all' },
+      { href: '/headless-commerce/architecture/', label: 'Headless architecture, once the decision is made' },
+      { href: '/headless-commerce/optimization/', label: 'Storefront performance on a build that already exists' },
+    ],
+  },
+
+  mixpanel: {
+    slug: 'mixpanel',
+    headline: ['Hire the tracking plan,', 'not the installation.'],
+    body:
+      'Mixpanel takes an afternoon to install and about a year to stop trusting. The value is in the event schema, the identity model and the governance that keeps them true, which is unglamorous work that nobody sells because it does not demo well.',
+    usuallyMeans:
+      'On Mixpanel this usually starts as a reporting request and becomes an audit, because the charts are only as honest as the events behind them.',
+    routes: [
+      { href: '/mixpanel/', label: 'Mixpanel consulting, implementation and audit' },
+      { href: '/expertise/ecommerce-management/', label: 'Reporting a trading decision can be made on' },
+      { href: '/ai-commerce/', label: 'Where behavioural data becomes personalisation' },
+    ],
+  },
+
   'digital-transformation': {
     slug: 'digital-transformation',
     headline: ['Hire the person who', 'will sequence it.'],

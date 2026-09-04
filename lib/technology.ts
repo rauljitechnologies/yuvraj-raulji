@@ -3172,6 +3172,269 @@ const MIXPANEL: Technology = {
   finalHeadline: ['What decision is the', 'data supposed to inform?'],
 };
 
+/* ═══════════════════════════════════════════════════════════════
+   NEXT.JS
+   Search intent: commercial. Someone building or rebuilding a
+   storefront in React and deciding who should do it.
+
+   ── The boundary this page has to hold ─────────────────────────
+
+   /headless-commerce/ owns the *decision*: whether decoupling would
+   pay at all, and it is written to talk a large share of readers out
+   of it. This page owns the *framework*: what you build in once that
+   decision is made, and how the rendering and caching model decides
+   the result.
+
+   So this page must not re-argue decoupling. It says once, in the
+   boundary paragraph, that the decision belongs upstream and links
+   there. Without that line the two pages become one page written
+   twice, and the weaker of them disappears.
+
+   Tier 1, and deliberately one page. The brief bans /nextjs/consulting/,
+   /nextjs/development/ and /nextjs/migration/, which is right: those
+   would compete with each other and with the headless services that
+   already cover the same work.
+
+   ── What is not claimed ────────────────────────────────────────
+
+   No percentage. The headless hub already states that no engagement
+   on the record has a published performance measurement and that
+   results are inseparable from the rendering choices made alongside
+   them. That applies here with more force, not less, so the outcomes
+   are descriptive.
+
+   The one genuinely verifiable Next.js artifact is this site: a static
+   export, self-hosted fonts, no render-blocking third party. It is
+   cited as what it is rather than dressed up as a case study.
+   ═══════════════════════════════════════════════════════════════ */
+
+const NEXTJS: Technology = {
+  slug: 'nextjs',
+  label: 'Next.js',
+  name: 'Next.js',
+  eyebrow: 'Yuvraj Raulji | Next.js',
+  h1: ['The framework is the easy part.', 'The rendering model is not.'],
+  lede:
+    'Next.js is the default way to build a decoupled storefront in React, and choosing it settles far less than people expect. What decides whether the result is fast is the rendering tier each template sits in, what invalidates the cache, and how much the GraphQL boundary is asked to return. Teams that get those three right succeed on any framework. Teams that do not are slower than the theme they replaced.',
+  cta: 'Discuss a Next.js storefront',
+  title: 'Next.js Consultant | Yuvraj Raulji',
+  description:
+    'Next.js for commerce storefronts: rendering strategy, caching and revalidation, the GraphQL boundary, Core Web Vitals and SEO on Shopify and Magento.',
+
+  quickAnswer: {
+    answer:
+      'Next.js is a React framework used to build storefronts that are decoupled from the commerce platform behind them. It matters for commerce because it gives you a rendering choice per template: a product page can be built at deploy time and revalidated when the product changes, while cart and account render per request. That choice, not the framework itself, is what makes a headless storefront fast. It connects to Shopify through the Storefront API and to Magento through GraphQL, and the same rendering rules apply to both.',
+    bestFor: [
+      'A decoupled storefront over Shopify or Magento',
+      'A front end that has to release independently of the commerce platform',
+      'Content and commerce served from one application',
+      'Core Web Vitals that the platform theme cannot reach',
+    ],
+  },
+
+  problems: [
+    {
+      symptom: 'The Next.js build is slower than the theme it replaced',
+      body:
+        'The central promise of the project is visibly unmet, and every future front-end investment is now under suspicion. It is the most common way a headless rebuild loses its budget.',
+      opportunity:
+        'Almost always too much rendering per request. Moving templates into a cached tier that revalidates on commerce events is configuration rather than a rewrite, and it is where the recoverable time is.',
+    },
+    {
+      symptom: 'Nobody can say what is cached, or for how long',
+      body:
+        'Stale prices and stock, and a team afraid to touch caching in case something breaks. Cache behaviour nobody can reason about becomes cache behaviour nobody changes.',
+      opportunity:
+        'Invalidation driven by webhooks on price, stock and publish, so the rule is legible: this event clears these pages. Time-based revalidation is a guess, and on a catalogue it is wrong in both directions at once.',
+    },
+    {
+      symptom: 'GraphQL returns far more than the page shows',
+      body:
+        'Paid for twice, by the storefront waiting and the commerce platform working. It is invisible in the browser, which is why it survives so long.',
+      opportunity:
+        'A boundary designed around what each template renders rather than mirroring the platform schema. Fixing it improves the storefront and the backend in the same change.',
+    },
+    {
+      symptom: 'Rankings moved after the rebuild, and the URLs did not',
+      body:
+        'Canonical tags, internal linking, heading structure and structured data are all regenerated by the new templates, so markup changes even when the address does not. It is easy to miss because nothing looks broken.',
+      opportunity:
+        'A deliberate diff of the rendered markup against the template it replaced, per template, before the traffic moves.',
+    },
+  ],
+
+  approach: [
+    {
+      num: '01',
+      title: 'Understand',
+      covers: ['Bottleneck', 'Channels', 'Team', 'Roadmap'],
+      body:
+        'What is actually being waited on, and whether a decoupled front end is the answer to it. This step ends some projects, and that is a cheaper outcome than the alternative.',
+    },
+    {
+      num: '02',
+      title: 'Architect',
+      covers: ['Rendering tiers', 'Invalidation', 'API boundary', 'Preview'],
+      body:
+        'Static, cached and revalidated, or per request, chosen per template rather than site wide. Then the events that invalidate each tier and the query shape each template needs. Everything downstream inherits this.',
+    },
+    {
+      num: '03',
+      title: 'Build',
+      covers: ['Templates', 'Cart and checkout', 'Search', 'Analytics'],
+      body:
+        'Including everything third party that lived in the old theme: consent, reviews, on-site search, personalisation and A/B tooling. The forgotten ones are found by marketing after launch.',
+    },
+    {
+      num: '04',
+      title: 'Optimize',
+      covers: ['Core Web Vitals', 'Bundle budgets', 'Images', 'Cache hit rate'],
+      body:
+        'Field data by template, cache hit rate on a dashboard, and route-level bundle budgets enforced in the pipeline. A budget nobody enforces is a preference.',
+    },
+    {
+      num: '05',
+      title: 'Scale',
+      covers: ['Failure modes', 'Multi-channel', 'Handover', 'Release cadence'],
+      body:
+        'A timeout and a fallback for every third-party call, so the storefront loses a widget rather than a page, and enough documentation that the team can add a template without asking.',
+    },
+  ],
+
+  capabilities: [
+    {
+      group: 'Rendering',
+      items: ['Static generation', 'Incremental revalidation', 'Server components', 'Edge and CDN caching'],
+    },
+    {
+      group: 'Commerce data',
+      items: ['Shopify Storefront API', 'Magento GraphQL', 'WooCommerce REST', 'Query shape and over-fetch'],
+    },
+    {
+      group: 'Performance',
+      items: ['Core Web Vitals', 'Bundle budgets', 'Image pipeline', 'Font loading', 'Layout stability'],
+    },
+    {
+      group: 'Search',
+      items: ['Rendered markup parity', 'Canonicals and pagination', 'Structured data', 'Sitemaps and redirects'],
+    },
+  ],
+
+  ai: [
+    {
+      title: 'Semantic search over the catalogue',
+      what: 'On-site search that reads a query as a goal rather than matching it against product titles.',
+      how: 'Embeddings over product text and attributes, queried from the storefront and blended with the keyword index so SKUs and part numbers still match exactly. In a decoupled front end this sits behind the same API boundary as everything else.',
+      value: 'No-result rate and conversion on search sessions, which is where customers who have already decided to buy go missing.',
+      human: 'A merchandiser reviews the failing queries. The gaps they expose are usually a buying decision rather than a search one.',
+      limit: 'It amplifies the catalogue it is given. Thin product data produces confident, thin results, whatever the front end is built in.',
+    },
+  ],
+
+  architecture: [
+    { name: 'Customer', detail: 'Web and mobile, and any second channel the same commerce data has to serve.', tech: ['Browser', 'PWA'] },
+    { name: 'Storefront', detail: 'The Next.js application: templates, rendering tiers and the cache that makes them fast.', tech: ['Next.js', 'React', 'Server components'] },
+    { name: 'Edge', detail: 'Where the cached tiers are served from, and where invalidation lands.', tech: ['CDN', 'Edge cache', 'Revalidation'] },
+    { name: 'Commerce APIs', detail: 'The boundary the storefront reads through. Designed around templates, not mirrored from the schema.', tech: ['Storefront API', 'GraphQL', 'REST'] },
+    { name: 'Commerce platform', detail: 'Catalogue, pricing, cart and orders. Still the system of record.', tech: ['Shopify', 'Magento 2', 'WooCommerce'] },
+    { name: 'Content', detail: 'Editorial served by the same application, with preview that does not bypass the cache design.', tech: ['Headless CMS', 'Draft mode'] },
+  ],
+
+  fit: {
+    goodFit: [
+      'Front-end work genuinely blocked behind commerce releases',
+      'One commerce backend serving more than one channel',
+      'An experience the platform theme cannot express',
+      'A team that will own rendering and caching afterwards',
+    ],
+    thinkTwice: [
+      'A slow theme, which is usually cheaper to fix than to replace',
+      'No second channel and no blocked release cycle',
+      'Nobody to own the deployment and cache once it ships',
+      'A rebuild being run at the same time as a platform migration',
+    ],
+  },
+
+  comparison: {
+    columns: ['Next.js', 'Platform theme', 'Hydrogen'],
+    rows: [
+      { criterion: 'Release cycle', cells: ['Independent of the platform', 'Tied to the platform', 'Independent, Shopify only'] },
+      { criterion: 'Rendering control', cells: ['Per template, yours', 'The platform decides', 'Per route, Shopify primitives'] },
+      { criterion: 'You now own', cells: ['Cache, deploys, preview, on-call', 'Very little', 'The same, on Oxygen'] },
+      { criterion: 'Works with', cells: ['Shopify, Magento, WooCommerce', 'Its own platform', 'Shopify'] },
+      { criterion: 'Staffing', cells: ['React, widely available', 'Platform specialists', 'React plus Shopify specifics'] },
+    ],
+    note:
+      'A well-built theme beats a badly configured decoupled storefront comfortably, and most stores asking for this want the theme fixed. The comparison only starts once the release cycle is genuinely the constraint.',
+    links: [
+      { href: '/headless-commerce/consulting/', label: 'Testing whether decoupling would pay at all' },
+      { href: '/shopify/optimization/', label: 'Shopify store optimisation, the cheaper answer most of the time' },
+      { href: '/headless-commerce/architecture/', label: 'The rendering and caching decisions in full' },
+    ],
+  },
+
+  cases: ['fashion-d2c', 'b2b-procurement'],
+  casesNote:
+    'A headless storefront and a custom B2B platform, both built over an API boundary rather than inside a platform theme.',
+  posts: ['shopify-headless-nextjs-guide', 'magento2-pwa-studio-headless', 'cro-double-conversion'],
+
+  outcomes: [
+    {
+      label: 'A storefront that does what it was built for',
+      body:
+        'When a decoupled front end underperforms the theme it replaced, the project has not delivered its central argument. Moving templates into the right rendering tier is usually what closes that gap, and it is rarely a rewrite.',
+    },
+    {
+      label: 'A cache anyone on the team can explain',
+      body:
+        'The durable result is not a score. It is that a new engineer can say what is cached, for how long, and what invalidates it, which is the property that lets the storefront keep changing safely.',
+    },
+    {
+      metric: 'This site',
+      label: 'Built on Next.js, and measurable',
+      body:
+        'yuvrajraulji.com is a Next.js static export: no render-blocking third-party CSS, self-hosted fonts, dimensioned and lazy-loaded images, and every page pre-rendered. It is not a client engagement and it is not offered as one, but it is the one Next.js build on this site anyone can open the source of.',
+      context: 'Verifiable directly, rather than reported.',
+    },
+  ],
+  outcomesNote:
+    'No percentage is quoted for a client build. The headless hub gives the reason and it applies here with more force: results from a decoupled storefront are inseparable from the rendering and caching decisions made alongside them, so a figure from another build would describe its architecture rather than what is available in yours.',
+
+  faqs: [
+    {
+      q: 'Does Next.js make a storefront faster?',
+      a: 'Not on its own. Speed comes from the rendering and caching strategy, and a Next.js storefront that renders every request against a slow GraphQL query is slower than the theme it replaced. What Next.js gives you is the choice: which templates are built ahead of time, which are cached and revalidated on a commerce event, and which genuinely need to render per request.',
+    },
+    {
+      q: 'Next.js or Hydrogen for a Shopify storefront?',
+      a: 'Hydrogen is closer to Shopify\'s own primitives and Oxygen hosting; Next.js is more general, easier to staff for, and suits builds that also serve non-commerce content. The decision is usually about the team you will have in two years rather than the framework\'s features today.',
+    },
+    {
+      q: 'Can Next.js work with Magento or WooCommerce?',
+      a: 'Yes. Magento exposes GraphQL and WooCommerce a REST API, and the rendering rules are the same in all three cases. What differs is how much work the boundary has to do: a Magento catalogue with deep attribute structure needs more deliberate query design than a small WooCommerce store.',
+    },
+    {
+      q: 'What does a Next.js storefront cost to own after launch?',
+      a: 'A rendering strategy, cache invalidation, content preview, a deployment pipeline and someone accountable for the front end being up. None of that appears in a build estimate and all of it is permanent, which is why the ownership cost matters more than the project cost when deciding.',
+    },
+    {
+      q: 'Is SEO harder on a Next.js storefront?',
+      a: 'It is not harder, it is less automatic. The platform theme generated canonicals, internal linking and structured data for you; now your templates do. The risk is a rebuild that keeps the URLs and quietly changes the markup, so each moved template needs an explicit diff against the one it replaced rather than an assumption of parity.',
+    },
+  ],
+
+  related: [
+    { href: '/headless-commerce/', label: 'Headless commerce', note: 'The decision this page assumes has already been made.' },
+    { href: '/shopify/', label: 'Shopify', note: 'The commonest commerce backend behind a Next.js storefront.' },
+    { href: '/magento/', label: 'Magento', note: 'Over GraphQL, where the catalogue is the complicated part.' },
+    { href: '/woocommerce/', label: 'WooCommerce', note: 'Over the REST API, when the content system stays in place.' },
+    { href: '/headless-commerce/optimization/', label: 'Storefront performance', note: 'Rendering tiers, cache hit rate and bundle budgets on a live build.' },
+    { href: '/work/fashion-d2c/', label: 'A headless storefront, built', note: 'The decoupled build on the record, and the decision inside it.' },
+  ],
+
+  finalHeadline: ['What renders where,', 'and when?'],
+};
+
 export const TECHNOLOGIES: Technology[] = [
   SHOPIFY,
   MAGENTO,
@@ -3182,6 +3445,10 @@ export const TECHNOLOGIES: Technology[] = [
   AI_SEARCH,
   AI_AUTOMATION,
   DIGITAL_TRANSFORMATION,
+  /* Tier 1, and the last of that tier to be built. One page: the brief bans
+     /nextjs/consulting/, /development/ and /migration/, which would compete
+     with each other and with the headless services that already cover it. */
+  NEXTJS,
   /* Tier 2. Root level like every other platform, and one page rather than
      five: see the note above the MIXPANEL definition. */
   MIXPANEL,
@@ -3226,6 +3493,7 @@ export const PLATFORM_LINKS = group([
   'woocommerce',
   'wordpress',
   'headless-commerce',
+  'nextjs',
   /* Added when /mixpanel/ shipped. Without it the page had exactly one inbound
      link on the whole site, from the expertise hub's generated list, and no
      chrome link at all: a Tier 2 commercial page reachable only by someone who
