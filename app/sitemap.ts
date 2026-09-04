@@ -3,6 +3,11 @@ import { PILLARS, pillarHref } from '../lib/expertise';
 import { TECHNOLOGIES, techHref } from '../lib/technology';
 import { ALL_PLATFORM_SERVICES, serviceHref } from '../lib/platform-services';
 import { CASES } from '../lib/brand';
+/* Imported for its build-time gate: the content map throws if a route has no
+   row, if two rows share a primary keyword, or if a row points at a page that
+   does not exist. Importing it here means those checks run on every build,
+   because the sitemap is the other artifact that must cover every route. */
+import { CONTENT_MAP } from '../lib/content-map';
 import { POSTS, postDateUTC } from '../lib/posts';
 import { SITE_URL } from '../lib/site';
 
@@ -27,6 +32,8 @@ function postDate(date: string): Date {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildDate = new Date();
+  /* Referenced so the import is not elided and the gate above actually runs. */
+  void CONTENT_MAP.length;
   return [
     { url: BASE + '/', lastModified: buildDate, changeFrequency: 'weekly', priority: 1 },
     { url: BASE + '/about/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
