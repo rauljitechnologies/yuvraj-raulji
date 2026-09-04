@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import { ENQUIRY_TOPICS } from '../../lib/homepage';
-import { CONTACT, LEAD_ENDPOINT } from '../../lib/site';
+import { submitLead, type LeadResult } from '../../lib/lead';
+import { CONTACT } from '../../lib/site';
 
 /**
  * The homepage contact form.
  *
  * The canvas mockup wired its submit handler to `e.preventDefault()` and
  * nothing else, which would have shipped a form that silently drops every
- * enquiry. This posts to the same Apps Script endpoint the site's contact modal
- * already uses, with the same `no-cors` POST and the same mailto fallback, so a
- * message sent from here lands in the same place as one sent from anywhere else.
+ * enquiry. This posts through `submitLead` in lib/lead.ts, shared with the
+ * site's enquiry modal, so a message sent from here lands in the same place as
+ * one sent from anywhere else and reports the same two honest outcomes.
  *
  * The only client component on the homepage besides the reveal wrappers.
  *
@@ -25,55 +26,22 @@ const EMPTY = { name: '', email: '', topic: ENQUIRY_TOPICS[0], message: '', hp: 
 export function ContactForm() {
   const [f, setF] = useState(EMPTY);
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [result, setResult] = useState<LeadResult | null>(null);
 
   const valid = f.name.trim() !== '' && /\S+@\S+\.\S+/.test(f.email) && f.message.trim() !== '';
-
-  const mailtoFallback = () => {
-    const subject = encodeURIComponent(`Enquiry: ${f.topic}`);
-    const body = encodeURIComponent(`${f.message}\n\n${f.name}\n${f.email}`);
-    /* CONTACT.email, not a literal. This was hardcoded to an address that
-       is not the mailbox, so every enquiry that fell back to mailto (a
-       missing endpoint, or a failed fetch) was addressed to nobody. */
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
-  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid || sending) return;
-
-    // Honeypot: a bot fills every field it finds, a person never sees this one.
-    if (f.hp) {
-      setSent(true);
-      return;
-    }
-
-    if (!LEAD_ENDPOINT) {
-      mailtoFallback();
-      setSent(true);
-      return;
-    }
-
     setSending(true);
-    const body = new URLSearchParams({
-      name: f.name,
-      email: f.email,
-      phone: '',
-      service: f.topic,
-      message: f.message,
-      page: typeof location !== 'undefined' ? location.href : '',
-      hp: '',
-    });
-
-    try {
-      await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
-      setSent(true);
-    } catch {
-      mailtoFallback();
-      setSent(true);
-    } finally {
-      setSending(false);
-    }
+    /*
+      Shared with the enquiry modal, and it returns 'sent' only on a confirmed
+      submission. This form used `mode: 'no-cors'` and called setSent(true)
+      unconditionally, which reported success even while the endpoint was
+      redirecting every request to a Google login page. See lib/lead.ts.
+    */
+    setResult(await submitLead({ name: f.name, email: f.email, service: f.topic, message: f.message, hp: f.hp }));
+    setSending(false);
   };
 
   /*
@@ -93,21 +61,41 @@ export function ContactForm() {
   const label =
     'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/55';
 
-  if (sent) {
+  if (result) {
+    /*
+      Two outcomes, two messages. 'fallback' means nothing could be confirmed
+      and the mail client has been handed the enquiry, so claiming a send here
+      would be the exact false success this form used to give every visitor.
+    */
     return (
       <div
         // Announced rather than silently swapped in, so a screen-reader user
-        // knows the send succeeded without having to hunt for the change.
+        // knows the outcome without having to hunt for the change.
         role="status"
         aria-live="polite"
         className="flex min-h-[260px] flex-col justify-center gap-4 lg:min-h-[420px]"
       >
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent">
-          Message sent
+          {result === 'sent' ? 'Message sent' : 'Send it from your email'}
         </span>
-        <p className="m-0 font-manrope text-2xl font-light leading-[1.35] text-ground">
-          Thank you. I read every message myself and will reply within 24 hours.
+        <p className="m-0 max-w-[46ch] font-manrope text-2xl font-light leading-[1.35] text-ground">
+          {result === 'sent' ? (
+            <>Thank you. I read every message myself and will reply within 24 hours.</>
+          ) : (
+            <>
+              The form could not reach the server, so your email app has opened with the message
+              already written. Send that and it reaches me directly.
+            </>
+          )}
         </p>
+        {result === 'fallback' ? (
+          <p className="m-0 font-manrope text-base font-light leading-[1.6] text-ground/60">
+            If nothing opened:{' '}
+            <a href={`mailto:${CONTACT.email}`} className="text-accent underline">
+              {CONTACT.email}
+            </a>
+          </p>
+        ) : null}
       </div>
     );
   }

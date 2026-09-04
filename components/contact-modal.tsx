@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { CONTACT, LEAD_ENDPOINT, SERVICE_OPTIONS } from '../lib/site';
+import { useEffect, useRef, useState } from 'react';
+import { submitLead, type LeadResult } from '../lib/lead';
+import { CONTACT, SERVICE_OPTIONS } from '../lib/site';
 import { useUI } from './ui-context';
 
 const EMPTY = { name: '', email: '', phone: '', service: '', message: '', hp: '' };
@@ -27,63 +28,90 @@ export function ContactModal() {
   const { contactOpen, setContactOpen } = useUI();
   const [f, setF] = useState(EMPTY);
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [result, setResult] = useState<LeadResult | null>(null);
+
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
 
   const set = (k: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
 
   const valid = Boolean(f.name && f.email && f.message) && phoneOk(f.phone);
 
-  const mailtoFallback = () => {
-    const s = encodeURIComponent(`Project Inquiry from ${f.name}${f.service ? ` — ${f.service}` : ''}`);
-    const b = encodeURIComponent(
-      `Name: ${f.name}\nEmail: ${f.email}\nPhone: ${f.phone || '—'}\nService: ${f.service || 'Not specified'}\n\nMessage:\n${f.message}`,
-    );
-    window.open(`mailto:${CONTACT.email}?subject=${s}&body=${b}`);
-  };
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid || sending) return;
-
-    if (!LEAD_ENDPOINT) {
-      mailtoFallback();
-      setSent(true);
-      return;
-    }
-
     setSending(true);
-    const body = new URLSearchParams({
-      name: f.name,
-      email: f.email,
-      phone: f.phone || '',
-      service: f.service || '',
-      message: f.message,
-      page: location.href,
-      hp: f.hp || '',
-    });
-
-    try {
-      await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
-      setSending(false);
-      setSent(true);
-    } catch {
-      setSending(false);
-      mailtoFallback();
-      setSent(true);
-    }
+    /*
+      `submitLead` returns 'sent' only when the endpoint confirmed it, and
+      'fallback' when anything at all went wrong, having already opened the
+      visitor's mail client with the enquiry written out. The two states render
+      differently below, so this form cannot report a success it did not get.
+    */
+    setResult(await submitLead({ ...f, service: f.service }));
+    setSending(false);
   };
 
   const close = () => setContactOpen(false);
   const reset = () => {
     close();
     setF(EMPTY);
-    setSent(false);
+    setResult(null);
     setSending(false);
   };
 
   const phoneBad = !phoneOk(f.phone);
 
+  /*
+    Modal behaviour that was missing entirely: Escape to dismiss, the page
+    behind held still, and focus moved into the dialog when it opens and
+    returned to the page when it closes. Without the scroll lock, dragging on
+    the overlay scrolled the article underneath, which on a phone reads as the
+    modal being broken.
+  */
+  useEffect(() => {
+    if (!contactOpen) return;
+
+    const opener = document.activeElement as HTMLElement | null;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    const { overflow, paddingRight } = document.body.style;
+    /* Compensating for the scrollbar stops the page behind shifting sideways
+       as it locks, which is the tell that a modal was bolted on. */
+    const gap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (gap > 0) document.body.style.paddingRight = `${gap}px`;
+    document.addEventListener('keydown', onKey);
+    const focusTimer = setTimeout(() => firstFieldRef.current?.focus(), 80);
+
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
+      clearTimeout(focusTimer);
+      opener?.focus?.();
+    };
+  }, [contactOpen]);
+
+  /* One accessible name only. `aria-label` used to be set alongside
+     `aria-labelledby` and silently won, so the heading it points at was never
+     the announced name of the dialog. */
   return (
     <div
       className={`fixed inset-0 z-[1150] grid place-items-center p-4 sm:p-6 transition-all duration-[340ms] ${
@@ -92,11 +120,11 @@ export function ContactModal() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="contact-modal-title"
-      aria-label="Contact Yuvraj Raulji"
     >
       <div className="absolute inset-0 bg-[rgba(0,0,0,.90)] backdrop-blur-2xl" onClick={close} />
 
       <div
+        ref={dialogRef}
         className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] rounded-xl border border-[rgba(229,9,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229,9,32,.10)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
@@ -118,13 +146,21 @@ export function ContactModal() {
           </svg>
         </button>
 
+        {/*
+          On a phone and on a tablet this stacks, and the panel used to stack
+          *first*: a full screen of headline, three contact rows and a social
+          strip stood between the reader and the form they opened the modal to
+          reach. `order` puts the form first below `lg` and restores the
+          designed left-to-right arrangement at `lg`, where both fit side by
+          side and the panel is doing its job rather than blocking.
+        */}
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
-          {/* ── LEFT: brand panel ── */}
+          {/* ── LEFT on desktop, SECOND on mobile: brand panel ── */}
           <div
-            className="relative overflow-hidden rounded-tl-xl rounded-tr-xl p-6 sm:p-8 lg:rounded-tr-none lg:rounded-bl-xl lg:p-10 flex flex-col gap-6 sm:gap-8"
+            className="relative order-2 lg:order-1 overflow-hidden rounded-bl-xl rounded-br-xl lg:rounded-br-none lg:rounded-tl-xl p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8"
             style={{
               background: 'linear-gradient(135deg,#0d0d0d 0%,#0a0a0a 100%)',
-              borderRight: '1px solid rgba(255,255,255,.06)',
+              borderTop: '1px solid rgba(255,255,255,.06)',
             }}
           >
             <div
@@ -150,14 +186,31 @@ export function ContactModal() {
               <h2
                 id="contact-modal-title"
                 className="font-display uppercase"
-                style={{ fontSize: 'clamp(2.4rem,5vw,3.6rem)', lineHeight: 0.9, letterSpacing: '.02em', color: 'var(--text)', marginBottom: 16 }}
+                /*
+                  Sized to the column, not to the viewport. At clamp(...,5vw,3.6rem)
+                  the word CONVERSATION rendered about 430px wide inside a 380px
+                  panel with 80px of padding, so the panel's `overflow-hidden`
+                  clipped it mid-word and the tail ran under the form column.
+                  `vw` was the wrong unit here: this panel is a fixed 380px from
+                  `lg` up and does not grow with the window. 2.4rem keeps the
+                  longest word inside 300px of content width, and the floor keeps
+                  it large on a phone where the panel is full width.
+                */
+                style={{ fontSize: 'clamp(1.85rem,4vw,2.25rem)', lineHeight: 0.95, letterSpacing: '.01em', color: 'var(--text)', marginBottom: 16, overflowWrap: 'anywhere' }}
               >
                 Start a
                 <br />
                 <span style={{ color: 'rgba(245, 243, 238, .38)' }}>Conversation</span>
               </h2>
               <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'rgba(245, 243, 238, .45)', maxWidth: 300 }}>
-                Every great brand begins with a conversation. Tell me about your project and I&rsquo;ll be in touch within 24 hours.
+                {/*
+                  "Every great brand begins with a conversation" was generic
+                  filler, and "brand" is the wrong noun for a platform decision.
+                  CONTENT-PRINCIPLES.md bans copy another site could run
+                  unchanged; this says what the next 24 hours actually contains.
+                */}
+                Tell me what is in front of you and what it is costing. I read every message myself
+                and reply within 24 hours on IST business days.
               </p>
             </div>
 
@@ -250,21 +303,61 @@ export function ContactModal() {
             </div>
           </div>
 
-          {/* ── RIGHT: form ── */}
-          <div className="p-8 lg:p-10">
-            {sent ? (
-              <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-16">
-                <div style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid rgba(229,9,32,.45)', background: 'rgba(229,9,32,.08)', display: 'grid', placeItems: 'center' }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+          {/* ── RIGHT on desktop, FIRST on mobile: form ── */}
+          <div className="order-1 lg:order-2 p-6 sm:p-8 lg:p-10">
+            {result ? (
+              <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-12 sm:py-16">
+                <div
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: '50%',
+                    border: '1px solid rgba(229,9,32,.45)',
+                    background: 'rgba(229,9,32,.08)',
+                    display: 'grid',
+                    placeItems: 'center',
+                  }}
+                >
+                  {result === 'sent' ? (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <polyline points="2,4 12,13 22,4" />
+                    </svg>
+                  )}
                 </div>
                 <div>
-                  <p className="font-display uppercase" style={{ fontSize: '2rem', letterSpacing: '.06em', color: 'var(--text)', marginBottom: 8 }}>
-                    Message Sent
+                  <p className="font-display uppercase" style={{ fontSize: 'clamp(1.5rem,4vw,2rem)', letterSpacing: '.06em', color: 'var(--text)', marginBottom: 8 }}>
+                    {result === 'sent' ? 'Message sent' : 'Send it from your email'}
                   </p>
-                  <p style={{ fontSize: '.90rem', color: 'rgba(245, 243, 238, .50)', lineHeight: 1.7 }}>
-                    Your message has been received and a confirmation email is on its way to you. I&rsquo;ll get back to you within 24 hours.
+                  {/*
+                    Two states, because there are two outcomes and only one of
+                    them is a success. The confirmation-email sentence appears
+                    only on the confirmed path: the backend does send one, but
+                    claiming it after a failed submission is the lie this whole
+                    change exists to remove.
+                  */}
+                  <p style={{ fontSize: '.90rem', color: 'rgba(245, 243, 238, .50)', lineHeight: 1.7, maxWidth: 420 }}>
+                    {result === 'sent' ? (
+                      <>Received, and a confirmation is on its way to you. I&rsquo;ll reply within 24 hours.</>
+                    ) : (
+                      <>
+                        The form could not reach the server, so your email app has opened with the
+                        message already written. Send that and it reaches me directly. If nothing
+                        opened, write to{' '}
+                        <a href={`mailto:${CONTACT.email}`} style={{ color: 'var(--accent-bright)' }}>
+                          {CONTACT.email}
+                        </a>{' '}
+                        or message{' '}
+                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener" style={{ color: 'var(--accent-bright)' }}>
+                          {CONTACT.phoneDisplay}
+                        </a>
+                        .
+                      </>
+                    )}
                   </p>
                 </div>
                 <button
@@ -287,11 +380,17 @@ export function ContactModal() {
                   style={{ position: 'absolute', left: -5000, width: 1, height: 1, opacity: 0 }}
                 />
 
-                <div style={{ marginBottom: 28 }}>
-                  <p className="font-display uppercase" style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', letterSpacing: '.04em', color: 'var(--text)', lineHeight: 1, marginBottom: 6 }}>
-                    Start a Conversation
+                {/*
+                  The panel's H2 already says "Start a Conversation". This
+                  column repeated it word for word, so the modal showed the same
+                  headline twice, once as a heading and once as a paragraph
+                  dressed as one. The column now carries only the instruction.
+                */}
+                <div style={{ marginBottom: 24 }}>
+                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .38)' }}>
+                    Required fields are marked. The more specific the message, the more useful the
+                    reply.
                   </p>
-                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .38)' }}>Fill in the details and I&rsquo;ll reach out shortly.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -299,13 +398,23 @@ export function ContactModal() {
                     <label className="cf-lbl" htmlFor="cf-name">
                       Full Name <span style={{ color: 'var(--accent-bright)' }}>*</span>
                     </label>
-                    <input id="cf-name" className="cf-inp" type="text" placeholder="Yuvraj Raulji" value={f.name} onChange={set('name')} required />
+                    <input
+                      id="cf-name"
+                      ref={firstFieldRef}
+                      className="cf-inp"
+                      type="text"
+                      placeholder="Your name"
+                      autoComplete="name"
+                      value={f.name}
+                      onChange={set('name')}
+                      required
+                    />
                   </div>
                   <div>
                     <label className="cf-lbl" htmlFor="cf-email">
                       Email Address <span style={{ color: 'var(--accent-bright)' }}>*</span>
                     </label>
-                    <input id="cf-email" className="cf-inp" type="email" placeholder="you@company.com" value={f.email} onChange={set('email')} required />
+                    <input id="cf-email" className="cf-inp" type="email" placeholder="you@company.com" autoComplete="email" value={f.email} onChange={set('email')} required />
                   </div>
                 </div>
 
@@ -327,7 +436,7 @@ export function ContactModal() {
                     />
                     {phoneBad && (
                       <p style={{ marginTop: 6, fontSize: '.68rem', letterSpacing: '.04em', color: 'var(--accent-bright)' }}>
-                        Enter a valid mobile number — e.g. 98983 34731 or +91 98983 34731
+                        Enter a valid mobile number, for example 98983 34731 or +91 98983 34731
                       </p>
                     )}
                   </div>
