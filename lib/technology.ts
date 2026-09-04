@@ -3226,6 +3226,11 @@ export const PLATFORM_LINKS = group([
   'woocommerce',
   'wordpress',
   'headless-commerce',
+  /* Added when /mixpanel/ shipped. Without it the page had exactly one inbound
+     link on the whole site, from the expertise hub's generated list, and no
+     chrome link at all: a Tier 2 commercial page reachable only by someone who
+     had already found the hub above it. */
+  'mixpanel',
 ]);
 
 export const AI_LINKS = group([

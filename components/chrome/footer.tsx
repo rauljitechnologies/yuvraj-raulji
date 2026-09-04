@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { CORE_IDEA, NAME } from '../../lib/brand';
+import { PERSON_JOB_TITLE } from '../../lib/schema';
 import { PILLAR_LINKS } from '../../lib/expertise';
 import { AI_LINKS, PLATFORM_LINKS } from '../../lib/technology';
 import { CONTACT, POST_COUNT } from '../../lib/site';
-import { Cta, Monogram, StatusPill } from '../homepage-sections/primitives';
+import { Cta } from '../homepage-sections/primitives';
+import { Wordmark } from '../wordmark';
 
 /**
  * The site footer. One component, rendered by every route.
@@ -219,24 +221,65 @@ export function SiteFooter() {
           gutters leave less than 190px of track, and auto-fit will hold a
           column at its stated minimum even when that overflows the grid.
         */}
-        <div className="grid gap-x-10 gap-y-10 py-12 sm:gap-y-11 sm:py-16 [grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr))]">
+        <div className="relative">
+          {/*
+            The oversized outlined wordmark from the design canvas, which never
+            made it into the build. Drawn as an outline at 8% ink so it reads as
+            texture rather than as a second logo, hidden below `lg` where it
+            would crowd the stacked columns, and `aria-hidden` because the mark
+            beside the columns already carries the name. It is the same device
+            the share cards use, so the two ends of a shared link agree.
+          */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-6 right-0 hidden select-none font-display text-[190px] font-bold leading-none tracking-[-0.05em] text-transparent lg:block"
+            style={{ WebkitTextStroke: '1px rgb(var(--text-rgb) / 0.08)' }}
+          >
+            YR
+          </span>
+
+        <div className="relative grid gap-x-10 gap-y-10 py-12 sm:gap-y-11 sm:py-16 [grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr))]">
           <div>
-            <Link href="/" className="mb-6 flex items-center gap-3">
-              <Monogram size={40} />
-              <span className="flex flex-col leading-[1.1]">
-                <span className="font-manrope text-[13px] font-bold uppercase leading-none tracking-[0.14em]">
-                  {NAME}
-                </span>
-                <span className="font-mono text-[10px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
-                  Technology consultant
-                </span>
-              </span>
+            {/*
+              The wordmark, not the drawn monogram.
+
+              Both headers render `Wordmark` and the footer rendered `Monogram`,
+              so the mark changed halfway down every page. Yuvraj asked for the
+              mark to be type rather than a drawing on 26 Aug 2026 and the
+              headers were changed then; the footer was missed.
+            */}
+            <Link href="/" className="mb-5 inline-flex" aria-label={`${NAME}, home`}>
+              <Wordmark />
             </Link>
+
+            {/*
+              The positioning line, in full.
+
+              This read "Technology consultant", which is not the positioning
+              and not what any other surface says. All 55 Person nodes, the
+              title, the H1 and the share cards state the whole line, so the
+              footer was the most-repeated contradiction of it on the site: one
+              per page, on every page. It is read from the same constant the
+              schema uses, so the two cannot drift again.
+            */}
+            <p className="mb-6 font-mono text-[10px] uppercase leading-[1.6] tracking-[0.16em] text-ink/55">
+              {PERSON_JOB_TITLE}
+            </p>
+
             <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/50">
               {CORE_IDEA} Writing and building at the intersection of AI, business and eCommerce,
               from Vadodara, India.
             </p>
-            <StatusPill>Available for Q3 projects</StatusPill>
+
+            {/*
+              The availability pill is gone. It said "Available for Q3 projects",
+              which dates itself: it was written in August and was three weeks
+              from being false, on every page, with nothing in the build to catch
+              it. Availability is also not something the record can support, and
+              CONTENT-PRINCIPLES.md does not allow a claim the site cannot stand
+              behind. The band above already tells a reader what they need, which
+              is that a reply arrives within 24 hours.
+            */}
           </div>
 
           <Column heading="Explore">
@@ -302,20 +345,24 @@ export function SiteFooter() {
           </Column>
         </div>
 
+        </div>
+
         {/* The red rule that sweeps in once, from the left. */}
         <div className="relative h-0.5 overflow-hidden bg-ink/10">
           <div className="absolute inset-0 origin-left bg-accent animate-yr-sweep" />
         </div>
 
+        {/*
+          Insights and Work used to sit here as links, three rows below the same
+          two links in the Explore column. A duplicate link in the same footer
+          adds no route a reader did not already have and splits the anchor text
+          for the page it points at, so the bar now carries the entity line
+          instead: the one thing worth repeating on every page.
+        */}
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
-          <div className="flex flex-wrap gap-6">
-            <Link href="/insights/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
-              Insights
-            </Link>
-            <Link href="/work/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
-              Work
-            </Link>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span className="text-ink/45">{PERSON_JOB_TITLE}</span>
             <a href="#main" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Back to top ↑
             </a>
