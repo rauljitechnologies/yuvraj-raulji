@@ -308,8 +308,13 @@ export function ServicePage({ service }: { service: PlatformService }) {
                     className="flex h-full flex-col p-6 sm:p-8 lg:p-10"
                   >
                     <p className={LABEL}>{w.category}</p>
+                    {/* The card was unlinked while /work/{slug}/ did not exist.
+                        Now it does, so the proof on a service page routes to the
+                        build rather than dead-ending. */}
                     <h3 className="m-0 mt-5 font-manrope text-[21px] font-semibold leading-[1.2] tracking-[-0.025em]">
-                      {w.name}
+                      <InlineLink href={w.href} lead>
+                        {w.name}
+                      </InlineLink>
                     </h3>
                     <p className={`m-0 mt-4 max-w-[46ch] ${BODY}`}>{w.summary}</p>
                     <p className="m-0 mt-6 flex flex-wrap gap-2">

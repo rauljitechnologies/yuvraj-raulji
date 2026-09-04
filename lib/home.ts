@@ -467,7 +467,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Fashion D2C storefront headless commerce storefront',
     imgW: 1920,
     imgH: 1290,
-    href: '/work/',
+    href: '/work/fashion-d2c/',
   },
   {
     id: 'plant-store',
@@ -480,7 +480,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Online plant store Shopify storefront',
     imgW: 1920,
     imgH: 1280,
-    href: '/work/',
+    href: '/work/plant-store/',
   },
   {
     id: 'sports-nutrition',
@@ -493,7 +493,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Sports nutrition store sports nutrition storefront',
     imgW: 1920,
     imgH: 1047,
-    href: '/work/',
+    href: '/work/sports-nutrition/',
   },
   {
     id: 'b2b-procurement',
@@ -506,7 +506,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
     imgH: 1080,
-    href: '/work/',
+    href: '/work/b2b-procurement/',
   },
   {
     id: 'marketplace',
@@ -519,7 +519,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Multi-category marketplace Magento 2 marketplace',
     imgW: 1920,
     imgH: 1440,
-    href: '/work/',
+    href: '/work/marketplace/',
   },
   {
     id: 'manufacturing',
@@ -532,7 +532,7 @@ export const WORK_ITEMS: WorkItem[] = [
     alt: 'Engineering manufacturer platform engineering brand platform',
     imgW: 1920,
     imgH: 867,
-    href: '/work/',
+    href: '/work/manufacturing/',
   },
 ];
 

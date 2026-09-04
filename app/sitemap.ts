@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { PILLARS, pillarHref } from '../lib/expertise';
 import { TECHNOLOGIES, techHref } from '../lib/technology';
 import { ALL_PLATFORM_SERVICES, serviceHref } from '../lib/platform-services';
+import { CASES } from '../lib/brand';
 import { POSTS, postDateUTC } from '../lib/posts';
 import { SITE_URL } from '../lib/site';
 
@@ -50,6 +51,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
        the spokes are the pages a service search lands on, which is the less
        common query of the two. Driven off the same registry the routes are,
        so a service cannot ship unlisted. */
+    /* The six case studies. Priority with the platform hubs: these are proof
+       pages and they are what a buyer asks for before a call. */
+    ...CASES.map((c) => ({
+      url: `${BASE}/work/${c.id}/`,
+      lastModified: buildDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     ...ALL_PLATFORM_SERVICES.map((svc) => ({
       url: `${BASE}${serviceHref(svc.platform, svc.slug)}`,
       lastModified: buildDate,

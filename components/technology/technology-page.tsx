@@ -612,7 +612,9 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                       <span className={`${LABEL} text-accent-bright`}>{w.category}</span>
                       <h3 className="m-0 mt-4 font-manrope text-[21px] font-semibold leading-[1.15] tracking-[-0.02em]">
                         <a
-                          href={`${w.href}#${w.id}`}
+                          /* `w.href` is the case study's own page now, not the
+                             /work/ index with a fragment. */
+                          href={w.href}
                           className="transition-colors duration-200 after:absolute after:inset-0 after:content-[''] group-hover:text-accent-bright"
                         >
                           {w.name}

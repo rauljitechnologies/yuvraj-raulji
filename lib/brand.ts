@@ -26,6 +26,7 @@
  * Copy avoids em dashes throughout, matching the rest of the site.
  */
 
+import type { Anchor } from './expertise';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -453,6 +454,17 @@ export interface CaseStudy {
   technology: readonly string[];
   outcome?: string;
   facets: readonly WorkFilter[];
+  /**
+   * The pages this build actually used, for the case-study page.
+   *
+   * Authored per case rather than derived from `technology`, because the tags
+   * are display labels and a guess from them would eventually link a build to a
+   * platform it never ran on. Every href must resolve: these are checked
+   * against KNOWN_ROUTES in lib/platform-services.ts at build time.
+   */
+  related: readonly Anchor[];
+  /** Article slugs, matching keys in lib/posts.ts. */
+  posts: readonly string[];
   img: string;
   alt: string;
   imgW: number;
@@ -477,6 +489,12 @@ export const CASES: CaseStudy[] = [
     approach:
       'Headless architecture: the storefront decoupled from the commerce engine and served over a storefront API. Front-end releases stop waiting on back-end ones, and performance becomes a budget the front end can actually hold rather than an outcome it inherits.',
     technology: ['Headless', 'Storefront API', 'Performance'],
+    related: [
+      { href: '/headless-commerce/', label: 'Headless commerce, and when decoupling actually pays' },
+      { href: '/headless-commerce/architecture/', label: 'The rendering and caching decisions behind a build like this' },
+      { href: '/headless-commerce/optimization/', label: 'Storefront performance once the front end is decoupled' },
+    ],
+    posts: ['shopify-headless-nextjs-guide', 'magento2-pwa-studio-headless'],
     facets: ['ecommerce', 'headless'],
     img: '/assets/case-covers/fashion-d2c-cover.webp',
     alt: 'The Fashion D2C storefront headless commerce storefront, a mens fashion brand',
@@ -493,6 +511,12 @@ export const CASES: CaseStudy[] = [
     approach:
       'Shopify, chosen for speed to market rather than for flexibility, with the customisation spent where it converts: OTP login, a one-page checkout through GoKwik, and product pages built for a catalogue that does not behave like apparel.',
     technology: ['Shopify', 'GoKwik checkout', 'Custom PDP', 'OTP login'],
+    related: [
+      { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
+      { href: '/shopify/optimization/', label: 'Shopify speed and conversion work' },
+      { href: '/shopify/integrations/', label: 'Shopify integrations, where a checkout like this is wired in' },
+    ],
+    posts: ['cro-double-conversion'],
     facets: ['ecommerce', 'shopify'],
     img: '/assets/case-covers/plant-store-cover.webp',
     alt: 'The Online plant store Shopify storefront, an online plant store',
@@ -509,6 +533,12 @@ export const CASES: CaseStudy[] = [
     approach:
       'A commerce build organised around catalogue clarity and a short checkout, on the principle that in a trust-led category the product page is doing the selling and everything after it should get out of the way.',
     technology: ['Commerce build', 'Catalogue', 'Checkout'],
+    related: [
+      { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
+      { href: '/shopify/optimization/', label: 'Product page and checkout conversion work' },
+      { href: '/expertise/ecommerce-management/', label: 'Running the catalogue as an operation afterwards' },
+    ],
+    posts: ['cro-double-conversion'],
     facets: ['ecommerce'],
     img: '/assets/case-covers/sports-nutrition-cover.webp',
     alt: 'The Sports nutrition store storefront, an online sports nutrition retailer',
@@ -525,6 +555,12 @@ export const CASES: CaseStudy[] = [
     approach:
       'A custom procurement platform built around the approval structure rather than around the catalogue: purchase requests, quotes and multi-level sign-off with role-based permissions, wired into the systems that already held the order data.',
     technology: ['B2B workflows', 'Approvals', 'Role-based permissions', 'Integrations'],
+    related: [
+      { href: '/magento/', label: 'Magento, for quotes, approvals and multi-store complexity' },
+      { href: '/magento/integrations/', label: 'Magento B2B workflow and integration boundaries' },
+      { href: '/ai-automation/', label: 'AI automation for quotes, approvals and reconciliation' },
+    ],
+    posts: ['ai-ecommerce-revenue-2025'],
     facets: ['ecommerce', 'transformation'],
     img: '/assets/case-covers/b2b-procurement-cover.webp',
     alt: 'A B2B procurement platform, built on Magento 2',
@@ -541,6 +577,12 @@ export const CASES: CaseStudy[] = [
     approach:
       'Magento 2, which is the right answer precisely here and the wrong one for a small single-store catalogue: the platform earns its complexity when the category tree, the attribute model and the scale are all genuinely hard.',
     technology: ['Magento 2', 'Multi-category', 'Scale'],
+    related: [
+      { href: '/magento/', label: 'Magento, built for catalogue and workflow complexity' },
+      { href: '/magento/performance/', label: 'Magento performance at catalogue scale' },
+      { href: '/magento/consulting/', label: 'The data model decisions a catalogue this wide depends on' },
+    ],
+    posts: ['magento2-seo-technical-audit', 'magento2-checkout-optimization'],
     facets: ['ecommerce', 'magento'],
     img: '/assets/case-covers/marketplace-cover.webp',
     alt: 'The Multi-category marketplace Magento 2 multi-category marketplace',
@@ -558,6 +600,12 @@ export const CASES: CaseStudy[] = [
       'A brand platform built for discovery rather than for transaction: technical content structured so a crawler and a buyer can both follow it, and an enquiry path short enough to survive a long consideration cycle.',
     technology: ['Web platform', 'Technical SEO', 'Content'],
     outcome: '3x traffic growth and 45% better engagement',
+    related: [
+      { href: '/wordpress/', label: 'WordPress builds, performance and infrastructure' },
+      { href: '/wordpress/consulting/', label: 'The content model a discovery-led site depends on' },
+      { href: '/wordpress/optimization/', label: 'WordPress speed work, beyond a caching plugin' },
+    ],
+    posts: ['magento2-seo-technical-audit'],
     facets: ['transformation'],
     img: '/assets/case-covers/manufacturing-cover.webp',
     alt: 'The Engineering manufacturer platform engineering brand platform',

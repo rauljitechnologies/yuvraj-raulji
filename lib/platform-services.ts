@@ -40,6 +40,7 @@
  * Copy in this file avoids em-dashes on purpose.
  */
 
+import { CASES } from './brand';
 import { POSTS } from './posts';
 import { HEADLESS_SERVICES } from './services/headless';
 import { MAGENTO_SERVICES } from './services/magento';
@@ -236,6 +237,7 @@ const KNOWN_ROUTES = new Set<string>([
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...Object.keys(POSTS).map((slug) => `/insights/${slug}/`),
+  ...CASES.map((c) => `/work/${c.id}/`),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),
 ]);
 

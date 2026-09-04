@@ -34,6 +34,7 @@ import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
 import { serviceHref, type PlatformService } from './platform-services';
 import { HIRE } from './hire';
+import type { CaseStudy } from './brand';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, PROFILES, SITE_URL } from './site';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -537,6 +538,49 @@ export function hireSchema(crumbs: Crumb[]) {
     }),
     breadcrumbNode(crumbs),
     faqNode(HIRE.path, HIRE.faqs),
+  ]);
+}
+
+/**
+ * A case-study page.
+ *
+ * `CreativeWork` rather than `Article`, because these are descriptions of
+ * builds rather than pieces of writing, and rather than `Service`, because the
+ * service pages already carry those and a second Service node describing the
+ * same work under a different name splits the entity.
+ *
+ * No `review`, no `aggregateRating` and no client `Organization`. Five of the
+ * six have no measured outcome, none has a published testimonial, and every
+ * client on this site is described rather than named: a schema node is the
+ * easiest place for a brand name to reappear after the visible copy stopped
+ * using one.
+ */
+export function caseStudySchema(study: CaseStudy, crumbs: Crumb[]) {
+  const path = `/work/${study.id}/`;
+  return graph([
+    personNode(),
+    webPageNode({
+      path,
+      name: study.name,
+      description: study.challenge,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'CreativeWork',
+      '@id': `${SITE_URL}${path}#case`,
+      name: study.name,
+      headline: study.name,
+      description: study.challenge,
+      abstract: study.approach,
+      url: `${SITE_URL}${path}`,
+      creator: personRef,
+      about: study.industry,
+      keywords: study.technology.join(', '),
+      inLanguage: 'en-US',
+      image: `${SITE_URL}${study.img}`,
+      isPartOf: { '@id': `${SITE_URL}/work/#webpage` },
+    },
   ]);
 }
 

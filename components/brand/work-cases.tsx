@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { CASES, WORK_FILTERS, type WorkFilter } from '../../lib/brand';
 import { Rise } from '../homepage/motion';
@@ -138,8 +139,17 @@ export function WorkCases() {
 
               {/* ── The record ── */}
               <div className="flex flex-1 flex-col p-6 pb-7 sm:p-7 sm:pb-8">
+                {/* The card title is the link to the build's own page. Until
+                    /work/{slug}/ existed the six cards on this index went
+                    nowhere, so the page that a buyer opens looking for proof
+                    was also the end of the road. */}
                 <h3 className="m-0 font-manrope text-[26px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[30px]">
-                  {c.name}
+                  <Link
+                    href={`/work/${c.id}/`}
+                    className="transition-colors duration-200 hover:text-accent-bright"
+                  >
+                    {c.name}
+                  </Link>
                 </h3>
 
                 <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/55">
