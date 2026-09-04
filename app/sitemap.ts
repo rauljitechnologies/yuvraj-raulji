@@ -34,6 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE + '/experience/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/expertise/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/contact/', lastModified: buildDate, changeFrequency: 'yearly', priority: 0.7 },
+    /* /hire/ carries transactional intent, so it sits with the core pages
+       rather than with the services below them. */
+    { url: BASE + '/hire/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
     /* The technology landing pages, at the root. Priority above the pillars:
        these are the pages a platform search lands on. */
     ...TECHNOLOGIES.map((t) => ({

@@ -33,6 +33,7 @@ import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
 import { serviceHref, type PlatformService } from './platform-services';
+import { HIRE } from './hire';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from './site';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -481,6 +482,32 @@ export function platformServiceSchema(service: PlatformService, crumbs: Crumb[])
       isPartOf: { '@id': `${SITE_URL}${parent}#service` },
     },
     faqNode(path, service.faqs),
+  ]);
+}
+
+/**
+ * /hire/ — how to engage.
+ *
+ * Person, WebPage, BreadcrumbList and FAQPage, and deliberately **no Service
+ * node and no Organization node**. A Service node here would describe a
+ * catalogue of offerings, which is the agency reading the page exists to
+ * refuse; the services this site sells already carry their own Service nodes on
+ * their own pages, and duplicating them under a generic "hire" entity would
+ * describe the same work twice under two identities.
+ *
+ * The FAQ node is built from the same array the page renders as open text.
+ */
+export function hireSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode({ full: true }),
+    webPageNode({
+      path: HIRE.path,
+      name: 'Hire Yuvraj Raulji',
+      description: HIRE.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    faqNode(HIRE.path, HIRE.faqs),
   ]);
 }
 

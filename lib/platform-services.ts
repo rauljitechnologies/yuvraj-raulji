@@ -232,6 +232,7 @@ const KNOWN_ROUTES = new Set<string>([
   '/blog/',
   '/contact/',
   '/expertise/',
+  '/hire/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...Object.keys(POSTS).map((slug) => `/blog/${slug}/`),

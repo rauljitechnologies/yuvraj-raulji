@@ -50,6 +50,12 @@ const EXPLORE = [
   { href: '/experience/', label: 'Experience' },
   { href: '/blog/', label: `Insights (${POST_COUNT} articles)` },
   { href: '/#ai', label: 'AI' },
+  /* /hire/ sits above Contact deliberately: it answers the question a reader
+     has just before they get in touch, and it is the page that disqualifies a
+     wrong-fit enquiry before it becomes a call. It ships in the footer rather
+     than the header because the header already carries one call to action and
+     a second would compete with it. */
+  { href: '/hire/', label: 'Hire' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
 

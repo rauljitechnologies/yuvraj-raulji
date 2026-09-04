@@ -8,6 +8,7 @@ import { POSTS } from '../../lib/posts';
 import { technologySchema, type Crumb } from '../../lib/schema';
 import { techHref, type Technology } from '../../lib/technology';
 import { serviceHref, servicesFor } from '../../lib/platform-services';
+import { hireFor } from '../../lib/hire';
 
 /**
  * The technology landing page. One component, nine pages.
@@ -37,6 +38,7 @@ import { serviceHref, servicesFor } from '../../lib/platform-services';
  *   01 Hero            the H1, the lede, two calls to action
  *   02 Quick answer    the extractable definition
  *   02b Services      the spokes, on the platforms that have them
+ *   12b Hire          how to engage, per platform, above the generic FAQ
  *   03 Problems        symptom, cost, then what the technology does
  *   04 Approach        the five stages, same five on every page
  *   05 Capabilities    grouped, not a wall of service cards
@@ -148,6 +150,9 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
   /* The service pages under this platform, or an empty list on the eight
      technologies that do not have them yet. */
   const services = servicesFor(tech.slug);
+
+  /* The engagement section. Present on all nine technologies. */
+  const hire = hireFor(tech.slug);
 
   return (
     <Page schema={technologySchema(tech, crumbs)} active="Expertise" scope="yr-paper">
@@ -720,6 +725,52 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
           </dl>
         </Shell>
       </Section>
+
+      {/* ── 12b Hire ────────────────────────────────────────────────
+          "Hire a <platform> developer" is a real query and the site had no
+          answer to it. The trap is that almost every page written for it is an
+          agency page, and this is a personal brand that must not read as one,
+          so the section answers the query by being specific about what is
+          actually on offer: one person, working directly.
+
+          It sits here rather than as nine separate /hire/<platform>/ pages
+          because nine near-identical pages competing for one intent is the
+          keyword-led page creation the build standard forbids. A section on a
+          page that already ranks for the platform carries the phrasing without
+          creating a competitor for it. */}
+      {hire ? (
+        <Section id="hire" labelledBy="hire-title">
+          <Shell>
+            <Head label="Working together" id="hire-title" lines={hire.headline} />
+            <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+              <Rise>
+                <p className="m-0 max-w-[62ch] font-manrope text-[clamp(18px,1.8vw,23px)] font-light leading-[1.55] tracking-[-0.02em] text-ink/85">
+                  {hire.body}
+                </p>
+                <p className={`m-0 mt-6 max-w-[62ch] ${BODY}`}>{hire.usuallyMeans}</p>
+                <p className="m-0 mt-8 flex flex-wrap gap-3">
+                  <ContactButton>{tech.cta}</ContactButton>
+                  <Btn href="/hire/" variant="ghost">
+                    How engagements work
+                  </Btn>
+                </p>
+              </Rise>
+              <Rise delay={0.12}>
+                <h3 className={LABEL}>Where this usually goes</h3>
+                <ul className="m-0 mt-6 list-none border-t border-line p-0">
+                  {hire.routes.map((r) => (
+                    <li key={r.href} className="border-b border-line py-5">
+                      <InlineLink href={r.href} lead>
+                        {r.label}
+                      </InlineLink>
+                    </li>
+                  ))}
+                </ul>
+              </Rise>
+            </div>
+          </Shell>
+        </Section>
+      ) : null}
 
       {/* ── 13 Related, and the writing behind it ───────────────────
           Contextual links with the anchor text written for each pairing. A
