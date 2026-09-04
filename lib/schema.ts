@@ -34,7 +34,7 @@ import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
 import { serviceHref, type PlatformService } from './platform-services';
 import { HIRE } from './hire';
-import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, SITE_URL } from './site';
+import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, PROFILES, SITE_URL } from './site';
 
 /* ═══════════════════════════════════════════════════════════════
    STABLE NODE IDENTIFIERS
@@ -114,7 +114,9 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
     jobTitle: PERSON_JOB_TITLE,
     description: PERSON_DESCRIPTION,
     address: ADDRESS,
-    sameAs: [CONTACT.linkedin, CONTACT.instagram, CONTACT.facebook],
+    /* One list, in lib/site.ts, so a profile added for the entity cannot
+       reach one page and miss the other fifty one. */
+    sameAs: PROFILES,
     hasOccupation: {
       '@type': 'Occupation',
       name: 'eCommerce Consultant',
@@ -149,17 +151,44 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
           /* The current employer is stated as an Organization here because it is
              not the same entity as the company Yuvraj founded, and collapsing
              the two would be a factual error in the graph. */
-          alumniOf: EDUCATION.map((e) => ({
-            '@type': 'EducationalOrganization',
-            name: e.qualification,
-          })),
-          hasCredential: CERTIFICATIONS.map((c) => ({
-            '@type': 'EducationalOccupationalCredential',
-            name: c.name,
-            credentialCategory: 'certificate',
-            recognizedBy: { '@type': 'Organization', name: c.issuer },
-            ...(c.url ? { url: c.url } : {}),
-          })),
+          /*
+           * Education is a credential, not an `alumniOf`.
+           *
+           * This emitted `alumniOf: [{ '@type': 'EducationalOrganization',
+           * name: 'Bachelor of Engineering, Information Technology' }]`, which
+           * states that Yuvraj attended an organisation *called* "Bachelor of
+           * Engineering, Information Technology". A degree name is not an
+           * institution name, so the graph carried a false claim about the one
+           * person it exists to describe, on the two pages that are
+           * authoritative for his biography.
+           *
+           * `alumniOf` cannot be written correctly here because the record in
+           * lib/site.ts holds the qualification and the period and not the
+           * awarding institution. Inventing one to fill the property would be
+           * exactly the fabrication CONTENT-PRINCIPLES.md forbids, so the
+           * property is absent until the institution is on the record.
+           *
+           * `EducationalOccupationalCredential` is the correct type for both a
+           * degree and a certificate, separated by `credentialCategory`, so
+           * the education still appears in the graph and now says something
+           * true. Add `alumniOf` back the day the institution is recorded.
+           */
+          hasCredential: [
+            ...EDUCATION.map((e) => ({
+              '@type': 'EducationalOccupationalCredential',
+              name: e.qualification,
+              credentialCategory: 'degree',
+              /* The period is the award window as the record states it. */
+              validFor: e.period,
+            })),
+            ...CERTIFICATIONS.map((c) => ({
+              '@type': 'EducationalOccupationalCredential',
+              name: c.name,
+              credentialCategory: 'certificate',
+              recognizedBy: { '@type': 'Organization', name: c.issuer },
+              ...(c.url ? { url: c.url } : {}),
+            })),
+          ],
         }
       : {}),
   };

@@ -26,6 +26,38 @@ export const CONTACT = {
 export const SITE_URL = 'https://www.yuvrajraulji.com';
 
 /**
+ * Every profile that belongs in the Person entity's `sameAs`.
+ *
+ * `sameAs` is how a search engine or an answer engine confirms that a LinkedIn
+ * profile, a GitHub account and this site are the same person. It is the
+ * strongest off-site entity signal available and the cheapest one to get wrong,
+ * because it only works while every URL in it resolves to a profile that is
+ * genuinely his. One wrong URL does not simply fail to help: it turns a
+ * confirmation into a contradiction, and the entity resolves less confidently
+ * than it did with three links instead of four.
+ *
+ * **Never add a URL here that has not been opened and confirmed.** Guessing a
+ * handle on one platform from a handle on another is the exact failure mode,
+ * and it is tempting here because three of these already share `iamyuvrajraulji`.
+ *
+ * Confirmed and live, 4 Sep 2026:
+ */
+export const PROFILES: readonly string[] = [
+  CONTACT.linkedin,
+  CONTACT.instagram,
+  CONTACT.facebook,
+  /*
+   * Awaiting URLs. Yuvraj has confirmed a GitHub, an X account and a
+   * publishing profile exist; the URLs are not on the record yet, and a
+   * plausible-looking guess in structured data is worse than an absence.
+   *
+   * Add each one here once opened and checked. GitHub is the highest value of
+   * the three for a technology consultant, and X additionally unlocks the
+   * `twitter:site` and `twitter:creator` tags the site does not currently set.
+   */
+];
+
+/**
  * The share card every route falls back to.
  *
  * It is declared here rather than on the root layout because Next only
