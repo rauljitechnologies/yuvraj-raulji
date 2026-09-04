@@ -373,7 +373,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                 <li key={p.slug} className="border-b border-line">
                   <Rise delay={Math.min(i, 3) * 0.05}>
                     <Link
-                      href={`/blog/${p.slug}/`}
+                      href={`/insights/${p.slug}/`}
                       className="group grid gap-x-10 gap-y-3 py-7 sm:py-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto] lg:py-10"
                     >
                       <h3 className="m-0 max-w-[30ch] font-manrope text-[clamp(19px,1.9vw,26px)] font-semibold leading-[1.2] tracking-[-0.025em] transition-colors duration-200 group-hover:text-accent-bright">
@@ -389,7 +389,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
               ))}
             </ul>
             <Rise delay={0.28} className="mt-tail">
-              <InlineLink href="/blog/" lead>
+              <InlineLink href="/insights/" lead>
                 All writing on commerce architecture, performance and AI
               </InlineLink>
             </Rise>

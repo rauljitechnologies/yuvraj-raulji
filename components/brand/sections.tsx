@@ -420,7 +420,7 @@ export function Writing() {
                   <p className="yr-label yr-label--accent">{w.category}</p>
                   <h3 className="yr-display yr-display--3 mt-item">
                     <Link
-                      href={`/blog/${w.slug}/`}
+                      href={`/insights/${w.slug}/`}
                       className="transition-colors duration-300 hover:text-accent-bright"
                     >
                       {w.title}

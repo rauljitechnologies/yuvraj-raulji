@@ -229,13 +229,13 @@ const KNOWN_ROUTES = new Set<string>([
   '/about/',
   '/work/',
   '/experience/',
-  '/blog/',
+  '/insights/',
   '/contact/',
   '/expertise/',
   '/hire/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
-  ...Object.keys(POSTS).map((slug) => `/blog/${slug}/`),
+  ...Object.keys(POSTS).map((slug) => `/insights/${slug}/`),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),
 ]);
 

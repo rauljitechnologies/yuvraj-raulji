@@ -882,14 +882,14 @@ export function Insights() {
             Written for the people <span className="font-bold">making the decision.</span>
           </h2>
         </Rv>
-        <RuleLink href="/blog/">Explore insights →</RuleLink>
+        <RuleLink href="/insights/">Explore insights →</RuleLink>
       </div>
 
       <RvGroup as="ul" className="m-0 list-none p-0" each={0.05}>
         {posts.map((post) => (
           <RvItem key={post.slug} as="li" className="border-t border-ink/10">
             <a
-              href={`/blog/${post.slug}/`}
+              href={`/insights/${post.slug}/`}
               className="grid items-center gap-3 px-1 py-6 transition-[background-color,padding-left] duration-300 hover:bg-surface hover:pl-5 sm:gap-4 sm:px-2 sm:py-8 md:grid-cols-[130px_minmax(0,1fr)_auto] md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_190px_60px] lg:gap-9"
             >
               <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-accent-bright">

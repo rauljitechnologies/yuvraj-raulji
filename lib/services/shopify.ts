@@ -209,7 +209,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
         note: 'The other proposal that arrives attached to a slow storefront.',
       },
       {
-        href: '/blog/shopify-plus-vs-magento2-2025/',
+        href: '/insights/shopify-plus-vs-magento2-2025/',
         label: 'Shopify Plus against Magento 2, written out in full',
         note: 'TCO, customisation depth and B2B, compared rather than asserted.',
       },
@@ -406,7 +406,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
         note: 'A migrated store is a starting position, not a finished one.',
       },
       {
-        href: '/blog/magento2-seo-technical-audit/',
+        href: '/insights/magento2-seo-technical-audit/',
         label: 'The technical SEO audit framework, applied to a replatform',
         note: 'Redirects, canonicals and crawl budget, which is the half that fails quietly.',
       },
@@ -598,7 +598,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
         note: 'On a D2C catalogue, search sessions convert hardest and fail quietest.',
       },
       {
-        href: '/blog/cro-double-conversion/',
+        href: '/insights/cro-double-conversion/',
         label: 'The CRO frameworks behind a better converting store',
         note: 'A/B methodology, heatmaps and checkout work, written out.',
       },

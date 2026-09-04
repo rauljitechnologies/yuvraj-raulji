@@ -48,7 +48,7 @@ const EXPLORE = [
   { href: '/work/', label: 'Work' },
   { href: '/expertise/', label: 'Expertise' },
   { href: '/experience/', label: 'Experience' },
-  { href: '/blog/', label: `Insights (${POST_COUNT} articles)` },
+  { href: '/insights/', label: `Insights (${POST_COUNT} articles)` },
   { href: '/#ai', label: 'AI' },
   /* /hire/ sits above Contact deliberately: it answers the question a reader
      has just before they get in touch, and it is the page that disqualifies a
@@ -310,7 +310,7 @@ export function SiteFooter() {
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
-            <Link href="/blog/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
+            <Link href="/insights/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Insights
             </Link>
             <Link href="/work/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">

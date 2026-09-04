@@ -209,7 +209,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         note: 'The same decision, framed by a self-hosted platform.',
       },
       {
-        href: '/blog/shopify-headless-nextjs-guide/',
+        href: '/insights/shopify-headless-nextjs-guide/',
         label: 'A headless Shopify build on Next.js, written out step by step',
         note: 'What the work actually looks like, before committing to it.',
       },
@@ -406,7 +406,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         note: 'Where the invalidation events on this page come from.',
       },
       {
-        href: '/blog/magento2-pwa-studio-headless/',
+        href: '/insights/magento2-pwa-studio-headless/',
         label: 'PWA Studio and GraphQL performance, written out',
         note: 'Over-fetching and the 90+ Lighthouse target, in detail.',
       },
@@ -603,7 +603,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         note: 'Same rule: change one thing at a time.',
       },
       {
-        href: '/blog/magento2-seo-technical-audit/',
+        href: '/insights/magento2-seo-technical-audit/',
         label: 'The technical SEO audit framework, applied per template',
         note: 'Canonicals, structured data and internal linking, checked rather than assumed.',
       },
@@ -795,7 +795,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         note: 'The other end of the spectrum, and different levers entirely.',
       },
       {
-        href: '/blog/shopify-headless-nextjs-guide/',
+        href: '/insights/shopify-headless-nextjs-guide/',
         label: 'A headless Shopify build on Next.js, with the SEO and ISR detail',
         note: 'Where the rendering tiers on this page come from in practice.',
       },

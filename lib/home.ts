@@ -60,7 +60,7 @@ export type SectionId = (typeof SECTIONS)[number]['id'];
  * own and nothing could link to them from outside the page.
  *
  * "Thinking" and "Insights" were two labels in the brief for one destination.
- * They are one entry, pointed at /blog/, which is the indexed URL carrying the
+ * They are one entry, pointed at /insights/, which is the indexed URL carrying the
  * article history; renaming that path would move eight ranking pages to buy a
  * nicer slug.
  */
@@ -69,7 +69,7 @@ export const HOME_NAV = [
   { label: 'Work', href: '/work/' },
   { label: 'Experience', href: '/experience/' },
   { label: 'About', href: '/about/' },
-  { label: 'Insights', href: '/blog/' },
+  { label: 'Insights', href: '/insights/' },
 ] as const;
 
 /** The one job title. Used in the H1 eyebrow, the schema and the footer. */
@@ -273,7 +273,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'The store is slow and nobody can say why',
     detail:
       'Time to first byte climbing, Core Web Vitals failing on real devices while the lab score looks fine. The fix is usually below the front end: cache invalidation, query plans, or an index doing a full scan.',
-    href: '/blog/aws-magento2-server-setup/',
+    href: '/insights/aws-magento2-server-setup/',
     cta: 'How I set up production Magento',
   },
   {
@@ -281,7 +281,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'Traffic is fine, conversion is not',
     detail:
       'The money leaves at the checkout, and almost never because of price. Every field is a question the customer has to agree to answer, and most carts are lost to hesitation.',
-    href: '/blog/magento2-checkout-optimization/',
+    href: '/insights/magento2-checkout-optimization/',
     cta: 'The checkout breakdown',
   },
   {
@@ -289,7 +289,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'A replatforming nobody wants to start',
     detail:
       'The risk in a migration is not the build, it is the cutover: URLs, redirects, order history, integrations and the week either side. Sequenced properly, trading continues throughout.',
-    href: '/blog/shopify-plus-vs-magento2-2025/',
+    href: '/insights/shopify-plus-vs-magento2-2025/',
     cta: 'Choosing the target platform',
   },
   {
@@ -305,7 +305,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'Search cannot find the catalogue',
     detail:
       'Crawl budget spent on faceted URLs, thin category pages, and product data structured so that neither a crawler nor a language model can make sense of it.',
-    href: '/blog/magento2-seo-technical-audit/',
+    href: '/insights/magento2-seo-technical-audit/',
     cta: 'The technical audit guide',
   },
   {
@@ -313,7 +313,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'The operation runs on manual work',
     detail:
       'Quotes, approvals, catalogue QA and data reconciliation absorbing people who should be doing something else. This is where automation pays, provided the process underneath it is worth keeping.',
-    href: '/blog/ai-ecommerce-revenue-2025/',
+    href: '/insights/ai-ecommerce-revenue-2025/',
     cta: 'Where AI actually pays',
   },
 ];
@@ -594,7 +594,7 @@ const POST_TOPICS: Record<string, ContentTopic> = {
 export const CONTENT = {
   headline: ['Thinking', 'out loud'] as const,
   body: 'Long-form breakdowns of the decisions behind the builds, and the trade-offs each one carried.',
-  cta: { label: 'All writing', href: '/blog/' },
+  cta: { label: 'All writing', href: '/insights/' },
 } as const;
 
 /** Newest first. Dates in POSTS are "12 Jun 2026" format. */
@@ -607,7 +607,7 @@ export const CONTENT_ITEMS: ContentItem[] = Object.entries(POSTS)
     meta: p.readTime,
     topic: POST_TOPICS[slug] ?? 'Technology',
     format: 'article',
-    href: `/blog/${slug}/`,
+    href: `/insights/${slug}/`,
   }))
   .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
@@ -792,7 +792,7 @@ export const CLOSING = {
     'Or a decision you would rather not make alone?',
   ],
   ctaPrimary: { label: 'Work with me' },
-  ctaSecondary: { label: 'Read how I think', href: '/blog/' },
+  ctaSecondary: { label: 'Read how I think', href: '/insights/' },
   company: {
     label: 'Delivery',
     body: 'Project delivery runs through Raulji Technologies Private Limited.',

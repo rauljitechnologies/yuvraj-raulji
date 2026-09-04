@@ -826,7 +826,7 @@ const AI_SEARCH: Technology = {
     { href: '/shopify/', label: 'Shopify', note: 'Where semantic search is usually the first AI spend worth making.' },
     { href: '/magento/', label: 'Magento', note: 'Catalogue scale, where search failure costs the most.' },
     { href: '/digital-transformation/', label: 'Digital transformation', note: 'When the search problem is really a data problem.' },
-    { href: '/blog/', label: 'Writing on search, commerce and AI', note: 'The reasoning, worked out in longer form.' },
+    { href: '/insights/', label: 'Writing on search, commerce and AI', note: 'The reasoning, worked out in longer form.' },
   ],
 
   finalHeadline: ['Is AI search worth', 'your attention yet?'],
@@ -2921,6 +2921,257 @@ const DIGITAL_TRANSFORMATION: Technology = {
    that contains all of them.
    ═══════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════
+   MIXPANEL
+   Search intent: commercial. Someone who has bought Mixpanel, or is
+   about to, and needs the implementation to produce numbers anyone
+   trusts.
+
+   ── Why one page and not five ──────────────────────────────────
+
+   The master sitemap originally carried /expertise/mixpanel-consulting/,
+   -implementation/, -audit/ and -tracking/ alongside a root /mixpanel/.
+   That is five pages for one product, four of which the same brief bans
+   in as many words for WebEngage and MoEngage, and it would have put
+   five pages in competition for one query. Approved as one root page on
+   4 Sep 2026, matching the treatment its two siblings get.
+
+   So this page has to carry consulting, implementation, audit and
+   tracking design as sections rather than as URLs, which is what the
+   `capabilities` groups below do.
+
+   ── What is not claimed ────────────────────────────────────────
+
+   No measured outcome. The analytics record on this site is GA4, GTM
+   and dataLayer work; there is no published Mixpanel engagement with a
+   number attached, and `outcomesNote` says so rather than borrowing the
+   Magento figures.
+   ═══════════════════════════════════════════════════════════════ */
+
+const MIXPANEL: Technology = {
+  slug: 'mixpanel',
+  label: 'Mixpanel',
+  name: 'Mixpanel',
+  eyebrow: 'Yuvraj Raulji | Mixpanel',
+  h1: ['Mixpanel answers product questions.', 'Most implementations cannot.'],
+  lede:
+    'Mixpanel is only as good as its tracking plan, and most implementations do not have one. Events get added by whoever needed a number that week, properties drift, and within a year nobody trusts a funnel enough to act on it. The work worth paying for is the naming, the schema and the governance, not the installation.',
+  cta: 'Discuss a Mixpanel implementation',
+  title: 'Mixpanel Consultant | Yuvraj Raulji',
+  description:
+    'Mixpanel consulting and implementation: tracking plan and event schema, funnels and retention, identity resolution, audits of an existing setup, and governance.',
+
+  quickAnswer: {
+    answer:
+      'Mixpanel is a product analytics platform for event-based behaviour: what people do inside a product or a store, in what order, and who comes back. Unlike a session-based tool it models a user and their events, which is what makes funnels, retention and cohort analysis possible. The platform is straightforward to install and difficult to get value from, because everything downstream depends on a tracking plan: consistent event names, a property schema, and a rule for who owns changes. An implementation without that produces charts nobody trusts within about a year.',
+    bestFor: [
+      'Products and stores where behaviour matters more than pageviews',
+      'Teams arguing about numbers from two different tools',
+      'An existing Mixpanel nobody trusts any more',
+      'Funnel and retention questions GA4 answers badly',
+    ],
+  },
+
+  problems: [
+    {
+      symptom: 'Two tools give two different numbers',
+      body:
+        'Mixpanel and GA4 disagree on the same funnel, so meetings become arguments about instrumentation rather than decisions about the product. Nobody wins that argument, and the usual outcome is that both are ignored.',
+      opportunity:
+        'The two are measuring different things by design, session-based against event-based, and the fix is deciding which question each tool owns and reconciling the definitions once, in writing.',
+    },
+    {
+      symptom: 'Event names were never agreed',
+      body:
+        'Checkout Started, checkout_started and Started Checkout all exist, from three different releases. Every report has to know which is current, so the knowledge lives in one person rather than in the schema.',
+      opportunity:
+        'A tracking plan with a naming convention, a property schema and a review step before a new event ships. Unglamorous, and it is the whole difference between analytics and a data landfill.',
+    },
+    {
+      symptom: 'Identity is broken across sign-in',
+      body:
+        'A person is one user before they log in and another afterwards, so acquisition and retention both understate. This is the single most common Mixpanel implementation error and it is invisible in the charts.',
+      opportunity:
+        'Identity resolution set up deliberately, with aliasing and identity merge handled at the point of sign-in and sign-up rather than left to defaults.',
+    },
+    {
+      symptom: 'Nobody knows what an event is supposed to mean',
+      body:
+        'Properties were added ad hoc, some events fire twice, and a few fire on render rather than on action. The reports are precise and wrong, which is worse than obviously broken.',
+      opportunity:
+        'An audit against the live implementation: what fires, when, with what properties, and which of it contradicts the plan. The output is a list ordered by how much each error distorts a decision.',
+    },
+  ],
+
+  approach: [
+    {
+      num: '01',
+      title: 'Understand',
+      covers: ['Decisions', 'Questions', 'Owners', 'Current tools'],
+      body:
+        'Which decisions the data is supposed to inform, and who makes them. An analytics implementation designed without that produces a lot of events and no answers, which is the normal failure here.',
+    },
+    {
+      num: '02',
+      title: 'Architect',
+      covers: ['Tracking plan', 'Event schema', 'Identity', 'Governance'],
+      body:
+        'Event names, properties, types and the identity model, written down before anything is instrumented. This is the deliverable that outlives the engagement, and the one most implementations skip.',
+    },
+    {
+      num: '03',
+      title: 'Build',
+      covers: ['Instrumentation', 'Server and client', 'QA', 'Backfill'],
+      body:
+        'Implemented against the plan, with server-side events where a client-side one would be blocked or unreliable, and each event verified against its definition rather than against whether it appeared.',
+    },
+    {
+      num: '04',
+      title: 'Optimize',
+      covers: ['Funnels', 'Retention', 'Cohorts', 'Dashboards'],
+      body:
+        'The reports the questions actually need, kept few. A workspace with forty dashboards has the same problem as no dashboards, because nobody knows which one is authoritative.',
+    },
+    {
+      num: '05',
+      title: 'Scale',
+      covers: ['Governance', 'Warehouse', 'Handover', 'Review cadence'],
+      body:
+        'A review step for new events, a route into the warehouse where one exists, and enough documentation that the team can add an event correctly without asking. The goal is to hand it back.',
+    },
+  ],
+
+  capabilities: [
+    {
+      group: 'Consulting',
+      items: ['Tool fit against GA4', 'Question and decision mapping', 'Measurement strategy', 'Second opinion on a setup'],
+    },
+    {
+      group: 'Implementation',
+      items: ['Tracking plan', 'Event and property schema', 'Client and server instrumentation', 'Identity resolution'],
+    },
+    {
+      group: 'Audit',
+      items: ['Live event review', 'Duplicate and misfiring events', 'Property drift', 'Plan against reality gap'],
+    },
+    {
+      group: 'Reporting',
+      items: ['Funnels', 'Retention and cohorts', 'Dashboards worth keeping', 'Alerting on the numbers that matter'],
+    },
+  ],
+
+  ai: [
+    {
+      title: 'Finding the events nobody trusts',
+      what: 'Reviewing a large event catalogue for names, properties and volumes that contradict the tracking plan.',
+      how: 'The event schema and recent volumes are compared against the documented plan, and the differences are classified rather than listed, so the output is ordered by how much each one distorts a decision.',
+      value: 'On a workspace with hundreds of events this is the difference between an audit that finishes and one that gets abandoned halfway.',
+      human: 'Every proposed change is reviewed before anything is renamed or deprecated, because an event rename breaks historical reporting.',
+      limit: 'It cannot tell you what an event was meant to mean. Where the intent was never written down, the answer comes from the person who added it, or the event gets redefined deliberately.',
+    },
+  ],
+
+  architecture: [
+    { name: 'Product and storefront', detail: 'Where the behaviour happens, and where most events originate.', tech: ['Web', 'App', 'Commerce platform'] },
+    { name: 'Client instrumentation', detail: 'Events fired from the browser, with the caveat that ad blockers and privacy modes drop some of them.', tech: ['Mixpanel JS', 'GTM'] },
+    { name: 'Server instrumentation', detail: 'The events that must not be lost: purchases, refunds, subscription state.', tech: ['Server SDK', 'Webhooks', 'Queue'] },
+    { name: 'Identity', detail: 'The model that decides whether one person is one user. Set deliberately, not by default.', tech: ['Identify', 'Alias', 'Merge'] },
+    { name: 'Mixpanel', detail: 'Events, user profiles, funnels, retention and cohorts.', tech: ['Mixpanel'] },
+    { name: 'Downstream', detail: 'Where the data goes next, when the questions outgrow the tool.', tech: ['Warehouse', 'BI', 'Engagement platforms'] },
+  ],
+
+  fit: {
+    goodFit: [
+      'A product or store where the question is behaviour over time',
+      'Funnels and retention that GA4 cannot answer cleanly',
+      'A team that will actually act on the numbers',
+      'Someone willing to own a tracking plan',
+    ],
+    thinkTwice: [
+      'Traffic and acquisition reporting, which GA4 does well and free',
+      'A team with nobody to own event governance',
+      'Sites where the real gap is that nothing is instrumented at all',
+      'Buying a second tool to settle an argument the first one could answer',
+    ],
+  },
+
+  comparison: {
+    columns: ['Mixpanel', 'GA4', 'WebEngage or MoEngage'],
+    rows: [
+      { criterion: 'Model', cells: ['Event and user', 'Session and event', 'Event, plus messaging'] },
+      { criterion: 'Best question', cells: ['What do people do, and do they come back', 'Where did traffic come from, and what did it do', 'Who should receive what, and when'] },
+      { criterion: 'Funnels and retention', cells: ['Its core strength', 'Workable, less flexible', 'Present, in service of campaigns'] },
+      { criterion: 'Acts on the data', cells: ['No, it reports', 'No, it reports', 'Yes, that is the point'] },
+      { criterion: 'Cost shape', cells: ['Scales with events', 'Free at most volumes', 'Scales with contacts and messages'] },
+    ],
+    note:
+      'These are not competing products so much as different jobs, and most stacks end up with more than one. The mistake is buying a second tool to answer a question the first one already answers.',
+    /* WebEngage and MoEngage are the natural third column here and neither page
+       exists yet, so they are named in the table and not linked. A link to an
+       unbuilt page is the mistake the platform-service model already guards
+       against; the technology registry has no such guard, so it is caught by
+       hand. Add both hrefs when those pages ship. */
+    links: [
+      { href: '/ai-commerce/', label: 'AI commerce, where behavioural data becomes personalisation' },
+      { href: '/ai-automation/', label: 'AI automation, when the reporting turns into a process' },
+      { href: '/expertise/ecommerce-consulting/', label: 'eCommerce consulting, for which decisions need data at all' },
+    ],
+  },
+
+  cases: ['b2b-procurement', 'marketplace'],
+  casesNote:
+    'Two platforms where the measurable behaviour was an internal workflow rather than a storefront funnel, which is the case Mixpanel handles better than a session-based tool.',
+  posts: ['cro-double-conversion', 'ai-ecommerce-revenue-2025'],
+
+  outcomes: [
+    {
+      label: 'Numbers a meeting can act on',
+      body:
+        'The deliverable is not a dashboard. It is that one set of definitions exists, everyone reads the same funnel the same way, and a disagreement is about the product rather than about the instrumentation.',
+    },
+    {
+      label: 'A tracking plan that outlives the engagement',
+      body:
+        'Event names, properties, identity rules and a review step, written down. Without it a workspace degrades to the same state within about a year, whoever implemented it.',
+    },
+  ],
+  outcomesNote:
+    'No percentage is published here. The measurement record on this site is GA4, Google Tag Manager and dataLayer work, and no Mixpanel engagement on it carries a published figure. A number borrowed from the Magento performance work would describe a different platform and a different problem.',
+
+  faqs: [
+    {
+      q: 'Do we need Mixpanel if we already have GA4?',
+      a: 'Often not. GA4 answers acquisition and traffic well and costs nothing at most volumes. Mixpanel earns its place when the question is behavioural over time: does this cohort come back, where exactly does this multi-step flow break, what do the people who convert do differently. If nobody is asking those questions yet, a second tool adds cost and another set of numbers to disagree with.',
+    },
+    {
+      q: 'What is a tracking plan, and why does it matter so much?',
+      a: 'It is the document that defines every event, its properties, their types and when it fires, plus who approves a change. It matters because analytics degrades by accretion: events get added under deadline, names drift, and after a year nobody can say which of three similar events is authoritative. The plan is the only thing that prevents that, and it is what most implementations skip.',
+    },
+    {
+      q: 'Our Mixpanel data is not trusted. Where do you start?',
+      a: 'With an audit against the live implementation rather than a rebuild. What fires, when, with what properties, and which of it contradicts what people believe. The output is ordered by how much each error distorts an actual decision, because a wrong event nobody reports on is not worth the migration risk of renaming it.',
+    },
+    {
+      q: 'Should events be sent from the browser or the server?',
+      a: 'Both, with the split decided by cost of loss. Anything commercially significant, purchases, refunds, subscription changes, belongs server-side where ad blockers and privacy modes cannot drop it. Interaction detail that only needs to be directionally right can stay client-side.',
+    },
+    {
+      q: 'How does Mixpanel relate to WebEngage or MoEngage?',
+      a: 'Mixpanel reports behaviour; engagement platforms act on it. They overlap in that both consume events, and the common mistake is buying an engagement platform for its analytics or Mixpanel for messaging. Decide which tool owns which job before either is implemented, because the integration between them is straightforward and the ownership question is not.',
+    },
+  ],
+
+  related: [
+    { href: '/ai-commerce/', label: 'AI commerce', note: 'Where behavioural data becomes personalisation and recommendation.' },
+    { href: '/ai-automation/', label: 'AI automation', note: 'When a reported number should trigger a process instead.' },
+    { href: '/shopify/optimization/', label: 'Shopify optimisation', note: 'Where the funnel instrumentation usually gets used first.' },
+    { href: '/magento/integrations/', label: 'Magento integrations', note: 'Server-side events across the platform boundary.' },
+    { href: '/expertise/ecommerce-consulting/', label: 'eCommerce consulting', note: 'When the question is which decisions need data at all.' },
+  ],
+
+  finalHeadline: ['What decision is the', 'data supposed to inform?'],
+};
+
 export const TECHNOLOGIES: Technology[] = [
   SHOPIFY,
   MAGENTO,
@@ -2931,6 +3182,9 @@ export const TECHNOLOGIES: Technology[] = [
   AI_SEARCH,
   AI_AUTOMATION,
   DIGITAL_TRANSFORMATION,
+  /* Tier 2. Root level like every other platform, and one page rather than
+     five: see the note above the MIXPANEL definition. */
+  MIXPANEL,
 ];
 
 export const TECHNOLOGIES_BY_SLUG: Record<string, Technology> = Object.fromEntries(

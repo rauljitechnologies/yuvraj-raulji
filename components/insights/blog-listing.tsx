@@ -51,7 +51,7 @@ function SectionBar({ num, label, badge }: { num: string; label: string; badge?:
 function GridCard({ post, imgHeight, titleSize, excerptSize, showDate }: { post: ListPost; imgHeight: number; titleSize: string; excerptSize: string; showDate: boolean }) {
   return (
     <article className="bc reveal group">
-      <Link href={`/blog/${post.slug}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: imgHeight }}>
+      <Link href={`/insights/${post.slug}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: imgHeight }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={post.img}
@@ -102,7 +102,7 @@ function GridCard({ post, imgHeight, titleSize, excerptSize, showDate }: { post:
           }}
         />
         <Link
-          href={`/blog/${post.slug}`}
+          href={`/insights/${post.slug}`}
           className="inline-flex items-center gap-[6px] mt-auto transition-all duration-300 hover:gap-[11px]"
           style={{ fontSize: showDate ? '.70rem' : '.68rem', fontWeight: 700, letterSpacing: '.13em', textTransform: 'uppercase', color: '#f0263c' }}
         >
@@ -244,7 +244,7 @@ export function BlogListing({ posts }: { posts: ListPost[] }) {
                   {slides.map((post) => (
                     <div key={post.slug} className="sl-card flex-shrink-0" style={{ scrollSnapAlign: 'start' }}>
                       <Link
-                        href={`/blog/${post.slug}`}
+                        href={`/insights/${post.slug}`}
                         className="sl-inner group block relative overflow-hidden"
                         style={{ borderRadius: 14, border: '1px solid rgba(255,255,255,.09)', boxShadow: '0 24px 64px rgba(0,0,0,.52)' }}
                       >

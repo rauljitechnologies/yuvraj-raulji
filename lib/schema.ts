@@ -608,7 +608,7 @@ export function articleSchema({
   keywords?: string[];
 }) {
   const post = POSTS[slug];
-  const path = `/blog/${slug}/`;
+  const path = `/insights/${slug}/`;
   const published = postDateISO(post.date);
 
   return graph([
@@ -628,19 +628,19 @@ export function articleSchema({
       inLanguage: 'en-US',
       author: personRef,
       publisher: personRef,
-      isPartOf: { '@id': `${SITE_URL}/blog/#blog` },
+      isPartOf: { '@id': `${SITE_URL}/insights/#blog` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}${path}` },
     },
   ]);
 }
 
-/** /blog/ hub. */
+/** /insights/ hub. */
 export function blogHubSchema(crumbs: Crumb[]) {
   const posts = Object.entries(POSTS);
   return graph([
     personNode(),
     webPageNode({
-      path: '/blog/',
+      path: '/insights/',
       name: 'Insights',
       description:
         'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI.',
@@ -650,8 +650,8 @@ export function blogHubSchema(crumbs: Crumb[]) {
     breadcrumbNode(crumbs),
     {
       '@type': 'Blog',
-      '@id': `${SITE_URL}/blog/#blog`,
-      url: `${SITE_URL}/blog/`,
+      '@id': `${SITE_URL}/insights/#blog`,
+      url: `${SITE_URL}/insights/`,
       name: 'Insights on eCommerce Technology & AI',
       description:
         'Practical writing on Magento 2, Shopify, headless commerce, infrastructure, analytics, SEO and AI.',
@@ -660,9 +660,9 @@ export function blogHubSchema(crumbs: Crumb[]) {
       author: personRef,
       blogPost: posts.map(([slug, p]) => ({
         '@type': 'BlogPosting',
-        '@id': `${SITE_URL}/blog/${slug}/#article`,
+        '@id': `${SITE_URL}/insights/${slug}/#article`,
         headline: p.title,
-        url: `${SITE_URL}/blog/${slug}/`,
+        url: `${SITE_URL}/insights/${slug}/`,
         image: `${SITE_URL}${p.ogImg}`,
         datePublished: postDateISO(p.date),
         author: personRef,

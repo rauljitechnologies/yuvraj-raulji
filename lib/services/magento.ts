@@ -400,7 +400,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
         note: 'The most common platform people migrate onto Magento from.',
       },
       {
-        href: '/blog/magento2-seo-technical-audit/',
+        href: '/insights/magento2-seo-technical-audit/',
         label: 'The Magento 2 technical SEO audit framework, written out',
         note: 'Redirects, canonicals and crawl budget, which is the half of a migration that fails quietly.',
       },
@@ -788,7 +788,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
         note: 'Speed is rarely the only thing costing money, and rarely the most expensive.',
       },
       {
-        href: '/blog/cro-double-conversion/',
+        href: '/insights/cro-double-conversion/',
         label: 'The CRO frameworks behind a faster checkout',
         note: 'The commercial half of a performance engagement, written out.',
       },

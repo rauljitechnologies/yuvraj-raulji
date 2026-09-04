@@ -74,11 +74,11 @@ export const CORE_IDEA = 'Technology that creates business leverage.';
  * bar ship on every page and what makes a click a navigation rather than a
  * scroll.
  *
- * "Thinking" was the old label for /blog/; the header and the footer both say
+ * "Thinking" was the old label for /insights/; the header and the footer both say
  * Insights now, because the page itself is titled Insights and a label that
  * disagrees with its destination costs a reader a click to work out.
  *
- * /blog/ is the indexed path carrying the article history. Renaming it to
+ * /insights/ is the indexed path carrying the article history. Renaming it to
  * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
  * trade.
  */
@@ -87,7 +87,7 @@ export const NAV = [
   { label: 'Expertise', href: '/expertise/' },
   { label: 'Work', href: '/work/' },
   { label: 'Experience', href: '/experience/' },
-  { label: 'Insights', href: '/blog/' },
+  { label: 'Insights', href: '/insights/' },
 ] as const;
 
 export const CTA_LABEL = "Let's talk";
@@ -119,7 +119,7 @@ export const HERO = {
   lede:
     'I explore the technologies, systems and ideas shaping how modern businesses operate, sell and grow.',
   ctaPrimary: { label: 'Explore my work', href: '/work/' },
-  ctaSecondary: { label: 'Read my thinking', href: '/blog/' },
+  ctaSecondary: { label: 'Read my thinking', href: '/insights/' },
   /**
    * The credibility line, and the only number in the hero.
    *
@@ -226,7 +226,7 @@ export const LEARNING_INTRO = {
   headline: ["What I'm", 'learning now.'] as const,
   body:
     'Four tracks I am reading, building against and forming opinions about. Listed as study rather than as service, because that is what they are: none of these carries a published engagement yet, and saying so is cheaper than implying otherwise.',
-  cta: { label: 'Explore my thinking', href: '/blog/' },
+  cta: { label: 'Explore my thinking', href: '/insights/' },
 } as const;
 
 export const TRACKS: Track[] = [
@@ -320,13 +320,13 @@ export const POSITIONS: Position[] = [
   {
     claim: "AI isn't replacing businesses.",
     turn: "It's replacing inefficient ways of working.",
-    href: '/blog/ai-ecommerce-revenue-2025/',
+    href: '/insights/ai-ecommerce-revenue-2025/',
     cta: 'Where AI actually pays in commerce',
   },
   {
     claim: "Shopify vs Magento isn't a platform debate.",
     turn: "It's a business architecture decision.",
-    href: '/blog/shopify-plus-vs-magento2-2025/',
+    href: '/insights/shopify-plus-vs-magento2-2025/',
     cta: 'The full platform comparison, by business model',
   },
   {
@@ -336,7 +336,7 @@ export const POSITIONS: Position[] = [
   {
     claim: 'A beautiful store means nothing',
     turn: 'if the customer journey is broken.',
-    href: '/blog/cro-double-conversion/',
+    href: '/insights/cro-double-conversion/',
     cta: 'What the conversion work actually changes',
   },
   {
@@ -644,7 +644,7 @@ export const WRITING_INTRO = {
   headline: ['Thinking', 'out loud.'] as const,
   body:
     'Long-form technical writing on the subjects above. Written to be useful to someone with the problem, which is a harder brief than written to rank.',
-  cta: { label: 'All writing', href: '/blog/' },
+  cta: { label: 'All writing', href: '/insights/' },
 } as const;
 
 /** Newest first, by the date string the post record carries. */

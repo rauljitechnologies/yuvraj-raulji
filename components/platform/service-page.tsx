@@ -449,7 +449,7 @@ export function ServicePage({ service }: { service: PlatformService }) {
                 {posts.map((p) => (
                   <li key={p.slug} className="border-b border-line">
                     <Link
-                      href={`/blog/${p.slug}/`}
+                      href={`/insights/${p.slug}/`}
                       className="group grid gap-x-10 gap-y-2 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto]"
                     >
                       <h4 className="m-0 max-w-[30ch] font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.025em] transition-colors duration-200 group-hover:text-accent-bright">

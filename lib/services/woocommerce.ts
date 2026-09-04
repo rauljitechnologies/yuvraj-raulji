@@ -420,7 +420,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
         note: 'For pricing, approvals and multi-store, rather than simplicity.',
       },
       {
-        href: '/blog/magento2-seo-technical-audit/',
+        href: '/insights/magento2-seo-technical-audit/',
         label: 'The technical SEO audit framework, applied to a replatform',
         note: 'Redirects and canonicals, across content and catalogue alike.',
       },
@@ -611,7 +611,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
         note: 'Varnish, Redis and query tuning on a platform built for it.',
       },
       {
-        href: '/blog/cro-double-conversion/',
+        href: '/insights/cro-double-conversion/',
         label: 'The CRO frameworks behind a better converting checkout',
         note: 'The commercial half of a performance engagement.',
       },

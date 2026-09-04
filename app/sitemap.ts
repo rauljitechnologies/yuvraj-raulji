@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE + '/', lastModified: buildDate, changeFrequency: 'weekly', priority: 1 },
     { url: BASE + '/about/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
     { url: BASE + '/work/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
-    { url: BASE + '/blog/', lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: BASE + '/insights/', lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
     { url: BASE + '/experience/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/expertise/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: BASE + '/contact/', lastModified: buildDate, changeFrequency: 'yearly', priority: 0.7 },
@@ -63,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     })),
     ...Object.entries(POSTS).map(([slug, p]) => ({
-      url: `${BASE}/blog/${slug}/`,
+      url: `${BASE}/insights/${slug}/`,
       lastModified: postDate(p.date),
       changeFrequency: 'monthly' as const,
       priority: 0.8,

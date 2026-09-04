@@ -13,7 +13,7 @@ import { SiteNav } from './nav';
  *
  * Every route other than the homepage renders through `Page`, so the nav, the
  * footer, the enquiry modal, the `.yr-page` token scope and the `#main` skip
- * target are defined once. Before this, /about/ and /blog/ each assembled their
+ * target are defined once. Before this, /about/ and /insights/ each assembled their
  * own arrangement of a different header, a preloader and a effects layer, and
  * the three pages disagreed about all of it.
  *

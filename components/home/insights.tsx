@@ -25,7 +25,7 @@ export function Insights() {
               Editorial perspectives on the forces reshaping commerce, enterprise technology, and AI-powered operations.
             </p>
             <Link
-              href="/blog"
+              href="/insights"
               className="btn-arr inline-flex items-center gap-2 h-[42px] px-5 rounded border border-[rgba(229,9,32,.36)] text-rv text-[.70rem] font-bold tracking-[.12em] uppercase no-underline transition-all hover:bg-red hover:border-red hover:text-white hover:-translate-y-px touch-manipulation"
             >
               View All Insights
@@ -37,7 +37,7 @@ export function Insights() {
           {INSIGHT_CARDS.map((p, i) => (
             <Link
               key={p.t}
-              href="/blog"
+              href="/insights"
               className="group relative min-h-[225px] p-6 bg-bg2 grid content-between gap-4 no-underline text-inherit overflow-hidden transition-all duration-300 hover:bg-[rgba(229,9,32,.06)] hover:-translate-y-1 touch-manipulation"
             >
               <span

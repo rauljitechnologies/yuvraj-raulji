@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArticleAside, ReadingProgress, TocList } from '../../../components/blog/article-aside';
+import { ArticleAside, ReadingProgress, TocList } from '../../../components/insights/article-aside';
 import { ContactModal } from '../../../components/contact-modal';
 import { JsonLd } from '../../../components/json-ld';
 import { Preloader } from '../../../components/preloader';
@@ -24,7 +24,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = POSTS[slug];
-  const url = `${SITE_URL}/blog/${slug}/`;
+  const url = `${SITE_URL}/insights/${slug}/`;
   return {
     title: p.seoTitle ?? p.title,
     description: p.excerpt,
@@ -45,14 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /*
-  The trail. The middle crumb is named "Insights", which is what app/blog/page.tsx
+  The trail. The middle crumb is named "Insights", which is what app/insights/page.tsx
   calls the same URL; this page previously called it "Blog & Insights", so the two
-  BreadcrumbLists described /blog/ under two different names.
+  BreadcrumbLists described /insights/ under two different names.
 */
 function articleCrumbs(title: string, url: string): Crumb[] {
   return [
     { name: 'Home', href: '/' },
-    { name: 'Insights', href: '/blog/' },
+    { name: 'Insights', href: '/insights/' },
     { name: title, href: url.replace(SITE_URL, '') },
   ];
 }
@@ -69,7 +69,7 @@ function relatedFor(slug: string) {
 export default async function Article({ params }: Props) {
   const { slug } = await params;
   const p = POSTS[slug];
-  const url = `${SITE_URL}/blog/${slug}/`;
+  const url = `${SITE_URL}/insights/${slug}/`;
   const { html, toc } = getArticle(slug);
   const tags = TAGS[slug] ?? [p.cat];
   const related = relatedFor(slug);
@@ -156,7 +156,7 @@ export default async function Article({ params }: Props) {
                 Home
               </Link>
               <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
-              <Link href="/blog" className="hover:text-rv transition-colors">
+              <Link href="/insights" className="hover:text-rv transition-colors">
                 Blog
               </Link>
               <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
@@ -278,7 +278,7 @@ export default async function Article({ params }: Props) {
                 {related.map((r) => (
                   <Link
                     key={r.slug}
-                    href={`/blog/${r.slug}`}
+                    href={`/insights/${r.slug}`}
                     className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(229,9,32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
                   >
                     <div className="relative overflow-hidden" style={{ height: 190 }}>
@@ -339,7 +339,7 @@ export default async function Article({ params }: Props) {
                 Book Consultation
               </a>
               <Link
-                href="/blog"
+                href="/insights"
                 className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f5f2] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 More Articles

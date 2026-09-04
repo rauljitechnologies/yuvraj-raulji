@@ -50,6 +50,96 @@
       "source": "/expertise/digital-transformation/",
       "destination": "/digital-transformation/",
       "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/insights/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/insights/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-seo-technical-audit",
+      "destination": "/insights/magento2-seo-technical-audit/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-seo-technical-audit/",
+      "destination": "/insights/magento2-seo-technical-audit/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-ecommerce-revenue-2025",
+      "destination": "/insights/ai-ecommerce-revenue-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-ecommerce-revenue-2025/",
+      "destination": "/insights/ai-ecommerce-revenue-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-checkout-optimization",
+      "destination": "/insights/magento2-checkout-optimization/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-checkout-optimization/",
+      "destination": "/insights/magento2-checkout-optimization/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/shopify-plus-vs-magento2-2025",
+      "destination": "/insights/shopify-plus-vs-magento2-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/shopify-plus-vs-magento2-2025/",
+      "destination": "/insights/shopify-plus-vs-magento2-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/aws-magento2-server-setup",
+      "destination": "/insights/aws-magento2-server-setup/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/aws-magento2-server-setup/",
+      "destination": "/insights/aws-magento2-server-setup/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/shopify-headless-nextjs-guide",
+      "destination": "/insights/shopify-headless-nextjs-guide/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/shopify-headless-nextjs-guide/",
+      "destination": "/insights/shopify-headless-nextjs-guide/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cro-double-conversion",
+      "destination": "/insights/cro-double-conversion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cro-double-conversion/",
+      "destination": "/insights/cro-double-conversion/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-pwa-studio-headless",
+      "destination": "/insights/magento2-pwa-studio-headless/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/magento2-pwa-studio-headless/",
+      "destination": "/insights/magento2-pwa-studio-headless/",
+      "permanent": true
     }
   ],
   "headers": [

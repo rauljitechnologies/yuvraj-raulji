@@ -37,7 +37,7 @@ export function InsightsSection() {
           return (
             <li key={slug}>
               <Link
-                href={`/blog/${slug}/`}
+                href={`/insights/${slug}/`}
                 className={`u-insight-card ${hovered === id ? 'is-active' : ''}`}
                 onPointerEnter={() => setHover(id)}
                 onPointerLeave={() => setHover(null)}
@@ -57,7 +57,7 @@ export function InsightsSection() {
       </Reveal>
 
       <Reveal className="u-inline-cta" y={18}>
-        <CTA variant="ghost" href="/blog/">
+        <CTA variant="ghost" href="/insights/">
           All insights <span aria-hidden="true">→</span>
         </CTA>
       </Reveal>

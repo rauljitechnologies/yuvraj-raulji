@@ -68,7 +68,7 @@ export function Closing({
             {CLOSING.signoff}
           </span>
           <span aria-hidden="true" className="yr-rule-accent" />
-          <Btn href="/blog/" variant="ghost" className="ml-auto">
+          <Btn href="/insights/" variant="ghost" className="ml-auto">
             Read my thinking
           </Btn>
         </Rise>

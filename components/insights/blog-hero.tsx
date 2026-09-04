@@ -185,7 +185,7 @@ export function BlogHero() {
             {/* RIGHT: featured */}
             <div className="relative lg:py-10 reveal" style={{ animationDelay: '.18s' }}>
               <Link
-                href={`/blog/${FEATURED_SLUG}/`}
+                href={`/insights/${FEATURED_SLUG}/`}
                 className="group block relative h-full rounded-2xl overflow-hidden"
                 style={{ minHeight: 'clamp(400px,55vh,680px)', border: '1px solid rgba(255,255,255,.09)', boxShadow: '0 40px 100px rgba(0,0,0,.60)' }}
               >

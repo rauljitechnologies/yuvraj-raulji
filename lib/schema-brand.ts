@@ -193,7 +193,7 @@ export function homeWritingList() {
       '@type': 'ListItem',
       position: i + 1,
       name: w.title,
-      url: `${SITE_URL}/blog/${w.slug}/`,
+      url: `${SITE_URL}/insights/${w.slug}/`,
     })),
   };
 }

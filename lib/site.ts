@@ -115,7 +115,7 @@ export const OG_EXPERTISE = card(
 /** /hire/ */
 export const OG_HIRE = card('og-hire.jpg', 'One consultant, not a team to manage');
 
-/** /blog/ */
+/** /insights/ */
 export const OG_INSIGHTS = card('og-insights.jpg', 'Insights written for the people making the decision');
 
 export const LEAD_ENDPOINT =
@@ -135,7 +135,7 @@ export const NAV_LINKS = [
   { label: 'About', href: '/about/' },
   { label: 'Expertise', href: '/#expertise' },
   { label: 'Work', href: '/#work' },
-  { label: 'Insights', href: '/blog/' },
+  { label: 'Insights', href: '/insights/' },
 ] as const;
 
 export const HERO_CHIPS = [
@@ -973,7 +973,7 @@ export const FOOTER_NAV = [
   { label: 'About', href: '/about/' },
   { label: 'Expertise', href: '/#expertise' },
   { label: 'Work', href: '/#work' },
-  { label: 'Insights', href: '/blog/' },
+  { label: 'Insights', href: '/insights/' },
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -986,10 +986,10 @@ export const FOOTER_NAV = [
 export const FOOTER_EXPERTISE = [
   { label: 'Magento & Adobe Commerce', href: '/#expertise' },
   { label: 'Shopify & Shopify Plus', href: '/#expertise' },
-  { label: 'Headless Commerce', href: '/blog/shopify-headless-nextjs-guide/' },
-  { label: 'E-commerce SEO', href: '/blog/magento2-seo-technical-audit/' },
-  { label: 'CRO & Performance', href: '/blog/cro-double-conversion/' },
-  { label: 'AI Automation', href: '/blog/ai-ecommerce-revenue-2025/' },
+  { label: 'Headless Commerce', href: '/insights/shopify-headless-nextjs-guide/' },
+  { label: 'E-commerce SEO', href: '/insights/magento2-seo-technical-audit/' },
+  { label: 'CRO & Performance', href: '/insights/cro-double-conversion/' },
+  { label: 'AI Automation', href: '/insights/ai-ecommerce-revenue-2025/' },
 ];
 
 const TOPIC_LABELS: Record<string, string> = {

@@ -32,7 +32,7 @@ Four areas of thought, and they overlap on purpose:
   Authoritative for biographical claims.
 - [Work](https://www.yuvrajraulji.com/work/): Six case studies with the challenge, the approach
   and the technology behind each.
-- [Insights](https://www.yuvrajraulji.com/blog/): Long-form technical writing.
+- [Insights](https://www.yuvrajraulji.com/insights/): Long-form technical writing.
 - [Experience](https://www.yuvrajraulji.com/experience/): The full employment record.
 - [Expertise](https://www.yuvrajraulji.com/expertise/): The hub over the nine technology pages
   below, plus eCommerce consulting. Each page states the situations the technology is the wrong

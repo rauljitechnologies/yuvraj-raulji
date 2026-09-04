@@ -411,12 +411,12 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
         note: 'A new host is a starting position, not a result.',
       },
       {
-        href: '/blog/magento2-seo-technical-audit/',
+        href: '/insights/magento2-seo-technical-audit/',
         label: 'The technical SEO audit framework, applied to a move',
         note: 'Redirects, canonicals and crawl budget, checked rather than assumed.',
       },
       {
-        href: '/blog/aws-magento2-server-setup/',
+        href: '/insights/aws-magento2-server-setup/',
         label: 'Production hosting on AWS, written out',
         note: 'EC2, RDS, S3 and Nginx, which is where these sites usually land.',
       },
@@ -608,7 +608,7 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
         note: 'Some slowness is a content model problem wearing a performance costume.',
       },
       {
-        href: '/blog/aws-magento2-server-setup/',
+        href: '/insights/aws-magento2-server-setup/',
         label: 'Nginx, PHP-FPM and Redis tuning on AWS, written out',
         note: 'The infrastructure layer, in detail.',
       },
@@ -1007,7 +1007,7 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
         note: 'The failure that is silent and commercially expensive.',
       },
       {
-        href: '/blog/aws-magento2-server-setup/',
+        href: '/insights/aws-magento2-server-setup/',
         label: 'Production hosting on AWS, written out',
         note: 'EC2, RDS, S3 and Nginx, the stack these sites run best on.',
       },
