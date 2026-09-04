@@ -199,6 +199,11 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         note: 'A faster theme is what most headless enquiries actually want.',
       },
       {
+        href: '/nextjs/',
+        label: 'Next.js, if the answer turns out to be yes',
+        note: 'What you would be building in, and what it costs to own.',
+      },
+      {
         href: '/expertise/ecommerce-consulting/',
         label: 'eCommerce consulting, when the question is bigger than the front end',
         note: 'Sometimes the storefront is not what is holding the business back.',
@@ -394,6 +399,11 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
         href: '/headless-commerce/optimization/',
         label: 'Storefront performance work on an existing headless build',
         note: 'When the architecture is set and the numbers still disappoint.',
+      },
+      {
+        href: '/nextjs/',
+        label: 'Next.js, the framework most of these are built in',
+        note: 'The rendering tiers on this page, in the framework that expresses them.',
       },
       {
         href: '/magento/integrations/',

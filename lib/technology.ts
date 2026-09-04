@@ -518,6 +518,7 @@ const SHOPIFY: Technology = {
 
   related: [
     { href: '/magento/', label: 'Magento commerce', note: 'Where Shopify stops fitting: quotes, approvals, multi-store.' },
+    { href: '/nextjs/', label: 'Next.js', note: 'For a storefront decoupled from Shopify over the Storefront API.' },
     {
       href: '/magento/migration/',
       label: 'Moving a store onto Magento 2',
@@ -2001,6 +2002,7 @@ const HEADLESS: Technology = {
 
   related: [
     { href: '/magento/', label: 'Magento', note: 'The commerce layer, over GraphQL and PWA Studio.' },
+    { href: '/nextjs/', label: 'Next.js', note: 'The framework the decoupled storefront is actually built in.' },
     {
       href: '/magento/integrations/',
       label: 'Magento API and integration boundaries',

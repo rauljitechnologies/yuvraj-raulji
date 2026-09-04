@@ -493,6 +493,7 @@ export const CASES: CaseStudy[] = [
       { href: '/headless-commerce/', label: 'Headless commerce, and when decoupling actually pays' },
       { href: '/headless-commerce/architecture/', label: 'The rendering and caching decisions behind a build like this' },
       { href: '/headless-commerce/optimization/', label: 'Storefront performance once the front end is decoupled' },
+      { href: '/nextjs/', label: 'Next.js, and the rendering decisions a build like this turns on' },
     ],
     posts: ['shopify-headless-nextjs-guide', 'magento2-pwa-studio-headless'],
     facets: ['ecommerce', 'headless'],
