@@ -357,6 +357,26 @@ export default function Hire() {
               occasionally ends with me saying you do not need the project.
             </p>
           </Rise>
+          {/* The one audience /hire/ does not serve. An agency reading this page
+              is reading the wrong one, and saying so is cheaper than letting
+              them self-select out of the site entirely. */}
+          {/* The smaller first step. Most people arriving here are not ready to
+              commit to an engagement, and an audit is the version of this that
+              produces something they keep whether or not anything follows. */}
+          <Rise delay={0.18} className="mt-8">
+            <p className={`m-0 max-w-[62ch] ${BODY}`}>
+              Not ready to commit to an engagement?{' '}
+              <InlineLink href="/ecommerce-audit/">Start with a technical audit</InlineLink>, which
+              is fixed in scope and ends with a document rather than a proposal.
+            </p>
+          </Rise>
+          <Rise delay={0.2} className="mt-8">
+            <p className={`m-0 max-w-[62ch] ${BODY}`}>
+              Working at an agency rather than buying for your own business?{' '}
+              <InlineLink href="/agencies/">There is a separate page for that</InlineLink>, because
+              the arrangement and the commitments are different.
+            </p>
+          </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>{HIRE.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">

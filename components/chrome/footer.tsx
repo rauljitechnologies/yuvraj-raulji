@@ -58,6 +58,15 @@ const EXPLORE = [
      than the header because the header already carries one call to action and
      a second would compete with it. */
   { href: '/hire/', label: 'Hire' },
+  /* The one purchasable offer, directly above the two ways to ask for it. It
+     is in the footer because it is the destination the commercial pages should
+     all be routing toward, and a link on every page is the cheapest way to
+     make that true while the contextual links are still being built out. */
+  { href: '/ecommerce-audit/', label: 'eCommerce audit' },
+  /* The agency channel. A different buyer from every other link here, which is
+     why it sits in Explore rather than under Platforms, and above Contact
+     because Contact is where this column ends. */
+  { href: '/agencies/', label: 'For agencies' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
 

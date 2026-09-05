@@ -49,6 +49,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
        rather than the services: it is an entry point for a query in its own
        right, not a spoke under one of them. */
     { url: BASE + '/magento-shopify-migration/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* The agency partner channel. Same priority as the technology hubs: it is
+       an entry point for its own audience rather than a spoke under one. */
+    { url: BASE + '/agencies/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* The one purchasable offer, and the destination the commercial pages
+       should be routing toward. Priority with the core pages. */
+    { url: BASE + '/ecommerce-audit/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
     /* The technology landing pages, at the root. Priority above the pillars:
        these are the pages a platform search lands on. */
     ...TECHNOLOGIES.map((t) => ({

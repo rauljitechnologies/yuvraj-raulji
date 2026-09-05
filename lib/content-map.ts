@@ -2,6 +2,8 @@ import { CASES } from './brand';
 import { PILLARS, pillarHref } from './expertise';
 import { HIRE } from './hire';
 import { ALL_PLATFORM_SERVICES, serviceHref } from './platform-services';
+import { AGENCIES } from './agencies';
+import { AUDIT } from './audit-offer';
 import { MIGRATION } from './migration';
 import { POSTS } from './posts';
 import { TECHNOLOGIES, techHref } from './technology';
@@ -83,6 +85,33 @@ const FROM_MIGRATION: ContentMapRow = {
   audience: MIGRATION.audience,
   purpose: MIGRATION.purpose,
   entities: MIGRATION.entities,
+};
+
+/* The agency channel. Its buyer is a partner rather than an end client, which
+   is why its primary keyword cannot collide with any consulting page. */
+const FROM_AGENCIES: ContentMapRow = {
+  url: '/agencies/',
+  pageType: 'Partner channel',
+  primaryKeyword: AGENCIES.primaryKeyword,
+  secondaryKeywords: AGENCIES.secondaryKeywords,
+  searchIntent: AGENCIES.searchIntent,
+  audience: AGENCIES.audience,
+  purpose: AGENCIES.purpose,
+  entities: AGENCIES.entities,
+};
+
+/* The site's one purchasable offer. Its keyword is a service query rather than
+   a consultant query, which is what keeps it clear of /hire/ and of
+   /expertise/ecommerce-consulting/. */
+const FROM_AUDIT: ContentMapRow = {
+  url: '/ecommerce-audit/',
+  pageType: 'Productised offer',
+  primaryKeyword: AUDIT.primaryKeyword,
+  secondaryKeywords: AUDIT.secondaryKeywords,
+  searchIntent: AUDIT.searchIntent,
+  audience: AUDIT.audience,
+  purpose: AUDIT.purpose,
+  entities: AUDIT.entities,
 };
 
 const FROM_HIRE: ContentMapRow = {
@@ -352,6 +381,8 @@ export const CONTENT_MAP: readonly ContentMapRow[] = [
   ...FROM_SERVICES,
   FROM_HIRE,
   FROM_MIGRATION,
+  FROM_AGENCIES,
+  FROM_AUDIT,
   ...FROM_CASES,
   ...FROM_POSTS,
 ];
@@ -367,6 +398,8 @@ export const INDEXABLE_ROUTES: readonly string[] = [
   '/contact/',
   '/hire/',
   '/magento-shopify-migration/',
+  '/agencies/',
+  '/ecommerce-audit/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),

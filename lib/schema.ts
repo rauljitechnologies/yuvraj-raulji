@@ -34,6 +34,8 @@ import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
 import { serviceHref, type PlatformService } from './platform-services';
 import { HIRE } from './hire';
+import { AGENCIES } from './agencies';
+import { AUDIT } from './audit-offer';
 import { MIGRATION } from './migration';
 import type { CaseStudy } from './brand';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, PROFILES, SITE_URL } from './site';
@@ -561,6 +563,84 @@ export function migrationSchema(
       provider: personRef,
       areaServed: 'Worldwide',
       audience: { '@type': 'Audience', audienceType: MIGRATION.audience },
+    },
+    faqNode(path, faqs),
+  ]);
+}
+
+/**
+ * /agencies/
+ *
+ * Service plus FAQPage. `audience` is an explicit Audience node naming agencies
+ * rather than businesses, because it is the one page on the site whose buyer is
+ * not the end client, and that distinction is what keeps it from reading as a
+ * duplicate of the consulting pages in the graph.
+ */
+export function agenciesSchema(
+  crumbs: Crumb[],
+  faqs: readonly { q: string; a: string }[],
+) {
+  const path = '/agencies/';
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: 'Technical commerce partner for agencies',
+      description: AGENCIES.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'Technical commerce partner for agencies',
+      serviceType: 'White-label commerce technology consulting and delivery',
+      description: AGENCIES.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Digital, SEO, marketing and design agencies',
+      },
+    },
+    faqNode(path, faqs),
+  ]);
+}
+
+/**
+ * /ecommerce-audit/
+ *
+ * Service plus FAQPage. No `offers` node and no price: the page states no
+ * price, and emitting one in markup that is not on the page is exactly the
+ * mismatch the rest of this file avoids.
+ */
+export function auditSchema(
+  crumbs: Crumb[],
+  faqs: readonly { q: string; a: string }[],
+) {
+  const path = '/ecommerce-audit/';
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: 'eCommerce technical audit',
+      description: AUDIT.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'eCommerce technical audit',
+      serviceType: 'Commerce platform technical review and diagnostic',
+      description: AUDIT.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: AUDIT.audience },
     },
     faqNode(path, faqs),
   ]);

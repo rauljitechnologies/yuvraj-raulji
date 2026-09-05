@@ -209,6 +209,11 @@ export const PILLARS: Pillar[] = [
     cases: ['b2b-procurement', 'marketplace', 'fashion-d2c'],
     posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit', 'cro-double-conversion'],
     related: [
+      {
+        href: '/ecommerce-audit/',
+        label: 'the technical audit, if the problem needs diagnosing first',
+        note: 'A fixed-scope review with a written, prioritised output.',
+      },
       { href: '/digital-transformation/', label: 'digital transformation and legacy replatforming', note: 'When the answer is a programme rather than a project.' },
       { href: '/magento/', label: 'Magento 2 and Adobe Commerce consulting', note: 'Where the shortlist lands for multi-store and B2B.' },
       {
