@@ -271,7 +271,19 @@ export const HIRE = {
     },
   ] as readonly ServiceFaq[],
 
-  finalHeadline: ['Describe the problem,', 'not the project.'],
+  /*
+   * The closing headline, and it has to differ from the one over the process
+   * section. Both were "Describe the problem, not the project.", so /hire/
+   * shipped the same H2 twice: once over the four steps that explain how an
+   * engagement starts, and again over the call to action that ends the page.
+   * Two sections claiming the same title is a broken outline for a crawler and
+   * a confusing one for anyone navigating by heading, and the line is already
+   * the H1 of /contact/, so it appeared three times across the site.
+   *
+   * The process section keeps it, because that is the section it describes.
+   * This one closes on what the reader is actually deciding here.
+   */
+  finalHeadline: ['Bring the constraint.', 'We will name the decision.'],
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════

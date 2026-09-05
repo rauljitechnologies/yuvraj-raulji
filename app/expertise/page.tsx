@@ -152,12 +152,30 @@ export default function ExpertiseHub() {
           the one a fair number of these engagements should start with. It sits
           apart from the grid because putting it inside would file a discipline
           as a tenth platform. */}
+      {/*
+        One section per pillar, and each one says which pillar it is.
+
+        This block was written for a single entry and later wrapped in a map
+        over three, which is how all three came to render `id="consulting"`,
+        `aria-labelledby="consulting-title"` and the heading "When the platform
+        is still an open question." Three consequences, all of them real: the
+        page shipped duplicate element ids, which is invalid HTML; every
+        section's `aria-labelledby` resolved to the *first* title, so a screen
+        reader announced all three as the same region; and the outline read as
+        one heading repeated three times, which told a crawler nothing about
+        what the sections contained.
+
+        The heading is the pillar's own `h1`, which is already authored and
+        already distinct. The line it replaced was also only true of the first
+        pillar: website management and eCommerce management are not questions
+        about which platform to choose.
+      */}
       {PILLARS.map((p) => (
-        <Section key={p.slug} id="consulting" labelledBy="consulting-title">
+        <Section key={p.slug} id={p.slug} labelledBy={`${p.slug}-title`}>
           <Shell>
-            <Marker label="Before the technology" />
+            <Marker label={p.eyebrow} />
             <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14">
-              <Lines as="h2" id="consulting-title" lines={['When the platform', 'is still an open question.']} />
+              <Lines as="h2" id={`${p.slug}-title`} lines={p.h1} />
             </div>
             <div className="grid gap-x-16 gap-y-8 border-t border-line pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
               <Rise>

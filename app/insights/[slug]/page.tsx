@@ -288,9 +288,9 @@ export default async function Article({ params }: Props) {
               <div className="flex items-center gap-4 mb-12">
                 <span style={{ width: 2, height: 30, background: 'linear-gradient(180deg,#f0263c,rgba(229, 9, 32,.15))', borderRadius: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(229,9,32,.60)] mb-1">Keep Reading</p>
+                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(229,9,32,.60)] mb-1">Keep reading</p>
                   <h2 className="font-display uppercase tracking-[.02em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4vw,3.4rem)' }}>
-                    Related Articles
+                    Related articles
                   </h2>
                 </div>
                 <div className="flex-1 h-[1px]" style={{ background: 'linear-gradient(90deg,rgba(229, 9, 32,.16),transparent)' }} />
@@ -344,14 +344,36 @@ export default async function Article({ params }: Props) {
         <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(80px,10vw,130px) 0' }}>
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 55% at 50% 100%,rgba(229, 9, 32,.10),transparent)' }} />
           <div className="relative max-w-prose mx-auto px-6 md:px-10 text-center reveal">
-            <p className="text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-4">Work With Yuvraj</p>
-            <h2 className="font-display uppercase tracking-[.03em] leading-[.92] mb-6" style={{ fontSize: 'clamp(2.4rem,6vw,5rem)' }}>
-              Ready To Grow
+            {/*
+              The closing block, in this site's voice rather than an agency's.
+
+              It read "Ready To Grow Your Business?" over "Let's turn your
+              digital presence into a growth engine", above a list of services.
+              Three things wrong with that, and they compound because this block
+              renders on all eight articles, which are the pages most likely to
+              be somebody's first visit. It is generic marketing copy, which
+              CONTENT-PRINCIPLES rules out; it reads as an agency pitch, which
+              the positioning rules out explicitly; and it is the one place on
+              the site set in Title Case, so it does not sound like the pages
+              around it. "Describe the problem, not the project." and "Most
+              stores asking for headless want a faster theme." are the voice
+              this had to match.
+
+              What replaces it says what actually happens next, which is also
+              what the rest of the site promises: a conversation about a
+              constraint, and an honest answer about whether there is a project
+              in it at all.
+            */}
+            <p className="text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-4">Work with Yuvraj</p>
+            <h2 className="font-display tracking-[.01em] leading-[1.0] mb-6" style={{ fontSize: 'clamp(2rem,4.6vw,3.8rem)' }}>
+              Read this because
               <br />
-              Your Business?
+              something is not working?
             </h2>
             <p className="text-[rgba(245,245,242,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
-              From Magento 2 builds and SEO audits to AWS server setup and AI automation. Let&rsquo;s turn your digital presence into a growth engine.
+              Send the symptom, what it is costing and what you have already tried. Thirty minutes
+              is usually enough to name the decision underneath it, and that conversation
+              occasionally ends with me saying you do not need the project.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a
