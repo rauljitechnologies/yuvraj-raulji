@@ -95,9 +95,26 @@ export const HERO = {
    * where it now has a section of its own rather than competing with the role.
    */
   h1: 'eCommerce, AI & Technology Consultant',
-  /** The one-line statement under the H1. */
+  /**
+   * The one-line statement under the H1, and the page's actual value claim.
+   *
+   * It read "I help businesses improve eCommerce performance, technology
+   * architecture, customer experience and AI adoption across Shopify, Magento,
+   * WooCommerce and modern commerce platforms." That is a capability list, and
+   * every agency and freelancer competing for this buyer can write the same
+   * sentence. Nothing in the first screen was unavailable elsewhere.
+   *
+   * The Sep 2026 acquisition diagnosis found the one genuinely differentiated
+   * claim on the site sitting three clicks deep on /hire/: "nothing here
+   * depends on selling the build". An agency structurally cannot say it,
+   * because the agency's revenue IS the build. That is the position, and it
+   * belongs on the first screen rather than on page three.
+   *
+   * No year count, deliberately. See the note in hero.tsx: the number lives in
+   * STATS and only in STATS, so it cannot contradict itself across the page.
+   */
   subLead:
-    'I help businesses improve eCommerce performance, technology architecture, customer experience and AI adoption across Shopify, Magento, WooCommerce and modern commerce platforms.',
+    'The independent opinion on commerce decisions that are expensive to get wrong: which platform, what the architecture has to carry, and where revenue is actually being lost. Nothing here depends on selling you the build.',
   /**
    * The longer lead paragraph is not here: it links three of its own nouns to
    * the sections that answer them, so it is JSX and it lives in hero.tsx
