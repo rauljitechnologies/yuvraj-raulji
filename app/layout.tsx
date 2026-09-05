@@ -69,13 +69,9 @@ const mono = JetBrains_Mono({
   variable: '--font-mono',
 });
 
-/* TEMPORARY. A canary to establish whether deploys are landing at all, after
-   three pushes produced no observable change in the served HTML. Removed as
-   soon as it has answered that. */
 export const viewport: Viewport = { themeColor: '#050505' };
 
 export const metadata: Metadata = {
-  other: { 'x-deploy-canary': 'ed1ecc4' },
   metadataBase: new URL(SITE_URL),
   authors: [{ name: 'Yuvraj Raulji', url: SITE_URL }],
   robots: {

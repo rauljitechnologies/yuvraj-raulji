@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve out",
-    "postbuild": "node scripts/unobfuscate-email.mjs"
+    "start": "npx serve out"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
