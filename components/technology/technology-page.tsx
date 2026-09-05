@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { Page, PageHero } from '../chrome/page';
 import { ContactButton } from '../homepage/contact-button';
@@ -308,9 +309,28 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   <h3 className="m-0 mt-6 font-manrope text-[clamp(20px,2vw,28px)] font-semibold uppercase leading-[1.15] tracking-[-0.02em]">
                     {stage.title}
                   </h3>
-                  <p className="m-0 mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/55">
-                    {stage.covers.map((c) => (
-                      <span key={c}>{c}</span>
+                  {/*
+                    Separated by a middot, not by a gap.
+
+                    These four are set in uppercase mono at 0.14em tracking,
+                    where a 12px gap is barely wider than the space between two
+                    letters. Read on a phone, where the row wraps, "Business
+                    model Customers Products Operations" ran together as one
+                    string and stopped being a list of four things. The dot is
+                    the same separator the homepage marquee uses, and it is
+                    aria-hidden because the spans are already discrete to a
+                    screen reader.
+                  */}
+                  <p className="m-0 mt-4 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/55">
+                    {stage.covers.map((c, i) => (
+                      <Fragment key={c}>
+                        {i > 0 ? (
+                          <span aria-hidden="true" className="text-accent-bright/70">
+                            &middot;
+                          </span>
+                        ) : null}
+                        <span>{c}</span>
+                      </Fragment>
                     ))}
                   </p>
                   <p className={`m-0 mt-6 max-w-[52ch] ${BODY}`}>{stage.body}</p>

@@ -97,8 +97,20 @@
   --veil-mid: 0.06;
   --veil-foot: 0.62;
 
-  --pad-y: clamp(88px, 10.5vw, 176px);
-  --pad-y-tall: clamp(120px, 15vw, 248px);
+  /*
+   * Section rhythm.
+   *
+   * The floors used to be 88px and 120px, and on a phone the floor is the only
+   * term that ever applies: at 390px the 10.5vw is 41px, so every section
+   * carried 88px top and bottom whatever the viewport. That is desktop air on
+   * a 390px screen, and across the fifteen or so sections of a technology page
+   * it added well over two thousand pixels of nothing to scroll past.
+   *
+   * The `vw` term and the ceiling are untouched, so anything above roughly
+   * 570px renders exactly as before. Only the phone range tightens.
+   */
+  --pad-y: clamp(60px, 10.5vw, 176px);
+  --pad-y-tall: clamp(84px, 15vw, 248px);
   --shell: 1400px;
   --gut: clamp(20px, 4.4vw, 64px);
 }
@@ -344,10 +356,37 @@
     white-space: normal;
     text-align: center;
     padding-inline: 22px;
+    /*
+     * Both buttons of a pair fill the column.
+     *
+     * Width was previously content-driven, so a long primary label
+     * ("Discuss your Magento architecture") hit `max-width: 100%` and went
+     * full bleed while the ghost beside it ("View relevant work") hugged its
+     * text. Two buttons doing the same job at two different widths reads as a
+     * layout accident. Stacked and equal is the pattern a phone expects, and
+     * it also gives both a full-width tap target.
+     */
+    width: 100%;
   }
 }
 
+/*
+ * The label carries the arrow.
+ *
+ * `.yr-btn` is a flex row, and while the arrow was a sibling of the text it
+ * was laid out as its own flex item: fine at one line, wrong the moment the
+ * label wrapped, because the text block took the available width and pushed
+ * the arrow to the button's right edge. Inside `.yr-btn__label` the arrow is
+ * inline content and follows the last word instead.
+ */
+.yr-btn__label {
+  display: inline;
+}
+
 .yr-btn__arrow {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: -2px;
   transition: transform 0.28s var(--ease-out);
 }
 

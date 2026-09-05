@@ -95,11 +95,15 @@ export function Btn({
   className?: string;
 }) {
   const cls = `yr-btn yr-btn--${variant} ${className}`;
+  /* One flex child, not two. The arrow used to be a sibling of the label and
+     stayed at the button's right edge when the label wrapped under 640px,
+     leaving a centred two-line label with an arrow stranded beside it. Inside
+     the span it flows with the text and follows the last word. */
   const inner = (
-    <>
+    <span className="yr-btn__label">
       {children}
       {arrow ? <ArrowIcon className="yr-btn__arrow" size={15} /> : null}
-    </>
+    </span>
   );
 
   if (external) {

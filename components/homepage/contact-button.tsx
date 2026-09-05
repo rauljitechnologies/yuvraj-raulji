@@ -26,8 +26,15 @@ export function ContactButton({
       onClick={() => setContactOpen(true)}
       className={`yr-btn yr-btn--${variant} ${className}`}
     >
-      {children}
-      <ArrowIcon className="yr-btn__arrow" size={15} />
+      {/* The arrow sits inside the label, not beside it. As a sibling flex item
+          it stayed pinned to the button's right edge when the label wrapped on
+          a phone, so "Discuss your Magento architecture" rendered as two
+          centred lines with a detached arrow floating off to the right. Inline,
+          it follows the last word wherever that lands. */}
+      <span className="yr-btn__label">
+        {children}
+        <ArrowIcon className="yr-btn__arrow" size={15} />
+      </span>
     </button>
   );
 }
