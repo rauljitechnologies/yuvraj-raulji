@@ -865,6 +865,16 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
               shorter than people expect, and it occasionally ends with me saying you do not need
               the project.
             </p>
+            {/* Two defined routes out of an otherwise open-ended ask: the
+                diagnostic for an end client, and the partnership for an agency
+                reading the same page. Both existed as pages long before
+                anything on this site linked to them. */}
+            <p className={`m-0 mt-5 ${BODY}`}>
+              If the platform is already live and the question is what it is costing you, an{' '}
+              <InlineLink href="/ecommerce-audit/">eCommerce technical audit</InlineLink> answers
+              that in writing. If you are an agency carrying this for a client,{' '}
+              <InlineLink href="/agencies/">there is a partnership model</InlineLink>.
+            </p>
           </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>{tech.cta}</ContactButton>

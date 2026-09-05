@@ -186,6 +186,12 @@ export function Problems() {
         ))}
       </RvGroup>
 
+      {/* The sentence below describes the audit exactly, so it now links to it.
+          Until this existed the homepage named the first step and then offered
+          no way to buy it: the one purchasable page on the site had two inbound
+          links and neither was from here. The conversation stays the primary
+          action; the audit is the defined alternative for a reader who would
+          rather buy a diagnosis than open a conversation. */}
       <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5">
         <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:text-[19px]">
           The first step is understanding what is actually holding the business back.
@@ -193,6 +199,7 @@ export function Problems() {
         <Cta href="#contact" variant="outline">
           Start a conversation
         </Cta>
+        <RuleLink href="/ecommerce-audit/">Or get it in writing</RuleLink>
       </Rv>
     </section>
   );

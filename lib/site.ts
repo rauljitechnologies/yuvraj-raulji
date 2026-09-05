@@ -833,6 +833,54 @@ export const SERVICE_OPTIONS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   Qualifying fields.
+
+   The forms collected name, email, phone, a topic and a message, which is
+   enough to reply and not enough to prioritise, route or price. Every one of
+   the four lists below is optional on the form: only name, email and message
+   are required, so none of this can cost a submission. What they buy is triage,
+   because the lead API scores on exactly these fields and, without them,
+   reports every enquiry as UNSCORED.
+
+   The store URL is the highest-value field on the form. It is one paste, and it
+   tells you the platform, the scale and usually the problem before you have
+   read a word of the message. It is deliberately NOT required: the site sells
+   to agencies enquiring on behalf of a client, and to businesses that have not
+   launched yet, and requiring a store URL would turn both away.
+
+   ROLE_OPTIONS carries no "Founder": section 4 of BRAND-DESIGN-GUIDELINE.md
+   rules the word off this site, and a select is still site copy. The strings
+   are also the scoring input, so they must keep matching DECISION_ROLES in
+   google-apps-script/Code.gs. Change one and change the other.
+   ───────────────────────────────────────────────────────────────────────────*/
+
+export const ROLE_OPTIONS = [
+  'Owner',
+  'CEO or Managing Director',
+  'Head of eCommerce',
+  'CTO or technology lead',
+  'Marketing lead',
+  'Agency or studio',
+];
+
+export const PLATFORM_OPTIONS = [
+  'Magento 2 or Adobe Commerce',
+  'Shopify or Shopify Plus',
+  'WooCommerce',
+  'WordPress',
+  'Headless or custom build',
+  'Not sure yet',
+];
+
+export const TIMELINE_OPTIONS = [
+  'Now',
+  'Within 3 months',
+  'Within 6 months',
+  'Later this year',
+  'Just exploring',
+];
+
+/* ─────────────────────────────────────────────────────────────────────────────
    About page — every claim below traces to Yuvraj's own professional record.
    Confirmed 12 Aug 2026: 9+ years, 50+ projects, the B2B platform is an
    employer (not a client). Nothing here may be embellished; see

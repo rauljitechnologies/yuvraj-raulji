@@ -518,6 +518,11 @@ const SHOPIFY: Technology = {
 
   related: [
     { href: '/magento/', label: 'Magento commerce', note: 'Where Shopify stops fitting: quotes, approvals, multi-store.' },
+    {
+      href: '/magento-shopify-migration/',
+      label: 'Magento to Shopify migration',
+      note: 'The decision itself, its cost drivers, and when staying put is the better answer.',
+    },
     { href: '/nextjs/', label: 'Next.js', note: 'For a storefront decoupled from Shopify over the Storefront API.' },
     {
       href: '/magento/migration/',
@@ -1144,6 +1149,11 @@ const MAGENTO: Technology = {
 
   related: [
     { href: '/shopify/', label: 'Shopify', note: 'The alternative, and often the right one.' },
+    {
+      href: '/magento-shopify-migration/',
+      label: 'Magento to Shopify migration',
+      note: 'If the alternative is the one you are seriously weighing, this is that decision.',
+    },
     { href: '/headless-commerce/', label: 'Headless commerce', note: 'Decoupling the storefront from the Magento release cycle.' },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'Catalogue, search and operations, wired into the rules already here.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Where catalogue-scale search failure costs the most.' },

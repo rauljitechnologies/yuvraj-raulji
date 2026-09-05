@@ -267,6 +267,15 @@ export function CasePage({ study }: { study: CaseStudy }) {
               enough to name the decision underneath it, and that conversation occasionally ends
               with me saying you do not need the project.
             </p>
+            {/* A case study is read by someone checking whether their own problem
+                has been solved before, which is the closest thing on this site to
+                a buying moment. It offered only an open-ended conversation until
+                this link existed. */}
+            <p className={`m-0 mt-5 ${BODY}`}>
+              If the problem is on a store that is already live, an{' '}
+              <InlineLink href="/ecommerce-audit/">eCommerce technical audit</InlineLink> is the
+              defined version of that: the same review, delivered in writing.
+            </p>
           </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>Book a 30-minute consultation</ContactButton>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ENQUIRY_TOPICS } from '../../lib/homepage';
 import { submitLead, type LeadResult } from '../../lib/lead';
-import { CONTACT } from '../../lib/site';
+import { CONTACT, PLATFORM_OPTIONS, ROLE_OPTIONS, TIMELINE_OPTIONS } from '../../lib/site';
 
 /**
  * The homepage contact form.
@@ -21,7 +21,20 @@ import { CONTACT } from '../../lib/site';
  * cell in section 14 provides both.
  */
 
-const EMPTY = { name: '', email: '', topic: ENQUIRY_TOPICS[0], message: '', hp: '' };
+const EMPTY = {
+  name: '',
+  email: '',
+  topic: ENQUIRY_TOPICS[0],
+  message: '',
+  /* Qualifying fields, all optional: `valid` below still gates on name, email
+     and message alone, so none of these can cost a submission. They are what
+     the lead API scores on. See lib/lead.ts. */
+  website: '',
+  role: '',
+  platform: '',
+  timeline: '',
+  hp: '',
+};
 
 export function ContactForm() {
   const [f, setF] = useState(EMPTY);
@@ -40,7 +53,19 @@ export function ContactForm() {
       unconditionally, which reported success even while the endpoint was
       redirecting every request to a Google login page. See lib/lead.ts.
     */
-    setResult(await submitLead({ name: f.name, email: f.email, service: f.topic, message: f.message, hp: f.hp }));
+    setResult(
+      await submitLead({
+        name: f.name,
+        email: f.email,
+        service: f.topic,
+        message: f.message,
+        website: f.website,
+        role: f.role,
+        platform: f.platform,
+        timeline: f.timeline,
+        hp: f.hp,
+      }),
+    );
     setSending(false);
   };
 
@@ -60,6 +85,10 @@ export function ContactForm() {
     'w-full min-w-0 bg-transparent border-0 border-b border-ground/20 py-3 font-manrope text-[17px] font-light leading-[1.4] text-ground outline-none transition-colors placeholder:text-ground/55 focus:border-accent';
   const label =
     'flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ground/55';
+  /* Extracted so the four selects share one definition. `appearance-none`
+     removes the native chevron, so one is drawn back as a background mark;
+     without it a select reads as a text field that will not accept typing. */
+  const SELECT = `${field} appearance-none bg-white bg-[length:9px] bg-[right_2px_center] bg-no-repeat pr-7 text-ground/80 [background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%206%27%3E%3Cpath%20d%3D%27M1%201l4%204%204-4%27%20stroke%3D%27%23050505%27%20stroke-opacity%3D%27.45%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%2F%3E%3C%2Fsvg%3E")]`;
 
   if (result) {
     /*
@@ -143,13 +172,76 @@ export function ContactForm() {
             back as a background mark. Without it the topic control reads as a
             text field that will not accept typing.
           */
-          className={`${field} appearance-none bg-white bg-[length:9px] bg-[right_2px_center] bg-no-repeat pr-7 text-ground/80 [background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%206%27%3E%3Cpath%20d%3D%27M1%201l4%204%204-4%27%20stroke%3D%27%23050505%27%20stroke-opacity%3D%27.45%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%2F%3E%3C%2Fsvg%3E")]`}
+          className={SELECT}
         >
           {ENQUIRY_TOPICS.map((topic) => (
             <option key={topic}>{topic}</option>
           ))}
         </select>
       </label>
+
+      {/* Optional, and first of the qualifying fields because it is the one
+          worth the most: a store URL is a single paste that tells you the
+          platform, the scale and usually the problem. Not required, because
+          agencies enquiring for a client and pre-launch businesses are both
+          real senders and neither has one to give. */}
+      <label className={label}>
+        Store or company website
+        <input
+          type="text"
+          inputMode="url"
+          autoComplete="url"
+          placeholder="yourstore.com"
+          value={f.website}
+          onChange={(e) => setF({ ...f, website: e.target.value })}
+          className={field}
+        />
+      </label>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <label className={label}>
+          Your role
+          <select
+            value={f.role}
+            onChange={(e) => setF({ ...f, role: e.target.value })}
+            className={SELECT}
+          >
+            <option value="">Pick one</option>
+            {ROLE_OPTIONS.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+            <option>Something else</option>
+          </select>
+        </label>
+
+        <label className={label}>
+          Platform
+          <select
+            value={f.platform}
+            onChange={(e) => setF({ ...f, platform: e.target.value })}
+            className={SELECT}
+          >
+            <option value="">Pick one</option>
+            {PLATFORM_OPTIONS.map((p) => (
+              <option key={p}>{p}</option>
+            ))}
+          </select>
+        </label>
+
+        <label className={label}>
+          Timeline
+          <select
+            value={f.timeline}
+            onChange={(e) => setF({ ...f, timeline: e.target.value })}
+            className={SELECT}
+          >
+            <option value="">Pick one</option>
+            {TIMELINE_OPTIONS.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       <label className={label}>
         Message *

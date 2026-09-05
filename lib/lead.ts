@@ -45,6 +45,20 @@ export interface LeadFields {
   /** The "what is this about" selection, sent to the sheet as `service`. */
   service?: string;
   message: string;
+  /**
+   * Qualifying fields. All optional, so none of them can cost a submission.
+   *
+   * The lead API scores on exactly these and reports UNSCORED when none are
+   * present, which is what every enquiry was before this: enough to reply to,
+   * not enough to prioritise, route or price. `website` is the highest-value
+   * one, because a store URL tells you the platform, the scale and usually the
+   * problem before you read the message.
+   */
+  website?: string;
+  company?: string;
+  role?: string;
+  platform?: string;
+  timeline?: string;
   /** Honeypot. Filled means a bot; a person never sees the field. */
   hp?: string;
 }
@@ -64,6 +78,11 @@ export function openMailFallback(f: LeadFields): void {
     `Name: ${f.name}`,
     `Email: ${f.email}`,
     `Phone: ${f.phone || 'not given'}`,
+    `Website: ${f.website || 'not given'}`,
+    `Company: ${f.company || 'not given'}`,
+    `Role: ${f.role || 'not given'}`,
+    `Platform: ${f.platform || 'not given'}`,
+    `Timeline: ${f.timeline || 'not given'}`,
     `About: ${f.service || 'not specified'}`,
     '',
     'Message:',
@@ -97,6 +116,13 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
     phone: f.phone || '',
     service: f.service || '',
     message: f.message,
+    /* Sent as empty strings when unanswered rather than omitted, so the field
+       set on the wire matches the sheet's columns either way. */
+    website: f.website || '',
+    company: f.company || '',
+    role: f.role || '',
+    platform: f.platform || '',
+    timeline: f.timeline || '',
     page: typeof location !== 'undefined' ? location.href : '',
     hp: '',
   });

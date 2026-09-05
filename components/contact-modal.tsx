@@ -2,10 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { submitLead, type LeadResult } from '../lib/lead';
-import { CONTACT, SERVICE_OPTIONS } from '../lib/site';
+import { CONTACT, PLATFORM_OPTIONS, ROLE_OPTIONS, SERVICE_OPTIONS, TIMELINE_OPTIONS } from '../lib/site';
 import { useUI } from './ui-context';
 
-const EMPTY = { name: '', email: '', phone: '', service: '', message: '', hp: '' };
+const EMPTY = {
+  name: '',
+  email: '',
+  phone: '',
+  service: '',
+  message: '',
+  /* Qualifying fields, all optional. Only name, email and message gate submit,
+     so adding these cannot cost an enquiry. See lib/lead.ts. */
+  website: '',
+  role: '',
+  platform: '',
+  timeline: '',
+  hp: '',
+};
 
 /**
  * Validation ported verbatim from the Alpine `phoneOk()`:
@@ -452,6 +465,74 @@ export function ContactModal() {
                         </option>
                       ))}
                       <option value="Other">Something else</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/*
+                  Qualifying fields. The store URL is first and on its own row
+                  because it is the single most useful thing on this form: one
+                  paste tells you the platform, the scale and usually the
+                  problem before the message has been read. None of these are
+                  required, deliberately, because agencies enquiring for a
+                  client and businesses that have not launched are both real
+                  senders here and neither has a store URL to give.
+                */}
+                <div className="mb-4">
+                  <label className="cf-lbl" htmlFor="cf-website">
+                    Store or company website
+                  </label>
+                  <input
+                    id="cf-website"
+                    className="cf-inp"
+                    type="text"
+                    inputMode="url"
+                    autoComplete="url"
+                    placeholder="yourstore.com"
+                    value={f.website}
+                    onChange={set('website')}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                  <div>
+                    <label className="cf-lbl" htmlFor="cf-role">
+                      Your role
+                    </label>
+                    <select id="cf-role" className="cf-inp" value={f.role} onChange={set('role')}>
+                      <option value="">Pick one</option>
+                      {ROLE_OPTIONS.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                      <option value="Something else">Something else</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="cf-lbl" htmlFor="cf-platform">
+                      Platform
+                    </label>
+                    <select id="cf-platform" className="cf-inp" value={f.platform} onChange={set('platform')}>
+                      <option value="">Pick one</option>
+                      {PLATFORM_OPTIONS.map((p) => (
+                        <option key={p} value={p}>
+                          {p}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="cf-lbl" htmlFor="cf-timeline">
+                      Timeline
+                    </label>
+                    <select id="cf-timeline" className="cf-inp" value={f.timeline} onChange={set('timeline')}>
+                      <option value="">Pick one</option>
+                      {TIMELINE_OPTIONS.map((t) => (
+                        <option key={t} value={t}>
+                          {t}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>

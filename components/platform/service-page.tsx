@@ -489,6 +489,15 @@ export function ServicePage({ service }: { service: PlatformService }) {
               than people expect, and it occasionally ends with me saying you do not need the
               project.
             </p>
+            {/* The defined alternative to the open-ended conversation above. A
+                reader who is not ready to describe their problem to a stranger
+                will still buy a fixed-scope diagnostic, and until this link
+                existed the 26 service pages offered them nothing to say yes to. */}
+            <p className={`m-0 mt-5 ${BODY}`}>
+              If you would rather have the current state established in writing before deciding
+              anything, that is what an{' '}
+              <InlineLink href="/ecommerce-audit/">eCommerce technical audit</InlineLink> is for.
+            </p>
           </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>{service.cta}</ContactButton>
