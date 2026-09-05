@@ -2,6 +2,7 @@ import { CASES } from './brand';
 import { PILLARS, pillarHref } from './expertise';
 import { HIRE } from './hire';
 import { ALL_PLATFORM_SERVICES, serviceHref } from './platform-services';
+import { MIGRATION } from './migration';
 import { POSTS } from './posts';
 import { TECHNOLOGIES, techHref } from './technology';
 
@@ -70,6 +71,19 @@ const FROM_SERVICES: ContentMapRow[] = ALL_PLATFORM_SERVICES.map((s) => ({
   purpose: s.purpose,
   entities: s.entities,
 }));
+
+/* Declares its own row for the same reason the services do: the keyword lives
+   next to the copy it governs, so the two cannot drift apart. */
+const FROM_MIGRATION: ContentMapRow = {
+  url: '/magento-shopify-migration/',
+  pageType: 'Replatforming decision',
+  primaryKeyword: MIGRATION.primaryKeyword,
+  secondaryKeywords: MIGRATION.secondaryKeywords,
+  searchIntent: MIGRATION.searchIntent,
+  audience: MIGRATION.audience,
+  purpose: MIGRATION.purpose,
+  entities: MIGRATION.entities,
+};
 
 const FROM_HIRE: ContentMapRow = {
   url: HIRE.path,
@@ -337,6 +351,7 @@ export const CONTENT_MAP: readonly ContentMapRow[] = [
   ...FROM_PILLARS,
   ...FROM_SERVICES,
   FROM_HIRE,
+  FROM_MIGRATION,
   ...FROM_CASES,
   ...FROM_POSTS,
 ];
@@ -351,6 +366,7 @@ export const INDEXABLE_ROUTES: readonly string[] = [
   '/insights/',
   '/contact/',
   '/hire/',
+  '/magento-shopify-migration/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),

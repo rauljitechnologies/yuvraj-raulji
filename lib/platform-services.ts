@@ -234,6 +234,9 @@ const KNOWN_ROUTES = new Set<string>([
   '/contact/',
   '/expertise/',
   '/hire/',
+  /* Root level, and not derived from any registry: it belongs to neither
+     platform, which is the whole reason it sits here rather than under one. */
+  '/magento-shopify-migration/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...Object.keys(POSTS).map((slug) => `/insights/${slug}/`),

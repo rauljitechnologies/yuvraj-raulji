@@ -381,6 +381,11 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
 
     related: [
       {
+        href: '/magento-shopify-migration/',
+        label: 'Magento and Shopify compared, before the direction is settled',
+        note: 'The decision itself, in both directions, including when neither move is the answer.',
+      },
+      {
         href: '/shopify/',
         label: 'Shopify and Shopify Plus, and where the platform stops',
         note: 'The parent page, including the constraints a migration has to fit.',

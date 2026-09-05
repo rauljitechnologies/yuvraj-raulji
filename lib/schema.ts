@@ -34,6 +34,7 @@ import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
 import { serviceHref, type PlatformService } from './platform-services';
 import { HIRE } from './hire';
+import { MIGRATION } from './migration';
 import type { CaseStudy } from './brand';
 import { CERTIFICATIONS, CONTACT, EDUCATION, EXPERIENCE, PROFILES, SITE_URL } from './site';
 
@@ -527,6 +528,44 @@ export function platformServiceSchema(service: PlatformService, crumbs: Crumb[])
  *
  * The FAQ node is built from the same array the page renders as open text.
  */
+/**
+ * /magento-shopify-migration/
+ *
+ * Service plus FAQPage, the same shape the platform service pages emit. The
+ * Service node names both platforms in `serviceType` because the page is about
+ * the pairing rather than about either one, which is also the thing that keeps
+ * it distinct from the two per-platform migration pages in the graph.
+ */
+export function migrationSchema(
+  crumbs: Crumb[],
+  faqs: readonly { q: string; a: string }[],
+) {
+  const path = '/magento-shopify-migration/';
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: 'Magento to Shopify Migration',
+      description: MIGRATION.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'Magento and Shopify migration consulting',
+      serviceType: 'Commerce replatforming between Magento 2 and Shopify Plus',
+      description: MIGRATION.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: MIGRATION.audience },
+    },
+    faqNode(path, faqs),
+  ]);
+}
+
 export function hireSchema(crumbs: Crumb[]) {
   return graph([
     personNode({ full: true }),

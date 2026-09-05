@@ -375,6 +375,11 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
 
     related: [
       {
+        href: '/magento-shopify-migration/',
+        label: 'Magento and Shopify compared, before the direction is settled',
+        note: 'The decision itself, in both directions, including when neither move is the answer.',
+      },
+      {
         href: '/magento/',
         label: 'Magento 2 and Adobe Commerce, and where the platform stops',
         note: 'The parent page, including the catalogues Magento is the wrong answer for.',

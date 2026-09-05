@@ -45,6 +45,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* /hire/ carries transactional intent, so it sits with the core pages
        rather than with the services below them. */
     { url: BASE + '/hire/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
+    /* The replatforming decision page. Priority with the technology hubs
+       rather than the services: it is an entry point for a query in its own
+       right, not a spoke under one of them. */
+    { url: BASE + '/magento-shopify-migration/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
     /* The technology landing pages, at the root. Priority above the pillars:
        these are the pages a platform search lands on. */
     ...TECHNOLOGIES.map((t) => ({
