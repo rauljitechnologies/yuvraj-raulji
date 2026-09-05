@@ -48,7 +48,7 @@ export const LEAD_ENDPOINT =
 Change it only if the deployment URL changed. Editing an existing deployment
 keeps the URL, which is why Step 5 is the one to use.
 
-## Step 5 — FIXING A DEAD ENDPOINT (read this one)
+## Step 5: FIXING A DEAD ENDPOINT (read this one)
 
 On 4 Sep 2026 the live endpoint was found returning `302` to
 `accounts.google.com`, which means the deployment's access had drifted away from
