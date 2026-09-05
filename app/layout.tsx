@@ -142,6 +142,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "(function(){var t;function s(){var h=innerHeight,n=document.querySelectorAll('.yr-rv');for(var i=0;i<n.length;i++){var e=n[i],r=e.getBoundingClientRect();if(r.top<h&&r.bottom>0&&parseFloat(getComputedStyle(e).opacity)<0.05){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}}}addEventListener('load',function(){setTimeout(s,2000)});addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(s,600)},{passive:true});var m,d=document.documentElement;addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(!a)return;var u;try{u=new URL(a.getAttribute('href'),location.href)}catch(x){return}if(!u.hash||u.origin!==location.origin||u.pathname!==location.pathname)return;d.classList.add('yr-smooth');clearTimeout(m);m=setTimeout(function(){d.classList.remove('yr-smooth')},1000)},true)})();",
           }}
         />
+        {/*
+          Conversion tracking for the routes a reader leaves by.
+
+          Delegated on the document, capturing, and written as a raw script for
+          the same reason the block above is: it costs no bundle and it survives
+          every client-side navigation without re-binding. The alternative was
+          an onClick on every call to action, which would have turned a few
+          dozen server components into client components to record a click.
+
+          Form submissions are not here. Those fire from lib/lead.ts, which is
+          the one path both the /contact/ form and the enquiry modal go through,
+          so a submission is counted once wherever it was sent from.
+
+          `wa.me` is counted as a conversion rather than as a CTA click because
+          on this site it is one: the WhatsApp link is a real way a reader
+          starts a conversation, not a step toward one.
+
+          The booking call to action fires `consultation_cta_click`, not
+          `consultation_booked`, and it is deliberately not a conversion. There
+          is no scheduling step on the site yet: "Book a 30-minute consultation"
+          resolves to an on-page anchor or to WhatsApp, so a click means a
+          reader wanted to book and could not. Counting that as a booking would
+          put the exact number we need to see into the column that hides it.
+          When a real booking destination exists, `consultation_booked` fires
+          on arrival there and becomes the conversion.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){function p(e,o){window.dataLayer=window.dataLayer||[];o=o||{};o.event=e;o.page_path=location.pathname;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
+          }}
+        />
         {isProd && (
           <>
             <Script id="gtm-init" strategy="afterInteractive">

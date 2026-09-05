@@ -89,6 +89,17 @@ export const NAV = [
   { label: 'Work', href: '/work/' },
   { label: 'Experience', href: '/experience/' },
   { label: 'Insights', href: '/insights/' },
+  /*
+   * Hire sits last, next to the "Let's talk" button, because the two are the
+   * same intent one step apart: read what an engagement is, then start one.
+   *
+   * It was in the footer only until Sep 2026, which put the page a reader
+   * arrives at ready to buy three scrolls below the one they land on. The
+   * audit measured it: /hire/ took 18 contextual links from body copy and
+   * none from the bar that repeats on all 62 pages, while /experience/, a
+   * background page, held a slot in it.
+   */
+  { label: 'Hire', href: '/hire/' },
 ] as const;
 
 export const CTA_LABEL = "Let's talk";

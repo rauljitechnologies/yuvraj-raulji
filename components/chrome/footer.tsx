@@ -90,12 +90,39 @@ const linkCls =
 const headingCls =
   'mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/55';
 
-function Column({ heading, children }: { heading: string; children: React.ReactNode }) {
+/**
+ * A labelled group of footer links.
+ *
+ * The label is a `p`, not an `h2`. It used to be a heading, and because this
+ * footer renders on all 62 pages that put four navigation labels into every
+ * page's heading outline. On the short pages it was most of the outline:
+ * /work/ contributes two content headings and the footer contributed five, so
+ * the majority of what a crawler read as the page's structure was furniture.
+ * It also meant a reader navigating by heading landed on "Explore" and
+ * "Platforms" as if they were sections of the page they had just read.
+ *
+ * The grouping is kept, just not with a heading: `nav` plus `aria-labelledby`
+ * names the region for assistive technology without claiming to be a section
+ * of the document. `as="div"` is for the Contact column, which is an address
+ * and two links rather than a set of destinations.
+ */
+function Column({
+  heading,
+  children,
+  as: Tag = 'nav',
+}: {
+  heading: string;
+  children: React.ReactNode;
+  as?: 'nav' | 'div';
+}) {
+  const id = `footer-${heading.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   return (
-    <div className="flex flex-col gap-0.5">
-      <h2 className={headingCls}>{heading}</h2>
+    <Tag aria-labelledby={id} className="flex flex-col gap-0.5">
+      <p id={id} className={headingCls}>
+        {heading}
+      </p>
       {children}
-    </div>
+    </Tag>
   );
 }
 
@@ -315,7 +342,7 @@ export function SiteFooter() {
             ))}
           </Column>
 
-          <Column heading="Contact">
+          <Column heading="Contact" as="div">
             <a href={`mailto:${CONTACT.email}`} className={`break-words ${linkCls}`}>
               {CONTACT.email}
             </a>

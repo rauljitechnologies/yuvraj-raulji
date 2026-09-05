@@ -515,14 +515,20 @@ export function SelectedWork() {
                 <dd className="m-0 text-ink/70">{project.stack}</dd>
               </dl>
               {/*
-                Deep-linked to the case's own anchor on /work/, not to the top
-                of it. Six cards all reading "View case study" and all pointing
-                at one URL is six copies of the same link: nothing tells a
-                reader, or a crawler, which card leads where. The name is
-                appended for assistive technology only, so the visible rule
-                stays as short as the design wants it.
+                Each card links to that case's own page, not to its anchor on
+                the /work/ hub. Six cards reading "View case study" all pointing
+                at one URL is six copies of the same link, so the name is
+                appended for assistive technology and the visible rule stays as
+                short as the design wants it.
+                
+                The anchor form was worse than a duplicate: the six detail pages
+                exist, are indexed and carry their own schema, and the homepage
+                was the strongest page that could have linked to them. It sent
+                that link equity to /work/ instead, which was already the most
+                linked URL on the site, and a reader who clicked "View case
+                study" got a hub section rather than the case study.
               */}
-              <RuleLink href={`/work/#${project.id}`} className="mt-7">
+              <RuleLink href={`/work/${project.id}/`} className="mt-7">
                 View case study
                 <span className="sr-only">: {project.name}</span>{' '}
                 <span className="font-mono">→</span>

@@ -1,3 +1,4 @@
+import { track } from './analytics';
 import { CONTACT, LEAD_ENDPOINT } from './site';
 
 /**
@@ -73,13 +74,20 @@ export function openMailFallback(f: LeadFields): void {
   )}&body=${encodeURIComponent(body)}`;
 }
 
+/** The page the enquiry was sent from, which is the attribution that matters. */
+function path(): string {
+  return typeof location !== 'undefined' ? location.pathname : '';
+}
+
 export async function submitLead(f: LeadFields): Promise<LeadResult> {
   /* A bot filled the honeypot. Report success, send nothing, record nothing.
-     Telling a bot it failed only teaches it to retry. */
+     Telling a bot it failed only teaches it to retry, and counting it would
+     put bot traffic into the conversion number. */
   if (f.hp) return 'sent';
 
   if (!LEAD_ENDPOINT) {
     openMailFallback(f);
+    track('form_error', { error_type: 'not_configured', service_selected: f.service, page_path: path() });
     return 'fallback';
   }
 
@@ -114,9 +122,20 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
     const data = (await res.json()) as { ok?: boolean };
     if (data?.ok !== true) throw new Error('rejected');
 
+    track('generate_lead', { service_selected: f.service, page_path: path() });
     return 'sent';
-  } catch {
+  } catch (err) {
     openMailFallback(f);
+    /* The reason matters operationally: 'abort' is the endpoint not answering
+       inside the timeout, 'rejected' is it answering with a refusal, and a
+       bare TypeError is the CORS rejection a misconfigured Apps Script gives.
+       All three are the same outcome for the visitor and different problems
+       to fix. */
+    track('form_error', {
+      error_type: err instanceof Error ? err.message || err.name : 'unknown',
+      service_selected: f.service,
+      page_path: path(),
+    });
     return 'fallback';
   } finally {
     clearTimeout(timer);

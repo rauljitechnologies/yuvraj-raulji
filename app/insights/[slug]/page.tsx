@@ -151,16 +151,38 @@ export default async function Article({ params }: Props) {
           </div>
 
           <div className="relative z-[2] max-w-shell mx-auto px-6 md:px-10 xl:px-16">
-            <nav className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.34)] mb-10 reveal">
+            {/*
+              The trail, and it now says what the BreadcrumbList beside it says.
+
+              It used to read Home / Blog / <category> while the schema on the
+              same page declared Home / Insights / <article title>. Structured
+              data is supposed to describe what is on the page, and these
+              disagreed on two of the three items. The second one also linked to
+              "/insights" without the trailing slash, so all eight article pages
+              spent an internal link on a 308 to "/insights/".
+
+              The category has not been lost: it is the pill directly under
+              this, where it reads as a label rather than as a level of the
+              hierarchy it never was.
+
+              `aria-label` because a bare <nav> is announced as "navigation" and
+              a reader cannot tell it from the site navigation above it.
+            */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.34)] mb-10 reveal"
+            >
               <Link href="/" className="hover:text-rv transition-colors">
                 Home
               </Link>
               <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
-              <Link href="/insights" className="hover:text-rv transition-colors">
-                Blog
+              <Link href="/insights/" className="hover:text-rv transition-colors">
+                Insights
               </Link>
               <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
-              <span className="text-rv">{p.cat}</span>
+              <span aria-current="page" className="text-rv">
+                {p.title}
+              </span>
             </nav>
 
             <div style={{ maxWidth: 920 }}>
@@ -339,7 +361,9 @@ export default async function Article({ params }: Props) {
                 Book Consultation
               </a>
               <Link
-                href="/insights"
+                /* Trailing slash: the site is exported with `trailingSlash: true`,
+                   so "/insights" costs a 308 before it resolves. */
+                href="/insights/"
                 className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f5f2] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 More Articles

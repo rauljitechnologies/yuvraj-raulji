@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Page, PageHero } from '../../components/chrome/page';
 import { ContactForm } from '../../components/homepage-sections/contact-form';
 import { Rise } from '../../components/homepage/motion';
-import { Marker, Section, Shell } from '../../components/homepage/primitives';
+import { InlineLink, Marker, Section, Shell } from '../../components/homepage/primitives';
 import { contactSchema, type Crumb } from '../../lib/schema';
 import { CONTACT, OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
 import '../home.css';
@@ -84,6 +84,13 @@ const CHANNELS = [
     href: CONTACT.linkedin,
     note: 'Where the professional record lives, and where most first messages arrive.',
   },
+] as const;
+
+/* Phrased as the question the reader still has, not as a page name. */
+const NEXT_STEPS = [
+  { href: '/hire/', label: 'What working together actually looks like' },
+  { href: '/expertise/', label: 'Which technology the problem sits in' },
+  { href: '/work/', label: 'Whether I have built something like it' },
 ] as const;
 
 export default function ContactPage() {
@@ -175,6 +182,37 @@ export default function ContactPage() {
             <div className="min-w-0 bg-[var(--bg)] p-6 sm:p-8 lg:p-12">
               <ContactForm />
             </div>
+          </Rise>
+
+          {/*
+            Three ways out, for the reader who is not ready to write yet.
+
+            This page had no links in its body at all: it took the header and
+            footer like every page and gave nothing back, so a visitor who
+            arrived, read the channels and decided they wanted to know more
+            first had the browser back button and nothing else. It was also
+            the only page on the site with no contextual links in either
+            direction, which is a poor signal for the one page the whole site
+            is pointing at.
+
+            Named by what the reader is deciding, not by page title, because
+            somebody who has not written yet is usually missing one of these
+            three things.
+          */}
+          <Rise
+            delay={0.15}
+            className="mt-12 border-t border-line pt-8 sm:mt-16"
+          >
+            <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+              Not ready to write yet
+            </p>
+            <ul className="m-0 mt-5 flex list-none flex-col gap-3 p-0 sm:flex-row sm:flex-wrap sm:gap-x-10">
+              {NEXT_STEPS.map((n) => (
+                <li key={n.href} className="m-0">
+                  <InlineLink href={n.href}>{n.label}</InlineLink>
+                </li>
+              ))}
+            </ul>
           </Rise>
         </Shell>
       </Section>

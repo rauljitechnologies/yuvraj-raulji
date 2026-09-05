@@ -242,7 +242,7 @@ const SHOPIFY: Technology = {
   lede:
     'Shopify takes the expensive parts of commerce off your hands: PCI scope, checkout reliability, uptime, platform upgrades. What is left is the work that actually moves the number, which is theme architecture, the checkout, the app list and the way this particular catalogue gets browsed. AI belongs in that list now, on search and product data long before it belongs on a chat widget.',
   cta: 'Discuss your Shopify project',
-  title: 'Shopify Commerce | Yuvraj Raulji',
+  title: 'Shopify and Shopify Plus Consultant | Yuvraj Raulji',
   description:
     'Shopify and Shopify Plus: theme architecture, checkout, app consolidation and the AI that pays on a D2C catalogue. Where it fits, and where it stops.',
 
@@ -848,7 +848,7 @@ const MAGENTO: Technology = {
   lede:
     'Magento earns its cost in one situation: when the catalogue, the pricing logic or the approval structure is genuinely complicated, and that complication is the business rather than an accident of how the last system was built. Nine years on it, most of that on the awkward end. It is also the platform I most often tell people not to buy.',
   cta: 'Discuss your Magento architecture',
-  title: 'Magento Commerce | Yuvraj Raulji',
+  title: 'Magento 2 and Adobe Commerce Consultant | Yuvraj Raulji',
   description:
     'Magento 2 and Adobe Commerce: multi-store catalogues at 500K+ SKUs, B2B approval workflows, performance engineering and migrations run without going offline.',
 
@@ -1175,7 +1175,7 @@ const WOOCOMMERCE: Technology = {
   lede:
     'WooCommerce is commerce inside WordPress, which means the content system is the host and the store is the guest. That is an advantage when the business sells through explanation, editorial and search, and a liability when it grows into catalogue and workflow complexity the plugin layer was never designed to carry.',
   cta: 'Discuss your WooCommerce project',
-  title: 'WooCommerce | Yuvraj Raulji',
+  title: 'WooCommerce Consultant and Support | Yuvraj Raulji',
   description:
     'WooCommerce builds and performance work: bespoke themes, plugin development, checkout and catalogue customisation, and the hardening these stacks lack.',
 
@@ -1464,7 +1464,7 @@ const WORDPRESS: Technology = {
   lede:
     'WordPress is the most underestimated system in this list, mostly because it is so easy to start badly. Built deliberately, with a real content model and a caching strategy, it runs marketing sites and publishing operations at a cost no other platform matches. Built by accumulation, it becomes forty plugins and a security incident.',
   cta: 'Discuss your WordPress project',
-  title: 'WordPress Commerce | Yuvraj Raulji',
+  title: 'WordPress Consultant and Performance | Yuvraj Raulji',
   description:
     'WordPress builds, performance and infrastructure: bespoke themes, custom plugins, a real content model, hardening, and production hosting on AWS.',
 
@@ -1745,7 +1745,7 @@ const HEADLESS: Technology = {
   lede:
     'Headless is sold as a performance upgrade. It is really an organisational one: it decouples the storefront from the commerce release cycle so the front end stops waiting on back-end deployments. If that is not your bottleneck, it will not pay, and most stores asking for it want a faster theme instead.',
   cta: 'Discuss your commerce architecture',
-  title: 'Headless Commerce | Yuvraj Raulji',
+  title: 'Headless Commerce Consultant | Yuvraj Raulji',
   description:
     'Headless and composable commerce on Next.js, GraphQL and the Storefront API. When decoupling pays, when it only adds a deployment surface, and how.',
 
@@ -2034,7 +2034,7 @@ const AI_COMMERCE: Technology = {
   lede:
     'Most companies asking about AI have a process problem, not an AI problem. Automating a process nobody has fixed gets you the same bad outcome, faster and at higher cost. The applications that hold up in commerce are unglamorous and specific: catalogue enrichment, retrieval-based search, ranking fed by real behaviour, and operations automation.',
   cta: 'Discuss an AI opportunity',
-  title: 'AI Commerce | Yuvraj Raulji',
+  title: 'AI for eCommerce: Search and Operations | Yuvraj Raulji',
   description:
     'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume rather than left as demos.',
 
