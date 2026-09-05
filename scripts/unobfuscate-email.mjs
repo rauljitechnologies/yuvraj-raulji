@@ -39,6 +39,11 @@ import { join } from 'node:path';
 const ROOT = process.env.EXPORT_DIR || 'out';
 const OPEN = '<!--email_off-->';
 const CLOSE = '<!--/email_off-->';
+/* A sentinel Cloudflare has no reason to touch. The email_off markers are
+   directives, so Cloudflare consumes them and their absence from the served
+   HTML is ambiguous: it means either the pass did not run or it ran and the
+   markers were eaten. This distinguishes the two. */
+const MARK = '<!--eo:on-->';
 
 async function* htmlFiles(dir) {
   let entries;
@@ -62,7 +67,7 @@ for await (const file of htmlFiles(ROOT)) {
 
   /* Already processed, or no body to wrap. Both are no-ops rather than
      errors: this script has to be safe to run twice. */
-  if (html.includes(OPEN)) {
+  if (html.includes(MARK)) {
     skipped++;
     continue;
   }
@@ -74,7 +79,12 @@ for await (const file of htmlFiles(ROOT)) {
   }
 
   const next =
-    html.slice(0, open + 1) + OPEN + html.slice(open + 1, close) + CLOSE + html.slice(close);
+    html.slice(0, open + 1) +
+    MARK +
+    OPEN +
+    html.slice(open + 1, close) +
+    CLOSE +
+    html.slice(close);
   await writeFile(file, next, 'utf8');
   touched++;
 }
