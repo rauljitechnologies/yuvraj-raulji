@@ -38,18 +38,51 @@ Every contact-form submission will then automatically:
 
 ## Step 4 — Paste the URL into the website
 
-1. Open `index.html`
-2. Near the top (in `<head>`) find:
-   ```html
-   <script>window.LEAD_ENDPOINT = "";</script>
-   ```
-3. Paste your Web App URL between the quotes:
-   ```html
-   <script>window.LEAD_ENDPOINT = "https://script.google.com/macros/s/XXXX/exec";</script>
-   ```
-4. Save. **Done — your lead software is live.** 🎉
+The endpoint lives in `lib/site.ts`, not in any HTML file:
 
----
+```ts
+export const LEAD_ENDPOINT =
+  'https://script.google.com/macros/s/<deployment-id>/exec';
+```
+
+Change it only if the deployment URL changed. Editing an existing deployment
+keeps the URL, which is why Step 5 is the one to use.
+
+## Step 5 — FIXING A DEAD ENDPOINT (read this one)
+
+On 4 Sep 2026 the live endpoint was found returning `302` to
+`accounts.google.com`, which means the deployment's access had drifted away from
+"Anyone". Every enquiry submitted from the website was being discarded, and the
+browser's CORS check turned it into a `TypeError: Failed to fetch`.
+
+`appsscript.json` in this folder already declares `ANYONE_ANONYMOUS`, but that
+only applies to deployments pushed with clasp. A deployment created or edited in
+the web UI uses whatever the UI has set, so the UI is the source of truth here.
+
+**Repair it without changing the URL:**
+
+1. Open the Apps Script project
+2. **Deploy → Manage deployments**
+3. Click the pencil ✏️ on the active deployment. **Do not create a new
+   deployment**, because that issues a new URL and the site would need a code
+   change to match
+4. Set **Who has access** to **Anyone**
+5. Set **Version** to **New version**
+6. **Deploy**
+
+**Then verify from a terminal, not from a browser.** A browser is signed in to
+Google and will appear to work even when anonymous requests do not:
+
+```sh
+curl -sI "https://script.google.com/macros/s/<deployment-id>/exec" | head -1
+```
+
+`HTTP/2 200` means it is fixed. `HTTP/2 302` means access is still restricted
+and the form is still discarding every lead.
+
+Last, submit a real enquiry through the website and confirm it reaches both the
+sheet and your inbox. The site reports failure honestly now, so a submission
+that fails will say so rather than showing a false success.
 
 ## Test it
 

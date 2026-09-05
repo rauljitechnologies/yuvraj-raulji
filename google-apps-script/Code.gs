@@ -16,8 +16,15 @@ const CONFIG = {
   OWNER_PHONE:      '+91 98983 34731',
   OWNER_WHATSAPP:   '919898334731',            // digits only, for wa.me links
   BRAND_NAME:       'Yuvraj Raulji',
-  BRAND_TAGLINE:    'Full Stack E-commerce Developer & AI Consultant',
-  SITE_URL:         'https://yuvrajraulji.com',
+  /* This string is not decoration: it is printed twice in the confirmation
+     email every new lead receives, so it is the first positioning statement a
+     prospect reads. It said "Full Stack E-commerce Developer & AI Consultant",
+     which is the wrong positioning and uses two words the brand does not use.
+     It now matches the site exactly. */
+  BRAND_TAGLINE:    'eCommerce, AI & Technology Consultant',
+  /* www, not the apex. The apex 308s to www, so every link in every
+     confirmation email was costing a redirect. */
+  SITE_URL:         'https://www.yuvrajraulji.com',
   SPREADSHEET_NAME: 'Yuvraj Raulji — Website Leads',
   SHEET_TAB:        'Leads',
   BRAND_RED:        '#c8102e',
