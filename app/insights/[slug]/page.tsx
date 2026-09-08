@@ -1,15 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleAside, ReadingProgress, TocList } from '../../../components/insights/article-aside';
-import { ContactModal } from '../../../components/contact-modal';
-import { JsonLd } from '../../../components/json-ld';
-import { SiteEffects } from '../../../components/site-effects';
-import { SiteFooter } from '../../../components/site-footer';
-import { SiteHeader } from '../../../components/site-header';
+import { Breadcrumbs, Page } from '../../../components/chrome/page';
+import { Lines, Rise } from '../../../components/homepage/motion';
+import { Btn, Marker, Section, Shell } from '../../../components/homepage/primitives';
 import { getArticle } from '../../../lib/articles';
-import { articleSchema, type Crumb } from '../../../lib/schema';
+import { articleSchema, PERSON_JOB_TITLE, type Crumb } from '../../../lib/schema';
 import { POSTS, postDateISO } from '../../../lib/posts';
-import { CONTACT, SITE_URL } from '../../../lib/site';
+import { SITE_URL } from '../../../lib/site';
 import { TAGS } from '../../../lib/tags';
 
 export const dynamicParams = false;
@@ -39,14 +37,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ['Yuvraj Raulji'],
       images: [{ url: p.ogImg, width: 1600, height: 900, alt: p.title }],
     },
-    twitter: { card: 'summary_large_image', title: p.title, description: p.excerpt, images: [{ url: p.ogImg, alt: p.title }] },
+    twitter: {
+      card: 'summary_large_image',
+      title: p.title,
+      description: p.excerpt,
+      images: [{ url: p.ogImg, alt: p.title }],
+    },
   };
 }
 
 /*
-  The trail. The middle crumb is named "Insights", which is what app/insights/page.tsx
-  calls the same URL; this page previously called it "Blog & Insights", so the two
-  BreadcrumbLists described /insights/ under two different names.
+  The trail. The middle crumb is named "Insights", which is what
+  app/insights/page.tsx calls the same URL; this page previously called it
+  "Blog & Insights", so the two BreadcrumbLists described /insights/ under two
+  different names.
 */
 function articleCrumbs(title: string, url: string): Crumb[] {
   return [
@@ -65,6 +69,32 @@ function relatedFor(slug: string) {
   return [...same, ...extra].map(([s, q]) => ({ ...q, slug: s }));
 }
 
+/**
+ * A single article.
+ *
+ * ── What this replaces ─────────────────────────────────────────────────────
+ *
+ * The same rebuild as the hub. This page assembled SiteHeader, SiteFooter, a
+ * preloader, an effects layer and its own arrangement of everything else,
+ * against a `.reveal-article` scope whose opacity was cleared by an
+ * IntersectionObserver living in that effects layer. It now renders through
+ * `Page`, which is the wrapper every other interior route uses.
+ *
+ * Dropping the effects layer means dropping `.reveal` with it. That class sets
+ * `opacity: 0` in the server-rendered HTML and relies on the observer to clear
+ * it, so a `.reveal` left behind here would be an element that never appears.
+ * Everything that carried one now uses `Rise`, which animates from Motion's own
+ * `whileInView` and has no such dependency, and the article body carries no
+ * animation at all: a 1,600-word body is the reason somebody opened the page
+ * and it should not be waiting on anything.
+ *
+ * ── Kept ───────────────────────────────────────────────────────────────────
+ *
+ * The reading-progress bar, the table of contents in both its desktop and
+ * mobile placements, the share controls, the tag list, the related articles
+ * and the authored HTML body, which is rendered from content/articles/ at
+ * build time exactly as before.
+ */
 export default async function Article({ params }: Props) {
   const { slug } = await params;
   const p = POSTS[slug];
@@ -91,325 +121,187 @@ export default async function Article({ params }: Props) {
   const ld = articleSchema({ slug, crumbs: articleCrumbs(p.title, url), keywords: tags });
 
   return (
-    <div className="reveal-article">
-      <JsonLd data={ld} />
-      <div className="noise" aria-hidden="true" />
-      {/*
-        The 1.5s full-screen preloader that used to sit here is gone.
-
-        It painted an opaque #020202 overlay at z-1200 over the whole viewport
-        and lifted at a fixed 1500ms timer, whatever the page had already
-        finished rendering. On these nine routes, which are the site's main
-        organic entry points, that made the word "YUVRAJ" inside the overlay the
-        Largest Contentful Paint element and put a floor of ~1.5s under LCP on a
-        page that otherwise had its hero painted well before that. It also ran
-        again on every client-side navigation into the section.
-
-        No other route on the site shipped one, so removing it is also what
-        makes the section behave like the rest of the site rather than like the
-        template it was ported from.
-      */}
-      <SiteHeader active="Insights" />
+    <Page schema={ld} active="Insights">
       <ReadingProgress />
-      <SiteEffects />
 
-      <main id="main">
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(120px,16vh,170px) 0 clamp(40px,5vw,60px)' }}>
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 75% at -5% 30%,rgba(215, 25, 32,.16) 0%,transparent 100%)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 105% 85%,rgba(143,16,22,.12) 0%,transparent 100%)' }} />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                opacity: 0.05,
-                backgroundImage:
-                  'linear-gradient(rgba(215, 25, 32,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(215, 25, 32,.25) 1px,transparent 1px)',
-                backgroundSize: '72px 72px',
-              }}
-            />
-            <div
-              className="absolute select-none hidden md:block font-display"
-              style={{
-                right: '-1%',
-                top: '6%',
-                fontSize: 'clamp(5rem,13vw,11rem)',
-                lineHeight: 1,
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(215, 25, 32,.07)',
-                letterSpacing: '.02em',
-                textTransform: 'uppercase',
-              }}
-            >
+      {/* ── Head ──────────────────────────────────────────────────
+          The interior hero's shape: breadcrumbs, the red hairline eyebrow, the
+          H1, the lede. Set at the `--2` display size rather than `--1` because
+          an article title runs to fifty or sixty characters where a page
+          headline runs to twenty, and the page scale set on one of these fills
+          a viewport on its own. */}
+      <section
+        aria-labelledby="article-title"
+        className="yr-section yr-section--open !pt-[118px] md:!pt-[146px]"
+      >
+        <Shell>
+          <Breadcrumbs crumbs={articleCrumbs(p.title, url)} />
+
+          <Rise as="p" className="mb-item flex items-center gap-3.5">
+            <span aria-hidden="true" className="h-px w-11 bg-accent" />
+            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
               {p.cat}
-            </div>
-            <div className="absolute left-0 top-0 bottom-0 hidden xl:flex flex-col items-center justify-center gap-4 pl-[18px]">
-              <span
-                style={{
-                  writingMode: 'vertical-rl',
-                  transform: 'rotate(180deg)',
-                  fontSize: '.55rem',
-                  fontWeight: 700,
-                  letterSpacing: '.32em',
-                  color: 'var(--text-faint)',
-                  textTransform: 'uppercase',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                Blog &amp; Insights · Yuvraj Raulji
-              </span>
-              <span style={{ width: 1, height: 56, background: 'linear-gradient(transparent,rgba(215, 25, 32,.50),transparent)' }} />
-            </div>
-          </div>
+            </span>
+          </Rise>
 
-          <div className="relative z-[2] max-w-shell mx-auto px-6 md:px-10 xl:px-16">
-            {/*
-              The trail, and it now says what the BreadcrumbList beside it says.
+          <Lines as="h1" id="article-title" size="2" lines={[p.title]} />
 
-              It used to read Home / Blog / <category> while the schema on the
-              same page declared Home / Insights / <article title>. Structured
-              data is supposed to describe what is on the page, and these
-              disagreed on two of the three items. The second one also linked to
-              "/insights" without the trailing slash, so all eight article pages
-              spent an internal link on a 308 to "/insights/".
+          <Rise delay={0.28} className="mt-block">
+            <p className="yr-lede max-w-[58ch]">{p.excerpt}</p>
+          </Rise>
 
-              The category has not been lost: it is the pill directly under
-              this, where it reads as a label rather than as a level of the
-              hierarchy it never was.
-
-              `aria-label` because a bare <nav> is announced as "navigation" and
-              a reader cannot tell it from the site navigation above it.
-            */}
-            <nav
-              aria-label="Breadcrumb"
-              className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-ink-faint mb-10 reveal"
-            >
-              <Link href="/" className="hover:text-rv transition-colors">
-                Home
-              </Link>
-              <span style={{ width: 14, height: 1, background: 'rgba(215, 25, 32,.45)' }} />
-              <Link href="/insights/" className="hover:text-rv transition-colors">
-                Insights
-              </Link>
-              <span style={{ width: 14, height: 1, background: 'rgba(215, 25, 32,.45)' }} />
-              <span aria-current="page" className="text-rv">
-                {p.title}
-              </span>
-            </nav>
-
-            <div style={{ maxWidth: 920 }}>
-              <div className="flex items-center flex-wrap gap-4 mb-7 reveal">
-                <span
-                  className="inline-flex items-center h-[28px] px-4 rounded-full bg-accent text-white text-[.60rem] font-bold tracking-[.16em] uppercase"
-                  style={{ boxShadow: '0 6px 20px rgba(238, 42, 52,.40)' }}
-                >
-                  {p.cat}
+          {/* The byline. A <time> with a machine-readable datetime, which the
+              uppercase span it replaces was not, so the date a reader sees and
+              the date in the Article markup are now the same value in the same
+              format. */}
+          <Rise delay={0.4} className="mt-head border-t border-ink/10 pt-6">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+              <p className="m-0">
+                <span className="block font-manrope text-[15px] font-semibold leading-none">
+                  Yuvraj Raulji
                 </span>
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-ink-faint">{p.date}</span>
-                <span className="w-1 h-1 rounded-full bg-[rgba(215,25,32,.55)]" />
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-ink-faint">{p.readTime}</span>
-              </div>
-
-              <h1 className="font-display uppercase reveal" style={{ fontSize: 'clamp(2.6rem,6.5vw,5.6rem)', lineHeight: 0.92, letterSpacing: '.015em', marginBottom: 26 }}>
-                {p.title}
-              </h1>
-
-              <p className="reveal" style={{ fontSize: 'clamp(1rem,1.4vw,1.16rem)', lineHeight: 1.85, color: 'rgba(245, 243, 238,.55)', maxWidth: 680, marginBottom: 36 }}>
-                {p.excerpt}
+                <span className="mt-2 block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+                  {PERSON_JOB_TITLE}
+                </span>
               </p>
-
-              <div className="flex items-center flex-wrap gap-x-8 gap-y-4 reveal" style={{ borderTop: '1px solid rgba(255,255,255,.08)', paddingTop: 24 }}>
-                <div className="flex items-center gap-[12px]">
-                  <div
-                    className="font-display"
-                    style={{
-                      width: 42,
-                      height: 42,
-                      borderRadius: '50%',
-                      border: '1px solid rgba(215, 25, 32,.35)',
-                      background: 'rgba(215, 25, 32,.08)',
-                      display: 'grid',
-                      placeItems: 'center',
-                      fontSize: '.92rem',
-                      color: 'var(--accent-bright)',
-                      boxShadow: '0 0 24px rgba(215, 25, 32,.14)',
-                    }}
-                  >
-                    YR
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '.80rem', fontWeight: 700, color: 'rgba(245, 243, 238,.85)' }}>Yuvraj Raulji</div>
-                    <div style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>
-                      Full Stack E-commerce &amp; AI Consultant
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden sm:block" style={{ width: 1, height: 30, background: 'rgba(255,255,255,.09)' }} />
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center h-[24px] px-3 rounded-full text-[.58rem] font-bold tracking-[.12em] uppercase"
-                      style={{ border: '1px solid rgba(215, 25, 32,.22)', background: 'rgba(215, 25, 32,.06)', color: 'rgba(245, 243, 238,.55)' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+                <time dateTime={postDateISO(p.date)}>{p.date}</time>
+                <span aria-hidden="true"> · </span>
+                {p.readTime}
+              </p>
+              <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+                {tags.map((tag) => (
+                  <li key={tag}>
+                    <span className="yr-tag">{tag}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        </section>
+          </Rise>
+        </Shell>
+      </section>
 
-        {/* ── Featured image ── */}
-        <div className="max-w-shell mx-auto px-6 md:px-10" style={{ marginBottom: 'clamp(56px,7vw,90px)' }}>
-          <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[400px] md:h-[560px]" style={{ border: '1px solid rgba(255,255,255,.09)', boxShadow: '0 50px 110px rgba(0,0,0,.60)' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={p.img}
-              alt={p.title}
-              width={1600}
-              height={900}
-              fetchPriority="high"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ animation: 'imgIn 1.5s cubic-bezier(.19,1,.22,1) both .2s' }}
-            />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(5,5,5,.28) 0%,transparent 35%,rgba(5,5,5,.55) 100%)' }} />
-            <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(215, 25, 32,.16)' }} />
-          </div>
+      {/* ── Cover ─────────────────────────────────────────────────
+          Monochrome, like every other photograph on the site. It was the one
+          full-colour image on any route, under a 110px drop shadow and a
+          rounded corner that nothing else here has. */}
+      <div className="yr-shell mb-[clamp(56px,7vw,90px)]">
+        <div className="relative aspect-[16/9] overflow-hidden border border-ink/15 bg-[#111]">
+          <img
+            src={p.img}
+            alt=""
+            width={1600}
+            height={900}
+            fetchPriority="high"
+            decoding="async"
+            sizes="(max-width: 1280px) 94vw, 1200px"
+            className="absolute inset-0 h-full w-full object-cover grayscale"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.18)_0%,transparent_40%,rgba(5,5,5,.45)_100%)]"
+          />
         </div>
+      </div>
 
-        {/* ── Body + sidebar ── */}
-        <div className="max-w-shell mx-auto px-6 md:px-10" style={{ marginBottom: 'clamp(80px,10vw,140px)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-12 xl:gap-16 items-start">
-            <div className="min-w-0">
-              <TocList toc={toc} mobile />
-              {/* Article body is authored HTML from content/articles/, rendered at build time. */}
-              <article className="prose reveal" dangerouslySetInnerHTML={{ __html: html }} />
+      {/* ── Body and aside ────────────────────────────────────────
+          The cover carries `alt=""`: it is a decorative lead image directly
+          under an H1 that already names the subject, and describing it would
+          make a screen reader hear the title twice before the first paragraph. */}
+      <div className="yr-shell mb-[clamp(80px,10vw,140px)]">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_320px] xl:gap-16">
+          <div className="min-w-0">
+            <TocList toc={toc} mobile />
+            {/* Authored HTML from content/articles/, rendered at build time. */}
+            <article className="prose" dangerouslySetInnerHTML={{ __html: html }} />
+          </div>
+          <ArticleAside toc={toc} tags={tags} title={p.title} />
+        </div>
+      </div>
+
+      {/* ── Related ───────────────────────────────────────────────
+          The hub's card, at the hub's proportions. */}
+      {related.length > 0 ? (
+        <Section id="related" labelledBy="related-title">
+          <Shell>
+            <Marker label="Keep reading" />
+            <div className="mb-10 lg:mb-14">
+              <Lines as="h2" id="related-title" lines={['Related', 'writing.']} />
             </div>
-            <ArticleAside toc={toc} tags={tags} title={p.title} />
-          </div>
-        </div>
 
-        {/* ── Related ── */}
-        {related.length > 0 && (
-          <section className="relative overflow-hidden bg-bg2 border-t border-[rgba(255,255,255,.07)]" style={{ padding: 'clamp(72px,9vw,120px) 0' }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 60% at 92% 8%,rgba(215, 25, 32,.08),transparent)' }} />
-            <div className="relative max-w-shell mx-auto px-6 md:px-10">
-              <div className="flex items-center gap-4 mb-12">
-                <span style={{ width: 2, height: 30, background: 'linear-gradient(180deg,var(--accent-bright),rgba(215, 25, 32,.15))', borderRadius: 2, flexShrink: 0 }} />
-                <div>
-                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(215,25,32,.60)] mb-1">Keep reading</p>
-                  <h2 className="font-display uppercase tracking-[.02em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4vw,3.4rem)' }}>
-                    Related articles
-                  </h2>
-                </div>
-                <div className="flex-1 h-[1px]" style={{ background: 'linear-gradient(90deg,rgba(215, 25, 32,.16),transparent)' }} />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/insights/${r.slug}`}
-                    className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(215,25,32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
+            <ul className="grid list-none gap-4 sm:gap-6 md:grid-cols-3">
+              {related.map((r, i) => (
+                <li key={r.slug} className="flex">
+                  <Rise
+                    delay={i * 0.08}
+                    className="group flex w-full flex-col border border-ink/15 bg-surface transition-[transform,border-color] duration-300 hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
                   >
-                    <div className="relative overflow-hidden" style={{ height: 190 }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <div className="relative aspect-[16/10] overflow-hidden border-b border-ink/10 bg-[#111]">
                       <img
                         src={r.img}
-                        alt={r.title}
+                        alt=""
                         width={1600}
                         height={900}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                        sizes="(max-width: 768px) 92vw, 30vw"
+                        className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter,transform] duration-500 group-hover:scale-[1.03] group-hover:grayscale-0 motion-reduce:group-hover:scale-100"
                       />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,rgba(5,5,5,.55) 100%)' }} />
-                      <span
-                        className="absolute top-4 left-4 inline-flex items-center h-[24px] px-3 rounded-full bg-accent text-white text-[.56rem] font-bold tracking-[.14em] uppercase"
-                        style={{ boxShadow: '0 5px 16px rgba(238, 42, 52,.40)' }}
-                      >
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                      />
+                      <span className="absolute bottom-5 left-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                         {r.cat}
                       </span>
                     </div>
-                    <div className="p-6">
-                      <h3 className="font-display uppercase tracking-[.02em] leading-[1.04] mb-3 transition-colors duration-200 group-hover:text-rv" style={{ fontSize: 'clamp(1.15rem,1.8vw,1.5rem)' }}>
-                        {r.title}
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="m-0 font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.02em]">
+                        <Link
+                          href={`/insights/${r.slug}/`}
+                          className="transition-colors duration-200 hover:text-accent-bright"
+                        >
+                          {r.title}
+                        </Link>
                       </h3>
-                      <div className="flex items-center justify-between">
-                        <p className="text-[.64rem] font-semibold tracking-[.12em] uppercase text-ink-faint">{r.date}</p>
-                        <span className="inline-flex items-center gap-1 text-[.62rem] font-bold tracking-[.14em] uppercase text-rv transition-all duration-300 group-hover:gap-[7px]">
-                          Read <span>→</span>
-                        </span>
-                      </div>
+                      <p className="mt-auto pt-6 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+                        {r.date} <span aria-hidden="true"> · </span> {r.readTime}
+                      </p>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+                  </Rise>
+                </li>
+              ))}
+            </ul>
+          </Shell>
+        </Section>
+      ) : null}
 
-        {/* ── Bottom CTA ── */}
-        <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(80px,10vw,130px) 0' }}>
-          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 55% at 50% 100%,rgba(215, 25, 32,.10),transparent)' }} />
-          <div className="relative max-w-prose mx-auto px-6 md:px-10 text-center reveal">
-            {/*
-              The closing block, in this site's voice rather than an agency's.
-
-              It read "Ready To Grow Your Business?" over "Let's turn your
-              digital presence into a growth engine", above a list of services.
-              Three things wrong with that, and they compound because this block
-              renders on all eight articles, which are the pages most likely to
-              be somebody's first visit. It is generic marketing copy, which
-              CONTENT-PRINCIPLES rules out; it reads as an agency pitch, which
-              the positioning rules out explicitly; and it is the one place on
-              the site set in Title Case, so it does not sound like the pages
-              around it. "Describe the problem, not the project." and "Most
-              stores asking for headless want a faster theme." are the voice
-              this had to match.
-
-              What replaces it says what actually happens next, which is also
-              what the rest of the site promises: a conversation about a
-              constraint, and an honest answer about whether there is a project
-              in it at all.
-            */}
-            <p className="text-[.68rem] font-semibold tracking-[.22em] uppercase text-rv mb-4">Work with Yuvraj</p>
-            <h2 className="font-display tracking-[.01em] leading-[1.0] mb-6" style={{ fontSize: 'clamp(2rem,4.6vw,3.8rem)' }}>
-              Read this because
-              <br />
-              something is not working?
-            </h2>
-            <p className="text-[rgba(245,243,238,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
-              Send the symptom, what it is costing and what you have already tried. Thirty minutes
-              is usually enough to name the decision underneath it, and that conversation
-              occasionally ends with me saying you do not need the project.
+      {/* ── Closing ───────────────────────────────────────────────
+          The same close the hub carries, for the same reason: the piece
+          describes what usually goes wrong, and the next step is finding out
+          what is wrong here. */}
+      <Section id="next" labelledBy="next-title" tall>
+        <Shell>
+          <Marker label="What next" />
+          <Lines
+            as="h2"
+            id="next-title"
+            lines={['Got this problem', { text: 'on a live store?', accent: true }]}
+          />
+          <Rise delay={0.28} className="mt-block">
+            <p className="yr-lede max-w-[54ch]">
+              This is the general shape of it. What is actually happening on one particular store
+              takes looking at that store, which is what the audit is for.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <a
-                href={`mailto:${CONTACT.email}?subject=Project+Inquiry`}
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(215,25,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
-              >
-                Book Consultation
-              </a>
-              <Link
-                /* Trailing slash: the site is exported with `trailingSlash: true`,
-                   so "/insights" costs a 308 before it resolves. */
-                href="/insights/"
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f3ee] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(215,25,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
-              >
-                More Articles
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <SiteFooter />
-      <ContactModal />
-    </div>
+          </Rise>
+          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3">
+            <Btn href="/ecommerce-audit/">See what an audit covers</Btn>
+            <Btn href="/insights/" variant="ghost">
+              Read the rest
+            </Btn>
+          </Rise>
+        </Shell>
+      </Section>
+    </Page>
   );
 }

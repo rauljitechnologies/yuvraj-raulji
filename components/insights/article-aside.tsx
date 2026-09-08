@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Heading } from '../../lib/articles';
 import { CONTACT } from '../../lib/site';
+import { PERSON_JOB_TITLE } from '../../lib/schema';
 
 const panelCls = 'p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2';
 const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,var(--accent-bright),rgba(215, 25, 32,.15))', borderRadius: 2, flexShrink: 0 }} />;
@@ -102,8 +103,11 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
     }
   };
 
+  /* No `.reveal` on the <aside>. That class sets opacity:0 and waited on an
+     IntersectionObserver living in the effects layer these pages no longer
+     render, so keeping it would have left the whole sidebar invisible. */
   return (
-    <aside className="lg:sticky lg:top-[104px] flex flex-col gap-6 reveal">
+    <aside className="lg:sticky lg:top-[104px] flex flex-col gap-6">
       <TocList toc={toc} />
 
       {/* Author */}
@@ -118,10 +122,14 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
           </div>
           <div>
             <p className="font-bold text-[.92rem]">Yuvraj Raulji</p>
+            {/* PERSON_JOB_TITLE, not a fourth wording of it. This panel said
+                "Full Stack E-commerce & AI Consultant · 9+ Years" directly
+                beneath a byline that says "eCommerce, AI & Technology
+                Consultant" and a Person node that says the same, which is the
+                drift the schema comment on the article page complains about,
+                reproduced in the visible copy. */}
             <p className="text-[.70rem] text-[rgba(245,243,238,.55)] leading-snug">
-              Full Stack E-commerce &amp;
-              <br />
-              AI Consultant · 9+ Years
+              {PERSON_JOB_TITLE}
             </p>
           </div>
         </div>

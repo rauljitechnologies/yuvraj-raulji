@@ -694,6 +694,8 @@ export const ATTENTION: Attention[] = [
 export interface WritingItem {
   slug: string;
   category: string;
+  /** The category slug the hub's filter toolbar groups on. */
+  filter: string;
   title: string;
   summary: string;
   date: string;
@@ -707,18 +709,42 @@ export const WRITING_INTRO = {
   cta: { label: 'All writing', href: '/insights/' },
 } as const;
 
-/** Newest first, by the date string the post record carries. */
-export const WRITING: WritingItem[] = Object.entries(POSTS)
+/**
+ * Every article, newest first, by the date string the post record carries.
+ *
+ * The /insights/ hub lists all of them and the homepage section shows the
+ * latest six, so the sort belongs here once rather than in each of them. A
+ * second sort written on the hub is a second chance to order it differently,
+ * which is exactly how the homepage came to be rendering 12 Jun, 08 Jun,
+ * 05 Jun, 10 May, 15 May before WRITING existed.
+ */
+export const ALL_WRITING: WritingItem[] = Object.entries(POSTS)
   .map(([slug, p]) => ({
     slug,
     category: p.cat,
+    filter: p.filter,
     title: p.title,
     summary: p.excerpt,
     date: p.date,
     readTime: p.readTime,
   }))
-  .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
-  .slice(0, 6);
+  .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+/** The homepage slice. Six, newest first. */
+export const WRITING: WritingItem[] = ALL_WRITING.slice(0, 6);
+
+/**
+ * The categories the hub can filter by, derived from the articles rather than
+ * hand-listed. The list it replaces carried `wordpress` and `performance`,
+ * which no article has ever been tagged with, so two of its eight filters
+ * could only ever return an empty grid.
+ */
+export const WRITING_FILTERS: readonly { id: string; label: string }[] = [
+  { id: 'all', label: 'All' },
+  ...Array.from(new Map(ALL_WRITING.map((w) => [w.filter, w.category])).entries())
+    .map(([id, label]) => ({ id, label }))
+    .sort((a, b) => a.label.localeCompare(b.label)),
+];
 
 /* ═══════════════════════════════════════════════════════════════
    CLOSING — every page ends here
