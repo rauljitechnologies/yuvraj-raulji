@@ -7,7 +7,7 @@ import { POSTS } from '../../lib/posts';
  * page's largest image came off a third-party origin. Both now come from the
  * post record.
  */
-const FEATURED_SLUG = 'ai-ecommerce-revenue-2025';
+const FEATURED_SLUG = 'ai-ecommerce-revenue-2026';
 const FEATURED = POSTS[FEATURED_SLUG];
 
 const TICKER = [

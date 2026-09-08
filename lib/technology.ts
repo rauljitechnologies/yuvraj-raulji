@@ -440,7 +440,7 @@ const SHOPIFY: Technology = {
   },
 
   cases: ['plant-store', 'sports-nutrition'],
-  posts: ['shopify-plus-vs-magento2-2025', 'shopify-headless-nextjs-guide', 'cro-double-conversion'],
+  posts: ['shopify-plus-vs-magento2-2026', 'shopify-headless-nextjs-guide', 'cro-double-conversion'],
   casesNote:
     'Two Shopify builds from the record, described by what was built rather than by the brand name. Both are D2C catalogues where the checkout and the product page carried the result.',
 
@@ -751,7 +751,7 @@ const AI_SEARCH: Technology = {
   },
 
   cases: ['manufacturing', 'b2b-procurement'],
-  posts: ['magento2-seo-technical-audit', 'ai-ecommerce-revenue-2025'],
+  posts: ['magento2-seo-technical-audit', 'ai-ecommerce-revenue-2026'],
   casesNote:
     'Search and discovery work from the record, and it is technical SEO and catalogue work rather than AI search. That distinction is deliberate: there is no delivered AI search engagement with a published measurement yet, and this section will not borrow one.',
 
@@ -1057,7 +1057,7 @@ const MAGENTO: Technology = {
     'magento2-checkout-optimization',
     'aws-magento2-server-setup',
     'magento2-pwa-studio-headless',
-    'shopify-plus-vs-magento2-2025',
+    'shopify-plus-vs-magento2-2026',
   ],
   casesNote:
     'The two builds where Magento was doing the work it is actually for: catalogue scale, and a B2B workflow that could not be expressed anywhere else.',
@@ -2235,7 +2235,7 @@ const AI_COMMERCE: Technology = {
   },
 
   cases: ['b2b-procurement', 'marketplace'],
-  posts: ['ai-ecommerce-revenue-2025', 'magento2-seo-technical-audit'],
+  posts: ['ai-ecommerce-revenue-2026', 'magento2-seo-technical-audit'],
   casesNote:
     'The automation and integration record this practice is built on. Both are workflow and catalogue engagements rather than AI deployments, and they are on this page because they are the honest foundation for it.',
 
@@ -2530,7 +2530,7 @@ const AI_AUTOMATION: Technology = {
   },
 
   cases: ['b2b-procurement', 'manufacturing'],
-  posts: ['ai-ecommerce-revenue-2025', 'aws-magento2-server-setup'],
+  posts: ['ai-ecommerce-revenue-2026', 'aws-magento2-server-setup'],
   casesNote:
     'Automation and integration work from the record. The B2B platform is where the approval and quote automation was built, and it was workflow engineering rather than AI.',
 
@@ -2829,7 +2829,7 @@ const DIGITAL_TRANSFORMATION: Technology = {
   },
 
   cases: ['b2b-procurement', 'manufacturing', 'marketplace'],
-  posts: ['shopify-plus-vs-magento2-2025', 'aws-magento2-server-setup', 'ai-ecommerce-revenue-2025'],
+  posts: ['shopify-plus-vs-magento2-2026', 'aws-magento2-server-setup', 'ai-ecommerce-revenue-2026'],
   casesNote:
     'Three builds where the work was as much about process and sequencing as about the platform underneath it.',
 
@@ -3133,7 +3133,7 @@ const MIXPANEL: Technology = {
   cases: ['b2b-procurement', 'marketplace'],
   casesNote:
     'Two platforms where the measurable behaviour was an internal workflow rather than a storefront funnel, which is the case Mixpanel handles better than a session-based tool.',
-  posts: ['cro-double-conversion', 'ai-ecommerce-revenue-2025'],
+  posts: ['cro-double-conversion', 'ai-ecommerce-revenue-2026'],
 
   outcomes: [
     {

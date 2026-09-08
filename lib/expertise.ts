@@ -207,7 +207,7 @@ export const PILLARS: Pillar[] = [
     ],
     stack: ['Platform selection', 'Technical due diligence', 'Integration design', 'Phasing', 'Total cost modelling'],
     cases: ['b2b-procurement', 'marketplace', 'fashion-d2c'],
-    posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit', 'cro-double-conversion'],
+    posts: ['shopify-plus-vs-magento2-2026', 'magento2-seo-technical-audit', 'cro-double-conversion'],
     related: [
       {
         href: '/ecommerce-audit/',
@@ -510,7 +510,7 @@ export const PILLARS: Pillar[] = [
       'Mixpanel',
     ],
     cases: ['marketplace', 'sports-nutrition', 'plant-store'],
-    posts: ['cro-double-conversion', 'ai-ecommerce-revenue-2025'],
+    posts: ['cro-double-conversion', 'ai-ecommerce-revenue-2026'],
     related: [
       {
         href: '/expertise/website-management/',

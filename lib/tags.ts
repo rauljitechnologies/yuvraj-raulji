@@ -33,7 +33,7 @@ export const TAGS: Record<string, string[]> = {
     "GraphQL",
     "Performance"
   ],
-  "shopify-plus-vs-magento2-2025": [
+  "shopify-plus-vs-magento2-2026": [
     "Shopify Plus",
     "Magento 2",
     "Platform",
@@ -51,7 +51,7 @@ export const TAGS: Record<string, string[]> = {
     "2025",
     "D2C"
   ],
-  "ai-ecommerce-revenue-2025": [
+  "ai-ecommerce-revenue-2026": [
     "AI",
     "GPT-4",
     "Automation",

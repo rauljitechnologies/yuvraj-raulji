@@ -289,7 +289,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'A replatforming nobody wants to start',
     detail:
       'The risk in a migration is not the build, it is the cutover: URLs, redirects, order history, integrations and the week either side. Sequenced properly, trading continues throughout.',
-    href: '/insights/shopify-plus-vs-magento2-2025/',
+    href: '/insights/shopify-plus-vs-magento2-2026/',
     cta: 'Choosing the target platform',
   },
   {
@@ -313,7 +313,7 @@ export const PROBLEMS: Problem[] = [
     symptom: 'The operation runs on manual work',
     detail:
       'Quotes, approvals, catalogue QA and data reconciliation absorbing people who should be doing something else. This is where automation pays, provided the process underneath it is worth keeping.',
-    href: '/insights/ai-ecommerce-revenue-2025/',
+    href: '/insights/ai-ecommerce-revenue-2026/',
     cta: 'Where AI actually pays',
   },
 ];
@@ -582,9 +582,9 @@ export const FORMAT_LABEL: Record<ContentFormat, string> = {
  */
 const POST_TOPICS: Record<string, ContentTopic> = {
   'magento2-seo-technical-audit': 'SEO',
-  'ai-ecommerce-revenue-2025': 'AI',
+  'ai-ecommerce-revenue-2026': 'AI',
   'magento2-checkout-optimization': 'Growth',
-  'shopify-plus-vs-magento2-2025': 'Architecture',
+  'shopify-plus-vs-magento2-2026': 'Architecture',
   'aws-magento2-server-setup': 'Technology',
   'shopify-headless-nextjs-guide': 'Architecture',
   'cro-double-conversion': 'Growth',

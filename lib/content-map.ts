@@ -243,9 +243,9 @@ const FROM_PILLARS: ContentMapRow[] = PILLARS.map((p) => {
 /** The eight articles. Informational, and the easiest intent to collide by accident. */
 const POST_KEYWORDS: Record<string, string[]> = {
   'magento2-seo-technical-audit': ['magento 2 seo audit', 'magento technical seo', 'magento crawl budget'],
-  'ai-ecommerce-revenue-2025': ['ai ecommerce use cases', 'ai product recommendations', 'ai catalogue content'],
+  'ai-ecommerce-revenue-2026': ['ai ecommerce use cases', 'ai product recommendations', 'ai catalogue content'],
   'magento2-checkout-optimization': ['magento 2 checkout optimization', 'magento cart abandonment', 'one page checkout'],
-  'shopify-plus-vs-magento2-2025': ['shopify plus vs magento 2', 'magento or shopify', 'enterprise platform comparison'],
+  'shopify-plus-vs-magento2-2026': ['shopify plus vs magento 2', 'magento or shopify', 'enterprise platform comparison'],
   'aws-magento2-server-setup': ['magento 2 aws hosting', 'magento server setup', 'magento varnish redis'],
   'shopify-headless-nextjs-guide': ['shopify headless next.js', 'shopify storefront api', 'hydrogen vs next.js'],
   'cro-double-conversion': ['ecommerce cro strategies', 'conversion rate optimisation', 'ab testing ecommerce'],

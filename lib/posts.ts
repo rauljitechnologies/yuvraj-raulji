@@ -34,14 +34,14 @@ export const POSTS: Record<string, Post> = {
     "title": "Magento 2 SEO: The Complete Technical Audit Guide 2026",
     "excerpt": "A step-by-step framework for auditing Magento 2 stores: XML sitemaps, canonical tags, hreflang, structured data, crawl budget"
   },
-  "ai-ecommerce-revenue-2025": {
+  "ai-ecommerce-revenue-2026": {
     "seoTitle": "AI for E-commerce in 2026: Real Use Cases That Drive Revenue",
     "cat": "AI & Automation",
     "filter": "ai-automation",
     "date": "08 Jun 2026",
     "readTime": "11 min read",
-    "img": "/assets/blog/ai-ecommerce-revenue-2025.webp",
-    "ogImg": "/assets/blog/ai-ecommerce-revenue-2025.jpg",
+    "img": "/assets/blog/ai-ecommerce-revenue-2026.webp",
+    "ogImg": "/assets/blog/ai-ecommerce-revenue-2026.jpg",
     "title": "AI for E-commerce in 2026: Real Use Cases That Actually Drive Revenue",
     "excerpt": "Six battle-tested AI implementations: product recommendations, dynamic pricing, inventory forecasting, GPT catalog content, chatbot sales agents"
   },
@@ -55,14 +55,14 @@ export const POSTS: Record<string, Post> = {
     "title": "Magento 2 Checkout Optimization: Cut Cart Abandonment by 40%",
     "excerpt": "Proven checkout redesign framework: one-page checkout, guest checkout, address autocomplete, payment UX, mobile-first form design"
   },
-  "shopify-plus-vs-magento2-2025": {
+  "shopify-plus-vs-magento2-2026": {
     "seoTitle": "Shopify Plus vs Magento 2 in 2026: Enterprise Comparison",
     "cat": "Shopify",
     "filter": "shopify",
     "date": "10 May 2026",
     "readTime": "12 min read",
-    "img": "/assets/blog/shopify-plus-vs-magento2-2025.webp",
-    "ogImg": "/assets/blog/shopify-plus-vs-magento2-2025.jpg",
+    "img": "/assets/blog/shopify-plus-vs-magento2-2026.webp",
+    "ogImg": "/assets/blog/shopify-plus-vs-magento2-2026.jpg",
     "title": "Shopify Plus vs Magento 2 in 2026: The Definitive Enterprise Comparison",
     "excerpt": "Real-world breakdown of TCO, customisation depth, B2B features, API capabilities, and which platform wins for which business model in 2026."
   },

@@ -73,12 +73,12 @@
     },
     {
       "source": "/blog/ai-ecommerce-revenue-2025",
-      "destination": "/insights/ai-ecommerce-revenue-2025/",
+      "destination": "/insights/ai-ecommerce-revenue-2026/",
       "permanent": true
     },
     {
       "source": "/blog/ai-ecommerce-revenue-2025/",
-      "destination": "/insights/ai-ecommerce-revenue-2025/",
+      "destination": "/insights/ai-ecommerce-revenue-2026/",
       "permanent": true
     },
     {
@@ -93,12 +93,12 @@
     },
     {
       "source": "/blog/shopify-plus-vs-magento2-2025",
-      "destination": "/insights/shopify-plus-vs-magento2-2025/",
+      "destination": "/insights/shopify-plus-vs-magento2-2026/",
       "permanent": true
     },
     {
       "source": "/blog/shopify-plus-vs-magento2-2025/",
-      "destination": "/insights/shopify-plus-vs-magento2-2025/",
+      "destination": "/insights/shopify-plus-vs-magento2-2026/",
       "permanent": true
     },
     {
@@ -139,6 +139,26 @@
     {
       "source": "/blog/magento2-pwa-studio-headless/",
       "destination": "/insights/magento2-pwa-studio-headless/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ai-ecommerce-revenue-2025",
+      "destination": "/insights/ai-ecommerce-revenue-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ai-ecommerce-revenue-2025/",
+      "destination": "/insights/ai-ecommerce-revenue-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/shopify-plus-vs-magento2-2025",
+      "destination": "/insights/shopify-plus-vs-magento2-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/shopify-plus-vs-magento2-2025/",
+      "destination": "/insights/shopify-plus-vs-magento2-2026/",
       "permanent": true
     }
   ],

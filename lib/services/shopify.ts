@@ -180,7 +180,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
 
     cases: ['plant-store', 'sports-nutrition'],
     casesNote: 'Two Shopify builds from the record, both D2C catalogues where the checkout and the product page carried the result.',
-    posts: ['shopify-plus-vs-magento2-2025', 'cro-double-conversion'],
+    posts: ['shopify-plus-vs-magento2-2026', 'cro-double-conversion'],
 
     related: [
       {
@@ -209,7 +209,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
         note: 'The other proposal that arrives attached to a slow storefront.',
       },
       {
-        href: '/insights/shopify-plus-vs-magento2-2025/',
+        href: '/insights/shopify-plus-vs-magento2-2026/',
         label: 'Shopify Plus against Magento 2, written out in full',
         note: 'TCO, customisation depth and B2B, compared rather than asserted.',
       },
@@ -377,7 +377,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
 
     cases: ['plant-store', 'sports-nutrition'],
     casesNote: 'Two D2C catalogues on Shopify, both with checkout customisation carried through apps rather than platform code.',
-    posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit'],
+    posts: ['shopify-plus-vs-magento2-2026', 'magento2-seo-technical-audit'],
 
     related: [
       {
@@ -769,7 +769,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
 
     cases: ['plant-store', 'b2b-procurement'],
     casesNote: 'A Shopify D2C store with checkout and login handled through third-party services, and a custom B2B platform where the integration boundary was the whole product.',
-    posts: ['ai-ecommerce-revenue-2025', 'shopify-headless-nextjs-guide'],
+    posts: ['ai-ecommerce-revenue-2026', 'shopify-headless-nextjs-guide'],
 
     related: [
       {
@@ -966,7 +966,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
 
     cases: ['plant-store', 'sports-nutrition'],
     casesNote: 'Both are trading D2C stores where a silent checkout or login failure costs orders rather than degrading a page.',
-    posts: ['cro-double-conversion', 'shopify-plus-vs-magento2-2025'],
+    posts: ['cro-double-conversion', 'shopify-plus-vs-magento2-2026'],
 
     related: [
       {

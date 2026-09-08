@@ -171,7 +171,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
     cases: ['marketplace', 'b2b-procurement'],
     casesNote:
       'Both are Magento 2 builds where the scope and workflow decisions on this page were the ones that mattered.',
-    posts: ['shopify-plus-vs-magento2-2025', 'magento2-pwa-studio-headless'],
+    posts: ['shopify-plus-vs-magento2-2026', 'magento2-pwa-studio-headless'],
 
     related: [
       {
@@ -371,7 +371,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
 
     cases: ['marketplace', 'b2b-procurement'],
     casesNote: 'Both are multi-store Magento 2 platforms where catalogue structure was the constraint.',
-    posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit'],
+    posts: ['shopify-plus-vs-magento2-2026', 'magento2-seo-technical-audit'],
 
     related: [
       {
@@ -1348,7 +1348,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
 
     cases: ['b2b-procurement', 'marketplace'],
     casesNote: 'The procurement platform is where the approval and quote automation figures on this page come from.',
-    posts: ['ai-ecommerce-revenue-2025', 'shopify-plus-vs-magento2-2025'],
+    posts: ['ai-ecommerce-revenue-2026', 'shopify-plus-vs-magento2-2026'],
 
     related: [
       {

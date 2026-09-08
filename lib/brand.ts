@@ -332,13 +332,13 @@ export const POSITIONS: Position[] = [
   {
     claim: "AI isn't replacing businesses.",
     turn: "It's replacing inefficient ways of working.",
-    href: '/insights/ai-ecommerce-revenue-2025/',
+    href: '/insights/ai-ecommerce-revenue-2026/',
     cta: 'Where AI actually pays in commerce',
   },
   {
     claim: "Shopify vs Magento isn't a platform debate.",
     turn: "It's a business architecture decision.",
-    href: '/insights/shopify-plus-vs-magento2-2025/',
+    href: '/insights/shopify-plus-vs-magento2-2026/',
     cta: 'The full platform comparison, by business model',
   },
   {
@@ -572,7 +572,7 @@ export const CASES: CaseStudy[] = [
       { href: '/magento/integrations/', label: 'Magento B2B workflow and integration boundaries' },
       { href: '/ai-automation/', label: 'AI automation for quotes, approvals and reconciliation' },
     ],
-    posts: ['ai-ecommerce-revenue-2025'],
+    posts: ['ai-ecommerce-revenue-2026'],
     facets: ['ecommerce', 'transformation'],
     img: '/assets/case-covers/b2b-procurement-cover.webp',
     alt: 'A B2B procurement platform, built on Magento 2',

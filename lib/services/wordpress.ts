@@ -781,7 +781,7 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
 
     cases: ['manufacturing'],
     casesNote: 'A brand platform built for discovery and enquiry, where the enquiry path is the commercial outcome.',
-    posts: ['ai-ecommerce-revenue-2025', 'magento2-seo-technical-audit'],
+    posts: ['ai-ecommerce-revenue-2026', 'magento2-seo-technical-audit'],
 
     related: [
       {

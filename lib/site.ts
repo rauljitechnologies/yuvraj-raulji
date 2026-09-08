@@ -1037,7 +1037,7 @@ export const FOOTER_EXPERTISE = [
   { label: 'Headless Commerce', href: '/insights/shopify-headless-nextjs-guide/' },
   { label: 'E-commerce SEO', href: '/insights/magento2-seo-technical-audit/' },
   { label: 'CRO & Performance', href: '/insights/cro-double-conversion/' },
-  { label: 'AI Automation', href: '/insights/ai-ecommerce-revenue-2025/' },
+  { label: 'AI Automation', href: '/insights/ai-ecommerce-revenue-2026/' },
 ];
 
 const TOPIC_LABELS: Record<string, string> = {

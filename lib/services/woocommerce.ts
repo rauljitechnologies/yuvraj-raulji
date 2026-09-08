@@ -195,7 +195,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
     ],
 
     cases: [],
-    posts: ['cro-double-conversion', 'shopify-plus-vs-magento2-2025'],
+    posts: ['cro-double-conversion', 'shopify-plus-vs-magento2-2026'],
 
     related: [
       {
@@ -391,7 +391,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
     ],
 
     cases: [],
-    posts: ['shopify-plus-vs-magento2-2025', 'magento2-seo-technical-audit'],
+    posts: ['shopify-plus-vs-magento2-2026', 'magento2-seo-technical-audit'],
 
     related: [
       {
@@ -783,7 +783,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
     ],
 
     cases: [],
-    posts: ['ai-ecommerce-revenue-2025', 'aws-magento2-server-setup'],
+    posts: ['ai-ecommerce-revenue-2026', 'aws-magento2-server-setup'],
 
     related: [
       {
