@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title,
     description: ABOUT_DESCRIPTION,
-    images: [OG_IMAGE_URL],
+    images: [OG_IMAGE],
   },
 };
 

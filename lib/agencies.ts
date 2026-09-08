@@ -46,7 +46,7 @@ export const AGENCIES = {
   cta: 'Discuss a project you have won',
   title: 'Technical Commerce Partner for Agencies | Yuvraj Raulji',
   description:
-    'Commerce technology depth for agencies and studios: Magento, headless, integrations and performance, delivered behind your brand with your client relationship left alone.',
+    'Commerce technology depth for agencies and studios: Magento, headless, integrations and performance, delivered behind your brand and never in front of it.',
 
   primaryKeyword: 'ecommerce technical partner for agencies',
   secondaryKeywords: [

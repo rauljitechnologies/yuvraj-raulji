@@ -47,7 +47,7 @@ export const AUDIT = {
   cta: 'Request an audit',
   title: 'eCommerce Technical Audit | Yuvraj Raulji',
   description:
-    'A fixed-scope technical audit of a live commerce store: architecture, performance, checkout, integrations, analytics and search, delivered as a written, prioritised document.',
+    'A fixed-scope technical audit of a live commerce store: architecture, performance, checkout, integrations, analytics and search, in one prioritised document.',
 
   primaryKeyword: 'ecommerce technical audit',
   secondaryKeywords: [

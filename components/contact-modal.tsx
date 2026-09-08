@@ -138,10 +138,10 @@ export function ContactModal() {
 
       <div
         ref={dialogRef}
-        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] rounded-xl border border-[rgba(229,9,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(229,9,32,.10)] transition-all duration-[420ms] ${
+        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] rounded-xl border border-[rgba(215,25,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(215,25,32,.10)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
-        style={{ background: '#080808' }}
+        style={{ background: 'var(--surface-elevated)' }}
       >
         <button
           className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245,243,238,.50)] transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
@@ -172,18 +172,18 @@ export function ContactModal() {
           <div
             className="relative order-2 lg:order-1 overflow-hidden rounded-bl-xl rounded-br-xl lg:rounded-br-none lg:rounded-tl-xl p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8"
             style={{
-              background: 'linear-gradient(135deg,#0d0d0d 0%,#0a0a0a 100%)',
+              background: 'linear-gradient(135deg,var(--surface-elevated) 0%,#0a0a0a 100%)',
               borderTop: '1px solid rgba(255,255,255,.06)',
             }}
           >
             <div
               className="absolute bottom-0 left-0 right-0 pointer-events-none"
-              style={{ height: '50%', background: 'radial-gradient(ellipse 100% 80% at 50% 100%,rgba(229, 9, 32,.12),transparent)' }}
+              style={{ height: '50%', background: 'radial-gradient(ellipse 100% 80% at 50% 100%,rgba(215, 25, 32,.12),transparent)' }}
             />
             <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none opacity-60" aria-hidden="true">
               <p
                 className="font-display uppercase"
-                style={{ fontSize: '8rem', letterSpacing: '.01em', color: 'rgba(229, 9, 32,.04)', whiteSpace: 'nowrap', transform: 'translateY(15%)' }}
+                style={{ fontSize: '8rem', letterSpacing: '.01em', color: 'rgba(215, 25, 32,.04)', whiteSpace: 'nowrap', transform: 'translateY(15%)' }}
               >
                 YR
               </p>
@@ -192,7 +192,7 @@ export function ContactModal() {
             <div className="relative z-[1]">
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
                 <span style={{ width: 24, height: 1, background: 'var(--accent-bright)', flexShrink: 0 }} />
-                <span style={{ fontSize: '.66rem', fontWeight: 700, letterSpacing: '.32em', textTransform: 'uppercase', color: 'rgba(229, 9, 32,.60)' }}>
+                <span style={{ fontSize: '.66rem', fontWeight: 700, letterSpacing: '.32em', textTransform: 'uppercase', color: 'rgba(215, 25, 32,.60)' }}>
                   Private Consultation
                 </span>
               </div>
@@ -213,9 +213,9 @@ export function ContactModal() {
               >
                 Start a
                 <br />
-                <span style={{ color: 'rgba(245, 243, 238, .38)' }}>Conversation</span>
+                <span style={{ color: 'var(--text-faint)' }}>Conversation</span>
               </h2>
-              <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'rgba(245, 243, 238, .45)', maxWidth: 300 }}>
+              <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'var(--text-faint)', maxWidth: 300 }}>
                 {/*
                   "Every great brand begins with a conversation" was generic
                   filler, and "brand" is the wrong noun for a platform decision.
@@ -227,21 +227,21 @@ export function ContactModal() {
               </p>
             </div>
 
-            <div className="relative z-[1]" style={{ height: 1, background: 'linear-gradient(90deg,rgba(229, 9, 32,.30),transparent)' }} />
+            <div className="relative z-[1]" style={{ height: 1, background: 'linear-gradient(90deg,rgba(215, 25, 32,.30),transparent)' }} />
 
             <div className="relative z-[1] flex flex-col gap-5">
               <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
                 <span
-                  className="group-hover:border-[rgba(229,9,32,.40)]"
+                  className="group-hover:border-[rgba(215,25,32,.40)]"
                   style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', display: 'grid', placeItems: 'center', flexShrink: 0, transition: 'border-color .22s' }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(229, 9, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <polyline points="2,4 12,13 22,4" />
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>Email</p>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>Email</p>
                   <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
                     {CONTACT.email}
                   </p>
@@ -256,7 +256,7 @@ export function ContactModal() {
                   is the most conspicuous way to break that rule on every page.
                 */}
                 <span
-                  className="group-hover:border-[rgba(229,9,32,.55)]"
+                  className="group-hover:border-[rgba(215,25,32,.55)]"
                   style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(245,243,238,.18)', background: 'rgba(245,243,238,.04)', display: 'grid', placeItems: 'center', flexShrink: 0, transition: 'border-color .22s' }}
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(245,243,238,.72)">
@@ -264,7 +264,7 @@ export function ContactModal() {
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>WhatsApp Business</p>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>WhatsApp Business</p>
                   <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
                     {CONTACT.phoneDisplay}
                   </p>
@@ -273,13 +273,13 @@ export function ContactModal() {
 
               <div className="flex items-center gap-3">
                 <span style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(229, 9, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'rgba(245, 243, 238, .28)', marginBottom: 2 }}>Location</p>
+                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>Location</p>
                   <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)' }}>{CONTACT.location}</p>
                 </div>
               </div>
@@ -309,7 +309,7 @@ export function ContactModal() {
               className="relative z-[1]"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 14px', border: '1px solid rgba(245,243,238,.16)', borderRadius: 6, background: 'rgba(245,243,238,.03)' }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0, boxShadow: '0 0 0 0 rgba(229,9,32,.5)', animation: 'avP 1.6s infinite' }} />
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0, boxShadow: '0 0 0 0 rgba(215,25,32,.5)', animation: 'avP 1.6s infinite' }} />
               <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(245,243,238,.70)' }}>
                 Responds within 24 hours
               </span>
@@ -325,8 +325,8 @@ export function ContactModal() {
                     width: 64,
                     height: 64,
                     borderRadius: '50%',
-                    border: '1px solid rgba(229,9,32,.45)',
-                    background: 'rgba(229,9,32,.08)',
+                    border: '1px solid rgba(215,25,32,.45)',
+                    background: 'rgba(215,25,32,.08)',
                     display: 'grid',
                     placeItems: 'center',
                   }}
@@ -400,7 +400,7 @@ export function ContactModal() {
                   dressed as one. The column now carries only the instruction.
                 */}
                 <div style={{ marginBottom: 24 }}>
-                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .38)' }}>
+                  <p style={{ fontSize: '.82rem', color: 'var(--text-faint)' }}>
                     Required fields are marked. The more specific the message, the more useful the
                     reply.
                   </p>
@@ -445,7 +445,7 @@ export function ContactModal() {
                       placeholder="+91 XXXXX XXXXX"
                       value={f.phone}
                       onChange={set('phone')}
-                      style={phoneBad ? { borderColor: 'rgba(240, 38, 60,.70)', boxShadow: '0 0 0 1px rgba(240, 38, 60,.30)' } : undefined}
+                      style={phoneBad ? { borderColor: 'rgba(238, 42, 52,.70)', boxShadow: '0 0 0 1px rgba(238, 42, 52,.30)' } : undefined}
                     />
                     {phoneBad && (
                       <p style={{ marginTop: 6, fontSize: '.68rem', letterSpacing: '.04em', color: 'var(--accent-bright)' }}>
@@ -554,7 +554,7 @@ export function ContactModal() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                  <span style={{ fontSize: '.68rem', color: 'rgba(245, 243, 238, .24)', letterSpacing: '.08em' }}>
+                  <span style={{ fontSize: '.68rem', color: 'var(--text-faint)', letterSpacing: '.08em' }}>
                     <span style={{ color: 'var(--accent-bright)' }}>*</span> Required fields
                   </span>
                   <button

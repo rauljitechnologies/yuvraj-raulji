@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArticleAside, ReadingProgress, TocList } from '../../../components/insights/article-aside';
 import { ContactModal } from '../../../components/contact-modal';
 import { JsonLd } from '../../../components/json-ld';
-import { Preloader } from '../../../components/preloader';
 import { SiteEffects } from '../../../components/site-effects';
 import { SiteFooter } from '../../../components/site-footer';
 import { SiteHeader } from '../../../components/site-header';
@@ -40,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ['Yuvraj Raulji'],
       images: [{ url: p.ogImg, width: 1600, height: 900, alt: p.title }],
     },
-    twitter: { card: 'summary_large_image', title: p.title, description: p.excerpt, images: [p.ogImg] },
+    twitter: { card: 'summary_large_image', title: p.title, description: p.excerpt, images: [{ url: p.ogImg, alt: p.title }] },
   };
 }
 
@@ -95,7 +94,21 @@ export default async function Article({ params }: Props) {
     <div className="reveal-article">
       <JsonLd data={ld} />
       <div className="noise" aria-hidden="true" />
-      <Preloader tagline="Blog & Insights" />
+      {/*
+        The 1.5s full-screen preloader that used to sit here is gone.
+
+        It painted an opaque #020202 overlay at z-1200 over the whole viewport
+        and lifted at a fixed 1500ms timer, whatever the page had already
+        finished rendering. On these nine routes, which are the site's main
+        organic entry points, that made the word "YUVRAJ" inside the overlay the
+        Largest Contentful Paint element and put a floor of ~1.5s under LCP on a
+        page that otherwise had its hero painted well before that. It also ran
+        again on every client-side navigation into the section.
+
+        No other route on the site shipped one, so removing it is also what
+        makes the section behave like the rest of the site rather than like the
+        template it was ported from.
+      */}
       <SiteHeader active="Insights" />
       <ReadingProgress />
       <SiteEffects />
@@ -104,15 +117,15 @@ export default async function Article({ params }: Props) {
         {/* ── Hero ── */}
         <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(120px,16vh,170px) 0 clamp(40px,5vw,60px)' }}>
           <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 75% at -5% 30%,rgba(229, 9, 32,.16) 0%,transparent 100%)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 105% 85%,rgba(140,8,22,.12) 0%,transparent 100%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 75% at -5% 30%,rgba(215, 25, 32,.16) 0%,transparent 100%)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 45% 55% at 105% 85%,rgba(143,16,22,.12) 0%,transparent 100%)' }} />
             <div
               style={{
                 position: 'absolute',
                 inset: 0,
                 opacity: 0.05,
                 backgroundImage:
-                  'linear-gradient(rgba(229, 9, 32,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(229, 9, 32,.25) 1px,transparent 1px)',
+                  'linear-gradient(rgba(215, 25, 32,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(215, 25, 32,.25) 1px,transparent 1px)',
                 backgroundSize: '72px 72px',
               }}
             />
@@ -124,7 +137,7 @@ export default async function Article({ params }: Props) {
                 fontSize: 'clamp(5rem,13vw,11rem)',
                 lineHeight: 1,
                 color: 'transparent',
-                WebkitTextStroke: '1px rgba(229, 9, 32,.07)',
+                WebkitTextStroke: '1px rgba(215, 25, 32,.07)',
                 letterSpacing: '.02em',
                 textTransform: 'uppercase',
               }}
@@ -139,14 +152,14 @@ export default async function Article({ params }: Props) {
                   fontSize: '.55rem',
                   fontWeight: 700,
                   letterSpacing: '.32em',
-                  color: 'rgba(245, 245, 242,.18)',
+                  color: 'var(--text-faint)',
                   textTransform: 'uppercase',
                   whiteSpace: 'nowrap',
                 }}
               >
                 Blog &amp; Insights · Yuvraj Raulji
               </span>
-              <span style={{ width: 1, height: 56, background: 'linear-gradient(transparent,rgba(229, 9, 32,.50),transparent)' }} />
+              <span style={{ width: 1, height: 56, background: 'linear-gradient(transparent,rgba(215, 25, 32,.50),transparent)' }} />
             </div>
           </div>
 
@@ -170,16 +183,16 @@ export default async function Article({ params }: Props) {
             */}
             <nav
               aria-label="Breadcrumb"
-              className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-[rgba(245,245,242,.34)] mb-10 reveal"
+              className="flex items-center flex-wrap gap-3 text-[.62rem] font-bold tracking-[.18em] uppercase text-ink-faint mb-10 reveal"
             >
               <Link href="/" className="hover:text-rv transition-colors">
                 Home
               </Link>
-              <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
+              <span style={{ width: 14, height: 1, background: 'rgba(215, 25, 32,.45)' }} />
               <Link href="/insights/" className="hover:text-rv transition-colors">
                 Insights
               </Link>
-              <span style={{ width: 14, height: 1, background: 'rgba(229, 9, 32,.45)' }} />
+              <span style={{ width: 14, height: 1, background: 'rgba(215, 25, 32,.45)' }} />
               <span aria-current="page" className="text-rv">
                 {p.title}
               </span>
@@ -188,21 +201,21 @@ export default async function Article({ params }: Props) {
             <div style={{ maxWidth: 920 }}>
               <div className="flex items-center flex-wrap gap-4 mb-7 reveal">
                 <span
-                  className="inline-flex items-center h-[28px] px-4 rounded-full bg-rv text-white text-[.60rem] font-bold tracking-[.16em] uppercase"
-                  style={{ boxShadow: '0 6px 20px rgba(240, 38, 60,.40)' }}
+                  className="inline-flex items-center h-[28px] px-4 rounded-full bg-accent text-white text-[.60rem] font-bold tracking-[.16em] uppercase"
+                  style={{ boxShadow: '0 6px 20px rgba(238, 42, 52,.40)' }}
                 >
                   {p.cat}
                 </span>
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245,245,242,.38)]">{p.date}</span>
-                <span className="w-1 h-1 rounded-full bg-[rgba(229,9,32,.55)]" />
-                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-[rgba(245,245,242,.38)]">{p.readTime}</span>
+                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-ink-faint">{p.date}</span>
+                <span className="w-1 h-1 rounded-full bg-[rgba(215,25,32,.55)]" />
+                <span className="text-[.64rem] font-bold tracking-[.22em] uppercase text-ink-faint">{p.readTime}</span>
               </div>
 
               <h1 className="font-display uppercase reveal" style={{ fontSize: 'clamp(2.6rem,6.5vw,5.6rem)', lineHeight: 0.92, letterSpacing: '.015em', marginBottom: 26 }}>
                 {p.title}
               </h1>
 
-              <p className="reveal" style={{ fontSize: 'clamp(1rem,1.4vw,1.16rem)', lineHeight: 1.85, color: 'rgba(245, 245, 242,.55)', maxWidth: 680, marginBottom: 36 }}>
+              <p className="reveal" style={{ fontSize: 'clamp(1rem,1.4vw,1.16rem)', lineHeight: 1.85, color: 'rgba(245, 243, 238,.55)', maxWidth: 680, marginBottom: 36 }}>
                 {p.excerpt}
               </p>
 
@@ -214,20 +227,20 @@ export default async function Article({ params }: Props) {
                       width: 42,
                       height: 42,
                       borderRadius: '50%',
-                      border: '1px solid rgba(229, 9, 32,.35)',
-                      background: 'rgba(229, 9, 32,.08)',
+                      border: '1px solid rgba(215, 25, 32,.35)',
+                      background: 'rgba(215, 25, 32,.08)',
                       display: 'grid',
                       placeItems: 'center',
                       fontSize: '.92rem',
-                      color: '#f0263c',
-                      boxShadow: '0 0 24px rgba(229, 9, 32,.14)',
+                      color: 'var(--accent-bright)',
+                      boxShadow: '0 0 24px rgba(215, 25, 32,.14)',
                     }}
                   >
                     YR
                   </div>
                   <div>
-                    <div style={{ fontSize: '.80rem', fontWeight: 700, color: 'rgba(245, 245, 242,.85)' }}>Yuvraj Raulji</div>
-                    <div style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(245, 245, 242,.36)' }}>
+                    <div style={{ fontSize: '.80rem', fontWeight: 700, color: 'rgba(245, 243, 238,.85)' }}>Yuvraj Raulji</div>
+                    <div style={{ fontSize: '.60rem', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--text-faint)' }}>
                       Full Stack E-commerce &amp; AI Consultant
                     </div>
                   </div>
@@ -238,7 +251,7 @@ export default async function Article({ params }: Props) {
                     <span
                       key={tag}
                       className="inline-flex items-center h-[24px] px-3 rounded-full text-[.58rem] font-bold tracking-[.12em] uppercase"
-                      style={{ border: '1px solid rgba(229, 9, 32,.22)', background: 'rgba(229, 9, 32,.06)', color: 'rgba(245, 245, 242,.55)' }}
+                      style={{ border: '1px solid rgba(215, 25, 32,.22)', background: 'rgba(215, 25, 32,.06)', color: 'rgba(245, 243, 238,.55)' }}
                     >
                       {tag}
                     </span>
@@ -263,8 +276,8 @@ export default async function Article({ params }: Props) {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ animation: 'imgIn 1.5s cubic-bezier(.19,1,.22,1) both .2s' }}
             />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(6,6,6,.28) 0%,transparent 35%,rgba(6,6,6,.55) 100%)' }} />
-            <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(229, 9, 32,.16)' }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(5,5,5,.28) 0%,transparent 35%,rgba(5,5,5,.55) 100%)' }} />
+            <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(215, 25, 32,.16)' }} />
           </div>
         </div>
 
@@ -283,17 +296,17 @@ export default async function Article({ params }: Props) {
         {/* ── Related ── */}
         {related.length > 0 && (
           <section className="relative overflow-hidden bg-bg2 border-t border-[rgba(255,255,255,.07)]" style={{ padding: 'clamp(72px,9vw,120px) 0' }}>
-            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 60% at 92% 8%,rgba(229, 9, 32,.08),transparent)' }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 60% at 92% 8%,rgba(215, 25, 32,.08),transparent)' }} />
             <div className="relative max-w-shell mx-auto px-6 md:px-10">
               <div className="flex items-center gap-4 mb-12">
-                <span style={{ width: 2, height: 30, background: 'linear-gradient(180deg,#f0263c,rgba(229, 9, 32,.15))', borderRadius: 2, flexShrink: 0 }} />
+                <span style={{ width: 2, height: 30, background: 'linear-gradient(180deg,var(--accent-bright),rgba(215, 25, 32,.15))', borderRadius: 2, flexShrink: 0 }} />
                 <div>
-                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(229,9,32,.60)] mb-1">Keep reading</p>
+                  <p className="text-[.62rem] font-bold tracking-[.30em] uppercase text-[rgba(215,25,32,.60)] mb-1">Keep reading</p>
                   <h2 className="font-display uppercase tracking-[.02em] leading-[.94]" style={{ fontSize: 'clamp(2rem,4vw,3.4rem)' }}>
                     Related articles
                   </h2>
                 </div>
-                <div className="flex-1 h-[1px]" style={{ background: 'linear-gradient(90deg,rgba(229, 9, 32,.16),transparent)' }} />
+                <div className="flex-1 h-[1px]" style={{ background: 'linear-gradient(90deg,rgba(215, 25, 32,.16),transparent)' }} />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
@@ -301,7 +314,7 @@ export default async function Article({ params }: Props) {
                   <Link
                     key={r.slug}
                     href={`/insights/${r.slug}`}
-                    className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(229,9,32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
+                    className="group block rounded-2xl overflow-hidden border border-[rgba(255,255,255,.07)] bg-bg transition-all duration-500 hover:border-[rgba(215,25,32,.30)] hover:-translate-y-2 hover:shadow-[0_40px_90px_rgba(0,0,0,.65)] touch-manipulation reveal"
                   >
                     <div className="relative overflow-hidden" style={{ height: 190 }}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -314,10 +327,10 @@ export default async function Article({ params }: Props) {
                         decoding="async"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                       />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,rgba(6,6,6,.55) 100%)' }} />
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 45%,rgba(5,5,5,.55) 100%)' }} />
                       <span
-                        className="absolute top-4 left-4 inline-flex items-center h-[24px] px-3 rounded-full bg-rv text-white text-[.56rem] font-bold tracking-[.14em] uppercase"
-                        style={{ boxShadow: '0 5px 16px rgba(240, 38, 60,.40)' }}
+                        className="absolute top-4 left-4 inline-flex items-center h-[24px] px-3 rounded-full bg-accent text-white text-[.56rem] font-bold tracking-[.14em] uppercase"
+                        style={{ boxShadow: '0 5px 16px rgba(238, 42, 52,.40)' }}
                       >
                         {r.cat}
                       </span>
@@ -327,7 +340,7 @@ export default async function Article({ params }: Props) {
                         {r.title}
                       </h3>
                       <div className="flex items-center justify-between">
-                        <p className="text-[.64rem] font-semibold tracking-[.12em] uppercase text-[rgba(245,245,242,.36)]">{r.date}</p>
+                        <p className="text-[.64rem] font-semibold tracking-[.12em] uppercase text-ink-faint">{r.date}</p>
                         <span className="inline-flex items-center gap-1 text-[.62rem] font-bold tracking-[.14em] uppercase text-rv transition-all duration-300 group-hover:gap-[7px]">
                           Read <span>→</span>
                         </span>
@@ -342,7 +355,7 @@ export default async function Article({ params }: Props) {
 
         {/* ── Bottom CTA ── */}
         <section className="relative overflow-hidden bg-bg" style={{ padding: 'clamp(80px,10vw,130px) 0' }}>
-          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 55% at 50% 100%,rgba(229, 9, 32,.10),transparent)' }} />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 55% at 50% 100%,rgba(215, 25, 32,.10),transparent)' }} />
           <div className="relative max-w-prose mx-auto px-6 md:px-10 text-center reveal">
             {/*
               The closing block, in this site's voice rather than an agency's.
@@ -370,7 +383,7 @@ export default async function Article({ params }: Props) {
               <br />
               something is not working?
             </h2>
-            <p className="text-[rgba(245,245,242,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
+            <p className="text-[rgba(245,243,238,.60)] leading-[1.74] mb-8 max-w-[500px] mx-auto">
               Send the symptom, what it is costing and what you have already tried. Thirty minutes
               is usually enough to name the decision underneath it, and that conversation
               occasionally ends with me saying you do not need the project.
@@ -378,7 +391,7 @@ export default async function Article({ params }: Props) {
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a
                 href={`mailto:${CONTACT.email}?subject=Project+Inquiry`}
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
+                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-red text-white border border-red text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:bg-rv hover:border-rv hover:shadow-[0_16px_48px_rgba(215,25,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 Book Consultation
               </a>
@@ -386,7 +399,7 @@ export default async function Article({ params }: Props) {
                 /* Trailing slash: the site is exported with `trailingSlash: true`,
                    so "/insights" costs a 308 before it resolves. */
                 href="/insights/"
-                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f5f2] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(229,9,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
+                className="inline-flex items-center gap-2 h-[52px] px-7 rounded bg-transparent border border-[rgba(255,255,255,.22)] text-[#f5f3ee] text-[.76rem] font-bold tracking-[.10em] uppercase transition-all hover:border-[rgba(215,25,32,.32)] hover:-translate-y-[2px] active:scale-[.95] after:content-['→']"
               >
                 More Articles
               </Link>

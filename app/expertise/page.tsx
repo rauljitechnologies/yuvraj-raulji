@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: EXPERTISE_HUB.title,
     description: EXPERTISE_HUB.description,
-    images: [OG_IMAGE_URL],
+    images: [OG_IMAGE],
   },
 };
 
@@ -104,7 +104,7 @@ export default function ExpertiseHub() {
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span aria-hidden="true" className="font-mono text-xl leading-none text-ink/30">
+                    <span aria-hidden="true" className="font-mono text-xl leading-none text-ink-faint">
                       ↗
                     </span>
                   </div>

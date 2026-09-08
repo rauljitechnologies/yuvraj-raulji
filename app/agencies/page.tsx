@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: AGENCIES.title,
     description: AGENCIES.description,
-    images: [OG_EXPERTISE.url],
+    images: [OG_EXPERTISE],
   },
 };
 

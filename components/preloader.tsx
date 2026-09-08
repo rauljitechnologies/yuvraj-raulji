@@ -40,7 +40,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
   return (
     <div
       id="ldr"
-      className={`fixed inset-0 z-[1200] bg-[#020202] transition-all duration-[900ms] overflow-hidden ${
+      className={`fixed inset-0 z-[1200] bg-[#050505] transition-all duration-[900ms] overflow-hidden ${
         gone ? 'opacity-0 translate-y-[-100%] invisible' : ''
       }`}
       style={{ transitionTimingFunction: 'cubic-bezier(.76,0,.24,1)' }}
@@ -51,7 +51,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(ellipse 55% 60% at 50% 58%,rgba(229, 9, 32,.13),transparent 72%)',
+            background: 'radial-gradient(ellipse 55% 60% at 50% 58%,rgba(215, 25, 32,.13),transparent 72%)',
           }}
         />
         <div
@@ -60,7 +60,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
             inset: 0,
             opacity: 0.05,
             backgroundImage:
-              'linear-gradient(rgba(229, 9, 32,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(229, 9, 32,.30) 1px,transparent 1px)',
+              'linear-gradient(rgba(215, 25, 32,.30) 1px,transparent 1px),linear-gradient(90deg,rgba(215, 25, 32,.30) 1px,transparent 1px)',
             backgroundSize: '64px 64px',
           }}
         />
@@ -74,7 +74,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
         style={{ fontSize: '1.5rem', letterSpacing: '.10em', lineHeight: 1 }}
       >
         <span>{String(pct).padStart(2, '0')}</span>
-        <span style={{ color: 'rgba(240, 38, 60,.50)' }}>%</span>
+        <span style={{ color: 'rgba(238, 42, 52,.50)' }}>%</span>
       </div>
 
       <div className="absolute inset-0 grid place-items-center px-6">
@@ -86,7 +86,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
                 fontSize: 'clamp(3.4rem,10vw,7.5rem)',
                 lineHeight: 0.92,
                 letterSpacing: '.04em',
-                color: '#f5f5f2',
+                color: 'var(--text)',
                 animationDelay: '.10s',
               }}
             >
@@ -101,7 +101,7 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
                 lineHeight: 0.92,
                 letterSpacing: '.04em',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px rgba(240, 38, 60,.90)',
+                WebkitTextStroke: '1.5px rgba(238, 42, 52,.90)',
                 animationDelay: '.22s',
               }}
             >
@@ -120,12 +120,12 @@ export function Preloader({ tagline = 'E-commerce & Digital Transformation' }: {
                 top: 0,
                 bottom: 0,
                 width: `${pct}%`,
-                background: 'linear-gradient(90deg,#e50920,#f0263c)',
-                boxShadow: '0 0 16px rgba(240, 38, 60,.60)',
+                background: 'linear-gradient(90deg,var(--accent),var(--accent-bright))',
+                boxShadow: '0 0 16px rgba(238, 42, 52,.60)',
               }}
             />
           </div>
-          <p className="ldr-meta mt-5" style={{ color: 'rgba(245, 245, 242,.34)' }}>
+          <p className="ldr-meta mt-5" style={{ color: 'var(--text-faint)' }}>
             {tagline}
           </p>
         </div>

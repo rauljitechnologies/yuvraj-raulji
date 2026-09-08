@@ -70,7 +70,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: pillar.title,
       description: pillar.description,
-      images: [OG_IMAGE_URL],
+      images: [OG_IMAGE],
     },
   };
 }
@@ -87,7 +87,7 @@ export async function generateMetadata({
 
 /* One mono label, used by every eyebrow inside a section below. */
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/35';
+  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint';
 
 /* One body size, so eight sections cannot drift into eight body sizes. */
 const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/50';
@@ -379,7 +379,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                       <h3 className="m-0 max-w-[30ch] font-manrope text-[clamp(19px,1.9vw,26px)] font-semibold leading-[1.2] tracking-[-0.025em] transition-colors duration-200 group-hover:text-accent-bright">
                         {p.title}
                       </h3>
-                      <p className="m-0 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                      <p className="m-0 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink-muted">
                         {p.excerpt}
                       </p>
                       <p className={`${LABEL} self-center whitespace-nowrap`}>{p.readTime}</p>
@@ -416,7 +416,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                     </InlineLink>
                   </h3>
                   {r.note ? (
-                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/45">
+                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink-muted">
                       {r.note}
                     </p>
                   ) : null}

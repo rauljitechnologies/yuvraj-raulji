@@ -398,7 +398,7 @@ export function SiteFooter() {
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="text-ink/45">{PERSON_JOB_TITLE}</span>
+            <span className="text-ink-muted">{PERSON_JOB_TITLE}</span>
             <a href="#main" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Back to top ↑
             </a>

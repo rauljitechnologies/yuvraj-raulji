@@ -31,9 +31,23 @@
        an editorial page needs a step between "read this" and "this is a
        label" that the brief's two values do not provide on their own. */
     --text: #f5f3ee;
-    --text-secondary: rgba(245, 243, 238, 0.74); /* ~9.5:1 */
+    --text-secondary: rgba(245, 243, 238, 0.74); /* ~10.0:1 */
     --text-muted: #929292; /* ~6.6:1 */
-    --text-faint: rgba(245, 243, 238, 0.4); /* ~3.4:1 — decorative / large only */
+    /*
+     * Was 0.4, which measures 3.46:1 on --bg and was labelled here as
+     * "decorative / large only". It was never used that way: `text-ink-faint`
+     * carries the eyebrow, the stat label and the meta line in ten components,
+     * all of them set between 0.6rem and 0.78rem, which is small text and needs
+     * 4.5:1. Every one of those failed AA.
+     *
+     * 0.50 measures 4.89:1, so the label it was already doing is now legal,
+     * and the four-step ramp stays strictly ordered and visibly distinct:
+     *   --text            18.4:1
+     *   --text-secondary  10.0:1
+     *   --text-muted       6.6:1
+     *   --text-faint       4.9:1
+     */
+    --text-faint: rgba(245, 243, 238, 0.5); /* ~4.9:1 */
 
     /* ── Red ──────────────────────────────────────────────────────
        Measured, because the brief's primary does not pass AA for small text
