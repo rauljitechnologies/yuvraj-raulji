@@ -71,7 +71,6 @@ export default function About() {
   return (
     <Page schema={brandAboutSchema(crumbs)} active="About">
       <PageHero
-        eyebrow={ABOUT_HERO.eyebrow}
         lines={ABOUT_HERO.headline}
         lede={ABOUT_HERO.opening}
         crumbs={crumbs}

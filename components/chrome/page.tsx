@@ -122,7 +122,7 @@ export function PageHero({
   crumbs,
   children,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   /** Plain strings, or `{ text, accent: true }` for a line set in the red. */
   lines: readonly DisplayLine[];
   lede: string;
@@ -142,12 +142,14 @@ export function PageHero({
             the line set in the mono face. It used to be a red dot and 0.8rem of
             letterspaced display type in the accent, which is a different mark
             for the same job and the loudest thing on the page after the H1. */}
-        <Rise as="p" className="mb-item flex items-center gap-3.5">
-          <span aria-hidden="true" className="h-px w-11 bg-accent" />
-          <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
-            {eyebrow}
-          </span>
-        </Rise>
+        {eyebrow ? (
+          <Rise as="p" className="mb-item flex items-center gap-3.5">
+            <span aria-hidden="true" className="h-px w-11 bg-accent" />
+            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
+              {eyebrow}
+            </span>
+          </Rise>
+        ) : null}
 
         {/* No `strongFrom`: the default puts the weight on the last line, which
             is where every one of these headlines lands. */}

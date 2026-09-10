@@ -37,15 +37,10 @@ export function Hero() {
             this held one line and illegible the moment it wrapped, which it
             does on any phone.
           */}
-          <Eager className="mb-6 flex items-start gap-3.5 sm:mb-8">
-            <span className="mt-[7px] h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
-            <span className="flex flex-col gap-1.5">
-              <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
-                {HERO.eyebrow}
-              </span>
-              <span className="font-mono text-[11px] font-medium uppercase leading-[1.4] tracking-[0.3em] text-ink/55">
-                {HERO.eyebrowSub}
-              </span>
+          <Eager className="mb-6 flex items-center gap-3.5 sm:mb-8">
+            <span className="h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
+            <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
+              {HERO.eyebrow}
             </span>
           </Eager>
 
