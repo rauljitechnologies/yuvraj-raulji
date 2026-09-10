@@ -19,7 +19,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a Magento decision',
     title: 'Magento Consulting Services | Yuvraj Raulji',
     description:
-      'Independent Magento 2 and Adobe Commerce consulting: platform fit, data model and scope decisions, architecture review, phasing and technical due diligence.',
+      'Magento 2 consulting from nine years of multi-store delivery: platform fit, data model decisions, architecture review, phasing and technical due diligence.',
 
     primaryKeyword: 'magento consulting services',
     secondaryKeywords: [
@@ -625,7 +625,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss Magento performance',
     title: 'Magento 2 Performance Optimization | Yuvraj Raulji',
     description:
-      'Magento 2 performance and Core Web Vitals work: Varnish, Redis, full-page cache, database and index tuning, CDN and image pipeline, measured on field data.',
+      'Magento 2 performance: Varnish, Redis, full-page cache, database and index tuning, measured on field data. 60% improvement on a high-traffic B2B platform.',
 
     primaryKeyword: 'magento 2 performance optimization',
     secondaryKeywords: [
@@ -1201,7 +1201,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a Magento integration',
     title: 'Magento ERP and CRM Integration | Yuvraj Raulji',
     description:
-      'Magento 2 integration with ERP, PIM, CRM and OMS: an explicit contract per field, GraphQL and REST APIs, queues, reconciliation and failure handling.',
+      'Magento 2 ERP, PIM, CRM and OMS integration: explicit contract per field, REST and GraphQL APIs, queues and reconciliation. 90% of B2B approvals automated.',
 
     primaryKeyword: 'magento erp integration',
     secondaryKeywords: [

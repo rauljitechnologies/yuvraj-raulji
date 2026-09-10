@@ -1148,6 +1148,7 @@ const MAGENTO: Technology = {
   ],
 
   related: [
+    { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what the platform is costing before deciding what to build next.' },
     { href: '/shopify/', label: 'Shopify', note: 'The alternative, and often the right one.' },
     {
       href: '/magento-shopify-migration/',
