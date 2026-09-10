@@ -252,6 +252,9 @@ export default function Agencies() {
           </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>{AGENCIES.cta}</ContactButton>
+            <Btn href="/hire/" variant="ghost">
+              How engagements work
+            </Btn>
             <Btn href="/work/" variant="ghost">
               See the technical work
             </Btn>
