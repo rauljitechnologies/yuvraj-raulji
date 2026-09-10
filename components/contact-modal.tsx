@@ -138,13 +138,13 @@ export function ContactModal() {
 
       <div
         ref={dialogRef}
-        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] rounded-xl border border-[rgba(215,25,32,.22)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(215,25,32,.10)] transition-all duration-[420ms] ${
+        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] border border-[rgba(215,25,32,.22)] border-t-[rgba(215,25,32,.55)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(215,25,32,.10)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
         style={{ background: 'var(--surface-elevated)' }}
       >
         <button
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245,243,238,.50)] transition-all hover:border-red hover:text-white hover:bg-red hover:rotate-90 active:scale-90"
+          className="absolute top-4 right-4 z-10 w-9 h-9 border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245,243,238,.50)] transition-all duration-200 hover:border-accent hover:text-white hover:bg-accent hover:rotate-90 active:scale-90"
           onClick={close}
           aria-label="Close"
         >
@@ -170,58 +170,35 @@ export function ContactModal() {
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
           {/* ── LEFT on desktop, SECOND on mobile: brand panel ── */}
           <div
-            className="relative order-2 lg:order-1 overflow-hidden rounded-bl-xl rounded-br-xl lg:rounded-br-none lg:rounded-tl-xl p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8"
-            style={{
-              background: 'linear-gradient(135deg,var(--surface-elevated) 0%,#0a0a0a 100%)',
-              borderTop: '1px solid rgba(255,255,255,.06)',
-            }}
+            className="relative order-2 lg:order-1 overflow-hidden p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8 border-t border-t-white/[0.06] lg:border-t-0 lg:border-r lg:border-r-white/[0.06]"
+            style={{ background: 'linear-gradient(135deg,var(--surface-elevated) 0%,#0a0a0a 100%)' }}
           >
             <div
               className="absolute bottom-0 left-0 right-0 pointer-events-none"
               style={{ height: '50%', background: 'radial-gradient(ellipse 100% 80% at 50% 100%,rgba(215, 25, 32,.12),transparent)' }}
             />
             <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none opacity-60" aria-hidden="true">
-              <p
-                className="font-display uppercase"
-                style={{ fontSize: '8rem', letterSpacing: '.01em', color: 'rgba(215, 25, 32,.04)', whiteSpace: 'nowrap', transform: 'translateY(15%)' }}
-              >
+              <p className="font-display uppercase text-[8rem] tracking-[.01em] text-accent/[0.04] whitespace-nowrap translate-y-[15%]">
                 YR
               </p>
             </div>
 
             <div className="relative z-[1]">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                <span style={{ width: 24, height: 1, background: 'var(--accent-bright)', flexShrink: 0 }} />
-                <span style={{ fontSize: '.66rem', fontWeight: 700, letterSpacing: '.32em', textTransform: 'uppercase', color: 'rgba(215, 25, 32,.60)' }}>
+              <div className="flex items-center gap-2.5 mb-5">
+                <span className="h-px w-6 shrink-0 bg-accent-bright" aria-hidden="true" />
+                <span className="font-mono text-[10px] font-bold tracking-[0.32em] uppercase text-accent/60">
                   Private Consultation
                 </span>
               </div>
               <h2
                 id="contact-modal-title"
-                className="font-display uppercase"
-                /*
-                  Sized to the column, not to the viewport. At clamp(...,5vw,3.6rem)
-                  the word CONVERSATION rendered about 430px wide inside a 380px
-                  panel with 80px of padding, so the panel's `overflow-hidden`
-                  clipped it mid-word and the tail ran under the form column.
-                  `vw` was the wrong unit here: this panel is a fixed 380px from
-                  `lg` up and does not grow with the window. 2.4rem keeps the
-                  longest word inside 300px of content width, and the floor keeps
-                  it large on a phone where the panel is full width.
-                */
-                style={{ fontSize: 'clamp(1.85rem,4vw,2.25rem)', lineHeight: 0.95, letterSpacing: '.01em', color: 'var(--text)', marginBottom: 16, overflowWrap: 'anywhere' }}
+                className="font-display uppercase text-[clamp(1.85rem,4vw,2.25rem)] leading-[0.95] tracking-[0.01em] text-ink mb-4 break-words"
               >
                 Start a
                 <br />
-                <span style={{ color: 'var(--text-faint)' }}>Conversation</span>
+                <span className="text-ink/40">Conversation</span>
               </h2>
-              <p style={{ fontSize: '.88rem', lineHeight: 1.8, color: 'var(--text-faint)', maxWidth: 300 }}>
-                {/*
-                  "Every great brand begins with a conversation" was generic
-                  filler, and "brand" is the wrong noun for a platform decision.
-                  CONTENT-PRINCIPLES.md bans copy another site could run
-                  unchanged; this says what the next 24 hours actually contains.
-                */}
+              <p className="text-[.88rem] leading-[1.8] text-ink/55 max-w-[300px]">
                 Tell me what is in front of you and what it is costing. I read every message myself
                 and reply within 24 hours on IST business days.
               </p>
@@ -230,74 +207,68 @@ export function ContactModal() {
             <div className="relative z-[1]" style={{ height: 1, background: 'linear-gradient(90deg,rgba(215, 25, 32,.30),transparent)' }} />
 
             <div className="relative z-[1] flex flex-col gap-5">
-              <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
-                <span
-                  className="group-hover:border-[rgba(215,25,32,.40)]"
-                  style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', display: 'grid', placeItems: 'center', flexShrink: 0, transition: 'border-color .22s' }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 group no-underline">
+                <span className="w-9 h-9 border border-white/[0.08] bg-white/[0.03] grid place-items-center shrink-0 transition-[border-color] duration-[220ms] group-hover:border-accent/40">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <polyline points="2,4 12,13 22,4" />
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>Email</p>
-                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
+                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Email</p>
+                  <p className="text-[.82rem] text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
                     {CONTACT.email}
                   </p>
                 </div>
               </a>
 
-              <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
+              <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="flex items-center gap-3 group no-underline">
                 {/*
                   The glyph is recognised by its shape, not by its colour, so it
                   renders in the page ink. Section 32 of BRAND-DESIGN-GUIDELINE.md
                   allows black, white and red only, and a third-party brand green
                   is the most conspicuous way to break that rule on every page.
                 */}
-                <span
-                  className="group-hover:border-[rgba(215,25,32,.55)]"
-                  style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(245,243,238,.18)', background: 'rgba(245,243,238,.04)', display: 'grid', placeItems: 'center', flexShrink: 0, transition: 'border-color .22s' }}
-                >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(245,243,238,.72)">
+                <span className="w-9 h-9 border border-white/[0.18] bg-white/[0.04] grid place-items-center shrink-0 transition-[border-color] duration-[220ms] group-hover:border-accent/55">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(245,243,238,.72)" aria-hidden="true">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>WhatsApp Business</p>
-                  <p className="group-hover:text-white" style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)', transition: 'color .22s' }}>
+                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">WhatsApp Business</p>
+                  <p className="text-[.82rem] text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
                     {CONTACT.phoneDisplay}
                   </p>
                 </div>
               </a>
 
               <div className="flex items-center gap-3">
-                <span style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,.08)', background: 'rgba(255,255,255,.03)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <span className="w-9 h-9 border border-white/[0.08] bg-white/[0.03] grid place-items-center shrink-0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 </span>
                 <div>
-                  <p style={{ fontSize: '.65rem', fontWeight: 700, letterSpacing: '.20em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 2 }}>Location</p>
-                  <p style={{ fontSize: '.82rem', color: 'rgba(245, 243, 238, .70)' }}>{CONTACT.location}</p>
+                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Location</p>
+                  <p className="text-[.82rem] text-ink/70">{CONTACT.location}</p>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingTop: 4 }}>
-                <a href={CONTACT.instagram} target="_blank" rel="noopener" className="ft-ico" style={{ width: 34, height: 34, borderRadius: 7 }} aria-label="Instagram">
+              <div className="flex items-center gap-2 pt-1">
+                <a href={CONTACT.instagram} target="_blank" rel="noopener" className="ft-ico w-[34px] h-[34px]" aria-label="Instagram">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                     <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                   </svg>
                 </a>
-                <a href={CONTACT.facebook} target="_blank" rel="noopener" className="ft-ico" style={{ width: 34, height: 34, borderRadius: 7 }} aria-label="Facebook">
+                <a href={CONTACT.facebook} target="_blank" rel="noopener" className="ft-ico w-[34px] h-[34px]" aria-label="Facebook">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                   </svg>
                 </a>
-                <a href={CONTACT.linkedin} target="_blank" rel="noopener" className="ft-ico" style={{ width: 34, height: 34, borderRadius: 7 }} aria-label="LinkedIn">
+                <a href={CONTACT.linkedin} target="_blank" rel="noopener" className="ft-ico w-[34px] h-[34px]" aria-label="LinkedIn">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                   </svg>
@@ -305,12 +276,9 @@ export function ContactModal() {
               </div>
             </div>
 
-            <div
-              className="relative z-[1]"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 14px', border: '1px solid rgba(245,243,238,.16)', borderRadius: 6, background: 'rgba(245,243,238,.03)' }}
-            >
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0, boxShadow: '0 0 0 0 rgba(215,25,32,.5)', animation: 'avP 1.6s infinite' }} />
-              <span style={{ fontSize: '.68rem', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(245,243,238,.70)' }}>
+            <div className="relative z-[1] inline-flex items-center gap-2 px-3.5 py-2.5 border border-white/[0.16] bg-white/[0.03]">
+              <span className="w-1.5 h-1.5 shrink-0 bg-accent" style={{ boxShadow: '0 0 0 0 rgba(215,25,32,.5)', animation: 'avP 1.6s infinite' }} />
+              <span className="font-mono text-[.68rem] font-bold tracking-[.18em] uppercase text-ink/70">
                 Responds within 24 hours
               </span>
             </div>
@@ -320,17 +288,7 @@ export function ContactModal() {
           <div className="order-1 lg:order-2 p-6 sm:p-8 lg:p-10">
             {result ? (
               <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-12 sm:py-16">
-                <div
-                  style={{
-                    width: 64,
-                    height: 64,
-                    borderRadius: '50%',
-                    border: '1px solid rgba(215,25,32,.45)',
-                    background: 'rgba(215,25,32,.08)',
-                    display: 'grid',
-                    placeItems: 'center',
-                  }}
-                >
+                <div className="w-16 h-16 rounded-full border border-accent/45 bg-accent/[0.08] grid place-items-center">
                   {result === 'sent' ? (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="20 6 9 17 4 12" />
@@ -343,7 +301,7 @@ export function ContactModal() {
                   )}
                 </div>
                 <div>
-                  <p className="font-display uppercase" style={{ fontSize: 'clamp(1.5rem,4vw,2rem)', letterSpacing: '.06em', color: 'var(--text)', marginBottom: 8 }}>
+                  <p className="font-display uppercase text-[clamp(1.5rem,4vw,2rem)] tracking-[.06em] text-ink mb-2">
                     {result === 'sent' ? 'Message sent' : 'Send it from your email'}
                   </p>
                   {/*
@@ -353,7 +311,7 @@ export function ContactModal() {
                     claiming it after a failed submission is the lie this whole
                     change exists to remove.
                   */}
-                  <p style={{ fontSize: '.90rem', color: 'rgba(245, 243, 238, .50)', lineHeight: 1.7, maxWidth: 420 }}>
+                  <p className="text-[.90rem] text-ink/50 leading-[1.7] max-w-[420px]">
                     {result === 'sent' ? (
                       <>Received, and a confirmation is on its way to you. I&rsquo;ll reply within 24 hours.</>
                     ) : (
@@ -361,11 +319,11 @@ export function ContactModal() {
                         The form could not reach the server, so your email app has opened with the
                         message already written. Send that and it reaches me directly. If nothing
                         opened, write to{' '}
-                        <a href={`mailto:${CONTACT.email}`} style={{ color: 'var(--accent-bright)' }}>
+                        <a href={`mailto:${CONTACT.email}`} className="text-accent-bright">
                           {CONTACT.email}
                         </a>{' '}
                         or message{' '}
-                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener" style={{ color: 'var(--accent-bright)' }}>
+                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="text-accent-bright">
                           {CONTACT.phoneDisplay}
                         </a>
                         .
@@ -375,7 +333,7 @@ export function ContactModal() {
                 </div>
                 <button
                   onClick={reset}
-                  className="h-[44px] px-7 rounded border border-[rgba(255,255,255,.14)] text-[.72rem] font-bold tracking-[.10em] uppercase text-[rgba(245, 243, 238, .60)] transition-all hover:border-red hover:text-white"
+                  className="h-[44px] px-7 border border-white/[0.14] font-mono text-[.72rem] font-bold tracking-[.10em] uppercase text-ink/60 transition-all duration-200 hover:border-accent hover:text-white"
                 >
                   Close
                 </button>
@@ -399,17 +357,15 @@ export function ContactModal() {
                   headline twice, once as a heading and once as a paragraph
                   dressed as one. The column now carries only the instruction.
                 */}
-                <div style={{ marginBottom: 24 }}>
-                  <p style={{ fontSize: '.82rem', color: 'var(--text-faint)' }}>
-                    Required fields are marked. The more specific the message, the more useful the
-                    reply.
-                  </p>
-                </div>
+                <p className="text-[.82rem] text-ink/40 mb-6">
+                  Required fields are marked. The more specific the message, the more useful the
+                  reply.
+                </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="cf-lbl" htmlFor="cf-name">
-                      Full Name <span style={{ color: 'var(--accent-bright)' }}>*</span>
+                      Full Name <span className="text-accent-bright">*</span>
                     </label>
                     <input
                       id="cf-name"
@@ -425,7 +381,7 @@ export function ContactModal() {
                   </div>
                   <div>
                     <label className="cf-lbl" htmlFor="cf-email">
-                      Email Address <span style={{ color: 'var(--accent-bright)' }}>*</span>
+                      Email Address <span className="text-accent-bright">*</span>
                     </label>
                     <input id="cf-email" className="cf-inp" type="email" placeholder="you@company.com" autoComplete="email" value={f.email} onChange={set('email')} required />
                   </div>
@@ -448,7 +404,7 @@ export function ContactModal() {
                       style={phoneBad ? { borderColor: 'rgba(238, 42, 52,.70)', boxShadow: '0 0 0 1px rgba(238, 42, 52,.30)' } : undefined}
                     />
                     {phoneBad && (
-                      <p style={{ marginTop: 6, fontSize: '.68rem', letterSpacing: '.04em', color: 'var(--accent-bright)' }}>
+                      <p className="mt-1.5 font-mono text-[.68rem] tracking-[.04em] text-accent-bright">
                         Enter a valid mobile number, for example 98983 34731 or +91 98983 34731
                       </p>
                     )}
@@ -539,17 +495,16 @@ export function ContactModal() {
 
                 <div className="mb-7">
                   <label className="cf-lbl" htmlFor="cf-msg">
-                    Message <span style={{ color: 'var(--accent-bright)' }}>*</span>
+                    Message <span className="text-accent-bright">*</span>
                   </label>
                   <textarea
                     id="cf-msg"
-                    className="cf-inp"
+                    className="cf-inp resize-y min-h-[120px]"
                     rows={5}
                     placeholder="What are you trying to do, and what is in the way?"
                     value={f.message}
                     onChange={set('message')}
                     required
-                    style={{ resize: 'vertical', minHeight: 120 }}
                   />
                 </div>
 
