@@ -130,7 +130,7 @@ export const HERO = {
   ],
 } as const;
 
-export type Stat = { value: string; label: string };
+export type Stat = { value: string; label: string; href?: string };
 
 /**
  * The four tiles under the position statement.
@@ -148,10 +148,10 @@ export type Stat = { value: string; label: string };
  * platforms, not of years, and is a different confirmed figure.
  */
 export const STATS: readonly Stat[] = [
-  { value: '9+', label: 'Years in technology' },
-  { value: '90%', label: 'Of B2B order and quote processing automated' },
-  { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms' },
-  { value: '1M+', label: 'Monthly users on platforms under architecture' },
+  { value: '9+', label: 'Years in technology', href: '/experience/' },
+  { value: '90%', label: 'Of B2B order and quote processing automated', href: '/work/b2b-procurement/' },
+  { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms', href: '/work/marketplace/' },
+  { value: '1M+', label: 'Monthly users on platforms under architecture', href: '/work/' },
 ];
 
 export type Project = {

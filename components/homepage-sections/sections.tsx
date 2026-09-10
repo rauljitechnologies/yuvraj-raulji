@@ -104,12 +104,29 @@ export function Credibility() {
               key={stat.label}
               className={`flex flex-col gap-4 ${i > 0 ? 'lg:border-l lg:border-ground/12 lg:pl-10' : ''}`}
             >
-              <span className="font-manrope text-[clamp(44px,5.2vw,72px)] font-semibold leading-[0.9] tracking-[-0.04em] text-accent-bright">
-                {stat.value}
-              </span>
-              <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60">
-                {stat.label}
-              </span>
+              {stat.href ? (
+                <a
+                  href={stat.href}
+                  className="group/stat flex flex-col gap-4 no-underline"
+                  aria-label={`${stat.value} — ${stat.label}`}
+                >
+                  <span className="font-manrope text-[clamp(44px,5.2vw,72px)] font-semibold leading-[0.9] tracking-[-0.04em] text-accent-bright transition-colors duration-200 group-hover/stat:text-accent">
+                    {stat.value}
+                  </span>
+                  <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60 transition-colors duration-200 group-hover/stat:text-ground/80">
+                    {stat.label}
+                  </span>
+                </a>
+              ) : (
+                <>
+                  <span className="font-manrope text-[clamp(44px,5.2vw,72px)] font-semibold leading-[0.9] tracking-[-0.04em] text-accent-bright">
+                    {stat.value}
+                  </span>
+                  <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60">
+                    {stat.label}
+                  </span>
+                </>
+              )}
             </RvItem>
           ))}
         </RvGroup>
@@ -362,6 +379,18 @@ export function Why() {
             ))}
           </RvGroup>
         </div>
+
+        <Rv className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-white/20 pt-10">
+          <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-white/85">
+            Work directly with one person on the technology decisions that are holding the business back.
+          </p>
+          <a
+            href="/hire/"
+            className="inline-flex items-center justify-center gap-3 border border-white/60 px-6 py-[18px] font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] text-white transition-[background-color,border-color,color] duration-200 hover:border-white hover:bg-white hover:text-ground sm:px-8 sm:py-5"
+          >
+            Work with Yuvraj
+          </a>
+        </Rv>
       </div>
     </section>
   );
@@ -727,6 +756,14 @@ export function Approach() {
           </RvItem>
         ))}
       </RvGroup>
+
+      <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/10 pt-10">
+        <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
+          Ready to start? The first step is a short conversation about the problem, not a proposal.
+        </p>
+        <Cta href="/hire/" variant="accent">Work with Yuvraj</Cta>
+        <RuleLink href="#contact">Or leave a message →</RuleLink>
+      </Rv>
       </div>
     </section>
   );
