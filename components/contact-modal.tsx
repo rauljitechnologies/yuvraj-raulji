@@ -553,14 +553,14 @@ export function ContactModal() {
                   />
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                  <span style={{ fontSize: '.68rem', color: 'var(--text-faint)', letterSpacing: '.08em' }}>
-                    <span style={{ color: 'var(--accent-bright)' }}>*</span> Required fields
-                  </span>
+                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 pt-6">
+                  <p className="m-0 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/40">
+                    <span className="text-accent-bright">*</span> Required fields
+                  </p>
                   <button
                     type="submit"
                     disabled={!valid || sending}
-                    className="inline-flex items-center gap-2 h-[50px] px-8 rounded bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                    className="inline-flex items-center gap-2 h-[50px] px-8 bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {sending ? (
                       <span className="inline-flex items-center gap-2">
