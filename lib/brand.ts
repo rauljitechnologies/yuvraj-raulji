@@ -104,6 +104,11 @@ export const NAV = [
 
 export const CTA_LABEL = "Let's talk";
 
+/** One-line positioning shown in the footer under the wordmark. Separate from
+    PERSON_JOB_TITLE (the schema job title) so the commercial proposition can
+    be stated on the site while structured data keeps the accurate role. */
+export const FOOTER_TAGLINE = 'Technology Partner';
+
 /* ═══════════════════════════════════════════════════════════════
    01 — HERO
    ═══════════════════════════════════════════════════════════════ */

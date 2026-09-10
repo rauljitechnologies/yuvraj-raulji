@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { CORE_IDEA, NAME } from '../../lib/brand';
-import { PERSON_JOB_TITLE } from '../../lib/schema';
+import { CORE_IDEA, FOOTER_TAGLINE, NAME } from '../../lib/brand';
 import { PILLAR_LINKS } from '../../lib/expertise';
 import { AI_LINKS, PLATFORM_LINKS } from '../../lib/technology';
 import { CONTACT, POST_COUNT } from '../../lib/site';
@@ -299,7 +298,7 @@ export function SiteFooter() {
               schema uses, so the two cannot drift again.
             */}
             <p className="mb-6 font-mono text-[10px] uppercase leading-[1.6] tracking-[0.16em] text-ink/55">
-              {PERSON_JOB_TITLE}
+              {FOOTER_TAGLINE}
             </p>
 
             <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/50">
@@ -398,7 +397,7 @@ export function SiteFooter() {
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="text-ink-muted">{PERSON_JOB_TITLE}</span>
+            <span className="text-ink-muted">{FOOTER_TAGLINE}</span>
             <a href="#main" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Back to top ↑
             </a>
