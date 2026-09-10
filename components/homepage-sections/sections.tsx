@@ -132,7 +132,7 @@ export function Credibility() {
  */
 export function Problems() {
   return (
-    <section id="problems" aria-labelledby="problems-title" className={`${SHELL} ${SECTION_Y}`}>
+    <section id="problems" aria-labelledby="problems-title" className={`border-t border-ink/10 ${SHELL} ${SECTION_Y}`}>
       <SectionLabel className="mb-10">The problem</SectionLabel>
 
       <div className="mb-12 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
@@ -184,10 +184,10 @@ export function Problems() {
         <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:text-[19px]">
           The first step is understanding what is actually holding the business back.
         </p>
-        <Cta href="#contact" variant="outline">
-          Start a conversation
+        <Cta href="#contact" variant="accent">
+          Tell me what is not working
         </Cta>
-        <RuleLink href="/ecommerce-audit/">Or get it in writing</RuleLink>
+        <RuleLink href="/ecommerce-audit/">Request a written audit</RuleLink>
       </Rv>
     </section>
   );
@@ -655,6 +655,15 @@ export function Ecosystem() {
           ))}
         </RvGroup>
         <div className="border-t border-ground/12" />
+
+        <Rv className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
+          <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ground/55">
+            Need to evaluate a platform or review your current stack before committing to a direction?
+          </p>
+          <Cta href="#contact" variant="solid" tone="light">
+            Book a 30-minute consultation
+          </Cta>
+        </Rv>
       </div>
     </section>
   );
@@ -773,6 +782,9 @@ export function About() {
             <Rv className="mt-9 flex flex-wrap gap-3.5">
               <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
+              </Cta>
+              <Cta href="#contact" variant="solid" tone="light">
+                Book a consultation
               </Cta>
             </Rv>
           </div>

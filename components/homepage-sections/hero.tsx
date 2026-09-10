@@ -64,11 +64,9 @@ export function Hero() {
             an authored break to mean anything and the browser wraps on its own.
           */}
           <Eager delay={0.06}>
-            <h1 className="m-0 max-w-[18ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-extralight leading-[1.0] tracking-[-0.042em] text-ink/90">
-              eCommerce &amp; AI <span className="font-bold text-ink">Consultant.</span>{' '}
-              <br className="hidden sm:inline" />
-              Technology that works{' '}
-              <span className="font-bold text-ink">for your business.</span>
+            <h1 className="m-0 max-w-[15ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-extralight leading-[1.0] tracking-[-0.042em] text-ink/90">
+              eCommerce, AI <br className="hidden sm:inline" />
+              &amp; Technology <span className="font-bold text-ink">Consultant</span>
             </h1>
           </Eager>
 
@@ -119,8 +117,8 @@ export function Hero() {
             <Cta href="#contact" variant="accent">
               Book a 30-minute consultation
             </Cta>
-            <Cta href="#work" variant="outline">
-              Explore my work <span className="font-mono">→</span>
+            <Cta href="#contact" variant="outline">
+              Tell me what is not working <span className="font-mono">→</span>
             </Cta>
           </Eager>
         </div>
