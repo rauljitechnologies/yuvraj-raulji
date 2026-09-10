@@ -107,7 +107,7 @@ export default function Hire() {
     .filter((p) => Boolean(p.tech));
 
   return (
-    <Page schema={hireSchema(crumbs)} active="Expertise" scope="yr-paper">
+    <Page schema={hireSchema(crumbs)} active="Hire" scope="yr-paper">
       {/* ── 01 Hero ─────────────────────────────────────────────── */}
       <PageHero
         eyebrow={HIRE.eyebrow}
