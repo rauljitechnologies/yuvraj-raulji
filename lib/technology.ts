@@ -561,9 +561,9 @@ const AI_SEARCH: Technology = {
   lede:
     'Search is changing in two places at once. On your own site, customers type in their own language and a keyword index hands them nothing. In front of your site, an answer engine now reads the page and states a conclusion, and the click that used to follow the ranking sometimes never happens. Both are the same problem: whether a machine can understand what you sell.',
   cta: 'Discuss an AI search opportunity',
-  title: 'AI Search and GEO | Yuvraj Raulji',
+  title: 'AI Search Consultant for eCommerce | Yuvraj Raulji',
   description:
-    'AI search and Generative Engine Optimization: semantic on-site search, and being cited by AI answer engines. What works, and what is still speculation.',
+    'AI search consulting for eCommerce: semantic on-site search, Generative Engine Optimization, and being cited by AI answer engines. What works, and what is still speculation.',
 
   quickAnswer: {
     answer:
@@ -2646,9 +2646,9 @@ const DIGITAL_TRANSFORMATION: Technology = {
   lede:
     'The phrase usually arrives attached to a two-year programme and a slide deck. The version worth paying for is narrower: replace the parts of the stack that are actively costing money, in an order that lets the business keep trading, and stop. What makes these programmes fail is almost never the technology, it is the sequencing.',
   cta: 'Discuss a transformation plan',
-  title: 'Digital Transformation | Yuvraj Raulji',
+  title: 'Digital Transformation Consultant for Commerce | Yuvraj Raulji',
   description:
-    'Modernising legacy commerce stacks into API-first systems: process redesign, phased migration and integration boundaries, sequenced so trading continues.',
+    'Digital transformation consulting for commerce businesses: modernising legacy stacks into API-first systems, process redesign and phased migration sequenced so trading continues.',
 
   quickAnswer: {
     answer:

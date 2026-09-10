@@ -18,8 +18,7 @@ const crumbs: Crumb[] = [
   { name: 'About', href: '/about/' },
 ];
 
-/* Section 25, verbatim. */
-const title = 'About Yuvraj Raulji | AI and eCommerce';
+const title = 'About Yuvraj Raulji | eCommerce, AI & Technology Consultant';
 
 export const metadata: Metadata = {
   title,

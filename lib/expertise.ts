@@ -122,9 +122,9 @@ export function pillarHref(slug: string): string {
    ═══════════════════════════════════════════════════════════════ */
 
 export const EXPERTISE_HUB = {
-  title: 'Expertise | Yuvraj Raulji, eCommerce Consultant',
+  title: 'Expertise | Yuvraj Raulji, eCommerce, AI & Technology Consultant',
   description:
-    'Nine technology pages plus eCommerce consulting: Shopify, Magento, WooCommerce, WordPress, headless commerce and AI. What each is, and when it is wrong.',
+    'Nine technology pages plus eCommerce consulting: Shopify, Magento, WooCommerce, WordPress, headless commerce, AI commerce and automation. What each is for, and when it is the wrong choice.',
   eyebrow: 'Expertise',
   h1: ['Nine technologies.', 'And the situation', 'each one is wrong for.'] as const,
   lede:

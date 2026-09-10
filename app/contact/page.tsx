@@ -12,9 +12,9 @@ const crumbs: Crumb[] = [
   { name: 'Contact', href: '/contact/' },
 ];
 
-const title = 'Contact Yuvraj Raulji | AI, Business and eCommerce';
+const title = 'Contact Yuvraj Raulji | eCommerce, AI & Technology Consultant';
 const description =
-  'Start a conversation about a commerce platform decision, a replatforming, headless architecture or an AI project. Replies within 24 hours on IST business days.';
+  'Start a conversation about a commerce platform decision, replatforming, headless architecture, performance or AI. Replies within 24 hours on IST business days.';
 
 export const metadata: Metadata = {
   title,
