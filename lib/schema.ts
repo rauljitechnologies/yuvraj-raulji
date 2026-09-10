@@ -783,6 +783,8 @@ export function articleSchema({
   const post = POSTS[slug];
   const path = `/insights/${slug}/`;
   const published = postDateISO(post.date);
+  const mins = parseInt(post.readTime, 10);
+  const timeRequired = !isNaN(mins) ? `PT${mins}M` : undefined;
 
   return graph([
     personNode(),
@@ -798,6 +800,7 @@ export function articleSchema({
       dateModified: published,
       articleSection: post.cat,
       ...(keywords?.length ? { keywords: keywords.join(', ') } : {}),
+      ...(timeRequired ? { timeRequired } : {}),
       inLanguage: 'en-US',
       author: personRef,
       publisher: personRef,

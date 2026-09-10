@@ -108,7 +108,7 @@ export function Credibility() {
                 <a
                   href={stat.href}
                   className="group/stat flex flex-col gap-4 no-underline"
-                  aria-label={`${stat.value} — ${stat.label}`}
+                  aria-label={`${stat.value}: ${stat.label}`}
                 >
                   <span className="font-manrope text-[clamp(44px,5.2vw,72px)] font-semibold leading-[0.9] tracking-[-0.04em] text-accent-bright transition-colors duration-200 group-hover/stat:text-accent">
                     {stat.value}
