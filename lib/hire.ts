@@ -79,7 +79,7 @@ export const HIRE = {
   path: '/hire/',
   label: 'Hire',
   eyebrow: 'Yuvraj Raulji | Working together',
-  h1: ['One consultant,', 'not a team to manage.'],
+  h1: ['eCommerce consultant,', 'not a team to manage.'],
   lede:
     'Most searches for a developer are really searches for certainty: that someone has done this before, that the decision will be made properly, and that it will get finished. What is on offer here is one person with nine years on these platforms, working directly with you. No account manager, no bench, and no proposal for a project you do not need.',
   cta: 'Book a 30-minute consultation',

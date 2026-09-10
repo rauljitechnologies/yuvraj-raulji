@@ -134,14 +134,14 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
           </div>
         </div>
         <p className="text-[.82rem] text-[rgba(245,243,238,.55)] leading-[1.7] mb-5">
-          Magento 2 architect, SEO/CRO strategist, AWS infrastructure specialist, and AI automation engineer based in Vadodara, India.
+          eCommerce, AI and technology consultant. Nine years across Magento, Shopify, headless commerce and AI, on B2B, D2C and marketplace models. Based in Vadodara, India.
         </p>
         <div className="flex flex-col gap-[10px]">
           <a
-            href={`mailto:${CONTACT.email}?subject=Blog+Article+Consultation`}
+            href="/hire/"
             className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(215,25,32,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
           >
-            Hire Me →
+            Work with Yuvraj
           </a>
           <a
             href={CONTACT.linkedin}

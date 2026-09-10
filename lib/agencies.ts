@@ -40,7 +40,7 @@ export interface AgencyItem {
 
 export const AGENCIES = {
   eyebrow: 'For agencies and studios',
-  h1: ['Your client stays yours.', 'The hard part is mine.'],
+  h1: ['Technical commerce partner.', 'Your client stays yours.'],
   lede:
     'Agencies win commerce work that needs Magento, headless or integration depth they cannot justify employing full time. This is that depth, working behind your brand, under your project management, with a written commitment never to approach the client directly.',
   cta: 'Discuss a project you have won',

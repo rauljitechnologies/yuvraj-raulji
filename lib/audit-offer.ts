@@ -41,7 +41,7 @@ export interface AuditItem {
 
 export const AUDIT = {
   eyebrow: 'Diagnostic engagement',
-  h1: ['Find out what is actually', 'wrong, in writing.'],
+  h1: ['eCommerce Technical Audit', 'what is wrong, in writing.'],
   lede:
     'A fixed-scope technical review of a live store, delivered as a written document with findings ordered by what they are costing you. It is deliberately a small piece of work, it ends with a recommendation rather than a proposal, and the recommendation is occasionally that you do not need the project you were about to commission.',
   cta: 'Request an audit',

@@ -133,15 +133,15 @@ export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
  */
 export const NAV_LINKS = [
   { label: 'About', href: '/about/' },
-  { label: 'Expertise', href: '/#expertise' },
-  { label: 'Work', href: '/#work' },
+  { label: 'Expertise', href: '/expertise/' },
+  { label: 'Work', href: '/work/' },
   { label: 'Insights', href: '/insights/' },
 ] as const;
 
 export const HERO_CHIPS = [
   { label: 'Magento 2 Expert', pos: 'top-[22%] left-[6%]' },
   { label: 'SEO & CRO Specialist', pos: 'top-[36%] right-[8%]' },
-  { label: 'AWS & Server Setup', pos: 'bottom-[28%] left-[8%]' },
+  { label: 'Platform Migration', pos: 'bottom-[28%] left-[8%]' },
   { label: '9+ Years Experience', pos: 'bottom-[18%] right-[7%]' },
 ];
 
@@ -1019,10 +1019,10 @@ export const BUSINESS_MODEL_DETAIL = [
 export const FOOTER_NAV = [
   { label: 'Home', href: '/', active: true },
   { label: 'About', href: '/about/' },
-  { label: 'Expertise', href: '/#expertise' },
-  { label: 'Work', href: '/#work' },
+  { label: 'Expertise', href: '/expertise/' },
+  { label: 'Work', href: '/work/' },
   { label: 'Insights', href: '/insights/' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact/' },
 ];
 
 /**
@@ -1032,12 +1032,12 @@ export const FOOTER_NAV = [
  * it, and the label is the anchor text rather than a generic one.
  */
 export const FOOTER_EXPERTISE = [
-  { label: 'Magento & Adobe Commerce', href: '/#expertise' },
-  { label: 'Shopify & Shopify Plus', href: '/#expertise' },
-  { label: 'Headless Commerce', href: '/insights/shopify-headless-nextjs-guide/' },
-  { label: 'E-commerce SEO', href: '/insights/magento2-seo-technical-audit/' },
+  { label: 'Magento & Adobe Commerce', href: '/magento/' },
+  { label: 'Shopify & Shopify Plus', href: '/shopify/' },
+  { label: 'Headless Commerce', href: '/headless-commerce/' },
+  { label: 'eCommerce SEO', href: '/insights/magento2-seo-technical-audit/' },
   { label: 'CRO & Performance', href: '/insights/cro-double-conversion/' },
-  { label: 'AI Automation', href: '/insights/ai-ecommerce-revenue-2026/' },
+  { label: 'AI Automation', href: '/ai-automation/' },
 ];
 
 const TOPIC_LABELS: Record<string, string> = {

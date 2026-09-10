@@ -45,7 +45,7 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
  * account of it in all four places.
  */
 export const HOME_DESCRIPTION =
-  'Independent eCommerce, AI and technology consultant. Commerce architecture, platform strategy, AI adoption and conversion for businesses deciding what to build, what to fix and what to leave alone.';
+  'eCommerce, AI and technology consultant. Commerce architecture, platform strategy, AI adoption and conversion for businesses deciding what to build, what to fix and what to leave alone.';
 
 export const ABOUT_DESCRIPTION =
   'Nine years in technology, from the first Magento role in 2016 through Shopify, headless commerce and AI. The thinking behind the work, and how it is decided.';
@@ -133,10 +133,9 @@ export function brandAboutSchema(crumbs: Crumb[]) {
 /* ═══════════════════════════════════════════════════════════════
    WORK
 
-   An ItemList of the six case studies. Each item carries `name` and `image`
-   but no `url`: none of the six has a page of its own on this site, and a
-   ListItem pointing at an in-page fragment claims a document that does not
-   exist. When individual case-study routes are built, the url goes back in.
+   An ItemList of the six case studies. Each item carries `name`, `url`
+   and `image`. Individual case pages exist at /work/{id}/ and the url
+   property connects the index ItemList to those pages for AEO resolution.
    ═══════════════════════════════════════════════════════════════ */
 
 export function brandWorkSchema(crumbs: Crumb[]) {
@@ -160,9 +159,12 @@ export function brandWorkSchema(crumbs: Crumb[]) {
         '@type': 'ListItem',
         position: i + 1,
         name: c.name,
+        url: `${SITE_URL}/work/${c.id}/`,
         item: {
           '@type': 'CreativeWork',
+          '@id': `${SITE_URL}/work/${c.id}/`,
           name: c.name,
+          url: `${SITE_URL}/work/${c.id}/`,
           description: c.challenge,
           about: c.industry,
           creator: personRef,

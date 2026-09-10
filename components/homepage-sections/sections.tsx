@@ -783,8 +783,8 @@ export function About() {
               <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
               </Cta>
-              <Cta href="#contact" variant="solid" tone="light">
-                Book a consultation
+              <Cta href="/hire/" variant="solid" tone="light">
+                Work with Yuvraj
               </Cta>
             </Rv>
           </div>

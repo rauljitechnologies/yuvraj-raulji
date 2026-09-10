@@ -657,6 +657,16 @@ export function hireSchema(crumbs: Crumb[]) {
     }),
     breadcrumbNode(crumbs),
     faqNode(HIRE.path, HIRE.faqs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${HIRE.path}#service`,
+      name: 'eCommerce, AI and Technology Consulting',
+      serviceType: 'eCommerce Consulting',
+      description: HIRE.description,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      url: `${SITE_URL}${HIRE.path}`,
+    },
   ]);
 }
 
