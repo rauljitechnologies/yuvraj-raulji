@@ -501,6 +501,9 @@ export function ServicePage({ service }: { service: PlatformService }) {
           </Rise>
           <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
             <ContactButton>{service.cta}</ContactButton>
+            <Btn href="/hire/" variant="ghost">
+              How engagements work
+            </Btn>
             <Btn href={techHref(service.platform)} variant="ghost">
               {platform.label} overview
             </Btn>
