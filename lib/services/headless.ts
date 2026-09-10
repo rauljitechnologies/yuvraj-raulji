@@ -32,7 +32,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
     cta: 'Test whether headless would pay',
     title: 'Headless Commerce Consulting | Yuvraj Raulji',
     description:
-      'Independent headless commerce advice: whether decoupling would actually pay, what it costs to own, and the cheaper answers that solve the same symptom.',
+      'Headless commerce consulting: whether decoupling would actually pay, what it costs to own, and the cheaper answers that solve the same symptom.',
 
     primaryKeyword: 'headless commerce consulting',
     secondaryKeywords: [
@@ -234,7 +234,7 @@ export const HEADLESS_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a headless architecture',
     title: 'Headless Commerce Architecture | Yuvraj Raulji',
     description:
-      'Headless commerce architecture on Next.js, GraphQL and the Storefront API: rendering strategy, cache invalidation, the API boundary, preview and failure modes.',
+      'Headless commerce architecture on Next.js, GraphQL and the Storefront API: rendering strategy, cache invalidation, the API boundary and failure modes.',
 
     primaryKeyword: 'headless commerce architecture',
     secondaryKeywords: [
