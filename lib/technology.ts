@@ -517,6 +517,7 @@ const SHOPIFY: Technology = {
   ],
 
   related: [
+    { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what the current platform is costing before deciding whether to move.' },
     { href: '/magento/', label: 'Magento commerce', note: 'Where Shopify stops fitting: quotes, approvals, multi-store.' },
     {
       href: '/magento-shopify-migration/',

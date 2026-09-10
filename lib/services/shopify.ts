@@ -32,7 +32,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a Shopify decision',
     title: 'Shopify Consulting Services | Yuvraj Raulji',
     description:
-      'Independent Shopify and Shopify Plus consulting: platform fit, theme architecture, app consolidation, Plus upgrade decisions and where the platform stops.',
+      'Shopify and Shopify Plus consulting: platform fit, theme architecture, app consolidation, Plus upgrade decisions and where the platform stops fitting.',
 
     primaryKeyword: 'shopify consulting services',
     secondaryKeywords: [
@@ -229,7 +229,7 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a Shopify migration',
     title: 'Shopify Migration Services | Yuvraj Raulji',
     description:
-      'Migrate to Shopify or Shopify Plus from Magento, WooCommerce or a legacy platform: catalogue mapping, URL and redirect strategy, customers, orders and cutover.',
+      'Migration to Shopify or Shopify Plus from Magento, WooCommerce or a legacy platform: catalogue mapping, redirect strategy, order history and cutover.',
 
     primaryKeyword: 'shopify migration services',
     secondaryKeywords: [
