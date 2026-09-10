@@ -1442,6 +1442,7 @@ const WOOCOMMERCE: Technology = {
   ],
 
   related: [
+    { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what WooCommerce is costing before the stay-or-leave decision.' },
     { href: '/wordpress/', label: 'WordPress', note: 'The host system, and what it is good at on its own.' },
     { href: '/shopify/', label: 'Shopify', note: 'Where most WooCommerce stores go when they outgrow it.' },
     { href: '/magento/', label: 'Magento', note: 'If the growth is in pricing and approval complexity.' },

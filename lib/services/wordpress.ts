@@ -42,7 +42,7 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a WordPress decision',
     title: 'WordPress Consulting Services | Yuvraj Raulji',
     description:
-      'Independent WordPress consulting: content modelling, theme and block architecture, plugin strategy, hosting and an honest read on custom against off-the-shelf.',
+      'WordPress consulting: content modelling, theme and block architecture, plugin strategy, hosting and an honest read on custom against off-the-shelf.',
 
     primaryKeyword: 'wordpress consulting services',
     secondaryKeywords: [
@@ -239,7 +239,7 @@ export const WORDPRESS_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a WordPress migration',
     title: 'WordPress Migration Services | Yuvraj Raulji',
     description:
-      'WordPress migrations done safely: host and domain moves, onto WordPress from another CMS, URL and redirect preservation, media library integrity and cutover.',
+      'WordPress migrations done safely: host and domain moves, CMS platform changes, URL and redirect preservation, media library integrity and cutover.',
 
     primaryKeyword: 'wordpress migration services',
     secondaryKeywords: [

@@ -48,7 +48,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a WooCommerce decision',
     title: 'WooCommerce Consulting Services | Yuvraj Raulji',
     description:
-      'Independent WooCommerce consulting: platform fit, plugin stack review, catalogue and checkout architecture, and an honest read on when to leave Woo.',
+      'WooCommerce consulting: platform fit, plugin stack review, catalogue and checkout architecture, and an honest read on when to leave Woo.',
 
     primaryKeyword: 'woocommerce consulting services',
     secondaryKeywords: [
@@ -636,7 +636,7 @@ export const WOOCOMMERCE_SERVICES: readonly PlatformService[] = [
     cta: 'Discuss a WooCommerce integration',
     title: 'WooCommerce Integration Services | Yuvraj Raulji',
     description:
-      'WooCommerce integration with ERP, accounting, CRM and fulfilment: source of truth per field, the REST API and webhooks, reconciliation and failure handling.',
+      'WooCommerce integration with ERP, accounting, CRM and fulfilment: source of truth per field, REST API and webhooks, reconciliation and failure handling.',
 
     primaryKeyword: 'woocommerce integration services',
     secondaryKeywords: [
