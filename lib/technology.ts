@@ -564,7 +564,7 @@ const AI_SEARCH: Technology = {
   cta: 'Discuss an AI search opportunity',
   title: 'AI Search Consultant for eCommerce | Yuvraj Raulji',
   description:
-    'AI search consulting for eCommerce: semantic on-site search, Generative Engine Optimization, and being cited by AI answer engines. What works, and what is still speculation.',
+    'AI search consulting for eCommerce: semantic search, Generative Engine Optimization, and being cited by AI answer engines. What works, what is speculation.',
 
   quickAnswer: {
     answer:
@@ -2049,7 +2049,7 @@ const AI_COMMERCE: Technology = {
   cta: 'Discuss an AI opportunity',
   title: 'AI for eCommerce: Search and Operations | Yuvraj Raulji',
   description:
-    'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume rather than left as demos.',
+    'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume, not demos.',
 
   quickAnswer: {
     answer:
@@ -2342,9 +2342,9 @@ const AI_AUTOMATION: Technology = {
   lede:
     'Automation earns its money on work that is high in volume and low in judgement. The mistake is reaching for a model first: most of what businesses want automated is deterministic, and the parts that genuinely need language understanding are narrower than the pitch suggests. Fix the process, automate what remains, and put a person where it matters.',
   cta: 'Discuss your automation challenge',
-  title: 'AI Automation | Yuvraj Raulji',
+  title: 'AI Automation Consultant for Commerce | Yuvraj Raulji',
   description:
-    'Workflow and AI automation: agents, LLMs, RAG and MCP applied to quotes, approvals and reconciliation, with human checkpoints where the output touches money.',
+    'AI automation for commerce: agents, LLMs, RAG and MCP applied to quotes, approvals and reconciliation, with human checkpoints where output touches money.',
 
   quickAnswer: {
     answer:
