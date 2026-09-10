@@ -815,7 +815,85 @@ export function About() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   11 — Insights  (DARK)
+   11 — Technology Partner  (DARK)
+   A concise commercial bridge. Answers "how do I engage this
+   person?" without repeating /hire/. One CTA only.
+   ───────────────────────────────────────────────────────────── */
+
+export function TechnologyPartner() {
+  return (
+    <section
+      id="technology-partner"
+      aria-labelledby="partner-title"
+      className="border-t border-ink/10 bg-ground"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 md:py-24`}>
+        <SectionLabel className="mb-10">Technology Partner</SectionLabel>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
+          <div>
+            <Rv>
+              <h2 id="partner-title" className={H2}>
+                Need a technology partner,{' '}
+                <span className="font-bold">not another vendor?</span>
+              </h2>
+            </Rv>
+            <Rv>
+              <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/60 sm:text-[19px]">
+                Sometimes you do not need another agency or a larger team. You need one experienced
+                person who can understand the problem, make the technology decision and help get the
+                important work done.
+              </p>
+            </Rv>
+            <Rv>
+              <p className="mt-4 max-w-[50ch] font-manrope text-[16px] font-light leading-[1.6] text-ink/40">
+                Direct access. Senior judgement. One point of accountability.
+              </p>
+            </Rv>
+            <Rv className="mt-10">
+              <Cta href="/hire/" variant="accent">
+                Hire Yuvraj Raulji
+              </Cta>
+            </Rv>
+          </div>
+
+          <RvGroup as="ul" className="m-0 list-none p-0" each={0.06}>
+            {[
+              {
+                label: 'Direct access',
+                note: 'The person you speak to is the person doing the work. Always.',
+              },
+              {
+                label: 'No account layer',
+                note: 'The first call is useful because the person responsible for the outcome is on it.',
+              },
+              {
+                label: 'Independent advice',
+                note: 'Technology recommendations based on the business, not on what the supplier is positioned to build.',
+              },
+            ].map((item) => (
+              <RvItem
+                key={item.label}
+                as="li"
+                className="flex flex-col gap-2 border-t border-ink/10 py-6"
+              >
+                <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-accent-bright">
+                  {item.label}
+                </span>
+                <span className="font-manrope text-[16px] font-light leading-[1.6] text-ink/55">
+                  {item.note}
+                </span>
+              </RvItem>
+            ))}
+          </RvGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   12 — Insights  (DARK)
    ───────────────────────────────────────────────────────────── */
 
 export function Insights() {

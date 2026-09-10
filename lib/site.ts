@@ -113,7 +113,7 @@ export const OG_EXPERTISE = card(
 );
 
 /** /hire/ */
-export const OG_HIRE = card('og-hire.jpg', 'One consultant, not a team to manage');
+export const OG_HIRE = card('og-hire.jpg', 'Hire Yuvraj Raulji, Your Technology Partner');
 
 /** /insights/ */
 export const OG_INSIGHTS = card('og-insights.jpg', 'Insights written for the people making the decision');

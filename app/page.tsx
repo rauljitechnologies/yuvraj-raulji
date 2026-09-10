@@ -15,6 +15,7 @@ import {
   Insights,
   Problems,
   SelectedWork,
+  TechnologyPartner,
   Why,
 } from '../components/homepage-sections/sections';
 import { JsonLd } from '../components/json-ld';
@@ -121,6 +122,7 @@ export default function Home() {
           <Why />
           <Approach />
           <About />
+          <TechnologyPartner />
           <Insights />
           <Faq />
           <Contact />

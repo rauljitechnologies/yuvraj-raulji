@@ -660,8 +660,8 @@ export function hireSchema(crumbs: Crumb[]) {
     {
       '@type': 'Service',
       '@id': `${SITE_URL}${HIRE.path}#service`,
-      name: 'eCommerce, AI and Technology Consulting',
-      serviceType: 'eCommerce Consulting',
+      name: 'Technology Partnership, eCommerce and AI Consulting',
+      serviceType: 'Technology Consulting',
       description: HIRE.description,
       provider: personRef,
       areaServed: 'Worldwide',

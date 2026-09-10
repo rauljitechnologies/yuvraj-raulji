@@ -117,7 +117,7 @@ export default function Hire() {
       >
         <ContactButton>{HIRE.cta}</ContactButton>
         <Btn href="#models" variant="ghost">
-          The three shapes
+          See how it works
         </Btn>
       </PageHero>
 
@@ -180,9 +180,9 @@ export default function Hire() {
       <Section id="models" labelledBy="models-title">
         <Shell>
           <Head
-            label="Engagement"
+            label="How to work together"
             id="models-title"
-            lines={['Three shapes,', 'genuinely different.']}
+            lines={['Three ways', 'to work together.']}
             lede="Which one fits comes out of the first conversation. Choosing it in advance is how people end up buying a build when they needed a decision."
           />
           <ol className="m-0 grid list-none gap-px border border-line bg-line p-0 lg:grid-cols-3">
@@ -268,7 +268,7 @@ export default function Hire() {
           of those and a hiring page is the easiest place to start inventing. */}
       <Section id="facts" labelledBy="facts-title">
         <Shell>
-          <Head label="The record" id="facts-title" lines={['What is actually', 'on offer.']} />
+          <Head label="What you get" id="facts-title" lines={['Direct access.', 'Senior expertise.']} />
           <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-4">
             {HIRE.facts.map((f, i) => (
               <li key={f.label} className="bg-[var(--bg)]">

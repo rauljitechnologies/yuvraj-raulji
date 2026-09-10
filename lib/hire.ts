@@ -78,22 +78,23 @@ export interface TechHire {
 export const HIRE = {
   path: '/hire/',
   label: 'Hire',
-  eyebrow: 'Yuvraj Raulji | Working together',
-  h1: ['eCommerce consultant,', 'not a team to manage.'],
+  eyebrow: 'Working directly with Yuvraj Raulji',
+  h1: ['Hire Yuvraj Raulji.', 'Your Technology Partner.'],
   lede:
-    'Most searches for a developer are really searches for certainty: that someone has done this before, that the decision will be made properly, and that it will get finished. What is on offer here is one person with nine years on these platforms, working directly with you. No account manager, no bench, and no proposal for a project you do not need.',
-  cta: 'Book a 30-minute consultation',
+    'One senior technology partner, working directly with you. The person you speak to is the person doing the work. No account manager between you and the decision, no bench behind it, and no proposal for a project you do not need.',
+  cta: 'Start a Conversation',
 
-  title: 'Hire an eCommerce and AI Consultant | Yuvraj Raulji',
+  title: 'Hire Yuvraj Raulji | Your Technology Partner',
   description:
-    'Work directly with an independent eCommerce, AI and technology consultant. Three engagement shapes, what each is for, and what this deliberately is not.',
+    'Work directly with Yuvraj Raulji as your technology partner. Direct access, senior expertise, one point of accountability. No agency, no team to manage.',
 
   primaryKeyword: 'hire ecommerce consultant',
   secondaryKeywords: [
-    'hire magento developer',
-    'hire shopify expert',
-    'hire ecommerce developer india',
-    'freelance ecommerce consultant',
+    'hire technology partner',
+    'hire magento consultant',
+    'hire shopify consultant',
+    'ecommerce technology partner',
+    'independent ecommerce consultant',
   ],
   searchIntent:
     'Transactional. Someone ready to engage help and deciding what kind of help to engage.',
@@ -103,6 +104,7 @@ export const HIRE = {
     'Answer the hiring query honestly, and let the wrong-fit reader disqualify themselves before a call.',
   entities: [
     'Yuvraj Raulji',
+    'Technology Partner',
     'eCommerce Consultant',
     'AI Consultant',
     'Technology Consultant',
@@ -113,14 +115,16 @@ export const HIRE = {
   ],
 
   quickAnswer: {
-    question: 'How do you work with Yuvraj Raulji?',
+    question: 'What does working with Yuvraj Raulji as your technology partner look like?',
     answer:
-      'Directly, and with one person rather than an agency. Engagements take three shapes: advisory, where the deliverable is a decision and the reasoning behind it; a defined piece of work with a scope and an end, such as a migration, a performance programme or an integration; and an ongoing arrangement where a platform needs someone to own it. Every one starts with the same conversation about what is actually in front of you, and that conversation sometimes ends with a recommendation that no project is needed.',
+      'Directly, and with one person rather than a team. Engagements take three shapes: technology partner, where the deliverable is a decision and the reasoning behind it; project partner, a defined piece of work with a scope and an end; and ongoing technology partner, where a platform needs someone to own it. Every engagement starts with the same conversation about what is actually in front of you, and that conversation sometimes ends with a recommendation that no project is needed.',
     bestFor: [
       'A platform or architecture decision that is hard to reverse',
-      'A build that has to be done properly the first time',
-      'A live platform nobody currently owns technically',
-      'A second opinion on a proposal you already have',
+      'A commerce problem that is costing revenue and nobody has diagnosed it',
+      'Technical leadership on a build where the decision matters',
+      'A second opinion on a proposal you cannot independently evaluate',
+      'A defined piece of work that needs to be done properly the first time',
+      'A platform that needs someone to own it technically',
     ],
   },
 
@@ -133,21 +137,21 @@ export const HIRE = {
    * paragraph, which is why it is not hidden behind a euphemism.
    */
   notThis: {
-    headline: ['What this', 'is not.'],
+    headline: ['Not an agency.', 'Not a team.'],
     body:
-      'This is not an agency, a development shop or a staffing arrangement, and there is no bench behind it. If what you need is four developers starting on Monday, a managed delivery team, or a supplier who will build whatever the specification says without arguing with it, this is the wrong place and it is cheaper for both of us to know that now.',
+      'There is no bench behind this, no account manager to brief, and no delivery team to manage. If you need four people starting Monday, a managed delivery operation, or a supplier who will execute a specification without questioning it, this is the wrong place, and it is better to establish that before a call.',
     points: [
       {
-        title: 'No dedicated resources by the month',
-        body: 'Work is scoped by the problem, not sold as headcount. Where a team is genuinely needed, saying so is part of the advice rather than a service on offer.',
+        title: 'Direct access, always',
+        body: 'You work with the person doing the work. There is no account manager between you and the person responsible for the outcome.',
       },
       {
-        title: 'No proposal for a project you do not need',
-        body: 'A real share of these conversations end with a smaller piece of work, or none. That is only possible because nothing here depends on selling the build.',
+        title: 'Independent technology advice',
+        body: 'No platform partnership, no reseller margin. Technology recommendations based on what the business needs, not on what the supplier is positioned to deliver.',
       },
       {
-        title: 'No account layer',
-        body: 'You talk to the person doing the work. That is the main practical difference between this and the alternative, and it is the reason the first call is useful rather than exploratory.',
+        title: 'One point of accountability',
+        body: 'One person responsible. Not a team to brief, not a rotation between phases, not a handoff when the scope changes.',
       },
     ],
   },
@@ -155,7 +159,7 @@ export const HIRE = {
   models: [
     {
       num: '01',
-      name: 'Advisory',
+      name: 'Technology Partner',
       summary: 'The deliverable is a decision, with the reasoning attached.',
       body:
         'Platform selection, architecture review, technical due diligence, or a second opinion on a proposal. Typically a short engagement producing a written account of the current state, the decisions that need making with a recommendation on each, and an order of work. On an inherited platform the current-state document is often the part with the most immediate value, because it is the first time the whole system has been described in one place.',
@@ -168,7 +172,7 @@ export const HIRE = {
     },
     {
       num: '02',
-      name: 'A defined piece of work',
+      name: 'Project Partner',
       summary: 'A scope, a shape and an end.',
       body:
         'A migration, a performance programme, an integration boundary, an upgrade, a build. Scoped after the problem is understood rather than before, because a scope written against a symptom is how projects end up delivering the wrong thing accurately. The service pages under each platform describe what these actually look like.',
@@ -181,7 +185,7 @@ export const HIRE = {
     },
     {
       num: '03',
-      name: 'Ongoing',
+      name: 'Ongoing Technology Partner',
       summary: 'Somebody owns the platform.',
       body:
         'Patch cadence, release discipline, monitoring, and the technical ownership most platforms are missing rather than the ticket queue most retainers sell. The stated goal is to hand it back: documentation and enough transfer that the internal team can hold it. An arrangement that makes itself indispensable is a commercial arrangement rather than a technical one.',
@@ -223,31 +227,35 @@ export const HIRE = {
 
   facts: [
     {
-      label: 'Nine years',
+      label: 'Direct access',
       body:
-        'Measured from the first Magento role in June 2016, which is where the professional record starts. Earlier websites are not counted.',
+        'You work with the person doing the work, on every call. There is no account manager and nobody else to brief on a decision.',
     },
     {
-      label: 'Remote, from IST',
+      label: 'Senior judgement',
       body:
-        'Engagements run remotely with structured written communication. Time zone overlap is agreed at the start rather than assumed.',
+        'Nine years from the first Magento role in June 2016: multi-store catalogues, B2B approval workflows, headless commerce and AI systems. The decisions that matter are made by the person who has made them before.',
     },
     {
-      label: 'Direct, always',
+      label: 'One point of accountability',
       body:
-        'You work with the person doing the work. There is no account manager and nobody else to brief.',
+        'One person responsible for the outcome. Not a team, not a rotation between phases, and not a handoff when the scope changes.',
     },
     {
       label: 'Independent',
       body:
-        'No platform partnership, no reseller margin and no incentive to recommend one technology over another. It is why a recommendation against a project is possible.',
+        'No platform partnership, no reseller margin and no incentive to recommend one technology over another. A recommendation against a project is always available.',
     },
   ],
 
   faqs: [
     {
-      q: 'Can I hire you as a developer rather than a consultant?',
-      a: 'The work often is development, so the distinction matters less than it sounds. What does not happen is being placed into a team as a resource against a specification somebody else wrote, because the value here is in arguing with the specification before it is built. If you need hands on a defined backlog, an agency or a contractor is a better fit and cheaper.',
+      q: 'When does a business need a technology partner rather than an agency?',
+      a: 'When the problem involves judgement rather than just execution. An agency is the right choice for a defined scope of work that needs a team. A technology partner is the right choice when you need someone to help decide what to build, whether to build it, and how to sequence the work. The distinction matters most on platform decisions, architecture choices, and situations where the specification itself might be wrong.',
+    },
+    {
+      q: 'Can you do the technical work directly, not just advise?',
+      a: 'Yes, and the work often involves hands-on technical execution. What does not happen is being placed into a team as a resource against a specification somebody else wrote, because the value here is in arguing with the specification before it is built. If you need hands on a defined backlog without that argument, an agency or a contractor is a better fit.',
     },
     {
       q: 'Do you work with agencies, or only direct?',
@@ -283,7 +291,7 @@ export const HIRE = {
    * The process section keeps it, because that is the section it describes.
    * This one closes on what the reader is actually deciding here.
    */
-  finalHeadline: ['Bring the constraint.', 'We will name the decision.'],
+  finalHeadline: ['Need a technology partner,', 'not another vendor?'],
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════
