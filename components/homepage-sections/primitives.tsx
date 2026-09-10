@@ -9,7 +9,7 @@ import type { ReactNode } from 'react';
  */
 
 /**
- * The section eyebrow: the section name, set small and letterspaced.
+ * The section eyebrow: a red accent line followed by the section name.
  *
  * The canvas put a red ordinal in front of the name and this component used to
  * render it from a `no` prop. The ordinals are gone from the page, so the prop
@@ -21,12 +21,13 @@ export function SectionLabel({
   className = '',
 }: {
   children: ReactNode;
-  /** `light` is for the two white-ground sections, which invert the name colour. */
+  /** `light` is for the white-ground sections, which invert the name colour. */
   tone?: 'dark' | 'light';
   className?: string;
 }) {
   return (
-    <div className={`flex items-center gap-3.5 ${className}`}>
+    <div className={`flex items-center gap-3 ${className}`}>
+      <span aria-hidden="true" className="h-px w-5 shrink-0 bg-accent" />
       <span
         className={`font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] ${
           tone === 'light' ? 'text-ground/55' : 'text-ink/55'
@@ -116,15 +117,21 @@ export function RuleLink({
   href,
   children,
   className = '',
+  tone = 'dark',
 }: {
   href: string;
   children: ReactNode;
   className?: string;
+  tone?: 'dark' | 'light';
 }) {
   return (
     <a
       href={href}
-      className={`relative inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] border-b border-ink/30 pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent ${className}`}
+      className={`relative inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent hover:text-accent-bright ${
+        tone === 'light'
+          ? 'border-b border-ground/30 text-ground/70'
+          : 'border-b border-ink/30 text-ink/70'
+      } ${className}`}
     >
       {children}
     </a>

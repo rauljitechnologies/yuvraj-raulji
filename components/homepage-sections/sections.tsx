@@ -38,84 +38,76 @@ import { Rv, RvGroup, RvItem } from './rv';
  *   12 FAQ           the questions that precede a first call
  *   13 Contact       the close, and the form
  *
- * This replaced a fifteen-section page ordered as a narrative about what
- * Yuvraj finds interesting: a position statement, four "systems", a featured
- * case, a stack diagram, direct answers, a career timeline, a pull quote, a
- * channels grid, a consultation band and a contact band. Most of it was good
- * writing answering a question nobody had asked yet. What went, and why:
+ * ── Section rhythm ─────────────────────────────────────────────────────────
  *
- *   - Featured case      a second, longer telling of a project already on the
- *                        page. One telling, then /work/.
- *   - Direct answers     four definitions that the FAQ already covers, on a
- *                        page that now has one FAQ instead of two.
- *   - The evolution      a career timeline belongs on /about/, which has one.
- *   - Quote band         a pull quote between two sections that were both
- *                        already making the point.
- *   - Channels           four links to social profiles, in the middle of the
- *                        page, competing with the actual call to action. The
- *                        footer already carries them.
- *   - Consultation       merged into Contact, because two closing bands split
- *                        one decision across two scroll positions.
+ *   Hero       → DARK
+ *   Credibility → LIGHT  (creates immediate visual break after hero)
+ *   Problems   → DARK
+ *   Expertise  → LIGHT
+ *   Why        → RED BAND
+ *   Work       → DARK
+ *   AI         → DARK + red glow
+ *   Ecosystem  → LIGHT
+ *   Approach   → DARK
+ *   About      → LIGHT
+ *   Insights   → DARK
+ *   FAQ        → LIGHT
+ *   Contact    → BLACK (the close)
  *
  * ── Rendering ──────────────────────────────────────────────────────────────
  *
  * Every section here is a server component reading module-scope data, so the
- * whole page prerenders to static HTML at build time (next.config.mjs sets
- * `output: 'export'`). The only JavaScript the page ships is the scroll-reveal
- * wrappers and the contact form.
- *
- * ── Headings ───────────────────────────────────────────────────────────────
- *
- * One H1, in the hero, and it names the role. Every section below opens an H2.
- * Repeated items inside a section are H3. No level is skipped.
+ * whole page prerenders to static HTML at build time. The only JavaScript the
+ * page ships is the scroll-reveal wrappers and the contact form.
  */
 
-/* Shared shell classes: a 1440px container with 48px gutters, dropping to
-   20px under `sm` where 48px would eat a phone's width. */
+/* Shared shell classes: a 1440px container with 48px gutters. */
 const SHELL = 'mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12';
 const SECTION_Y = 'py-16 sm:py-20 md:py-24 lg:py-[140px]';
 
-/** The two-weight display heading repeated in every section. */
+/** Display heading, dark sections (inherits off-white text). */
 const H2 =
   'm-0 font-manrope text-[clamp(34px,4.6vw,68px)] font-extralight leading-[1.02] tracking-[-0.035em]';
 
+/** Display heading, light sections (explicit dark text). */
+const H2L =
+  'm-0 font-manrope text-[clamp(34px,4.6vw,68px)] font-extralight leading-[1.02] tracking-[-0.035em] text-ground';
+
 /* ─────────────────────────────────────────────────────────────
-   02 — Credibility
+   02 — Credibility  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
  * The four numbers, immediately under the hero.
  *
- * Every figure here comes from STATS in lib/homepage.ts, which is the one
- * place on this site a verified number is written down. Nothing in this file
- * types a figure of its own, so the page cannot contradict itself and a number
- * can only be changed in the place where its provenance is recorded.
- *
- * Deliberately not a card grid. Four hairline cells on the page ground read as
- * a masthead; four bordered boxes read as an infographic, and an infographic
- * of your own achievements is the least credible way to present them.
+ * Light section — creates an immediate visual rhythm break after the dark hero.
+ * Every figure comes from STATS in lib/homepage.ts, the one place a verified
+ * number is written. Nothing here types a figure of its own.
  */
 export function Credibility() {
   return (
     <section
       id="credibility"
       aria-labelledby="credibility-title"
-      className="border-y border-ink/10 bg-surface"
+      className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-12 sm:py-14 lg:py-16`}>
+      <div className={`${SHELL} py-14 sm:py-16 lg:py-20`}>
         <h2 id="credibility-title" className="sr-only">
           Experience at a glance
         </h2>
         <RvGroup
-          className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-12"
-          each={0.05}
+          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0"
+          each={0.06}
         >
-          {STATS.map((stat) => (
-            <RvItem key={stat.label} className="flex flex-col gap-3">
-              <span className="font-manrope text-[clamp(38px,4.4vw,58px)] font-semibold leading-[0.95] tracking-[-0.04em] text-accent-bright">
+          {STATS.map((stat, i) => (
+            <RvItem
+              key={stat.label}
+              className={`flex flex-col gap-4 ${i > 0 ? 'lg:border-l lg:border-ground/12 lg:pl-10' : ''}`}
+            >
+              <span className="font-manrope text-[clamp(44px,5.2vw,72px)] font-semibold leading-[0.9] tracking-[-0.04em] text-accent-bright">
                 {stat.value}
               </span>
-              <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ink/55">
+              <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60">
                 {stat.label}
               </span>
             </RvItem>
@@ -127,7 +119,7 @@ export function Credibility() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   03 — The problems
+   03 — The problems  (DARK)
    ───────────────────────────────────────────────────────────── */
 
 /**
@@ -136,12 +128,7 @@ export function Credibility() {
  * A visitor does not arrive looking for "commerce architecture". They arrive
  * because checkout is leaking or the site is slow, and they will only recognise
  * the offer once they have recognised themselves. So this section runs before
- * the capabilities rather than after: it earns the right to describe the work
- * by first describing the problem.
- *
- * Nine rows on a hairline grid rather than nine cards. Cards would give each
- * symptom a frame and equal visual weight with a call to action, which is more
- * ceremony than a symptom deserves.
+ * the capabilities rather than after.
  */
 export function Problems() {
   return (
@@ -164,21 +151,28 @@ export function Problems() {
 
       <RvGroup
         as="ul"
-        className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 sm:grid-cols-2 lg:grid-cols-3"
+        className="m-0 grid list-none gap-px border border-ink/12 bg-ink/12 p-0 sm:grid-cols-2 lg:grid-cols-3"
         each={0.03}
       >
         {PROBLEMS.map((problem) => (
           <RvItem
             key={problem.no}
             as="li"
-            className="flex flex-col gap-3 bg-ground p-6 transition-colors duration-300 hover:bg-surface sm:p-7"
+            className="group relative flex flex-col justify-between gap-4 overflow-hidden bg-ground p-6 transition-colors duration-300 hover:bg-surface sm:p-7"
           >
-            <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent-bright">
-              {problem.no}
-            </span>
-            <h3 className="m-0 font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[21px]">
-              {problem.name}
-            </h3>
+            {/* Accent sweep on hover */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100"
+            />
+            <div className="flex flex-col gap-3">
+              <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent-bright">
+                {problem.no}
+              </span>
+              <h3 className="m-0 font-manrope text-[19px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[21px]">
+                {problem.name}
+              </h3>
+            </div>
             <p className="m-0 font-manrope text-[15px] font-light leading-[1.6] text-ink/50">
               {problem.note}
             </p>
@@ -186,12 +180,6 @@ export function Problems() {
         ))}
       </RvGroup>
 
-      {/* The sentence below describes the audit exactly, so it now links to it.
-          Until this existed the homepage named the first step and then offered
-          no way to buy it: the one purchasable page on the site had two inbound
-          links and neither was from here. The conversation stays the primary
-          action; the audit is the defined alternative for a reader who would
-          rather buy a diagnosis than open a conversation. */}
       <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5">
         <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:text-[19px]">
           The first step is understanding what is actually holding the business back.
@@ -206,40 +194,36 @@ export function Problems() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   04 — What I help businesses with
+   04 — Capabilities  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
- * Four areas, as full-width rows rather than as a service-card grid.
+ * Four areas, as full-width rows on a light ground.
  *
- * The brief for this page asked specifically that these not look like service
- * cards, and the reason is worth writing down: a four-up card grid compresses
- * each area into about 30 words and a bullet list, which is exactly the format
- * every agency site uses, so it reads as a template no matter how good the
- * writing inside it is. A full-width row gives the paragraph room to sound like
- * a person, and the numbered rule down the left is what carries the rhythm
- * instead of four boxes.
- *
- * `id="growth"` sits on the third row because the hero links into it by name.
+ * The brief asked these not look like service cards. A full-width row gives
+ * the paragraph room to sound like a person. The numbered rule down the left
+ * carries the rhythm.
  */
 export function Capabilities() {
   return (
     <section
       id="expertise"
       aria-labelledby="capabilities-title"
-      className="border-t border-ink/10 bg-surface"
+      className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel className="mb-10">What I help businesses with</SectionLabel>
+        <SectionLabel tone="light" className="mb-10">
+          What I help businesses with
+        </SectionLabel>
 
         <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
           <Rv>
-            <h2 id="capabilities-title" className={H2}>
+            <h2 id="capabilities-title" className={H2L}>
               Four areas, and <span className="font-bold">the decisions inside them.</span>
             </h2>
           </Rv>
           <Rv>
-            <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55 sm:text-[19px] lg:mt-2">
+            <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/55 sm:text-[19px] lg:mt-2">
               Most engagements start in one of these four and end up touching two. The platform
               decision and the growth work are rarely separable for long.
             </p>
@@ -251,7 +235,7 @@ export function Capabilities() {
             <RvItem
               key={area.no}
               as="li"
-              className="grid gap-x-12 gap-y-7 border-t border-ink/12 py-9 lg:grid-cols-[56px_minmax(0,0.95fr)_minmax(0,1.05fr)] lg:py-14"
+              className="grid gap-x-12 gap-y-7 border-t border-ground/12 py-9 lg:grid-cols-[56px_minmax(0,0.95fr)_minmax(0,1.05fr)] lg:py-14"
             >
               <span
                 aria-hidden="true"
@@ -260,42 +244,24 @@ export function Capabilities() {
                 {area.no}
               </span>
 
-              {/*
-                Heading and body share the middle column, and the items get the
-                right one. They were split as heading / body-plus-items, which
-                left the middle column empty under a two-word heading for most
-                of the row's height: about 400px of nothing per area on a
-                desktop, which reads as a rendering fault rather than as
-                editorial space. This also removes the paragraph that was
-                printed twice and hidden at alternate breakpoints.
-              */}
               <div>
-                {/* The hero links into the growth area by name, so that row's
-                    heading carries the anchor. A heading is the right target:
-                    a deep link should land on the thing it named. */}
                 <h3
                   id={area.no === '03' ? 'growth' : undefined}
-                  className="m-0 max-w-[14ch] scroll-mt-28 font-manrope text-[clamp(24px,2.6vw,36px)] font-semibold leading-[1.08] tracking-[-0.03em]"
+                  className="m-0 max-w-[14ch] scroll-mt-28 font-manrope text-[clamp(24px,2.6vw,36px)] font-semibold leading-[1.08] tracking-[-0.03em] text-ground"
                 >
                   {area.name}
                 </h3>
-                <p className="mt-5 max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50 sm:text-[17px]">
+                <p className="mt-5 max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ground/55 sm:text-[17px]">
                   {area.body}
                 </p>
               </div>
 
               <div>
-                {/*
-                  The items are a list, and marked as one. They were the part
-                  most at risk of becoming a tag cloud, so they are set as two
-                  columns of quiet type with a hairline rule between rows,
-                  which reads as a specification rather than as decoration.
-                */}
                 <ul className="m-0 grid list-none grid-cols-1 gap-x-8 p-0 sm:grid-cols-2">
                   {area.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-baseline gap-3 border-b border-ink/8 py-2.5 font-manrope text-[15px] font-light leading-[1.5] text-ink/60"
+                      className="flex items-baseline gap-3 border-b border-ground/10 py-2.5 font-manrope text-[15px] font-light leading-[1.5] text-ground/60"
                     >
                       <span aria-hidden="true" className="h-px w-2.5 shrink-0 bg-accent/60" />
                       {item}
@@ -307,24 +273,12 @@ export function Capabilities() {
           ))}
         </RvGroup>
 
-        <Rv className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/12 pt-10">
-          {/*
-            Two lines, and the measure is 44ch to hold it there.
-
-            The link was added to this sentence without shortening it, and the
-            measure was widened to 52ch to fit the extra words. The result set
-            in three lines with "actually for." alone on the third, at 17% of
-            the measure: a two-word widow under a heading, next to the only
-            accent button in the section. Both of the other section closes on
-            this page set in two, so this one was the odd row rather than a new
-            idea. The sentence is shorter now instead of the column being
-            wider, which keeps the link and drops the orphan.
-          */}
-          <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
+        <Rv className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
+          <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ground/55">
             Not sure which of these the problem sits in? Establishing that is what{' '}
             <a
               href="/expertise/ecommerce-consulting/"
-              className="border-b border-accent/60 text-ink/75 transition-colors hover:border-accent-bright hover:text-ink"
+              className="border-b border-accent/60 text-ground/80 transition-colors hover:border-accent hover:text-ground"
             >
               eCommerce consulting
             </a>{' '}
@@ -340,27 +294,25 @@ export function Capabilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   05 — Why Yuvraj
+   05 — Why Yuvraj  (RED BAND)
    ───────────────────────────────────────────────────────────── */
 
-/** The five words the position is built from, set as type rather than prose. */
 const INTERSECTION = ['Business', 'Technology', 'eCommerce', 'AI', 'Growth'] as const;
 
 /**
  * The position, on the accent ground.
  *
- * This is the one section on the page that argues rather than informs, so it
- * gets the one full red band. The list of five is set as a typographic stack
- * with hairline plus signs between the words: the brief asked for the five to
- * be connected and asked specifically that the multiplication sign not be used
- * for it, which is also section 1 of BRAND-DESIGN-GUIDELINE.md.
+ * The one section that argues rather than informs, so it gets the one full
+ * red band. The list of five is set as a typographic stack with hairline
+ * plus signs between the words.
  */
 export function Why() {
   return (
     <section id="why" aria-labelledby="why-title" className="bg-accent text-white">
       <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[130px]`}>
-        <div className="mb-4 flex items-center gap-3.5">
-          <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-white/95">
+        <div className="mb-4 flex items-center gap-3">
+          <span aria-hidden="true" className="h-px w-5 shrink-0 bg-white/60" />
+          <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-white/80">
             The position
           </span>
         </div>
@@ -383,7 +335,7 @@ export function Why() {
               </p>
             </Rv>
             <Rv>
-              <p className="mt-5 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.75] text-white/95">
+              <p className="mt-5 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.75] text-white/90">
                 The right technology should improve performance, reduce friction, simplify
                 operations, improve customer experience and create measurable business value. Every
                 decision on this page is judged against that, which is also why some of the advice
@@ -392,18 +344,13 @@ export function Why() {
             </Rv>
           </div>
 
-          {/*
-            The five, stacked. Set large and light with a hairline rule and a
-            plus between each, so it reads as one continuous position rather
-            than as five tags.
-          */}
           <RvGroup as="ul" className="m-0 list-none p-0" each={0.06}>
             {INTERSECTION.map((word, i) => (
-              <RvItem key={word} as="li" className="border-t border-white/25 first:border-t-0">
+              <RvItem key={word} as="li" className="border-t border-white/20 first:border-t-0">
                 <div className="flex items-baseline gap-5 py-3.5 lg:py-5">
                   <span
                     aria-hidden="true"
-                    className="w-4 shrink-0 font-mono text-[18px] leading-none text-white/80"
+                    className="w-4 shrink-0 font-mono text-[18px] leading-none text-white/70"
                   >
                     {i === 0 ? '' : '+'}
                   </span>
@@ -421,7 +368,7 @@ export function Why() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   06 — Selected work
+   06 — Selected work  (DARK)
    ───────────────────────────────────────────────────────────── */
 
 export function SelectedWork() {
@@ -446,26 +393,14 @@ export function SelectedWork() {
         </div>
       </div>
 
-      {/*
-        Horizontal rail with scroll snapping. `overflow-x-auto` on a full-bleed
-        row, with the shell gutter reproduced as padding so the first card lines
-        up with the heading above it.
-      */}
       <ul className="flex list-none gap-4 overflow-x-auto px-5 pb-10 pt-2 [scroll-snap-type:x_mandatory] sm:gap-6 sm:px-6 md:px-8 lg:px-12">
         {PROJECTS.map((project) => (
           <li
             key={project.no}
-            className="group flex-[0_0_min(300px,82vw)] border border-ink/15 bg-surface sm:flex-[0_0_clamp(300px,34vw,480px)] transition-[transform,border-color] duration-300 [scroll-snap-align:start] hover:-translate-y-2 hover:border-accent/60 motion-reduce:hover:translate-y-0"
+            className="group flex-[0_0_min(300px,82vw)] border border-ink/15 bg-surface sm:flex-[0_0_clamp(300px,34vw,480px)] transition-[transform,border-color,box-shadow] duration-300 [scroll-snap-align:start] hover:-translate-y-2 hover:border-accent/50 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] motion-reduce:hover:translate-y-0"
           >
             <div className="relative flex aspect-[4/3] items-end overflow-hidden border-b border-ink/10 bg-[#111] p-6">
               {project.cover ? (
-                /*
-                  The masters are 1920px wide and this tile is never wider than
-                  480 CSS pixels, so a phone was downloading up to 460 KB to
-                  paint a 300px card. The 640 and 960 cuts are the same files
-                  resized, and sit beside the master in
-                  public/assets/case-covers.
-                */
                 <img
                   src={project.cover}
                   srcSet={`${project.cover.replace('.webp', '-640.webp')} 640w, ${project.cover.replace(
@@ -488,9 +423,9 @@ export function SelectedWork() {
               )}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.8)_100%)]"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.2)_0%,rgba(5,5,5,.85)_100%)]"
               />
-              <span className="absolute right-6 top-6 font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/60">
+              <span className="absolute right-6 top-6 font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/50">
                 {project.no}
               </span>
               <span className="relative font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/70">
@@ -505,37 +440,21 @@ export function SelectedWork() {
               <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/50">
                 {project.challenge}
               </p>
-              {/*
-                Industry, technology and role, as a definition list. The brief
-                for this page asked each project to carry industry, technology,
-                challenge, approach and outcome. Industry is on the cover plate
-                above; challenge is the paragraph; approach and outcome are the
-                two below. Nothing here is a number, because no verified
-                per-project figure exists for these six and inventing one to
-                fill a row would be the one unrecoverable mistake on a
-                consultant's homepage.
-              */}
-              <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 font-mono text-xs leading-[1.4]">
-                <dt className="uppercase tracking-[0.14em] text-ink/55">Approach</dt>
-                <dd className="m-0 text-ink/70">{project.role}</dd>
-                <dt className="uppercase tracking-[0.14em] text-ink/55">Technology</dt>
-                <dd className="m-0 text-ink/70">{project.stack}</dd>
-              </dl>
-              {/*
-                Each card links to that case's own page, not to its anchor on
-                the /work/ hub. Six cards reading "View case study" all pointing
-                at one URL is six copies of the same link, so the name is
-                appended for assistive technology and the visible rule stays as
-                short as the design wants it.
-                
-                The anchor form was worse than a duplicate: the six detail pages
-                exist, are indexed and carry their own schema, and the homepage
-                was the strongest page that could have linked to them. It sent
-                that link equity to /work/ instead, which was already the most
-                linked URL on the site, and a reader who clicked "View case
-                study" got a hub section rather than the case study.
-              */}
-              <RuleLink href={`/work/${project.id}/`} className="mt-7">
+
+              {/* Emphasis: approach first, technology secondary */}
+              <div className="mt-5 border-t border-ink/10 pt-5">
+                <span className="mb-1.5 block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-accent-bright">
+                  Approach
+                </span>
+                <span className="font-manrope text-[15px] font-light leading-[1.5] text-ink/75">
+                  {project.role}
+                </span>
+              </div>
+              <p className="mt-2.5 font-mono text-[11px] leading-[1.4] tracking-[0.06em] text-ink/30">
+                {project.stack}
+              </p>
+
+              <RuleLink href={`/work/${project.id}/`} className="mt-6">
                 View case study
                 <span className="sr-only">: {project.name}</span>{' '}
                 <span className="font-mono">→</span>
@@ -548,7 +467,7 @@ export function SelectedWork() {
       <div className="flex items-center gap-4 px-5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55 sm:px-6 md:px-8 lg:px-12">
         <span aria-hidden="true">Scroll →</span>
         <span aria-hidden="true" className="h-px flex-1 bg-ink/10" />
-        <a href="/work/" className="py-2.5 text-ink transition-colors hover:text-accent-bright">
+        <a href="/work/" className="py-2.5 text-ink/55 transition-colors hover:text-accent-bright">
           View selected work
         </a>
       </div>
@@ -557,7 +476,7 @@ export function SelectedWork() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   07 — AI
+   07 — AI  (DARK + red glow)
    ───────────────────────────────────────────────────────────── */
 
 export function AiCommerce() {
@@ -567,8 +486,20 @@ export function AiCommerce() {
       aria-labelledby="ai-title"
       className="relative overflow-hidden border-t border-ink/10 bg-ground"
     >
-      {/* Circuit traces. Two accent paths on a slow dash loop. Decorative. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-50">
+      {/* Ambient red glow — purely decorative */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute right-0 top-0 h-[700px] w-[700px] translate-x-1/3 -translate-y-1/4 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(215,25,32,0.13) 0%, transparent 68%)' }}
+        />
+        <div
+          className="absolute bottom-0 left-0 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/4 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(215,25,32,0.07) 0%, transparent 68%)' }}
+        />
+      </div>
+
+      {/* Circuit traces */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-40">
         <svg
           width="100%"
           height="100%"
@@ -590,7 +521,7 @@ export function AiCommerce() {
             strokeDasharray="8 400"
             className="animate-yr-dash-slow"
           />
-          <path d="M0 300 H1200" stroke="rgba(255,255,255,.07)" strokeWidth="1" />
+          <path d="M0 300 H1200" stroke="rgba(255,255,255,.05)" strokeWidth="1" />
         </svg>
       </div>
 
@@ -616,14 +547,18 @@ export function AiCommerce() {
         </Rv>
 
         <RvGroup
-          className="grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-px border border-ink/12 bg-ink/12 sm:grid-cols-2 lg:grid-cols-4"
           each={0.04}
         >
           {AI_TRACKS.map((track) => (
             <RvItem
               key={track.no}
-              className="flex min-h-[150px] flex-col justify-between bg-ground p-6 transition-colors duration-300 hover:bg-[#111]"
+              className="group relative flex min-h-[160px] flex-col justify-between overflow-hidden bg-ground p-6 transition-colors duration-300 hover:bg-surface"
             >
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100"
+              />
               <span className="font-mono text-[10px] font-medium leading-none tracking-[0.2em] text-accent-bright">
                 {track.no}
               </span>
@@ -652,36 +587,35 @@ export function AiCommerce() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   08 — Technology ecosystem
+   08 — Technology ecosystem  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
- * The stack, as type.
+ * The stack, as type on a light ground.
  *
- * Explicitly not a logo wall. A grid of vendor marks tells a reader that these
- * words have been heard of; a grouped list says which layer each one sits in,
+ * Explicitly not a logo wall. A grouped list says which layer each one sits in,
  * which is the only part a client's own technical reviewer will read closely.
- * It also keeps the page free of thirty third-party images that would each
- * need loading, licensing and a colour treatment to survive the dark ground.
  */
 export function Ecosystem() {
   return (
     <section
       id="technology"
       aria-labelledby="technology-title"
-      className="border-t border-ink/10 bg-surface"
+      className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel className="mb-10">Technology ecosystem</SectionLabel>
+        <SectionLabel tone="light" className="mb-10">
+          Technology ecosystem
+        </SectionLabel>
 
         <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
           <Rv>
-            <h2 id="technology-title" className={H2}>
+            <h2 id="technology-title" className={H2L}>
               The stack, <span className="font-bold">grouped by what it is for.</span>
             </h2>
           </Rv>
           <Rv>
-            <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55 sm:text-[19px] lg:mt-2">
+            <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/55 sm:text-[19px] lg:mt-2">
               Tools are chosen against a problem, not collected. This is the working set, and which
               layer each one belongs to. The names that are linked have a page of their own.
             </p>
@@ -693,28 +627,21 @@ export function Ecosystem() {
             <RvItem
               key={group.name}
               as="li"
-              className="grid gap-x-12 gap-y-5 border-t border-ink/12 py-8 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] lg:py-11"
+              className="grid gap-x-12 gap-y-5 border-t border-ground/12 py-8 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,1fr)] lg:py-11"
             >
-              <h3 className="m-0 font-manrope text-[clamp(19px,1.8vw,24px)] font-semibold leading-[1.2] tracking-[-0.02em]">
+              <h3 className="m-0 font-manrope text-[clamp(19px,1.8vw,24px)] font-semibold leading-[1.2] tracking-[-0.02em] text-ground">
                 {group.name}
               </h3>
               <ul className="m-0 flex list-none flex-wrap gap-x-8 gap-y-3 p-0">
                 {group.items.map((item) => (
                   <li
                     key={item.name}
-                    className="font-manrope text-[16px] font-light leading-[1.5] text-ink/55 sm:text-[17px]"
+                    className="font-manrope text-[16px] font-light leading-[1.5] text-ground/55 sm:text-[17px]"
                   >
-                    {/*
-                      The name is the anchor text where a page exists behind it,
-                      which is the descriptive anchor a platform page wants:
-                      "Shopify" pointing at /shopify/. The hairline underline
-                      is what separates a link from a label here, because at
-                      this weight a colour change alone would not read.
-                    */}
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="border-b border-ink/25 pb-0.5 transition-colors duration-200 hover:border-accent hover:text-ink"
+                        className="border-b border-ground/25 pb-0.5 transition-colors duration-200 hover:border-accent hover:text-ground"
                       >
                         {item.name}
                       </a>
@@ -727,19 +654,24 @@ export function Ecosystem() {
             </RvItem>
           ))}
         </RvGroup>
-        <div className="border-t border-ink/12" />
+        <div className="border-t border-ground/12" />
       </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   09 — Working approach
+   09 — Working approach  (DARK)
    ───────────────────────────────────────────────────────────── */
 
 export function Approach() {
   return (
-    <section id="approach" aria-labelledby="approach-title" className={`${SHELL} ${SECTION_Y}`}>
+    <section
+      id="approach"
+      aria-labelledby="approach-title"
+      className="border-t border-ink/10 bg-ground"
+    >
+      <div className={`${SHELL} ${SECTION_Y}`}>
       <SectionLabel className="mb-10">Working approach</SectionLabel>
 
       <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
@@ -756,22 +688,24 @@ export function Approach() {
         </Rv>
       </div>
 
-      {/*
-        An ordered list, because the order is the entire content. The oversized
-        ordinal is decorative and hidden from assistive technology: the list
-        already announces its own numbering, and hearing "01, 01 Audit" is the
-        kind of duplication that makes people turn a screen reader off.
-      */}
       <RvGroup
         as="ol"
-        className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 sm:grid-cols-2 lg:grid-cols-5"
+        className="m-0 grid list-none gap-px border border-ink/12 bg-ink/12 p-0 sm:grid-cols-2 lg:grid-cols-5"
         each={0.05}
       >
         {APPROACH.map((step) => (
-          <RvItem key={step.no} as="li" className="flex flex-col gap-4 bg-ground p-6 sm:p-7">
+          <RvItem
+            key={step.no}
+            as="li"
+            className="group relative flex flex-col gap-4 overflow-hidden bg-ground p-6 transition-colors duration-300 hover:bg-surface sm:p-7"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100"
+            />
             <span
               aria-hidden="true"
-              className="font-manrope text-[clamp(34px,3.6vw,46px)] font-medium leading-[0.8] tracking-[-0.04em] text-ink/40"
+              className="font-manrope text-[clamp(38px,4vw,52px)] font-medium leading-[0.8] tracking-[-0.04em] text-ink/12"
             >
               {step.no}
             </span>
@@ -784,20 +718,21 @@ export function Approach() {
           </RvItem>
         ))}
       </RvGroup>
+      </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   10 — About
+   10 — About  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
  * The person, briefly.
  *
- * Short on purpose. The homepage's job is to establish that there is a real
- * person with a real record and then hand off to /about/, which has the full
- * account. A long biography here competes with the call to action for the same
+ * Short on purpose. The homepage job is to establish that there is a real
+ * person with a real record and hand off to /about/, which has the full
+ * account. A long biography competes with the call to action for the same
  * scroll position and usually wins, which is the wrong outcome.
  */
 export function About() {
@@ -805,21 +740,23 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-title"
-      className="border-t border-ink/10 bg-surface"
+      className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[120px]`}>
-        <SectionLabel className="mb-10">About</SectionLabel>
+        <SectionLabel tone="light" className="mb-10">
+          About
+        </SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
           <div>
             <Rv>
-              <h2 id="about-title" className={H2}>
+              <h2 id="about-title" className={H2L}>
                 A technology consultant who{' '}
-                <span className="font-bold">thinks beyond technology.</span>
+                <span className="font-bold text-ground">thinks beyond technology.</span>
               </h2>
             </Rv>
             <Rv>
-              <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/55 sm:text-[19px]">
+              <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/60 sm:text-[19px]">
                 The work sits where eCommerce, technology, AI, digital transformation and business
                 growth meet, which in practice means the answer is rarely only technical. A slow
                 storefront can be a caching problem or a merchandising one. A failing integration is
@@ -827,24 +764,19 @@ export function About() {
               </p>
             </Rv>
             <Rv>
-              <p className="mt-5 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/50">
+              <p className="mt-5 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/50">
                 The record runs from the first Magento role in 2016 through Shopify, headless
                 commerce and, more recently, AI systems: catalogues in the hundreds of thousands of
                 SKUs, multi-store platforms, B2B approval workflows and the operations behind them.
               </p>
             </Rv>
             <Rv className="mt-9 flex flex-wrap gap-3.5">
-              <Cta href="/about/" variant="outline">
+              <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
               </Cta>
             </Rv>
           </div>
 
-          {/*
-            Three lines of fact rather than a portrait: the hero already carries
-            the photograph, and a second one here would be the page repeating
-            its strongest asset at half the size.
-          */}
           <RvGroup as="dl" className="m-0 self-center" each={0.06}>
             {[
               { label: 'Based in', value: CONTACT.location },
@@ -853,12 +785,12 @@ export function About() {
             ].map((row) => (
               <RvItem
                 key={row.label}
-                className="flex flex-col gap-1.5 border-t border-ink/12 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
+                className="flex flex-col gap-1.5 border-t border-ground/12 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
               >
-                <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ink/55">
+                <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ground/50">
                   {row.label}
                 </dt>
-                <dd className="m-0 font-manrope text-[16px] font-light leading-[1.5] text-ink/65 sm:text-right">
+                <dd className="m-0 font-manrope text-[16px] font-light leading-[1.5] text-ground/65 sm:text-right">
                   {row.value}
                 </dd>
               </RvItem>
@@ -871,22 +803,19 @@ export function About() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   11 — Insights
+   11 — Insights  (DARK)
    ───────────────────────────────────────────────────────────── */
 
 export function Insights() {
-  /*
-    WRITING, not POSTS. Both are the same eight articles, but POSTS is a record
-    in authoring order and this section is labelled as the latest writing: it
-    was rendering 12 Jun, 08 Jun, 05 Jun, 10 May, 15 May, which is not a date
-    order in either direction. WRITING is the same data sorted newest first,
-    and it is also the array the ItemList in the page's structured data is
-    built from, so the visible list and the markup can no longer disagree.
-  */
   const posts = WRITING.slice(0, 6);
 
   return (
-    <section id="insights" aria-labelledby="insights-title" className={`${SHELL} ${SECTION_Y}`}>
+    <section
+      id="insights"
+      aria-labelledby="insights-title"
+      className="border-t border-ink/10 bg-ground"
+    >
+      <div className={`${SHELL} ${SECTION_Y}`}>
       <SectionLabel className="mb-10">Insights</SectionLabel>
 
       <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10">
@@ -903,7 +832,7 @@ export function Insights() {
           <RvItem key={post.slug} as="li" className="border-t border-ink/10">
             <a
               href={`/insights/${post.slug}/`}
-              className="grid items-center gap-3 px-1 py-6 transition-[background-color,padding-left] duration-300 hover:bg-surface hover:pl-5 sm:gap-4 sm:px-2 sm:py-8 md:grid-cols-[130px_minmax(0,1fr)_auto] md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_190px_60px] lg:gap-9"
+              className="group relative grid items-center gap-3 overflow-hidden px-1 py-6 transition-[background-color,padding-left] duration-300 hover:bg-surface hover:pl-5 sm:gap-4 sm:px-2 sm:py-8 md:grid-cols-[130px_minmax(0,1fr)_auto] md:gap-6 lg:grid-cols-[150px_minmax(0,1fr)_190px_60px] lg:gap-9"
             >
               <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-accent-bright">
                 {post.category}
@@ -916,7 +845,7 @@ export function Insights() {
               </span>
               <span
                 aria-hidden="true"
-                className="hidden font-mono text-[22px] leading-none text-ink/55 lg:block lg:justify-self-end"
+                className="hidden font-mono text-[22px] leading-none text-ink/40 transition-colors duration-200 group-hover:text-accent-bright lg:block lg:justify-self-end"
               >
                 →
               </span>
@@ -925,63 +854,64 @@ export function Insights() {
         ))}
       </RvGroup>
       <div className="border-t border-ink/10" />
+      </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   12 — Questions
+   12 — Questions  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
  * The questions that come up before a first call.
  *
  * FAQS in lib/homepage.ts is the single source for both this section and the
- * FAQPage node in lib/schema-brand.ts. FAQPage markup that does not match the
- * visible text is a structured-data violation, so the two can never be allowed
- * to drift apart, which is why neither is typed twice.
+ * FAQPage node in lib/schema-brand.ts.
  */
 export function Faq() {
   return (
     <section
       id="faq"
       aria-labelledby="faq-title"
-      className="border-t border-ink/10 bg-surface"
+      className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel className="mb-10">Questions</SectionLabel>
+        <SectionLabel tone="light" className="mb-10">
+          Questions
+        </SectionLabel>
 
         <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10 lg:mb-[60px]">
           <Rv>
-            <h2 id="faq-title" className={H2}>
+            <h2 id="faq-title" className={H2L}>
               What people ask <span className="font-bold">before a first call.</span>
             </h2>
           </Rv>
-          <p className="m-0 max-w-[400px] font-manrope text-[17px] font-light leading-[1.7] text-ink/50">
+          <p className="m-0 max-w-[400px] font-manrope text-[17px] font-light leading-[1.7] text-ground/50">
             The answers, in the words I would use on the call itself.
           </p>
         </div>
 
         <RvGroup
           as="ul"
-          className="m-0 grid list-none gap-px border border-ink/10 bg-ink/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]"
+          className="m-0 grid list-none gap-px border border-ground/12 bg-ground/10 p-0 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]"
           each={0.04}
         >
           {FAQS.map((item) => (
             <RvItem
               key={item.no}
               as="li"
-              className="flex flex-col gap-4 bg-ground p-6 sm:p-8 lg:px-[34px] lg:py-[38px]"
+              className="flex flex-col gap-4 bg-[#f5f3ee] p-6 sm:p-8 lg:px-[34px] lg:py-[38px]"
             >
               <div className="flex items-baseline gap-3.5">
                 <span className="shrink-0 font-mono text-[10px] font-medium leading-[1.4] tracking-[0.18em] text-accent-bright">
                   {item.no}
                 </span>
-                <h3 className="m-0 font-manrope text-xl font-semibold leading-[1.3] tracking-[-0.015em]">
+                <h3 className="m-0 font-manrope text-xl font-semibold leading-[1.3] tracking-[-0.015em] text-ground">
                   {item.q}
                 </h3>
               </div>
-              <p className="m-0 ml-6 font-manrope text-base font-light leading-[1.7] text-ink/55">
+              <p className="m-0 ml-6 font-manrope text-base font-light leading-[1.7] text-ground/55">
                 {item.a}
               </p>
             </RvItem>
@@ -989,10 +919,12 @@ export function Faq() {
         </RvGroup>
 
         <div className="mt-11 flex flex-wrap items-center gap-[18px]">
-          <span className="font-manrope text-[17px] font-light leading-[1.6] text-ink/50">
+          <span className="font-manrope text-[17px] font-light leading-[1.6] text-ground/50">
             Question not answered here?
           </span>
-          <RuleLink href="#contact">Start a conversation →</RuleLink>
+          <RuleLink href="#contact" tone="light">
+            Start a conversation →
+          </RuleLink>
         </div>
       </div>
     </section>
@@ -1000,7 +932,7 @@ export function Faq() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   13 — Contact. The close.
+   13 — Contact  (BLACK — the close)
    ───────────────────────────────────────────────────────────── */
 
 const DETAILS = [
@@ -1011,56 +943,48 @@ const DETAILS = [
 ] as const;
 
 /**
- * Contact, on white, and the only close on the page.
+ * Contact, on black. The only close on the page.
  *
- * This used to be two bands: a "Consultation" offer and, under it, a contact
- * form. Two closing sections split one decision across two scroll positions and
- * gave a reader who was ready to act a second thing to read first. They are one
- * band now: the offer, the details, and the form that acts on it.
+ * A dark closing section creates a strong visual endpoint and editorial weight.
+ * The contact info sits in a dark panel; the form sits in a white panel beside
+ * it, because the ContactForm component uses light-background field styling.
  *
- * `id="book"` is kept as a second anchor on the same section because the site
- * footer has linked to `/#book` since before this restructure.
+ * `id="book"` is kept as a second anchor because the footer has linked to
+ * `/#book` since before this restructure.
  */
 export function Contact() {
   return (
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="border-t border-ground/10 bg-white text-ground"
+      className="border-t border-ink/10 bg-[#050505] text-ink"
     >
       <span id="book" aria-hidden="true" />
       <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:pb-[130px] lg:pt-[150px]`}>
-        <SectionLabel tone="light" className="mb-8 sm:mb-11">
-          Contact
-        </SectionLabel>
+        <SectionLabel className="mb-8 sm:mb-11">Contact</SectionLabel>
 
         <Rv>
           <h2
             id="contact-title"
-            className="m-0 max-w-[20ch] font-manrope text-[clamp(32px,5vw,80px)] font-extralight leading-[1.0] tracking-[-0.045em]"
+            className="m-0 max-w-[22ch] font-manrope text-[clamp(32px,5vw,80px)] font-extralight leading-[1.0] tracking-[-0.045em]"
           >
-            Have an eCommerce, AI or technology problem{' '}
+            Let&apos;s solve the commerce problem{' '}
             <span className="font-bold">
-              that needs a clear <span className="text-accent">decision?</span>
+              before it becomes a bigger <span className="text-accent">business problem.</span>
             </span>
           </h2>
         </Rv>
 
         <Rv>
-          <p className="mt-7 max-w-[46ch] font-manrope text-[19px] font-light leading-[1.6] text-ground/70 sm:text-[21px]">
+          <p className="mt-7 max-w-[46ch] font-manrope text-[19px] font-light leading-[1.6] text-ink/60 sm:text-[21px]">
             Bring the problem. Leave with the next practical step.
           </p>
         </Rv>
 
-        {/*
-          `min-w-0` on both cells, because a grid item defaults to
-          `min-width: auto` and therefore refuses to shrink below the widest
-          thing inside it. The form's controls were that widest thing, which
-          held this panel at 449px and pushed it off the right edge of a phone.
-        */}
-        <Rv className="mt-12 grid gap-px border border-ground/15 bg-ground/15 sm:mt-14 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="flex min-w-0 flex-col gap-8 bg-white p-6 sm:gap-10 sm:p-8 lg:p-12">
-            <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/60">
+        {/* Dark left panel (contact info) + white right panel (form) */}
+        <Rv className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:mt-14 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="flex min-w-0 flex-col gap-8 bg-surface p-6 sm:gap-10 sm:p-8 lg:p-12">
+            <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
               Describe the problem in a few lines and I will reply within 24 hours, IST business
               days. A first conversation is 30 minutes and costs nothing.
             </p>
@@ -1069,16 +993,16 @@ export function Contact() {
               {DETAILS.map((detail) => (
                 <div
                   key={detail.label}
-                  className="flex flex-col gap-1 border-t border-ground/15 py-4 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-8"
+                  className="flex flex-col gap-1 border-t border-ink/12 py-4 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-8"
                 >
-                  <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ground/55">
+                  <dt className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ink/50">
                     {detail.label}
                   </dt>
-                  <dd className="m-0 min-w-0 break-words font-mono text-[13px] leading-[1.5] text-ground/75">
+                  <dd className="m-0 min-w-0 break-words font-mono text-[13px] leading-[1.5] text-ink/70">
                     {detail.href ? (
                       <a
                         href={detail.href}
-                        className="inline-block py-1.5 transition-colors hover:text-accent"
+                        className="inline-block py-1.5 transition-colors hover:text-accent-bright"
                       >
                         {detail.value}
                       </a>
@@ -1090,20 +1014,17 @@ export function Contact() {
               ))}
             </dl>
 
-            {/*
-              Held at the foot of the cell so the two ways of starting a
-              conversation, these and the form's own send, end on the same line.
-            */}
             <div className="mt-auto flex flex-wrap gap-3.5 pt-2">
               <Cta href={CONTACT.whatsapp} variant="accent" external="WhatsApp">
                 Book a 30-minute consultation
               </Cta>
-              <Cta href={`mailto:${CONTACT.email}`} variant="outline" tone="light">
+              <Cta href={`mailto:${CONTACT.email}`} variant="outline">
                 Start a conversation
               </Cta>
             </div>
           </div>
 
+          {/* White panel: ContactForm uses text-ground / border-ground — light bg required */}
           <div className="min-w-0 bg-white p-6 sm:p-8 lg:p-12">
             <ContactForm />
           </div>

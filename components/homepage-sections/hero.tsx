@@ -64,9 +64,11 @@ export function Hero() {
             an authored break to mean anything and the browser wraps on its own.
           */}
           <Eager delay={0.06}>
-            <h1 className="m-0 max-w-[15ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-light leading-[1.0] tracking-[-0.042em] text-ink/85">
-              eCommerce, AI <br className="hidden sm:inline" />
-              &amp; Technology <span className="font-semibold text-ink">Consultant</span>
+            <h1 className="m-0 max-w-[18ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-extralight leading-[1.0] tracking-[-0.042em] text-ink/90">
+              eCommerce &amp; AI <span className="font-bold text-ink">Consultant.</span>{' '}
+              <br className="hidden sm:inline" />
+              Technology that works{' '}
+              <span className="font-bold text-ink">for your business.</span>
             </h1>
           </Eager>
 

@@ -38,7 +38,7 @@ import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../lib/site';
  * across title, heading and markup is the fastest way to stop a search engine
  * resolving an entity confidently.
  */
-const title = 'Yuvraj Raulji | eCommerce, AI & Technology Consultant';
+const title = 'Yuvraj Raulji | eCommerce & AI Consultant';
 
 export const metadata: Metadata = {
   title,
