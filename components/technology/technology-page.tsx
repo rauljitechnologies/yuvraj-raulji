@@ -165,9 +165,28 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
         crumbs={crumbs}
       >
         <ContactButton>{tech.cta}</ContactButton>
-        <Btn href="#work" variant="ghost">
-          View relevant work
-        </Btn>
+        {/*
+          Gated on the same `cases` the work section renders from.
+
+          This was unconditional, and two of the eleven technology pages have
+          no case studies attached: /woocommerce/ and /wordpress/ both shipped
+          a "View relevant work" button pointing at `#work`, a section those
+          pages do not render. The browser's response to an anchor with no
+          target is to do nothing at all, so it read as a dead button rather
+          than as a broken link, which is why it survived.
+
+          Where there is no case study for the platform, the button goes to
+          /work/ instead, which is a real page with the six builds on it.
+        */}
+        {cases.length ? (
+          <Btn href="#work" variant="ghost">
+            View relevant work
+          </Btn>
+        ) : (
+          <Btn href="/work/" variant="ghost">
+            See the case studies
+          </Btn>
+        )}
       </PageHero>
 
       {/* ── 02 Quick answer ─────────────────────────────────────────

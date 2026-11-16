@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { CasePage } from '../../../components/work/case-page';
 import { CASES } from '../../../lib/brand';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../../lib/site';
+import { OG_IMAGE, SITE_URL } from '../../../lib/site';
 
 /**
  * /work/{slug}/

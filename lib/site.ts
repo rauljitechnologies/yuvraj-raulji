@@ -848,17 +848,25 @@ export const SERVICE_OPTIONS = [
    to agencies enquiring on behalf of a client, and to businesses that have not
    launched yet, and requiring a store URL would turn both away.
 
-   ROLE_OPTIONS carries no "Founder": section 4 of BRAND-DESIGN-GUIDELINE.md
-   rules the word off this site, and a select is still site copy. The strings
-   are also the scoring input, so they must keep matching DECISION_ROLES in
-   google-apps-script/Code.gs. Change one and change the other.
+   ROLE_OPTIONS carries none of the prohibited titles. Section 4 of
+   BRAND-DESIGN-GUIDELINE.md rules "Founder" off this site and the brand brief
+   adds CTO, Chief Technology Officer, Co-Founder and Business Owner; a select
+   is still site copy, and `<option>` text ships in the HTML of all 68 pages
+   because the enquiry modal renders on every route. "CTO or technology lead"
+   was therefore the single largest source of prohibited-title hits on the
+   site, on every page, and it described the *visitor's* job rather than
+   Yuvraj's. It now reads "Technology lead", which a CTO still selects.
+
+   The strings are also the scoring input, so they must keep matching
+   DECISION_ROLES in google-apps-script/Code.gs. Change one and change the
+   other: 'technology lead' was added there when this string changed.
    ───────────────────────────────────────────────────────────────────────────*/
 
 export const ROLE_OPTIONS = [
   'Owner',
   'CEO or Managing Director',
   'Head of eCommerce',
-  'CTO or technology lead',
+  'Technology lead',
   'Marketing lead',
   'Agency or studio',
 ];
@@ -881,101 +889,29 @@ export const TIMELINE_OPTIONS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   About page — every claim below traces to Yuvraj's own professional record.
-   Confirmed 12 Aug 2026: 9+ years, 50+ projects, the B2B platform is an
-   employer (not a client). Nothing here may be embellished; see
-   CONTENT-PRINCIPLES.md.
+   The professional record.
 
-   Employers and clients are described, not named. Section 4 of
-   BRAND-DESIGN-GUIDELINE.md keeps corporate and historical brand names off
-   this site. CURRENT_ROLES below is the one exception and is deliberately
-   left as written: it renders nowhere, and it is the factual record.
+   It used to be authored here, with every employer anonymised as "B2B commerce
+   platform" or "Commerce agency, Gulf retail", and with a CURRENT_ROLES array
+   that carried four titles against two company names. Both are gone.
+
+   The record now lives in lib/career.ts, with the employers named, and this
+   file re-exports it under the old name so the pages and the schema that read
+   `EXPERIENCE` keep working. The reasoning for naming them is at the top of
+   that file: section 4 of BRAND-DESIGN-GUIDELINE.md keeps off this site the
+   company names that were asked to be removed, and the four employers in the
+   record were never among them.
+
+   `Role` stays exported from here because `components/brand/about-sections.tsx`
+   and app/experience/page.tsx both type against it.
    ───────────────────────────────────────────────────────────────────────────*/
 
-export interface Role {
-  title: string;
-  org: string;
-  period: string;
-  location?: string;
-  summary: string;
-  points: string[];
-}
-
-/** Current positions held alongside the employed role. */
-export const CURRENT_ROLES = [
-  { title: 'Team Leader', org: 'Nxtby.com', period: 'Jan 2023 to present' },
-  { title: 'Founder', org: 'Ariya InfoTech', period: 'Mar 2016 to Dec 2025' },
-  { title: 'Director & Founder', org: 'Raulji Technologies Pvt. Ltd.', period: '' },
-  { title: 'Chairman', org: 'Raulji Group', period: '' },
-];
-
-export const EXPERIENCE: Role[] = [
-  {
-    title: 'Team Leader',
-    org: 'B2B commerce platform',
-    period: 'Jan 2023 to present',
-    location: 'Bengaluru · Remote',
-    summary:
-      'Leading a development team across Magento 2 and multi-platform commerce builds: architecture guidance, code review and delivery.',
-    points: [
-      'Led delivery of 12+ multi-store Magento 2 platforms handling 500K+ SKUs and 1M+ monthly users',
-      'Cut development cycle time by 30% by introducing structured workflows and approval processes',
-      'Designed 5-level approval workflows for development, B2B orders, quotes and vendor management',
-      'Set architecture direction for multi-store setups, custom modules and B2B workflows',
-      'Tuned server, caching, CDN and cloud infrastructure for performance and reliability',
-    ],
-  },
-  {
-    title: 'Sr. Magento Developer',
-    org: 'B2B commerce platform',
-    period: 'Mar 2020 to Dec 2022',
-    location: 'Bengaluru · Remote',
-    summary:
-      'Full-stack Magento 2 development for high-traffic B2B commerce: custom modules, multi-store setups and end-to-end API integration.',
-    points: [
-      'Automated 90% of B2B order and quote processes, reducing approval cycle time by 40%',
-      'Improved site speed by 60% through Varnish, Redis, full-page cache, CDN and database tuning',
-      'Built B2B order and quote management with role-based permissions and multi-level approvals',
-      'Ran Magento 2 server setup on AWS: EC2, RDS, S3, load balancing and auto-scaling',
-      'Integrated payment gateways, logistics, CRM and ERP systems',
-    ],
-  },
-  {
-    title: 'Sr. Magento 2 Full Stack Developer',
-    org: 'Commerce agency, Gulf retail',
-    period: 'Jul 2018 to May 2021',
-    location: 'Ahmedabad · On-site',
-    summary:
-      'Commerce builds for Saudi Arabian retail groups: grocery, commercial kitchen equipment and fashion.',
-    points: [
-      'Built B2B and B2C stores localised for the Saudi market',
-      'Implemented layered navigation, dynamic pricing and custom checkout flows',
-      'Delivered headless frontends over REST and GraphQL for mobile and PWA',
-      'Integrated loyalty programmes, discount engines and customer dashboards',
-    ],
-  },
-  {
-    title: 'Software Engineer',
-    org: 'Digital agency',
-    period: 'Mar 2018 to Jul 2018',
-    location: 'Vadodara',
-    summary:
-      'Shopify development for consumer brands, including skincare storefronts for a global personal-care group.',
-    points: [
-      'Built customised Shopify storefronts with third-party app and API integration',
-      'Wrote custom JavaScript for dynamic product display and frontend behaviour',
-      'First hands-on exposure to Magento 2 and multi-platform commerce architecture',
-    ],
-  },
-  {
-    title: 'Magento Developer → Sr. Magento Developer',
-    org: 'Commerce agency',
-    period: 'Jun 2016 to May 2018',
-    location: 'Vadodara',
-    summary: 'Where the Magento work started: module development and store builds.',
-    points: [],
-  },
-];
+export type { CareerRole as Role } from './career';
+export { CAREER as EXPERIENCE, CAREER_START_YEAR, CAREER_STATS } from './career';
+/* `RECORD_INDUSTRIES` is deliberately NOT re-exported here: this file already
+   exports `INDUSTRIES`, the sector cards, and two lists one import apart with
+   near-identical names is how the wrong one gets rendered. Pages that want the
+   record read it from lib/career.ts directly. */
 
 export const TECH_PROFICIENCIES = [
   { group: 'Commerce', items: ['Magento 2 / Adobe Commerce', 'Shopify & Shopify Plus', 'WooCommerce', 'Headless & Composable'] },
@@ -990,7 +926,25 @@ export const EDUCATION = [
   { qualification: 'Diploma, Information Technology', period: '2010 to 2013' },
 ];
 
+/**
+ * Credentials, newest first.
+ *
+ * `url` is a verification page and it is empty wherever one does not exist.
+ * It is never guessed: a dead or wrong verification link is worse than none,
+ * because it invites a check that then fails. CONTENT-PRINCIPLES.md section 1
+ * covers this, and /certifications/ only renders a link where the string is
+ * non-empty.
+ */
 export const CERTIFICATIONS = [
+  {
+    name: 'Generative AI Certification',
+    issuer: 'IBM & AcceleratorX',
+    date: 'Nov 2026',
+    /* No verification URL. One was not supplied, and inventing a credential
+       verification link is the single worst fabrication available on a page
+       like this. Add it here the day it is to hand. */
+    url: '',
+  },
   { name: 'Magento Appreciation', issuer: 'Parul University', date: 'Sep 2022', url: '' },
   { name: 'Magento', issuer: 'TOPS Technologies', date: '', url: '' },
   { name: 'PHP', issuer: 'TOPS Technologies', date: '', url: '' },

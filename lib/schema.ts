@@ -22,13 +22,15 @@
  * the property is absent rather than estimated.
  */
 
-import {
-  COMPANY_FOUNDED,
-  COMPANY_NAME,
-  COMPANY_SHORT,
-  RAULJI_TECHNOLOGIES_URL,
-  TIMELINE,
-} from './home';
+import { TIMELINE } from './home';
+import { PRIVACY } from './legal';
+import { REMOTE } from './remote';
+import { CERTS } from './certifications';
+import { PRICING } from './pricing';
+import { SERVICES } from './services-hub';
+import { RESUME } from './resume';
+import { CAREER_START_YEAR, CURRENT_EMPLOYER } from './career';
+import { DESCRIPTION, ROLE, ROLES_ADDITIONAL, TARGET_ROLES } from './identity';
 import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
@@ -48,12 +50,9 @@ export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const SERVICE_ID = `${SITE_URL}/#service`;
 
-/**
- * The execution brand is a separate legal entity with its own site, so it gets
- * its own node on its own origin and the Person links to it rather than the two
- * being collapsed into one organisation.
- */
-export const COMPANY_ID = `${RAULJI_TECHNOLOGIES_URL}#organization`;
+/* `COMPANY_ID` stood here. It was the `@id` of an Organization node that was
+   removed on 25 Aug 2026, nothing referenced it afterwards, and it was the
+   last thing in this file reading the company constants from lib/home.ts. */
 
 /** Reference to an already-defined node, rather than a second copy of it. */
 export const personRef = { '@id': PERSON_ID } as const;
@@ -80,17 +79,22 @@ const ADDRESS = {
  * `organizationNode()` below. Pages outside the personal-brand set emit that
  * node; Home, About and Work do not.
  */
-export const PERSON_DESCRIPTION =
-  'Yuvraj Raulji works at the intersection of AI, business and eCommerce. Nine years in technology since the first Magento role in 2016, across Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, on B2B, B2C, D2C and marketplace models.';
+export const PERSON_DESCRIPTION = DESCRIPTION;
 
 /**
  * The positioning string, as a job title. One string, used everywhere.
  *
  * Matched to the homepage H1 and <title>. It read "AI & eCommerce Consultant"
  * while the homepage called him an "eCommerce, AI & Technology Consultant",
- * which is two job titles for one person across markup and visible text.
+ * which is two job titles for one person across markup and visible text. Both
+ * are now gone: the one title is `ROLE` in lib/identity.ts, and this reads it
+ * from there so the Person node cannot drift from the H1 again.
+ *
+ * `jobTitle` takes the primary role alone. The additional titles are claims
+ * about capability rather than about the seat, and they go in `knowsAbout`
+ * below; a `jobTitle` carrying six strings tells a parser nothing.
  */
-export const PERSON_JOB_TITLE = 'eCommerce, AI & Technology Consultant';
+export const PERSON_JOB_TITLE = ROLE;
 
 /** Points at a file that exists in public/. Verified, not assumed. */
 const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
@@ -121,14 +125,24 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
     /* One list, in lib/site.ts, so a profile added for the entity cannot
        reach one page and miss the other fifty one. */
     sameAs: PROFILES,
+    /* 15-1252.00 is the O*NET code for Software Developers, which is the
+       occupation this record describes. It read "eCommerce Consultant" against
+       the same code, so the name and the category disagreed about the job. */
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'eCommerce Consultant',
+      name: ROLE,
       occupationalCategory: '15-1252.00',
       description:
-        'Commerce platform architecture, selection and migration across Magento 2, Adobe Commerce, Shopify Plus and headless storefronts, and the application of AI to commerce operations.',
+        'Enterprise eCommerce platform engineering and architecture across Magento 2, Adobe Commerce, Shopify and headless storefronts, full-stack application development on Next.js, React and Node.js, and the application of Generative AI to commerce operations.',
     },
+    /* The seats this record is a fit for, as a recruiter titles them. This is
+       the property an answer engine reads when asked what roles he is open to,
+       and /remote-work/ renders the same array as visible text. */
+    seeks: TARGET_ROLES.map((r) => ({ '@type': 'Demand', name: r })),
     knowsAbout: [
+      /* The additional titles first, because they are the strongest entity
+         terms on the page and `jobTitle` can only carry one of them. */
+      ...ROLES_ADDITIONAL,
       'E-Commerce Architecture',
       'Magento 2',
       'Adobe Commerce',
@@ -149,12 +163,33 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
       'AI Agents',
       'AI Search',
       'Business Automation',
+      /* Added with the repositioning. Each is a subject the site now discusses
+         in visible prose on at least one page; none is here to pad the list. */
+      'Full Stack Development',
+      'React',
+      'Node.js',
+      'TypeScript',
+      'PHP',
+      'REST APIs',
+      'Generative AI',
+      'Prompt Engineering',
+      'Software Architecture',
+      'Technical Leadership',
+      'AWS',
+      'Docker',
+      'Redis',
+      'Elasticsearch',
     ],
+    /* The current employer, named. It was absent from this node entirely: the
+       record in lib/site.ts anonymised every employer, so there was nothing
+       true to put here. lib/career.ts names them, so `worksFor` can finally
+       say where he works, which is the property a recruiter's tooling reads. */
+    worksFor: {
+      '@type': 'Organization',
+      name: CURRENT_EMPLOYER.org,
+    },
     ...(full
       ? {
-          /* The current employer is stated as an Organization here because it is
-             not the same entity as the company Yuvraj founded, and collapsing
-             the two would be a factual error in the graph. */
           /*
            * Education is a credential, not an `alumniOf`.
            *
@@ -727,7 +762,7 @@ export function experienceSchema(crumbs: Crumb[]) {
     webPageNode({
       path: '/experience/',
       name: 'Experience',
-      description: 'Nine years of commerce work, from the first Magento role in 2016 to independent practice today.',
+      description: `Nine years of commerce and full-stack engineering, from the first Magento role in ${CAREER_START_YEAR} to leading a development team today.`,
       type: 'ProfilePage',
       crumbs,
     }),
@@ -747,6 +782,237 @@ export function experienceSchema(crumbs: Crumb[]) {
 }
 
 /** /contact/ */
+/**
+ * /privacy-policy/
+ *
+ * `WebPage`, not `AboutPage` or `ContactPage`, and no `Service` node: the page
+ * is a statement, it offers nothing and it is not about the person. The Person
+ * node is still in the graph because it identifies the publisher the policy
+ * names as the data controller.
+ */
+export function privacySchema(crumbs: Crumb[]) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path: PRIVACY.path,
+      name: 'Privacy policy',
+      description: PRIVACY.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+  ]);
+}
+
+/**
+ * /remote-work/
+ *
+ * `ProfilePage` plus `FAQPage`, and no `Service` node: the page offers
+ * employment availability rather than a service, and a `Service` here would
+ * compete with /hire/ for the same interpretation.
+ *
+ * The Person node is emitted `full`, with credentials. This is the one page
+ * whose entire audience is doing candidate due diligence, so the education and
+ * certification record belongs in its graph.
+ *
+ * `seeks` on the Person already carries the target roles, declared once in
+ * lib/identity.ts and rendered as visible text on this page, so the markup and
+ * the copy cannot drift.
+ */
+export function remoteWorkSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode({ full: true }),
+    websiteNode(),
+    webPageNode({
+      path: REMOTE.path,
+      name: 'Remote work availability',
+      description: REMOTE.description,
+      type: 'ProfilePage',
+      crumbs,
+      primaryImage: PERSON_IMAGE,
+    }),
+    breadcrumbNode(crumbs),
+    faqNode(REMOTE.path, REMOTE.faqs),
+  ]);
+}
+
+/**
+ * /resume/
+ *
+ * `ProfilePage`, with the Person emitted `full` so the credentials are in the
+ * graph, plus the `about` link back to the Person. No `Service` node and no
+ * `Offer`: a resume sells nothing.
+ *
+ * The PDF is declared as an `encoding` on the page only when it exists. A
+ * `MediaObject` pointing at a missing file is a claim the site cannot honour,
+ * and it is the kind of claim a crawler checks.
+ *
+ * `available` is passed in rather than read here. This module is reachable
+ * from a client component, so it cannot touch the filesystem; the page calls
+ * `resumeAvailable()` from lib/resume-file.ts and hands the answer over. See
+ * the note at the top of that file.
+ */
+export function resumeSchema(crumbs: Crumb[], available: boolean) {
+  return graph([
+    personNode({ full: true }),
+    websiteNode(),
+    {
+      ...webPageNode({
+        path: RESUME.path,
+        name: 'Yuvraj Raulji resume',
+        description: RESUME.description,
+        type: 'ProfilePage',
+        crumbs,
+        primaryImage: PERSON_IMAGE,
+      }),
+      about: personRef,
+      ...(available
+        ? {
+            encoding: {
+              '@type': 'MediaObject',
+              contentUrl: `${SITE_URL}${RESUME.href}`,
+              encodingFormat: 'application/pdf',
+            },
+          }
+        : {}),
+    },
+    breadcrumbNode(crumbs),
+  ]);
+}
+
+/**
+ * /certifications/
+ *
+ * The credential list is already on the Person node via `hasCredential` when
+ * it is emitted `full`, so this page emits the Person that way and does not
+ * restate the credentials as loose nodes. Two descriptions of one credential
+ * in one graph is how a consumer ends up counting it twice.
+ *
+ * `FAQPage` because the three answers are rendered as open text.
+ */
+export function certificationsSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode({ full: true }),
+    websiteNode(),
+    webPageNode({
+      path: CERTS.path,
+      name: 'Certifications',
+      description: CERTS.description,
+      type: 'CollectionPage',
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    faqNode(CERTS.path, CERTS.faqs),
+  ]);
+}
+
+/**
+ * /pricing/
+ *
+ * `FAQPage` plus a `Service` whose `hasOfferCatalog` lists the five
+ * engagement models, and **no `price`, `priceRange` or `PriceSpecification`
+ * anywhere in it**.
+ *
+ * That omission is the whole point. The page publishes no number, and an
+ * `Offer` carrying a price that is not on the page is precisely the markup
+ * mismatch the rest of this file is written to avoid. Rich results built on a
+ * price the page does not show are also the kind a manual review removes. The
+ * `Offer` nodes therefore describe availability and category only.
+ */
+export function pricingSchema(crumbs: Crumb[]) {
+  const path = PRICING.path;
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: 'Engagement models and pricing',
+      description: PRICING.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'eCommerce and full-stack engineering engagements',
+      serviceType: 'Software engineering and technical consulting',
+      description: PRICING.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: PRICING.audience },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Engagement models',
+        itemListElement: PRICING.models.map((m) => ({
+          '@type': 'Offer',
+          /* No `price` and no `priceSpecification`. See the note above. */
+          itemOffered: {
+            '@type': 'Service',
+            name: m.name,
+            description: m.shape,
+            provider: personRef,
+          },
+        })),
+      },
+    },
+    faqNode(path, PRICING.faqs),
+  ]);
+}
+
+/**
+ * /services/
+ *
+ * `CollectionPage` plus a `Service` with an offer catalogue built from the
+ * four groups, and `FAQPage` for the five open answers.
+ *
+ * The catalogue lists the groups, not the twenty-six individual services.
+ * Each of those already has its own page emitting its own `Service` node via
+ * `platformServiceSchema()`, and restating them here would put twenty-six
+ * duplicate service descriptions in the graph of a page that is only meant to
+ * route to them. Same reasoning as `expertiseHubSchema()`.
+ */
+export function servicesHubSchema(crumbs: Crumb[]) {
+  const path = SERVICES.path;
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: 'Services',
+      description: SERVICES.description,
+      type: 'CollectionPage',
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'eCommerce, full-stack and AI engineering services',
+      serviceType: 'eCommerce development and software engineering',
+      description: SERVICES.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: SERVICES.audience },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Service groups',
+        itemListElement: SERVICES.groups.map((g) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: g.name,
+            description: g.body,
+            provider: personRef,
+          },
+        })),
+      },
+    },
+    faqNode(path, SERVICES.faqs),
+  ]);
+}
+
 export function contactSchema(crumbs: Crumb[]) {
   return graph([
     personNode(),

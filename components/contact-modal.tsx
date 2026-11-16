@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { submitLead, type LeadResult } from '../lib/lead';
 import { CONTACT, PLATFORM_OPTIONS, ROLE_OPTIONS, SERVICE_OPTIONS, TIMELINE_OPTIONS } from '../lib/site';
 import { useUI } from './ui-context';
@@ -65,7 +65,22 @@ export function ContactModal() {
     setSending(false);
   };
 
-  const close = () => setContactOpen(false);
+  /**
+   * Stable across renders, so the effect below can depend on it honestly.
+   *
+   * It was a plain arrow recreated every render, which left the escape-and-
+   * focus-trap effect depending on `[contactOpen]` while actually closing over
+   * `close`. That is the missing-dependency warning, and the usual "just add
+   * it" fix would have been worse: an unstable `close` in the deps re-runs the
+   * effect on every render, tearing down and re-applying the scroll lock and
+   * re-firing the focus timer each time.
+   *
+   * `setContactOpen` is a `useState` setter from the UI context, which React
+   * guarantees is stable, so this callback never changes identity and the
+   * effect runs exactly when `contactOpen` flips, which is what it always
+   * meant to do.
+   */
+  const close = useCallback(() => setContactOpen(false), [setContactOpen]);
   const reset = () => {
     close();
     setF(EMPTY);
@@ -120,7 +135,7 @@ export function ContactModal() {
       clearTimeout(focusTimer);
       opener?.focus?.();
     };
-  }, [contactOpen]);
+  }, [contactOpen, close]);
 
   /* One accessible name only. `aria-label` used to be set alongside
      `aria-labelledby` and silently won, so the heading it points at was never

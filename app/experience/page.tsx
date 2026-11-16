@@ -10,7 +10,6 @@ import {
   EDUCATION,
   EXPERIENCE,
   OG_IMAGE,
-  OG_IMAGE_URL,
   SITE_URL,
   TECH_PROFICIENCIES,
 } from '../../lib/site';
@@ -21,9 +20,9 @@ const crumbs: Crumb[] = [
   { name: 'Experience', href: '/experience/' },
 ];
 
-const title = 'Experience | Yuvraj Raulji, eCommerce Consultant';
+const title = 'Experience | Yuvraj Raulji, Senior Software Engineer';
 const description =
-  'Nine years of commerce work: Magento since 2016, Shopify since 2018, Saudi retail builds, and multi-store Magento 2 at B2B scale.';
+  'The employment record, employers named: Team Lead and Senior Magento Developer at Archer Business Solution, and earlier roles at Magento IT Solutions.';
 
 export const metadata: Metadata = {
   title,
@@ -67,7 +66,7 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="Experience"
         lines={['Built.', 'Migrated.', 'Scaled.']}
-        lede="Nine years building the same thing from different angles: systems a business can actually run on. The first websites go back to 2014, the Magento work to 2016, and the incorporated practice to 2025."
+        lede="Nine years building the same thing from different angles: systems a business can actually run on. Four employers since 2018, from the first Magento role to leading a development team, with the Generative AI certification in 2026."
         crumbs={crumbs}
       >
         <ContactButton>Work with me</ContactButton>
@@ -87,12 +86,19 @@ export default function ExperiencePage() {
         <Shell>
           <Marker label="The record" />
           <div className="mb-10 sm:mb-14">
-            <Lines as="h2" id="record-title" lines={['Four numbers', 'I can point at.']} />
+            <Lines as="h2" id="record-title" lines={['Five numbers', 'I can point at.']} />
           </div>
 
-          <dl className="m-0 grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
+          {/* Five cells, not four. At `lg` they sit in one row; below that the
+              two-column grid leaves the fifth spanning nothing, so it takes the
+              full width rather than sitting half-empty next to a gap. */}
+          <dl className="m-0 grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-5">
             {STATS.map((s, i) => (
-              <Rise key={s.label} delay={i * 0.07} className="flex flex-col bg-[var(--bg)] px-5 py-7 sm:px-7 sm:py-9">
+              <Rise
+                key={s.label}
+                delay={i * 0.07}
+                className="flex flex-col bg-[var(--bg)] px-5 py-7 last:col-span-2 sm:px-7 sm:py-9 lg:last:col-span-1"
+              >
                 <dd className="m-0 font-manrope text-[clamp(38px,4.4vw,64px)] font-extralight leading-none tracking-[-0.04em] text-ink">
                   {s.value.replace('+', '')}
                   {s.value.includes('+') && <span className="text-accent">+</span>}
@@ -170,8 +176,9 @@ export default function ExperiencePage() {
             <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
-                The Gulf retail and B2B platform periods overlap by fourteen months. That is
-                what the record says, so that is what is printed here.
+                Two entries share one employer. They are listed separately rather than merged
+                under a promotion, because which work was done in which seat is the thing an
+                interviewer asks about.
               </p>
             </Rise>
           </div>
@@ -217,6 +224,20 @@ export default function ExperiencePage() {
                           >
                             <span aria-hidden="true" className="mt-[11px] h-px w-3 shrink-0 bg-accent/50" />
                             <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+
+                    {/* The stack the seat was actually delivered on. It is in
+                        the record in lib/career.ts and it is the first thing a
+                        technical screen looks for, so it is printed per role
+                        rather than only aggregated under Technologies below. */}
+                    {r.stack.length ? (
+                      <ul className="m-0 mt-7 flex list-none flex-wrap gap-2 p-0">
+                        {r.stack.map((tech) => (
+                          <li key={tech}>
+                            <Tag>{tech}</Tag>
                           </li>
                         ))}
                       </ul>

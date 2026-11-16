@@ -44,11 +44,24 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
  * made: a search engine resolving this entity should meet one consistent
  * account of it in all four places.
  */
+/**
+ * The homepage description, repositioned.
+ *
+ * It read "eCommerce, AI and technology consultant. Commerce architecture,
+ * platform strategy, AI adoption and conversion..." which described a
+ * consultant and matched neither the new H1 nor the Person node's jobTitle.
+ * The title, the H1, this description and the Person node now all resolve
+ * against lib/identity.ts.
+ *
+ * 154 characters, which keeps it inside the SERP limit.
+ */
 export const HOME_DESCRIPTION =
-  'eCommerce, AI and technology consultant. Commerce architecture, platform strategy, AI adoption and conversion for businesses deciding what to build, what to fix and what to leave alone.';
+  'Senior Software Engineer and Enterprise eCommerce Architect. 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and Generative AI. Open to remote.';
 
+/* "from the first Magento role in 2016" described a career start the CV does
+   not support: the record in lib/career.ts begins in 2018. */
 export const ABOUT_DESCRIPTION =
-  'Nine years in technology, from the first Magento role in 2016 through Shopify, headless commerce and AI. The thinking behind the work, and how it is decided.';
+  'Nine years in technology, from the first Magento role in 2018 through Shopify, headless commerce, full-stack engineering and Generative AI.';
 
 export const WORK_DESCRIPTION =
   'Six builds across headless commerce, Shopify, Magento 2, B2B procurement and marketplace catalogues, with the business decision inside each one.';

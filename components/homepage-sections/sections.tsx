@@ -1,4 +1,17 @@
+import Link from 'next/link';
 import { WRITING } from '../../lib/brand';
+import { CAREER_START_YEAR } from '../../lib/career';
+import { CERTS } from '../../lib/certifications';
+import {
+  AVAILABILITY,
+  INTRO,
+  LOCATION,
+  MARKETS,
+  TARGET_ROLES,
+  TIMEZONE,
+  WORK_PREFERENCES,
+} from '../../lib/identity';
+import { REMOTE } from '../../lib/remote';
 import {
   AI_TRACKS,
   APPROACH,
@@ -78,11 +91,17 @@ const H2L =
    ───────────────────────────────────────────────────────────── */
 
 /**
- * The four numbers, immediately under the hero.
+ * The five numbers, immediately under the hero.
  *
- * Light section — creates an immediate visual rhythm break after the dark hero.
- * Every figure comes from STATS in lib/homepage.ts, the one place a verified
- * number is written. Nothing here types a figure of its own.
+ * Light section, which creates an immediate visual rhythm break after the dark
+ * hero. Every figure comes from STATS in lib/homepage.ts, which derives them
+ * from CAREER_STATS in lib/career.ts: the one place a verified number and the
+ * context that justifies it are written together. Nothing here types a figure
+ * of its own.
+ *
+ * Five, not four, and `lg:grid-cols-5` with it. The brief asks for five and
+ * the record carries five; a fifth tile in a four-column grid would have sat
+ * alone on a second row looking like an afterthought.
  */
 export function Credibility() {
   return (
@@ -96,7 +115,7 @@ export function Credibility() {
           Experience at a glance
         </h2>
         <RvGroup
-          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-0"
+          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-0"
           each={0.06}
         >
           {STATS.map((stat, i) => (
@@ -116,6 +135,14 @@ export function Credibility() {
                   <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60 transition-colors duration-200 group-hover/stat:text-ground/80">
                     {stat.label}
                   </span>
+                  {/* The provenance. A figure this large with no account of
+                      where it came from is the kind of claim
+                      CONTENT-PRINCIPLES.md section 1 treats as unsupported. */}
+                  {stat.note ? (
+                    <span className="max-w-[30ch] font-manrope text-[13px] font-light leading-[1.55] text-ground/45">
+                      {stat.note}
+                    </span>
+                  ) : null}
                 </a>
               ) : (
                 <>
@@ -125,6 +152,11 @@ export function Credibility() {
                   <span className="max-w-[26ch] font-manrope text-[15px] font-light leading-[1.55] text-ground/60">
                     {stat.label}
                   </span>
+                  {stat.note ? (
+                    <span className="max-w-[30ch] font-manrope text-[13px] font-light leading-[1.55] text-ground/45">
+                      {stat.note}
+                    </span>
+                  ) : null}
                 </>
               )}
             </RvItem>
@@ -293,12 +325,12 @@ export function Capabilities() {
         <Rv className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
           <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ground/55">
             Not sure which of these the problem sits in? Establishing that is what{' '}
-            <a
+            <Link
               href="/expertise/ecommerce-consulting/"
               className="border-b border-accent/60 text-ground/80 transition-colors hover:border-accent hover:text-ground"
             >
               eCommerce consulting
-            </a>{' '}
+            </Link>{' '}
             is for.
           </p>
           <Cta href="#contact" variant="accent">
@@ -496,9 +528,9 @@ export function SelectedWork() {
       <div className="flex items-center gap-4 px-5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55 sm:px-6 md:px-8 lg:px-12">
         <span aria-hidden="true">Scroll →</span>
         <span aria-hidden="true" className="h-px flex-1 bg-ink/10" />
-        <a href="/work/" className="py-2.5 text-ink/55 transition-colors hover:text-accent-bright">
+        <Link href="/work/" className="py-2.5 text-ink/55 transition-colors hover:text-accent-bright">
           View selected work
-        </a>
+        </Link>
       </div>
     </section>
   );
@@ -796,32 +828,36 @@ export function About() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
           <div>
             <Rv>
+              {/* The brief's headline for this section, verbatim. The
+                  previous one opened "A technology consultant who", which is
+                  the job title the repositioning removed. */}
               <h2 id="about-title" className={H2L}>
-                A technology consultant who{' '}
-                <span className="font-bold text-ground">thinks beyond technology.</span>
+                Technology meets{' '}
+                <span className="font-bold text-ground">business thinking.</span>
               </h2>
             </Rv>
             <Rv>
               <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/60 sm:text-[19px]">
-                The work sits where eCommerce, technology, AI, digital transformation and business
-                growth meet, which in practice means the answer is rarely only technical. A slow
-                storefront can be a caching problem or a merchandising one. A failing integration is
-                usually a process that was never agreed.
+                {INTRO}
               </p>
             </Rv>
             <Rv>
               <p className="mt-5 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/50">
-                The record runs from the first Magento role in 2016 through Shopify, headless
-                commerce and, more recently, AI systems: catalogues in the hundreds of thousands of
-                SKUs, multi-store platforms, B2B approval workflows and the operations behind them.
+                The work sits where engineering and the commercial side of a business meet, which
+                in practice means the answer is rarely only technical. A slow storefront can be a
+                caching problem or a merchandising one. A failing integration is usually a process
+                that was never agreed. The record runs from the first Magento role in{' '}
+                {CAREER_START_YEAR} through Shopify, headless commerce and, more recently, AI
+                systems: catalogues in the hundreds of thousands of SKUs, multi-store platforms,
+                B2B approval workflows and the operations behind them.
               </p>
             </Rv>
             <Rv className="mt-9 flex flex-wrap gap-3.5">
               <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
               </Cta>
-              <Cta href="/hire/" variant="solid" tone="light">
-                Work with Yuvraj
+              <Cta href="/experience/" variant="solid" tone="light">
+                The full record
               </Cta>
             </Rv>
           </div>
@@ -1079,6 +1115,209 @@ const DETAILS = [
  * `id="book"` is kept as a second anchor because the footer has linked to
  * `/#book` since before this restructure.
  */
+/* ─────────────────────────────────────────────────────────────
+   14 — Generative AI certification  (DARK)
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The credential, as its own section.
+ *
+ * It is on the page rather than only on /certifications/ because it is the
+ * newest thing on the record and the one that supports the second half of the
+ * H1. An H1 that claims "AI-Powered Digital Experiences" with nothing on the
+ * page behind it is a slogan; this is what makes it a claim.
+ *
+ * The five topics are listed rather than summarised. "Certified in Generative
+ * AI" is unfalsifiable on its own, and the syllabus is what lets a reader
+ * judge the depth without leaving the page.
+ */
+export function Certification() {
+  const f = CERTS.feature;
+  return (
+    <section
+      id="certification"
+      aria-labelledby="certification-title"
+      className="border-t border-ink/10 bg-[#050505] text-ink"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+        <SectionLabel className="mb-8 sm:mb-11">Most recent credential</SectionLabel>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
+          <div>
+            <Rv>
+              <p className="m-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.22em] text-accent-bright">
+                {f.issuer}
+              </p>
+              <h2
+                id="certification-title"
+                className="m-0 mt-5 max-w-[18ch] font-manrope text-[clamp(30px,4vw,58px)] font-extralight leading-[1.04] tracking-[-0.04em]"
+              >
+                Generative AI <span className="font-bold">Certification.</span>
+              </h2>
+              <p className="m-0 mt-5 font-mono text-[12px] font-medium uppercase leading-[1.6] tracking-[0.18em] text-ink/55">
+                {f.completed}
+              </p>
+            </Rv>
+
+            <Rv>
+              <p className="m-0 mt-7 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
+                {f.body}
+              </p>
+            </Rv>
+
+            <Rv>
+              <div className="mt-9">
+                <RuleLink href="/certifications/">The full credential record</RuleLink>
+              </div>
+            </Rv>
+          </div>
+
+          <RvGroup className="grid gap-px self-start border border-ink/15 bg-ink/15" each={0.05}>
+            {f.topics.map((t) => (
+              <RvItem key={t.name} className="bg-surface p-6 sm:p-7">
+                <h3 className="m-0 font-manrope text-[18px] font-semibold leading-[1.25] tracking-[-0.02em]">
+                  {t.name}
+                </h3>
+                <p className="m-0 mt-2.5 max-w-[56ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
+                  {t.body}
+                </p>
+              </RvItem>
+            ))}
+          </RvGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   15 — Remote work availability  (LIGHT)
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The employment funnel, on the homepage.
+ *
+ * Light ground, deliberately: it is the only section between the AI
+ * certification and the contact close, and on a page that is otherwise
+ * near-black from the work section down, the ground change is what stops it
+ * being scrolled past. It is also the second-most important block on the page
+ * after the hero, and the one the repositioning exists for.
+ *
+ * It does not repeat /remote-work/. It states the availability, the logistics
+ * a recruiter needs before they bother reading further, and the roles, then
+ * links. Everything else, including the recruiter form, is on that page.
+ */
+export function RemoteWork() {
+  return (
+    <section
+      id="remote"
+      aria-labelledby="remote-title"
+      className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+        <SectionLabel className="mb-8 sm:mb-11 !text-ground/55">
+          Open to remote opportunities
+        </SectionLabel>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-x-16">
+          <div>
+            <Rv>
+              <h2
+                id="remote-title"
+                className="m-0 max-w-[16ch] font-manrope text-[clamp(32px,5vw,74px)] font-extralight leading-[1.0] tracking-[-0.045em]"
+              >
+                Let&apos;s work{' '}
+                <span className="font-bold">
+                  <span className="text-accent">together.</span>
+                </span>
+              </h2>
+            </Rv>
+
+            <Rv>
+              <p className="m-0 mt-7 max-w-[50ch] font-manrope text-[18px] font-light leading-[1.7] text-ground/65 sm:text-[19px]">
+                {REMOTE.lede}
+              </p>
+            </Rv>
+
+            <Rv>
+              <p className="m-0 mt-6 flex items-start gap-3.5">
+                <span
+                  aria-hidden="true"
+                  className="mt-[7px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
+                />
+                <span className="font-mono text-[12px] font-medium uppercase leading-[1.6] tracking-[0.18em] text-accent">
+                  {AVAILABILITY}
+                </span>
+              </p>
+            </Rv>
+
+            {/* The logistics. Four facts, because they are the four things a
+                recruiter establishes before reading a CV, and answering them
+                here removes a round trip. */}
+            <Rv>
+              <dl className="m-0 mt-9 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+                {[
+                  { label: 'Location', value: LOCATION },
+                  { label: 'Time zone', value: TIMEZONE },
+                  { label: 'Arrangement', value: WORK_PREFERENCES.join(', ') },
+                  { label: 'Markets', value: MARKETS.join(', ') },
+                ].map((d) => (
+                  <div key={d.label} className="border-t border-ground/15 pt-3.5">
+                    <dt className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ground/50">
+                      {d.label}
+                    </dt>
+                    <dd className="m-0 mt-2 font-manrope text-[16px] font-light leading-[1.45] text-ground/80">
+                      {d.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Rv>
+
+            <Rv>
+              <div className="mt-10 flex flex-wrap gap-3 sm:gap-4">
+                <Cta href="/remote-work/" variant="accent">
+                  Send Me a Remote Opportunity
+                </Cta>
+                <Cta href="/resume/" variant="outline">
+                  View Resume <span className="font-mono">&#8594;</span>
+                </Cta>
+              </div>
+            </Rv>
+          </div>
+
+          {/* The roles, as a recruiter titles them. Numbered rather than
+              bulleted: it reads as a shortlist, which is what it is. */}
+          <RvGroup className="self-start" each={0.04}>
+            <p className="m-0 mb-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ground/50">
+              Roles this record fits
+            </p>
+            <ol className="m-0 list-none border-t border-ground/15 p-0">
+              {TARGET_ROLES.map((r, i) => (
+                <RvItem
+                  key={r}
+                  as="li"
+                  className="flex items-baseline gap-5 border-b border-ground/15 py-4"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="font-mono text-[11px] font-medium leading-none tracking-[0.18em] text-accent"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="font-manrope text-[clamp(17px,1.7vw,21px)] font-light leading-[1.3] text-ground/85">
+                    {r}
+                  </span>
+                </RvItem>
+              ))}
+            </ol>
+          </RvGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Contact() {
   return (
     <section
@@ -1107,6 +1346,62 @@ export function Contact() {
             Bring the problem. Leave with the next practical step.
           </p>
         </Rv>
+
+        {/*
+          Two doors, named by who is behind them.
+
+          The page closes on one form, which is right for a client and wrong
+          for a recruiter: someone with a role to fill should not have to read
+          a form about commerce problems to work out that it is not for them.
+          /contact/ carries both funnels as separate forms; this pair routes to
+          the correct one rather than reproducing either.
+
+          The client door is the anchor to the form below, so the close still
+          works as it did for the audience it already served.
+        */}
+        <RvGroup
+          className="mt-11 grid gap-px border border-ink/15 bg-ink/15 sm:mt-12 md:grid-cols-2"
+          each={0.06}
+        >
+          {[
+            {
+              label: 'Hiring',
+              head: 'I have a role to fill',
+              body: 'Full-time remote, contract or an international team. Send the role and the reply is a straight yes or no within 24 hours.',
+              cta: 'Send a remote opportunity',
+              href: '/remote-work/',
+            },
+            {
+              label: 'Project work',
+              head: 'I have something to build or fix',
+              body: 'A platform decision, a replatform, a performance problem or an integration. Describe it and the diagnosis is part of the first reply.',
+              cta: 'Describe the project',
+              href: '#contact-form',
+            },
+          ].map((d) => (
+            <RvItem key={d.label} className="flex flex-col gap-5 bg-surface p-6 sm:p-8 lg:p-10">
+              <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                {d.label}
+              </span>
+              <h3 className="m-0 max-w-[22ch] font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.025em]">
+                {d.head}
+              </h3>
+              <p className="m-0 max-w-[44ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
+                {d.body}
+              </p>
+              <div className="mt-auto pt-2">
+                <RuleLink href={d.href}>{d.cta}</RuleLink>
+              </div>
+            </RvItem>
+          ))}
+        </RvGroup>
+
+        {/* The anchor for the "Describe the project" door above. A sibling
+            span rather than an `id` on the Rv below, matching the `#book`
+            anchor at the top of this section: `Rv` takes no `id`, and widening
+            it for one call site is not worth the prop. `scroll-mt` clears the
+            fixed header, which is 108px at `md` and up. */}
+        <span id="contact-form" aria-hidden="true" className="block scroll-mt-[120px]" />
 
         {/* Dark left panel (contact info) + white right panel (form) */}
         <Rv className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:mt-14 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">

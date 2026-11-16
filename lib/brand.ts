@@ -27,6 +27,7 @@
  */
 
 import type { Anchor } from './expertise';
+import { CAREER_START_YEAR } from './career';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -83,26 +84,89 @@ export const CORE_IDEA = 'Technology that creates business leverage.';
  * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
  * trade.
  */
-export const NAV = [
-  { label: 'About', href: '/about/' },
-  { label: 'Expertise', href: '/expertise/' },
-  { label: 'Work', href: '/work/' },
-  { label: 'Experience', href: '/experience/' },
-  { label: 'Insights', href: '/insights/' },
-  /*
-   * Hire sits last, next to the "Let's talk" button, because the two are the
-   * same intent one step apart: read what an engagement is, then start one.
-   *
-   * It was in the footer only until Sep 2026, which put the page a reader
-   * arrives at ready to buy three scrolls below the one they land on. The
-   * audit measured it: /hire/ took 18 contextual links from body copy and
-   * none from the bar that repeats on all 62 pages, while /experience/, a
-   * background page, held a slot in it.
-   */
-  { label: 'Hire', href: '/hire/' },
-] as const;
+/**
+ * The primary navigation.
+ *
+ * ── What changed with the repositioning ───────────────────────────────────
+ *
+ * Two entries are new and one moved. `Services` is the hub over the eleven
+ * platform pages, which previously had no entry in the bar at all: a reader
+ * who wanted to know what was on offer had to find /expertise/ and infer it.
+ * `Resources` collects the four pages a recruiter or a buyer reads next
+ * (resume, certifications, pricing, remote work), none of which could earn a
+ * top-level slot on its own and all of which were otherwise reachable only
+ * from the footer.
+ *
+ * `Hire` left the bar. It is in the Resources menu alongside /pricing/, which
+ * is where its intent actually sits, and /remote-work/ took the commercial
+ * slot next to the call to action because the employment funnel is what the
+ * site is now pointed at.
+ *
+ * ── Why the two menus are CSS and not a client component ──────────────────
+ *
+ * The bar is a server component and the note in components/chrome/nav.tsx
+ * explains what that is worth: no state, no listeners, no bundle, on every
+ * one of 74 pages. A dropdown does not have to cost that. These open on
+ * `:hover` and on `:focus-within`, which covers pointer and keyboard without a
+ * line of JavaScript, and the parent of each menu is itself a real link, so a
+ * touch device that cannot hover gets a navigation to a page that lists the
+ * same destinations rather than a menu it cannot open.
+ *
+ * `Projects` is deliberately labelled `Work`, matching /work/. The brief's
+ * navigation calls it Projects; the URL is staying at /work/ to keep the six
+ * case studies' rankings, and a label that disagrees with its own URL and
+ * breadcrumb costs more than the word is worth.
+ *
+ * /insights/ is the indexed path carrying the article history. Renaming it to
+ * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
+ * trade.
+ */
+export interface NavItem {
+  label: string;
+  href: string;
+  /** Submenu, rendered on hover and on focus-within. */
+  children?: readonly { label: string; href: string; note?: string }[];
+}
 
-export const CTA_LABEL = "Let's talk";
+export const NAV: readonly NavItem[] = [
+  { label: 'About', href: '/about/' },
+  { label: 'Experience', href: '/experience/' },
+  { label: 'Work', href: '/work/' },
+  {
+    label: 'Services',
+    href: '/services/',
+    children: [
+      { label: 'Magento & Adobe Commerce', href: '/magento/' },
+      { label: 'Shopify & Shopify Plus', href: '/shopify/' },
+      { label: 'Headless commerce', href: '/headless-commerce/' },
+      { label: 'Next.js & full stack', href: '/nextjs/' },
+      { label: 'AI & automation', href: '/ai-automation/' },
+      { label: 'All services', href: '/services/' },
+    ],
+  },
+  { label: 'Expertise', href: '/expertise/' },
+  { label: 'Insights', href: '/insights/' },
+  {
+    label: 'Resources',
+    href: '/resume/',
+    children: [
+      { label: 'Resume', href: '/resume/' },
+      { label: 'Certifications', href: '/certifications/' },
+      { label: 'Pricing & engagement', href: '/pricing/' },
+      { label: 'Hire me', href: '/hire/' },
+    ],
+  },
+  /* The employment funnel, last, next to the call to action: the two are the
+     same intent one step apart. */
+  { label: 'Remote work', href: '/remote-work/' },
+];
+
+/** Flat list of every nav destination, for the condensed phone row. */
+export const NAV_FLAT: readonly { label: string; href: string }[] = NAV.flatMap((n) =>
+  n.children ? [{ label: n.label, href: n.href }, ...n.children.filter((c) => c.href !== n.href)] : [n],
+);
+
+export const CTA_LABEL = "Let's Connect";
 
 /** One-line positioning shown in the footer under the wordmark. Separate from
     PERSON_JOB_TITLE (the schema job title) so the commercial proposition can
@@ -140,13 +204,20 @@ export const HERO = {
   /**
    * The credibility line, and the only number in the hero.
    *
-   * Nine years, measured from the first Magento role in June 2016. Yuvraj
-   * settled this on 26 Aug 2026 against his own record; the earlier 12+ was
-   * measured from the first websites in 2014, which is a broader claim than he
-   * wants to make. The note carries the start date, because a figure without
-   * one is the kind of number nobody can check.
+   * Nine years. The note read "Since the first Magento role in 2016", which
+   * dated the professional record two years before the CV does: the
+   * employment history in lib/career.ts starts in 2018, at Sinelogix. The
+   * start year now comes from `CAREER_START_YEAR` rather than being typed
+   * here, so the one place the record moves is the record.
+   *
+   * The note carries the start date because a figure without one is the kind
+   * of number nobody can check.
    */
-  credibility: { value: '9+', label: 'Years in technology', note: 'Since the first Magento role in 2016.' },
+  credibility: {
+    value: '9+',
+    label: 'Years in technology',
+    note: `Professional engineering since ${CAREER_START_YEAR}.`,
+  },
 } as const;
 
 /* ═══════════════════════════════════════════════════════════════
@@ -400,11 +471,18 @@ export const ERAS: Era[] = [
     body:
       'The first websites and online stores. Building for other people, and discovering that the interesting problems were never the ones on the page.',
   },
+  /*
+     This read "Magento module development and store builds, professionally,
+     from 2016", which is a claim of professional work two years before the
+     employment record begins. The record starts in 2018; what happened before
+     it was learning, and saying so is both accurate and a better story than
+     a date nobody can verify.
+  */
   {
     year: '2016',
     shift: 'Magento',
     body:
-      'Magento module development and store builds, professionally, from 2016. The platform that turns a catalogue into an architecture problem, which is the lesson that has stayed useful longest.',
+      'Magento, learned before it was a job: modules pulled apart to find out how the platform actually worked. The platform that turns a catalogue into an architecture problem, which is the lesson that has stayed useful longest.',
   },
   {
     year: '2018',

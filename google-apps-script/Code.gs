@@ -47,7 +47,7 @@ const CONFIG = {
    and ensureHeaders_ reconciles an existing sheet against this list, so adding
    a field here is the only change needed to start capturing it. */
 const COLUMNS = [
-  'Date', 'Band', 'Score', 'Name', 'Email', 'Phone', 'Company', 'Website',
+  'Date', 'Funnel', 'Band', 'Score', 'Name', 'Email', 'Phone', 'Company', 'Website',
   'Role', 'Platform', 'Timeline', 'Budget', 'Service', 'Message', 'Page', 'Status'
 ];
 
@@ -62,6 +62,12 @@ function doPost(e) {
 
     const lead = {
       date:     new Date(),
+      /* Which form produced this: 'recruiter' from the hiring funnel on
+         /remote-work/ and /contact/, 'project' from the project funnel, empty
+         from the older enquiry modal. Both funnels write to this one sheet, so
+         without this column a job approach and a project enquiry are
+         indistinguishable once they land. */
+      funnel:   clean_(p.funnel, 20),
       name:     clean_(p.name, 120),
       email:    clean_(p.email, 160),
       phone:    clean_(p.phone, 40),
@@ -127,8 +133,15 @@ function doGet(e) {
    would get that backwards. The band decides reply order, not
    whether there is a reply. */
 
+/* Substring-matched against the lowercased role the form sent. 'technology
+   lead' was added when ROLE_OPTIONS in lib/site.ts stopped offering "CTO or
+   technology lead" and started offering "Technology lead"; without it, every
+   technology lead stopped scoring as a decision maker. 'cto' stays, because an
+   inbound message can still describe the sender that way and this string is
+   never rendered on the site. */
 const DECISION_ROLES = ['owner', 'ceo', 'managing director', 'md', 'director',
-  'head of ecommerce', 'head of e-commerce', 'cto', 'coo', 'agency'];
+  'head of ecommerce', 'head of e-commerce', 'technology lead', 'cto', 'coo',
+  'agency'];
 
 const LOW_SIGNALS = ['looking for a job', 'job opportunity', 'resume', 'cv attached',
   'internship', 'hire me', 'guest post', 'link building', 'seo services',
@@ -273,12 +286,18 @@ function ensureHeaders_(sheet) {
     .setFontWeight('bold')
     .setFontSize(11);
   sheet.setFrozenRows(1);
+  /* Indices are positions in COLUMNS and they all moved by one when 'Funnel'
+     was inserted at position 2. They are listed in full here, including the
+     ones at their default width, so the next insertion is obviously a
+     renumbering job rather than a silent off-by-one that widens the wrong
+     column. */
   sheet.setColumnWidth(1, 150);   // Date
-  sheet.setColumnWidth(2, 110);   // Band
-  sheet.setColumnWidth(3, 60);    // Score
-  sheet.setColumnWidth(8, 240);   // Website
-  sheet.setColumnWidth(14, 420);  // Message
-  sheet.setColumnWidth(15, 220);  // Page
+  sheet.setColumnWidth(2, 90);    // Funnel
+  sheet.setColumnWidth(3, 110);   // Band
+  sheet.setColumnWidth(4, 60);    // Score
+  sheet.setColumnWidth(9, 240);   // Website
+  sheet.setColumnWidth(15, 420);  // Message
+  sheet.setColumnWidth(16, 220);  // Page
 }
 
 function appendLead_(lead) {
@@ -289,9 +308,9 @@ function appendLead_(lead) {
      "not asked" indistinguishable from "asked and left blank" in the sheet. */
   sheet.appendRow([
     Utilities.formatDate(lead.date, Session.getScriptTimeZone(), 'dd MMM yyyy HH:mm'),
-    lead.band, lead.score, lead.name, lead.email, lead.phone, lead.company,
-    lead.website, lead.role, lead.platform, lead.timeline, lead.budget,
-    lead.service, lead.message, lead.page, 'New'
+    lead.funnel, lead.band, lead.score, lead.name, lead.email, lead.phone,
+    lead.company, lead.website, lead.role, lead.platform, lead.timeline,
+    lead.budget, lead.service, lead.message, lead.page, 'New'
   ]);
 }
 
@@ -299,6 +318,7 @@ function appendLead_(lead) {
 
 function sendOwnerEmail_(lead) {
   const rows = [
+    ['Funnel',   lead.funnel ? esc_(lead.funnel) : 'general'],
     ['Band',     esc_(lead.band) + ' (' + lead.score + ') ' +
                  '<span style="color:#999">' + esc_(lead.why) + '</span>'],
     ['Name',     esc_(lead.name)],

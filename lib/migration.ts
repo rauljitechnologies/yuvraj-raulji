@@ -69,7 +69,7 @@ export const MIGRATION = {
   ],
   searchIntent: 'Commercial investigation, immediately before a transactional decision',
   audience:
-    'A business owner or head of eCommerce carrying a platform they suspect is wrong, usually driven by cost, release speed or a team they can no longer staff.',
+    'An owner or head of eCommerce carrying a platform they suspect is wrong, usually driven by cost, release speed or a team they can no longer staff.',
   purpose:
     'Own the specific Magento and Shopify pairing that the two per-platform migration pages each answer only half of, and answer the decision question directly enough to be quoted.',
   entities: [

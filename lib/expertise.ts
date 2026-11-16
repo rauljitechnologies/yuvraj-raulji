@@ -25,8 +25,6 @@
  * Copy in this file avoids em-dashes on purpose.
  */
 
-import { RAULJI_TECHNOLOGIES_URL } from './home';
-
 /* ═══════════════════════════════════════════════════════════════
    TYPES
    ═══════════════════════════════════════════════════════════════ */
@@ -122,9 +120,9 @@ export function pillarHref(slug: string): string {
    ═══════════════════════════════════════════════════════════════ */
 
 export const EXPERTISE_HUB = {
-  title: 'Expertise | Yuvraj Raulji, eCommerce, AI & Technology Consultant',
+  title: 'Expertise | Yuvraj Raulji, eCommerce & AI Engineering',
   description:
-    'Nine technology pages plus eCommerce consulting: Shopify, Magento, WooCommerce, WordPress, headless commerce, AI commerce and automation. What each is for, and when it is the wrong choice.',
+    'Eleven technology pages plus eCommerce consulting: Magento, Shopify, WooCommerce, headless commerce and AI. What each is for, and when it is the wrong choice.',
   eyebrow: 'Expertise',
   h1: ['Nine technologies.', 'And the situation', 'each one is wrong for.'] as const,
   lede:
@@ -579,5 +577,6 @@ export const PILLAR_LINKS = PILLARS.map((p) => ({
   href: pillarHref(p.slug),
 }));
 
-/** Delivery reference, re-exported so pillar pages need one import. */
-export { RAULJI_TECHNOLOGIES_URL };
+/* `RAULJI_TECHNOLOGIES_URL` was re-exported here so the pillar pages could
+   reach it in one import. No pillar page ever did, and the constant itself is
+   gone with the rest of the company references in lib/home.ts. */

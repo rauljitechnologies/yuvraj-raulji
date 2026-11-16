@@ -10,6 +10,7 @@
  * foundership language appears anywhere, including in image alt text.
  */
 
+import { CAREER_START_YEAR } from './career';
 import { ERAS } from './brand';
 
 export const ABOUT_HERO = {
@@ -23,12 +24,14 @@ export const ABOUT_HERO = {
     'I work at the intersection of technology and business, exploring how AI, digital commerce and intelligent systems can create better ways to operate, sell and grow.',
   /**
    * The second paragraph, which is where the record goes. Every figure is from
-   * the employment history: nine years measured from the first Magento role in
-   * June 2016, the platforms actually worked on, and the scale actually
-   * carried.
+   * the employment history in lib/career.ts: the start year, the platforms
+   * actually worked on, and the scale actually carried.
+   *
+   * It said "starting with the first Magento role in 2016", which is two years
+   * before the record begins. The year is interpolated now rather than typed,
+   * so this sentence cannot disagree with /experience/ again.
    */
-  record:
-    'Nine years of that, starting with the first Magento role in 2016. Since then: Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, across B2B, B2C, D2C and marketplace models, on catalogues running to 500K+ SKUs and platforms serving 1M+ monthly users.',
+  record: `Nine years of that, starting with the first Magento role in ${CAREER_START_YEAR}. Since then: Magento and Adobe Commerce, Shopify, WooCommerce and headless architecture, across B2B, B2C, D2C and marketplace models, on catalogues running to 500K+ SKUs and platforms serving 1M+ monthly users.`,
 } as const;
 
 /**

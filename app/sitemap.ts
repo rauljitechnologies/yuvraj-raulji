@@ -9,6 +9,12 @@ import { CASES } from '../lib/brand';
    because the sitemap is the other artifact that must cover every route. */
 import { CONTENT_MAP } from '../lib/content-map';
 import { POSTS, postDateUTC } from '../lib/posts';
+import { CERTS } from '../lib/certifications';
+import { PRIVACY } from '../lib/legal';
+import { PRICING } from '../lib/pricing';
+import { SERVICES } from '../lib/services-hub';
+import { REMOTE } from '../lib/remote';
+import { RESUME } from '../lib/resume';
 import { SITE_URL } from '../lib/site';
 
 export const dynamic = 'force-static';
@@ -55,6 +61,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* The one purchasable offer, and the destination the commercial pages
        should be routing toward. Priority with the core pages. */
     { url: BASE + '/ecommerce-audit/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
+    /* The services hub. Priority with /expertise/, which it is the sibling of:
+       both route to the platform pages rather than competing with them. */
+    { url: BASE + SERVICES.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* Commercial intent, so with the core pages. */
+    { url: BASE + PRICING.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* Credentials. A verification page rather than an entry point. */
+    { url: BASE + CERTS.path, lastModified: buildDate, changeFrequency: 'yearly', priority: 0.6 },
+    /* The employment funnel. Priority with the core pages: /remote-work/ is
+       the page the repositioned site is pointed at, and /resume/ is what a
+       recruiter opens next. */
+    { url: BASE + REMOTE.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: BASE + RESUME.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* The policy. Lowest priority on the site and `yearly`: it is listed
+       because it is a real indexable page and the content-map gate requires
+       every route to be here, not because it competes for anything. */
+    { url: BASE + PRIVACY.path, lastModified: buildDate, changeFrequency: 'yearly', priority: 0.2 },
     /* The technology landing pages, at the root. Priority above the pillars:
        these are the pages a platform search lands on. */
     ...TECHNOLOGIES.map((t) => ({
