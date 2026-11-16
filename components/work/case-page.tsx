@@ -3,7 +3,7 @@ import { Page, PageHero } from '../chrome/page';
 import { ContactButton } from '../homepage/contact-button';
 import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../homepage/primitives';
-import { CASES, type CaseStudy } from '../../lib/brand';
+import { CASES, coverSrcSet, type CaseStudy } from '../../lib/brand';
 import { POSTS } from '../../lib/posts';
 import { caseStudySchema, type Crumb } from '../../lib/schema';
 
@@ -103,6 +103,11 @@ export function CasePage({ study }: { study: CaseStudy }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={study.img}
+                srcSet={coverSrcSet(study.img)}
+                /* Full-bleed inside the shell, so a phone needs the 640 cut
+                   and a desktop the full one. It had neither: no srcSet at
+                   all, and the full file on every device. */
+                sizes="(min-width: 1440px) 1400px, 92vw"
                 alt={study.alt}
                 width={study.imgW}
                 height={study.imgH}

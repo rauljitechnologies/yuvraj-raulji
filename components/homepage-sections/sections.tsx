@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { WRITING } from '../../lib/brand';
+import { coverSrcSet, WRITING } from '../../lib/brand';
 import { CAREER, CAREER_START_YEAR } from '../../lib/career';
 import { CERTS } from '../../lib/certifications';
 import {
@@ -465,10 +465,7 @@ export function SelectedWork() {
               {project.cover ? (
                 <img
                   src={project.cover}
-                  srcSet={`${project.cover.replace('.webp', '-640.webp')} 640w, ${project.cover.replace(
-                    '.webp',
-                    '-960.webp',
-                  )} 960w, ${project.cover} 1920w`}
+                  srcSet={coverSrcSet(project.cover)}
                   sizes="(min-width: 1024px) 480px, (min-width: 640px) 34vw, 82vw"
                   alt={`${project.name} case study cover`}
                   width={1200}
