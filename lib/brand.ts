@@ -562,6 +562,38 @@ export interface CaseStudy {
    * against KNOWN_ROUTES in lib/platform-services.ts at build time.
    */
   related: readonly Anchor[];
+
+  /* ── The three sections the brief asks for and the record cannot fill ──
+     Brief section 9 asks every case study page to carry a technical
+     architecture, a statement of my role, and implementation detail. All
+     three are real engineering facts about six real builds, and none of them
+     is written down anywhere in this repository.
+
+     They are optional, and the page renders each section only when its field
+     is populated, so today the pages are shorter rather than padded. Writing
+     them from the `approach` text would be inventing technical claims about
+     client work, which is exactly what CONTENT-PRINCIPLES.md section 1
+     forbids and the one thing that would make these pages worth less, not
+     more.
+
+     To fill one: add the field to that case below and the section appears.
+     Nothing else needs touching.
+
+       architecture   3 to 6 bullets. The systems, how they divide
+                      responsibility, and where data is owned.
+       role           1 paragraph, first person. What was yours specifically,
+                      including where you led rather than implemented.
+       implementation 3 to 6 bullets. The decisions a technical reader would
+                      ask about, and what they cost.
+  */
+
+  /** The systems and how they divide responsibility. */
+  architecture?: readonly string[];
+  /** What was mine on this build, in the first person. */
+  role?: string;
+  /** The decisions a technical reader would ask about. */
+  implementation?: readonly string[];
+
   /** Article slugs, matching keys in lib/posts.ts. */
   posts: readonly string[];
   img: string;
