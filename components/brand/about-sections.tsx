@@ -296,7 +296,7 @@ export function Process() {
 
    The human section, kept short. No photograph is invented for it: the
    photographic layout switches on when real files arrive in
-   public/assets/founder/, and until then this renders as type, which is
+   a real photograph, and until then this renders as type, which is
    finished in its own right.
    ═══════════════════════════════════════════════════════════════ */
 

@@ -185,7 +185,7 @@ export const PROCESS: Step[] = [
    about a person.
 
    No photograph is invented for this section. The photographic layout switches
-   on when real files arrive in public/assets/founder/; until then it renders
+   on when real photography arrives; until then it renders
    as type, which is finished in its own right. See that directory's README.
    ═══════════════════════════════════════════════════════════════ */
 

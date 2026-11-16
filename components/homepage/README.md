@@ -14,7 +14,6 @@ two pages, which is the fastest way to stop a search engine resolving an entity.
 | Concern | File |
 | --- | --- |
 | Copy, section order, disciplines, problems, case studies | `lib/home.ts` |
-| Photography resolution at build time | `lib/founder-photos.ts` |
 | Styles | `app/home.css` (all classes `yr-` prefixed) |
 | Metadata and structured data | `app/page.tsx`, `lib/schema.ts` |
 
@@ -97,10 +96,13 @@ utilities: `text-ink-secondary`, `text-ink-muted`, `text-ink-faint`.
 ## Photography
 
 The design is built around real photographs of Yuvraj. None are generated and no
-stock person is ever substituted: `lib/founder-photos.ts` checks
-`public/assets/founder/` at build time, and a section with no file for its slot
+stock person is ever substituted: a section with no real photograph for its slot
 renders a typographic layout that is finished in its own right. See
-`public/assets/founder/README.md` for the slot list and the shot direction.
+type instead. The slot list and shot direction were in
+`public/assets/founder/README.md`, which was removed along with the unserved
+assets: it documented a build-time resolver (`lib/founder-photos.ts`) that
+never existed in this repository, and it was itself publicly fetchable at
+`/assets/founder/README.md`.
 
 The hero currently falls back to `public/assets/yuvraj-raulji.jpg`, which is
 400x400 and is being displayed at up to 420px. A larger frame-filling portrait

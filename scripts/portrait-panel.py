@@ -2,8 +2,13 @@
 """
 Turn a white-backdrop studio portrait into a dark photo panel.
 
-    python3 scripts/portrait-panel.py public/assets/home/yr-about.jpg \
+    python3 scripts/portrait-panel.py <studio-portrait.jpg> \
         public/assets/home/yr-hero.webp 1200
+
+The example used to name public/assets/home/yr-about.jpg as the input. That
+file was one of the unserved assets removed in d66d0cd's follow-up: it was a
+second copy of a portrait nothing rendered. Point this at whichever studio
+original you are working from.
 
 Why this exists. Both source portraits are shot on pure white, and every slot
 that uses them sits on the near-black ground or the accent band. Dropped in
