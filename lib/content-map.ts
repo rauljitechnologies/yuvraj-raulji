@@ -4,6 +4,12 @@ import { HIRE } from './hire';
 import { ALL_PLATFORM_SERVICES, serviceHref } from './platform-services';
 import { AGENCIES } from './agencies';
 import { AUDIT } from './audit-offer';
+import { CERTS } from './certifications';
+import { PRIVACY } from './legal';
+import { PRICING } from './pricing';
+import { SERVICES } from './services-hub';
+import { REMOTE } from './remote';
+import { RESUME } from './resume';
 import { MIGRATION } from './migration';
 import { POSTS } from './posts';
 import { TECHNOLOGIES, techHref } from './technology';
@@ -359,6 +365,66 @@ const CORE: ContentMapRow[] = [
     entities: CONSULTANT,
   },
   {
+    url: REMOTE.path,
+    pageType: 'Employment',
+    primaryKeyword: REMOTE.primaryKeyword,
+    secondaryKeywords: REMOTE.secondaryKeywords,
+    searchIntent: REMOTE.searchIntent,
+    audience: REMOTE.audience,
+    purpose: REMOTE.purpose,
+    entities: REMOTE.entities,
+  },
+  {
+    url: RESUME.path,
+    pageType: 'Employment',
+    primaryKeyword: RESUME.primaryKeyword,
+    secondaryKeywords: RESUME.secondaryKeywords,
+    searchIntent: RESUME.searchIntent,
+    audience: RESUME.audience,
+    purpose: RESUME.purpose,
+    entities: RESUME.entities,
+  },
+  {
+    url: SERVICES.path,
+    pageType: 'Hub',
+    primaryKeyword: SERVICES.primaryKeyword,
+    secondaryKeywords: SERVICES.secondaryKeywords,
+    searchIntent: SERVICES.searchIntent,
+    audience: SERVICES.audience,
+    purpose: SERVICES.purpose,
+    entities: SERVICES.entities,
+  },
+  {
+    url: PRICING.path,
+    pageType: 'Commercial',
+    primaryKeyword: PRICING.primaryKeyword,
+    secondaryKeywords: PRICING.secondaryKeywords,
+    searchIntent: PRICING.searchIntent,
+    audience: PRICING.audience,
+    purpose: PRICING.purpose,
+    entities: PRICING.entities,
+  },
+  {
+    url: CERTS.path,
+    pageType: 'Credentials',
+    primaryKeyword: CERTS.primaryKeyword,
+    secondaryKeywords: CERTS.secondaryKeywords,
+    searchIntent: CERTS.searchIntent,
+    audience: CERTS.audience,
+    purpose: CERTS.purpose,
+    entities: CERTS.entities,
+  },
+  {
+    url: PRIVACY.path,
+    pageType: 'Legal',
+    primaryKeyword: PRIVACY.primaryKeyword,
+    secondaryKeywords: PRIVACY.secondaryKeywords,
+    searchIntent: PRIVACY.searchIntent,
+    audience: PRIVACY.audience,
+    purpose: PRIVACY.purpose,
+    entities: PRIVACY.entities,
+  },
+  {
     url: '/contact/',
     pageType: 'Core',
     primaryKeyword: 'contact ecommerce consultant',
@@ -400,6 +466,12 @@ export const INDEXABLE_ROUTES: readonly string[] = [
   '/magento-shopify-migration/',
   '/agencies/',
   '/ecommerce-audit/',
+  PRIVACY.path,
+  REMOTE.path,
+  RESUME.path,
+  SERVICES.path,
+  PRICING.path,
+  CERTS.path,
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),

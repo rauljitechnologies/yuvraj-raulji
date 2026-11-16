@@ -6,7 +6,7 @@ import { ContactButton } from '../../components/homepage/contact-button';
 import { EXPERTISE_HUB, PILLARS, pillarHref } from '../../lib/expertise';
 import { TECHNOLOGIES, techHref } from '../../lib/technology';
 import { expertiseHubSchema, type Crumb } from '../../lib/schema';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_IMAGE, SITE_URL } from '../../lib/site';
 import '../home.css';
 
 const crumbs: Crumb[] = [

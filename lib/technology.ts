@@ -1116,7 +1116,7 @@ const MAGENTO: Technology = {
     },
     {
       q: 'How much Magento experience is behind this?',
-      a: 'Magento work since 2016 and Magento 2 specifically across three commerce teams since then. Most recently 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users, first as a senior developer and since 2023 as team leader setting architecture direction.',
+      a: 'Magento work since 2018 and Magento 2 specifically across three commerce teams since then. Most recently 12+ multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users, first as a senior developer and since 2023 as team lead setting architecture direction.',
     },
     {
       q: 'Is Adobe Commerce different from Magento 2 for this work?',
@@ -2651,7 +2651,7 @@ const DIGITAL_TRANSFORMATION: Technology = {
   cta: 'Discuss a transformation plan',
   title: 'Digital Transformation Consultant for Commerce | Yuvraj Raulji',
   description:
-    'Digital transformation consulting for commerce businesses: modernising legacy stacks into API-first systems, process redesign and phased migration sequenced so trading continues.',
+    'Digital transformation for commerce businesses: modernising legacy stacks into API-first systems, with phased migration sequenced so trading continues.',
 
   quickAnswer: {
     answer:

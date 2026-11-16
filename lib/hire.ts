@@ -234,7 +234,7 @@ export const HIRE = {
     {
       label: 'Senior judgement',
       body:
-        'Nine years from the first Magento role in June 2016: multi-store catalogues, B2B approval workflows, headless commerce and AI systems. The decisions that matter are made by the person who has made them before.',
+        'Nine years from the first Magento role in 2018: multi-store catalogues, B2B approval workflows, headless commerce and AI systems. The decisions that matter are made by the person who has made them before.',
     },
     {
       label: 'One point of accountability',

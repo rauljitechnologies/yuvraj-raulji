@@ -46,9 +46,27 @@ export function WritingList() {
   /* `?filter=` is read on mount rather than on the server: a static export has
      no request-time access to the query string, so this is the only place it
      can be honoured. An unknown value is ignored rather than showing an empty
-     grid. */
+     grid.
+
+     `react-hooks/set-state-in-effect` is disabled here deliberately, and it is
+     the only place on the site that disables it.
+
+     The rule is right in general and wrong for this case. The two ways to
+     satisfy it both make the component worse:
+
+       - A lazy `useState` initialiser reading `location.search` would run
+         during the server render, where `location` does not exist, and on the
+         client it would produce a first render that disagrees with the
+         server's HTML. That is a hydration mismatch, which React resolves by
+         throwing away the server markup for this subtree.
+       - `useSearchParams` opts the route out of static generation, and this
+         site is `output: 'export'`.
+
+     One extra render on mount, only for a visitor who arrived with a query
+     string, is the cheapest correct option. */
   useEffect(() => {
     const f = new URLSearchParams(location.search).get('filter');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (f && WRITING_FILTERS.some((x) => x.id === f)) setActive(f);
   }, []);
 

@@ -47,6 +47,10 @@ import { Wordmark } from '../wordmark';
 const EXPLORE = [
   { href: '/about/', label: 'About' },
   { href: '/work/', label: 'Work' },
+  /* The services hub. It had no footer link at all, which left the eleven
+     platform pages reachable only through the Platforms column below and the
+     new header menu. */
+  { href: '/services/', label: 'Services' },
   { href: '/expertise/', label: 'Expertise' },
   { href: '/experience/', label: 'Experience' },
   { href: '/insights/', label: `Insights (${POST_COUNT} articles)` },
@@ -67,6 +71,26 @@ const EXPLORE = [
      because Contact is where this column ends. */
   { href: '/agencies/', label: 'For agencies' },
   { href: '/contact/', label: 'Contact' },
+] as const;
+
+/**
+ * The hiring column.
+ *
+ * Its own column rather than four more rows in Explore, which was already at
+ * nine and is the longest in the footer. It is also a different audience from
+ * everything in Explore: these four pages are read by a recruiter doing
+ * candidate due diligence, in roughly this order.
+ *
+ * /remote-work/ leads it because it is the page the repositioned site is
+ * pointed at, and /pricing/ closes it because a recruiter who reads that far
+ * is probably a client rather than a recruiter.
+ */
+const HIRING = [
+  { href: '/remote-work/', label: 'Remote work' },
+  { href: '/resume/', label: 'Resume' },
+  { href: '/certifications/', label: 'Certifications' },
+  { href: '/hire/', label: 'Hire me' },
+  { href: '/pricing/', label: 'Pricing' },
 ] as const;
 
 /**
@@ -333,6 +357,14 @@ export function SiteFooter() {
             ))}
           </Column>
 
+          <Column heading="Hiring">
+            {HIRING.map((link) => (
+              <Link key={link.href} href={link.href} className={linkCls}>
+                {link.label}
+              </Link>
+            ))}
+          </Column>
+
           {/* The AI pages and the one discipline that is not a technology.
               Split across two columns rather than stacked into one so neither
               runs to ten rows, and grouped the way a reader would group them
@@ -398,6 +430,12 @@ export function SiteFooter() {
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="text-ink-muted">{FOOTER_TAGLINE}</span>
+            {/* The policy sits here rather than in a sitemap column: it is a
+                legal link, it is read roughly never, and putting it next to the
+                copyright is where a reader looks for it. */}
+            <Link href="/privacy-policy/" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
+              Privacy policy
+            </Link>
             <a href="#main" className="py-1.5 text-ink/55 transition-colors hover:text-ink">
               Back to top ↑
             </a>

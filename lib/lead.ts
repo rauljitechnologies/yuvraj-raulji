@@ -59,6 +59,16 @@ export interface LeadFields {
   role?: string;
   platform?: string;
   timeline?: string;
+  /**
+   * Which funnel produced this enquiry.
+   *
+   * Added with the two separate forms on /remote-work/ and /contact/. Without
+   * it both land in one sheet and one `generate_lead` event with no way to
+   * tell a job approach from a project enquiry, which is the one split this
+   * site now exists to measure. Optional, so the older call sites that do not
+   * set it keep compiling and simply report nothing.
+   */
+  funnel?: 'recruiter' | 'project' | 'general';
   /** Honeypot. Filled means a bot; a person never sees the field. */
   hp?: string;
 }
@@ -73,7 +83,10 @@ const TIMEOUT_MS = 12_000;
  * so it carries every field the form collected in the body.
  */
 export function openMailFallback(f: LeadFields): void {
-  const subject = `Enquiry from ${f.name}${f.service ? `: ${f.service}` : ''}`;
+  const subject =
+    f.funnel === 'recruiter'
+      ? `Job opportunity from ${f.name}${f.company ? ` at ${f.company}` : ''}`
+      : `Enquiry from ${f.name}${f.service ? `: ${f.service}` : ''}`;
   const body = [
     `Name: ${f.name}`,
     `Email: ${f.email}`,
@@ -106,7 +119,7 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
 
   if (!LEAD_ENDPOINT) {
     openMailFallback(f);
-    track('form_error', { error_type: 'not_configured', service_selected: f.service, page_path: path() });
+    track('form_error', { error_type: 'not_configured', funnel: f.funnel, service_selected: f.service, page_path: path() });
     return 'fallback';
   }
 
@@ -123,6 +136,7 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
     role: f.role || '',
     platform: f.platform || '',
     timeline: f.timeline || '',
+    funnel: f.funnel || '',
     page: typeof location !== 'undefined' ? location.href : '',
     hp: '',
   });
@@ -148,7 +162,7 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
     const data = (await res.json()) as { ok?: boolean };
     if (data?.ok !== true) throw new Error('rejected');
 
-    track('generate_lead', { service_selected: f.service, page_path: path() });
+    track('generate_lead', { funnel: f.funnel, service_selected: f.service, page_path: path() });
     return 'sent';
   } catch (err) {
     openMailFallback(f);
@@ -159,6 +173,7 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
        to fix. */
     track('form_error', {
       error_type: err instanceof Error ? err.message || err.name : 'unknown',
+      funnel: f.funnel,
       service_selected: f.service,
       page_path: path(),
     });

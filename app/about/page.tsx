@@ -11,14 +11,14 @@ import { Page, PageHero } from '../../components/chrome/page';
 import { ABOUT_HERO } from '../../lib/about';
 import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_IMAGE, SITE_URL } from '../../lib/site';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about/' },
 ];
 
-const title = 'About Yuvraj Raulji | eCommerce, AI & Technology Consultant';
+const title = 'About Yuvraj Raulji | Senior Software Engineer';
 
 export const metadata: Metadata = {
   title,
@@ -30,7 +30,8 @@ export const metadata: Metadata = {
    */
   keywords: [
     'Yuvraj Raulji',
-    'AI consultant',
+    'Senior Software Engineer',
+    'Enterprise eCommerce Architect',
     'eCommerce consultant',
     'technology strategist',
     'digital transformation',

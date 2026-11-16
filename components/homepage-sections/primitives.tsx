@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 /**
@@ -6,7 +7,61 @@ import type { ReactNode } from 'react';
  * All server components. Nothing here holds state or reads the DOM, so none of
  * it ships JavaScript: the homepage's only client boundary is the scroll-reveal
  * wrapper in components/ui/reveal.tsx.
+ *
+ * ── Internal links go through next/link ────────────────────────────────────
+ *
+ * `Cta` and `RuleLink` both rendered a bare `<a>` for every destination,
+ * including same-site routes. That works, and it works by doing a full
+ * document request: the App Router's client navigation is skipped, the
+ * fixed header and the reveal bundle are re-fetched and re-parsed, and the
+ * reader waits for a white flash on a link that should have been instant.
+ * `@next/next/no-html-link-for-pages` catches it only where the href is a
+ * literal, which is why two call sites were reported and these two components,
+ * which take the href as a prop and are used on dozens, were not.
+ *
+ * `InternalOrExternal` below is the one decision, made once: a path starting
+ * `/` is a route and gets `<Link>`; a `#` fragment, a `mailto:`, a `tel:` and
+ * anything with a scheme stay a plain `<a>`, because `<Link>` has nothing to
+ * prefetch for any of them. It mirrors `Btn` in components/homepage/primitives.tsx,
+ * which already worked this way.
  */
+
+/**
+ * Renders `<Link>` for an internal route and `<a>` for everything else.
+ *
+ * `external` is the accessible note, not the routing decision: a destination
+ * is external because of its href, and the prop only supplies the wording for
+ * the `sr-only` warning that the link opens a new tab.
+ */
+function InternalOrExternal({
+  href,
+  className,
+  children,
+  newTab,
+}: {
+  href: string;
+  className: string;
+  children: ReactNode;
+  newTab?: boolean;
+}) {
+  const isRoute = href.startsWith('/') && !newTab;
+  if (isRoute) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a
+      href={href}
+      className={className}
+      {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
+      {children}
+    </a>
+  );
+}
 
 /**
  * The section eyebrow: a red accent line followed by the section name.
@@ -125,7 +180,7 @@ export function RuleLink({
   tone?: 'dark' | 'light';
 }) {
   return (
-    <a
+    <InternalOrExternal
       href={href}
       className={`relative inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent hover:text-accent-bright ${
         tone === 'light'
@@ -134,7 +189,7 @@ export function RuleLink({
       } ${className}`}
     >
       {children}
-    </a>
+    </InternalOrExternal>
   );
 }
 
@@ -178,14 +233,10 @@ export function Cta({
           : 'border border-ink/25 text-ink hover:border-accent';
 
   return (
-    <a
-      href={href}
-      className={`${base} ${skin}`}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-    >
+    <InternalOrExternal href={href} className={`${base} ${skin}`} newTab={Boolean(external)}>
       {children}
       {external ? <span className="sr-only"> (opens {external} in a new tab)</span> : null}
-    </a>
+    </InternalOrExternal>
   );
 }
 

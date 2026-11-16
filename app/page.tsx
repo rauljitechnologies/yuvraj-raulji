@@ -8,19 +8,21 @@ import {
   AiCommerce,
   Approach,
   Capabilities,
+  Certification,
   Contact,
   Credibility,
   Ecosystem,
   Faq,
   Insights,
   Problems,
+  RemoteWork,
   SelectedWork,
   TechnologyPartner,
   Why,
 } from '../components/homepage-sections/sections';
 import { JsonLd } from '../components/json-ld';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../lib/site';
+import { OG_IMAGE, SITE_URL } from '../lib/site';
 
 /**
  * Title and description carry the one positioning string, and the same one the
@@ -39,7 +41,10 @@ import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../lib/site';
  * across title, heading and markup is the fastest way to stop a search engine
  * resolving an entity confidently.
  */
-const title = 'Yuvraj Raulji | eCommerce, AI & Technology Consultant';
+/* The role is the query, and it is the role the Person node and the eyebrow
+   both state. It read "eCommerce, AI & Technology Consultant", which described
+   a different job from the one the record now claims. 58 characters. */
+const title = 'Yuvraj Raulji | Senior Software Engineer & eCommerce Architect';
 
 export const metadata: Metadata = {
   title,
@@ -49,16 +54,17 @@ export const metadata: Metadata = {
    * actually discusses in visible prose; none is repeated to hit a density.
    */
   keywords: [
-    'eCommerce consultant',
-    'eCommerce technology consultant',
-    'AI consultant for eCommerce',
-    'Shopify consultant',
-    'Magento consultant',
-    'Headless commerce consultant',
-    'AI commerce consultant',
-    'technical SEO consultant',
-    'digital transformation consultant',
     'Yuvraj Raulji',
+    'Senior Software Engineer',
+    'Senior Magento Developer',
+    'Remote Magento Developer',
+    'Shopify Developer',
+    'Senior Full Stack Developer',
+    'eCommerce Architect',
+    'eCommerce Technical Lead',
+    'Next.js Developer',
+    'Generative AI',
+    'Remote Software Engineer',
   ],
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
@@ -123,6 +129,12 @@ export default function Home() {
           <Approach />
           <About />
           <TechnologyPartner />
+          {/* The credential, then the availability it supports, then the two
+              doors. Certification sits here rather than next to Credibility
+              because it is evidence for the AI half of the H1 and it reads as
+              evidence only after the work has been shown. */}
+          <Certification />
+          <RemoteWork />
           <Insights />
           <Faq />
           <Contact />

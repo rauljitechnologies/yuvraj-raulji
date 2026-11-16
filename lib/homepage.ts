@@ -12,6 +12,8 @@
  * carries no em-dashes.
  */
 
+import { CAREER_STATS } from './career';
+import { AVAILABILITY, HEADLINE, INTRO_LONG, ROLE, SPECIALTIES } from './identity';
 import { CONTACT as SITE_CONTACT } from './site';
 
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
@@ -83,76 +85,95 @@ export const HERO = {
    * guideline outranks any mockup.
    */
   eyebrow: 'Yuvraj Raulji',
-  eyebrowSub: 'eCommerce · AI · Technology',
   /**
-   * The H1 is a role, not a slogan.
-   *
-   * It previously read "I build with technology. I think in business.", which
-   * is a good line and answers none of the four questions a visitor arrives
-   * with. A consultant's homepage has to name the job in the H1, because that
-   * is both what a buyer scans for and what a search engine resolves the
-   * entity against. The personality moved down to the positioning section,
-   * where it now has a section of its own rather than competing with the role.
+   * The remit, repositioned. It read "eCommerce · AI · Technology", which
+   * describes subject areas rather than a job, and it sat above an H1 that did
+   * the same thing. The role is now stated once, here, and the H1 states what
+   * the role produces.
    */
-  h1: 'eCommerce, AI & Technology Consultant',
+  eyebrowSub: `${ROLE} · Enterprise eCommerce Architect`,
+
   /**
-   * The one-line statement under the H1, and the page's actual value claim.
+   * The H1, and the one headline the whole site is built around.
    *
-   * It read "I help businesses improve eCommerce performance, technology
-   * architecture, customer experience and AI adoption across Shopify, Magento,
-   * WooCommerce and modern commerce platforms." That is a capability list, and
-   * every agency and freelancer competing for this buyer can write the same
-   * sentence. Nothing in the first screen was unavailable elsewhere.
+   * It is `HEADLINE` from lib/identity.ts, which is also what the <title>, the
+   * Open Graph card and the Person node resolve against, so the page cannot
+   * say one thing while the markup says another. That was the previous state:
+   * the H1 read "eCommerce, AI & Technology Consultant", the Person node's
+   * jobTitle read the same, and both described a consultant rather than an
+   * engineer.
    *
-   * The Sep 2026 acquisition diagnosis found the one genuinely differentiated
-   * claim on the site sitting three clicks deep on /hire/: "nothing here
-   * depends on selling the build". An agency structurally cannot say it,
-   * because the agency's revenue IS the build. That is the position, and it
-   * belongs on the first screen rather than on page three.
-   *
-   * No year count, deliberately. See the note in hero.tsx: the number lives in
-   * STATS and only in STATS, so it cannot contradict itself across the page.
+   * Held as lines because the break is authored: the first half is the
+   * established record and the second is the newer claim, and the accent falls
+   * on the second for exactly that reason.
    */
-  subLead:
-    'The independent opinion on commerce decisions that are expensive to get wrong: which platform, what the architecture has to carry, and where revenue is actually being lost. Nothing here depends on selling you the build.',
+  h1: HEADLINE,
+
   /**
-   * The longer lead paragraph is not here: it links three of its own nouns to
-   * the sections that answer them, so it is JSX and it lives in hero.tsx
-   * rather than as a string a component would have to split apart to re-link.
+   * The paragraph under the H1.
+   *
+   * `INTRO_LONG` from lib/identity.ts, verbatim from the brief. It names the
+   * role, the years and the three things the work actually consists of, which
+   * is what a recruiter and a client both need from the first screen.
+   *
+   * The previous version argued a position: "nothing here depends on selling
+   * you the build". That is a good line for a consultant's homepage and the
+   * wrong line for this one, because the site's primary objective is now a
+   * remote engineering role and a hiring manager is not buying independence.
+   * It survives on /hire/, where it is still exactly right.
    */
-  marquee: [
-    'Magento 2',
-    'Shopify Plus',
-    'Headless commerce',
-    'AI and automation',
-    'Technical SEO',
-    'Digital transformation',
-  ],
+  subLead: INTRO_LONG,
+
+  /**
+   * The availability line, and the single most important sentence on the page
+   * for the audience the site is now pointed at.
+   *
+   * Above the fold, next to the calls to action, rather than in a band
+   * further down. The footer used to carry an availability pill reading
+   * "Available for Q3 projects", which was removed because it dated itself
+   * with nothing in the build to catch it. This one does not: it states the
+   * kinds of work being sought, not a quarter, so it stays true until the
+   * position itself changes.
+   */
+  availability: AVAILABILITY,
+
+  /**
+   * The specialty marquee. `SPECIALTIES` from lib/identity.ts rather than a
+   * second list here, so the hero, /remote-work/ and the Person node's
+   * `knowsAbout` cannot drift.
+   */
+  marquee: SPECIALTIES,
 } as const;
 
-export type Stat = { value: string; label: string; href?: string };
+export type Stat = { value: string; label: string; href?: string; note?: string };
 
 /**
- * The four tiles under the position statement.
+ * The five tiles under the hero.
  *
- * Tiles 2 to 4 are the canvas values. Two tiles previously both read "12+",
- * which reads as a rendering bug rather than as two facts, and the canvas stat
- * that had been dropped (90% of B2B order and quote processing automated at
- * the B2B platform) is the same figure the 2020 entry in TIMELINE already
- * carries.
+ * Derived from `CAREER_STATS` in lib/career.ts, which is the one place a
+ * verified figure and the context that justifies it live together. These were
+ * four tiles authored here with their own labels, and one of them claimed the
+ * year count ran "from the first Magento role in June 2016". The CV puts the
+ * career start in 2018, so that note was describing a different record from
+ * the one /experience/ now prints.
  *
- * Tile 1 reads 9+, settled by Yuvraj on 26 Aug 2026 against his own
- * professional record. The count runs from the first Magento role in June
- * 2016, not from the first websites in 2014, which is why it is 9+ and not
- * the 12+ this used to claim. Note the other "12+" on this page is a count of
- * platforms, not of years, and is a different confirmed figure.
+ * `href` is attached here rather than in lib/career.ts, because where a figure
+ * links to is a property of this page's layout and not of the record.
  */
-export const STATS: readonly Stat[] = [
-  { value: '9+', label: 'Years in technology', href: '/experience/' },
-  { value: '90%', label: 'Of B2B order and quote processing automated', href: '/work/b2b-procurement/' },
-  { value: '500K+', label: 'SKUs across 12+ multi-store Magento 2 platforms', href: '/work/marketplace/' },
-  { value: '1M+', label: 'Monthly users on platforms under architecture', href: '/work/' },
-];
+const STAT_LINKS: Record<string, string> = {
+  'Years Experience': '/experience/',
+  'Projects Delivered': '/work/',
+  'Monthly Users': '/work/marketplace/',
+  Products: '/work/marketplace/',
+  'Brands Served': '/work/',
+};
+
+export const STATS: readonly Stat[] = CAREER_STATS.map((s) => ({
+  value: s.value,
+  label: s.label,
+  note: s.context,
+  href: STAT_LINKS[s.label],
+}));
 
 export type Project = {
   no: string;

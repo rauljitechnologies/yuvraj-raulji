@@ -1,6 +1,13 @@
+import { ROLE } from '../../lib/identity';
 import { HERO, PORTRAITS } from '../../lib/homepage';
+import { RESUME } from '../../lib/resume';
+import { resumeAvailable } from '../../lib/resume-file';
 import { Cta, Marquee } from './primitives';
 import { Eager } from './rv';
+
+/* Resolved once at build time. This is a server component, so the filesystem
+   check is legal here; see the boundary note in lib/resume-file.ts. */
+const resumeReady = resumeAvailable();
 
 /**
  * Homepage hero.
@@ -45,23 +52,44 @@ export function Hero() {
           </Eager>
 
           {/*
-            One H1, and it names the role.
+            One H1, and it names what the work produces.
 
-            Set as one sentence in two weights rather than as a two-sentence
-            ladder: "eCommerce, AI and Technology" is the subject and
-            "Consultant" is the noun that makes it a job, so the weight change
-            lands on the word that does the work. The red sits on nothing here.
-            Section 32 of BRAND-DESIGN-GUIDELINE.md asks for the accent not to
-            be overused, and an H1 that is already the largest thing on the
-            page does not need colour to be found.
+            It read "eCommerce, AI & Technology Consultant", which is a job
+            title. A title belongs in the Person node's `jobTitle` and in the
+            eyebrow above, and it is doing both of those now; an H1 that is only
+            a title spends the largest type on the page saying something the
+            eyebrow already said.
 
-            The rag is authored below `sm`, where the column is too narrow for
-            an authored break to mean anything and the browser wraps on its own.
+            Two lines, authored, from `HERO.h1` which is `HEADLINE` in
+            lib/identity.ts. The accent falls on the second line because the
+            first half is the established record and the second is the newer
+            claim, so the colour marks the part being asserted rather than
+            decorating the whole.
+
+            The size drops from 92px to 76px at the top of the clamp. The old
+            H1 was three words on two lines; this is nine, and at 92px it ran
+            to four lines on a desktop and pushed the calls to action under the
+            fold, which is the one thing the first screen cannot afford.
+
+            The rag is authored from `sm` up, where the column is wide enough
+            for a break to mean anything. Below that the browser wraps.
           */}
           <Eager delay={0.06}>
-            <h1 className="m-0 max-w-[15ch] font-manrope text-[clamp(40px,6.2vw,92px)] font-extralight leading-[1.0] tracking-[-0.042em] text-ink/90">
-              eCommerce, AI <br className="hidden sm:inline" />
-              &amp; Technology <span className="font-bold text-ink">Consultant</span>
+            <h1 className="m-0 max-w-[21ch] font-manrope text-[clamp(34px,4.9vw,76px)] font-extralight leading-[1.04] tracking-[-0.038em] text-ink/90">
+              {HERO.h1.map((line, i) => {
+                const text = typeof line === 'string' ? line : line.text;
+                const accent = typeof line === 'string' ? false : line.accent;
+                return (
+                  <span key={text} className="block">
+                    {accent ? (
+                      <span className="font-bold text-accent-bright">{text}</span>
+                    ) : (
+                      text
+                    )}
+                    {i === 0 ? ' ' : null}
+                  </span>
+                );
+              })}
             </h1>
           </Eager>
 
@@ -80,41 +108,63 @@ export function Hero() {
             No year count here on purpose: the number lives in STATS and only in
             STATS, so it can never contradict itself across the page.
           */}
+          {/*
+            The availability line, directly above the calls to action.
+
+            This is the sentence the site's primary objective rests on, so it
+            is the last thing read before the buttons rather than a band three
+            scrolls down. The blinking dot is the same mark the header strip
+            and /remote-work/ use, so the three read as one signal.
+
+            It replaced a paragraph that linked three of its own nouns to
+            #expertise, #growth and #ai. Two of those were worth keeping and
+            one, #growth, was an anchor to a section this page no longer
+            renders: it pointed at nothing and had done since the homepage was
+            rebuilt. The two live links moved into the specialty row below.
+          */}
           <Eager delay={0.18}>
-            <p className="mt-6 max-w-[600px] font-manrope text-[16px] font-light leading-[1.7] text-ink/55 sm:text-[17px]">
-              The work is{' '}
-              <a
-                href="#expertise"
-                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
-              >
-                commerce strategy and architecture
-              </a>
-              ,{' '}
-              <a
-                href="#growth"
-                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
-              >
-                performance and conversion
-              </a>{' '}
-              and{' '}
-              <a
-                href="#ai"
-                className="border-b border-accent/60 transition-colors hover:border-accent-bright hover:text-ink"
-              >
-                practical AI
-              </a>
-              , for businesses deciding what to build, what to fix and what to
-              leave alone.
+            <p className="mt-7 flex max-w-[600px] items-start gap-3.5">
+              <span
+                aria-hidden="true"
+                className="mt-[7px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
+              />
+              <span className="font-mono text-[12px] font-medium uppercase leading-[1.6] tracking-[0.18em] text-accent-bright">
+                {HERO.availability}
+              </span>
             </p>
           </Eager>
 
+          {/*
+            Three calls to action, one per audience, in the order the site
+            prioritises them: the work (anyone), the role (a recruiter), the
+            document (a recruiter who has decided).
+
+            The previous pair both pointed at #contact and both asked for a
+            consultation, which served one audience twice. "Book a 30-minute
+            consultation" also fired `consultation_cta_click` against a
+            scheduling step that does not exist; the note in app/layout.tsx
+            records that it resolved to an on-page anchor, so a click meant a
+            reader wanted to book and could not.
+
+            The resume button only renders when the file is actually in
+            public/. See the gate at the top of lib/resume.ts.
+          */}
           <Eager className="mt-9 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
-            <Cta href="#contact" variant="accent">
-              Book a 30-minute consultation
+            <Cta href="/work/" variant="accent">
+              Explore My Work
             </Cta>
-            <Cta href="#contact" variant="outline">
-              Tell me what is not working <span className="font-mono">→</span>
+            <Cta href="/remote-work/" variant="outline">
+              Remote Opportunities <span className="font-mono">→</span>
             </Cta>
+            {resumeReady ? (
+              <Cta href={RESUME.href} variant="outline">
+                Download Resume
+              </Cta>
+            ) : (
+              <Cta href="/resume/" variant="outline">
+                View Resume
+              </Cta>
+            )}
           </Eager>
         </div>
 
@@ -146,7 +196,7 @@ export function Hero() {
               src={PORTRAITS.hero}
               srcSet={`${PORTRAITS.heroSmall} 700w, ${PORTRAITS.hero} 1200w`}
               sizes="(min-width: 1024px) 480px, min(400px, 100vw)"
-              alt="Yuvraj Raulji, eCommerce, AI and technology consultant"
+              alt="Yuvraj Raulji, Senior Software Engineer and Enterprise eCommerce Architect"
               width={1200}
               height={1680}
               // Above the fold and the page's largest paint. Eager, high
@@ -172,7 +222,7 @@ export function Hero() {
                 Yuvraj Raulji
               </span>
               <span className="font-mono text-xs leading-[1.4] text-ink/60">
-                Commerce · Technology · AI
+                {ROLE}
               </span>
             </div>
 

@@ -6,7 +6,7 @@ import { Btn, Marker, Section, Shell } from '../../components/homepage/primitive
 import { WORK_NOTE } from '../../lib/brand';
 import { brandWorkSchema, WORK_DESCRIPTION } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
-import { OG_IMAGE, OG_IMAGE_URL, SITE_URL } from '../../lib/site';
+import { OG_IMAGE, SITE_URL } from '../../lib/site';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },

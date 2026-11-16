@@ -59,7 +59,7 @@ export const AUDIT = {
   ],
   searchIntent: 'Transactional. A business with a symptom and no diagnosis.',
   audience:
-    'Business owner, managing director or head of eCommerce on a live store, usually with flat revenue, a slow site, a failing integration or a replatforming proposal they cannot evaluate.',
+    'Owner, managing director or head of eCommerce on a live store, usually with flat revenue, a slow site, a failing integration or a replatforming proposal they cannot evaluate.',
   purpose:
     'Give the site one named, scoped, purchasable offer, replacing an open invitation to talk as the primary conversion.',
   entities: [
@@ -121,7 +121,7 @@ export const AUDIT = {
     {
       title: 'A written findings document',
       body:
-        'Every finding with its current state, why it matters commercially, and a specific recommendation. Written to be read by a business owner and actioned by a technical team.',
+        'Every finding with its current state, why it matters commercially, and a specific recommendation. Written to be read by the person who owns the P&L and actioned by a technical team.',
     },
     {
       title: 'A priority order',

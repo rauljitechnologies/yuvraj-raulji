@@ -134,7 +134,7 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
         body:
           'Across catalogues reaching 500K+ SKUs and 1M+ monthly users. The scope and attribute decisions on this page are the ones those platforms were built on, and the ones that were expensive to get wrong.',
         context:
-          'From the employment record: multi-store Magento 2 delivery across B2B, B2C and marketplace models since 2016.',
+          'From the employment record: multi-store Magento 2 delivery across B2B, B2C and marketplace models since 2018.',
       },
       {
         label: 'The decision not to build',

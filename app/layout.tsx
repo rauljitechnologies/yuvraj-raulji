@@ -167,11 +167,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           put the exact number we need to see into the column that hides it.
           When a real booking destination exists, `consultation_booked` fires
           on arrival there and becomes the conversion.
+
+          Three events were added with the repositioning, and each is a
+          conversion the brief asks to be able to count:
+
+            resume_download     any link to the CV file, wherever it is. Keyed
+                                off the href rather than a class, so a link
+                                added on a new page is counted without the
+                                author remembering to mark it up.
+            linkedin_click      an outbound click to the LinkedIn profile. It
+                                was invisible: `wa.me` was matched and
+                                linkedin.com was not, so the second-largest
+                                way a recruiter makes contact counted as
+                                nothing.
+            project_view        a click through to a case study. `destination`
+                                carries the slug, so the per-project numbers
+                                the brief asks for fall out of one event.
+
+          `data-event` is honoured first where a link declares it, so a page
+          can name its own event without this script needing to know about it.
         */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){function p(e,o){window.dataLayer=window.dataLayer||[];o=o||{};o.event=e;o.page_path=location.pathname;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
+              "(function(){function p(e,o){window.dataLayer=window.dataLayer||[];o=o||{};o.event=e;o.page_path=location.pathname;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';var d=a.getAttribute('data-event');if(d)return p(d,{cta_text:t,destination:h});if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(h.indexOf('linkedin.com')>-1)return p('linkedin_click',{cta_text:t,destination:h});if(/\\.pdf(\\?|$)/i.test(h))return p('resume_download',{cta_text:t,destination:h});if(/^\\/work\\/[^/]+\\//.test(h))return p('project_view',{cta_text:t,destination:h});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
           }}
         />
         {isProd && (
