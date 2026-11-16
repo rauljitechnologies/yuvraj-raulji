@@ -31,7 +31,7 @@ import { SERVICES } from './services-hub';
 import { servicePageHref, type ServicePage } from './service-pages';
 import { RESUME } from './resume';
 import { CAREER_START_YEAR, CURRENT_EMPLOYER } from './career';
-import { DESCRIPTION, ROLE, ROLES_ADDITIONAL, TARGET_ROLES } from './identity';
+import { DESCRIPTION, ROLES_ADDITIONAL, ROLE_TITLE } from './identity';
 import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
@@ -91,11 +91,14 @@ export const PERSON_DESCRIPTION = DESCRIPTION;
  * are now gone: the one title is `ROLE` in lib/identity.ts, and this reads it
  * from there so the Person node cannot drift from the H1 again.
  *
- * `jobTitle` takes the primary role alone. The additional titles are claims
- * about capability rather than about the seat, and they go in `knowsAbout`
- * below; a `jobTitle` carrying six strings tells a parser nothing.
+ * `jobTitle` takes `ROLE_TITLE`, the occupation, not `ROLE`, the positioning
+ * line. The page says "Freelance eCommerce Developer & Technology
+ * Professional", which is what a client needs to read; `jobTitle` is consumed
+ * by tooling that expects an occupation, and "Senior Software Engineer" is
+ * the honest one. The additional titles are capability claims and go in
+ * `knowsAbout`; a `jobTitle` carrying six strings tells a parser nothing.
  */
-export const PERSON_JOB_TITLE = ROLE;
+export const PERSON_JOB_TITLE = ROLE_TITLE;
 
 /** Points at a file that exists in public/. Verified, not assumed. */
 const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
@@ -131,15 +134,15 @@ export function personNode({ full = false }: { full?: boolean } = {}) {
        the same code, so the name and the category disagreed about the job. */
     hasOccupation: {
       '@type': 'Occupation',
-      name: ROLE,
+      name: ROLE_TITLE,
       occupationalCategory: '15-1252.00',
       description:
         'Enterprise eCommerce platform engineering and architecture across Magento 2, Adobe Commerce, Shopify and headless storefronts, full-stack application development on Next.js, React and Node.js, and the application of Generative AI to commerce operations.',
     },
-    /* The seats this record is a fit for, as a recruiter titles them. This is
-       the property an answer engine reads when asked what roles he is open to,
-       and /remote-work/ renders the same array as visible text. */
-    seeks: TARGET_ROLES.map((r) => ({ '@type': 'Demand', name: r })),
+    /* `seeks` stood here, listing seven job titles as `Demand` nodes. It is
+       the schema.org property for something wanted, and publishing a demand
+       for employment contradicts a site that offers services. Removed with
+       the recruiter funnel it belonged to. */
     knowsAbout: [
       /* The additional titles first, because they are the strongest entity
          terms on the page and `jobTitle` can only carry one of them. */
@@ -808,51 +811,58 @@ export function privacySchema(crumbs: Crumb[]) {
 /**
  * /remote-work/
  *
- * `ProfilePage` plus `FAQPage`, and no `Service` node: the page offers
- * employment availability rather than a service, and a `Service` here would
- * compete with /hire/ for the same interpretation.
+ * `Service` plus `FAQPage`, and no longer `ProfilePage`.
  *
- * The Person node is emitted `full`, with credentials. This is the one page
- * whose entire audience is doing candidate due diligence, so the education and
- * certification record belongs in its graph.
+ * The page was a recruiter funnel, so it described a person and emitted the
+ * Person node `full` with credentials. It now describes remote development
+ * work a business can buy, so it emits a `Service` with the engagement models
+ * as an offer catalogue and no price, matching every other service page here.
  *
- * `seeks` on the Person already carries the target roles, declared once in
- * lib/identity.ts and rendered as visible text on this page, so the markup and
- * the copy cannot drift.
+ * The Person stays in the graph as the `provider`, which is the relationship
+ * that is actually true: the service is offered by a person rather than a
+ * company, and that is the thing worth saying.
  */
 export function remoteWorkSchema(crumbs: Crumb[]) {
+  const path = REMOTE.path;
   return graph([
-    personNode({ full: true }),
+    personNode(),
     websiteNode(),
     webPageNode({
-      path: REMOTE.path,
-      name: 'Remote work availability',
+      path,
+      name: 'Working with clients worldwide',
       description: REMOTE.description,
-      type: 'ProfilePage',
       crumbs,
-      primaryImage: PERSON_IMAGE,
     }),
     breadcrumbNode(crumbs),
-    faqNode(REMOTE.path, REMOTE.faqs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: 'Remote eCommerce and full-stack development',
+      serviceType: 'Remote software development',
+      description: REMOTE.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: REMOTE.audience },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Engagement models',
+        itemListElement: REMOTE.engagementModels.map((m) => ({
+          '@type': 'Offer',
+          /* No price. The page publishes none; see pricingSchema(). */
+          itemOffered: {
+            '@type': 'Service',
+            name: m.name,
+            description: m.shape,
+            provider: personRef,
+          },
+        })),
+      },
+    },
+    faqNode(path, REMOTE.faqs),
   ]);
 }
 
-/**
- * /resume/
- *
- * `ProfilePage`, with the Person emitted `full` so the credentials are in the
- * graph, plus the `about` link back to the Person. No `Service` node and no
- * `Offer`: a resume sells nothing.
- *
- * The PDF is declared as an `encoding` on the page only when it exists. A
- * `MediaObject` pointing at a missing file is a claim the site cannot honour,
- * and it is the kind of claim a crawler checks.
- *
- * `available` is passed in rather than read here. This module is reachable
- * from a client component, so it cannot touch the filesystem; the page calls
- * `resumeAvailable()` from lib/resume-file.ts and hands the answer over. See
- * the note at the top of that file.
- */
 export function resumeSchema(crumbs: Crumb[], available: boolean) {
   return graph([
     personNode({ full: true }),

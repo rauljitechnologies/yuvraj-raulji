@@ -21,52 +21,57 @@ import {
   Services,
   TechnologyPartner,
   Why,
+  WhyWorkWithMe,
 } from '../components/homepage-sections/sections';
 import { JsonLd } from '../components/json-ld';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
 import { OG_IMAGE, SITE_URL } from '../lib/site';
 
 /**
- * Title and description carry the one positioning string, and the same one the
- * H1 and the Person node carry. Three different descriptions of the same
- * person across title, heading and markup is the fastest way to stop a search
- * engine resolving an entity confidently, and it was the previous state of
- * this file.
- */
-/**
- * The title names the role, because the role is the query.
+ * The title names what is on offer, because that is the query.
  *
- * It read "Yuvraj Raulji | AI, Business and eCommerce" for a long time, which
- * is a description of interests rather than of a job, and matched no phrase a
- * business actually searches. The H1, this title and the Person node now carry
- * the same positioning string: three different descriptions of one person
- * across title, heading and markup is the fastest way to stop a search engine
- * resolving an entity confidently.
+ * It has been three things: "AI, Business and eCommerce" (a description of
+ * interests, matching no phrase a business searches), then "Senior Software
+ * Engineer & eCommerce Architect" (a job title, from when the objective was
+ * remote employment), and now this. The objective is freelance client work,
+ * so the title leads with the word that qualifies the visitor.
+ *
+ * The H1, this title, the meta description and the Person node all resolve
+ * against lib/identity.ts. Three different descriptions of one person across
+ * title, heading and markup is the fastest way to stop a search engine
+ * resolving an entity confidently, and that was the state of this file twice.
+ *
+ * 45 characters.
  */
-/* The role is the query, and it is the role the Person node and the eyebrow
-   both state. It read "eCommerce, AI & Technology Consultant", which described
-   a different job from the one the record now claims. 58 characters. */
-const title = 'Yuvraj Raulji | Senior Software Engineer & eCommerce Architect';
+const title = 'Yuvraj Raulji | Freelance eCommerce Developer';
 
 export const metadata: Metadata = {
   title,
   description: HOME_DESCRIPTION,
   /**
-   * Entities, not a keyword list. Every term here is a subject the page
-   * actually discusses in visible prose; none is repeated to hit a density.
+   * Client-acquisition terms, per §13, plus the personal brand.
+   *
+   * Entities rather than a density list: every term is a subject the page
+   * discusses in visible prose, and none is repeated to hit a count.
+   *
+   * They read as employment queries before this: "Senior Software Engineer",
+   * "Remote Software Engineer", "eCommerce Technical Lead". Those are what a
+   * candidate targets. These are what a business types when it wants someone
+   * to build something.
    */
   keywords: [
     'Yuvraj Raulji',
-    'Senior Software Engineer',
-    'Senior Magento Developer',
-    'Remote Magento Developer',
+    'Freelance Magento Developer',
+    'Freelance eCommerce Developer',
+    'Magento 2 Developer',
     'Shopify Developer',
-    'Senior Full Stack Developer',
-    'eCommerce Architect',
-    'eCommerce Technical Lead',
+    'eCommerce Development Services',
+    'Remote Magento Developer',
+    'Shopify Plus Development',
     'Next.js Developer',
-    'Generative AI',
-    'Remote Software Engineer',
+    'Full Stack Developer',
+    'Headless Commerce Development',
+    'eCommerce Technical Consultant',
   ],
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
@@ -127,19 +132,24 @@ export default function Home() {
           <Ecosystem />
           <AiCommerce />
           <SelectedWork />
+          {/* Position, then the reasons behind it, then how the work runs.
+              The red band asserts a belief; WhyWorkWithMe is the evidence.
+              On its own, either reads as assertion. */}
           <Why />
+          <WhyWorkWithMe />
           <Approach />
           <About />
           {/* What can be bought, then the record behind it. The page showed
               capability and proof and never named an engagement; these two
-              close that gap, and the employment record is what a recruiter
-              reads the rest of the page against. */}
+              close that gap. The employment record stays because for a
+              freelance buyer nine years at named companies is the credibility
+              that separates this from a portfolio anyone can assemble. */}
           <Services />
           <ProfessionalExperience />
           <TechnologyPartner />
-          {/* The credential, then the availability it supports, then the two
-              doors. Certification sits here rather than next to Credibility
-              because it is evidence for the AI half of the H1 and it reads as
+          {/* The credential, then how remote collaboration works, then the
+              close. Certification sits here rather than next to Credibility
+              because it is evidence for the AI half of the offer and reads as
               evidence only after the work has been shown. */}
           <Certification />
           <RemoteWork />

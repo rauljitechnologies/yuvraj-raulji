@@ -37,14 +37,36 @@
 export const NAME = 'Yuvraj Raulji';
 
 /**
- * The primary role, and the only job title the Person node carries.
+ * The primary positioning line.
  *
- * Senior Software Engineer rather than any of the consultant strings that
- * preceded it. The site's first audience is now a recruiter or an engineering
- * manager filling a remote seat, and "consultant" reads to that audience as
- * someone who is not available to hire as staff.
+ * ── Why this changed, twice ───────────────────────────────────────────────
+ *
+ * It read "eCommerce, AI & Technology Consultant", then "Senior Software
+ * Engineer" when the brief made international remote employment the first
+ * objective. The objective has changed again and is now explicit: freelance
+ * clients and remote project work, and *not* a recruiter portal.
+ *
+ * "Senior Software Engineer" is the wrong line for that audience. A business
+ * looking for someone to build their storefront reads it as a person who has
+ * a job, not a person they can engage. "Freelance" is the word that qualifies
+ * the visitor, so it leads.
+ *
+ * The engineering seniority is not lost: it is `ROLE_TITLE` below and the
+ * first entry in `ROLES_ADDITIONAL`, so it still carries the credibility
+ * without claiming availability for employment.
  */
-export const ROLE = 'Senior Software Engineer';
+export const ROLE = 'Freelance eCommerce Developer & Technology Professional';
+
+/**
+ * The engineering title, for the places that need a job title rather than a
+ * positioning line.
+ *
+ * `ROLE` above is the commercial positioning and it is what the page says.
+ * This is what the Person node's `jobTitle` carries, because "Freelance
+ * eCommerce Developer & Technology Professional" is a service description and
+ * `jobTitle` is read by tooling that expects an occupation.
+ */
+export const ROLE_TITLE = 'Senior Software Engineer';
 
 /**
  * The secondary roles, in the order they are claimed.
@@ -55,16 +77,16 @@ export const ROLE = 'Senior Software Engineer';
  * separates this record from a developer with the same stack list.
  */
 export const ROLES_ADDITIONAL = [
+  'Senior Software Engineer',
   'Enterprise eCommerce Architect',
   'Senior Magento Developer',
   'Shopify Developer',
   'Full Stack Developer',
-  'eCommerce Technical Lead',
   'Generative AI Professional',
 ] as const;
 
-/** The role and the architecture framing, as one line, for a <title>. */
-export const ROLE_LINE = `${ROLE} & Enterprise eCommerce Architect`;
+/** For a <title>, where the full positioning line is too long. */
+export const ROLE_LINE = 'Freelance eCommerce Developer';
 
 /* ═══════════════════════════════════════════════════════════════
    THE HEADLINE AND THE INTRODUCTION
@@ -82,12 +104,12 @@ export const ROLE_LINE = `${ROLE} & Enterprise eCommerce Architect`;
  */
 export const HEADLINE = [
   'Building Scalable eCommerce Platforms',
-  { text: '& AI-Powered Digital Experiences.', accent: true },
+  { text: '& Powerful Digital Experiences.', accent: true },
 ] as const;
 
 /** The same headline as one string, for a <title>, an OG card or a meta tag. */
 export const HEADLINE_FLAT =
-  'Building Scalable eCommerce Platforms & AI-Powered Digital Experiences.';
+  'Building Scalable eCommerce Platforms & Powerful Digital Experiences.';
 
 /**
  * The professional introduction, in the first person.
@@ -98,18 +120,18 @@ export const HEADLINE_FLAT =
  * moving first.
  */
 export const INTRO =
-  "I'm Yuvraj Raulji, a technology professional with 9+ years of experience in enterprise eCommerce development, Magento, Shopify, modern full-stack engineering and Generative AI.";
+  "Hi, I'm Yuvraj Raulji. I help businesses build, improve and scale eCommerce platforms and modern digital solutions using Magento, Shopify, Next.js, React and AI-powered technologies.";
 
 /**
  * The longer introduction, for the homepage hero where there is room for the
  * role and the scale as well as the subject.
  */
 export const INTRO_LONG =
-  "I'm Yuvraj Raulji, a Senior Software Engineer and Enterprise eCommerce Architect with 9+ years of experience building scalable digital commerce platforms, modern web applications and integrated business solutions.";
+  'With 9+ years of experience in eCommerce and software development, I collaborate with businesses worldwide on freelance projects, remote development work and long-term technology partnerships.';
 
 /** The one-line description the Person node and the meta descriptions share. */
 export const DESCRIPTION =
-  'Yuvraj Raulji is a Senior Software Engineer and Enterprise eCommerce Architect based in Vadodara, India, with 9+ years across Magento 2 and Adobe Commerce, Shopify, headless architecture, full-stack engineering and Generative AI.';
+  'Yuvraj Raulji is a freelance eCommerce developer and technology professional based in Vadodara, India, with 9+ years across Magento 2 and Adobe Commerce, Shopify, headless architecture, full-stack engineering and Generative AI. Available for freelance projects and remote development worldwide.';
 
 /* ═══════════════════════════════════════════════════════════════
    AVAILABILITY
@@ -123,10 +145,19 @@ export const DESCRIPTION =
  * page reads as written for someone else.
  */
 export const AVAILABILITY =
-  'Open to Full-Time Remote Roles, Contract Opportunities & Freelance Projects.';
+  'Available for Freelance Projects, Remote Development Work and Long-Term Contracts.';
 
-/** The header chip. Short, uppercase, and the only place the word OPEN is set in the red. */
-export const AVAILABILITY_SHORT = 'OPEN TO REMOTE OPPORTUNITIES';
+/**
+ * The header chip, and the hero's availability label.
+ *
+ * It read "OPEN TO REMOTE OPPORTUNITIES", which is the language of someone
+ * looking for a job. The objective is client work, so the line now says what
+ * is on offer rather than what is wanted.
+ */
+export const AVAILABILITY_SHORT = 'AVAILABLE FOR FREELANCE & REMOTE PROJECTS WORLDWIDE';
+
+/** The same, trimmed for the header bar where width is tight. */
+export const AVAILABILITY_CHIP = 'AVAILABLE FOR FREELANCE & REMOTE PROJECTS';
 
 export const LOCATION = 'Vadodara, Gujarat, India';
 export const TIMEZONE = 'IST (UTC+5:30)';
@@ -134,27 +165,46 @@ export const TIMEZONE = 'IST (UTC+5:30)';
 /** Markets whose working hours overlap usefully with IST, in the order claimed. */
 export const MARKETS = ['India', 'USA', 'UK', 'Europe', 'UAE'] as const;
 
-export const WORK_PREFERENCES = [
-  'Full-Time Remote',
-  'Contract',
-  'International Teams',
+/**
+ * How a client can engage, from §11 of the brief.
+ *
+ * ── What this replaced ────────────────────────────────────────────────────
+ *
+ * `TARGET_ROLES` stood here: seven job titles, as a recruiter would name them,
+ * with `WORK_PREFERENCES` ("Full-Time Remote", "Contract") beside it. Both
+ * described a person looking for employment, and the current objective is
+ * explicitly the opposite: freelance clients and remote project work, not a
+ * recruiter portal.
+ *
+ * These are the shapes an engagement takes instead. They answer the question
+ * a prospective client actually has, which is "how would I buy this", not
+ * "what seat would you take".
+ *
+ * `seeks` was removed from the Person node at the same time. It is the
+ * schema.org property for a demand, and publishing a demand for employment
+ * contradicts a site offering services.
+ */
+export const ENGAGEMENT_MODELS = [
+  'Freelance Projects',
+  'Fixed-Scope Development',
+  'Hourly Development',
+  'Monthly Retainer',
+  'Contract Development',
+  'Long-Term Remote Collaboration',
+  'Ongoing Maintenance & Support',
 ] as const;
 
 /**
- * The seats this record is a fit for, as a recruiter would title them.
- *
- * Phrased as job titles rather than as skills on purpose: this array is what
- * /remote-work/ is built from, and it has to match the language of the posting
- * a recruiter is trying to fill.
+ * Who the work is for. Named because /remote-work/ claims breadth and a claim
+ * of breadth with nothing under it is the kind of sentence
+ * CONTENT-PRINCIPLES.md exists to stop.
  */
-export const TARGET_ROLES = [
-  'Senior Magento Developer',
-  'Senior Shopify Developer',
-  'Senior Full Stack Developer',
-  'Senior Software Engineer',
-  'eCommerce Technical Lead',
-  'Enterprise Commerce Architect',
-  'AI-enabled Full Stack Developer',
+export const CLIENT_TYPES = [
+  'eCommerce brands and retailers',
+  'B2B and wholesale businesses',
+  'Digital agencies and studios',
+  'Startups and founders',
+  'Manufacturers and distributors',
 ] as const;
 
 /* ═══════════════════════════════════════════════════════════════

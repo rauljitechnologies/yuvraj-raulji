@@ -47,16 +47,15 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
 /**
  * The homepage description, repositioned.
  *
- * It read "eCommerce, AI and technology consultant. Commerce architecture,
- * platform strategy, AI adoption and conversion..." which described a
- * consultant and matched neither the new H1 nor the Person node's jobTitle.
- * The title, the H1, this description and the Person node now all resolve
- * against lib/identity.ts.
+ * Repositioned twice. It described a consultant, then a Senior Software
+ * Engineer "open to remote", which is an employment signal. The objective is
+ * client work, so it now leads with "freelance" and ends with availability
+ * for projects rather than for roles.
  *
- * 154 characters, which keeps it inside the SERP limit.
+ * Under 160 characters, which keeps it inside the SERP limit.
  */
 export const HOME_DESCRIPTION =
-  'Senior Software Engineer and Enterprise eCommerce Architect. 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and Generative AI. Open to remote.';
+  'Freelance eCommerce developer with 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and AI. Available for projects and remote development worldwide.';
 
 /* "from the first Magento role in 2016" described a career start the CV does
    not support: the record in lib/career.ts begins in 2018. */

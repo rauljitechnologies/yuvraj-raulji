@@ -1,13 +1,12 @@
-import { ROLE } from '../../lib/identity';
 import { HERO, PORTRAITS } from '../../lib/homepage';
-import { RESUME } from '../../lib/resume';
-import { resumeAvailable } from '../../lib/resume-file';
+import { CONTACT } from '../../lib/site';
 import { Cta, Marquee } from './primitives';
 import { Eager } from './rv';
 
-/* Resolved once at build time. This is a server component, so the filesystem
-   check is legal here; see the boundary note in lib/resume-file.ts. */
-const resumeReady = resumeAvailable();
+/* The resume gate (`resumeAvailable()`) was read here for a Download Resume
+   button in the hero. That button served a recruiter; the objective is client
+   work, so it is gone from the first screen. /resume/ still gates on the
+   file. */
 
 /**
  * Homepage hero.
@@ -133,38 +132,34 @@ export function Hero() {
               </span>
             </p>
           </Eager>
-
           {/*
-            Three calls to action, one per audience, in the order the site
-            prioritises them: the work (anyone), the role (a recruiter), the
-            document (a recruiter who has decided).
+            Three calls to action, from the brief: hire, view work, WhatsApp.
 
-            The previous pair both pointed at #contact and both asked for a
-            consultation, which served one audience twice. "Book a 30-minute
-            consultation" also fired `consultation_cta_click` against a
-            scheduling step that does not exist; the note in app/layout.tsx
-            records that it resolved to an on-page anchor, so a click meant a
-            reader wanted to book and could not.
+            They used to be Explore My Work / Remote Opportunities / Download
+            Resume, which served a recruiter. The objective is client work, so
+            the primary is now the commercial one, and the third is WhatsApp:
+            for a good share of this audience it is the fastest route to a
+            conversation and the one most likely to be used on a phone.
 
-            The resume button only renders when the file is actually in
-            public/. See the gate at the top of lib/resume.ts.
+            The resume download left the first screen entirely. It is still on
+            /resume/ and in the Resources menu, where a reader who wants it
+            will look; it is not what a prospective client is here for, and it
+            was the only thing in the hero aimed at an employer.
+
+            `external` on the WhatsApp button adds the tab target, the rel and
+            an off-screen note, because a button that opens a new tab should
+            say so in its accessible name.
           */}
           <Eager className="mt-9 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
-            <Cta href="/work/" variant="accent">
-              Explore My Work
+            <Cta href="/contact/" variant="accent">
+              Hire Me for Your Project
             </Cta>
-            <Cta href="/remote-work/" variant="outline">
-              Remote Opportunities <span className="font-mono">→</span>
+            <Cta href="/work/" variant="outline">
+              View My Projects <span className="font-mono">&#8594;</span>
             </Cta>
-            {resumeReady ? (
-              <Cta href={RESUME.href} variant="outline">
-                Download Resume
-              </Cta>
-            ) : (
-              <Cta href="/resume/" variant="outline">
-                View Resume
-              </Cta>
-            )}
+            <Cta href={CONTACT.whatsapp} variant="outline" external="WhatsApp">
+              Let&apos;s Talk on WhatsApp
+            </Cta>
           </Eager>
         </div>
 
@@ -196,7 +191,7 @@ export function Hero() {
               src={PORTRAITS.hero}
               srcSet={`${PORTRAITS.heroSmall} 700w, ${PORTRAITS.hero} 1200w`}
               sizes="(min-width: 1024px) 480px, min(400px, 100vw)"
-              alt="Yuvraj Raulji, Senior Software Engineer and Enterprise eCommerce Architect"
+              alt="Yuvraj Raulji, freelance eCommerce developer and technology professional"
               width={1200}
               height={1680}
               // Above the fold and the page's largest paint. Eager, high
@@ -222,7 +217,7 @@ export function Hero() {
                 Yuvraj Raulji
               </span>
               <span className="font-mono text-xs leading-[1.4] text-ink/60">
-                {ROLE}
+                Freelance eCommerce Developer
               </span>
             </div>
 

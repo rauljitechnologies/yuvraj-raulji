@@ -178,6 +178,75 @@ export const STATS: readonly Stat[] = CAREER_STATS.map((s) => ({
   href: STAT_LINKS[s.label],
 }));
 
+/**
+ * Why work with me. The nine points from §10 of the brief.
+ *
+ * ── Why each one carries a body ───────────────────────────────────────────
+ *
+ * The brief supplies nine labels: "9+ years of practical development
+ * experience", "Direct communication", "Remote collaboration" and so on. A
+ * list of nine labels like that is the single most generic block on any
+ * freelance site, because every one of them is a claim anybody can make and
+ * none of them is falsifiable.
+ *
+ * So each carries a sentence that says the specific thing behind it, and
+ * where the record supports a figure the figure is named. The brief also says
+ * to avoid unsupported claims, and a label with nothing under it is exactly
+ * that.
+ *
+ * Nine is a lot for one section, which is why they are a three-column grid of
+ * short blocks rather than a numbered list: this is scanned, not read.
+ */
+export type Reason = { num: string; name: string; body: string };
+
+export const WHY_WORK_WITH_ME: readonly Reason[] = [
+  {
+    num: '01',
+    name: '9+ years of practical development experience',
+    body: 'Continuous professional engineering since 2018, across four employers, on commerce platforms rather than on tutorials. The record is on the experience page with the employers named.',
+  },
+  {
+    num: '02',
+    name: 'Hands-on technical implementation',
+    body: 'I write the code. There is no team behind me doing the work while I attend the calls, which is the usual arrangement and the usual reason a project drifts from what was agreed.',
+  },
+  {
+    num: '03',
+    name: 'eCommerce platform expertise',
+    body: 'Magento 2 and Adobe Commerce, Shopify and Shopify Plus, WooCommerce, and headless storefronts over GraphQL. Nine years on these specifically, not as one item in a longer list.',
+  },
+  {
+    num: '04',
+    name: 'Scalable architecture',
+    body: 'Multi-store platforms carrying 500K+ SKUs and 1M+ monthly users. Catalogue size is where commerce platforms stop behaving like products, and that is the part I have actually done.',
+  },
+  {
+    num: '05',
+    name: 'Direct communication',
+    body: 'You talk to the person doing the work. No account manager translating your requirement into a ticket and a ticket back into a status update.',
+  },
+  {
+    num: '06',
+    name: 'Remote collaboration',
+    body: 'In your tools, on your board, in your review cycle. IST overlaps the full European and Gulf working day and the US East Coast morning, so a daily sync is practical.',
+  },
+  {
+    num: '07',
+    name: 'Flexible project engagement',
+    body: 'Fixed scope, hourly, retainer, contract or long-term. The shape follows the work rather than the work being bent to fit one commercial model.',
+  },
+  {
+    num: '08',
+    name: 'Long-term technical support',
+    body: 'Handover documentation written for your team, a defined period where fixes are mine, and the option of a maintenance arrangement. None of it compulsory.',
+  },
+  {
+    num: '09',
+    name: 'International project experience',
+    body: 'Builds for retail groups in the Gulf market, D2C brands, B2B procurement platforms and multi-vendor marketplaces, delivered for stakeholders in different time zones.',
+  },
+];
+
 export type Project = {
   no: string;
   /**
