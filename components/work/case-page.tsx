@@ -3,7 +3,7 @@ import { Page, PageHero } from '../chrome/page';
 import { ContactButton } from '../homepage/contact-button';
 import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../homepage/primitives';
-import { CASES, type CaseStudy } from '../../lib/brand';
+import { CASES, coverSrcSet, type CaseStudy } from '../../lib/brand';
 import { POSTS } from '../../lib/posts';
 import { caseStudySchema, type Crumb } from '../../lib/schema';
 
@@ -103,6 +103,11 @@ export function CasePage({ study }: { study: CaseStudy }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={study.img}
+                srcSet={coverSrcSet(study.img)}
+                /* Full-bleed inside the shell, so a phone needs the 640 cut
+                   and a desktop the full one. It had neither: no srcSet at
+                   all, and the full file on every device. */
+                sizes="(min-width: 1440px) 1400px, 92vw"
                 alt={study.alt}
                 width={study.imgW}
                 height={study.imgH}
@@ -140,7 +145,64 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-      {/* ── 05 Technology ──────────────────────────────────────── */}
+            {/* ── Architecture, role and implementation ─────────────────
+          Each renders only when its field is populated in lib/brand.ts. All
+          three are empty on all six builds today: they are real engineering
+          facts that are not written down anywhere, and writing them from the
+          `approach` text would be inventing technical claims about client
+          work. A shorter honest page beats a padded one.
+
+          See the note on the CaseStudy interface for what each field wants. */}
+      {study.architecture?.length ? (
+        <Section id="architecture" labelledBy="architecture-title">
+          <Shell>
+            <Head label="Architecture" id="architecture-title" lines={['How it', 'fits together.']} />
+            <ul className="m-0 grid list-none gap-2.5 p-0">
+              {study.architecture.map((a) => (
+                <li
+                  key={a}
+                  className="flex gap-3.5 font-manrope text-[16px] font-light leading-[1.7] text-ink/60"
+                >
+                  <span aria-hidden="true" className="mt-[12px] h-px w-3 shrink-0 bg-accent/50" />
+                  <span className="max-w-[66ch]">{a}</span>
+                </li>
+              ))}
+            </ul>
+          </Shell>
+        </Section>
+      ) : null}
+
+      {study.role ? (
+        <Section id="role" labelledBy="role-title">
+          <Shell>
+            <Head label="My role" id="role-title" lines={['What was', 'mine.']} />
+            <p className="m-0 max-w-[66ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65">
+              {study.role}
+            </p>
+          </Shell>
+        </Section>
+      ) : null}
+
+      {study.implementation?.length ? (
+        <Section id="implementation" labelledBy="implementation-title">
+          <Shell>
+            <Head label="Implementation" id="implementation-title" lines={['The decisions', 'inside it.']} />
+            <ul className="m-0 grid list-none gap-2.5 p-0">
+              {study.implementation.map((x) => (
+                <li
+                  key={x}
+                  className="flex gap-3.5 font-manrope text-[16px] font-light leading-[1.7] text-ink/60"
+                >
+                  <span aria-hidden="true" className="mt-[12px] h-px w-3 shrink-0 bg-accent/50" />
+                  <span className="max-w-[66ch]">{x}</span>
+                </li>
+              ))}
+            </ul>
+          </Shell>
+        </Section>
+      ) : null}
+
+{/* ── 05 Technology ──────────────────────────────────────── */}
       <Section id="technology" labelledBy="technology-title">
         <Shell>
           <Head label="Technology" id="technology-title" lines={['What it', 'was built on.']} />

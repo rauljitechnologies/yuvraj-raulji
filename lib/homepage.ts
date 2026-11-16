@@ -48,8 +48,11 @@ export const PORTRAITS = {
    * gets the full-resolution file.
    */
   heroSmall: '/assets/home/yr-hero-700.webp',
-  about: '/assets/home/yr-hero.webp',
-  quote: '/assets/home/yr-quote.webp',
+  /* `about` and `quote` stood here. Nothing read either: hero.tsx uses `hero`
+     and `heroSmall` and no other component touches this object. `quote`
+     pointed at yr-quote.webp, which was deleted with the other unserved
+     assets; `about` pointed at the hero file, so it was a second name for an
+     image already named above. */
 } as const;
 
 export const CONTACT = {

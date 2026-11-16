@@ -10,6 +10,7 @@ import { technologySchema, type Crumb } from '../../lib/schema';
 import { techHref, type Technology } from '../../lib/technology';
 import { serviceHref, servicesFor } from '../../lib/platform-services';
 import { hireFor } from '../../lib/hire';
+import { coverSrcSet } from '../../lib/images';
 
 /**
  * The technology landing page. One component, nine pages.
@@ -638,6 +639,9 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={w.img}
+                        /* `sizes` is inert without this, so every phone pulled the
+                           full 1920px cover. See lib/images.ts. */
+                        srcSet={coverSrcSet(w.img)}
                         alt={w.alt}
                         width={w.imgW}
                         height={w.imgH}

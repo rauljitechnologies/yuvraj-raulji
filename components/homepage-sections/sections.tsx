@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { WRITING } from '../../lib/brand';
-import { CAREER_START_YEAR } from '../../lib/career';
+import { coverSrcSet, WRITING } from '../../lib/brand';
+import { CAREER, CAREER_START_YEAR } from '../../lib/career';
 import { CERTS } from '../../lib/certifications';
 import {
   AVAILABILITY,
@@ -12,6 +12,7 @@ import {
   WORK_PREFERENCES,
 } from '../../lib/identity';
 import { REMOTE } from '../../lib/remote';
+import { SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
 import {
   AI_TRACKS,
   APPROACH,
@@ -464,10 +465,7 @@ export function SelectedWork() {
               {project.cover ? (
                 <img
                   src={project.cover}
-                  srcSet={`${project.cover.replace('.webp', '-640.webp')} 640w, ${project.cover.replace(
-                    '.webp',
-                    '-960.webp',
-                  )} 960w, ${project.cover} 1920w`}
+                  srcSet={coverSrcSet(project.cover)}
                   sizes="(min-width: 1024px) 480px, (min-width: 640px) 34vw, 82vw"
                   alt={`${project.name} case study cover`}
                   width={1200}
@@ -1115,6 +1113,174 @@ const DETAILS = [
  * `id="book"` is kept as a second anchor because the footer has linked to
  * `/#book` since before this restructure.
  */
+/* ─────────────────────────────────────────────────────────────
+   13b — Services  (DARK)
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The seven service pages, on the homepage.
+ *
+ * The page showed capabilities and case studies and never once said what can
+ * be bought. A reader convinced by the work had no route from "he can do this"
+ * to "this is the thing I would engage him for" except the header menu.
+ *
+ * Deliberately a list rather than seven cards. Cards at this point in the page
+ * would be the fourth card grid a reader has scrolled through, and the service
+ * names are the content: each is a two-word answer to what the engagement is.
+ */
+export function Services() {
+  return (
+    <section
+      id="services"
+      aria-labelledby="services-title"
+      className="border-t border-ink/10 bg-[#050505] text-ink"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+        <SectionLabel className="mb-8 sm:mb-11">Services</SectionLabel>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] lg:gap-x-16">
+          <div>
+            <Rv>
+              <h2
+                id="services-title"
+                className="m-0 max-w-[16ch] font-manrope text-[clamp(30px,4.4vw,62px)] font-extralight leading-[1.02] tracking-[-0.042em]"
+              >
+                What I am <span className="font-bold">engaged to build.</span>
+              </h2>
+            </Rv>
+            <Rv>
+              <p className="m-0 mt-7 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                Seven services, each with its own page covering the problems it solves, what gets
+                built, the delivery process and what it is not.
+              </p>
+            </Rv>
+            <Rv>
+              <div className="mt-9">
+                <RuleLink href="/services/">All services, and the platform pages under them</RuleLink>
+              </div>
+            </Rv>
+          </div>
+
+          <RvGroup as="ol" className="m-0 list-none border-t border-ink/12 p-0" each={0.04}>
+            {SERVICE_PAGES.map((sp, i) => (
+              <RvItem key={sp.slug} as="li" className="border-b border-ink/12">
+                <Link
+                  href={servicePageHref(sp.slug)}
+                  className="group flex items-baseline gap-5 py-5 transition-colors"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="font-mono text-[11px] font-medium leading-none tracking-[0.18em] text-accent-bright"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="flex-1">
+                    <span className="block font-manrope text-[clamp(18px,1.9vw,24px)] font-light leading-[1.25] text-ink transition-colors duration-200 group-hover:text-accent-bright">
+                      {sp.label}
+                    </span>
+                    <span className="mt-1.5 block font-mono text-[10px] uppercase leading-[1.5] tracking-[0.18em] text-ink/40">
+                      {sp.eyebrow}
+                    </span>
+                  </span>
+                </Link>
+              </RvItem>
+            ))}
+          </RvGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   13c — Professional experience  (LIGHT)
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The employment record, condensed.
+ *
+ * The homepage carried the capability claims and the case studies and left the
+ * employment record entirely to /experience/. For a recruiter, who the
+ * repositioned site is largely for, that record is the credibility: four named
+ * employers with dates is what separates this from a portfolio anyone can
+ * assemble.
+ *
+ * Four rows, not five: the two Archer roles are shown as the progression they
+ * are, with the earlier title underneath, because on a homepage the useful
+ * signal is "promoted at the same employer" and the full seat-by-seat breakdown
+ * belongs on /experience/ where an interviewer will look for it.
+ */
+export function ProfessionalExperience() {
+  return (
+    <section
+      id="experience"
+      aria-labelledby="experience-title"
+      className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+        <SectionLabel tone="light" className="mb-8 sm:mb-11">
+          Professional experience
+        </SectionLabel>
+
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] lg:gap-x-16">
+          <div>
+            <Rv>
+              <h2 id="experience-title" className={H2L}>
+                Four employers,{' '}
+                <span className="font-bold text-ground">one continuous record.</span>
+              </h2>
+            </Rv>
+            <Rv>
+              <p className="m-0 mt-7 max-w-[42ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/60">
+                Named, dated and verifiable. Nine years of continuous professional engineering
+                since {CAREER_START_YEAR}, from the first Magento role to leading a development
+                team.
+              </p>
+            </Rv>
+            <Rv className="mt-9 flex flex-wrap gap-3.5">
+              <Cta href="/experience/" variant="outline" tone="light">
+                Full career record
+              </Cta>
+              <Cta href="/resume/" variant="solid" tone="light">
+                Resume
+              </Cta>
+            </Rv>
+          </div>
+
+          <RvGroup as="ol" className="m-0 list-none border-t border-ground/15 p-0" each={0.05}>
+            {CAREER.filter((r) => r.current || r.org !== CAREER[0].org).map((r) => (
+              <RvItem
+                key={`${r.org}-${r.period}`}
+                as="li"
+                className="grid gap-x-8 gap-y-1.5 border-b border-ground/15 py-5 sm:grid-cols-[minmax(0,1fr)_auto]"
+              >
+                <div>
+                  <p className="m-0 font-manrope text-[clamp(18px,1.9vw,24px)] font-semibold leading-[1.2] tracking-[-0.02em] text-ground">
+                    {r.title}
+                  </p>
+                  <p className="m-0 mt-1.5 font-manrope text-[15px] font-light leading-[1.45] text-ground/60">
+                    {r.org}
+                  </p>
+                  {/* The earlier seat at the same employer, shown as a
+                      progression rather than as a separate row. */}
+                  {r.current ? (
+                    <p className="m-0 mt-2 font-mono text-[10px] uppercase leading-[1.5] tracking-[0.16em] text-ground/45">
+                      Previously {CAREER[1].title}, {CAREER[1].period}
+                    </p>
+                  ) : null}
+                </div>
+                <p className="m-0 font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-accent sm:text-right sm:pt-1.5">
+                  {r.period}
+                </p>
+              </RvItem>
+            ))}
+          </RvGroup>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────
    14 — Generative AI certification  (DARK)
    ───────────────────────────────────────────────────────────── */

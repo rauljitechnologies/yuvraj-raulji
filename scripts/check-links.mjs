@@ -9,6 +9,12 @@
  * element with that id exists on the page carrying the link, and a dead
  * anchor is invisible in testing because the browser simply does nothing.
  *
+ * Images are checked too, `src` and every `srcSet` candidate. A missing image
+ * does not throw: the browser falls back or shows nothing, and on a `srcSet`
+ * cut it falls back silently to another cut, which is a failure that survives
+ * for months. Six case covers ship a 640 and a 960 alongside the full file,
+ * and nothing before this verified that a seventh case would.
+ *
  * External links, mailto:, tel: and wa.me are listed, never fetched. A build
  * gate that depends on someone else's uptime is a gate that fails for reasons
  * that are not your fault.
@@ -50,12 +56,35 @@ function resolves(p) {
 const files = walk(OUT);
 const broken = [];
 const deadAnchors = [];
+const missingImages = [];
 const external = new Set();
 
 for (const f of files) {
   const html = readFileSync(f, 'utf8');
   const route = pageRoute(f);
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+
+  /* Every image source, including each candidate in a srcSet. A srcSet entry
+     is "<url> <descriptor>", so the url is the part before the space. */
+  for (const m of html.matchAll(/<img\b[^>]*>/g)) {
+    const tag = m[0];
+    const srcs = [];
+    const src = tag.match(/\ssrc="([^"]*)"/);
+    if (src) srcs.push(src[1]);
+    const set = tag.match(/\ssrcset="([^"]*)"/i);
+    if (set) {
+      for (const part of set[1].split(',')) {
+        const url = part.trim().split(/\s+/)[0];
+        if (url) srcs.push(url);
+      }
+    }
+    for (const u of srcs) {
+      if (!u || !u.startsWith('/') || u.startsWith('//')) continue;
+      if (!existsSync(join(OUT, decodeURIComponent(u).replace(/^\//, '')))) {
+        missingImages.push(`${route}  ->  ${u}`);
+      }
+    }
+  }
 
   for (const m of html.matchAll(/<a[^>]+href="([^"]*)"/g)) {
     const href = m[1];
@@ -79,13 +108,19 @@ if (broken.length) {
   console.error(`\nFAIL  ${uniq(broken).length} internal link(s) resolve to nothing:`);
   for (const b of uniq(broken)) console.error(`        ${b}`);
 }
+if (missingImages.length) {
+  console.error(`\nFAIL  ${uniq(missingImages).length} image source(s) do not exist in ${OUT}:`);
+  for (const i of uniq(missingImages)) console.error(`        ${i}`);
+  console.error(`\n      A missing srcSet cut does not error in a browser, it falls back`);
+  console.error(`      silently to another cut, so this is the only place it is visible.`);
+}
 if (deadAnchors.length) {
   console.error(`\nFAIL  ${uniq(deadAnchors).length} in-page anchor(s) point at no element:`);
   for (const d of uniq(deadAnchors)) console.error(`        ${d}`);
 }
 
-console.log(`\ncheck-links: ${files.length} pages scanned.`);
+console.log(`\ncheck-links: ${files.length} pages scanned, links and image sources resolved.`);
 console.log(`             ${uniq(external).length} distinct external destinations (not fetched):`);
 for (const e of uniq(external)) console.log(`               ${e}`);
 
-process.exit(broken.length || deadAnchors.length ? 1 : 0);
+process.exit(broken.length || deadAnchors.length || missingImages.length ? 1 : 0);

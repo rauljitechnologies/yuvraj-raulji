@@ -5,6 +5,7 @@ import { ContactButton } from '../../components/homepage/contact-button';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
 import { servicesHubSchema, type Crumb } from '../../lib/schema';
+import { SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
 import { ALL_TECH_LINKS, SERVICES } from '../../lib/services-hub';
 import { OG_IMAGE, SITE_URL } from '../../lib/site';
 import { TECHNOLOGIES_BY_SLUG } from '../../lib/technology';
@@ -91,7 +92,44 @@ export default function Services() {
         </Shell>
       </Section>
 
-      {/* ── 03 The four groups ────────────────────────────────────── */}
+      {/* ── 03 The seven service pages ────────────────────────────
+          Above the four groups, because this is what a reader opening
+          /services/ is looking for: a list of what can actually be bought.
+          The groups below are the organising idea; this is the index. */}
+      <Section id="service-pages" labelledBy="service-pages-title">
+        <Shell>
+          <Marker label="Services" />
+          <div className="mb-grid grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.1fr]">
+            <Lines as="h2" id="service-pages-title" lines={['Seven services,', 'each its own page.']} />
+            <Rise delay={0.12}>
+              <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                Each page carries the problems it solves, what gets built, the technologies, the
+                delivery process and the questions that come up. Each also says what it is not.
+              </p>
+            </Rise>
+          </div>
+
+          <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-3">
+            {SERVICE_PAGES.map((sp, i) => (
+              <Rise key={sp.slug} as="li" delay={Math.min(i, 6) * 0.04} className="bg-[var(--bg)]">
+                <Link href={servicePageHref(sp.slug)} className="group flex h-full flex-col p-card">
+                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                    {sp.eyebrow}
+                  </span>
+                  <h3 className="m-0 mt-item max-w-[22ch] font-manrope text-[clamp(19px,2vw,25px)] font-semibold leading-[1.2] tracking-[-0.02em] transition-colors duration-200 group-hover:text-accent-bright">
+                    {sp.label}
+                  </h3>
+                  <p className="m-0 mt-tight max-w-[44ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
+                    {sp.lede}
+                  </p>
+                </Link>
+              </Rise>
+            ))}
+          </ul>
+        </Shell>
+      </Section>
+
+      {/* ── 04 The four groups ────────────────────────────────────── */}
       <Section id="groups" labelledBy="groups-title">
         <Shell>
           <Marker label="Four kinds of work" />

@@ -14,9 +14,11 @@ import {
   Ecosystem,
   Faq,
   Insights,
+  ProfessionalExperience,
   Problems,
   RemoteWork,
   SelectedWork,
+  Services,
   TechnologyPartner,
   Why,
 } from '../components/homepage-sections/sections';
@@ -128,6 +130,12 @@ export default function Home() {
           <Why />
           <Approach />
           <About />
+          {/* What can be bought, then the record behind it. The page showed
+              capability and proof and never named an engagement; these two
+              close that gap, and the employment record is what a recruiter
+              reads the rest of the page against. */}
+          <Services />
+          <ProfessionalExperience />
           <TechnologyPartner />
           {/* The credential, then the availability it supports, then the two
               doors. Certification sits here rather than next to Credibility

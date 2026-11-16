@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { CASES, WORK_FILTERS, type WorkFilter } from '../../lib/brand';
+import { CASES, WORK_FILTERS, coverSrcSet, type WorkFilter } from '../../lib/brand';
 import { Rise } from '../homepage/motion';
 
 /**
@@ -114,6 +114,9 @@ export function WorkCases() {
               <div className="relative flex aspect-[16/10] items-end overflow-hidden border-b border-ink/10 bg-[#111] p-6">
                 <img
                   src={c.img}
+                  /* Without this the `sizes` below was inert and every phone
+                     downloaded the full-size cover. See coverSrcSet(). */
+                  srcSet={coverSrcSet(c.img)}
                   alt={c.alt}
                   width={c.imgW}
                   height={c.imgH}

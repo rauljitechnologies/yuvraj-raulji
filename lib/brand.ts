@@ -28,6 +28,7 @@
 
 import type { Anchor } from './expertise';
 import { CAREER_START_YEAR } from './career';
+import { SERVICE_PAGE_LINKS } from './service-pages';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -135,14 +136,17 @@ export const NAV: readonly NavItem[] = [
   {
     label: 'Services',
     href: '/services/',
-    children: [
-      { label: 'Magento & Adobe Commerce', href: '/magento/' },
-      { label: 'Shopify & Shopify Plus', href: '/shopify/' },
-      { label: 'Headless commerce', href: '/headless-commerce/' },
-      { label: 'Next.js & full stack', href: '/nextjs/' },
-      { label: 'AI & automation', href: '/ai-automation/' },
-      { label: 'All services', href: '/services/' },
-    ],
+    /* The seven service pages, read from their own registry rather than
+       retyped here. A service added to lib/service-pages.ts appears in the
+       menu, in the hub, in the sitemap and in the content map at once, which
+       is the same discipline the platform services are under.
+
+       These are the service pages, not the platform hubs. The menu used to
+       list /magento/ and /shopify/, which are entity pages: a reader opening
+       a Services menu wants to know what can be built, and those pages answer
+       a different question. The hubs are still one click away from each
+       service page via its boundary link. */
+    children: [...SERVICE_PAGE_LINKS, { label: 'All services', href: '/services/' }],
   },
   { label: 'Expertise', href: '/expertise/' },
   { label: 'Insights', href: '/insights/' },
@@ -152,6 +156,7 @@ export const NAV: readonly NavItem[] = [
     children: [
       { label: 'Resume', href: '/resume/' },
       { label: 'Certifications', href: '/certifications/' },
+      { label: 'Remote Opportunities', href: '/remote-work/' },
       { label: 'Pricing & engagement', href: '/pricing/' },
       { label: 'Hire me', href: '/hire/' },
     ],
@@ -557,6 +562,38 @@ export interface CaseStudy {
    * against KNOWN_ROUTES in lib/platform-services.ts at build time.
    */
   related: readonly Anchor[];
+
+  /* ── The three sections the brief asks for and the record cannot fill ──
+     Brief section 9 asks every case study page to carry a technical
+     architecture, a statement of my role, and implementation detail. All
+     three are real engineering facts about six real builds, and none of them
+     is written down anywhere in this repository.
+
+     They are optional, and the page renders each section only when its field
+     is populated, so today the pages are shorter rather than padded. Writing
+     them from the `approach` text would be inventing technical claims about
+     client work, which is exactly what CONTENT-PRINCIPLES.md section 1
+     forbids and the one thing that would make these pages worth less, not
+     more.
+
+     To fill one: add the field to that case below and the section appears.
+     Nothing else needs touching.
+
+       architecture   3 to 6 bullets. The systems, how they divide
+                      responsibility, and where data is owned.
+       role           1 paragraph, first person. What was yours specifically,
+                      including where you led rather than implemented.
+       implementation 3 to 6 bullets. The decisions a technical reader would
+                      ask about, and what they cost.
+  */
+
+  /** The systems and how they divide responsibility. */
+  architecture?: readonly string[];
+  /** What was mine on this build, in the first person. */
+  role?: string;
+  /** The decisions a technical reader would ask about. */
+  implementation?: readonly string[];
+
   /** Article slugs, matching keys in lib/posts.ts. */
   posts: readonly string[];
   img: string;
@@ -564,6 +601,11 @@ export interface CaseStudy {
   imgW: number;
   imgH: number;
 }
+
+/* `coverSrcSet` moved to lib/images.ts, where the article covers needed the
+   same logic with a different intrinsic width. Re-exported here so the three
+   case-study call sites keep their existing import. */
+export { coverSrcSet } from './images';
 
 export const WORK_INTRO = {
   headline: ['Real work.', 'Real systems.'] as const,

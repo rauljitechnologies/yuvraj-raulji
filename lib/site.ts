@@ -484,93 +484,14 @@ export const AGENT_TYPES = [
   { title: 'Ops Agents', desc: 'Catalogue QA, data reconciliation and exception routing.' },
 ];
 
-export interface WorkSlide {
-  cat: string;
-  title: string;
-  desc: string;
-  img: string;
-  url: string;
-}
+/* `WorkSlide` and `WORK_SLIDES` stood here: eleven slides, each pointing at a
+   case-cover JPEG. Nothing imported either of them. They were the only
+   reference to eleven image files that the site never served, including an
+   older case set (fabric retail, fabric gallery, supermarket, safety
+   equipment, fashion retail) that does not appear in CASES in lib/brand.ts.
 
-export const WORK_SLIDES: WorkSlide[] = [
-  {
-    cat: 'Headless Commerce · Fashion',
-    title: 'Headless fashion storefront',
-    desc: 'High-performance headless commerce architecture for India’s fastest-growing men’s fashion brand.',
-    img: '/assets/case-covers/fashion-d2c-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Marketplace',
-    title: 'Multi-category marketplace',
-    desc: 'A scalable Magento 2 platform powering a wide multi-category retail catalogue.',
-    img: '/assets/case-covers/marketplace-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'E-Commerce · Health & Fitness',
-    title: 'Sports nutrition store',
-    desc: 'Online fitness and supplement store delivering authentic sports nutrition at speed.',
-    img: '/assets/case-covers/sports-nutrition-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Textiles',
-    title: 'Fabric retail storefront',
-    desc: 'A powerful, flexible Magento 2 commerce build for a premium fabric retailer.',
-    img: '/assets/case-covers/fabric-retail-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Shopify · D2C',
-    title: 'Online plant store',
-    desc: 'India’s most trusted online plant store on Shopify — OTP login, GoKwik one-page checkout, custom PDPs.',
-    img: '/assets/case-covers/plant-store-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Fabrics',
-    title: 'Fabric gallery storefront',
-    desc: 'High-performance Magento 2 storefront serving fabric customers worldwide.',
-    img: '/assets/case-covers/fabric-gallery-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Luxury Fashion',
-    title: 'Fashion retail storefront',
-    desc: 'A Magento 2 flagship showcasing luxury African fashion collections.',
-    img: '/assets/case-covers/fashion-retail-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Custom Platform · B2B',
-    title: 'Procurement and approvals platform',
-    desc: 'Scalable B2B procurement platform streamlining purchase requests and approvals.',
-    img: '/assets/case-covers/b2b-procurement-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Web Platform · Manufacturing',
-    title: 'Engineering manufacturer platform',
-    desc: 'A modern engineering brand platform. 3x traffic growth and 45% better engagement.',
-    img: '/assets/case-covers/manufacturing-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Industrial Safety',
-    title: 'Safety equipment store',
-    desc: 'Magento 2 commerce for a leading manufacturer of PPE and industrial safety solutions.',
-    img: '/assets/case-covers/safety-equipment-cover.jpg',
-    url: '/work/',
-  },
-  {
-    cat: 'Magento 2 · Grocery',
-    title: 'Supermarket chain storefront',
-    desc: 'Scalable Magento 2 grocery commerce serving thousands of supermarket products online.',
-    img: '/assets/case-covers/supermarket-cover.jpg',
-    url: '/work/',
-  },
-];
+   Removed with the files. The live case covers are the WebP cuts in CASES,
+   which are served with a responsive srcSet; see lib/images.ts. */
 
 export const WORK_METRICS = [
   { count: 42, suffix: '%', label: 'Performance Lift' },
@@ -913,13 +834,11 @@ export { CAREER as EXPERIENCE, CAREER_START_YEAR, CAREER_STATS } from './career'
    near-identical names is how the wrong one gets rendered. Pages that want the
    record read it from lib/career.ts directly. */
 
-export const TECH_PROFICIENCIES = [
-  { group: 'Commerce', items: ['Magento 2 / Adobe Commerce', 'Shopify & Shopify Plus', 'WooCommerce', 'Headless & Composable'] },
-  { group: 'Languages & Frameworks', items: ['PHP', 'Next.js', 'React.js', 'GraphQL'] },
-  { group: 'Data & Search', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch', 'RabbitMQ'] },
-  { group: 'Infrastructure', items: ['AWS (EC2, S3, RDS)', 'Google Cloud', 'Azure', 'Docker', 'Jenkins', 'GitLab CI'] },
-  { group: 'Measurement & Growth', items: ['GA4', 'GTM', 'MoEngage', 'WebEngage', 'Technical SEO'] },
-];
+/* `TECH_PROFICIENCIES` was authored here as five hand-written groups. It is
+   now derived from the capability matrix in lib/capabilities.ts, which is the
+   one list /expertise/, /experience/ and /resume/ all read: two skill lists one
+   import apart is how a resume and an expertise page end up disagreeing. */
+export { TECH_PROFICIENCIES } from './capabilities';
 
 export const EDUCATION = [
   { qualification: 'Bachelor of Engineering, Information Technology', period: '2013 to 2016' },

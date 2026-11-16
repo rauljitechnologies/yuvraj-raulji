@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Page, PageHero } from '../../components/chrome/page';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
@@ -8,6 +9,7 @@ import { TECHNOLOGIES, techHref } from '../../lib/technology';
 import { expertiseHubSchema, type Crumb } from '../../lib/schema';
 import { OG_IMAGE, SITE_URL } from '../../lib/site';
 import '../home.css';
+import { CAPABILITIES } from '../../lib/capabilities';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
@@ -77,6 +79,77 @@ export default function ExpertiseHub() {
         stretches that one link over the whole card so the entire cell is a
         target without a second, competing anchor in the markup.
       */}
+      {/* ── The capability matrix ───────────────────────────────────
+          First, above the technology hubs, because "what do you actually work
+          in" is the question this page gets and the hubs answer "what do you
+          consult on". It was missing entirely: nine of the technologies the
+          brief names appeared nowhere on this page.
+
+          Descriptions, not percentages. A skill bar reading "Magento 92%" is a
+          number with no definition behind it, and nobody can say what the
+          missing 8% is. Each category instead says what the work in it
+          consists of, and carries a figure from the verified record only where
+          one exists. */}
+      <Section id="stack" labelledBy="stack-title">
+        <Shell>
+          <Marker label="The stack" />
+
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+            <Lines as="h2" id="stack-title" lines={['Seven categories.', 'No percentage bars.']} />
+            <Rise delay={0.18}>
+              <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+                What the work in each category actually consists of, and where it sits in the
+                record. A skill rated out of a hundred tells you nothing about what the missing
+                part is.
+              </p>
+            </Rise>
+          </div>
+
+          <dl className="m-0 grid list-none gap-px border border-line bg-line p-0 lg:grid-cols-2">
+            {CAPABILITIES.map((c, i) => (
+              <Rise key={c.group} delay={Math.min(i, 6) * 0.04} className="bg-[var(--bg)] p-card">
+                <dt>
+                  <h3 className="m-0 font-manrope text-[clamp(19px,2vw,26px)] font-semibold leading-[1.2] tracking-[-0.02em]">
+                    {c.href ? (
+                      <Link
+                        href={c.href}
+                        className="transition-colors duration-200 hover:text-accent-bright"
+                      >
+                        {c.group}
+                      </Link>
+                    ) : (
+                      c.group
+                    )}
+                  </h3>
+                </dt>
+                <dd className="m-0">
+                  <p className="m-0 mt-item max-w-[54ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/60">
+                    {c.description}
+                  </p>
+
+                  <ul className="m-0 mt-item flex list-none flex-wrap gap-2 p-0">
+                    {c.items.map((it) => (
+                      <li key={it}>
+                        <Tag>{it}</Tag>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Printed only where the record carries a figure. A category
+                      with no verified number says nothing rather than
+                      borrowing one from a neighbour. */}
+                  {c.evidence ? (
+                    <p className="m-0 mt-item max-w-[54ch] border-l-2 border-accent/40 pl-5 font-manrope text-[14px] font-light leading-[1.65] text-ink/50">
+                      {c.evidence}
+                    </p>
+                  ) : null}
+                </dd>
+              </Rise>
+            ))}
+          </dl>
+        </Shell>
+      </Section>
+
       <Section id="technology" labelledBy="technology-title">
         <Shell>
           <Marker label="By technology" />
