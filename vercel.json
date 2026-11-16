@@ -2,6 +2,26 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/projects",
+      "destination": "/work/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/",
+      "destination": "/work/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/:slug",
+      "destination": "/work/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/:slug/",
+      "destination": "/work/:slug/",
+      "permanent": true
+    },
+    {
       "source": "/expertise/shopify",
       "destination": "/shopify/",
       "permanent": true

@@ -59,6 +59,25 @@ export interface CareerRole {
  * work was done in which seat, which is the thing a technical interviewer
  * asks about.
  */
+/**
+ * ── An open question about 2018, recorded rather than resolved ─────────────
+ *
+ * Three roles carry a 2018 date and the CV gives a month for only two of them:
+ *
+ *   Sinelogix Technologies Pvt. Ltd.   2018                (no month given)
+ *   OrionCoders Digital Pvt. Ltd.      March to July 2018
+ *   Magento IT Solutions Pvt. Ltd.     July 2018 onward
+ *
+ * For the sequence to run without overlap, Sinelogix has to sit before March
+ * 2018, which makes it a short first role. That is entirely possible and it is
+ * also not what the CV says, because the CV does not say.
+ *
+ * Nothing here guesses. The periods are printed exactly as supplied, Sinelogix
+ * included, and /experience/ renders them in this order without asserting a
+ * month it was not given. If the Sinelogix dates are to hand, add them here
+ * and the page updates; until then the ambiguity is the record's, not the
+ * site's.
+ */
 export const CAREER: readonly CareerRole[] = [
   {
     title: 'Team Lead',
@@ -94,7 +113,7 @@ export const CAREER: readonly CareerRole[] = [
   {
     title: 'Senior Magento Developer',
     org: 'Magento IT Solutions Private Limited',
-    period: '2018 to 2020',
+    period: 'July 2018 to 2020',
     summary:
       'Commerce builds for retail groups in the Gulf market: grocery, commercial kitchen equipment and fashion.',
     points: [
@@ -121,7 +140,7 @@ export const CAREER: readonly CareerRole[] = [
   },
   {
     title: 'Magento Developer',
-    org: 'Sinelogix Technologies',
+    org: 'Sinelogix Technologies Pvt. Ltd.',
     period: '2018',
     location: 'Vadodara',
     summary: 'Where the Magento work started: module development and store builds.',

@@ -56,7 +56,7 @@ export const PRICING = {
   h1: ['Engagement models,', { text: 'and what is in each.' }],
   lede:
     'Five ways to work together, each a different commercial shape rather than a tier of the same one. Every engagement starts with the same conversation about what is actually in front of you, and the scope follows from that rather than the other way round.',
-  cta: 'Request a Quote',
+  cta: 'Request a Project Estimate',
 
   title: 'Pricing & Engagement Models | Yuvraj Raulji',
   description:

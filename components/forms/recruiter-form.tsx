@@ -12,6 +12,7 @@ import {
   type RecruiterInput,
 } from '../../lib/forms';
 import { submitLead, type LeadResult } from '../../lib/lead';
+import { REMOTE } from '../../lib/remote';
 import { CONTACT } from '../../lib/site';
 import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } from './fields';
 
@@ -207,7 +208,7 @@ export function RecruiterForm({ tone = 'dark', id }: { tone?: Tone; id?: string 
           disabled={sending}
           className="inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-[.7rem] font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:hover:translate-y-0"
         >
-          {sending ? 'Sending...' : 'Send Me a Remote Opportunity'}
+          {sending ? 'Sending...' : REMOTE.cta}
         </button>
         <span
           className={`font-mono text-[11px] uppercase leading-[1.5] tracking-[0.16em] ${

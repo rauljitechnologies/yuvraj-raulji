@@ -12,6 +12,7 @@ import { POSTS, postDateUTC } from '../lib/posts';
 import { CERTS } from '../lib/certifications';
 import { PRIVACY } from '../lib/legal';
 import { PRICING } from '../lib/pricing';
+import { SERVICE_PAGES, servicePageHref } from '../lib/service-pages';
 import { SERVICES } from '../lib/services-hub';
 import { REMOTE } from '../lib/remote';
 import { RESUME } from '../lib/resume';
@@ -64,6 +65,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* The services hub. Priority with /expertise/, which it is the sibling of:
        both route to the platform pages rather than competing with them. */
     { url: BASE + SERVICES.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    /* The seven service pages. Priority with the platform hubs: these are the
+       pages a build query lands on, and they are the strongest commercial
+       intent on the site after /pricing/ and /remote-work/. */
+    ...SERVICE_PAGES.map((sp) => ({
+      url: `${BASE}${servicePageHref(sp.slug)}`,
+      lastModified: buildDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     /* Commercial intent, so with the core pages. */
     { url: BASE + PRICING.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
     /* Credentials. A verification page rather than an entry point. */

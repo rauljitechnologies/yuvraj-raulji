@@ -28,6 +28,7 @@ import { REMOTE } from './remote';
 import { CERTS } from './certifications';
 import { PRICING } from './pricing';
 import { SERVICES } from './services-hub';
+import { servicePageHref, type ServicePage } from './service-pages';
 import { RESUME } from './resume';
 import { CAREER_START_YEAR, CURRENT_EMPLOYER } from './career';
 import { DESCRIPTION, ROLE, ROLES_ADDITIONAL, TARGET_ROLES } from './identity';
@@ -1010,6 +1011,51 @@ export function servicesHubSchema(crumbs: Crumb[]) {
       },
     },
     faqNode(path, SERVICES.faqs),
+  ]);
+}
+
+/**
+ * /services/{slug}/
+ *
+ * `Service` plus `FAQPage`. The `Service` node carries `serviceType` and an
+ * `audience`, and deliberately no `offers` and no price: these pages publish
+ * none, and markup that claims a price the page does not show is the mismatch
+ * the rest of this file is written to avoid.
+ *
+ * `isRelatedTo` points at the platform page each service sits beside. It is
+ * the structured-data half of the visible `boundary` line on the page, and it
+ * tells a consumer the two are adjacent rather than duplicates, which is
+ * exactly the relationship they have.
+ */
+export function servicePageSchema(service: ServicePage, crumbs: Crumb[]) {
+  const path = servicePageHref(service.slug);
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path,
+      name: service.label,
+      description: service.description,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    {
+      '@type': 'Service',
+      '@id': `${SITE_URL}${path}#service`,
+      name: service.label,
+      serviceType: service.eyebrow.replace(/\s*\|\s*/g, ', '),
+      description: service.description,
+      url: `${SITE_URL}${path}`,
+      provider: personRef,
+      areaServed: 'Worldwide',
+      audience: { '@type': 'Audience', audienceType: service.audience },
+      isRelatedTo: {
+        '@type': 'WebPage',
+        '@id': `${SITE_URL}${service.boundary.link.href}#webpage`,
+        url: `${SITE_URL}${service.boundary.link.href}`,
+      },
+    },
+    faqNode(path, service.faqs),
   ]);
 }
 

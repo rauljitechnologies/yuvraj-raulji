@@ -125,15 +125,24 @@ export const WORK_ARRANGEMENTS = [
   'On-site',
 ] as const;
 
+/**
+ * Project types, named after the services they map to.
+ *
+ * They previously described the shape of the work ("New build",
+ * "Replatforming or migration"), which is how an engineer thinks about it. A
+ * buyer arriving from /services/magento-development/ is looking for the words
+ * on the page they just read, and a select that does not contain them reads as
+ * a form for somebody else. Each value now matches a service page.
+ */
 export const PROJECT_TYPES = [
-  'New build',
-  'Replatforming or migration',
-  'Performance or checkout optimisation',
-  'API or ERP integration',
-  'Headless storefront',
-  'AI feature or automation',
-  'Ongoing development and support',
-  'Technical audit or second opinion',
+  'Magento Development',
+  'Shopify Development',
+  'Full Stack Development',
+  'Headless Commerce',
+  'API Integration',
+  'Generative AI',
+  'Technical Consulting',
+  'Other',
 ] as const;
 
 export const PROJECT_TECHNOLOGIES = [

@@ -28,6 +28,7 @@
 
 import type { Anchor } from './expertise';
 import { CAREER_START_YEAR } from './career';
+import { SERVICE_PAGE_LINKS } from './service-pages';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -135,14 +136,17 @@ export const NAV: readonly NavItem[] = [
   {
     label: 'Services',
     href: '/services/',
-    children: [
-      { label: 'Magento & Adobe Commerce', href: '/magento/' },
-      { label: 'Shopify & Shopify Plus', href: '/shopify/' },
-      { label: 'Headless commerce', href: '/headless-commerce/' },
-      { label: 'Next.js & full stack', href: '/nextjs/' },
-      { label: 'AI & automation', href: '/ai-automation/' },
-      { label: 'All services', href: '/services/' },
-    ],
+    /* The seven service pages, read from their own registry rather than
+       retyped here. A service added to lib/service-pages.ts appears in the
+       menu, in the hub, in the sitemap and in the content map at once, which
+       is the same discipline the platform services are under.
+
+       These are the service pages, not the platform hubs. The menu used to
+       list /magento/ and /shopify/, which are entity pages: a reader opening
+       a Services menu wants to know what can be built, and those pages answer
+       a different question. The hubs are still one click away from each
+       service page via its boundary link. */
+    children: [...SERVICE_PAGE_LINKS, { label: 'All services', href: '/services/' }],
   },
   { label: 'Expertise', href: '/expertise/' },
   { label: 'Insights', href: '/insights/' },
@@ -152,6 +156,7 @@ export const NAV: readonly NavItem[] = [
     children: [
       { label: 'Resume', href: '/resume/' },
       { label: 'Certifications', href: '/certifications/' },
+      { label: 'Remote Opportunities', href: '/remote-work/' },
       { label: 'Pricing & engagement', href: '/pricing/' },
       { label: 'Hire me', href: '/hire/' },
     ],

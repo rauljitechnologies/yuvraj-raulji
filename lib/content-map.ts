@@ -7,6 +7,7 @@ import { AUDIT } from './audit-offer';
 import { CERTS } from './certifications';
 import { PRIVACY } from './legal';
 import { PRICING } from './pricing';
+import { SERVICE_PAGES, servicePageHref } from './service-pages';
 import { SERVICES } from './services-hub';
 import { REMOTE } from './remote';
 import { RESUME } from './resume';
@@ -119,6 +120,23 @@ const FROM_AUDIT: ContentMapRow = {
   purpose: AUDIT.purpose,
   entities: AUDIT.entities,
 };
+
+/**
+ * The seven service pages. Derived from their own model for the same reason
+ * the platform services are: the keyword lives next to the copy it governs, so
+ * the two cannot drift apart. Gate 1 is what guarantees these do not collide
+ * with the platform pages they sit beside.
+ */
+const FROM_SERVICE_PAGES: ContentMapRow[] = SERVICE_PAGES.map((sp) => ({
+  url: servicePageHref(sp.slug),
+  pageType: 'Service',
+  primaryKeyword: sp.primaryKeyword,
+  secondaryKeywords: sp.secondaryKeywords,
+  searchIntent: sp.searchIntent,
+  audience: sp.audience,
+  purpose: sp.purpose,
+  entities: sp.entities,
+}));
 
 const FROM_HIRE: ContentMapRow = {
   url: HIRE.path,
@@ -445,6 +463,7 @@ export const CONTENT_MAP: readonly ContentMapRow[] = [
   ...FROM_HUBS,
   ...FROM_PILLARS,
   ...FROM_SERVICES,
+  ...FROM_SERVICE_PAGES,
   FROM_HIRE,
   FROM_MIGRATION,
   FROM_AGENCIES,
@@ -475,6 +494,7 @@ export const INDEXABLE_ROUTES: readonly string[] = [
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),
+  ...SERVICE_PAGES.map((sp) => servicePageHref(sp.slug)),
   ...CASES.map((c) => `/work/${c.id}/`),
   ...Object.keys(POSTS).map((s) => `/insights/${s}/`),
 ];

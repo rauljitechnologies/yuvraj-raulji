@@ -57,10 +57,10 @@ export const REMOTE = {
   path: '/remote-work/',
   label: 'Remote work',
   eyebrow: 'Open to remote opportunities',
-  h1: ['Looking for an experienced engineer', { text: 'for your remote team?', accent: true }],
+  h1: ['Available for Remote', { text: 'Software Engineering Opportunities.', accent: true }],
   lede:
     "I'm exploring opportunities to contribute my experience in enterprise eCommerce, full-stack development, technical architecture and AI-powered solutions to distributed engineering teams.",
-  cta: 'Send Me a Remote Opportunity',
+  cta: 'Discuss a Remote Opportunity',
 
   title: 'Remote Magento & Full Stack Developer | Yuvraj Raulji',
   description:
