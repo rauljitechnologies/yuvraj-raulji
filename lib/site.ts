@@ -913,13 +913,11 @@ export { CAREER as EXPERIENCE, CAREER_START_YEAR, CAREER_STATS } from './career'
    near-identical names is how the wrong one gets rendered. Pages that want the
    record read it from lib/career.ts directly. */
 
-export const TECH_PROFICIENCIES = [
-  { group: 'Commerce', items: ['Magento 2 / Adobe Commerce', 'Shopify & Shopify Plus', 'WooCommerce', 'Headless & Composable'] },
-  { group: 'Languages & Frameworks', items: ['PHP', 'Next.js', 'React.js', 'GraphQL'] },
-  { group: 'Data & Search', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch', 'RabbitMQ'] },
-  { group: 'Infrastructure', items: ['AWS (EC2, S3, RDS)', 'Google Cloud', 'Azure', 'Docker', 'Jenkins', 'GitLab CI'] },
-  { group: 'Measurement & Growth', items: ['GA4', 'GTM', 'MoEngage', 'WebEngage', 'Technical SEO'] },
-];
+/* `TECH_PROFICIENCIES` was authored here as five hand-written groups. It is
+   now derived from the capability matrix in lib/capabilities.ts, which is the
+   one list /expertise/, /experience/ and /resume/ all read: two skill lists one
+   import apart is how a resume and an expertise page end up disagreeing. */
+export { TECH_PROFICIENCIES } from './capabilities';
 
 export const EDUCATION = [
   { qualification: 'Bachelor of Engineering, Information Technology', period: '2013 to 2016' },
