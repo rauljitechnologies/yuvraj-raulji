@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ALL_WRITING, WRITING_FILTERS } from '../../lib/brand';
 import { POSTS } from '../../lib/posts';
 import { Rise } from '../homepage/motion';
+import { articleSrcSet } from '../../lib/images';
 
 /**
  * The /insights/ archive, with its filters.
@@ -118,6 +119,9 @@ export function WritingList() {
                 <div className="relative flex aspect-[16/10] items-end overflow-hidden border-b border-ink/10 bg-[#111] p-6">
                   <img
                     src={post.img}
+                    /* Without this the `sizes` below is inert and every phone
+                       downloads the full 1600px cut. See lib/images.ts. */
+                    srcSet={articleSrcSet(post.img)}
                     alt=""
                     width={1600}
                     height={900}

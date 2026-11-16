@@ -8,6 +8,7 @@ import { ALL_WRITING } from '../../lib/brand';
 import { POSTS } from '../../lib/posts';
 import { blogHubSchema, type Crumb } from '../../lib/schema';
 import { OG_INSIGHTS, SITE_URL } from '../../lib/site';
+import { articleSrcSet } from '../../lib/images';
 
 const TITLE = 'Insights on eCommerce Technology and AI | Yuvraj Raulji';
 const DESCRIPTION =
@@ -123,6 +124,9 @@ export default function Insights() {
             >
               <img
                 src={post.img}
+                /* Without this the `sizes` below is inert and every phone
+                   downloads the full 1600px cut. See lib/images.ts. */
+                srcSet={articleSrcSet(post.img)}
                 alt=""
                 width={1600}
                 height={900}

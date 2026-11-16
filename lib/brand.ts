@@ -570,37 +570,10 @@ export interface CaseStudy {
   imgH: number;
 }
 
-/**
- * The responsive `srcSet` for a case cover.
- *
- * ── The bug this fixes ────────────────────────────────────────────────────
- *
- * Every live case cover ships three cuts: a 640, a 960 and the full file.
- * Only the homepage used them. `/work/` and the case study pages rendered the
- * full-size image with a `sizes` attribute and no `srcSet`, which is worse
- * than it looks: `sizes` without `srcSet` is inert, so the browser ignored the
- * hint entirely and every phone downloaded the full cut. On /work/ that was
- * six covers at full size, the largest of them 451 KB against a 39 KB
- * alternative that was already sitting in the repo.
- *
- * The homepage built this string inline with two `.replace()` calls. That is
- * now here, once, so the three call sites cannot drift and a fourth does not
- * reinvent it.
- *
- * ── The constraint, which is checked ──────────────────────────────────────
- *
- * Every cover passed here must have `-640` and `-960` siblings on disk. All
- * six live covers do. A seventh case added without them would emit a srcSet
- * pointing at files that do not exist, and the browser would quietly fall back
- * rather than erroring, which is exactly the kind of failure that survives for
- * months. scripts/check-links.mjs now resolves every `src` and every `srcSet`
- * candidate in the exported HTML against `out/`, so a missing cut fails the
- * build instead.
- */
-export function coverSrcSet(img: string): string {
-  const base = img.replace(/\.webp$/, '');
-  return `${base}-640.webp 640w, ${base}-960.webp 960w, ${img} 1920w`;
-}
+/* `coverSrcSet` moved to lib/images.ts, where the article covers needed the
+   same logic with a different intrinsic width. Re-exported here so the three
+   case-study call sites keep their existing import. */
+export { coverSrcSet } from './images';
 
 export const WORK_INTRO = {
   headline: ['Real work.', 'Real systems.'] as const,

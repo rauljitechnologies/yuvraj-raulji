@@ -9,6 +9,7 @@ import { articleSchema, PERSON_JOB_TITLE, type Crumb } from '../../../lib/schema
 import { POSTS, postDateISO } from '../../../lib/posts';
 import { SITE_URL } from '../../../lib/site';
 import { TAGS } from '../../../lib/tags';
+import { articleSrcSet } from '../../../lib/images';
 
 export const dynamicParams = false;
 
@@ -189,6 +190,9 @@ export default async function Article({ params }: Props) {
         <div className="relative aspect-[16/9] overflow-hidden border border-ink/15 bg-[#111]">
           <img
             src={p.img}
+            /* Without this the `sizes` below is inert and every phone
+               downloads the full 1600px cut. See lib/images.ts. */
+            srcSet={articleSrcSet(p.img)}
             alt=""
             width={1600}
             height={900}
@@ -239,6 +243,9 @@ export default async function Article({ params }: Props) {
                     <div className="relative aspect-[16/10] overflow-hidden border-b border-ink/10 bg-[#111]">
                       <img
                         src={r.img}
+                        /* Without this the `sizes` below is inert and every phone
+                           downloads the full 1600px cut. See lib/images.ts. */
+                        srcSet={articleSrcSet(r.img)}
                         alt=""
                         width={1600}
                         height={900}

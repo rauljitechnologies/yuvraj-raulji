@@ -18,6 +18,7 @@ import { POSTS } from '../../../lib/posts';
 import { pillarSchema, type Crumb } from '../../../lib/schema';
 import { OG_IMAGE, SITE_URL } from '../../../lib/site';
 import '../../home.css';
+import { coverSrcSet } from '../../../lib/images';
 
 /**
  * Expertise pillar page.
@@ -317,6 +318,9 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                     <div className="relative aspect-[16/10] overflow-hidden border-b border-ink/10 bg-[#111]">
                       <img
                         src={w.img}
+                        /* `sizes` is inert without this, so every phone pulled the
+                           full 1920px cover. See lib/images.ts. */
+                        srcSet={coverSrcSet(w.img)}
                         alt={w.alt}
                         width={w.imgW}
                         height={w.imgH}
