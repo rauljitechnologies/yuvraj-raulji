@@ -67,20 +67,14 @@ const message = z
   .min(20, 'A sentence or two about what you have in mind.')
   .max(5000, 'That is past the limit. Send the detail in the reply instead.');
 
-/**
- * A URL field that forgives a missing scheme.
- *
- * People type `example.com`, not `https://example.com`, and rejecting that is
- * pedantry that costs the highest-value field on the project form. An empty
- * string stays empty, because every URL field on both forms is optional.
- */
-const looseUrl = z
-  .string()
-  .trim()
-  .transform((v) => (v === '' ? '' : /^https?:\/\//i.test(v) ? v : `https://${v}`))
-  .refine((v) => v === '' || z.url().safeParse(v).success, 'That does not look like a web address.');
+/* `looseUrl` stood here, normalising a missing scheme so a reader could type
+   "example.com". It served the recruiter form's job-description URL and the
+   project form's website field; the first is deleted and the second is now a
+   free-text "company or website", which must accept a company name and so
+   cannot be validated as a URL. Removed rather than left unused. */
 
-const optionalText = z.string().trim().max(200).optional().or(z.literal(''));
+/* `optionalText` went with it: the only remaining optional text fields declare
+   their own limits inline, because the limits differ. */
 
 /**
  * The honeypot.
@@ -110,122 +104,21 @@ const honeypot = z.string().optional().or(z.literal(''));
    without the other.
    ═══════════════════════════════════════════════════════════════ */
 
-export const EMPLOYMENT_TYPES = [
-  'Full-time',
-  'Contract',
-  'Contract to hire',
-  'Part-time',
-  'Freelance project',
-] as const;
-
-export const WORK_ARRANGEMENTS = [
-  'Fully remote',
-  'Remote, occasional travel',
-  'Hybrid',
-  'On-site',
-] as const;
-
-/**
- * Project types, named after the services they map to.
- *
- * They previously described the shape of the work ("New build",
- * "Replatforming or migration"), which is how an engineer thinks about it. A
- * buyer arriving from /services/magento-development/ is looking for the words
- * on the page they just read, and a select that does not contain them reads as
- * a form for somebody else. Each value now matches a service page.
- */
-export const PROJECT_TYPES = [
-  'Magento Development',
-  'Shopify Development',
-  'Full Stack Development',
-  'Headless Commerce',
-  'API Integration',
-  'Generative AI',
-  'Technical Consulting',
-  'Other',
-] as const;
-
-export const PROJECT_TECHNOLOGIES = [
-  'Magento 2 or Adobe Commerce',
-  'Shopify or Shopify Plus',
-  'WooCommerce',
-  'WordPress',
-  'Next.js or React',
-  'Node.js',
-  'Headless or custom build',
-  'Not sure yet',
-] as const;
-
-/**
- * Budget bands, and the one that is not a number.
- *
- * "Not decided yet" is first on purpose. A required budget field with no
- * honest option for a buyer who genuinely does not know yet pushes them into
- * picking a band at random, which is worse than no answer: it prices the
- * conversation before it starts. The field is optional either way.
- */
-export const BUDGET_RANGES = [
-  'Not decided yet',
-  'Under $5,000',
-  '$5,000 to $15,000',
-  '$15,000 to $40,000',
-  '$40,000 to $100,000',
-  'Over $100,000',
-  'Monthly retainer',
-] as const;
-
-export const TIMELINES = [
-  'Now',
-  'Within 1 month',
-  'Within 3 months',
-  'Within 6 months',
-  'Later this year',
-  'Just exploring',
-] as const;
-
 /* ═══════════════════════════════════════════════════════════════
-   A. THE HIRING FUNNEL
+   THE RECRUITER FUNNEL IS GONE
+
+   A `recruiterSchema` stood here, with EMPLOYMENT_TYPES and
+   WORK_ARRANGEMENTS above it and a RecruiterForm component rendering
+   it on /remote-work/ and /contact/. It collected a job title, an
+   employment type, a work arrangement and a job description URL.
+
+   The objective changed and is now explicit: freelance clients and
+   remote project work, and not a recruiter portal. The brief prohibits
+   each of those four fields by name. All of it is removed rather than
+   hidden, including the `funnel: 'recruiter'` value it sent.
+
+   One funnel remains, below, and it is deliberately short.
    ═══════════════════════════════════════════════════════════════ */
-
-/**
- * Recruiters and hiring managers. Rendered on /remote-work/ and on /contact/.
- *
- * Only three fields are required, which is the same discipline the existing
- * forms are written under: every additional required field is a submission
- * that does not happen. `jobUrl` is the highest-value optional one, because a
- * link to the posting answers the stack, the seniority and the location
- * before the message is read.
- */
-export const recruiterSchema = z.object({
-  name,
-  company: z
-    .string()
-    .trim()
-    .min(1, 'Which company is hiring?')
-    .max(160),
-  email,
-  jobTitle: optionalText,
-  employmentType: z.enum(EMPLOYMENT_TYPES).optional().or(z.literal('')),
-  workArrangement: z.enum(WORK_ARRANGEMENTS).optional().or(z.literal('')),
-  jobUrl: looseUrl.optional().or(z.literal('')),
-  message,
-  hp: honeypot,
-});
-
-export type RecruiterInput = z.input<typeof recruiterSchema>;
-export type RecruiterData = z.output<typeof recruiterSchema>;
-
-export const RECRUITER_EMPTY: RecruiterInput = {
-  name: '',
-  company: '',
-  email: '',
-  jobTitle: '',
-  employmentType: '',
-  workArrangement: '',
-  jobUrl: '',
-  message: '',
-  hp: '',
-};
 
 /* ═══════════════════════════════════════════════════════════════
    B. THE PROJECT FUNNEL
@@ -240,16 +133,47 @@ export const RECRUITER_EMPTY: RecruiterInput = {
  * single most useful field on the form when it is given, because it tells you
  * the platform, the scale and usually the problem before you read a word.
  */
+/**
+ * The one enquiry form. Five fields, two of them optional.
+ *
+ * ── Why it got shorter ───────────────────────────────────────────────────
+ *
+ * It asked for nine: name, company, email, website, project type,
+ * technology, budget, timeline and description. Every one of those is
+ * useful to me and the brief is right that it is too many. "Do not overload
+ * the website with forms" is the instruction, and a nine-field form on a
+ * page whose whole job is to make contact easy is the overload.
+ *
+ * What is left is the brief's list exactly: name, email, company or website
+ * (optional), project requirements, budget (optional). Three required
+ * fields. Platform, timeline and project type are all things I can ask in
+ * the reply, and asking them in the reply costs nothing; asking them on the
+ * form costs submissions.
+ *
+ * `website` and `company` are collapsed into one field for the same reason.
+ * A business has one or the other to hand and should not have to think about
+ * which box it goes in.
+ */
 export const projectSchema = z.object({
   name,
-  company: optionalText,
   email,
-  website: looseUrl.optional().or(z.literal('')),
-  projectType: z.enum(PROJECT_TYPES).optional().or(z.literal('')),
-  technology: z.enum(PROJECT_TECHNOLOGIES).optional().or(z.literal('')),
-  budget: z.enum(BUDGET_RANGES).optional().or(z.literal('')),
-  timeline: z.enum(TIMELINES).optional().or(z.literal('')),
+  /**
+   * Company or website, whichever they have.
+   *
+   * Not a URL field, because it accepts either a company name or an address
+   * and validating it as a URL would reject half the legitimate answers. If
+   * it looks like a domain the normaliser tidies it; otherwise it is text.
+   */
+  company: z.string().trim().max(200).optional().or(z.literal('')),
   message,
+  /**
+   * Budget, optional, and free text rather than a select.
+   *
+   * A band list forces a buyer who genuinely does not know yet to pick one at
+   * random, which prices the conversation before it starts. Free text lets
+   * them write "not sure yet", which is a real and useful answer.
+   */
+  budget: z.string().trim().max(120).optional().or(z.literal('')),
   hp: honeypot,
 });
 
@@ -258,60 +182,37 @@ export type ProjectData = z.output<typeof projectSchema>;
 
 export const PROJECT_EMPTY: ProjectInput = {
   name: '',
-  company: '',
   email: '',
-  website: '',
-  projectType: '',
-  technology: '',
-  budget: '',
-  timeline: '',
+  company: '',
   message: '',
+  budget: '',
   hp: '',
 };
 
 /* ═══════════════════════════════════════════════════════════════
    THE WIRE FORMAT
 
-   One spreadsheet, one set of columns, two forms. These are the only
-   two functions that know about both the form shape and the payload
-   `submitLead` sends, which is what keeps the mapping in one place
-   instead of inside two submit handlers.
+   One form now, so one mapper. `recruiterToLead` stood beside this
+   and is gone with the funnel it served.
    ═══════════════════════════════════════════════════════════════ */
 
 /**
- * `service` is what the sheet and the lead scoring key off, so it carries
- * which funnel the enquiry came through. It is prefixed rather than left as a
- * bare topic because the two funnels share one sheet and "Full-time" on its
- * own does not say whether it was a job or a project.
+ * `service` is what the sheet and the lead scoring key off.
+ *
+ * It carries the budget when one was given, because that is the single most
+ * useful triage signal on a short form, and "Project enquiry" alone tells the
+ * sheet nothing it did not already know from the funnel column.
  */
-export function recruiterToLead(d: RecruiterData): LeadFields {
-  const detail = [d.jobTitle, d.employmentType, d.workArrangement].filter(Boolean).join(' | ');
-  return {
-    name: d.name,
-    email: d.email,
-    company: d.company,
-    role: 'Recruiter or hiring manager',
-    service: `Job opportunity${detail ? `: ${detail}` : ''}`,
-    /* The posting link goes in `website`, which is the column the scoring
-       already treats as the highest-value field. For this funnel the job
-       description is exactly that. */
-    website: d.jobUrl,
-    message: d.message,
-    hp: d.hp,
-  };
-}
-
 export function projectToLead(d: ProjectData): LeadFields {
   return {
     name: d.name,
     email: d.email,
+    /* The one field holds a company name or a website and the endpoint has a
+       column for each. Sending it as `company` keeps it in a column that is
+       always text; the scoring treats a populated `company` as signal either
+       way. */
     company: d.company,
-    website: d.website,
-    platform: d.technology,
-    timeline: d.timeline,
-    service: `Project enquiry${d.projectType ? `: ${d.projectType}` : ''}${
-      d.budget ? ` | ${d.budget}` : ''
-    }`,
+    service: `Project enquiry${d.budget ? ` | Budget: ${d.budget}` : ''}`,
     message: d.message,
     hp: d.hp,
   };

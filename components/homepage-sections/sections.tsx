@@ -4,12 +4,12 @@ import { CAREER, CAREER_START_YEAR } from '../../lib/career';
 import { CERTS } from '../../lib/certifications';
 import {
   AVAILABILITY,
+  CLIENT_TYPES,
+  ENGAGEMENT_MODELS,
   INTRO,
   LOCATION,
   MARKETS,
-  TARGET_ROLES,
   TIMEZONE,
-  WORK_PREFERENCES,
 } from '../../lib/identity';
 import { REMOTE } from '../../lib/remote';
 import { SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
@@ -23,6 +23,7 @@ import {
   PROBLEMS,
   PROJECTS,
   STATS,
+  WHY_WORK_WITH_ME,
 } from '../../lib/homepage';
 import { ContactForm } from './contact-form';
 import { Cta, RuleLink, SectionLabel } from './primitives';
@@ -1114,6 +1115,76 @@ const DETAILS = [
  * `/#book` since before this restructure.
  */
 /* ─────────────────────────────────────────────────────────────
+   12b — Why work with me  (DARK)
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * The nine reasons, from §10 of the brief.
+ *
+ * Sits directly after the red positioning band, which is deliberate: that
+ * band states a belief and this one gives the reasons, so the order is
+ * position then evidence. On its own, either reads as assertion.
+ *
+ * A grid of short blocks rather than a numbered list, because nine items is
+ * scanned rather than read. Each carries a sentence doing the actual work:
+ * the labels alone ("Direct communication", "Remote collaboration") are
+ * claims anybody can make, and the brief rules out unsupported ones.
+ */
+export function WhyWorkWithMe() {
+  return (
+    <section
+      id="why-me"
+      aria-labelledby="why-me-title"
+      className="border-t border-ink/10 bg-[#050505] text-ink"
+    >
+      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+        <SectionLabel className="mb-8 sm:mb-11">Why work with me</SectionLabel>
+
+        <div className="mb-grid grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
+          <Rv>
+            <h2
+              id="why-me-title"
+              className="m-0 max-w-[18ch] font-manrope text-[clamp(30px,4.4vw,62px)] font-extralight leading-[1.02] tracking-[-0.042em]"
+            >
+              Nine reasons, <span className="font-bold">each with something behind it.</span>
+            </h2>
+          </Rv>
+          <Rv>
+            <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55 lg:mt-3">
+              A list of nine labels is the most generic block on any freelance site, because every
+              one of them is a claim anybody can make. Each of these says the specific thing behind
+              it, and names a figure where the record supports one.
+            </p>
+          </Rv>
+        </div>
+
+        <RvGroup
+          className="grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-3"
+          each={0.04}
+        >
+          {WHY_WORK_WITH_ME.map((r) => (
+            <RvItem key={r.num} className="flex flex-col gap-3.5 bg-surface p-6 sm:p-7">
+              <span
+                aria-hidden="true"
+                className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+              >
+                {r.num}
+              </span>
+              <h3 className="m-0 max-w-[26ch] font-manrope text-[17px] font-semibold leading-[1.25] tracking-[-0.015em]">
+                {r.name}
+              </h3>
+              <p className="m-0 max-w-[48ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
+                {r.body}
+              </p>
+            </RvItem>
+          ))}
+        </RvGroup>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
    13b — Services  (DARK)
    ───────────────────────────────────────────────────────────── */
 
@@ -1425,7 +1496,7 @@ export function RemoteWork() {
                 {[
                   { label: 'Location', value: LOCATION },
                   { label: 'Time zone', value: TIMEZONE },
-                  { label: 'Arrangement', value: WORK_PREFERENCES.join(', ') },
+                  { label: 'Clients', value: CLIENT_TYPES.length + ' kinds, listed on the page' },
                   { label: 'Markets', value: MARKETS.join(', ') },
                 ].map((d) => (
                   <div key={d.label} className="border-t border-ground/15 pt-3.5">
@@ -1442,24 +1513,26 @@ export function RemoteWork() {
 
             <Rv>
               <div className="mt-10 flex flex-wrap gap-3 sm:gap-4">
-                <Cta href="/remote-work/" variant="accent">
-                  Send Me a Remote Opportunity
+                <Cta href="/contact/" variant="accent">
+                  Discuss Your Project
                 </Cta>
-                <Cta href="/resume/" variant="outline">
-                  View Resume <span className="font-mono">&#8594;</span>
+                <Cta href="/remote-work/" variant="outline">
+                  How remote collaboration works <span className="font-mono">&#8594;</span>
                 </Cta>
               </div>
             </Rv>
           </div>
 
-          {/* The roles, as a recruiter titles them. Numbered rather than
-              bulleted: it reads as a shortlist, which is what it is. */}
+          {/* The engagement models. This was a list of seven job titles under
+              the heading "Roles this record fits", which is what a candidate
+              publishes. A client wants to know how they would buy, not what
+              seat I would take. */}
           <RvGroup className="self-start" each={0.04}>
             <p className="m-0 mb-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ground/50">
-              Roles this record fits
+              How we can work together
             </p>
             <ol className="m-0 list-none border-t border-ground/15 p-0">
-              {TARGET_ROLES.map((r, i) => (
+              {ENGAGEMENT_MODELS.map((r, i) => (
                 <RvItem
                   key={r}
                   as="li"
@@ -1525,23 +1598,43 @@ export function Contact() {
           The client door is the anchor to the form below, so the close still
           works as it did for the audience it already served.
         */}
+        {/*
+          One door now, not two.
+
+          This was a pair: "I have a role to fill" routing to the recruiter
+          funnel, and "I have something to build or fix" routing to the form.
+          The objective is client work and the recruiter funnel is deleted, so
+          a second door would send half the readers to a page that no longer
+          asks them anything.
+
+          What replaces it is the three channels, because for a good share of
+          this audience the fastest route to a conversation is a message
+          rather than a form.
+        */}
         <RvGroup
-          className="mt-11 grid gap-px border border-ink/15 bg-ink/15 sm:mt-12 md:grid-cols-2"
+          className="mt-11 grid gap-px border border-ink/15 bg-ink/15 sm:mt-12 md:grid-cols-3"
           each={0.06}
         >
           {[
             {
-              label: 'Hiring',
-              head: 'I have a role to fill',
-              body: 'Full-time remote, contract or an international team. Send the role and the reply is a straight yes or no within 24 hours.',
-              cta: 'Send a remote opportunity',
-              href: '/remote-work/',
+              label: 'WhatsApp',
+              head: 'Message me directly',
+              body: 'Fastest route to a reply. Good for a quick question or finding a slot without three emails about calendars.',
+              cta: 'Open WhatsApp',
+              href: CONTACT.whatsapp,
             },
             {
-              label: 'Project work',
-              head: 'I have something to build or fix',
-              body: 'A platform decision, a replatform, a performance problem or an integration. Describe it and the diagnosis is part of the first reply.',
-              cta: 'Describe the project',
+              label: 'Email',
+              head: 'Write it out',
+              body: 'Best for anything with detail in it. Replies within 24 hours on IST business days.',
+              cta: CONTACT.email,
+              href: `mailto:${CONTACT.email}`,
+            },
+            {
+              label: 'Project form',
+              head: 'Describe the project',
+              body: 'Five fields, three required. You get a written scope and a figure, usually within a few days.',
+              cta: 'Start a project',
               href: '#contact-form',
             },
           ].map((d) => (
@@ -1549,10 +1642,10 @@ export function Contact() {
               <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                 {d.label}
               </span>
-              <h3 className="m-0 max-w-[22ch] font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.025em]">
+              <h3 className="m-0 max-w-[22ch] font-manrope text-[clamp(20px,2.1vw,27px)] font-semibold leading-[1.15] tracking-[-0.025em]">
                 {d.head}
               </h3>
-              <p className="m-0 max-w-[44ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/55">
+              <p className="m-0 max-w-[44ch] font-manrope text-[15px] font-light leading-[1.7] text-ink/55">
                 {d.body}
               </p>
               <div className="mt-auto pt-2">

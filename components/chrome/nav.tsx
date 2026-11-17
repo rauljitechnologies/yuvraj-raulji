@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { CTA_LABEL, NAV, NAV_FLAT } from '../../lib/brand';
-import { AVAILABILITY_SHORT } from '../../lib/identity';
+import { AVAILABILITY_CHIP } from '../../lib/identity';
 import { HEADER_CTA_CLASS } from '../header-cta';
 import { Wordmark } from '../wordmark';
 
@@ -159,13 +159,13 @@ export function SiteNav({ active }: { active?: string }) {
               className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent animate-yr-blink"
             />
             <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.22em] text-ink/55">
-              {AVAILABILITY_SHORT}
+              {AVAILABILITY_CHIP}
             </p>
             <Link
-              href="/remote-work/"
+              href="/contact/"
               className="ml-auto font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-accent-bright underline decoration-accent/40 underline-offset-[5px] transition-colors hover:decoration-accent"
             >
-              What I am looking for
+              Start a project
             </Link>
           </div>
         </div>

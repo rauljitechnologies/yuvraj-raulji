@@ -125,6 +125,15 @@ export interface ServicePage {
   cases: readonly string[];
 
   faqs: readonly { q: string; a: string }[];
+  /**
+   * Plain strings, not `DisplayLine`.
+   *
+   * An accent on the last line would read well and `Lines` accepts it, but
+   * `DisplayLine` lives in components/homepage/motion.tsx and importing it
+   * here would make lib/ depend on components/, which is backwards. The
+   * default `Lines` behaviour already puts the weight on the last line, so
+   * the typographic emphasis is there without the dependency.
+   */
   finalHeadline: readonly string[];
 }
 
@@ -1040,6 +1049,398 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       },
     ],
     finalHeadline: ['Two systems that', 'need to agree?'],
+  },
+
+  /* ── 8. eCommerce website development ───────────────────────── */
+  {
+    slug: 'ecommerce-development',
+    label: 'eCommerce Website Development',
+    navLabel: 'eCommerce Development',
+    eyebrow: 'Platform-agnostic | End to end',
+    h1: ['An online store built', 'for the business behind it,', 'not the demo.'],
+    lede:
+      'A complete eCommerce build, from choosing the platform to the handover. For a business launching its first store, or replacing one that has stopped keeping up.',
+    cta: 'Discuss your store',
+    title: 'eCommerce Website Development | Yuvraj Raulji',
+    description:
+      'End-to-end eCommerce website development: platform selection, build, integration and launch on Magento, Shopify or a headless stack. Nine years, 50+ projects.',
+    primaryKeyword: 'ecommerce website development',
+    secondaryKeywords: [
+      'ecommerce website developer',
+      'build an online store',
+      'custom ecommerce website',
+      'b2b ecommerce website development',
+      'ecommerce website development company',
+    ],
+    searchIntent: 'Commercial. Someone who wants a store built and has not settled on a platform.',
+    audience: 'Businesses launching a first online store, or replacing one that has outgrown its platform.',
+    purpose: 'Own the generic store-build query, and get the platform decision made properly before the build starts.',
+    entities: ['eCommerce Development', 'Magento 2', 'Shopify', 'Headless Commerce', 'Yuvraj Raulji'],
+    quickAnswer: {
+      question: 'What does end-to-end eCommerce website development involve?',
+      answer:
+        'Choosing the platform against what the business actually needs rather than what is popular, designing the catalogue and data model, building the storefront and checkout, integrating the systems behind it (payment, shipping, ERP, accounting), migrating existing products and customers where there are any, and launching with the release process documented. The platform decision is the part that matters most and the part most often made quickest: it sets the cost of everything afterwards.',
+    },
+    overview: [
+      'Most store builds go wrong at the first decision rather than the last. A platform gets chosen because a vendor presented well or because it is what the previous developer knew, and two years later the business is paying for that choice in work it cannot do and features it cannot have.',
+      'So this starts with the platform question and treats it as a real question. Sometimes the answer is Shopify and the build is three weeks. Sometimes it is Magento and the build is three months. The difference is worth establishing before anybody writes code.',
+    ],
+    boundary: {
+      body:
+        'This is a whole-store build. If you already know the platform and need specific work on it, the platform pages are more direct.',
+      link: {
+        href: '/services/',
+        label: 'All services, including the platform-specific ones',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'We are selling through social media and a spreadsheet.',
+        impact: 'Every order is manual, nothing is reportable, and the business cannot grow past the person doing the typing.',
+      },
+      {
+        symptom: 'Three vendors have quoted three platforms and three prices.',
+        impact: 'Nobody internally can evaluate the technical claims, so the decision is drifting toward whoever presented best.',
+      },
+      {
+        symptom: 'The current store cannot do what the business now needs.',
+        impact: 'Workarounds have accumulated, and nobody is sure whether to extend it or replace it.',
+      },
+      {
+        symptom: 'The store works but nothing behind it is connected.',
+        impact: 'Stock, orders and invoices are reconciled by hand, which is a cost that grows with revenue.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Platform selection, with the reasoning written down',
+        body: 'Requirements against candidates, what each costs to build and to run, and what each would be bad at. A recommendation you can argue with is worth more than one you have to trust.',
+      },
+      {
+        name: 'Catalogue and data modelling',
+        body: 'Attributes, variants, categories and pricing structured for how the business actually sells. Getting this wrong is the single most expensive thing to fix later.',
+      },
+      {
+        name: 'Storefront and checkout build',
+        body: 'Built against your design, responsive, and measured on Core Web Vitals rather than assumed to be fast.',
+      },
+      {
+        name: 'Systems integration',
+        body: 'Payment, shipping, tax, accounting and ERP, with the failure behaviour defined rather than discovered in production.',
+      },
+      {
+        name: 'Migration of what exists',
+        body: 'Products, customers, orders and URLs, with redirects mapped so the SEO you have already paid for survives the move.',
+      },
+      {
+        name: 'Launch and handover',
+        body: 'Release process written down, documentation aimed at your team, and a defined window afterwards where fixes are mine.',
+      },
+    ],
+    technologies: [
+      { group: 'Platforms', items: ['Magento 2', 'Adobe Commerce', 'Shopify', 'Shopify Plus', 'WooCommerce'] },
+      { group: 'Frontend', items: ['Next.js', 'React', 'Liquid', 'Tailwind CSS'] },
+      { group: 'Integration', items: ['Payment gateways', 'Shipping & 3PL', 'ERP', 'Accounting', 'PIM'] },
+      { group: 'Launch', items: ['AWS', 'Cloudflare', 'Redirect mapping', 'Core Web Vitals'] },
+    ],
+    process: BUILD_PROCESS,
+    cases: ['plant-store', 'sports-nutrition', 'marketplace'],
+    faqs: [
+      {
+        q: 'Which platform should we use?',
+        a: 'It depends on catalogue size, how custom the checkout needs to be, whether you sell B2B, and how much engineering you want to own. Shopify for speed to market and low operational burden; Magento when the catalogue or the B2B rules are genuinely complex; headless when the frontend has requirements the platform theme cannot meet. The assessment is a few days and it is the cheapest part of the project.',
+      },
+      {
+        q: 'How long does a store build take?',
+        a: 'A focused Shopify build is usually weeks. A multi-store Magento platform with ERP integration is months. The honest answer comes after the scope is written, which is why that is step one and why it is free.',
+      },
+      {
+        q: 'Can you work with our existing designer?',
+        a: 'Yes, and that is the usual arrangement. I build against a design rather than creating brand systems, so a designer you already trust is an asset to the project rather than a complication.',
+      },
+      {
+        q: 'What about SEO when we move platforms?',
+        a: 'URL mapping and redirects are part of the scope, not an afterthought. A replatform that drops its old URLs loses the ranking the business has already paid for, and recovering it costs more than mapping it would have.',
+      },
+    ],
+    finalHeadline: ['Store to build,', 'or replace?'],
+  },
+
+  /* ── 9. Maintenance and support ─────────────────────────────── */
+  {
+    slug: 'maintenance-support',
+    label: 'Website Maintenance & Support',
+    navLabel: 'Maintenance & Support',
+    eyebrow: 'Retainer | Ongoing',
+    h1: ['Someone who owns', 'the platform', 'between projects.'],
+    lede:
+      'Patching, upgrades, monitoring and the occasional thing that breaks at a bad time. For a store that works and needs to keep working, without a developer on payroll.',
+    cta: 'Discuss a retainer',
+    title: 'eCommerce Website Maintenance & Support | Yuvraj Raulji',
+    description:
+      'Ongoing maintenance for Magento, Shopify and WooCommerce stores: security patching, upgrades, monitoring and incident response, on a retainer.',
+    primaryKeyword: 'ecommerce website maintenance',
+    secondaryKeywords: [
+      'ecommerce support retainer',
+      'magento maintenance services',
+      'online store support services',
+      'website maintenance and support contract',
+      'ongoing ecommerce development support',
+    ],
+    searchIntent: 'Commercial. A business with a live store and nobody technical looking after it.',
+    audience: 'Businesses running a live store with no in-house developer, and agencies needing overflow support capacity.',
+    purpose: 'Own the maintenance query, and make the case that unowned platforms fail predictably.',
+    entities: ['Website Maintenance', 'eCommerce Support', 'Magento 2', 'Shopify', 'Security Patching'],
+    quickAnswer: {
+      question: 'What does eCommerce website maintenance actually cover?',
+      answer:
+        'Security patching on the platform and its extensions, version upgrades, dependency and certificate renewals, uptime and error monitoring, database and cache health, backup verification that actually restores, performance tuning as the catalogue grows, and incident response during agreed hours. Plus the small changes that accumulate: a payment method, a shipping rule, a template fix. Typically a reserved block of hours each month rather than an hourly call-out, because the work that prevents incidents is the work that gets skipped when it is billed by the emergency.',
+    },
+    overview: [
+      'A commerce platform is not a finished object. Dependencies get security advisories, payment providers change APIs, certificates expire, the catalogue grows past what the current indexing handles, and the backup nobody has tested turns out not to restore.',
+      'None of that is urgent until it is all urgent at once, usually on the highest-traffic day of the year. The point of a retainer is that the preventable half never becomes an incident, and the unpreventable half has someone who already knows the system.',
+    ],
+    boundary: {
+      body:
+        'This is ongoing ownership, not a one-off fix. If something is broken right now and you need it diagnosed, that is better as an hourly engagement than a retainer.',
+      link: {
+        href: '/pricing/',
+        label: 'Engagement models, including hourly for a one-off',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'The store has not been patched in a year.',
+        impact: 'Known vulnerabilities in the platform and its extensions, and a card-skimming incident is the usual way a business finds out.',
+      },
+      {
+        symptom: 'The developer who built it has gone.',
+        impact: 'Nobody knows how it deploys, nothing is documented, and every change is a risk nobody wants to take.',
+      },
+      {
+        symptom: 'When something breaks, nobody knows until a customer says so.',
+        impact: 'No monitoring, so the time between a failure and finding out is however long it takes someone to complain.',
+      },
+      {
+        symptom: 'Small changes wait weeks for a quote.',
+        impact: 'A payment method or a shipping rule becomes a project, so the business stops asking and works around its own store.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Security patching and upgrades',
+        body: 'Platform and extension patches applied on a schedule and tested before they reach production, with the version position reported rather than assumed.',
+      },
+      {
+        name: 'Monitoring that reaches a person',
+        body: 'Uptime, error rates and the key transactional flows, alerting to somebody rather than accumulating in a dashboard nobody opens.',
+      },
+      {
+        name: 'Backup verification',
+        body: 'Restores tested, not just backups taken. An untested backup is a belief rather than a safeguard, and this is where that gets found out safely.',
+      },
+      {
+        name: 'Performance as the catalogue grows',
+        body: 'Cache, index and query health reviewed as the data changes, because the configuration that was right at 5,000 products is not right at 200,000.',
+      },
+      {
+        name: 'The small changes',
+        body: 'Payment methods, shipping rules, template fixes and content structure, inside the monthly allocation rather than quoted individually.',
+      },
+      {
+        name: 'Incident response',
+        body: 'Priority access during agreed hours, from someone who already knows the system rather than someone reading it for the first time under pressure.',
+      },
+    ],
+    technologies: [
+      { group: 'Platforms', items: ['Magento 2', 'Adobe Commerce', 'Shopify', 'WooCommerce', 'WordPress'] },
+      { group: 'Infrastructure', items: ['AWS', 'Nginx', 'Varnish', 'Redis', 'Cloudflare'] },
+      { group: 'Monitoring', items: ['Uptime monitoring', 'Error tracking', 'Log review', 'Backup verification'] },
+      { group: 'Release', items: ['Git', 'GitLab CI', 'Jenkins', 'Staging environments'] },
+    ],
+    process: [
+      {
+        num: '01',
+        title: 'Audit what you have',
+        body: 'Version position, patch status, extension inventory, monitoring, backups and deployment process. The output is a list, and often the first useful document the platform has ever had.',
+      },
+      {
+        num: '02',
+        title: 'Fix what is urgent',
+        body: 'Security patches and anything actively broken, before any routine work starts. This is usually the first month.',
+      },
+      {
+        num: '03',
+        title: 'Put the routine in place',
+        body: 'Patch schedule, monitoring, backup verification and a documented release process, so the preventable half stops being incidents.',
+      },
+      {
+        num: '04',
+        title: 'Run it, and report monthly',
+        body: 'A written summary of what changed, what was patched, what broke and where the hours went. Rolling monthly, cancellable with notice.',
+      },
+    ],
+    cases: ['manufacturing', 'b2b-procurement'],
+    faqs: [
+      {
+        q: 'What happens in the first month?',
+        a: 'An audit and then the urgent fixes. On a platform that has been unmaintained for a while the first month is almost entirely catching up, and the routine work starts once the backlog of security patches is clear.',
+      },
+      {
+        q: 'Do unused hours roll over?',
+        a: 'That is agreed per arrangement and I am flexible about it. What I will not do is treat a retainer as a budget to be consumed: the point is reserved capacity, and a month where little goes wrong is the arrangement working rather than value lost.',
+      },
+      {
+        q: 'What if a large project comes up mid-retainer?',
+        a: 'It gets scoped separately. A retainer consumed by one build is not a retainer, and pretending otherwise means the maintenance stops happening precisely when the platform is changing most.',
+      },
+      {
+        q: 'Can you support a platform you did not build?',
+        a: 'Yes, and that is most of this work. It starts with reading it, which is the audit in step one, because an undocumented platform in the order path is not something to start changing on day one.',
+      },
+    ],
+    finalHeadline: ['Platform nobody', 'is looking after?'],
+  },
+
+  /* ── 10. Performance optimisation ───────────────────────────── */
+  {
+    slug: 'performance-optimization',
+    label: 'Performance Optimization',
+    navLabel: 'Performance Optimization',
+    eyebrow: 'Core Web Vitals | Speed',
+    h1: ['Finding out where', 'the time actually goes.'],
+    lede:
+      'Store speed and Core Web Vitals work that starts with measurement rather than a checklist. The bottleneck is usually not where the team assumes, which is why the guesses have not worked.',
+    cta: 'Discuss a performance audit',
+    title: 'eCommerce Performance Optimization | Yuvraj Raulji',
+    description:
+      'eCommerce speed and Core Web Vitals work for Magento, Shopify and headless stores: caching, indexing, database and frontend delivery. Measured, not guessed.',
+    primaryKeyword: 'ecommerce performance optimization',
+    secondaryKeywords: [
+      'ecommerce site speed optimization',
+      'core web vitals ecommerce',
+      'magento speed optimization service',
+      'shopify speed optimization',
+      'improve online store loading speed',
+    ],
+    searchIntent: 'Commercial and usually frustrated. A store that is slow and a team that has already tried things.',
+    audience: 'Businesses losing conversion to page speed, and teams whose Core Web Vitals will not move.',
+    purpose: 'Own the performance query, and establish that diagnosis precedes optimisation.',
+    entities: ['Core Web Vitals', 'Performance Optimization', 'Magento 2', 'Shopify', 'Varnish', 'Redis'],
+    quickAnswer: {
+      question: 'How do you actually make an eCommerce store faster?',
+      answer:
+        'By measuring first. Server response, database queries, cache hit rates, index freshness, third-party scripts, image delivery and render-blocking resources are all candidates, and on any given store one or two of them dominate while the rest are noise. The work is finding which, fixing those, and measuring again. On the record: site speed improved by 60% through Varnish, Redis, full-page cache, CDN and database tuning. The checklist approach, applying every known optimisation, usually moves the number a little and costs a lot.',
+    },
+    overview: [
+      'Almost every slow store has already had things tried on it. Images compressed, a CDN added, a caching extension installed, lazy loading switched on. Sometimes it helped a little; usually the number barely moved, because the actual bottleneck was somewhere nobody looked.',
+      'That is the whole argument for measuring before optimising. A store where the database is doing a full scan on category pages will not be fixed by better images, and one where twelve third-party scripts block render will not be fixed by a faster server.',
+    ],
+    boundary: {
+      body:
+        'This is diagnosis and fixing. If the storefront architecture itself is the ceiling, the honest answer is sometimes a decoupled frontend rather than more tuning, and that is a bigger decision.',
+      link: {
+        href: '/services/headless-commerce/',
+        label: 'Headless commerce, and when the theme layer is the actual limit',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'Core Web Vitals will not improve no matter what we try.',
+        impact: 'Paid traffic is landing on a page that converts below what it should, and the spend is unchanged.',
+      },
+      {
+        symptom: 'The site is fine until traffic arrives.',
+        impact: 'It falls over on exactly the days that matter, and the response has been to over-provision and hope.',
+      },
+      {
+        symptom: 'Category pages take seconds to load.',
+        impact: 'Shoppers abandon before the products appear, and the catalogue the business has invested in is effectively hidden.',
+      },
+      {
+        symptom: 'Someone added a caching extension and nothing changed.',
+        impact: 'Money spent on a fix for a problem that was never diagnosed, and now less confidence that anything will work.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Measurement before anything else',
+        body: 'Server timing, query profiling, cache hit rates, index state and real-user Core Web Vitals. The deliverable of this step is knowing which two things matter.',
+      },
+      {
+        name: 'Backend and database',
+        body: 'Query profiling, missing indexes, N+1 patterns and the queries that only become a problem at your data volume.',
+      },
+      {
+        name: 'Caching architecture',
+        body: 'Full-page cache, Varnish, Redis and the invalidation rules, because a cache that is correct but never hit is a cache that does nothing.',
+      },
+      {
+        name: 'Search and indexing',
+        body: 'Elasticsearch configuration and reindex strategy, which is where large-catalogue stores usually lose their category pages.',
+      },
+      {
+        name: 'Frontend delivery',
+        body: 'Render-blocking resources, image formats and sizing, font loading, and the third-party scripts nobody has audited since they were added.',
+      },
+      {
+        name: 'Measured again, and written down',
+        body: 'Before and after on the same conditions, so the improvement is a number rather than an impression. This is the part that makes the next decision easier.',
+      },
+    ],
+    technologies: [
+      { group: 'Caching', items: ['Varnish', 'Redis', 'Full-page cache', 'Cloudflare', 'CDN'] },
+      { group: 'Data', items: ['MySQL profiling', 'Elasticsearch', 'Query optimisation', 'Indexing'] },
+      { group: 'Frontend', items: ['Core Web Vitals', 'LCP', 'INP', 'CLS', 'Image optimisation'] },
+      { group: 'Measurement', items: ['Lighthouse', 'CrUX', 'Real user monitoring', 'New Relic'] },
+    ],
+    process: [
+      {
+        num: '01',
+        title: 'Measure the real thing',
+        body: 'Production conditions, production data, real devices and real networks. A local profile of a store with twelve test products tells you nothing about one with two hundred thousand.',
+      },
+      {
+        num: '02',
+        title: 'Find the two that matter',
+        body: 'Rank the candidates by how much time each actually accounts for. On most stores one or two dominate and the rest are rounding errors.',
+      },
+      {
+        num: '03',
+        title: 'Fix those, in order',
+        body: 'Largest first, measured after each. Changing six things at once means not knowing which one worked, which matters the next time something slows down.',
+      },
+      {
+        num: '04',
+        title: 'Report the before and after',
+        body: 'Same conditions, same measurement, written down. A performance engagement with no number at the end is indistinguishable from one that did nothing.',
+      },
+      {
+        num: '05',
+        title: 'Leave the monitoring behind',
+        body: 'So the next regression is visible when it happens rather than when someone notices months later.',
+      },
+    ],
+    cases: ['marketplace', 'b2b-procurement', 'fashion-d2c'],
+    faqs: [
+      {
+        q: 'How much faster will our store get?',
+        a: 'I will not quote a number before measuring, and anyone who does is guessing. What I can say is what the record shows: 60% improvement on a large multi-store Magento platform through caching, CDN and database work. Your store has its own bottleneck and its own ceiling.',
+      },
+      {
+        q: 'Is a performance audit worth it on its own?',
+        a: 'Often yes, and it is the cheapest way to find out whether the work is worth doing. The audit tells you what is wrong and roughly what fixing each thing costs, and you can then decide, including deciding not to.',
+      },
+      {
+        q: 'Will this help SEO?',
+        a: 'Core Web Vitals are a ranking factor, so improving them helps, and it is rarely the largest factor. The more reliable benefit is conversion: a faster checkout loses fewer people who had already decided to buy.',
+      },
+      {
+        q: 'Do we need to replatform to be fast?',
+        a: 'Usually not. Most slow stores are slow because of configuration, queries and third-party scripts rather than because the platform is incapable. Replatforming for speed alone is an expensive answer to a question that has not been diagnosed.',
+      },
+    ],
+    finalHeadline: ['Slow store,', 'and nobody knows why?'],
   },
 ];
 

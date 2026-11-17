@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Page, PageHero } from '../../components/chrome/page';
 import { ProjectForm } from '../../components/forms/project-form';
-import { RecruiterForm } from '../../components/forms/recruiter-form';
-import { Lines, Rise } from '../../components/homepage/motion';
-import { Btn, InlineLink, Marker, Section, Shell } from '../../components/homepage/primitives';
+import { Rise } from '../../components/homepage/motion';
+import { InlineLink, Marker, Section, Shell } from '../../components/homepage/primitives';
 import { contactSchema, type Crumb } from '../../lib/schema';
 import { CONTACT, OG_IMAGE, SITE_URL } from '../../lib/site';
 import '../home.css';
@@ -13,9 +12,9 @@ const crumbs: Crumb[] = [
   { name: 'Contact', href: '/contact/' },
 ];
 
-const title = 'Contact Yuvraj Raulji | Senior Software Engineer';
+const title = 'Contact | Hire a Freelance eCommerce Developer';
 const description =
-  'Two ways through: send a remote role if you are hiring, or describe a project if you need it built. Replies within 24 hours on IST business days.';
+  'Have a project in mind? Describe what you need and get a written scope and a figure, usually within a few days. WhatsApp, email or the form below.';
 
 export const metadata: Metadata = {
   title,
@@ -43,28 +42,26 @@ export const metadata: Metadata = {
  * homepage to write a message. It has a destination now, and the header points
  * at it.
  *
- * ── Two funnels, not one form with a dropdown ──────────────────────────────
+ * ── Back to one form, and a shorter one ───────────────────────────────────
  *
- * The page carried one shared form with a "what is this about" select. That
- * worked while there was one audience. There are now two, and they are
- * answering different questions: a hiring manager has a role, an employment
- * type and a posting to link; a business has a platform, a budget band and a
- * timeline. A single form serving both asks the recruiter for a budget and the
- * business for an employment type, and a reader who is asked an irrelevant
- * question concludes the page was not written for them.
+ * This page briefly carried two: a project form and a recruiter form
+ * collecting a job title, an employment type, a work arrangement and a job
+ * description URL. The objective is now explicitly freelance client work and
+ * explicitly not a recruiter portal, so the recruiter funnel is deleted.
  *
- * So there are two, in lib/forms.ts, with separate Zod schemas and separate
- * field sets. They are kept apart visually as well: the hiring funnel sits on
- * the page ground and the project funnel on the paper band, so a reader who
- * scrolls in on either one can tell immediately which they are in.
+ * The remaining form went from nine fields to five, three of them required.
+ * "Do not overload the website with forms" is the instruction, and a
+ * nine-field form on the page whose whole job is making contact easy was the
+ * overload. Platform, timeline and project type are all answerable in the
+ * reply, and asking there costs nothing while asking on the form costs
+ * submissions.
  *
- * They converge on one thing only, and deliberately: `submitLead` in
- * lib/lead.ts, so there is still exactly one path a message can travel and one
- * place it can land. The `funnel` field added to that payload is what keeps
- * them countable afterwards, in the sheet and in `generate_lead`.
+ * ── The channels come first ───────────────────────────────────────────────
  *
- * The hiring funnel is first. The site's primary objective is a remote role,
- * and the order of two forms on a page is a statement about which one matters.
+ * WhatsApp, email and phone sit above the form, not below it. The conversion
+ * objective is a conversation, and for a good share of this audience the
+ * fastest route to one is a message rather than a form. A form is what you
+ * offer the reader who wants to write a paragraph in their own time.
  */
 
 /* The channels, as a list so the markup below is a loop and not four copies.
@@ -99,9 +96,9 @@ const CHANNELS = [
 
 /* Phrased as the question the reader still has, not as a page name. */
 const NEXT_STEPS = [
-  { href: '/hire/', label: 'What working together actually looks like' },
-  { href: '/pricing/', label: 'How an engagement is structured and priced' },
   { href: '/services/', label: 'Which service the problem belongs to' },
+  { href: '/pricing/', label: 'How an engagement is structured and priced' },
+  { href: '/remote-work/', label: 'How remote collaboration actually runs' },
   { href: '/work/', label: 'Whether I have built something like it' },
 ] as const;
 
@@ -164,53 +161,13 @@ export default function ContactPage() {
         </Shell>
       </Section>
 
-      {/* ── Funnel A: hiring ──────────────────────────────────────
-          On the page ground, first, and with the heading naming the audience
-          rather than the action: a recruiter scanning for the right form finds
-          it by who it is for, not by the verb on its button. */}
-      <Section id="hiring" labelledBy="hiring-title">
-        <Shell>
-          <Marker label="For recruiters and hiring managers" />
-          <div className="mb-grid grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.1fr]">
-            <Lines as="h2" id="hiring-title" lines={['Hiring for', { text: 'a remote team?', accent: true }]} />
-            <Rise delay={0.12}>
-              <p className="m-0 max-w-[54ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65">
-                Open to full-time remote roles, contract and international teams. Send the role and
-                you get a straight yes or no within 24 hours, including when the answer is no.
-              </p>
-              <div className="mt-item">
-                <Btn href="/remote-work/" variant="ghost">
-                  The working arrangement, time zone and target roles
-                </Btn>
-              </div>
-            </Rise>
-          </div>
-
-          <Rise className="grid gap-px border border-line bg-line lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-            <div className="flex min-w-0 flex-col gap-item bg-[var(--bg)] p-card">
-              <p className="m-0 max-w-[40ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
-                Three fields are required. The rest are optional and they are what let me answer
-                properly rather than ask you four questions back.
-              </p>
-              <p className="m-0 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.7] text-ink/45">
-                A link to the job description is the most useful thing you can give me: it answers
-                the stack, the seniority and the location before I read a word.
-              </p>
-            </div>
-            <div className="min-w-0 bg-[var(--bg)] p-card">
-              <RecruiterForm tone="dark" id="recruiter-form" />
-            </div>
-          </Rise>
-        </Shell>
-      </Section>
-
-      {/* ── Funnel B: project work, on the paper band ─────────────
-          The ground change is the separator. Two forms of the same colour
-          stacked on one page read as one long form with a heading in the
-          middle, which is how a reader ends up filling in the wrong one. */}
+      {/* ── The form, on the paper band ───────────────────────────
+          One form, five fields. The channels above are the faster route for
+          most of this audience; this is for the reader who wants to write a
+          paragraph in their own time. */}
       <Section id="project" labelledBy="project-title" className="yr-paper">
         <Shell>
-          <Marker label="For clients and agencies" />
+          <Marker label="Project enquiry" />
           <div className="mb-grid">
             <h2 id="project-title" className="yr-display yr-display--2 m-0 max-w-[20ch]">
               <span className="yr-display__soft block">Tell me what is</span>
@@ -221,16 +178,16 @@ export default function ContactPage() {
           <Rise className="grid gap-px border border-line bg-line lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
             <div className="flex min-w-0 flex-col gap-item bg-[var(--bg)] p-card">
               <p className="m-0 max-w-[42ch] font-manrope text-[19px] font-light leading-[1.7] text-ground/65">
-                The constraint, the system it sits in, and what you have already tried. That is
-                enough for a useful first reply; the rest is what the conversation is for.
+                The platform, what is in the way, and anything you have already tried. Three fields
+                are required and that is enough for a useful first reply.
               </p>
               <p className="m-0 max-w-[42ch] font-manrope text-[16px] font-light leading-[1.7] text-ground/55">
                 Nothing here is sold on. Messages go to one inbox, they are read by me, and an
                 enquiry that turns out to be a bad fit gets told so rather than quoted for.
               </p>
               <p className="m-0 max-w-[42ch] font-manrope text-[15px] font-light leading-[1.7] text-ground/45">
-                No price is quoted from a form. The pricing page explains the five engagement
-                models and why there is no rate card.
+                No price is quoted from a form. The pricing page explains the engagement models
+                and why there is no rate card.
               </p>
             </div>
             <div className="min-w-0 bg-[var(--bg)] p-card">

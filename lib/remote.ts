@@ -1,27 +1,28 @@
 /**
- * /remote-work/ : the recruiter funnel.
+ * /remote-work/ : working with clients worldwide.
  *
- * ── What this page is for, and why it is separate from /hire/ ──────────────
+ * ── What this page was, and why the URL stayed ────────────────────────────
  *
- * /hire/ answers "I have a project, will you do it". This answers "I have a
- * seat, will you take it". They are different buyers reading for different
- * things, and one page serving both is a page that reads as written for
- * someone else whichever of the two opens it: a hiring manager does not want
- * engagement models, and a client does not want notice periods and time zone
- * overlap.
+ * It was the recruiter funnel: target job titles, employment types, work
+ * arrangements and an eight-field form asking for a job description URL. The
+ * objective has changed and is now explicit that this is not a recruiter
+ * portal and not a job application website, so all of that is gone.
  *
- * The two are kept apart at the keyword as well, which is what stops them
- * competing in search. /hire/ owns "hire ecommerce consultant", the engagement
- * query. This owns "remote magento developer", the employment query. The gate
- * in lib/content-map.ts enforces that no two pages claim one primary keyword,
- * so the split is checked at build rather than discovered in Search Console.
+ * The URL did not go with it. It is indexed, it is linked from the header and
+ * the footer, and "remote work" is still exactly what a prospective client is
+ * searching when they want someone who works this way. What changed is the
+ * direction the page faces: it used to ask a recruiter for a role, and now it
+ * tells a business how to engage.
  *
- * ── The rule this file is written under ────────────────────────────────────
+ * The primary keyword moved with the intent, from "remote magento developer"
+ * (an employment query) to "remote ecommerce development" (a service query).
+ * The content-map gate confirms no other page claims it.
  *
- * CONTENT-PRINCIPLES.md section 1. Every figure traces to lib/career.ts, the
- * employment record. Nothing here states a salary expectation, a notice
- * period or a visa status, because none of those is on the record and all
- * three are things a candidate negotiates rather than publishes.
+ * ── The rule this file is written under ───────────────────────────────────
+ *
+ * CONTENT-PRINCIPLES.md section 1. Nothing here states a rate, a client name
+ * or a project outcome. The engagement models describe structure, which is
+ * answerable without a number, and /pricing/ carries the rest.
  *
  * Copy in this file avoids em-dashes on purpose.
  */
@@ -29,198 +30,223 @@
 import { CAREER, RECORD_INDUSTRIES } from './career';
 import {
   AVAILABILITY,
+  CLIENT_TYPES,
+  ENGAGEMENT_MODELS,
   LOCATION,
   MARKETS,
-  ROLE,
-  TARGET_ROLES,
   TIMEZONE,
-  WORK_PREFERENCES,
 } from './identity';
 import { CONTACT } from './site';
 
 export interface RemoteFact {
   label: string;
   value: string;
-  /** Why it matters to the person reading, where that is not obvious. */
   note?: string;
 }
 
-export interface RemoteHighlight {
-  /** The claim, in the fewest words that carry it. */
-  headline: string;
-  body: string;
-  /** Where in the record it comes from. Never empty. */
-  source: string;
+export interface EngagementModel {
+  num: string;
+  name: string;
+  /** The commercial shape, in one line. */
+  shape: string;
+  /** Who it suits. */
+  bestFor: string;
 }
 
 export const REMOTE = {
   path: '/remote-work/',
   label: 'Remote work',
-  eyebrow: 'Open to remote opportunities',
-  h1: ['Available for Remote', { text: 'Software Engineering Opportunities.', accent: true }],
+  eyebrow: 'Remote collaboration',
+  h1: ['Working with clients', { text: 'worldwide.', accent: true }],
   lede:
-    "I'm exploring opportunities to contribute my experience in enterprise eCommerce, full-stack development, technical architecture and AI-powered solutions to distributed engineering teams.",
-  cta: 'Discuss a Remote Opportunity',
+    'I collaborate remotely with businesses, agencies, startups and eCommerce brands across different time zones. Nine years of it, mostly with stakeholders I have never met in person, which is the only real test of whether a remote arrangement works.',
+  cta: 'Discuss Your Project',
 
-  title: 'Remote Magento & Full Stack Developer | Yuvraj Raulji',
+  title: 'Remote eCommerce Development | Yuvraj Raulji',
   description:
-    'Senior Software Engineer open to full-time remote roles and contract work. 9+ years in Magento 2, Shopify, Next.js and Generative AI. Based in India, IST.',
+    'Remote eCommerce and full-stack development for businesses worldwide. Freelance projects, fixed-scope work, retainers and long-term collaboration.',
 
-  primaryKeyword: 'remote magento developer',
+  primaryKeyword: 'remote ecommerce development',
   secondaryKeywords: [
-    'remote senior software engineer india',
+    'remote magento developer for hire',
     'hire remote shopify developer',
-    'remote ecommerce technical lead',
-    'remote full stack developer magento',
-    'enterprise commerce architect remote',
+    'freelance ecommerce developer india',
+    'remote full stack developer for hire',
+    'long term remote development partner',
   ],
   searchIntent:
-    'Transactional, from the employer side. A recruiter or engineering manager with a seat to fill, searching the role and the word remote.',
+    'Commercial. A business or agency looking for a developer who works remotely, and checking whether the arrangement would actually work.',
   audience:
-    'Recruiters, talent partners and engineering managers hiring for distributed teams in India, the USA, the UK, Europe and the UAE.',
+    'Businesses, agencies and startups in India, the USA, the UK, Europe and the UAE who need development capacity they do not have in-house.',
   purpose:
-    'Answer the employment query with the verified record, state the working preferences plainly, and take the approach on the page rather than sending the reader to a generic contact form.',
+    'Answer the practical questions about remote collaboration before they cost an email exchange, and route to a project conversation.',
   entities: [
     'Yuvraj Raulji',
-    'Senior Software Engineer',
-    'Remote Magento Developer',
-    'Shopify Developer',
-    'Full Stack Developer',
-    'eCommerce Technical Lead',
-    'Enterprise Commerce Architect',
+    'Remote Development',
+    'Freelance eCommerce Developer',
     'Magento 2',
-    'Adobe Commerce',
+    'Shopify',
     'Next.js',
-    'Generative AI',
   ],
 
   /**
    * The extractable answer.
    *
    * Written as a definition a language model can lift whole, because the query
-   * this page targets is increasingly answered rather than listed. It names
-   * the role, the availability, the stack and the time zone in one passage,
-   * which is the complete answer to "is this person available and would they
-   * work with my team".
+   * is increasingly answered rather than listed. It names the arrangement, the
+   * overlap and the engagement shapes in one passage.
    */
   quickAnswer: {
-    question: 'Is Yuvraj Raulji available for remote work?',
-    answer: `Yes. ${AVAILABILITY} I am a ${ROLE} based in ${LOCATION}, working ${TIMEZONE}, with 9+ years across enterprise eCommerce on Magento 2 and Adobe Commerce, Shopify, headless architecture, full-stack development on Next.js and React, and Generative AI. I work with distributed teams across India, the USA, the UK, Europe and the UAE, and my hours overlap the European and Gulf working day in full and the US East Coast morning.`,
+    question: 'How does working remotely with Yuvraj Raulji actually work?',
+    answer: `Directly, and with one person rather than an account manager. I work from ${LOCATION} on ${TIMEZONE}, which overlaps the full European and Gulf working day, the UK afternoon and the US East Coast morning. Engagements run as freelance projects, fixed-scope development, hourly work, a monthly retainer, contract development, a long-term collaboration or ongoing maintenance and support. ${AVAILABILITY}`,
   },
 
-  /** The seats, as a recruiter titles them. */
-  roles: TARGET_ROLES,
-  preferences: WORK_PREFERENCES,
+  engagementModels: [
+    {
+      num: '01',
+      name: 'Freelance Projects',
+      shape: 'A defined piece of work, start to finish.',
+      bestFor: 'A build, a feature or a fix you can describe, where you want it done and handed over.',
+    },
+    {
+      num: '02',
+      name: 'Fixed-Scope Development',
+      shape: 'A written scope, a fixed number, an end date.',
+      bestFor: 'Work with a budget to protect, where the scope is clear enough to price properly.',
+    },
+    {
+      num: '03',
+      name: 'Hourly Development',
+      shape: 'Time, bought in blocks, against whatever comes up.',
+      bestFor: 'A backlog of small changes, or work nobody can scope yet because the problem is not diagnosed.',
+    },
+    {
+      num: '04',
+      name: 'Monthly Retainer',
+      shape: 'Reserved capacity each month, with priority response.',
+      bestFor: 'A live platform that needs someone to own it rather than someone to call in an emergency.',
+    },
+    {
+      num: '05',
+      name: 'Contract Development',
+      shape: 'Inside your team, for a fixed term.',
+      bestFor: 'A team that needs commerce or full-stack depth for a release, a gap or a capability to build.',
+    },
+    {
+      num: '06',
+      name: 'Long-Term Remote Collaboration',
+      shape: 'An ongoing relationship rather than a sequence of projects.',
+      bestFor: 'A business whose platform is the business, with a roadmap rather than a to-do list.',
+    },
+    {
+      num: '07',
+      name: 'Ongoing Maintenance & Support',
+      shape: 'Patching, upgrades, monitoring and the occasional thing that breaks.',
+      bestFor: 'A platform that works and needs to keep working, without a developer on payroll.',
+    },
+  ] as readonly EngagementModel[],
+
+  /** The engagement shapes as plain strings, for a tag row. */
+  models: ENGAGEMENT_MODELS,
+  clients: CLIENT_TYPES,
   industries: RECORD_INDUSTRIES,
 
   /**
-   * The logistics, which is the half of a remote application that usually
-   * takes an email exchange to establish. Answering it on the page removes a
-   * round trip before the first reply.
+   * The logistics, which is the half of a remote arrangement that usually
+   * takes an email exchange to establish. Answering it here removes a round
+   * trip before the first reply.
    */
   facts: [
-    { label: 'Location', value: LOCATION },
+    { label: 'Based in', value: LOCATION },
     {
       label: 'Time zone',
       value: TIMEZONE,
       note: 'Full overlap with Europe and the Gulf. Four hours with UK afternoons, and the US East Coast morning.',
     },
     {
-      label: 'Work arrangement',
-      value: 'Fully remote, or remote with occasional travel',
-      note: 'Set up for distributed work: this is how the last three years have been delivered.',
+      label: 'Communication',
+      value: 'Email, WhatsApp, Slack, Teams, or whatever your team already uses',
+      note: 'I join your tools rather than asking you to join mine.',
     },
-    { label: 'Preferred markets', value: MARKETS.join(', ') },
+    { label: 'Working with clients in', value: MARKETS.join(', ') },
     {
-      label: 'Engagement',
-      value: WORK_PREFERENCES.join(', '),
-      note: 'Open to a permanent seat, a fixed-term contract, or a contract that converts.',
+      label: 'Reply time',
+      value: 'Within 24 hours on IST business days',
+      note: 'Usually faster. This is the commitment rather than the average.',
     },
-    {
-      label: 'Languages',
-      value: 'English (professional), Hindi, Gujarati',
-    },
+    { label: 'Languages', value: 'English (professional), Hindi, Gujarati' },
   ] as readonly RemoteFact[],
 
   /**
-   * The case for the record, four claims deep.
-   *
-   * Each carries a `source` naming where in lib/career.ts it comes from.
-   * That field is not decoration: it is the thing that stops a highlight
-   * drifting into a claim the record does not support, which is the failure
-   * CONTENT-PRINCIPLES.md section 1 is written against.
+   * How a project starts. Four steps, with honest timings: nothing here
+   * promises something outside my control.
    */
-  highlights: [
+  process: [
     {
-      headline: 'Platforms at enterprise scale, not demo scale',
-      body: 'Multi-store Magento 2 platforms carrying 500K+ SKUs and 1M+ monthly users, with the catalogue size, indexing and cache behaviour that only becomes an architecture problem at that volume.',
-      source: 'Team Lead, 2023 to 2026',
+      num: '01',
+      title: 'Tell me what you need',
+      body: 'A few paragraphs is enough. The platform, the problem, and anything you have already tried or been quoted.',
     },
     {
-      headline: 'Leading a team, and still in the code',
-      body: 'Architecture direction, code review and delivery accountability across a development team, alongside hands-on implementation. Development cycle time cut by 30% by introducing structured workflows and approval processes.',
-      source: 'Team Lead, 2023 to 2026',
+      num: '02',
+      title: 'A short call, or a written reply',
+      body: 'Whichever is faster for the question. Usually within 24 hours, and the call is 30 minutes rather than an hour of discovery.',
     },
     {
-      headline: 'Performance and integration work with numbers attached',
-      body: 'Site speed improved by 60% through Varnish, Redis, full-page cache, CDN and database tuning. 90% of B2B order and quote processing automated, cutting approval cycle time by 40%. Payment, logistics, CRM and ERP systems integrated end to end.',
-      source: 'Senior Magento Developer, March 2020 to 2023',
+      num: '03',
+      title: 'A written scope and a figure',
+      body: 'What the work is, what it is not, and what it costs. Usually within a few days. No charge for it.',
     },
     {
-      headline: 'Full stack, and current with it',
-      body: 'Next.js, React, TypeScript and Node.js over GraphQL and REST, with headless storefronts delivered for mobile and PWA. Generative AI certified with IBM and AcceleratorX in November 2026: LLM concepts, retrieval-augmented generation, prompt engineering and workflow automation.',
-      source: 'Across the record, and the 2026 certification',
+      num: '04',
+      title: 'We start, in your tools',
+      body: 'Your repository, your board, your review cycle. Work lands in slices you can see running rather than one drop at the end.',
     },
-  ] as readonly RemoteHighlight[],
+  ],
 
   /**
-   * What I am not looking for.
+   * Where I am not the right answer.
    *
-   * The most useful block on the page for both sides. A recruiter with a
-   * mismatched role finds out here instead of after two calls, and a recruiter
-   * with the right role reads it as a person who knows what they want. Written
-   * as preferences rather than as complaints.
+   * The most useful block on the page for both sides, and the one that makes
+   * the rest credible. A reader who needs an agency finds out here instead of
+   * after two calls.
    */
-  notLookingFor: [
-    'Junior or mid-level engineering seats. The record is nine years and a team lead role, and a seat below that would not use it.',
-    'On-site relocation outside India as a condition of the role.',
-    'Unpaid take-home exercises that run past a few hours. I will happily walk through the architecture of anything in the record, live, for as long as it is useful.',
-    'Roles with no engineering ownership, where the work is ticket throughput against someone else’s architecture.',
+  notAFit: [
+    'Work that needs a team of five starting Monday. I am one person and I will say so rather than subcontracting it out.',
+    'Design-led projects where the deliverable is the visual identity. I build well against a design; I do not create brand systems.',
+    'Projects where the budget is fixed before the scope is known. That ends badly for both of us and I would rather scope it first.',
+    'Anything requiring on-site presence as a condition. I work remotely and travel occasionally, not the other way round.',
   ],
 
   /** Open text on the page, which is the only condition the FAQPage markup is legitimate under. */
   faqs: [
     {
-      q: 'Are you available for full-time remote roles?',
-      a: `Yes. ${AVAILABILITY} A permanent remote seat is the arrangement I am most interested in, and I am equally open to a fixed-term contract or a contract that converts to permanent.`,
+      q: 'Do you work with clients outside India?',
+      a: `Yes, and most of the work is. ${MARKETS.join(', ')} are the markets I work with most. My hours overlap the full European and Gulf working day and the US East Coast morning, so a daily sync is practical with all of them.`,
     },
     {
-      q: 'Where are you based, and what hours do you work?',
-      a: `${LOCATION}, working ${TIMEZONE}. That overlaps the full European and Gulf working day, the UK afternoon, and the US East Coast morning. I have delivered against European and Gulf stakeholders for most of the last six years, so the overlap is routine rather than theoretical.`,
+      q: 'How do we communicate during a project?',
+      a: 'Whatever your team already uses: email, WhatsApp, Slack, Teams. I join your tools rather than asking you to adopt mine, and work goes through your repository and your board so you can see progress without asking for a status update.',
     },
     {
-      q: 'Would you relocate?',
-      a: 'Not as a condition of a role. I am set up for distributed work and that is how I want to keep working. Occasional travel for onboarding, planning or a team offsite is not a problem and I am glad to do it.',
+      q: 'What is the smallest project you take on?',
+      a: 'There is no formal minimum. A performance diagnosis, one integration or a version upgrade is a perfectly good engagement and several of them are the most useful work there is. If something is too small to be worth a contract, I will tell you and point you at how to do it yourself.',
     },
     {
-      q: 'What roles are the best fit?',
-      a: `${TARGET_ROLES.slice(0, 4).join(', ')}, and ${TARGET_ROLES.slice(4).join(' or ')}. The common thread is senior ownership of a commerce platform or a full-stack product, with the architecture decisions inside the role rather than above it.`,
+      q: 'Can you work inside our existing team and codebase?',
+      a: 'Yes. That is contract development: your repository, your board, your review cycle and your definition of done, for an agreed term. It is the arrangement most of the last few years have run under.',
     },
     {
-      q: 'Do you have experience leading engineers?',
-      a: 'Yes, as Team Lead since 2023: architecture direction across multi-store Magento 2 builds, code review, and accountability for delivery. The role is hands-on as well as leading, which is the shape I would want to keep.',
+      q: 'What happens after a project finishes?',
+      a: 'Handover documentation written for your team, a defined period where fixes are mine, and the option of a maintenance arrangement if the platform needs someone to keep owning it. None of that is compulsory and the project is finished whether or not you take it.',
     },
     {
-      q: 'How do I send you a role?',
-      a: `Use the form on this page. It asks for the company, the title, the employment type, the arrangement and a link to the posting, which is enough for me to give you a straight yes or no rather than a holding reply. You can also email ${CONTACT.email} or message me on LinkedIn.`,
-    },
-    {
-      q: 'Will you reply if it is not a fit?',
-      a: 'Yes, within 24 hours, and I will say why. A clear no is more useful to a recruiter than silence, and it costs me a minute.',
+      q: 'How do I start?',
+      a: `Describe the work on the contact page, email ${CONTACT.email}, or message me on WhatsApp. You get a written scope and a figure, usually within a few days of a short call, and there is no charge for either.`,
     },
   ],
 
-  finalHeadline: ['Have a role that fits?', { text: 'Send it over.', accent: true }],
+  finalHeadline: ['Have a project', { text: 'in mind?', accent: true }],
 } as const;
 
 /** The number of roles on the record, printed next to the stats. */

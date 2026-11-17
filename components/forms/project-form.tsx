@@ -3,11 +3,7 @@
 import { useState } from 'react';
 import { track } from '../../lib/analytics';
 import {
-  BUDGET_RANGES,
   PROJECT_EMPTY,
-  PROJECT_TECHNOLOGIES,
-  PROJECT_TYPES,
-  TIMELINES,
   fieldErrors,
   projectSchema,
   projectToLead,
@@ -15,21 +11,33 @@ import {
 } from '../../lib/forms';
 import { submitLead, type LeadResult } from '../../lib/lead';
 import { CONTACT } from '../../lib/site';
-import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } from './fields';
+import { FormResult, Honeypot, TextArea, TextField, type Tone } from './fields';
 
 /**
- * The project funnel.
+ * The one enquiry form.
  *
- * The sibling of RecruiterForm and written to the same rules: validation only
- * after the first submit, three required fields, focus moved to the first
- * blocker, and `submitLead` as the one submission path so a message sent from
- * here lands where one sent from anywhere else does.
+ * ── Why there is only one, and why it is this short ───────────────────────
  *
- * `website` is optional and that is deliberate, for the reason recorded in
- * lib/site.ts: this site takes enquiries from agencies acting on behalf of a
- * client and from businesses that have not launched yet, and requiring a store
- * URL turns both away. It is still the most useful field on the form when it
- * is given, which is why it carries the hint rather than the asterisk.
+ * There were two: this and a recruiter form collecting a job title, an
+ * employment type, a work arrangement and a job description URL. The
+ * objective is now explicitly freelance client work and explicitly not a
+ * recruiter portal, so that form and its schema are deleted rather than
+ * hidden.
+ *
+ * This one went from nine fields to five, three of them required. The
+ * instruction was not to overload the site with forms, and a nine-field form
+ * on the page whose entire job is making contact easy was the overload.
+ * Platform, timeline and project type are all things I can ask in the reply.
+ * Asking them in the reply costs nothing; asking them on the form costs
+ * submissions.
+ *
+ * ── Validation timing ────────────────────────────────────────────────────
+ *
+ * Nothing is validated until the first submit. Validating on blur tells a
+ * reader who tabs through to read the form off for fields they have not
+ * reached, which reads as the form being broken. After the first submit each
+ * field revalidates as it is edited, so an error clears when it is fixed
+ * rather than on the next submit.
  */
 export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string }) {
   const [f, setF] = useState<ProjectInput>(PROJECT_EMPTY);
@@ -58,7 +66,11 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
     if (!parsed.success) {
       const errs = fieldErrors(parsed.error);
       setErrors(errs);
+      /* Recorded so a form nobody can get past is visible in the analytics
+         rather than only in the drop-off. */
       track('form_invalid', { form: 'project', field: Object.keys(errs)[0] });
+      /* Focus the first blocker. Without this a keyboard or screen-reader
+         user submits, hears nothing, and has no idea which field is wrong. */
       document.querySelector<HTMLElement>(`[name="${Object.keys(errs)[0]}"]`)?.focus();
       return;
     }
@@ -94,7 +106,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
       <div className="grid gap-6 sm:grid-cols-2">
         <TextField
           name="name"
-          label="Full name"
+          label="Name"
           tone={tone}
           required
           autoComplete="name"
@@ -104,21 +116,8 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
           error={errors.name}
         />
         <TextField
-          name="company"
-          label="Company"
-          tone={tone}
-          autoComplete="organization"
-          placeholder="Your company"
-          value={f.company ?? ''}
-          onChange={set('company')}
-          error={errors.company}
-        />
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        <TextField
           name="email"
-          label="Business email"
+          label="Email"
           tone={tone}
           required
           type="email"
@@ -128,76 +127,47 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
           onChange={set('email')}
           error={errors.email}
         />
-        <TextField
-          name="website"
-          label="Website"
-          tone={tone}
-          type="url"
-          autoComplete="url"
-          placeholder="yourstore.com"
-          hint="One paste tells me the platform, the scale and usually the problem."
-          value={f.website ?? ''}
-          onChange={set('website')}
-          error={errors.website}
-        />
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <SelectField
-          name="projectType"
-          label="Project type"
-          tone={tone}
-          options={PROJECT_TYPES}
-          value={f.projectType ?? ''}
-          onChange={set('projectType')}
-          error={errors.projectType}
-        />
-        <SelectField
-          name="technology"
-          label="Technology"
-          tone={tone}
-          options={PROJECT_TECHNOLOGIES}
-          value={f.technology ?? ''}
-          onChange={set('technology')}
-          error={errors.technology}
-        />
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        <SelectField
-          name="budget"
-          label="Budget range"
-          tone={tone}
-          options={BUDGET_RANGES}
-          /* "Not decided yet" is a real option, not a placeholder. A required
-             budget with no honest answer for a buyer who does not know yet
-             makes them guess, which prices the conversation before it starts. */
-          hint="An indication, not a commitment."
-          value={f.budget ?? ''}
-          onChange={set('budget')}
-          error={errors.budget}
-        />
-        <SelectField
-          name="timeline"
-          label="Timeline"
-          tone={tone}
-          options={TIMELINES}
-          value={f.timeline ?? ''}
-          onChange={set('timeline')}
-          error={errors.timeline}
-        />
-      </div>
+      {/* One field for either, because a business has one or the other to hand
+          and should not have to decide which box it goes in. */}
+      <TextField
+        name="company"
+        label="Company or website"
+        tone={tone}
+        autoComplete="organization"
+        placeholder="yourstore.com, or your company name"
+        hint="Optional. A store URL tells me the platform and the scale before I read a word."
+        value={f.company ?? ''}
+        onChange={set('company')}
+        error={errors.company}
+      />
 
       <TextArea
         name="message"
-        label="Project description"
+        label="Project requirements"
         tone={tone}
         required
         rows={6}
-        placeholder="What you are building or fixing, and what is in the way."
+        placeholder="What you are building or fixing, the platform it is on, and what is in the way."
         value={f.message}
         onChange={set('message')}
         error={errors.message}
+      />
+
+      {/* Free text, not a band list. A buyer who genuinely does not know yet
+          can write "not sure", which is a real and useful answer that a
+          select would force them to replace with a guess. */}
+      <TextField
+        name="budget"
+        label="Budget"
+        tone={tone}
+        autoComplete="off"
+        placeholder="A range, or not sure yet"
+        hint="Optional, and an indication rather than a commitment."
+        value={f.budget ?? ''}
+        onChange={set('budget')}
+        error={errors.budget}
       />
 
       <div className="mt-tight flex flex-wrap items-center gap-5">
@@ -206,7 +176,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
           disabled={sending}
           className="inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-[.7rem] font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:hover:translate-y-0"
         >
-          {sending ? 'Sending...' : 'Submit Project Inquiry'}
+          {sending ? 'Sending...' : 'Discuss Your Project'}
         </button>
         <span
           className={`font-mono text-[11px] uppercase leading-[1.5] tracking-[0.16em] ${
