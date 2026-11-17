@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build && ./scripts/check-prohibited-titles.sh out && node scripts/check-routes.mjs out && node scripts/check-links.mjs out",
     "build:only": "next build",
+    "cv": "python3 scripts/make-cv.py",
     "typecheck": "tsc --noEmit",
     "check:names": "./scripts/check-prohibited-titles.sh out",
     "start": "npx serve out",
