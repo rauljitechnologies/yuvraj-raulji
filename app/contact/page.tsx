@@ -6,13 +6,14 @@ import { InlineLink, Marker, Section, Shell } from '../../components/homepage/pr
 import { contactSchema, type Crumb } from '../../lib/schema';
 import { CONTACT, OG_IMAGE, SITE_URL } from '../../lib/site';
 import '../home.css';
+import { ROLE_LINE } from '../../lib/identity';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
   { name: 'Contact', href: '/contact/' },
 ];
 
-const title = 'Contact | Hire a Freelance eCommerce Developer';
+const title = `Contact | Hire a ${ROLE_LINE}`;
 const description =
   'Have a project in mind? Describe what you need and get a written scope and a figure, usually within a few days. WhatsApp, email or the form below.';
 

@@ -26,6 +26,7 @@ import {
 import { JsonLd } from '../components/json-ld';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
 import { OG_IMAGE, SITE_URL } from '../lib/site';
+import { ROLE_LINE } from '../lib/identity';
 
 /**
  * The title names what is on offer, because that is the query.
@@ -43,7 +44,7 @@ import { OG_IMAGE, SITE_URL } from '../lib/site';
  *
  * 45 characters.
  */
-const title = 'Yuvraj Raulji | Freelance eCommerce Developer';
+const title = `Yuvraj Raulji | ${ROLE_LINE}`;
 
 export const metadata: Metadata = {
   title,
@@ -61,8 +62,8 @@ export const metadata: Metadata = {
    */
   keywords: [
     'Yuvraj Raulji',
-    'Freelance Magento Developer',
-    'Freelance eCommerce Developer',
+    'Senior Software Developer',
+    'Technology Consultant',
     'Magento 2 Developer',
     'Shopify Developer',
     'eCommerce Development Services',

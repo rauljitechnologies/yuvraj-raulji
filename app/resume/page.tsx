@@ -8,6 +8,7 @@ import { resumeAvailable } from '../../lib/resume-file';
 import { resumeSchema, type Crumb } from '../../lib/schema';
 import { OG_HIRE, SITE_URL } from '../../lib/site';
 import '../home.css';
+import { ROLE } from '../../lib/identity';
 
 /**
  * /resume/
@@ -105,7 +106,7 @@ export default function Resume() {
           <Marker label="Summary" />
           <div className="grid gap-x-12 gap-y-grid lg:grid-cols-[1.3fr_1fr]">
             <div>
-              <Lines as="h2" id="summary-title" lines={['Senior Software Engineer,', 'and what that covers.']} />
+              <Lines as="h2" id="summary-title" lines={[`${ROLE},`, 'and what that covers.']} />
               <Rise delay={0.16}>
                 <p className="m-0 mt-head max-w-[62ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65">
                   {RESUME.summary}

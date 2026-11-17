@@ -125,6 +125,53 @@ interface Base {
   hint?: string;
 }
 
+/**
+ * The label line: the field's name, and the marker where it is required.
+ *
+ * ── Why this is a row of its own ──────────────────────────────────────────
+ *
+ * `labelClass` is `flex flex-col`, so every direct child of the <label> is a
+ * column item. The required marker was a direct child, which put the asterisk
+ * on its own line 10px below the field name, with the column's gap between
+ * them. It read as a bullet belonging to nothing rather than as part of the
+ * label, and on /contact/ there were three of them stacked down the form.
+ *
+ * A marker qualifies the word it sits beside, so the name and the marker share
+ * a row and the row is the column item. `items-baseline` sits the asterisk on
+ * the label's baseline, which is where the glyph is drawn to hang from.
+ *
+ * ── Why the requirement is also stated in words ───────────────────────────
+ *
+ * The asterisk is `aria-hidden` and "(required)" is next to it for assistive
+ * technology, because an asterisk is a sighted convention a screen reader
+ * cannot expand: it is announced as "star", or skipped entirely. The marker
+ * carries the convention, the words carry the meaning, and neither is the
+ * only signal. Same rule as the error text below.
+ */
+function LabelRow({ label, required }: { label: string; required?: boolean }) {
+  return (
+    <span className="flex items-baseline gap-1">
+      {label}
+      {required ? (
+        <>
+          <span className="sr-only"> (required)</span>
+          <span
+            aria-hidden="true"
+            /* Manrope rather than the label's mono, and a size up: a mono
+               asterisk at 11px with 0.16em tracking is a speck that reads as
+               dirt on the screen. `tracking-normal` cancels the label's
+               letter-spacing, which would otherwise push it a further 2px off
+               the word it belongs to. */
+            className="font-manrope text-[15px] font-normal leading-none tracking-normal text-accent"
+          >
+            *
+          </span>
+        </>
+      ) : null}
+    </span>
+  );
+}
+
 export function TextField({
   name,
   label,
@@ -143,9 +190,7 @@ export function TextField({
   const hintId = `${uid}-hint`;
   return (
     <label className={labelClass(tone)}>
-      {label}
-      {required ? <span className="sr-only"> (required)</span> : null}
-      {required ? <span aria-hidden="true" className="text-accent"> *</span> : null}
+      <LabelRow label={label} required={required} />
       <input
         type={type}
         name={name}
@@ -194,9 +239,7 @@ export function TextArea({
   const hintId = `${uid}-hint`;
   return (
     <label className={labelClass(tone)}>
-      {label}
-      {required ? <span className="sr-only"> (required)</span> : null}
-      {required ? <span aria-hidden="true" className="text-accent"> *</span> : null}
+      <LabelRow label={label} required={required} />
       <textarea
         name={name}
         rows={rows}

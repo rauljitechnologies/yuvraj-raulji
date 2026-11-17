@@ -12,13 +12,14 @@ import { ABOUT_HERO } from '../../lib/about';
 import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
 import { OG_IMAGE, SITE_URL } from '../../lib/site';
+import { ROLE_LINE } from '../../lib/identity';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about/' },
 ];
 
-const title = 'About Yuvraj Raulji | Senior Software Engineer';
+const title = `About Yuvraj Raulji | ${ROLE_LINE}`;
 
 export const metadata: Metadata = {
   title,
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
    */
   keywords: [
     'Yuvraj Raulji',
-    'Senior Software Engineer',
+    'Senior Software Developer',
     'Enterprise eCommerce Architect',
     'eCommerce consultant',
     'technology strategist',

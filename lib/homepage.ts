@@ -13,7 +13,7 @@
  */
 
 import { CAREER_STATS } from './career';
-import { AVAILABILITY, HEADLINE, INTRO_LONG, ROLE, SPECIALTIES } from './identity';
+import { AVAILABILITY, HEADLINE, INTRO_LONG, POSITIONING_LINE, SPECIALTIES } from './identity';
 import { CONTACT as SITE_CONTACT } from './site';
 
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
@@ -105,12 +105,20 @@ export const HERO = {
    */
   eyebrow: 'Yuvraj Raulji',
   /**
-   * The remit, repositioned. It read "eCommerce · AI · Technology", which
-   * describes subject areas rather than a job, and it sat above an H1 that did
-   * the same thing. The role is now stated once, here, and the H1 states what
-   * the role produces.
+   * The remit, repositioned twice. It read "eCommerce · AI · Technology",
+   * which describes subject areas rather than a job, and it sat above an H1
+   * that did the same thing. The role is stated once, here, and the H1 states
+   * what the role produces.
+   *
+   * It is the owner's full headline now: the role and every specialism, which
+   * is the line that cannot go in a <title> without being truncated. This is
+   * where there is room for it.
+   *
+   * It was also dead until now. The string was authored, exported and never
+   * rendered, so the hero carried the name and the H1 with no statement of
+   * what the person does between them. The hero renders it.
    */
-  eyebrowSub: `${ROLE} · Enterprise eCommerce Architect`,
+  eyebrowSub: POSITIONING_LINE,
 
   /**
    * The H1, and the one headline the whole site is built around.

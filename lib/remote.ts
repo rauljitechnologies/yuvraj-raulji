@@ -64,13 +64,13 @@ export const REMOTE = {
 
   title: 'Remote eCommerce Development | Yuvraj Raulji',
   description:
-    'Remote eCommerce and full-stack development for businesses worldwide. Freelance projects, fixed-scope work, retainers and long-term collaboration.',
+    'Remote eCommerce and full-stack development for businesses worldwide. Project work, fixed-scope builds, retainers and long-term collaboration.',
 
   primaryKeyword: 'remote ecommerce development',
   secondaryKeywords: [
     'remote magento developer for hire',
     'hire remote shopify developer',
-    'freelance ecommerce developer india',
+    'remote ecommerce developer india',
     'remote full stack developer for hire',
     'long term remote development partner',
   ],
@@ -83,7 +83,7 @@ export const REMOTE = {
   entities: [
     'Yuvraj Raulji',
     'Remote Development',
-    'Freelance eCommerce Developer',
+    'Senior Software Developer',
     'Magento 2',
     'Shopify',
     'Next.js',
@@ -98,13 +98,13 @@ export const REMOTE = {
    */
   quickAnswer: {
     question: 'How does working remotely with Yuvraj Raulji actually work?',
-    answer: `Directly, and with one person rather than an account manager. I work from ${LOCATION} on ${TIMEZONE}, which overlaps the full European and Gulf working day, the UK afternoon and the US East Coast morning. Engagements run as freelance projects, fixed-scope development, hourly work, a monthly retainer, contract development, a long-term collaboration or ongoing maintenance and support. ${AVAILABILITY}`,
+    answer: `Directly, and with one person rather than an account manager. I work from ${LOCATION} on ${TIMEZONE}, which overlaps the full European and Gulf working day, the UK afternoon and the US East Coast morning. Engagements run as project work, fixed-scope development, hourly work, a monthly retainer, contract development, a long-term collaboration or ongoing maintenance and support. ${AVAILABILITY}`,
   },
 
   engagementModels: [
     {
       num: '01',
-      name: 'Freelance Projects',
+      name: 'Project Work',
       shape: 'A defined piece of work, start to finish.',
       bestFor: 'A build, a feature or a fix you can describe, where you want it done and handed over.',
     },

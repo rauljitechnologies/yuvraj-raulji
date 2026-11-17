@@ -1,3 +1,4 @@
+import { ROLE_LINE } from '../../lib/identity';
 import { HERO, PORTRAITS } from '../../lib/homepage';
 import { CONTACT } from '../../lib/site';
 import { Cta, Marquee } from './primitives';
@@ -43,10 +44,60 @@ export function Hero() {
             this held one line and illegible the moment it wrapped, which it
             does on any phone.
           */}
-          <Eager className="mb-6 flex items-center gap-3.5 sm:mb-8">
-            <span className="h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
-            <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
-              {HERO.eyebrow}
+          <Eager className="mb-6 sm:mb-8">
+            <span className="flex items-center gap-3.5">
+              <span className="h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
+              <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
+                {HERO.eyebrow}
+              </span>
+            </span>
+            {/*
+              The headline, under the name and above the H1 that states what
+              the work produces.
+
+              It is set in the body face rather than the eyebrow's mono: at 151
+              characters the mono's 0.3em tracking runs it to four lines and
+              pushes the H1 out of the opening viewport, which is the LCP
+              element on this page. Indented to the eyebrow's text so the rule
+              reads as marking both lines, and the separators are dimmed so the
+              specialisms scan as a list rather than as one long sentence.
+            */}
+            <span className="mt-3 block max-w-[46ch] pl-[58px] font-manrope text-[13px] font-light leading-[1.7] text-ink/55 sm:max-w-[72ch] sm:text-[14px]">
+              {HERO.eyebrowSub.split(' | ').map((part, i, all) => (
+                /*
+                  Each item is its own unbreakable unit, separator included, so
+                  a line break falls between items and never inside one. Left
+                  to wrap as plain text it broke "Generative AI" across two
+                  lines and started the next with a dangling "AI", which reads
+                  as a seventh specialism rather than the tail of the sixth.
+                */
+                <span key={part} className="inline-block whitespace-nowrap">
+                  {part}
+                  {i < all.length - 1 ? (
+                    <>
+                      {/*
+                        The separator trails its item rather than leading the
+                        next one. Leading, it wrapped to the head of a new line
+                        and every continuation line opened with a stray "|".
+                        Trailing, a break falls after it, where a separator
+                        reads as "continues below".
+                      */}
+                      <span aria-hidden="true" className="px-2 text-ink/25">
+                        |
+                      </span>
+                      {/*
+                        The pipe is aria-hidden and these spans sit flush
+                        together, so without this a screen reader runs the
+                        parts into each other: "Technology ConsultantFull-Stack
+                        Development". A comma restores the boundary and is read
+                        as the pause it is, where a spoken "vertical bar"
+                        between every item would not be.
+                      */}
+                      <span className="sr-only">, </span>
+                    </>
+                  ) : null}
+                </span>
+              ))}
             </span>
           </Eager>
 
@@ -213,7 +264,7 @@ export function Hero() {
                   1440 and up     464px
               */
               sizes="(min-width: 1440px) 464px, (min-width: 1280px) 402px, (min-width: 1024px) 303px, (min-width: 440px) 366px, calc(100vw - 74px)"
-              alt="Yuvraj Raulji, freelance eCommerce developer and technology professional"
+              alt="Yuvraj Raulji, Senior Software Developer and Technology Consultant"
               width={1200}
               height={1680}
               // Above the fold and the page's largest paint. Eager, high
@@ -239,7 +290,7 @@ export function Hero() {
                 Yuvraj Raulji
               </span>
               <span className="font-mono text-xs leading-[1.4] text-ink/60">
-                Freelance eCommerce Developer
+                {ROLE_LINE}
               </span>
             </div>
 

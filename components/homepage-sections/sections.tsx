@@ -1156,7 +1156,7 @@ export function WhyWorkWithMe() {
           </Rv>
           <Rv>
             <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55 lg:mt-3">
-              A list of nine labels is the most generic block on any freelance site, because every
+              A list of nine labels is the most generic block on any developer site, because every
               one of them is a claim anybody can make. Each of these says the specific thing behind
               it, and names a figure where the record supports one.
             </p>

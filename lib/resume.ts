@@ -1,5 +1,5 @@
 import { CAREER, CAREER_START_YEAR } from './career';
-import { AVAILABILITY, DESCRIPTION, LOCATION, ROLE, ROLES_ADDITIONAL, TIMEZONE } from './identity';
+import { AVAILABILITY, DESCRIPTION, LOCATION, ROLE, ROLES_ADDITIONAL, ROLE_LINE, ROLE_TITLE, TIMEZONE } from './identity';
 import { CERTIFICATIONS, CONTACT, EDUCATION, TECH_PROFICIENCIES } from './site';
 
 /**
@@ -58,21 +58,21 @@ export const RESUME = {
   h1: ['Resume.'],
   lede: `${ROLE} and Enterprise eCommerce Architect, ${CAREER.length} roles since ${CAREER_START_YEAR}, based in ${LOCATION}. The full record is on this page, and the same record is in the file.`,
 
-  title: 'Resume | Yuvraj Raulji, Senior Software Engineer',
+  title: `Resume | Yuvraj Raulji, ${ROLE_LINE}`,
   description:
     'The full record: 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and Generative AI. Career history, technical skills, education and certifications.',
 
   primaryKeyword: 'yuvraj raulji resume',
   secondaryKeywords: [
     'yuvraj raulji cv',
-    'senior software engineer resume magento',
+    'senior software developer resume magento',
     'ecommerce architect cv',
   ],
   searchIntent: 'Navigational. Someone who has decided to look at the record in full.',
   audience: 'Recruiters, hiring managers and anyone doing candidate due diligence.',
   purpose:
     'Carry the complete employment record as indexable HTML, and hand over the file where one exists.',
-  entities: ['Yuvraj Raulji', 'Senior Software Engineer', 'Resume', 'Curriculum Vitae'],
+  entities: ['Yuvraj Raulji', ROLE_TITLE, 'Resume', 'Curriculum Vitae'],
 
   /** The header block of the document, which is also the Person summary. */
   summary: DESCRIPTION,

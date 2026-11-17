@@ -47,15 +47,20 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
 /**
  * The homepage description, repositioned.
  *
- * Repositioned twice. It described a consultant, then a Senior Software
- * Engineer "open to remote", which is an employment signal. The objective is
- * client work, so it now leads with "freelance" and ends with availability
- * for projects rather than for roles.
+ * Repositioned three times. It described a consultant, then a Senior
+ * Software Engineer "open to remote", which is an employment signal, then a
+ * freelance developer. It leads with the discipline and the seniority now,
+ * and still ends with availability for projects rather than for roles: the
+ * offer is in the last clause, where it was.
+
+ * The engagement word is gone from the positioning across the site. This
+ * description is one of the places that has room to say it plainly anyway,
+ * because a SERP snippet is read by someone deciding whether to click.
  *
  * Under 160 characters, which keeps it inside the SERP limit.
  */
 export const HOME_DESCRIPTION =
-  'Freelance eCommerce developer with 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and AI. Available for projects and remote development worldwide.';
+  'Senior Software Developer and Technology Consultant, 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and AI. Available for projects and remote development.';
 
 /* "from the first Magento role in 2016" described a career start the CV does
    not support: the record in lib/career.ts begins in 2018. */

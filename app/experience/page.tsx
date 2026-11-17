@@ -14,13 +14,14 @@ import {
   TECH_PROFICIENCIES,
 } from '../../lib/site';
 import '../home.css';
+import { ROLE_LINE } from '../../lib/identity';
 
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
   { name: 'Experience', href: '/experience/' },
 ];
 
-const title = 'Experience | Yuvraj Raulji, Senior Software Engineer';
+const title = `Experience | Yuvraj Raulji, ${ROLE_LINE}`;
 const description =
   'The employment record, employers named: Team Lead and Senior Magento Developer at Archer Business Solution, and earlier roles at Magento IT Solutions.';
 
