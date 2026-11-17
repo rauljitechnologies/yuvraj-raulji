@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Page, PageHero } from '../chrome/page';
 import { ContactButton } from '../homepage/contact-button';
+import { Eager } from '../homepage-sections/rv';
 import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../homepage/primitives';
 import { CASES, coverSrcSet, type CaseStudy } from '../../lib/brand';
@@ -98,7 +99,14 @@ export function CasePage({ study }: { study: CaseStudy }) {
           <h2 id="cover-title" className="sr-only">
             {study.name}
           </h2>
-          <Rise>
+          {/*
+            `Eager`, not `Rise`. This cover sits directly under the page hero,
+            so on a phone it is inside the opening viewport and it is the
+            Largest Contentful Paint for all six case pages. A `Rise` ships
+            `opacity:0` and waits for hydration, which is the same defect the
+            note in components/chrome/page.tsx describes.
+          */}
+          <Eager>
             <figure className="m-0 overflow-hidden border border-line">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -111,12 +119,27 @@ export function CasePage({ study }: { study: CaseStudy }) {
                 alt={study.alt}
                 width={study.imgW}
                 height={study.imgH}
-                loading="lazy"
+                /*
+                  Eager and high priority, because this is the LCP element.
+
+                  It was `loading="lazy"` with no priority, which is the
+                  textbook way to lose LCP: a lazy image is not fetched by the
+                  preload scanner, so it waits for layout to prove it is
+                  visible and then queues behind everything already in flight.
+                  Measured under Slow 4G and 4x CPU it started at 1039ms and
+                  finished at 4374ms, making /work/marketplace/ the slowest
+                  route on the site at 4.4s.
+
+                  The homepage portrait and the article cover were both already
+                  eager and high priority; this one was the odd one out.
+                */
+                loading="eager"
+                fetchPriority="high"
                 decoding="async"
                 className="block h-auto w-full"
               />
             </figure>
-          </Rise>
+          </Eager>
         </Shell>
       </Section>
 
