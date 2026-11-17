@@ -5,12 +5,27 @@ import { useState, type ReactNode } from 'react';
 import { EASE_OUT, viewportOnce } from '../../lib/motion';
 
 /**
- * Motion used by the homepage. Three components, transform and opacity only,
- * every one of them reduced-motion aware.
+ * Motion used by the homepage and by every interior page's body. Transform and
+ * opacity only, every component reduced-motion aware.
  *
- * There is no scroll hijacking anywhere on this page: nothing here reads the
- * wheel, and the only scroll-linked value is the hero parallax offset. The rest
- * is `whileInView`, which is an IntersectionObserver.
+ * There is no scroll hijacking anywhere: nothing here reads the wheel, and the
+ * only scroll-linked value is the hero parallax offset. The rest is
+ * `whileInView`, which is an IntersectionObserver.
+ *
+ * ── The `yr-rv` marker ────────────────────────────────────────────────────
+ *
+ * Every animated element here carries it. Motion serialises its `initial`
+ * state into the server render, so a reveal ships as `opacity:0` and is
+ * cleared after hydration; with scripting off it is never cleared and the
+ * content stays invisible.
+ *
+ * The marker gives the `<noscript>` block one selector to switch all of it
+ * back on. It was only on the wrappers in components/homepage-sections/rv.tsx,
+ * which the homepage uses, so the homepage degraded correctly and the other 86
+ * routes did not: measured against the exported HTML with JavaScript disabled,
+ * a service page had 56 invisible content elements and /about/ had 45. The
+ * marker is now on these three too, and `Page` renders the same `<noscript>`
+ * the homepage does. See NO_SCRIPT_REVEAL_CSS.
  */
 
 /**
@@ -39,6 +54,7 @@ export function Lines({
   size = '2',
   strongFrom,
   delay = 0,
+  instant = false,
 }: {
   lines: readonly DisplayLine[];
   as?: 'h1' | 'h2' | 'p' | 'div';
@@ -56,8 +72,71 @@ export function Lines({
    */
   strongFrom?: number;
   delay?: number;
+  /**
+   * Paint immediately, from CSS, with no JavaScript in the path.
+   *
+   * ── Why this exists ──────────────────────────────────────────────────────
+   *
+   * Motion serialises its `initial` state into the server render, so a heading
+   * arrives in the exported HTML as `opacity:0` and is only cleared once the
+   * bundle has downloaded, hydrated, and an IntersectionObserver has fired.
+   * Below the fold that is exactly right, because the reader has to scroll to
+   * reach it.
+   *
+   * Above the fold it is not. Measured on a throttled mobile profile (Slow 4G,
+   * 4x CPU) against the exported site, the first viewport of every interior
+   * page painted empty and its text became visible at 4.4 seconds, because the
+   * 137KB bundle had to arrive first. That text is the Largest Contentful
+   * Paint on those pages, so LCP was 4.4s against a 2.5s "good" threshold, on
+   * a page with no images at all. It also meant the whole first screen was
+   * invisible with scripting off.
+   *
+   * With `instant` the lines are plain spans carrying `.yr-enter`, the
+   * CSS-only reveal in app/globals.css. The animation starts when the
+   * stylesheet is parsed, so the heading is painted and complete about half a
+   * second after first paint, needs no hydration, and cannot get stuck if the
+   * bundle never lands. The note above `@keyframes yr-enter` makes the same
+   * argument; this is the hook that lets a heading use it.
+   *
+   * Use it for the first screen. Leave it off everywhere else: it fires on
+   * load, so an element 4000px down the page would have finished animating
+   * long before anyone saw it.
+   */
+  instant?: boolean;
 }) {
   const reduced = useReducedMotion();
+
+  /* The CSS path. No motion component, so nothing here depends on the bundle.
+     The per-line stagger is the same 0.09s the motion path uses, applied as an
+     animation delay instead of a transition delay. */
+  if (instant) {
+    return (
+      <Tag
+        id={id}
+        aria-label={lines.map(lineText).join(' ')}
+        className={`yr-display yr-display--${size} ${className}`}
+      >
+        {lines.map((line, i) => {
+          const text = lineText(line);
+          const accent = typeof line !== 'string' && line.accent;
+          const strong = i >= (strongFrom ?? lines.length - 1);
+          return (
+            <span key={text} aria-hidden="true" className="yr-linemask">
+              <span
+                className={`yr-enter block ${strong ? 'yr-display__strong' : 'yr-display__soft'} ${
+                  accent ? 'yr-display__accent' : ''
+                }`}
+                style={{ animationDelay: `${delay + i * 0.09}s` }}
+              >
+                {/* The trailing space is load-bearing; see the note below. */}
+                {text}{' '}
+              </span>
+            </span>
+          );
+        })}
+      </Tag>
+    );
+  }
 
   return (
     <Tag
@@ -72,7 +151,7 @@ export function Lines({
         return (
           <span key={text} aria-hidden="true" className="yr-linemask">
             <motion.span
-              className={`block ${strong ? 'yr-display__strong' : 'yr-display__soft'} ${
+              className={`yr-rv block ${strong ? 'yr-display__strong' : 'yr-display__soft'} ${
                 accent ? 'yr-display__accent' : ''
               }`}
               initial={reduced ? { opacity: 0 } : { y: '105%', opacity: 0 }}
@@ -124,7 +203,7 @@ export function Rise({
 
   return (
     <M
-      className={className}
+      className={`yr-rv ${className}`}
       initial={reduced ? { opacity: 0 } : { opacity: 0, y }}
       whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={viewportOnce}
@@ -145,7 +224,7 @@ export function DrawRule({ className = '', delay = 0 }: { className?: string; de
   return (
     <motion.span
       aria-hidden="true"
-      className={`block h-px w-full origin-left bg-[var(--rule)] ${className}`}
+      className={`yr-rv block h-px w-full origin-left bg-[var(--rule)] ${className}`}
       initial={reduced ? { opacity: 1 } : { scaleX: 0 }}
       whileInView={reduced ? { opacity: 1 } : { scaleX: 1 }}
       viewport={viewportOnce}

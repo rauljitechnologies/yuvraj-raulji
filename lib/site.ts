@@ -731,83 +731,30 @@ export const FAQS: Faq[] = [
   },
 ];
 
-/**
- * The enquiry dropdown.
- *
- * Written as subjects to talk about rather than as services to buy. The
- * previous list was eight service names ("Magento 2 Development", "AWS &
- * Server Setup"), which turned the one modal on a personal site into a price
- * list with no prices, and made the first question a visitor answered
- * "which package am I choosing" rather than "what is my problem".
- *
- * They are also phrased as the situation, not the technology, because the
- * person filling this in usually knows the former and is guessing at the
- * latter.
- */
-export const SERVICE_OPTIONS = [
-  'An AI idea I want a second opinion on',
-  'A commerce platform decision',
-  'A replatforming or migration',
-  'A store that is slow, or losing people at checkout',
-  'Automating a process that eats people',
-  'A technology strategy conversation',
-];
-
 /* ─────────────────────────────────────────────────────────────────────────────
-   Qualifying fields.
+   THE ENQUIRY SELECTS ARE GONE
 
-   The forms collected name, email, phone, a topic and a message, which is
-   enough to reply and not enough to prioritise, route or price. Every one of
-   the four lists below is optional on the form: only name, email and message
-   are required, so none of this can cost a submission. What they buy is triage,
-   because the lead API scores on exactly these fields and, without them,
-   reports every enquiry as UNSCORED.
+   Four lists stood here: SERVICE_OPTIONS (what is this about), ROLE_OPTIONS
+   (your role), PLATFORM_OPTIONS and TIMELINE_OPTIONS. They were rendered by
+   the enquiry modal on every route and by the homepage form, and they were
+   the qualifying fields the lead scoring in google-apps-script/Code.gs read.
 
-   The store URL is the highest-value field on the form. It is one paste, and it
-   tells you the platform, the scale and usually the problem before you have
-   read a word of the message. It is deliberately NOT required: the site sells
-   to agencies enquiring on behalf of a client, and to businesses that have not
-   launched yet, and requiring a store URL would turn both away.
+   They are removed because the brief fixes the form at five fields, three of
+   them required: name, email, company or website, project requirements and
+   budget. Role, platform and timeline are all answerable in the reply, where
+   asking costs nothing, and on the form each one cost submissions.
 
-   ROLE_OPTIONS carries none of the prohibited titles. Section 4 of
-   BRAND-DESIGN-GUIDELINE.md rules "Founder" off this site and the brand brief
-   adds CTO, Chief Technology Officer, Co-Founder and Business Owner; a select
-   is still site copy, and `<option>` text ships in the HTML of all 68 pages
-   because the enquiry modal renders on every route. "CTO or technology lead"
-   was therefore the single largest source of prohibited-title hits on the
-   site, on every page, and it described the *visitor's* job rather than
-   Yuvraj's. It now reads "Technology lead", which a CTO still selects.
+   `LeadFields` in lib/lead.ts still declares `role`, `platform` and
+   `timeline` as optional, so the sheet's existing columns and the scoring
+   that reads them keep working for the rows already in it. Nothing sends them
+   any more. Removing the columns is a change to the spreadsheet, not to this
+   repository, and it is not worth breaking the history for.
 
-   The strings are also the scoring input, so they must keep matching
-   DECISION_ROLES in google-apps-script/Code.gs. Change one and change the
-   other: 'technology lead' was added there when this string changed.
+   One consequence, stated rather than discovered later: the lead API now
+   reports every enquiry as UNSCORED, because the fields it scored on are no
+   longer collected. The budget field is sent inside `service` and is the
+   triage signal that replaces them.
    ───────────────────────────────────────────────────────────────────────────*/
-
-export const ROLE_OPTIONS = [
-  'Owner',
-  'CEO or Managing Director',
-  'Head of eCommerce',
-  'Technology lead',
-  'Marketing lead',
-  'Agency or studio',
-];
-
-export const PLATFORM_OPTIONS = [
-  'Magento 2 or Adobe Commerce',
-  'Shopify or Shopify Plus',
-  'WooCommerce',
-  'WordPress',
-  'Headless or custom build',
-  'Not sure yet',
-];
-
-export const TIMELINE_OPTIONS = [
-  'Now',
-  'Within 3 months',
-  'Within 6 months',
-  'Later this year',
-  'Just exploring',
-];
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The professional record.

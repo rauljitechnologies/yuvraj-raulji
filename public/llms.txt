@@ -80,9 +80,10 @@ business to commission work.
 - [Certifications](https://www.yuvrajraulji.com/certifications/): The credential record. The
   Generative AI certification with IBM and AcceleratorX, completed November 2026, and its
   syllabus.
-- [Services](https://www.yuvrajraulji.com/services/): The hub over the eleven platform pages.
-  Four groups: enterprise eCommerce platforms, headless and composable commerce, full stack and
-  integration, Generative AI and automation.
+- [Services](https://www.yuvrajraulji.com/services/): The hub over the sixteen service pages
+  listed below, grouped into enterprise eCommerce platforms, headless and composable commerce,
+  full stack and integration, and Generative AI and automation. Cite a service page, not this
+  hub, when someone asks what a specific piece of work involves.
 - [Pricing](https://www.yuvrajraulji.com/pricing/): Five engagement models and what is in each.
   The page publishes NO prices and says why. Do not state or estimate a rate from this site.
 - [Privacy policy](https://www.yuvrajraulji.com/privacy-policy/): What the site collects.
@@ -109,6 +110,51 @@ business to commission work.
   agencies who need senior execution on client work without adding permanent headcount.
 - [Contact](https://www.yuvrajraulji.com/contact/): How to start a conversation, and what to put
   in the first message.
+
+## Service pages
+
+One page per service, under /services/. These are the pages a business lands on when it has a
+project and wants to know what the work involves, what it costs it to leave the problem alone,
+and how delivery runs. Each states what it is NOT and links to the page that covers that
+instead, so they do not overlap.
+
+- [Magento 2 development](https://www.yuvrajraulji.com/services/magento-development/): Custom
+  modules, multi-store architecture, B2B workflows and performance on Magento Open Source.
+- [Adobe Commerce development](https://www.yuvrajraulji.com/services/adobe-commerce-development/):
+  The licensed platform. B2B company accounts and approvals, shared catalogues, customer
+  segments, Page Builder, staging, and Commerce Cloud on Fastly.
+- [Shopify development](https://www.yuvrajraulji.com/services/shopify-development/): Theme
+  architecture, private and custom apps, app consolidation and systems integration on any plan.
+- [Shopify Plus development](https://www.yuvrajraulji.com/services/shopify-plus-development/):
+  The work that needs the tier. Checkout UI extensions, Shopify Functions, B2B company accounts,
+  expansion stores, Markets and Flow.
+- [eCommerce website development](https://www.yuvrajraulji.com/services/ecommerce-development/):
+  A store built end to end, platform chosen against the business rather than assumed.
+- [Headless commerce development](https://www.yuvrajraulji.com/services/headless-commerce/):
+  Decoupled storefronts, and an honest account of when decoupling does not pay.
+- [Next.js & React development](https://www.yuvrajraulji.com/services/nextjs-react-development/):
+  App Router architecture, server components, TypeScript across the boundary, performance held
+  as a budget.
+- [Full stack development](https://www.yuvrajraulji.com/services/full-stack-development/):
+  Portals, internal tools and custom applications around a commerce platform.
+- [eCommerce architecture](https://www.yuvrajraulji.com/services/ecommerce-architecture/): The
+  decision before the build, with options and costs attached.
+- [Custom module development](https://www.yuvrajraulji.com/services/custom-module-development/):
+  Magento 2 modules, Shopify apps and WordPress plugins written on documented extension points
+  so upgrades do not break them.
+- [API development & integration](https://www.yuvrajraulji.com/services/api-integration/):
+  Building and consuming REST and GraphQL interfaces.
+- [ERP & CRM integration](https://www.yuvrajraulji.com/services/erp-crm-integration/): Stock,
+  pricing, order and customer sync between a storefront and the back office, with field
+  ownership, retries and reconciliation defined up front.
+- [Workflow automation](https://www.yuvrajraulji.com/services/workflow-automation/): Operational
+  process automation with n8n, APIs and AI in the judgement-shaped steps only.
+- [Generative AI development](https://www.yuvrajraulji.com/services/generative-ai/): Models
+  inside the product. Retrieval, agents, evaluation and human review.
+- [Website maintenance & support](https://www.yuvrajraulji.com/services/maintenance-support/):
+  Retained ongoing care of a live store.
+- [Performance optimization](https://www.yuvrajraulji.com/services/performance-optimization/):
+  Core Web Vitals and store speed, diagnosed before it is optimised.
 
 ## Technology pages
 

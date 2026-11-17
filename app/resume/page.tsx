@@ -344,15 +344,19 @@ export default function Resume() {
       <Section id="next" labelledBy="next-title">
         <Shell>
           <div className="grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1fr]">
-            <Lines as="h2" id="next-title" lines={['Hiring for', { text: 'a remote team?', accent: true }]} />
+            {/* This read "Hiring for a remote team?", which is the one
+                question this site is explicitly not asking for. The resume is
+                here as evidence for a client deciding whether to engage, so
+                the close points at that decision. */}
+            <Lines as="h2" id="next-title" lines={['Project that needs', { text: 'this record behind it?', accent: true }]} />
             <Rise delay={0.14}>
               <p className="m-0 max-w-[48ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
-                The remote work page has the working arrangement, the time zone overlap and a form
-                that asks the right questions, so a first reply can be a straight yes or no.
+                The remote collaboration page has the engagement models, the time zone overlap and
+                how a project actually starts, so a first reply can be a straight yes or no.
               </p>
               <div className="mt-block flex flex-wrap gap-3">
                 <Btn href="/remote-work/" variant="primary">
-                  Remote opportunities
+                  How we work together
                 </Btn>
                 <Btn href="/experience/" variant="ghost">
                   Full experience

@@ -1,69 +1,22 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { submitLead, type LeadResult } from '../lib/lead';
-import { CONTACT, PLATFORM_OPTIONS, ROLE_OPTIONS, SERVICE_OPTIONS, TIMELINE_OPTIONS } from '../lib/site';
+import { useCallback, useEffect, useRef } from 'react';
+import { CONTACT } from '../lib/site';
+import { ProjectForm } from './forms/project-form';
 import { useUI } from './ui-context';
 
-const EMPTY = {
-  name: '',
-  email: '',
-  phone: '',
-  service: '',
-  message: '',
-  /* Qualifying fields, all optional. Only name, email and message gate submit,
-     so adding these cannot cost an enquiry. See lib/lead.ts. */
-  website: '',
-  role: '',
-  platform: '',
-  timeline: '',
-  hp: '',
-};
-
-/**
- * Validation ported verbatim from the Alpine `phoneOk()`:
- * phone is optional; rejects letters/symbols; accepts +international (8–15
- * digits), 10-digit Indian mobiles starting 6–9, 0+10, and 91+10.
- */
-export function phoneOk(raw: string): boolean {
-  const v = (raw || '').trim();
-  if (!v) return true;
-  if (/[^0-9+\s().-]/.test(v)) return false;
-  const d = v.replace(/\D/g, '');
-  if (v.startsWith('+')) return d.length >= 8 && d.length <= 15;
-  if (d.length === 10) return /^[6-9]/.test(d);
-  if (d.length === 11 && d.startsWith('0')) return /^[6-9]/.test(d[1]);
-  if (d.length === 12 && d.startsWith('91')) return /^[6-9]/.test(d[2]);
-  return false;
-}
+/*
+  The form this modal used to carry is gone, and with it `phoneOk`, the nine
+  field EMPTY shape, the submit handler and the two result states. All four
+  now live once, in components/forms/project-form.tsx, which this renders.
+  `phoneOk` went with the phone field: the brief's field list does not include
+  one, and a phone number is in the reply signature of every enquiry anyway.
+*/
 
 export function ContactModal() {
   const { contactOpen, setContactOpen } = useUI();
-  const [f, setF] = useState(EMPTY);
-  const [sending, setSending] = useState(false);
-  const [result, setResult] = useState<LeadResult | null>(null);
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  const firstFieldRef = useRef<HTMLInputElement>(null);
-
-  const set = (k: keyof typeof EMPTY) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setF((p) => ({ ...p, [k]: e.target.value }));
-
-  const valid = Boolean(f.name && f.email && f.message) && phoneOk(f.phone);
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!valid || sending) return;
-    setSending(true);
-    /*
-      `submitLead` returns 'sent' only when the endpoint confirmed it, and
-      'fallback' when anything at all went wrong, having already opened the
-      visitor's mail client with the enquiry written out. The two states render
-      differently below, so this form cannot report a success it did not get.
-    */
-    setResult(await submitLead({ ...f, service: f.service }));
-    setSending(false);
-  };
 
   /**
    * Stable across renders, so the effect below can depend on it honestly.
@@ -81,14 +34,6 @@ export function ContactModal() {
    * meant to do.
    */
   const close = useCallback(() => setContactOpen(false), [setContactOpen]);
-  const reset = () => {
-    close();
-    setF(EMPTY);
-    setResult(null);
-    setSending(false);
-  };
-
-  const phoneBad = !phoneOk(f.phone);
 
   /*
     Modal behaviour that was missing entirely: Escape to dismiss, the page
@@ -126,7 +71,21 @@ export function ContactModal() {
     document.body.style.overflow = 'hidden';
     if (gap > 0) document.body.style.paddingRight = `${gap}px`;
     document.addEventListener('keydown', onKey);
-    const focusTimer = setTimeout(() => firstFieldRef.current?.focus(), 80);
+    /* The form is a child component now, so there is no ref to its first
+       input. Querying the dialog for it keeps the behaviour and removes the
+       coupling: the dialog focuses whatever its form puts first.
+
+       `:not([tabindex="-1"])` excludes the honeypot, and it is load-bearing:
+       without it this focuses the hidden field parked at left:-9999px, which
+       is both the wrong field and a horizontal jump the moment the dialog
+       opens. */
+    const focusTimer = setTimeout(
+      () =>
+        dialogRef.current
+          ?.querySelector<HTMLElement>('input:not([type="hidden"]):not([tabindex="-1"])')
+          ?.focus(),
+      80,
+    );
 
     return () => {
       document.removeEventListener('keydown', onKey);
@@ -301,249 +260,27 @@ export function ContactModal() {
 
           {/* ── RIGHT on desktop, FIRST on mobile: form ── */}
           <div className="order-1 lg:order-2 p-6 sm:p-8 lg:p-10">
-            {result ? (
-              <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-12 sm:py-16">
-                <div className="w-16 h-16 rounded-full border border-accent/45 bg-accent/[0.08] grid place-items-center">
-                  {result === 'sent' ? (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  ) : (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-bright)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <polyline points="2,4 12,13 22,4" />
-                    </svg>
-                  )}
-                </div>
-                <div>
-                  <p className="font-display uppercase text-[clamp(1.5rem,4vw,2rem)] tracking-[.06em] text-ink mb-2">
-                    {result === 'sent' ? 'Message sent' : 'Send it from your email'}
-                  </p>
-                  {/*
-                    Two states, because there are two outcomes and only one of
-                    them is a success. The confirmation-email sentence appears
-                    only on the confirmed path: the backend does send one, but
-                    claiming it after a failed submission is the lie this whole
-                    change exists to remove.
-                  */}
-                  <p className="text-[.90rem] text-ink/50 leading-[1.7] max-w-[420px]">
-                    {result === 'sent' ? (
-                      <>Received, and a confirmation is on its way to you. I&rsquo;ll reply within 24 hours.</>
-                    ) : (
-                      <>
-                        The form could not reach the server, so your email app has opened with the
-                        message already written. Send that and it reaches me directly. If nothing
-                        opened, write to{' '}
-                        <a href={`mailto:${CONTACT.email}`} className="text-accent-bright">
-                          {CONTACT.email}
-                        </a>{' '}
-                        or message{' '}
-                        <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className="text-accent-bright">
-                          {CONTACT.phoneDisplay}
-                        </a>
-                        .
-                      </>
-                    )}
-                  </p>
-                </div>
-                <button
-                  onClick={reset}
-                  className="h-[44px] px-7 border border-white/[0.14] font-mono text-[.72rem] font-bold tracking-[.10em] uppercase text-ink/60 transition-all duration-200 hover:border-accent hover:text-white"
-                >
-                  Close
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={submit} noValidate>
-                <input
-                  type="text"
-                  name="company_website"
-                  value={f.hp}
-                  onChange={set('hp')}
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  style={{ position: 'absolute', left: -5000, width: 1, height: 1, opacity: 0 }}
-                />
+            {/*
+              One form, shared with /contact/ and with the homepage.
 
-                {/*
-                  The panel's H2 already says "Start a Conversation". This
-                  column repeated it word for word, so the modal showed the same
-                  headline twice, once as a heading and once as a paragraph
-                  dressed as one. The column now carries only the instruction.
-                */}
-                <p className="text-[.82rem] text-ink/40 mb-6">
-                  Required fields are marked. The more specific the message, the more useful the
-                  reply.
-                </p>
+              This modal carried its own nine-field implementation: name,
+              email, phone, service, website, role, platform, timeline and
+              message, with its own validation and its own two result states.
+              The homepage carried a third. Three forms meant three field
+              sets, three validation rules and three places a change had to
+              be made, and two of them asked a buyer for a role and a
+              timeline before he had said what the project was.
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-name">
-                      Full Name <span className="text-accent-bright">*</span>
-                    </label>
-                    <input
-                      id="cf-name"
-                      ref={firstFieldRef}
-                      className="cf-inp"
-                      type="text"
-                      placeholder="Your name"
-                      autoComplete="name"
-                      value={f.name}
-                      onChange={set('name')}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-email">
-                      Email Address <span className="text-accent-bright">*</span>
-                    </label>
-                    <input id="cf-email" className="cf-inp" type="email" placeholder="you@company.com" autoComplete="email" value={f.email} onChange={set('email')} required />
-                  </div>
-                </div>
+              The brief settles both halves of that: five fields, three
+              required, and do not overload the site with forms. So the
+              modal, the homepage and the contact page now render the same
+              component, and a field is added once or not at all.
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-phone">
-                      Phone Number
-                    </label>
-                    <input
-                      id="cf-phone"
-                      className="cf-inp"
-                      type="tel"
-                      inputMode="tel"
-                      maxLength={18}
-                      placeholder="+91 XXXXX XXXXX"
-                      value={f.phone}
-                      onChange={set('phone')}
-                      style={phoneBad ? { borderColor: 'rgba(238, 42, 52,.70)', boxShadow: '0 0 0 1px rgba(238, 42, 52,.30)' } : undefined}
-                    />
-                    {phoneBad && (
-                      <p className="mt-1.5 font-mono text-[.68rem] tracking-[.04em] text-accent-bright">
-                        Enter a valid mobile number, for example 98983 34731 or +91 98983 34731
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-service">
-                      What is this about?
-                    </label>
-                    <select id="cf-service" className="cf-inp" value={f.service} onChange={set('service')}>
-                      <option value="">Pick the closest one</option>
-                      {SERVICE_OPTIONS.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                      <option value="Other">Something else</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/*
-                  Qualifying fields. The store URL is first and on its own row
-                  because it is the single most useful thing on this form: one
-                  paste tells you the platform, the scale and usually the
-                  problem before the message has been read. None of these are
-                  required, deliberately, because agencies enquiring for a
-                  client and businesses that have not launched are both real
-                  senders here and neither has a store URL to give.
-                */}
-                <div className="mb-4">
-                  <label className="cf-lbl" htmlFor="cf-website">
-                    Store or company website
-                  </label>
-                  <input
-                    id="cf-website"
-                    className="cf-inp"
-                    type="text"
-                    inputMode="url"
-                    autoComplete="url"
-                    placeholder="yourstore.com"
-                    value={f.website}
-                    onChange={set('website')}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-role">
-                      Your role
-                    </label>
-                    <select id="cf-role" className="cf-inp" value={f.role} onChange={set('role')}>
-                      <option value="">Pick one</option>
-                      {ROLE_OPTIONS.map((r) => (
-                        <option key={r} value={r}>
-                          {r}
-                        </option>
-                      ))}
-                      <option value="Something else">Something else</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-platform">
-                      Platform
-                    </label>
-                    <select id="cf-platform" className="cf-inp" value={f.platform} onChange={set('platform')}>
-                      <option value="">Pick one</option>
-                      {PLATFORM_OPTIONS.map((p) => (
-                        <option key={p} value={p}>
-                          {p}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="cf-lbl" htmlFor="cf-timeline">
-                      Timeline
-                    </label>
-                    <select id="cf-timeline" className="cf-inp" value={f.timeline} onChange={set('timeline')}>
-                      <option value="">Pick one</option>
-                      {TIMELINE_OPTIONS.map((t) => (
-                        <option key={t} value={t}>
-                          {t}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="mb-7">
-                  <label className="cf-lbl" htmlFor="cf-msg">
-                    Message <span className="text-accent-bright">*</span>
-                  </label>
-                  <textarea
-                    id="cf-msg"
-                    className="cf-inp resize-y min-h-[120px]"
-                    rows={5}
-                    placeholder="What are you trying to do, and what is in the way?"
-                    value={f.message}
-                    onChange={set('message')}
-                    required
-                  />
-                </div>
-
-                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-ink/10 pt-6">
-                  <p className="m-0 font-mono text-[10px] uppercase tracking-[0.2em] text-ink/40">
-                    <span className="text-accent-bright">*</span> Required fields
-                  </p>
-                  <button
-                    type="submit"
-                    disabled={!valid || sending}
-                    className="inline-flex items-center gap-2 h-[50px] px-8 bg-red text-white text-[.74rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {sending ? (
-                      <span className="inline-flex items-center gap-2">
-                        <span className="w-[14px] h-[14px] rounded-full border-2 border-white/30 border-t-white" style={{ animation: 'sp .7s linear infinite' }} />
-                        Sending…
-                      </span>
-                    ) : (
-                      <span>Send Message &nbsp;→</span>
-                    )}
-                  </button>
-                </div>
-              </form>
-            )}
+              `key` remounts it as the dialog opens and closes, which is what
+              used to be `reset()`: without it a reader who sends a message,
+              closes and comes back finds the confirmation still showing.
+            */}
+            <ProjectForm key={String(contactOpen)} tone="dark" id="modal-project-form" />
           </div>
         </div>
       </div>

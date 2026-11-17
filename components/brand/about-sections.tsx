@@ -9,6 +9,7 @@ import {
   PROCESS,
   PROCESS_INTRO,
 } from '../../lib/about';
+import { Eager } from '../homepage-sections/rv';
 import { Lines, Rise } from '../homepage/motion';
 import { InlineLink, Marker, Section, Shell } from '../homepage/primitives';
 
@@ -69,21 +70,32 @@ export function Opening() {
   return (
     <Section id="opening" labelledBy="opening-title">
       <Shell>
-        <Marker label="The short version" />
+        {/* `decorative`: the heading below is this same string, so without it a
+            screen reader announces the section name twice. */}
+        <Marker label="The short version" decorative />
         <h2 id="opening-title" className="sr-only">
           The short version
         </h2>
+        {/*
+          `Eager`, not `Rise`: this section sits directly under the hero, so on
+          a tall phone its first paragraph is inside the opening viewport and
+          is the largest text on screen. Measured on a throttled mobile profile
+          it was the Largest Contentful Paint for /about/ at 4.1s, because a
+          `Rise` ships `opacity:0` and waits for hydration. Revealed from CSS
+          it paints with the document. Same reasoning as the hero; the note is
+          in components/chrome/page.tsx.
+        */}
         <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <Rise>
+          <Eager>
             <p className="m-0 max-w-[30ch] font-manrope text-[clamp(21px,2.2vw,30px)] font-light leading-[1.35] tracking-[-0.03em] text-ink/85">
               {ABOUT_HERO.opening}
             </p>
-          </Rise>
-          <Rise delay={0.16} className="self-end">
+          </Eager>
+          <Eager delay={0.16} className="self-end">
             <p className="m-0 max-w-[52ch] border-l border-accent/60 pl-6 font-manrope text-[16px] font-light leading-[1.75] text-ink/55">
               {ABOUT_HERO.record}
             </p>
-          </Rise>
+          </Eager>
         </div>
       </Shell>
     </Section>

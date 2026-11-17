@@ -40,14 +40,30 @@ export const PORTRAITS = {
    */
   hero: '/assets/home/yr-hero.webp',
   /**
-   * The same cutout at 700px, for phones.
+   * The same cutout at 700px and at 960px.
    *
-   * The hero plate is at most 400px wide under `lg`, so a 1200px source is
-   * three times the pixels a phone can show and it is the page's LCP element.
-   * The two are offered as a srcset rather than swapped, so a desktop still
-   * gets the full-resolution file.
+   * ── Why there are three cuts and not two ─────────────────────────────────
+   *
+   * There were two, 700 and 1200, and the 700 was almost never served. The
+   * reason is device pixel ratio: `sizes` declares the box in CSS pixels and
+   * the browser multiplies by DPR before choosing, so a 286px-wide plate on a
+   * DPR-2 phone needs 572 real pixels and one on a DPR-3 phone needs 858.
+   * With only a 700 and a 1200 to choose from, every phone above DPR 1.75
+   * took the 1200, which is 118 KB, on the element that decides mobile LCP.
+   *
+   * Measured on the exported site under Slow 4G and 4x CPU, that image was the
+   * Largest Contentful Paint for the homepage at 3.35s against a 2.5s
+   * threshold, and it was the only route still over.
+   *
+   * 960 is chosen against the real layout widths rather than picked round.
+   * The plate measures 286px at a 360px viewport, 338px at 412px, and 464px on
+   * a large desktop, so the common high-DPR phone needs 860 to 950 pixels and
+   * a DPR-2 desktop needs 928. One cut at 960 covers all of them at 45 KB
+   * instead of 118 KB, and the 700 now genuinely serves DPR-2 phones because
+   * `sizes` no longer overstates the box. See the note in hero.tsx.
    */
   heroSmall: '/assets/home/yr-hero-700.webp',
+  heroMid: '/assets/home/yr-hero-960.webp',
   /* `about` and `quote` stood here. Nothing read either: hero.tsx uses `hero`
      and `heroSmall` and no other component touches this object. `quote`
      pointed at yr-quote.webp, which was deleted with the other unserved
@@ -438,16 +454,10 @@ export const FAQS: readonly QaBlock[] = [
   },
 ];
 
-/** What the contact form's subject select offers. */
-export const ENQUIRY_TOPICS: readonly string[] = [
-  'A commerce platform decision',
-  'A replatforming or migration',
-  'A slow store, or checkout drop-off',
-  'An AI idea I want a second opinion on',
-  'Automating a process that eats people',
-  'A technology strategy conversation',
-  'Search, discovery or AI visibility',
-];
+/* `ENQUIRY_TOPICS` stood here, feeding the homepage form's subject select.
+   The homepage now renders the same five-field ProjectForm as /contact/ and
+   the enquiry modal, and that form has no subject select: the subject is the
+   first line of the project requirements. See the note in lib/site.ts. */
 
 /* ═══════════════════════════════════════════════════════════════
    The consultant homepage

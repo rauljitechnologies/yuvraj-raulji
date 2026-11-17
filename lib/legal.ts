@@ -67,7 +67,7 @@ export const PRIVACY = {
    * The date the statement was last true. Printed on the page, because a
    * policy with no date tells a reader nothing about whether it is current.
    */
-  updated: '16 November 2026',
+  updated: '17 November 2026',
 
   clauses: [
     {
@@ -79,14 +79,14 @@ export const PRIVACY = {
     {
       heading: 'What you send me',
       body: [
-        'The site has two enquiry forms: one for hiring and recruitment, and one for project work. Both ask for a name, an email address and a message, and both offer a set of optional fields that help me reply usefully rather than generically.',
+        'The site has one enquiry form. It appears on the contact page, at the foot of the homepage and in the enquiry panel that opens from a call to action, and it is the same five fields in all three places. Three are required and two are optional.',
         'What you type is sent to a Google Workspace endpoint I control, which records it in a private spreadsheet and emails it to me. It is used to reply to you and to keep a record of the conversation. It is not added to a mailing list, it is not used for marketing, and it is never sold or shared with a third party.',
       ],
       items: [
-        'Required on both forms: your name, your email address and your message.',
-        'Optional on the hiring form: company, job title, employment type, work arrangement and a link to the job description.',
-        'Optional on the project form: company, website, project type, technology, budget range and timeline.',
+        'Required: your name, your email address and a description of what you need.',
+        'Optional: your company or website, and an indication of budget.',
         'Recorded automatically with a submission: the page you sent it from, which tells me what you were reading.',
+        'There is also one hidden field that a person never sees and never fills in. A value in it means the submission came from a bot, and it is discarded rather than recorded.',
       ],
     },
     {
@@ -137,7 +137,7 @@ export const PRIVACY = {
     {
       heading: 'Children',
       body: [
-        'This is a professional portfolio aimed at employers, recruiters and businesses. It is not directed at children and I do not knowingly collect anything from them.',
+        'This is a professional site aimed at businesses and agencies looking for development work. It is not directed at children and I do not knowingly collect anything from them.',
       ],
     },
     {

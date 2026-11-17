@@ -1,5 +1,5 @@
 /**
- * The two lead funnels, as schemas.
+ * The one lead funnel, as a schema.
  *
  * ── Why validation is here and not on a server ─────────────────────────────
  *
@@ -17,18 +17,14 @@
  * losing their message. It does not stop a determined bot, which is what the
  * honeypot and the endpoint's own checks are for.
  *
- * ── Why the two funnels are separate schemas ───────────────────────────────
+ * ── Why there is one schema and not two ───────────────────────────────────
  *
- * A recruiter and a client are answering different questions, and a single
- * form that serves both ends up asking a hiring manager for a budget range
- * and a business for an employment type. Keeping them apart is also what makes
- * the funnels countable: `generate_lead` carries which schema produced it, so
- * "how many real job approaches came in this month" is a question the
- * analytics can actually answer.
+ * There were two: this and a recruiter funnel. The site is explicitly not a
+ * recruiter portal now, so that one is deleted and this is the only shape an
+ * enquiry can take, in all three places a form appears.
  *
- * Both map onto the one wire format `submitLead` sends, because there is one
- * spreadsheet behind them and one set of columns. The mapping is at the bottom
- * of this file and it is the only place that knows about both shapes.
+ * It maps onto the wire format `submitLead` sends at the bottom of this file,
+ * which is the only place that knows about both shapes.
  */
 
 import { z } from 'zod';
@@ -44,8 +40,8 @@ import type { LeadFields } from './lead';
  * Deliberately permissive. An address is rejected only when it cannot
  * possibly be one; anything that might be valid is accepted and the reply
  * either arrives or bounces. A regex that enforces a strict reading of the
- * spec rejects real addresses, and a rejected real address on a hiring form
- * costs an opportunity to save nothing.
+ * spec rejects real addresses, and a rejected real address on an enquiry form
+ * costs a project to save nothing.
  */
 const email = z
   .string()
@@ -96,12 +92,11 @@ const message = z
 const honeypot = z.string().optional().or(z.literal(''));
 
 /* ═══════════════════════════════════════════════════════════════
-   THE OPTION SETS
+   THE OPTION SETS ARE GONE TOO
 
-   Rendered as <select> options and validated against. They are plain
-   string arrays rather than enums so the same constant drives the
-   markup and the schema, and a new option cannot be added to one
-   without the other.
+   Four `<select>` lists lived here and in lib/site.ts, driving both
+   the markup and the schema. The form has no selects left, so none
+   of them has anything to drive. See the note in lib/site.ts.
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
@@ -121,20 +116,15 @@ const honeypot = z.string().optional().or(z.literal(''));
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
-   B. THE PROJECT FUNNEL
+   THE PROJECT FUNNEL
    ═══════════════════════════════════════════════════════════════ */
 
 /**
- * Clients and agencies with a project. Rendered on /contact/.
- *
- * `website` is optional for the reason stated in lib/site.ts: the site takes
- * enquiries from agencies acting for a client and from businesses that have
- * not launched, and requiring a store URL turns both away. It is still the
- * single most useful field on the form when it is given, because it tells you
- * the platform, the scale and usually the problem before you read a word.
- */
-/**
  * The one enquiry form. Five fields, two of them optional.
+ *
+ * Clients and agencies with a project. Rendered on /contact/, at the foot of
+ * the homepage and inside the enquiry modal that opens from a call to action
+ * on every interior route.
  *
  * ── Why it got shorter ───────────────────────────────────────────────────
  *
@@ -197,11 +187,15 @@ export const PROJECT_EMPTY: ProjectInput = {
    ═══════════════════════════════════════════════════════════════ */
 
 /**
- * `service` is what the sheet and the lead scoring key off.
+ * Budget goes in `budget`, not inside `service`.
  *
- * It carries the budget when one was given, because that is the single most
- * useful triage signal on a short form, and "Project enquiry" alone tells the
- * sheet nothing it did not already know from the funnel column.
+ * It was appended to the service string, which put it in the one column the
+ * scoring does not read. `scoreLead_` in google-apps-script/Code.gs reads
+ * `budget` directly, and with role, platform and timeline no longer collected
+ * it is the only qualifying field left: in the service string it scored
+ * nothing and every enquiry came out UNSCORED. The endpoint has read
+ * `p.budget` and the sheet has had a column for it since before this form
+ * existed.
  */
 export function projectToLead(d: ProjectData): LeadFields {
   return {
@@ -212,7 +206,8 @@ export function projectToLead(d: ProjectData): LeadFields {
        always text; the scoring treats a populated `company` as signal either
        way. */
     company: d.company,
-    service: `Project enquiry${d.budget ? ` | Budget: ${d.budget}` : ''}`,
+    budget: d.budget,
+    service: 'Project enquiry',
     message: d.message,
     hp: d.hp,
   };

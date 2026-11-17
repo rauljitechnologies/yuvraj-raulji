@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { track } from '../../lib/analytics';
 import {
   PROJECT_EMPTY,
@@ -18,11 +18,19 @@ import { FormResult, Honeypot, TextArea, TextField, type Tone } from './fields';
  *
  * ── Why there is only one, and why it is this short ───────────────────────
  *
- * There were two: this and a recruiter form collecting a job title, an
- * employment type, a work arrangement and a job description URL. The
- * objective is now explicitly freelance client work and explicitly not a
- * recruiter portal, so that form and its schema are deleted rather than
- * hidden.
+ * The site carried four implementations of this at various points: a recruiter
+ * form collecting a job title, an employment type, a work arrangement and a
+ * job description URL; a nine-field form of its own on the homepage; a
+ * ten-field one inside the enquiry modal that renders on every interior
+ * route; and this. The brief rules the first out by name and rules the rest
+ * out by number, so the other three are deleted and this component is
+ * rendered in all three places: /contact/, the foot of the homepage and the
+ * modal.
+ *
+ * That consolidation is also what makes the accessibility contract hold. Four
+ * forms meant four sets of validation messages, four honeypot decisions and
+ * four chances to get `aria-describedby` wrong, and two of them had no
+ * honeypot and no announced errors at all.
  *
  * This one went from nine fields to five, three of them required. The
  * instruction was not to overload the site with forms, and a nine-field form
@@ -45,6 +53,14 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<LeadResult | null>(null);
+  /*
+    The form element, so the focus-the-first-error lookup below is scoped to
+    this instance. It used `document.querySelector`, which on /contact/ found
+    the page form's field from inside the modal's: an invalid submit in the
+    dialog moved focus to a control behind the overlay, where the reader could
+    neither see it nor reach it.
+  */
+  const formRef = useRef<HTMLFormElement>(null);
 
   const validate = (v: ProjectInput) => {
     const parsed = projectSchema.safeParse(v);
@@ -69,9 +85,12 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
       /* Recorded so a form nobody can get past is visible in the analytics
          rather than only in the drop-off. */
       track('form_invalid', { form: 'project', field: Object.keys(errs)[0] });
-      /* Focus the first blocker. Without this a keyboard or screen-reader
-         user submits, hears nothing, and has no idea which field is wrong. */
-      document.querySelector<HTMLElement>(`[name="${Object.keys(errs)[0]}"]`)?.focus();
+      /* Focus the first blocker, within this form. Without this a keyboard or
+         screen-reader user submits, hears nothing, and has no idea which field
+         is wrong. */
+      formRef.current
+        ?.querySelector<HTMLElement>(`[name="${Object.keys(errs)[0]}"]`)
+        ?.focus();
       return;
     }
 
@@ -100,7 +119,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
   }
 
   return (
-    <form onSubmit={submit} noValidate id={id} className="relative flex flex-col gap-6">
+    <form ref={formRef} onSubmit={submit} noValidate id={id} className="relative flex flex-col gap-6">
       <Honeypot value={f.hp ?? ''} onChange={set('hp')} />
 
       <div className="grid gap-6 sm:grid-cols-2">

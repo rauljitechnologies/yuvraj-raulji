@@ -1065,7 +1065,21 @@ export function servicePageSchema(service: ServicePage, crumbs: Crumb[]) {
         url: `${SITE_URL}${service.boundary.link.href}`,
       },
     },
-    faqNode(path, service.faqs),
+    /*
+      The quick answer leads the FAQ node, not just the four authored
+      questions.
+
+      `quickAnswer` is the passage on these pages written to be lifted, and
+      its `question` was dead data: the page renders only the answer, under
+      the heading "The short answer", and the question appeared in no markup
+      at all. An answer published without its question is the one shape an
+      answer engine cannot use. It is now rendered above the paragraph on the
+      page and carried here, which is what the FAQPage markup must match.
+    */
+    faqNode(path, [
+      { q: service.quickAnswer.question, a: service.quickAnswer.answer },
+      ...service.faqs,
+    ]),
   ]);
 }
 

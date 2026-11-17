@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 import type { Crumb } from '../../lib/schema';
 import { JsonLd } from '../json-ld';
 import { ContactModal } from '../contact-modal';
-import { Lines, Rise, type DisplayLine } from '../homepage/motion';
+import { Lines, type DisplayLine } from '../homepage/motion';
+import { Eager, NO_SCRIPT_REVEAL_CSS } from '../homepage-sections/rv';
 import { Shell } from '../homepage/primitives';
 import { SiteFooter } from './footer';
 import { SiteNav } from './nav';
@@ -45,6 +46,22 @@ export function Page({
   return (
     <>
       <JsonLd data={schema} />
+
+      {/*
+        The scroll reveals ship as `opacity:0` in the exported HTML and are
+        cleared after hydration, so with scripting off they are never cleared.
+        The homepage has rendered this failsafe since it was built; the other 86
+        routes had not, and measured against the exported HTML with JavaScript
+        disabled a service page had 56 invisible content elements and /about/
+        had 45. Crawlers read the DOM and are unaffected, but a reader without
+        scripting got a page of headings and nothing under them.
+
+        Inert whenever scripting works, so it costs a scripted visitor nothing.
+      */}
+      <noscript>
+        <style dangerouslySetInnerHTML={{ __html: NO_SCRIPT_REVEAL_CSS }} />
+      </noscript>
+
       <div className="yr-page">
         <SiteNav active={active} />
         {/* Film grain. Fixed, non-interactive, purely atmospheric. */}
@@ -142,27 +159,60 @@ export function PageHero({
             the line set in the mono face. It used to be a red dot and 0.8rem of
             letterspaced display type in the accent, which is a different mark
             for the same job and the loudest thing on the page after the H1. */}
+        {/*
+          ── Why this hero reveals from CSS and not from Motion ─────────────
+
+          All four blocks below used the scroll-reveal wrappers, which write
+          `opacity:0` into the server render and clear it after hydration. This
+          is the first viewport of all 86 interior pages, and measured on a
+          throttled mobile profile (Slow 4G, 4x CPU) against the exported site
+          that cost:
+
+            LCP 4.4s on /contact/, a page with no images on it at all
+            LCP 4.4s on a service page
+            LCP 5.7s on /work/
+
+          against a 2.5s "good" threshold. The Largest Contentful Paint
+          element on every one of those pages is the lede paragraph here, and
+          it was waiting on a 137KB bundle to download, hydrate and fire an
+          IntersectionObserver before it was allowed to be visible. First
+          Contentful Paint was 0.9s, so the page had painted and was sitting
+          there empty for three and a half seconds.
+
+          It also meant the entire first screen was invisible with scripting
+          off, which is the failure the note above `@keyframes yr-enter` in
+          app/globals.css was written about.
+
+          `Eager` and `Lines instant` both reveal with that CSS keyframe. The
+          animation starts when the stylesheet parses, so the hero is painted
+          and settled about half a second after first paint, needs no
+          JavaScript, and cannot get stuck if the bundle never arrives. The
+          stagger is preserved, so the designed arrival is unchanged.
+
+          Everything below the fold keeps the Motion wrappers, because down
+          there waiting for the reader to scroll is the entire point.
+        */}
         {eyebrow ? (
-          <Rise as="p" className="mb-item flex items-center gap-3.5">
+          <Eager as="div" className="mb-item flex items-center gap-3.5">
             <span aria-hidden="true" className="h-px w-11 bg-accent" />
             <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
               {eyebrow}
             </span>
-          </Rise>
+          </Eager>
         ) : null}
 
         {/* No `strongFrom`: the default puts the weight on the last line, which
             is where every one of these headlines lands. */}
-        <Lines as="h1" id="page-title" size="1" lines={lines} />
+        <Lines as="h1" id="page-title" size="1" lines={lines} instant delay={0.08} />
 
-        <Rise delay={0.28} className="mt-block">
+        <Eager delay={0.28} className="mt-block">
           <p className="yr-lede max-w-[58ch]">{lede}</p>
-        </Rise>
+        </Eager>
 
         {children ? (
-          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3">
+          <Eager delay={0.4} className="mt-block flex flex-wrap gap-3">
             {children}
-          </Rise>
+          </Eager>
         ) : null}
       </Shell>
     </section>

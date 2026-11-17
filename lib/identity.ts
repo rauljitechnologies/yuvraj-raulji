@@ -97,10 +97,10 @@ export const ROLE_LINE = 'Freelance eCommerce Developer';
  * typographic work and reveals in its own mask. `Lines` joins them for the
  * accessible name, so a screen reader hears one heading.
  *
- * The accent flag puts the second half in the red. It falls on
- * "AI-Powered Digital Experiences" rather than on the commerce half because
- * the commerce half is the established record and the AI half is the claim the
- * page is making.
+ * The accent flag puts the second half in the red. It falls on "& Powerful
+ * Digital Experiences" rather than on the commerce half because the commerce
+ * half is the established record and this half is the wider claim the page is
+ * making. Both halves are the brief's own words, in section 3.
  */
 export const HEADLINE = [
   'Building Scalable eCommerce Platforms',
@@ -140,9 +140,10 @@ export const DESCRIPTION =
 /**
  * The availability statement, and the thing the whole site is now pointed at.
  *
- * Two audiences, deliberately named in one sentence rather than split into
- * two: a recruiter and a client both need to know the other is welcome, or the
- * page reads as written for someone else.
+ * Three engagement shapes in one sentence rather than three: a buyer with a
+ * fixed project, a buyer who wants someone embedded for a while and a buyer
+ * who wants a long arrangement all need to see their own shape named, or the
+ * line reads as written for one of the other two. Verbatim from section 1.
  */
 export const AVAILABILITY =
   'Available for Freelance Projects, Remote Development Work and Long-Term Contracts.';
@@ -240,10 +241,10 @@ export const SPECIALTIES = [
  * failure mode is a string arriving in rendered HTML through a template, a
  * schema field or an alt attribute, and a source grep misses all three.
  *
- * "CTO or technology lead" in `ROLE_OPTIONS` (lib/site.ts) is a deliberate
- * exception and the checker knows about it: that string describes the role of
- * the *visitor* filling in the enquiry form, not Yuvraj's, and removing it
- * would stop a technology lead identifying themselves.
+ * There are no exceptions left. `ROLE_OPTIONS` in lib/site.ts once carried
+ * "CTO or technology lead" as a deliberate one, because that string described
+ * the *visitor's* role rather than Yuvraj's. The enquiry form no longer asks
+ * for a role at all, so the list and the exception went together.
  */
 export const PROHIBITED_TITLES = [
   'Founder',

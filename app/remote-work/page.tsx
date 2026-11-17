@@ -75,7 +75,7 @@ const LABEL =
 
 export default function RemoteWork() {
   return (
-    <Page schema={remoteWorkSchema(crumbs)} active="Remote work">
+    <Page schema={remoteWorkSchema(crumbs)} active="How we work">
       <PageHero eyebrow={REMOTE.eyebrow} lines={REMOTE.h1} lede={REMOTE.lede} crumbs={crumbs}>
         <Btn href="/contact/" variant="primary">
           {REMOTE.cta}

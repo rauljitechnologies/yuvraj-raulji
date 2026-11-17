@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { CTA_LABEL, NAV, NAV_FLAT } from '../../lib/brand';
 import { AVAILABILITY_CHIP } from '../../lib/identity';
+import { CONTACT } from '../../lib/site';
 import { HEADER_CTA_CLASS } from '../header-cta';
 import { Wordmark } from '../wordmark';
+import { WhatsAppAction } from './whatsapp-action';
 
 /**
  * The site header. One component, rendered by every route.
@@ -195,9 +197,25 @@ export function SiteNav({ active }: { active?: string }) {
             homepage to do it. The modal is still there for the in-page calls
             to action that open it.
           */}
-          <Link href="/contact/" className={HEADER_CTA_CLASS}>
-            {CTA_LABEL}
-          </Link>
+          {/*
+            Two actions: a message and a form. See the note in
+            whatsapp-action.tsx for why WhatsApp is in the bar at all.
+
+            `hidden sm:inline-flex` on the WhatsApp square because the bar was
+            already measured to the edge: the note in components/wordmark.tsx
+            records that the lockup plus this one call to action needed 340px
+            after the wordmark was stepped down, and a 42px button with its gap
+            puts that back over a 360px Android. Below `sm` the same action is
+            the first item in the phone row underneath, where there is room for
+            it and where it is the first thing in the scroller rather than
+            something to be found.
+          */}
+          <div className="flex shrink-0 items-center gap-2.5">
+            <WhatsAppAction className="hidden sm:inline-flex" />
+            <Link href="/contact/" className={HEADER_CTA_CLASS}>
+              {CTA_LABEL}
+            </Link>
+          </div>
         </div>
 
         {/*
@@ -212,6 +230,23 @@ export function SiteNav({ active }: { active?: string }) {
           aria-label="Primary, condensed"
           className="flex gap-5 overflow-x-auto border-t border-ink/10 px-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden"
         >
+          {/*
+            WhatsApp first, and only on the widths where the header bar cannot
+            carry it. It is set in the accent and sits ahead of the navigation
+            because this row is a scroller: anything past the third item is
+            found only by a reader who already decided to look, and the point
+            of this one is to be seen by a reader who has not.
+          */}
+          <a
+            href={CONTACT.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${LINK_BASE} shrink-0 border-accent/40 py-3.5 text-[11px] text-accent-bright sm:hidden`}
+          >
+            WhatsApp
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+
           {NAV_FLAT.map((item) => (
             <Link
               key={`${item.href}-${item.label}`}

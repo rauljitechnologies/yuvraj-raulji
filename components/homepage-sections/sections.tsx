@@ -12,7 +12,12 @@ import {
   TIMEZONE,
 } from '../../lib/identity';
 import { REMOTE } from '../../lib/remote';
-import { SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
+import {
+  FEATURED_COUNT_WORD,
+  FEATURED_SERVICE_PAGES,
+  SERVICE_COUNT_WORD_CAP,
+  servicePageHref,
+} from '../../lib/service-pages';
 import {
   AI_TRACKS,
   APPROACH,
@@ -25,7 +30,7 @@ import {
   STATS,
   WHY_WORK_WITH_ME,
 } from '../../lib/homepage';
-import { ContactForm } from './contact-form';
+import { ProjectForm } from '../forms/project-form';
 import { Cta, RuleLink, SectionLabel } from './primitives';
 import { Rv, RvGroup, RvItem } from './rv';
 
@@ -1109,7 +1114,7 @@ const DETAILS = [
  *
  * A dark closing section creates a strong visual endpoint and editorial weight.
  * The contact info sits in a dark panel; the form sits in a white panel beside
- * it, because the ContactForm component uses light-background field styling.
+ * it, and the form renders in its `paper` tone to suit it.
  *
  * `id="book"` is kept as a second anchor because the footer has linked to
  * `/#book` since before this restructure.
@@ -1221,8 +1226,9 @@ export function Services() {
             </Rv>
             <Rv>
               <p className="m-0 mt-7 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
-                Seven services, each with its own page covering the problems it solves, what gets
-                built, the delivery process and what it is not.
+                {SERVICE_COUNT_WORD_CAP} services, each with its own page covering the problems it
+                solves, what gets built, the delivery process and what it is not. The{' '}
+                {FEATURED_COUNT_WORD} asked for most often are below.
               </p>
             </Rv>
             <Rv>
@@ -1233,7 +1239,7 @@ export function Services() {
           </div>
 
           <RvGroup as="ol" className="m-0 list-none border-t border-ink/12 p-0" each={0.04}>
-            {SERVICE_PAGES.map((sp, i) => (
+            {FEATURED_SERVICE_PAGES.map((sp, i) => (
               <RvItem key={sp.slug} as="li" className="border-b border-ink/12">
                 <Link
                   href={servicePageHref(sp.slug)}
@@ -1428,21 +1434,26 @@ export function Certification() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   15 — Remote work availability  (LIGHT)
+   15 — Working with clients worldwide  (LIGHT)
    ───────────────────────────────────────────────────────────── */
 
 /**
- * The employment funnel, on the homepage.
+ * Remote collaboration, on the homepage. Section 11 of the brief.
+ *
+ * It was the employment funnel, labelled "Open to remote opportunities" and
+ * written for a recruiter deciding whether to read further. The objective is
+ * now client work, so the same block answers the question a client has
+ * instead: how does working with someone in another time zone actually run,
+ * and what can I engage him on. The label is the brief's own heading.
  *
  * Light ground, deliberately: it is the only section between the AI
  * certification and the contact close, and on a page that is otherwise
  * near-black from the work section down, the ground change is what stops it
- * being scrolled past. It is also the second-most important block on the page
- * after the hero, and the one the repositioning exists for.
+ * being scrolled past.
  *
- * It does not repeat /remote-work/. It states the availability, the logistics
- * a recruiter needs before they bother reading further, and the roles, then
- * links. Everything else, including the recruiter form, is on that page.
+ * It does not repeat /remote-work/. It states the availability, the
+ * logistics and the engagement models, then links. Everything else is on
+ * that page.
  */
 export function RemoteWork() {
   return (
@@ -1453,7 +1464,7 @@ export function RemoteWork() {
     >
       <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
         <SectionLabel className="mb-8 sm:mb-11 !text-ground/55">
-          Open to remote opportunities
+          Working with clients worldwide
         </SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-x-16">
@@ -1705,9 +1716,17 @@ export function Contact() {
             </div>
           </div>
 
-          {/* White panel: ContactForm uses text-ground / border-ground — light bg required */}
+          {/*
+            White panel, and the same form as /contact/ and the enquiry modal.
+
+            This held a third implementation: nine fields including a role, a
+            platform and a timeline, validated by one regular expression and
+            submitted with no honeypot. The brief asks for five fields and one
+            form, so there is now one component and `tone="paper"` is what
+            makes it read on white.
+          */}
           <div className="min-w-0 bg-white p-6 sm:p-8 lg:p-12">
-            <ContactForm />
+            <ProjectForm tone="paper" id="home-project-form" />
           </div>
         </Rv>
       </div>

@@ -94,10 +94,12 @@ export const metadata: Metadata = {
 /**
  * Home.
  *
- * The section order and the reasoning behind it are documented at the top of
- * components/homepage-sections/sections.tsx, next to the sections themselves.
- * In short: the page answers who, what he fixes, whether he is any good and
- * what to do next, in that order, because that is the order a visitor asks.
+ * The section order is section 4 of the brief, and the list below carries a
+ * line per section saying what it does. The sections themselves, and the
+ * ground each one sits on, are in components/homepage-sections/sections.tsx.
+ * In short: the page answers who, what can be bought, whether it has been
+ * built before, and what to do next, in that order, because that is the order
+ * a buyer asks.
  *
  * Rendering. Every section is a server component reading module-scope data, so
  * this page prerenders to static HTML at build time (next.config.mjs sets
@@ -126,32 +128,68 @@ export default function Home() {
 
         <main id="main">
           <Hero />
+
+          {/*
+            ── The order, and why it changed ──────────────────────────────
+            Section 4 of the brief lists the thirteen sections it wants and
+            the order it wants them in: hero, statistics, about, services,
+            featured projects, technical expertise, why work with me,
+            process, remote collaboration, insights, FAQs, close, footer.
+            This follows it, with the five sections the site carries beyond
+            that list slotted beside the one they belong to.
+
+            It did not follow it before, and the cost was specific:
+            Services sat twelfth. A buyer scrolling this page passed the
+            problems, the figures, the capability matrix, the stack, the AI
+            position, six case studies, a red band and nine reasons before
+            reaching the first list of things that can actually be bought.
+            Section 14 says the most important objective is getting project
+            enquiries, and eleven sections ahead of the offer is the most
+            expensive thing on a page with that objective.
+
+            What each one is doing, in order:
+
+              Hero          who, what, and the three ways to start
+              Problems      the symptom the reader arrived with
+              Credibility   the five verified figures
+              About         who is behind it
+              Services      what can be bought
+              SelectedWork  proof that it has been built
+              Capabilities  the four areas, in depth
+              Ecosystem     the stack, grouped by what it is for
+              AiCommerce    the AI position, which is the newest claim
+              Why           the belief, on the red band
+              WhyWorkWithMe the nine reasons behind that belief
+              Approach      how an engagement actually runs
+              Professional  the employment record behind all of it
+              Certification the one credential, as evidence for the AI half
+              TechnologyPartner  the alternative to hiring an agency
+              RemoteWork    how working across time zones actually runs
+              Insights      the writing, for a reader not ready to write
+              Faq           what is asked before a first call
+              Contact       the close, three channels and the form
+          */}
           <Problems />
           <Credibility />
+          <About />
+          <Services />
+          <SelectedWork />
           <Capabilities />
           <Ecosystem />
           <AiCommerce />
-          <SelectedWork />
           {/* Position, then the reasons behind it, then how the work runs.
               The red band asserts a belief; WhyWorkWithMe is the evidence.
               On its own, either reads as assertion. */}
           <Why />
           <WhyWorkWithMe />
           <Approach />
-          <About />
-          {/* What can be bought, then the record behind it. The page showed
-              capability and proof and never named an engagement; these two
-              close that gap. The employment record stays because for a
-              freelance buyer nine years at named companies is the credibility
-              that separates this from a portfolio anyone can assemble. */}
-          <Services />
+          {/* The record behind the offer. For a freelance buyer, nine years
+              at named companies is the credibility that separates this from
+              a portfolio anyone can assemble, and the certification is the
+              evidence for the AI half of it. */}
           <ProfessionalExperience />
-          <TechnologyPartner />
-          {/* The credential, then how remote collaboration works, then the
-              close. Certification sits here rather than next to Credibility
-              because it is evidence for the AI half of the offer and reads as
-              evidence only after the work has been shown. */}
           <Certification />
+          <TechnologyPartner />
           <RemoteWork />
           <Insights />
           <Faq />

@@ -14,7 +14,7 @@ import '../../home.css';
 /**
  * /services/{slug}/
  *
- * The seven service pages, one route. The reasoning for why these exist
+ * The sixteen service pages, one route. The reasoning for why these exist
  * alongside the eleven technology hubs and twenty-six platform service pages
  * is at the top of lib/service-pages.ts; in short, these own the build query
  * and those own the entity and advisory ones, and lib/content-map.ts enforces
@@ -27,7 +27,7 @@ import '../../home.css';
  * Section order:
  *
  *   01 Hero           H1, lede, two calls to action
- *   02 Direct answer  the passage an AI system lifts
+ *   02 Direct answer  the question, and the passage an AI system lifts
  *   03 Overview       two paragraphs of orientation
  *   04 Boundary       what this page is NOT, and where to go instead
  *   05 Challenges     the symptom, and what it is costing
@@ -39,7 +39,7 @@ import '../../home.css';
  *   11 CTA
  *
  * Section 04 sits fourth, high on the page, and it is the one that keeps these
- * seven pages from merging with the platform pages they sit beside. A reader
+ * sixteen pages from merging with the platform pages they sit beside. A reader
  * who wants an opinion rather than a build should find that out before
  * reading a delivery process.
  */
@@ -121,6 +121,21 @@ export default async function ServiceDetail({ params }: Props) {
           <div className="grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.4fr]">
             <Lines as="h2" id="answer-title" lines={['The short', 'answer.']} />
             <Rise delay={0.12}>
+              {/*
+                The question, shown. It was authored on every one of these
+                pages and rendered on none of them: the section printed the
+                answer under a heading that says "The short answer" without
+                ever saying to what. A lifted paragraph with no question
+                attached is the one shape an answer engine cannot place, and
+                a reader skimming had the same problem.
+
+                It is also now the first entry in the page's FAQPage node, so
+                the markup and the visible text match, which is the condition
+                that markup has to meet.
+              */}
+              <h3 className="m-0 mb-item max-w-[46ch] font-manrope text-[clamp(17px,1.7vw,21px)] font-semibold leading-[1.3] tracking-[-0.02em]">
+                {service.quickAnswer.question}
+              </h3>
               <p className="m-0 max-w-[66ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65">
                 {service.quickAnswer.answer}
               </p>
