@@ -12,7 +12,9 @@
     "start": "npx serve out",
     "check:routes": "node scripts/check-routes.mjs out",
     "lint": "eslint .",
-    "check:links": "node scripts/check-links.mjs out"
+    "check:links": "node scripts/check-links.mjs out",
+    "lead-api:check": "./scripts/check-lead-endpoint.sh",
+    "lead-api:deploy": "./scripts/deploy-lead-api.sh"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
@@ -30,6 +32,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@google/clasp": "^3.4.1",
     "@types/node": "^25.9.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
