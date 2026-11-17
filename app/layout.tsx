@@ -184,13 +184,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 carries the slug, so the per-project numbers
                                 the brief asks for fall out of one event.
 
+          `contact_cta_click` was added after testing every rule above against
+          the live tag and finding that the site's most prominent conversion
+          action fired nothing at all. The last rule here is a fallback keyed
+          on the `yr-btn` class, and no link to /contact/ carries it: the
+          header call to action uses HEADER_CTA_CLASS, the bar above it uses a
+          mono underline, and the homepage hero uses its own `Cta`. So the
+          header button on all 89 pages, the "Start a project" link beside it
+          and "Hire Me for Your Project" in the hero were all untracked, which
+          is the top of the funnel on a site whose objective is enquiries.
+
+          Keyed off the destination rather than a class, for the reason
+          `resume_download` is: a new call to action on a new page is counted
+          without the author remembering to mark it up.
+
           `data-event` is honoured first where a link declares it, so a page
           can name its own event without this script needing to know about it.
+
+          ── Why `p()` calls gtag and not dataLayer ──────────────────────────
+
+          It pushed `{ event: name, ... }` to `dataLayer`, which is GTM's
+          object format, and gtag.js does not read it. Every one of the nine
+          events above was therefore recorded into nothing: no WhatsApp tap,
+          no phone tap, no email click, no resume download and no project view
+          has ever reached GA4 from this site.
+
+          The reason it went unnoticed is that the push itself always
+          succeeds. `dataLayer` exists, the array grows, nothing throws, and
+          the only way to see the failure is to watch for the collect request
+          that never arrives.
+
+          The container was audited to settle which path is live. GTM-TNKVWXJ5
+          contains no GA4 tag: its published JavaScript does not mention the
+          measurement ID. Blocking gtag.js and leaving GTM in place produces
+          zero GA4 hits; blocking GTM and leaving gtag.js produces the full
+          set. So gtag is the live path and this now calls it, falling back to
+          the container's format when gtag is absent. Same change, same
+          reasoning, as lib/analytics.ts; the note there has the measurements.
+
+          If a GA4 tag is ever added to the container, the standalone gtag.js
+          below has to come out at the same time or page views double-count.
         */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){function p(e,o){window.dataLayer=window.dataLayer||[];o=o||{};o.event=e;o.page_path=location.pathname;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';var d=a.getAttribute('data-event');if(d)return p(d,{cta_text:t,destination:h});if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(h.indexOf('linkedin.com')>-1)return p('linkedin_click',{cta_text:t,destination:h});if(/\\.pdf(\\?|$)/i.test(h))return p('resume_download',{cta_text:t,destination:h});if(/^\\/work\\/[^/]+\\//.test(h))return p('project_view',{cta_text:t,destination:h});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
+              "(function(){function p(e,o){o=o||{};o.page_path=location.pathname;if(typeof window.gtag==='function'){window.gtag('event',e,o);return}window.dataLayer=window.dataLayer||[];o.event=e;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';var d=a.getAttribute('data-event');if(d)return p(d,{cta_text:t,destination:h});if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(h.indexOf('linkedin.com')>-1)return p('linkedin_click',{cta_text:t,destination:h});if(h.indexOf('/contact/')===0||h.indexOf('#contact')>-1)return p('contact_cta_click',{cta_text:t,destination:h});if(/\\.pdf(\\?|$)/i.test(h))return p('resume_download',{cta_text:t,destination:h});if(/^\\/work\\/[^/]+\\//.test(h))return p('project_view',{cta_text:t,destination:h});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
           }}
         />
         {isProd && (
