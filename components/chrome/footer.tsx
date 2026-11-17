@@ -74,23 +74,35 @@ const EXPLORE = [
 ] as const;
 
 /**
- * The hiring column.
+ * The engagement column.
  *
- * Its own column rather than four more rows in Explore, which was already at
- * nine and is the longest in the footer. It is also a different audience from
- * everything in Explore: these four pages are read by a recruiter doing
- * candidate due diligence, in roughly this order.
+ * It was headed "Hiring" and ordered for a recruiter doing candidate due
+ * diligence. On a site whose objective is explicitly freelance clients and
+ * explicitly not a recruiter portal, a footer column called Hiring on every
+ * page says the opposite of what the rest of the page says, and the footer is
+ * read by exactly the visitor who is deciding whether this person can be
+ * engaged at all.
  *
- * /remote-work/ leads it because it is the page the repositioned site is
- * pointed at, and /pricing/ closes it because a recruiter who reads that far
- * is probably a client rather than a recruiter.
+ * Same destinations, reordered for that visitor: how to engage, what it
+ * costs, how the working arrangement runs, the fastest way to ask, and the
+ * record behind it. /hire/ leads because it is the page this site is pointed
+ * at; the resume and the credential close because they are evidence a client
+ * checks after deciding they are interested, not before.
+ *
+ * Its own column rather than six more rows in Explore, which was already at
+ * nine and is the longest in the footer.
+ *
+ * WhatsApp is in it because section 14 asks for that action to be easy to
+ * find on desktop and on mobile, and the footer is the one component on every
+ * page. The header carries it too; see components/chrome/whatsapp-action.tsx.
  */
-const HIRING = [
-  { href: '/remote-work/', label: 'Remote work' },
+const ENGAGE = [
+  { href: '/hire/', label: 'Hire me' },
+  { href: '/pricing/', label: 'Pricing & engagement' },
+  { href: '/remote-work/', label: 'Remote collaboration' },
+  { href: CONTACT.whatsapp, label: 'WhatsApp' },
   { href: '/resume/', label: 'Resume' },
   { href: '/certifications/', label: 'Certifications' },
-  { href: '/hire/', label: 'Hire me' },
-  { href: '/pricing/', label: 'Pricing' },
 ] as const;
 
 /**
@@ -357,12 +369,24 @@ export function SiteFooter() {
             ))}
           </Column>
 
-          <Column heading="Hiring">
-            {HIRING.map((link) => (
-              <Link key={link.href} href={link.href} className={linkCls}>
-                {link.label}
-              </Link>
-            ))}
+          <Column heading="Work with me">
+            {ENGAGE.map((link) =>
+              link.href.startsWith('http') ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkCls}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.href} href={link.href} className={linkCls}>
+                  {link.label}
+                </Link>
+              ),
+            )}
           </Column>
 
           {/* The AI pages and the one discipline that is not a technology.

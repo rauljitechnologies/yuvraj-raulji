@@ -20,6 +20,24 @@ export const ABOUT_HERO = {
    * technology available, so the technology is not the differentiator.
    */
   headline: ['Technology changes.', 'How we think about it', 'matters more.'] as const,
+  /**
+   * The hero lede.
+   *
+   * It used to be `opening` below, which is also rendered by the Opening
+   * section immediately underneath. The identical sentence therefore appeared
+   * twice on /about/, three lines apart in the exported HTML, the second time
+   * at 30px. Nobody had noticed because both reads well; it is still the same
+   * sentence printed twice on the one page whose job is to introduce a person.
+   *
+   * So the hero says what the page is and who it is for, and `opening` stays
+   * where it was designed to sit, paired with `record` as the short version.
+   *
+   * Every claim here is in the record: the start year and the nine years from
+   * lib/career.ts, the markets from the remote-collaboration page, and
+   * hands-on delivery from the nine reasons on the homepage.
+   */
+  lede:
+    '9+ years building and scaling eCommerce platforms, hands-on, for businesses and agencies across India, the UK, Europe and the Gulf. This is the long version: how the work got here, what I have come to believe about it, and how I go about it now.',
   opening:
     'I work at the intersection of technology and business, exploring how AI, digital commerce and intelligent systems can create better ways to operate, sell and grow.',
   /**
@@ -94,7 +112,7 @@ export const BELIEFS: Belief[] = [
     num: '05',
     claim: 'Continuous learning is not optional.',
     because:
-      'The technology on my CV changed roughly every three years and there is no reason to expect the next three to be gentler. The only durable skill is being able to tell a shift from a fashion.',
+      'The technology I work in has changed roughly every three years and there is no reason to expect the next three to be gentler. The only durable skill is being able to tell a shift from a fashion.',
   },
 ];
 

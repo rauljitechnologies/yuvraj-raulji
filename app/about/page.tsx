@@ -71,9 +71,12 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <Page schema={brandAboutSchema(crumbs)} active="About">
+      {/* `lede`, not `opening`. The Opening section below renders `opening`,
+          so passing it here printed the same sentence twice on the page,
+          three lines apart in the HTML. See the note in lib/about.ts. */}
       <PageHero
         lines={ABOUT_HERO.headline}
-        lede={ABOUT_HERO.opening}
+        lede={ABOUT_HERO.lede}
         crumbs={crumbs}
       />
 

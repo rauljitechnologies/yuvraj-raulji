@@ -61,8 +61,32 @@ export function Section({
  * because a dozen call sites pass it and the ordering it records is still true,
  * it is simply not something the page says out loud any more.
  */
-export function Marker({ label }: { num?: string; label: string }) {
-  return <p className="yr-marker">{label}</p>;
+export function Marker({
+  label,
+  decorative,
+}: {
+  num?: string;
+  label: string;
+  /**
+   * Hide from assistive technology.
+   *
+   * For the one case where the section's heading says the same words as this
+   * eyebrow: /about/'s Opening has a visually hidden `<h2>` reading "The short
+   * version" for the document outline, and this marker printed the same string
+   * right above it, so a screen reader announced the section name twice. The
+   * marker is the visual treatment of a name the heading already carries, so
+   * where they match it is decoration.
+   *
+   * Opt in, not the default: on every other section the eyebrow and the
+   * heading say different things and both are worth hearing.
+   */
+  decorative?: boolean;
+}) {
+  return (
+    <p className="yr-marker" aria-hidden={decorative ? 'true' : undefined}>
+      {label}
+    </p>
+  );
 }
 
 export function Lede({ children, className = '' }: { children: ReactNode; className?: string }) {

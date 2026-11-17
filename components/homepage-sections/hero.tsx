@@ -189,8 +189,30 @@ export function Hero() {
             */}
             <img
               src={PORTRAITS.hero}
-              srcSet={`${PORTRAITS.heroSmall} 700w, ${PORTRAITS.hero} 1200w`}
-              sizes="(min-width: 1024px) 480px, min(400px, 100vw)"
+              srcSet={`${PORTRAITS.heroSmall} 700w, ${PORTRAITS.heroMid} 960w, ${PORTRAITS.hero} 1200w`}
+              /*
+                Measured, not estimated. `sizes` is a promise about the box,
+                and the browser multiplies it by device pixel ratio before
+                choosing a candidate, so overstating it costs bytes on exactly
+                the element that decides LCP.
+
+                This said `(min-width: 1024px) 480px, min(400px, 100vw)`, and
+                both halves were too big: the plate is inset 34px inside a
+                shell that is itself padded, so under `lg` it measures
+                `100vw - 74px`, and on a large desktop it is 464px, not 480.
+                The consequence was that a DPR-2 phone asked for 800 pixels
+                for a 286px box and took the 118 KB file.
+
+                The values below are the element's actual width, measured
+                across thirteen viewports from 320 to 1920:
+
+                  up to 439px     100vw - 74px   (246 at 320, 338 at 412)
+                  440 to 1023     366px          (the plate hits its max)
+                  1024 to 1279    303px          (the two-column layout)
+                  1280 to 1439    402px
+                  1440 and up     464px
+              */
+              sizes="(min-width: 1440px) 464px, (min-width: 1280px) 402px, (min-width: 1024px) 303px, (min-width: 440px) 366px, calc(100vw - 74px)"
               alt="Yuvraj Raulji, freelance eCommerce developer and technology professional"
               width={1200}
               height={1680}

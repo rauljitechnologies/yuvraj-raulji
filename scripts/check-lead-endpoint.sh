@@ -47,14 +47,45 @@ echo "Endpoint (from $SOURCE):"
 echo "  $URL"
 echo
 
+PROBE='hp=probe&name=probe&email=probe@example.com&message=probe'
+
 GET_CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$URL")
-POST_BODY=$(curl -s --max-time 20 -X POST \
-  -d 'hp=probe&name=probe&email=probe@example.com&message=probe' "$URL")
-POST_CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 -X POST \
-  -d 'hp=probe&name=probe&email=probe@example.com&message=probe' "$URL")
+
+# Headers only, and no -L. A working Apps Script web app answers a POST with a
+# 302 whose Location is the script.googleusercontent.com URL the result is
+# actually at; curl -L would turn that into a GET and report a meaningless 405,
+# and this check used to call the 302 itself a sign-in redirect and declare a
+# healthy endpoint broken. Where it points is the thing that matters.
+POST_HEADERS=$(curl -s -D - -o /dev/null --max-time 20 -X POST -d "$PROBE" "$URL")
+POST_CODE=$(printf '%s' "$POST_HEADERS" | awk 'toupper($1) ~ /^HTTP/ { c=$2 } END { print c }')
+LOCATION=$(printf '%s' "$POST_HEADERS" | awk 'tolower($1) == "location:" { print $2 }' | tr -d '\r' | tail -1)
+LOCATION_HOST=$(printf '%s' "$LOCATION" | sed -E 's#^(https?://[^/]+).*#\1#')
+
+# `hp` is the honeypot, so doPost returns {"ok":true} and writes no row and
+# sends no email. The probe proves the path without putting a test lead in the
+# spreadsheet.
+case "$POST_CODE" in
+  200)
+    POST_BODY=$(curl -s --max-time 20 -X POST -d "$PROBE" "$URL")
+    ;;
+  301|302)
+    case "$LOCATION_HOST" in
+      https://script.googleusercontent.com)
+        POST_BODY=$(curl -s --max-time 20 "$LOCATION")
+        POST_CODE=200
+        ;;
+      *)
+        POST_BODY=''
+        ;;
+    esac
+    ;;
+  *)
+    POST_BODY=$(curl -s --max-time 20 -X POST -d "$PROBE" "$URL")
+    ;;
+esac
 
 echo "  GET   $GET_CODE"
-echo "  POST  $POST_CODE"
+echo "  POST  $POST_CODE${LOCATION_HOST:+  -> $LOCATION_HOST}"
 echo "  body  ${POST_BODY:0:120}"
 echo
 
@@ -75,21 +106,24 @@ case "$POST_CODE" in
   401|403)
     echo "BROKEN: the endpoint rejects anonymous callers."
     echo
-    echo "  Deploy > Manage deployments > pencil on the active deployment."
-    echo "  Set 'Who has access' to Anyone."
-    echo "  NOT 'Anyone with a Google Account', which looks identical at a glance"
-    echo "  and produces exactly this $POST_CODE."
+    echo "  The deployment's manifest is the fix, and google-apps-script/"
+    echo "  already holds the right one: executeAs USER_DEPLOYING and access"
+    echo "  ANYONE_ANONYMOUS. Push it and move the deployment onto that version:"
+    echo
+    echo "    npm run lead-api:deploy"
+    echo
+    echo "  In the UI the same settings read 'Execute as: Me' and 'Who has"
+    echo "  access: Anyone'. NOT 'Anyone with a Google Account', which looks"
+    echo "  identical at a glance and is the ANYONE that produces this $POST_CODE."
     exit 1
     ;;
-  302|301)
-    echo "BROKEN: redirecting to a sign-in page."
+  301|302)
+    echo "BROKEN: redirecting to $LOCATION_HOST."
     echo
-    echo "  Either access is restricted, or the active deployment is a Library"
-    echo "  rather than a Web app. A Library has no doPost and can never accept"
-    echo "  a form submission. Check the Type column in Manage deployments; if"
-    echo "  it is not 'Web app', deploy a new one via the gear icon under"
-    echo "  Select type, which issues a new /exec URL that must then be written"
-    echo "  into LEAD_ENDPOINT in lib/site.ts."
+    echo "  A successful POST redirects to script.googleusercontent.com, which"
+    echo "  is where the result is. Anywhere else is a sign-in page, or the"
+    echo "  active deployment is a Library rather than a Web app. A Library has"
+    echo "  no doPost and can never accept a form submission."
     exit 1
     ;;
   000)

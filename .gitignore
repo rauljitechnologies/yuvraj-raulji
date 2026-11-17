@@ -17,3 +17,7 @@ node_modules.nosync/
 
 # Stray Next build output from a bad NEXT_DIST_DIR override (relative /private/tmp).
 private/
+
+# Bytecode from the Python build scripts. Created the moment one of them is
+# imported rather than run, which is how it first appeared in a diff.
+__pycache__/

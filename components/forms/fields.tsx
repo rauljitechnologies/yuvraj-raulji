@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 
 /**
  * Shared field primitives for the two lead forms.
@@ -27,6 +27,18 @@ import type { ReactNode } from 'react';
  *      `role="alert"`, so it is read when it appears instead of being a visual
  *      change a screen-reader user never learns about.
  *   4. The error is never the only signal: it is text, not just a colour.
+ *
+ * ── Why the ids come from `useId` ──────────────────────────────────────────
+ *
+ * They were `${name}-error` and `${name}-hint`, which is unique only while one
+ * form exists on a page. /contact/ renders the page's form and the enquiry
+ * modal's, so `company-hint` and `budget-hint` each existed twice and every
+ * `aria-describedby` pointing at them was ambiguous: a screen reader resolves
+ * the first match, which on that page belonged to the other form.
+ *
+ * `useId` is stable across the server render and hydration, which a counter or
+ * a random string is not, so the ids in the exported HTML are the ones React
+ * looks for when it takes over.
  *
  * ── The two grounds ───────────────────────────────────────────────────────
  *
@@ -126,8 +138,9 @@ export function TextField({
   hint,
   type = 'text',
 }: Base & { type?: 'text' | 'email' | 'url' }) {
-  const errId = `${name}-error`;
-  const hintId = `${name}-hint`;
+  const uid = useId();
+  const errId = `${uid}-error`;
+  const hintId = `${uid}-hint`;
   return (
     <label className={labelClass(tone)}>
       {label}
@@ -159,51 +172,10 @@ export function TextField({
   );
 }
 
-export function SelectField({
-  name,
-  label,
-  tone,
-  value,
-  onChange,
-  error,
-  options,
-  placeholder = 'Select one',
-  hint,
-}: Omit<Base, 'autoComplete'> & { options: readonly string[] }) {
-  const errId = `${name}-error`;
-  const hintId = `${name}-hint`;
-  const t = TONE[tone];
-  return (
-    <label className={labelClass(tone)}>
-      {label}
-      <select
-        name={name}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? errId : hint ? hintId : undefined}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        /* `appearance-none` removes the native chevron, so one is drawn back as
-           a background mark. Without it a select reads as a text field that
-           will not accept typing. It is also what stops the control sizing
-           itself to its widest option, which several of these lists have. */
-        className={`${fieldClass(tone, Boolean(error))} bg-[length:9px] bg-[right_2px_center] bg-no-repeat pr-7 ${t.selectBg} [background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%206%27%3E%3Cpath%20d%3D%27M1%201l4%204%204-4%27%20stroke%3D%27${t.chevron}%27%20stroke-opacity%3D%27.45%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%2F%3E%3C%2Fsvg%3E")]`}
-      >
-        <option value="">{placeholder}</option>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-      {hint && !error ? (
-        <span id={hintId} className={`font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal ${t.hint}`}>
-          {hint}
-        </span>
-      ) : null}
-      <Err id={errId} msg={error} />
-    </label>
-  );
-}
+/* `SelectField` stood here. It rendered the "what is this about", role,
+   platform and timeline selects, and all four lists were removed when the
+   forms were cut to the brief's five fields. Nothing imports it, so it is
+   deleted rather than kept warm for a field nobody has asked for. */
 
 export function TextArea({
   name,
@@ -217,8 +189,9 @@ export function TextArea({
   hint,
   rows = 5,
 }: Base & { rows?: number }) {
-  const errId = `${name}-error`;
-  const hintId = `${name}-hint`;
+  const uid = useId();
+  const errId = `${uid}-error`;
+  const hintId = `${uid}-hint`;
   return (
     <label className={labelClass(tone)}>
       {label}

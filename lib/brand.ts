@@ -28,7 +28,7 @@
 
 import type { Anchor } from './expertise';
 import { CAREER_START_YEAR } from './career';
-import { SERVICE_PAGE_LINKS } from './service-pages';
+import { SERVICE_NAV_LINKS } from './service-pages';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -136,17 +136,19 @@ export const NAV: readonly NavItem[] = [
   {
     label: 'Services',
     href: '/services/',
-    /* The seven service pages, read from their own registry rather than
-       retyped here. A service added to lib/service-pages.ts appears in the
-       menu, in the hub, in the sitemap and in the content map at once, which
-       is the same discipline the platform services are under.
+    /* Nine of the sixteen service pages, read from their own registry rather
+       than retyped here. A service added to lib/service-pages.ts appears in
+       the hub, in the sitemap and in the content map at once, and in the menu
+       when it is flagged `featured`; sixteen links plus "All services" is a
+       panel taller than a laptop screen. The other seven are one click away
+       through "All services" at the foot of the same panel.
 
        These are the service pages, not the platform hubs. The menu used to
        list /magento/ and /shopify/, which are entity pages: a reader opening
        a Services menu wants to know what can be built, and those pages answer
        a different question. The hubs are still one click away from each
        service page via its boundary link. */
-    children: [...SERVICE_PAGE_LINKS, { label: 'All services', href: '/services/' }],
+    children: [...SERVICE_NAV_LINKS, { label: 'All services', href: '/services/' }],
   },
   { label: 'Expertise', href: '/expertise/' },
   { label: 'Insights', href: '/insights/' },
@@ -156,14 +158,17 @@ export const NAV: readonly NavItem[] = [
     children: [
       { label: 'Resume', href: '/resume/' },
       { label: 'Certifications', href: '/certifications/' },
-      { label: 'Remote Opportunities', href: '/remote-work/' },
+      { label: 'Remote collaboration', href: '/remote-work/' },
       { label: 'Pricing & engagement', href: '/pricing/' },
       { label: 'Hire me', href: '/hire/' },
     ],
   },
-  /* The employment funnel, last, next to the call to action: the two are the
-     same intent one step apart. */
-  { label: 'Remote work', href: '/remote-work/' },
+  /* How a remote engagement runs, last and next to the call to action: a
+     reader who has got this far along the bar is deciding whether working
+     with someone in another time zone is practical, and that is one step from
+     writing. The label was "Remote work" twice, here and inside Resources,
+     which gave the bar two links to one page under two names. */
+  { label: 'How we work', href: '/remote-work/' },
 ];
 
 /** Flat list of every nav destination, for the condensed phone row. */
@@ -530,14 +535,36 @@ export const ERAS: Era[] = [
    wonder why the column is thin.
    ═══════════════════════════════════════════════════════════════ */
 
-/** Filter facets, in the order the toolbar renders them. */
+/**
+ * Filter facets, in the order the toolbar renders them.
+ *
+ * These are the project categories in section 6 of the brief, with two
+ * departures and a reason for each.
+ *
+ * `ai` is gone. It was in the list and no case carried it, so the AI button
+ * filtered six builds down to none, which is the worst thing a filter can do.
+ * CONTENT-PRINCIPLES.md rules out fixing that by tagging a build as AI work it
+ * was not. What the record does support is automation: 90% of order and quote
+ * processing automated on the procurement platform. So the facet is
+ * `automation`, it is labelled for what was actually delivered, and it returns
+ * a real result.
+ *
+ * `ecommerce` is gone too, for the opposite reason: it matched five of six, and
+ * a filter that excludes one item is a label rather than a filter. The
+ * platform facets below carry that meaning with more precision.
+ *
+ * Every facet here must match at least one case. The check below enforces it,
+ * because an empty category is an invisible defect: the page looks right and
+ * only a reader who presses the button finds out.
+ */
 export const WORK_FILTERS = [
   { id: 'all', label: 'All' },
-  { id: 'ecommerce', label: 'eCommerce' },
-  { id: 'shopify', label: 'Shopify' },
-  { id: 'magento', label: 'Magento' },
-  { id: 'headless', label: 'Headless' },
-  { id: 'ai', label: 'AI' },
+  { id: 'magento', label: 'Magento / Adobe Commerce' },
+  { id: 'shopify', label: 'Shopify / D2C' },
+  { id: 'b2b', label: 'B2B commerce' },
+  { id: 'headless', label: 'Headless commerce' },
+  { id: 'nextjs', label: 'Next.js / React' },
+  { id: 'automation', label: 'AI & automation' },
   { id: 'transformation', label: 'Digital transformation' },
 ] as const;
 
@@ -632,7 +659,7 @@ export const CASES: CaseStudy[] = [
       { href: '/nextjs/', label: 'Next.js, and the rendering decisions a build like this turns on' },
     ],
     posts: ['shopify-headless-nextjs-guide', 'magento2-pwa-studio-headless'],
-    facets: ['ecommerce', 'headless'],
+    facets: ['headless', 'nextjs'],
     img: '/assets/case-covers/fashion-d2c-cover.webp',
     alt: 'Headless commerce storefront for a fashion D2C brand',
     imgW: 1920,
@@ -654,7 +681,7 @@ export const CASES: CaseStudy[] = [
       { href: '/shopify/integrations/', label: 'Shopify integrations, where a checkout like this is wired in' },
     ],
     posts: ['cro-double-conversion'],
-    facets: ['ecommerce', 'shopify'],
+    facets: ['shopify'],
     img: '/assets/case-covers/plant-store-cover.webp',
     alt: 'Shopify storefront for an online plant store, showing custom PDP and checkout',
     imgW: 1920,
@@ -676,7 +703,7 @@ export const CASES: CaseStudy[] = [
       { href: '/expertise/ecommerce-management/', label: 'Running the catalogue as an operation afterwards' },
     ],
     posts: ['cro-double-conversion'],
-    facets: ['ecommerce'],
+    facets: ['shopify'],
     img: '/assets/case-covers/sports-nutrition-cover.webp',
     alt: 'Shopify storefront for a sports nutrition retailer, built for catalogue clarity and conversion',
     imgW: 1920,
@@ -699,7 +726,7 @@ export const CASES: CaseStudy[] = [
       { href: '/ai-automation/', label: 'AI automation for quotes, approvals and reconciliation' },
     ],
     posts: ['ai-ecommerce-revenue-2026'],
-    facets: ['ecommerce', 'transformation'],
+    facets: ['magento', 'b2b', 'automation'],
     img: '/assets/case-covers/b2b-procurement-cover.webp',
     alt: 'A B2B procurement platform, built on Magento 2',
     imgW: 1920,
@@ -721,7 +748,7 @@ export const CASES: CaseStudy[] = [
       { href: '/magento/consulting/', label: 'The data model decisions a catalogue this wide depends on' },
     ],
     posts: ['magento2-seo-technical-audit', 'magento2-checkout-optimization'],
-    facets: ['ecommerce', 'magento'],
+    facets: ['magento'],
     img: '/assets/case-covers/marketplace-cover.webp',
     alt: 'Magento 2 multi-category marketplace with 500K+ SKUs and complex catalogue architecture',
     imgW: 1920,
@@ -751,6 +778,21 @@ export const CASES: CaseStudy[] = [
     imgH: 867,
   },
 ];
+
+/* ── Every facet must match at least one case ────────────────────
+   The AI filter shipped matching nothing: six builds in, zero out, and
+   nothing in the type system objects to a facet no case carries. This throws
+   at build instead, which is the only moment anyone would notice. */
+{
+  const used = new Set(CASES.flatMap((c) => c.facets));
+  const empty = WORK_FILTERS.filter((f) => f.id !== 'all' && !used.has(f.id));
+  if (empty.length) {
+    throw new Error(
+      `WORK_FILTERS: ${empty.map((f) => f.id).join(', ')} match no case. ` +
+        'Tag a case or remove the filter; an empty category is worse than no category.',
+    );
+  }
+}
 
 /**
  * Said on the Work page, in the reader's line of sight rather than in a

@@ -196,6 +196,12 @@ export default async function Article({ params }: Props) {
             alt=""
             width={1600}
             height={900}
+            /* Explicit, not inherited. This is the LCP element on an article,
+               and `loading` defaulting to eager is a default worth stating
+               next to the priority that depends on it: the case-study cover
+               next door was `loading="lazy"` on its own LCP element and cost
+               that page three seconds. */
+            loading="eager"
             fetchPriority="high"
             decoding="async"
             sizes="(max-width: 1280px) 94vw, 1200px"

@@ -56,19 +56,36 @@ export interface LeadFields {
    */
   website?: string;
   company?: string;
+  /**
+   * Budget, free text.
+   *
+   * Declared here because the endpoint has always read `p.budget` and the
+   * sheet has always had a column for it; the form just never sent one. The
+   * five-field form does, and it is now the only qualifying field left, so it
+   * is also the only thing standing between every enquiry and a band of
+   * UNSCORED. See `scoreLead_` in google-apps-script/Code.gs.
+   */
+  budget?: string;
+  /**
+   * Collected by the nine-field forms that are gone. Kept declared, and no
+   * longer sent by anything, so the sheet's existing columns and the rows
+   * already in them stay readable. See the note in lib/site.ts.
+   */
   role?: string;
   platform?: string;
   timeline?: string;
   /**
    * Which funnel produced this enquiry.
    *
-   * Added with the two separate forms on /remote-work/ and /contact/. Without
-   * it both land in one sheet and one `generate_lead` event with no way to
-   * tell a job approach from a project enquiry, which is the one split this
-   * site now exists to measure. Optional, so the older call sites that do not
-   * set it keep compiling and simply report nothing.
+   * It had a third value, 'recruiter', when the site carried a second form for
+   * job approaches. That form is deleted and the site is explicitly not a
+   * recruiter portal, so the value is gone with it and the rows already in the
+   * sheet carrying it are simply history.
+   *
+   * Optional, so a call site that does not set it keeps compiling and reports
+   * nothing.
    */
-  funnel?: 'recruiter' | 'project' | 'general';
+  funnel?: 'project' | 'general';
   /** Honeypot. Filled means a bot; a person never sees the field. */
   hp?: string;
 }
@@ -83,20 +100,19 @@ const TIMEOUT_MS = 12_000;
  * so it carries every field the form collected in the body.
  */
 export function openMailFallback(f: LeadFields): void {
-  const subject =
-    f.funnel === 'recruiter'
-      ? `Job opportunity from ${f.name}${f.company ? ` at ${f.company}` : ''}`
-      : `Enquiry from ${f.name}${f.service ? `: ${f.service}` : ''}`;
+  const subject = `Enquiry from ${f.name}${f.service ? `: ${f.service}` : ''}`;
+  /* Only the lines the form actually collected. This listed eight fields with
+     "not given" beside the six the form no longer asks for, which made the
+     fallback email read as a half-filled questionnaire rather than as the
+     enquiry the sender just wrote. Fields are included when present, so a
+     future one appears here without this list being edited again. */
   const body = [
     `Name: ${f.name}`,
     `Email: ${f.email}`,
-    `Phone: ${f.phone || 'not given'}`,
-    `Website: ${f.website || 'not given'}`,
-    `Company: ${f.company || 'not given'}`,
-    `Role: ${f.role || 'not given'}`,
-    `Platform: ${f.platform || 'not given'}`,
-    `Timeline: ${f.timeline || 'not given'}`,
-    `About: ${f.service || 'not specified'}`,
+    ...(f.company ? [`Company or website: ${f.company}`] : []),
+    ...(f.website ? [`Website: ${f.website}`] : []),
+    ...(f.phone ? [`Phone: ${f.phone}`] : []),
+    ...(f.service ? [`About: ${f.service}`] : []),
     '',
     'Message:',
     f.message,

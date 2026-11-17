@@ -105,10 +105,25 @@ const NEXT_STEPS = [
 export default function ContactPage() {
   return (
     <Page schema={contactSchema(crumbs)} active="Contact">
+      {/*
+        The headline and the supporting line are the brief's own words, in
+        section 12, rather than a rewrite of them.
+
+        The page previously opened "Describe the problem, not the project.",
+        which is a better sentence and the wrong one here. It is an
+        instruction, and an instruction is what you give a reader who has
+        already decided to write. This page has to convert the reader who has
+        not, and for that the heading has to name what they came for.
+
+        The paragraph underneath keeps the specifics the old lede carried,
+        because "custom development" and "technical improvements" are
+        categories and a reader recognises their own situation faster than a
+        category.
+      */}
       <PageHero
         eyebrow="Contact"
-        lines={['Describe the problem,', 'not the project.']}
-        lede="A replatforming you have been putting off, a checkout that loses people you already paid for, a catalogue that has outgrown its architecture, or an AI idea that needs someone to tell you which half of it is real. A few lines is enough to start."
+        lines={['Have a project in mind?', "Let's build it together."]}
+        lede="Whether you need a new eCommerce platform, custom development, technical improvements or ongoing remote development support, I'd be happy to discuss your requirements. A replatforming you have been putting off, a checkout that loses people you already paid for, a catalogue that has outgrown its architecture, or an AI idea that needs someone to tell you which half of it is real: a few lines is enough to start."
         crumbs={crumbs}
       />
 

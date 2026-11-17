@@ -5,7 +5,7 @@ import { ContactButton } from '../../components/homepage/contact-button';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
 import { servicesHubSchema, type Crumb } from '../../lib/schema';
-import { SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
+import { SERVICE_COUNT_WORD_CAP, SERVICE_PAGES, servicePageHref } from '../../lib/service-pages';
 import { ALL_TECH_LINKS, SERVICES } from '../../lib/services-hub';
 import { OG_IMAGE, SITE_URL } from '../../lib/site';
 import { TECHNOLOGIES_BY_SLUG } from '../../lib/technology';
@@ -92,7 +92,7 @@ export default function Services() {
         </Shell>
       </Section>
 
-      {/* ── 03 The seven service pages ────────────────────────────
+      {/* ── 03 The service pages ──────────────────────────────────
           Above the four groups, because this is what a reader opening
           /services/ is looking for: a list of what can actually be bought.
           The groups below are the organising idea; this is the index. */}
@@ -100,7 +100,11 @@ export default function Services() {
         <Shell>
           <Marker label="Services" />
           <div className="mb-grid grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.1fr]">
-            <Lines as="h2" id="service-pages-title" lines={['Seven services,', 'each its own page.']} />
+            <Lines
+              as="h2"
+              id="service-pages-title"
+              lines={[`${SERVICE_COUNT_WORD_CAP} services,`, 'each its own page.']}
+            />
             <Rise delay={0.12}>
               <p className="m-0 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 Each page carries the problems it solves, what gets built, the technologies, the

@@ -1,10 +1,10 @@
 /**
- * /services/{slug}/ : the seven service pages.
+ * /services/{slug}/ : the sixteen service pages.
  *
  * ── Why these exist alongside the platform pages ──────────────────────────
  *
  * The site already has eleven technology hubs and twenty-six platform service
- * pages. These seven are not a second copy of them, and the difference is
+ * pages. These sixteen are not a second copy of them, and the difference is
  * intent rather than topic:
  *
  *   /magento/                 the entity page. "Who is a Magento consultant."
@@ -41,7 +41,7 @@
  *
  * 3. **Different content, not reworded content.** The brief is explicit that
  *    the same copy must not appear on every service page, and the risk is
- *    real with seven of them. Each carries its own challenges, its own
+ *    real with sixteen of them. Each carries its own challenges, its own
  *    solution set, its own process and its own questions. Where two services
  *    genuinely share a technology, they say so and link rather than both
  *    describing it.
@@ -88,6 +88,17 @@ export interface ServicePage {
   label: string;
   /** Short label for the header dropdown, where width is tight. */
   navLabel: string;
+  /**
+   * Shown in the header dropdown.
+   *
+   * Every service is on /services/ and in the sitemap; only nine are in the
+   * menu. Sixteen links plus "All services" is a 700px panel that runs off a
+   * laptop screen, and a menu nobody can read in one glance is not a menu. The
+   * nine are the engagements this site is pointed at: the four platform build
+   * pages, the two routes in through a whole project, the frontend, the AI
+   * work and the retainer.
+   */
+  featured?: boolean;
   eyebrow: string;
   /** The single H1, held as lines because each break does typographic work. */
   h1: readonly string[];
@@ -140,11 +151,13 @@ export interface ServicePage {
 /* ═══════════════════════════════════════════════════════════════
    THE SHARED DELIVERY PROCESS
 
-   Four services run the same way and three do not. Rather than
-   copy four near-identical arrays, the common one is defined once
-   and the three that genuinely differ author their own. This is
-   the one place duplication is avoided by sharing rather than by
-   rewriting, because the process really is the same.
+   Most of the build services run the same way and a handful do not.
+   Rather than copy near-identical arrays, the common one is defined
+   once and the services that genuinely differ (architecture, AI,
+   integration, maintenance, performance and automation) author
+   their own. This is the one place duplication is avoided by
+   sharing rather than by rewriting, because the process really is
+   the same.
    ═══════════════════════════════════════════════════════════════ */
 
 const BUILD_PROCESS: readonly ServiceStep[] = [
@@ -176,16 +189,36 @@ const BUILD_PROCESS: readonly ServiceStep[] = [
 ];
 
 /* ═══════════════════════════════════════════════════════════════
-   THE SEVEN
+   THE SIXTEEN
+
+   Ten shipped first. Six more were added to close the gap against
+   the service list in the brief, and each one was added only where
+   it owns a query none of the ten could own without competing with
+   itself:
+
+     adobe-commerce-development   the licensed platform, not Open Source
+     shopify-plus-development     the tier, not the platform
+     nextjs-react-development     the framework, not the application
+     custom-module-development    the extension, not the build around it
+     erp-crm-integration          the business systems, not the API itself
+     workflow-automation          the operation, not the model
+
+   Three existing pages gave ground so the new ones are not
+   competing with their own site: Magento handed over "adobe
+   commerce development" and "custom magento module development",
+   Shopify handed over "shopify plus development", and full stack
+   handed over the Next.js and React queries. The content-map gate
+   in lib/content-map.ts is what proves it.
    ═══════════════════════════════════════════════════════════════ */
 
 export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 1. Magento ─────────────────────────────────────────────── */
   {
     slug: 'magento-development',
-    label: 'Magento 2 & Adobe Commerce Development',
+    featured: true,
+    label: 'Magento 2 Development',
     navLabel: 'Magento Development',
-    eyebrow: 'Magento 2 | Adobe Commerce',
+    eyebrow: 'Magento 2 | Open Source',
     h1: ['Magento development', 'for catalogues that have', 'outgrown the defaults.'],
     lede:
       'Custom module development, multi-store architecture, B2B workflows and the performance work that follows. Nine years on the platform, most of it on stores where the catalogue size is the architecture problem.',
@@ -196,8 +229,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     primaryKeyword: 'magento development services',
     secondaryKeywords: [
       'magento 2 development company',
-      'adobe commerce development',
-      'custom magento module development',
+      'magento 2 development agency',
       'magento b2b development',
       'hire magento developer',
     ],
@@ -294,9 +326,10 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 2. Shopify ─────────────────────────────────────────────── */
   {
     slug: 'shopify-development',
-    label: 'Shopify & Shopify Plus Development',
+    featured: true,
+    label: 'Shopify Development',
     navLabel: 'Shopify Development',
-    eyebrow: 'Shopify | Shopify Plus',
+    eyebrow: 'Shopify | Liquid | Apps',
     h1: ['Shopify development', 'for brands that have', 'outgrown the theme.'],
     lede:
       'Custom theme architecture, private apps, checkout extensibility and app consolidation. The work that starts when the store is working and the stack around it is not.',
@@ -306,8 +339,8 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'Shopify and Shopify Plus development: custom themes, private apps, checkout extensions and app consolidation. Senior engineering, not a theme install.',
     primaryKeyword: 'shopify development services',
     secondaryKeywords: [
-      'shopify plus development',
-      'custom shopify app development',
+      'custom shopify theme development',
+      'shopify liquid development',
       'shopify theme development',
       'hire shopify developer',
       'shopify checkout extensibility',
@@ -361,8 +394,8 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         body: 'Built on the Admin and Storefront APIs, deployed under your own account, with the webhook and rate-limit handling that keeps them reliable rather than mostly reliable.',
       },
       {
-        name: 'Checkout extensibility on Plus',
-        body: 'Checkout UI extensions and Shopify Functions for discount, delivery and payment customisation, using the supported extension points so an update does not break the checkout.',
+        name: 'Storefront behaviour the theme cannot express',
+        body: 'Cart logic, bundling, subscriptions and product configurators built into the storefront properly. Checkout itself is only customisable on Plus, which is a different tier and has its own page.',
       },
       {
         name: 'App consolidation',
@@ -417,9 +450,9 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'Full stack development on Next.js, React and Node.js: customer portals, internal tools, dashboards and custom applications around your commerce platform.',
     primaryKeyword: 'full stack development services',
     secondaryKeywords: [
-      'next.js development services',
-      'react development services',
-      'node.js development',
+      'node.js development services',
+      'custom portal development',
+      'internal tools development',
       'hire full stack developer',
       'custom web application development',
     ],
@@ -516,6 +549,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 4. Headless ────────────────────────────────────────────── */
   {
     slug: 'headless-commerce',
+    featured: true,
     label: 'Headless Commerce Development',
     navLabel: 'Headless Commerce',
     eyebrow: 'Composable | API-first',
@@ -768,6 +802,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 6. Generative AI ───────────────────────────────────────── */
   {
     slug: 'generative-ai',
+    featured: true,
     label: 'Generative AI Integration',
     navLabel: 'Generative AI',
     eyebrow: 'LLMs | RAG | Automation',
@@ -1054,6 +1089,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 8. eCommerce website development ───────────────────────── */
   {
     slug: 'ecommerce-development',
+    featured: true,
     label: 'eCommerce Website Development',
     navLabel: 'eCommerce Development',
     eyebrow: 'Platform-agnostic | End to end',
@@ -1169,6 +1205,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
   /* ── 9. Maintenance and support ─────────────────────────────── */
   {
     slug: 'maintenance-support',
+    featured: true,
     label: 'Website Maintenance & Support',
     navLabel: 'Maintenance & Support',
     eyebrow: 'Retainer | Ongoing',
@@ -1442,6 +1479,757 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     ],
     finalHeadline: ['Slow store,', 'and nobody knows why?'],
   },
+
+  /* ── 11. Adobe Commerce ─────────────────────────────────────── */
+  {
+    slug: 'adobe-commerce-development',
+    featured: true,
+    label: 'Adobe Commerce Development',
+    navLabel: 'Adobe Commerce',
+    eyebrow: 'Adobe Commerce | Commerce Cloud',
+    h1: ['Adobe Commerce', 'development for the', 'features you pay for.'],
+    lede:
+      'B2B company accounts, shared catalogues, customer segments, Page Builder and Commerce Cloud. The licensed half of the platform, built properly rather than worked around.',
+    cta: 'Discuss an Adobe Commerce project',
+    title: 'Adobe Commerce Development Services | Yuvraj Raulji',
+    description:
+      'Adobe Commerce development: B2B company accounts and approvals, shared catalogues, customer segments, Page Builder, staging and Commerce Cloud on Fastly.',
+    primaryKeyword: 'adobe commerce development services',
+    secondaryKeywords: [
+      'adobe commerce developer',
+      'adobe commerce b2b development',
+      'magento commerce development',
+      'adobe commerce cloud development',
+      'hire adobe commerce developer',
+    ],
+    searchIntent: 'Commercial, and usually enterprise. A business already paying for Adobe Commerce, or deciding whether to.',
+    audience: 'Mid-market and enterprise merchants on Adobe Commerce, and the agencies delivering for them.',
+    purpose: 'Own the Adobe Commerce development query separately from Magento Open Source, because the licence changes what the work is.',
+    entities: ['Adobe Commerce', 'Magento 2', 'Commerce Cloud', 'B2B Commerce', 'Page Builder', 'Yuvraj Raulji'],
+    quickAnswer: {
+      question: 'How is Adobe Commerce development different from Magento Open Source?',
+      answer:
+        'The architecture is the same and the surface is not. Adobe Commerce adds company accounts, shared catalogues, requisition lists and multi-level purchase approvals for B2B, customer segments and targeted rules, Page Builder, content staging and preview, and on the Cloud tier a managed Fastly, New Relic and deployment pipeline. Development work therefore splits in two: building correctly inside those modules instead of rebuilding them, and configuring the infrastructure the licence already provides. Most of the waste on Adobe Commerce projects is custom code that duplicates a feature the business is already paying for.',
+    },
+    overview: [
+      'A business on Adobe Commerce is paying a significant annual licence, and the first useful question on any engagement is which of the paid features it is actually using. The answer is frequently "about half", with custom modules sitting alongside the native ones doing a worse version of the same job.',
+      'The second question is whether the B2B module fits the way the business really buys. Company accounts, shared catalogues and approval rules cover a great deal of it natively. Where they do not, the right extension point exists and the wrong one is writing a parallel workflow next to it. Knowing which is which is most of the value here.',
+      'On the Cloud tier there is a third layer: Fastly, the deployment pipeline, the three-environment model and New Relic are part of what was bought. Treating them as managed hosting and nothing else leaves performance and release safety on the table.',
+    ],
+    boundary: {
+      body:
+        'This page is about the licensed platform. If you are on Magento Open Source, most of the work is the same engineering without the B2B, staging and segment modules, and that has its own page.',
+      link: {
+        href: '/services/magento-development/',
+        label: 'Magento 2 development, for Open Source builds',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'We pay for Adobe Commerce and use it like Open Source.',
+        impact: 'A six-figure licence funding features that are switched off, while custom modules do the same work less reliably.',
+      },
+      {
+        symptom: 'The B2B module almost fits, so someone built around it.',
+        impact: 'Two approval systems in one codebase, and nobody is certain which one a given order went through.',
+      },
+      {
+        symptom: 'Page Builder was disabled because the theme fought it.',
+        impact: 'Every campaign page is a developer ticket, and the content team has stopped planning them.',
+      },
+      {
+        symptom: 'Cloud deploys are slow and occasionally frightening.',
+        impact: 'Releases get batched up, which makes each one larger and the next one more frightening still.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'B2B built on the native module',
+        body: 'Company accounts, company users and roles, shared catalogues, requisition lists and multi-level approval rules configured and extended through the module rather than beside it. Five-level approval chains covering orders, quotes and vendor management are on the record.',
+      },
+      {
+        name: 'Customer segments and targeted rules',
+        body: 'Segments driven by real attributes and order history, wired into cart price rules, targeted content and related product rules, so merchandising stops needing a deployment.',
+      },
+      {
+        name: 'Page Builder that the theme supports',
+        body: 'Content types the theme actually renders, with the layout constraints built in. The test is whether a marketer can ship a landing page without a developer and without breaking the grid.',
+      },
+      {
+        name: 'Staging, preview and scheduled updates',
+        body: 'Campaign content, pricing and rules scheduled ahead and previewed before they run, which is the feature most often left unconfigured and the one that removes the most midnight deployments.',
+      },
+      {
+        name: 'Commerce Cloud configuration',
+        body: 'Fastly VCL and cache policy, the three-environment branching model, deployment hooks and New Relic alerting, treated as part of the product rather than as someone else is hosting.',
+      },
+      {
+        name: 'Licence audit before any custom build',
+        body: 'What the platform already does, what is genuinely missing, and what should be deleted because a native feature covers it. This is routinely the cheapest deliverable of an engagement.',
+      },
+    ],
+    technologies: [
+      { group: 'Platform', items: ['Adobe Commerce', 'Magento 2', 'Magento B2B', 'Page Builder', 'MSI'] },
+      { group: 'Cloud', items: ['Commerce Cloud', 'Fastly', 'New Relic', 'ECE Tools'] },
+      { group: 'Language & data', items: ['PHP', 'MySQL', 'GraphQL', 'REST APIs'] },
+      { group: 'Performance', items: ['Varnish', 'Redis', 'Elasticsearch', 'RabbitMQ'] },
+    ],
+    process: BUILD_PROCESS,
+    cases: ['b2b-procurement', 'marketplace'],
+    faqs: [
+      {
+        q: 'Is Adobe Commerce worth the licence over Magento Open Source?',
+        a: 'It is when you need the B2B module, customer segments, staging or the Cloud tooling, and it is not when you need none of them. That is a short assessment rather than a long one: list what you would otherwise build, price it honestly, and compare. Businesses that answer "we would build the approval workflow and the segment engine" nearly always come out ahead on the licence.',
+      },
+      {
+        q: 'Can you work on an Adobe Commerce build somebody else delivered?',
+        a: 'Yes, and that is most of this work. It begins by reading the code and the admin configuration together, because the usual finding is a custom module shadowing a native feature, and that is visible only when you look at both.',
+      },
+      {
+        q: 'Do you work on Commerce Cloud or self-hosted Adobe Commerce?',
+        a: 'Both. Cloud changes the deployment and caching work rather than the application work: Fastly instead of your own Varnish, the ECE pipeline instead of your own CI. The architecture, the B2B model and the catalogue work are identical.',
+      },
+      {
+        q: 'We are on Magento Open Source and considering Adobe Commerce. Is that a migration?',
+        a: 'It is an upgrade path rather than a replatform, and the data comes across. The real work is adopting the modules you are now paying for, which means retiring the custom code that was standing in for them. Budget for that rather than for the move.',
+      },
+    ],
+    finalHeadline: ['Paying for Adobe Commerce', 'and using half of it?'],
+  },
+
+  /* ── 12. Shopify Plus ───────────────────────────────────────── */
+  {
+    slug: 'shopify-plus-development',
+    featured: true,
+    label: 'Shopify Plus Development',
+    navLabel: 'Shopify Plus',
+    eyebrow: 'Shopify Plus | Functions',
+    h1: ['Shopify Plus work', 'that needs the tier,', 'and knows why.'],
+    lede:
+      'Checkout extensibility, Shopify Functions, B2B on Plus, expansion stores and Markets. The things the tier exists for, built on the supported extension points.',
+    cta: 'Discuss a Shopify Plus project',
+    title: 'Shopify Plus Development Services | Yuvraj Raulji',
+    description:
+      'Shopify Plus development: checkout UI extensions, Shopify Functions, B2B company accounts, expansion stores, Markets and Flow automation. Senior engineering.',
+    primaryKeyword: 'shopify plus development services',
+    secondaryKeywords: [
+      'shopify plus developer',
+      'shopify checkout extensibility development',
+      'shopify functions development',
+      'shopify plus b2b development',
+      'hire shopify plus developer',
+    ],
+    searchIntent: 'Commercial. A brand already on Plus, or about to upgrade and wanting to know what it buys.',
+    audience: 'High-volume D2C and B2B brands on Shopify Plus, and agencies needing Plus-specific engineering.',
+    purpose: 'Own the Shopify Plus query, and separate the work that genuinely requires the tier from work that does not.',
+    entities: ['Shopify Plus', 'Shopify Functions', 'Checkout Extensibility', 'Shopify Markets', 'Shopify Flow', 'Yuvraj Raulji'],
+    quickAnswer: {
+      question: 'What can you build on Shopify Plus that you cannot build on Shopify?',
+      answer:
+        'Checkout itself. Plus is the tier where checkout stops being fixed: checkout UI extensions add content and fields to the real checkout, and Shopify Functions replace discount, delivery, payment and cart logic server side. It also carries B2B company accounts with catalogues and payment terms, up to nine expansion stores under one contract, Shopify Flow for operational automation, and higher API limits. Everything else, custom themes, private apps, Storefront API work and systems integration, runs perfectly well on standard Shopify, which is why the upgrade decision should be made against that list rather than against revenue.',
+    },
+    overview: [
+      'Plus is sold on volume and bought for capability, and the two do not always coincide. The useful way to approach it is to write down what the business cannot currently do, then check which of those things the tier actually unlocks. Often it is one: the checkout.',
+      'Once the business is on Plus, the engineering changes shape. Scripts are gone and Functions have replaced them, which is a better model and a rewrite. Checkout customisation moves from script injection, which broke on every update, to extension points that Shopify supports and tests against. Work built the old way has to move, and that migration is a large part of current Plus work.',
+      'The second half is operational. Flow automates the processes a growing brand is doing by hand, Markets handles currency, duty and localisation per region, and expansion stores let a brand run a separate storefront per market without a separate contract. These pay back quickly and are frequently unconfigured.',
+    ],
+    boundary: {
+      body:
+        'This page is for work that needs the tier. Custom themes, private apps and integrations do not, and if that is what you need you should not be upgrading for it.',
+      link: {
+        href: '/services/shopify-development/',
+        label: 'Shopify development, for work that runs on any plan',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'Our checkout customisation was written in Scripts.',
+        impact: 'Scripts are retired, the logic has to move to Functions, and nobody has documented what the Scripts actually do.',
+      },
+      {
+        symptom: 'We upgraded to Plus and are not using anything new.',
+        impact: 'A materially larger monthly bill funding a tier whose distinguishing features are switched off.',
+      },
+      {
+        symptom: 'B2B customers are handled by a separate wholesale site.',
+        impact: 'Two storefronts, two catalogues and two sets of inventory truth, reconciled by a person.',
+      },
+      {
+        symptom: 'Every new market means another store nobody has time to run.',
+        impact: 'Pricing, duty and translation drift between storefronts, and the brand looks different in each one.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Checkout UI extensions',
+        body: 'Content, fields, upsells and validation inside the real checkout, at the supported extension points, so a Shopify release does not take the checkout down with it.',
+      },
+      {
+        name: 'Shopify Functions',
+        body: 'Discount, delivery, payment and cart transform logic running server side, including migration of existing Scripts logic with the behaviour documented on the way through.',
+      },
+      {
+        name: 'B2B on Plus',
+        body: 'Company accounts, locations, catalogues with account-specific pricing and payment terms on the same store as D2C, which removes the second storefront and the reconciliation behind it.',
+      },
+      {
+        name: 'Expansion stores and Markets',
+        body: 'Per-market storefronts with shared operations, currency and duty handled by Markets, and a content model that does not fork per region.',
+      },
+      {
+        name: 'Flow and Launchpad automation',
+        body: 'Operational workflows, tagging, fraud and fulfilment rules, and scheduled launches, built so the operations team owns them afterwards rather than me.',
+      },
+      {
+        name: 'Headless over the Storefront API',
+        body: 'Hydrogen or Next.js against the Storefront API where the storefront genuinely needs it, which is less often than it is proposed and is covered honestly on the headless page.',
+      },
+    ],
+    technologies: [
+      { group: 'Platform', items: ['Shopify Plus', 'Shopify Functions', 'Checkout extensions', 'Shopify B2B'] },
+      { group: 'Operations', items: ['Shopify Flow', 'Launchpad', 'Shopify Markets', 'Expansion stores'] },
+      { group: 'APIs', items: ['Storefront API', 'Admin API', 'GraphQL', 'Webhooks'] },
+      { group: 'Frontend', items: ['Liquid', 'TypeScript', 'Hydrogen', 'Next.js'] },
+    ],
+    process: BUILD_PROCESS,
+    cases: ['plant-store', 'fashion-d2c', 'sports-nutrition'],
+    faqs: [
+      {
+        q: 'Should we upgrade to Shopify Plus?',
+        a: 'Write down what you cannot do today, then check that list against what the tier unlocks: checkout extensibility, Functions, B2B company accounts, expansion stores, Flow and higher API limits. If nothing on your list is on that list, the upgrade buys you support and a bill. If the checkout is on your list, it is the only route.',
+      },
+      {
+        q: 'We still run Shopify Scripts. How bad is the migration?',
+        a: 'It is a rewrite rather than a port, because Functions have a different execution model. The hard part is almost never the code: it is establishing what the Scripts currently do, since the edge cases were usually added over years by people who have left. That archaeology is the first phase and it is worth doing carefully.',
+      },
+      {
+        q: 'Can Plus handle B2B and D2C on one store?',
+        a: 'Yes, and that is the strongest argument for the tier for a brand running both. Company accounts, account-specific catalogues and payment terms sit alongside the consumer storefront, which removes the separate wholesale site and the inventory reconciliation it required.',
+      },
+      {
+        q: 'Will checkout extensions survive Shopify updates?',
+        a: 'That is precisely why they exist. Extensions and Functions are supported extension points that Shopify tests against; the previous generation of checkout customisation was script injection into a page Shopify kept changing, which is why it kept breaking.',
+      },
+    ],
+    finalHeadline: ['On Plus, and using', 'none of what it bought?'],
+  },
+
+  /* ── 13. Next.js and React ──────────────────────────────────── */
+  {
+    slug: 'nextjs-react-development',
+    featured: true,
+    label: 'Next.js & React Development',
+    navLabel: 'Next.js & React',
+    eyebrow: 'Next.js | React | TypeScript',
+    h1: ['Next.js and React,', 'with the rendering', 'decision made on purpose.'],
+    lede:
+      'App Router applications, commerce storefronts and interfaces over existing APIs. The decisions that matter are made before the first component, and most of them are about where things render.',
+    cta: 'Discuss a Next.js project',
+    title: 'Next.js & React Development Services | Yuvraj Raulji',
+    description:
+      'Next.js and React development: App Router architecture, server components, commerce storefronts, TypeScript, and Core Web Vitals held as a budget.',
+    primaryKeyword: 'next.js development services',
+    secondaryKeywords: [
+      'react development services',
+      'hire next.js developer',
+      'next.js ecommerce development',
+      'react frontend development company',
+      'next.js app router development',
+    ],
+    searchIntent: 'Commercial. A team that has chosen React or Next.js and needs someone senior to build it.',
+    audience: 'Businesses building storefronts, dashboards and customer-facing applications on React, and agencies needing senior frontend engineering.',
+    purpose: 'Own the Next.js and React development query, and separate it from the platform build pages and from the Next.js entity page.',
+    entities: ['Next.js', 'React', 'TypeScript', 'App Router', 'Server Components', 'Core Web Vitals'],
+    quickAnswer: {
+      question: 'What does Next.js development involve beyond writing React?',
+      answer:
+        'Deciding where each page renders and why. Static generation, incremental revalidation, server rendering and client rendering each carry a different cost in latency, infrastructure and cache behaviour, and a Next.js application is largely the sum of those decisions. Around that sits the data layer, server components and server actions where they belong, caching and revalidation rules that match how the content actually changes, TypeScript across the boundary so the API contract is enforced rather than remembered, and a performance budget held during the build instead of audited after it.',
+    },
+    overview: [
+      'Most Next.js projects that go wrong went wrong at the rendering decision. Everything is client rendered because that was the default in the last project, or everything is static because static is fast, and then a page needs personalisation and the whole model has to be revisited. Deciding per route, early, with the reasons written down, is the single highest-leverage hour on the project.',
+      'The second recurring problem is the data layer. React has become very good at fetching on the server, and a lot of code is still written as though it has not: a client component fetching on mount, a loading spinner, and a waterfall of three requests that could have been one server render. Server components fix this when the boundary is drawn deliberately.',
+      'This site is built the way described here. It is a Next.js App Router application exported to static files, typed end to end, with every section rendering on the server and client JavaScript limited to the places that genuinely need it.',
+    ],
+    boundary: {
+      body:
+        'This page is about building the frontend. If what you need is advice on whether Next.js is the right choice at all, or how it fits a commerce stack you already have, that is a consulting conversation.',
+      link: {
+        href: '/nextjs/',
+        label: 'Next.js, and the decisions it is actually good for',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'The app is fast in development and slow in production.',
+        impact: 'Everything renders on the client, the bundle keeps growing, and the fix keeps being described as code splitting.',
+      },
+      {
+        symptom: 'Nobody can explain why a given page renders the way it does.',
+        impact: 'Rendering strategy was decided per pull request, so caching behaviour is now unpredictable and nobody wants to change it.',
+      },
+      {
+        symptom: 'The API changed and the frontend found out in production.',
+        impact: 'Types are hand-written and optimistic, so the contract exists in a document rather than in the compiler.',
+      },
+      {
+        symptom: 'Core Web Vitals fail on exactly the pages that convert.',
+        impact: 'Paid traffic lands on the slowest route on the site, and the team only sees it in a monthly report.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Rendering strategy, per route, written down',
+        body: 'Static, incremental, server rendered or client rendered, chosen against how the content changes and who it changes for. The document is short and it is the thing that keeps the application coherent as it grows.',
+      },
+      {
+        name: 'App Router architecture',
+        body: 'Layouts, route groups, loading and error boundaries, and a server and client boundary drawn where data actually lives rather than where the first component happened to need state.',
+      },
+      {
+        name: 'Commerce storefronts over a headless backend',
+        body: 'Next.js against Shopify Storefront API, Magento GraphQL or a custom commerce API, with the cart, the catalogue and the checkout handoff each treated as a separate problem.',
+      },
+      {
+        name: 'TypeScript across the boundary',
+        body: 'Generated types from the schema where there is one, strict mode on, and the API contract enforced by the compiler instead of by a changelog nobody reads.',
+      },
+      {
+        name: 'Performance as a budget',
+        body: 'Core Web Vitals targets agreed at the start, measured on every build, and treated as a blocker rather than as a report. Images, fonts and third-party scripts are where it is usually lost.',
+      },
+      {
+        name: 'Accessibility built in',
+        body: 'Semantic structure, focus management on route changes, and keyboard paths through anything interactive. Retrofitting this is several times the cost of doing it as you go.',
+      },
+    ],
+    technologies: [
+      { group: 'Framework', items: ['Next.js', 'React', 'App Router', 'Server Components', 'Server Actions'] },
+      { group: 'Language', items: ['TypeScript', 'JavaScript', 'Zod'] },
+      { group: 'Styling', items: ['Tailwind CSS', 'CSS Modules', 'Design tokens'] },
+      { group: 'Data & delivery', items: ['GraphQL', 'REST APIs', 'Vercel', 'Cloudflare', 'Node.js'] },
+    ],
+    process: BUILD_PROCESS,
+    cases: ['fashion-d2c', 'manufacturing'],
+    faqs: [
+      {
+        q: 'Should a commerce storefront be built in Next.js?',
+        a: 'Sometimes. It is the right answer when the storefront needs behaviour or performance the platform theme layer cannot give, and the wrong one when the theme would have done and you have just taken on a frontend codebase to maintain. The headless commerce page sets out that trade-off in full, including the cases where the honest recommendation is to stay on the theme.',
+      },
+      {
+        q: 'Can you work on an existing React codebase?',
+        a: 'Yes. It starts with reading it and writing down the rendering and data-fetching patterns already in use, because the expensive mistake on an inherited codebase is introducing a second pattern alongside the first.',
+      },
+      {
+        q: 'Do you do the design as well?',
+        a: 'I build from a design, and I will push back on parts of it that will cost performance or accessibility. Where there is no designer I can work from a structure and a component system rather than a blank page, which is honest about what that produces: something clean and conventional rather than something art directed.',
+      },
+      {
+        q: 'App Router or Pages Router?',
+        a: 'App Router for new work. For an existing Pages Router application the answer is usually not to migrate wholesale: they interoperate, so new routes can go in the App Router and the old ones can move when they are being touched anyway.',
+      },
+    ],
+    finalHeadline: ['Frontend that needs', 'deciding before building?'],
+  },
+
+  /* ── 14. Custom module development ──────────────────────────── */
+  {
+    slug: 'custom-module-development',
+    label: 'Custom Module Development',
+    navLabel: 'Custom Modules',
+    eyebrow: 'Magento | Shopify | WordPress',
+    h1: ['Custom modules', 'built through the platform,', 'not around it.'],
+    lede:
+      'Magento 2 modules, Shopify apps and WordPress plugins written against the extension points the platform documents, so an upgrade is a Tuesday rather than a project.',
+    cta: 'Discuss a custom module',
+    title: 'Custom Module Development | Magento, Shopify & WordPress',
+    description:
+      'Custom Magento 2 module development, Shopify private apps and WordPress plugins, built on documented extension points so platform upgrades do not break them.',
+    primaryKeyword: 'custom magento module development',
+    secondaryKeywords: [
+      'custom module development services',
+      'magento 2 extension development',
+      'custom shopify app development',
+      'custom wordpress plugin development',
+      'hire magento extension developer',
+    ],
+    searchIntent: 'Commercial and specific. Someone who knows they need a module and wants it written properly.',
+    audience: 'Merchants and agencies needing platform functionality that no existing extension provides, or whose existing one has become a liability.',
+    purpose: 'Own the custom module query, which the platform build pages mention but do not answer in depth.',
+    entities: ['Magento 2', 'Adobe Commerce', 'Shopify', 'WordPress', 'Dependency Injection', 'Plugins'],
+    quickAnswer: {
+      question: 'What makes a custom module safe to upgrade?',
+      answer:
+        'Using the extension points the platform documents, and nothing else. On Magento 2 that means plugins, observers, preferences used sparingly, dependency injection as intended, declarative schema for database changes and no core overrides at all. On Shopify it means the Admin and Storefront APIs with webhooks and rate limiting handled, rather than script injection into a theme. On WordPress it means hooks and filters rather than edits to a parent theme. The practical test is the same everywhere: a minor version upgrade should not require touching your code, and if it does, the module was written around the platform instead of through it.',
+    },
+    overview: [
+      'Nearly every store reaches a point where the thing it needs does not exist. The marketplace extension does eighty percent of it, the remaining twenty percent is the part the business actually competes on, and the options are a module or a compromise.',
+      'The risk with a module is not writing it. It is carrying it. A module written against the documented extension points costs almost nothing at upgrade time; one written by overriding core classes costs a regression hunt on every release, forever, and the cost arrives long after whoever wrote it has moved on.',
+      'So the work here is as much about restraint as construction: the smallest module that solves the problem, built on the supported surface, with tests around the behaviour the business depends on and documentation aimed at whoever inherits it.',
+    ],
+    boundary: {
+      body:
+        'A module is sometimes the wrong answer, and the cheapest version of this conversation establishes that first. If the platform already does it, or an existing extension does it well, the honest recommendation is to configure rather than build.',
+      link: {
+        href: '/services/magento-development/',
+        label: 'Magento development, for the wider build around it',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'Every Magento upgrade turns into a week of regression hunting.',
+        impact: 'Custom code overrides core classes, so each release breaks something, and upgrades get deferred until security forces one.',
+      },
+      {
+        symptom: 'We bought an extension and it does eighty percent of the job.',
+        impact: 'The remaining twenty percent is being done by hand every day, and the extension cannot be modified safely.',
+      },
+      {
+        symptom: 'Nobody knows what the custom module actually does.',
+        impact: 'No tests, no documentation, and the person who wrote it has left. It is load-bearing and untouchable.',
+      },
+      {
+        symptom: 'Two modules fight over the same behaviour.',
+        impact: 'Behaviour depends on load order, which means it changes when something unrelated is installed.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Magento 2 modules on the supported surface',
+        body: 'Plugins, observers, dependency injection, declarative schema and service contracts. Preferences only where no plugin point exists, and core overrides never. The result upgrades cleanly because it never reached into anything that moves.',
+      },
+      {
+        name: 'Shopify private and custom apps',
+        body: 'Admin and Storefront API applications deployed under your account, with webhook verification, idempotency and rate-limit backoff handled, rather than a theme snippet pretending to be an integration.',
+      },
+      {
+        name: 'WordPress and WooCommerce plugins',
+        body: 'Hooks and filters, correct capability checks, nonces and sanitisation on everything that touches input, and no edits to a theme that will be updated.',
+      },
+      {
+        name: 'Rescuing an existing module',
+        body: 'Read what is there, document the behaviour the business actually depends on, write tests around it, then refactor off the core overrides. Rewriting blind is how a working feature gets lost.',
+      },
+      {
+        name: 'Admin interfaces your team can use',
+        body: 'Configuration in the platform admin where it belongs, with sensible defaults, so changing behaviour is a setting rather than a deployment.',
+      },
+      {
+        name: 'Documentation and handover',
+        body: 'What it does, which extension points it uses, what will break it, and how to test it. Written for the next developer, who is usually not me.',
+      },
+    ],
+    technologies: [
+      { group: 'Magento', items: ['PHP', 'Dependency Injection', 'Plugins', 'Declarative schema', 'GraphQL'] },
+      { group: 'Shopify', items: ['Admin API', 'Storefront API', 'Webhooks', 'Node.js', 'OAuth'] },
+      { group: 'WordPress', items: ['Hooks', 'Filters', 'WooCommerce', 'REST API'] },
+      { group: 'Quality', items: ['PHPUnit', 'Static analysis', 'Git', 'CI pipelines'] },
+    ],
+    process: BUILD_PROCESS,
+    cases: ['b2b-procurement', 'marketplace'],
+    faqs: [
+      {
+        q: 'How do I know whether we need a module or a configuration change?',
+        a: 'Ask what the platform already does, and ask it before scoping. A good share of requested modules duplicate a native feature nobody knew was there, and finding that out is a short piece of work rather than a project. Where the feature genuinely does not exist, the module is the answer and the scope is usually smaller than expected.',
+      },
+      {
+        q: 'Will a custom module survive Magento upgrades?',
+        a: 'If it is written against plugins, observers and declarative schema, yes, and that is the explicit design goal. The modules that do not survive are the ones that override core classes, and that choice is almost always made for speed in week one and paid for every release afterwards.',
+      },
+      {
+        q: 'Can you fix a module somebody else wrote?',
+        a: 'Yes, and the order matters: read it, document the behaviour the business depends on, put tests around that behaviour, then change it. Refactoring an undocumented module without that first step is how a quiet working feature disappears.',
+      },
+      {
+        q: 'Do you hand over the source code?',
+        a: 'Always, in your repository, with the documentation. There is no arrangement here where the code stays with me.',
+      },
+    ],
+    finalHeadline: ['Platform almost', 'does what you need?'],
+  },
+
+  /* ── 15. ERP and CRM integration ────────────────────────────── */
+  {
+    slug: 'erp-crm-integration',
+    label: 'ERP & CRM Integration',
+    navLabel: 'ERP & CRM Integration',
+    eyebrow: 'ERP | CRM | Middleware',
+    h1: ['Making the store', 'and the back office', 'agree.'],
+    lede:
+      'Stock, pricing, orders and customers synchronised between the storefront and the systems that run the business, with the failure behaviour designed rather than discovered.',
+    cta: 'Discuss an integration',
+    title: 'ERP & CRM Integration Services for eCommerce | Yuvraj Raulji',
+    description:
+      'ERP and CRM integration for Magento, Shopify and WooCommerce: stock, pricing, order and customer sync with reconciliation, retries and an auditable failure path.',
+    primaryKeyword: 'erp integration services',
+    secondaryKeywords: [
+      'ecommerce erp integration',
+      'crm integration services',
+      'magento erp integration services',
+      'shopify erp integration',
+      'erp ecommerce sync',
+    ],
+    searchIntent: 'Commercial and operational. A business whose store and back office disagree, and it is costing them.',
+    audience: 'Merchants running an ERP, CRM or WMS alongside a storefront, and agencies whose client integration is failing.',
+    purpose: 'Own the ERP and CRM integration query, which the API page touches generically and this page answers in business terms.',
+    entities: ['ERP Integration', 'CRM Integration', 'SAP', 'Magento 2', 'Shopify', 'Middleware'],
+    quickAnswer: {
+      question: 'What makes an eCommerce ERP integration reliable?',
+      answer:
+        'Deciding three things before any code: which system owns each field, what happens when the other one is unavailable, and how a disagreement is detected. Ownership stops two systems writing the same value and overwriting each other. A queue with retries and backoff turns an ERP outage into a delay rather than a lost order. Scheduled reconciliation catches the drift that inevitably accumulates anyway, and reports it instead of waiting for a customer to find it. Most failing integrations fail on those three questions rather than on the API, which is why rewriting the connector rarely fixes them.',
+    },
+    overview: [
+      'An integration is rarely a technical problem first. It is a question about who owns what: if the ERP owns stock and the store owns price, both systems can be right at once. If neither owns anything clearly, both are authoritative, and the last write wins in a race nobody is watching.',
+      'The second thing that decides whether an integration holds is what it does when the other side is down. A direct call that fails loses an order. A queued message with retries and a dead-letter path turns the same outage into a delay and a visible alert. The difference is an afternoon of design and it is the difference between an integration people trust and one they check manually.',
+      'On the record: 90% of B2B order and quote processing automated on a Magento platform, with the systems behind the store wired in rather than reconciled by hand afterwards.',
+    ],
+    boundary: {
+      body:
+        'This page is about connecting business systems. If the work is building or exposing an API rather than integrating two systems that already have them, that is the API page.',
+      link: {
+        href: '/services/api-integration/',
+        label: 'API development and integration, for building the interface itself',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'The store and the ERP disagree about stock.',
+        impact: 'Oversells, cancellations and a support team doing data entry to keep two systems in step.',
+      },
+      {
+        symptom: 'Sync is a nightly CSV export.',
+        impact: 'Everything that happens between exports is invisible, and the gap is exactly where the expensive mistakes live.',
+      },
+      {
+        symptom: 'When the ERP goes down, orders are lost.',
+        impact: 'A back-office outage becomes a revenue outage, because the integration was built as a direct call.',
+      },
+      {
+        symptom: 'Nobody can say which system is right.',
+        impact: 'Reconciliation is a weekly meeting, and decisions get made on whichever report is open.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'A field ownership map, first',
+        body: 'Which system is authoritative for stock, price, customer, order status and product data, written down and agreed before a line of code. This single document prevents most of what goes wrong later.',
+      },
+      {
+        name: 'Queued, retried, observable sync',
+        body: 'Message queues with backoff and a dead-letter path, so an unavailable system causes a delay and an alert rather than a lost transaction. RabbitMQ on Magento, webhooks and workers elsewhere.',
+      },
+      {
+        name: 'Order and fulfilment flow',
+        body: 'Order down to the ERP or WMS, status and tracking back up, with idempotency so a retried message cannot create a second order.',
+      },
+      {
+        name: 'Customer and CRM sync',
+        body: 'Accounts, segments and order history into the CRM with consent and data-protection boundaries respected, so marketing works from the same customer the finance system has.',
+      },
+      {
+        name: 'Product and pricing feeds',
+        body: 'Catalogue, attributes, account-specific pricing and tax rules from the ERP or PIM, with validation at the boundary rather than a bad record propagating silently.',
+      },
+      {
+        name: 'Reconciliation and alerting',
+        body: 'A scheduled job that compares both systems and reports the difference. Drift happens on every integration; the only choice is whether you find out from a report or from a customer.',
+      },
+    ],
+    technologies: [
+      { group: 'Transport', items: ['REST APIs', 'GraphQL', 'Webhooks', 'SFTP', 'RabbitMQ'] },
+      { group: 'Commerce', items: ['Magento 2', 'Adobe Commerce', 'Shopify', 'WooCommerce'] },
+      { group: 'Business systems', items: ['ERP', 'CRM', 'WMS', 'PIM', 'Accounting'] },
+      { group: 'Reliability', items: ['Queues', 'Idempotency', 'Retry and backoff', 'Reconciliation jobs', 'Monitoring'] },
+    ],
+    process: [
+      {
+        num: '01',
+        title: 'Map the systems and the fields',
+        body: 'What exists on both sides, what each one is authoritative for, and where the two currently disagree. The disagreements found here are usually already costing money.',
+      },
+      {
+        num: '02',
+        title: 'Agree ownership in writing',
+        body: 'One owner per field, signed off by the people who run both systems. This is a business decision wearing a technical hat, and it cannot be made by the integration.',
+      },
+      {
+        num: '03',
+        title: 'Design the failure behaviour',
+        body: 'What happens when the other side is slow, down or wrong. Queue, retry, dead-letter and alert, decided now rather than discovered during a sale.',
+      },
+      {
+        num: '04',
+        title: 'Build with the logging first',
+        body: 'Every message in and out, correlated, before the business logic. An integration you cannot observe is one you will be debugging by guesswork at the worst possible time.',
+      },
+      {
+        num: '05',
+        title: 'Run in parallel, then cut over',
+        body: 'The new path running alongside the old one with the differences reported, so cutover is a decision made on evidence rather than a date in a plan.',
+      },
+    ],
+    cases: ['b2b-procurement', 'marketplace', 'manufacturing'],
+    faqs: [
+      {
+        q: 'Do you work with our specific ERP?',
+        a: 'The question that matters is what it exposes: a REST or SOAP API, a database, a file drop, or a middleware layer. Those four cover nearly every system, and the integration pattern is chosen from them rather than from the vendor name. Where the ERP is genuinely closed, the honest answer is a file-based integration with reconciliation, and I will say so rather than quote for an API that does not exist.',
+      },
+      {
+        q: 'Real-time or scheduled sync?',
+        a: 'Per field, not per integration. Stock usually needs to be near real time because the cost of being wrong is an oversell. Product descriptions can run nightly because nobody is harmed by a six-hour delay. Deciding this per field rather than globally is what keeps the load reasonable.',
+      },
+      {
+        q: 'Should we use middleware or point to point?',
+        a: 'Point to point is fine for two systems and becomes a liability at four, because each new system multiplies the connections. If a third and fourth system are already on the roadmap, a middleware layer pays for itself; if they are not, it is architecture bought ahead of need.',
+      },
+      {
+        q: 'How long does an integration take?',
+        a: 'The build is rarely the long part. Establishing what each system actually contains, and getting agreement on who owns which field, routinely takes longer than writing the connector, and skipping it is why integrations get rebuilt.',
+      },
+    ],
+    finalHeadline: ['Store and back office', 'telling different stories?'],
+  },
+
+  /* ── 16. Workflow automation ────────────────────────────────── */
+  {
+    slug: 'workflow-automation',
+    label: 'Workflow Automation',
+    navLabel: 'Workflow Automation',
+    eyebrow: 'n8n | Integrations | AI',
+    h1: ['Automating the work', 'that is eating', 'your people.'],
+    lede:
+      'Operational processes wired together so the repetitive parts run themselves, with a person kept in the loop exactly where the cost of being wrong requires one.',
+    cta: 'Discuss an automation',
+    title: 'Workflow Automation Services for eCommerce | Yuvraj Raulji',
+    description:
+      'Business and eCommerce workflow automation with n8n, APIs and AI where it earns its place: order operations, catalogue work, reporting and support.',
+    primaryKeyword: 'workflow automation services',
+    secondaryKeywords: [
+      'business process automation services',
+      'n8n automation development',
+      'ecommerce workflow automation',
+      'automate manual business processes',
+      'ai workflow automation',
+    ],
+    searchIntent: 'Commercial. A business with a process absorbing people and a suspicion it should not be.',
+    audience: 'Operations teams in commerce businesses, and owners watching headcount go into repetitive work.',
+    purpose: 'Own the workflow automation query, and separate practical process automation from the AI page it is adjacent to.',
+    entities: ['Workflow Automation', 'n8n', 'Business Process Automation', 'Generative AI', 'Integrations'],
+    quickAnswer: {
+      question: 'When is a process ready to automate?',
+      answer:
+        'When four things are true: it is repetitive, it is already documented or can be written down in an afternoon, the data it runs on is reliable, and the cost of a mistake is known. Automating a process that fails any of those makes it faster and more confusing rather than better, which is the most common way these projects disappoint. The second rule is where the person goes: anything with a financial, legal or customer-facing consequence keeps a review step, and the automation is judged on how much work it removes before that step rather than on removing the step itself. On the record: 90% of B2B order and quote processing automated on a Magento platform.',
+    },
+    overview: [
+      'Every growing business accumulates work that exists only because two systems do not talk: someone copying orders into a spreadsheet, someone re-keying a supplier feed, someone producing the same report every Monday. It is invisible on the org chart and expensive on the payroll.',
+      'The honest first step is usually not automation. It is writing the process down, because a surprising share of these turn out to be undefined, performed differently by each person doing them, and an undefined process does not become better when it is automated. It becomes confusing faster.',
+      'Where AI belongs in this is narrower than the current enthusiasm suggests, and more useful than the scepticism allows. A model is good at the judgement-shaped middle of a process: classifying a message, drafting a description, extracting fields from a document a human wrote. It is not a replacement for the deterministic parts, and wiring it in where a rule would have done is how an automation becomes unpredictable.',
+    ],
+    boundary: {
+      body:
+        'This page is about operational processes. If the question is whether a model should be in the product itself, retrieval, agents and evaluation, that is the generative AI page.',
+      link: {
+        href: '/services/generative-ai/',
+        label: 'Generative AI development, for models inside the product',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'Someone exports a spreadsheet every morning.',
+        impact: 'A full-time person doing integration work by hand, and a daily window where the data is wrong.',
+      },
+      {
+        symptom: 'Orders are re-keyed into a second system.',
+        impact: 'Transcription errors reaching customers, and a process that cannot scale without another hire.',
+      },
+      {
+        symptom: 'The same report is rebuilt every week.',
+        impact: 'Hours spent on assembly rather than on the decision the report exists to support.',
+      },
+      {
+        symptom: 'We automated something and now nobody trusts it.',
+        impact: 'It was built without logging or a review step, so a single bad outcome removed confidence in all of it.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'Process mapping before tooling',
+        body: 'What actually happens, including the exceptions people handle without mentioning them. The map frequently shortens the process on its own, before anything is automated.',
+      },
+      {
+        name: 'Order and fulfilment operations',
+        body: 'Routing, status updates, supplier notifications, returns and exception handling, wired between the store and the systems behind it so the normal case runs without a person.',
+      },
+      {
+        name: 'Catalogue and content operations',
+        body: 'Enrichment, attribute completion, categorisation and translation drafted automatically and reviewed by a person, which is the arrangement that makes catalogue work tractable at scale.',
+      },
+      {
+        name: 'Reporting and alerting',
+        body: 'Scheduled reports assembled from the systems that hold the data, and alerts on the conditions that need a decision, so nobody is manually checking whether something happened.',
+      },
+      {
+        name: 'AI in the judgement-shaped steps',
+        body: 'Classification, extraction and drafting where a rule cannot express the task, with the deterministic steps left deterministic and the model constrained to the part it is actually good at.',
+      },
+      {
+        name: 'A review step where it is warranted',
+        body: 'Financial, legal and customer-facing outputs keep a person in the loop. The measure is how much work is removed before that step, not whether the step was eliminated.',
+      },
+    ],
+    technologies: [
+      { group: 'Automation', items: ['n8n', 'Webhooks', 'Scheduled jobs', 'Queues'] },
+      { group: 'AI', items: ['LLMs', 'RAG', 'Prompt engineering', 'Evaluation sets'] },
+      { group: 'Integration', items: ['REST APIs', 'GraphQL', 'ERP', 'CRM', 'Spreadsheets'] },
+      { group: 'Commerce', items: ['Magento 2', 'Shopify', 'WooCommerce', 'Order management'] },
+    ],
+    process: [
+      {
+        num: '01',
+        title: 'Write the process down',
+        body: 'Including the exceptions, which is where the real work is hiding. A process that cannot be written down in an afternoon is not ready to be automated, and that finding is itself worth having.',
+      },
+      {
+        num: '02',
+        title: 'Cost the manual version',
+        body: 'Hours per week, error rate, and what a mistake costs. Without this the automation cannot be judged afterwards, and most of them never are.',
+      },
+      {
+        num: '03',
+        title: 'Decide where the person stays',
+        body: 'Draw the review step before building, based on the consequence of being wrong rather than on how confident the technology feels.',
+      },
+      {
+        num: '04',
+        title: 'Build the smallest version',
+        body: 'The highest-volume path first, running alongside the manual process. Automating every branch at once is how these projects stall before anything ships.',
+      },
+      {
+        num: '05',
+        title: 'Measure, then widen',
+        body: 'Against the number from step two. If it has not moved, that is information, and the next branch waits until it has.',
+      },
+    ],
+    cases: ['b2b-procurement', 'marketplace'],
+    faqs: [
+      {
+        q: 'Do we need AI to automate a process?',
+        a: 'Usually not, and reaching for it first is the common mistake. Most operational waste is two systems that do not talk, and the fix is an integration with rules, which is cheaper, faster and entirely predictable. A model earns its place in the judgement-shaped step: classifying, extracting or drafting where a rule cannot express the task.',
+      },
+      {
+        q: 'What should not be automated?',
+        a: 'Anything undefined, anything running on unreliable data, and anything where a mistake is expensive and undetectable. The first two get worse when automated. The third can be automated up to the decision and then handed to a person, which is nearly always the right shape.',
+      },
+      {
+        q: 'Why n8n rather than a bigger platform?',
+        a: 'Because it self-hosts, the workflows are readable by the people who own the process, and there is no per-task pricing that punishes success. Where a business already runs something else, I will build in that instead rather than add a tool to the stack for its own sake.',
+      },
+      {
+        q: 'Who maintains the automation afterwards?',
+        a: 'Your team, by design. The workflows are built to be read and changed by the operations people who own the process, documented accordingly, and I am available on a retainer where that is wanted rather than assumed.',
+      },
+    ],
+    finalHeadline: ['Process quietly', 'absorbing a salary?'],
+  },
 ];
 
 /** `/services/{slug}/`. */
@@ -1453,8 +2241,53 @@ export const SERVICE_PAGES_BY_SLUG: Record<string, ServicePage> = Object.fromEnt
   SERVICE_PAGES.map((s) => [s.slug, s]),
 );
 
-/** For the header dropdown and the hub's index. */
+/** Every service, for the hub's index and anywhere a full list is wanted. */
 export const SERVICE_PAGE_LINKS = SERVICE_PAGES.map((s) => ({
   label: s.navLabel,
   href: servicePageHref(s.slug),
 }));
+
+/**
+ * The header dropdown. The nine flagged `featured`, and nothing else.
+ *
+ * See the note on `featured` above for why this is not the full list. The
+ * other seven are one click away from "All services" at the bottom of the same
+ * panel, and from every service page's own cross-links.
+ */
+export const SERVICE_NAV_LINKS = SERVICE_PAGE_LINKS.filter(
+  (_, i) => SERVICE_PAGES[i]!.featured,
+);
+
+/** The nine themselves, for the homepage index. */
+export const FEATURED_SERVICE_PAGES = SERVICE_PAGES.filter((s) => s.featured);
+
+/* ═══════════════════════════════════════════════════════════════
+   THE COUNTS, SPELLED
+
+   Three places said "seven services" in display copy while the
+   array held ten, because the number was typed into the sentence.
+   These are read from the array, so the sentence cannot drift from
+   the data again. Spelled rather than numeric because the house
+   display style sets counts as words.
+   ═══════════════════════════════════════════════════════════════ */
+
+const WORDS = [
+  'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
+  'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+  'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+] as const;
+
+/** `4` to `'four'`, falling back to the digits past twenty. */
+export function spellCount(n: number): string {
+  return WORDS[n] ?? String(n);
+}
+
+/** "sixteen" */
+export const SERVICE_COUNT_WORD = spellCount(SERVICE_PAGES.length);
+
+/** "Sixteen" */
+export const SERVICE_COUNT_WORD_CAP =
+  SERVICE_COUNT_WORD.charAt(0).toUpperCase() + SERVICE_COUNT_WORD.slice(1);
+
+/** "nine" */
+export const FEATURED_COUNT_WORD = spellCount(FEATURED_SERVICE_PAGES.length);

@@ -26,10 +26,17 @@ const CONFIG = {
   BRAND_NAME:       'Yuvraj Raulji',
   /* This string is not decoration: it is printed twice in the confirmation
      email every new lead receives, so it is the first positioning statement a
-     prospect reads. It said "Full Stack E-commerce Developer & AI Consultant",
-     which is the wrong positioning and uses two words the brand does not use.
-     It now matches the site exactly. */
-  BRAND_TAGLINE:    'eCommerce, AI & Technology Consultant',
+     prospect reads. It has to match `ROLE` in lib/identity.ts, which is the
+     single source for every positioning string the site renders.
+
+     It has now been wrong twice. It said "Full Stack E-commerce Developer & AI
+     Consultant", which used two words the brand does not use. It was corrected
+     to "eCommerce, AI & Technology Consultant", which matched the site at the
+     time. The site then repositioned from consulting to freelance client work
+     and `ROLE` changed; this did not, so every confirmation email since has
+     opened by describing the recipient's new contact as a consultant while the
+     page they just left called him a freelance developer. */
+  BRAND_TAGLINE:    'Freelance eCommerce Developer & Technology Professional',
   /* www, not the apex. The apex 308s to www, so every link in every
      confirmation email was costing a redirect. */
   SITE_URL:         'https://www.yuvrajraulji.com',
@@ -62,11 +69,12 @@ function doPost(e) {
 
     const lead = {
       date:     new Date(),
-      /* Which form produced this: 'recruiter' from the hiring funnel on
-         /remote-work/ and /contact/, 'project' from the project funnel, empty
-         from the older enquiry modal. Both funnels write to this one sheet, so
-         without this column a job approach and a project enquiry are
-         indistinguishable once they land. */
+      /* Which form produced this. It is 'project' on everything the site now
+         sends: there is one form, rendered on /contact/, at the foot of the
+         homepage and in the enquiry modal. The column stays because the sheet
+         has rows from when there were two funnels, 'recruiter' and 'project',
+         and a column that explains its own history is worth more than one
+         fewer column. Empty means the older enquiry modal. */
       funnel:   clean_(p.funnel, 20),
       name:     clean_(p.name, 120),
       email:    clean_(p.email, 160),
@@ -131,36 +139,186 @@ function doGet(e) {
    a short message from a real Head of eCommerce outranks a long
    one from a researcher, and any rule keyed on message length
    would get that backwards. The band decides reply order, not
-   whether there is a reply. */
+   whether there is a reply.
 
-/* Substring-matched against the lowercased role the form sent. 'technology
-   lead' was added when ROLE_OPTIONS in lib/site.ts stopped offering "CTO or
-   technology lead" and started offering "Technology lead"; without it, every
-   technology lead stopped scoring as a decision maker. 'cto' stays, because an
-   inbound message can still describe the sender that way and this string is
-   never rendered on the site. */
-const DECISION_ROLES = ['owner', 'ceo', 'managing director', 'md', 'director',
-  'head of ecommerce', 'head of e-commerce', 'technology lead', 'cto', 'coo',
-  'agency'];
+   ── Why this was rewritten ──────────────────────────────────
+   It scored six fields: website, company, role, timeline,
+   platform and budget. The site's form now sends two of them.
+   Role, platform, timeline and website were `<select>` and URL
+   inputs on the nine-field forms, and those forms are gone: the
+   brief fixes the enquiry at name, email, company or website,
+   project requirements and budget.
 
-const LOW_SIGNALS = ['looking for a job', 'job opportunity', 'resume', 'cv attached',
-  'internship', 'hire me', 'guest post', 'link building', 'seo services',
-  'we can increase your traffic', 'backlink'];
+   Run against what the five-field form can actually send, the
+   old function produced this:
+
+     NURTURE       3   enterprise lead, budget, long brief
+     NURTURE       2   company and budget, ordinary message
+     UNSCORED      0   real buyer, no company, no budget
+     LOW PRIORITY  1   company given, short message
+
+   Two things are wrong there. HOT and QUALIFIED were
+   unreachable, because the surviving fields cap the score at 3
+   against a HOT threshold of 7. And the last row is the exact
+   outcome the paragraph above says must never happen: a real
+   business, banded as low priority, because the form stopped
+   asking the questions the scoring reads.
+
+   ── What it reads instead ───────────────────────────────────
+   The signals did not disappear with the selects. They moved
+   into the message, because that is where a buyer puts them
+   when nothing asks: "we are on Magento 2", "we need this live
+   before March", "I am the head of ecommerce here". So the
+   platform, urgency and seniority rules now match against the
+   message rather than against a field that is always empty.
+
+   The email domain is new, and it is the one signal every lead
+   carries: the address is required, so a company domain scores
+   on every submission while a free provider scores nothing.
+
+   Nothing here is thrown away when a legacy row is rescored.
+   The four old fields are still read if they are present, so
+   the rows already in the sheet score the way they always did.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Matching, and why two kinds of it ───────────────────────────────────────
+   `has_` is a plain substring test. It is correct for the role, budget and
+   service fields, because those arrived from fixed `<select>` lists and a
+   substring of a known option cannot be anything else.
+
+   It is NOT correct against a free-text message, and the first draft of this
+   rewrite got that wrong in a way worth recording: matched as substrings,
+   'cto' hits inside "sector" and "factory", and 'md' hits inside any word that
+   happens to contain those two letters. A buyer writing "we sell into the
+   retail sector" would have scored as a decision maker.
+
+   So anything matched against the message goes through `hasWord_`, which
+   anchors each term on word boundaries. The cost of that is inflections:
+   \burgent\b does not match "urgently", so the variants are listed out below
+   rather than being produced by a clever pattern. A list anyone can read and
+   audit is worth more here than a regex that is shorter.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Matched against the role field as substrings (legacy rows), and against the
+   message with word boundaries. 'cto' stays: an inbound message can describe
+   the sender that way, and this string is never rendered on the site, so the
+   prohibited-title rule in lib/identity.ts does not reach it. */
+const DECISION_ROLES = ['owner', 'co-owner', 'ceo', 'managing director', 'md',
+  'director', 'head of ecommerce', 'head of e-commerce', 'ecommerce manager',
+  'technology lead', 'tech lead', 'cto', 'coo', 'founder', 'co-founder',
+  'proprietor', 'partner', 'agency'];
+
+/* The platforms the site sells against. Named in the message, this is the
+   single most useful thing a first enquiry can contain: it says which of the
+   service pages the work belongs to before anyone has replied.
+
+   Inflections and spellings listed rather than stemmed, per the note above:
+   'magento' and 'magento2' are both written by real people. */
+const PLATFORM_WORDS = ['magento', 'magento2', 'adobe commerce', 'shopify',
+  'shopify plus', 'woocommerce', 'woo', 'wordpress', 'headless', 'next.js',
+  'nextjs', 'react', 'reactjs', 'bigcommerce', 'prestashop', 'opencart',
+  'salesforce commerce', 'commercetools', 'erp', 'crm'];
+
+/* Urgency, in the words a buyer writes rather than the bands a select offered.
+   Both inflections of each stem, because the word boundary will not add them. */
+const URGENCY_WORDS = ['asap', 'urgent', 'urgently', 'this month', 'next month',
+  'this week', 'next week', 'deadline', 'launch', 'launching', 'go live',
+  'golive', 'peak season', 'black friday', 'immediately', 'as soon as',
+  'time sensitive', 'time-sensitive'];
+
+/* A budget that is an answer rather than a figure. The form invites this on
+   purpose, so it scores: a buyer who says "not sure" is being honest, and
+   banding that below a buyer who invented a number would reward the guess. */
+const VAGUE_BUDGET = ['not sure', 'unsure', 'no idea', 'tbd', 'to be decided',
+  'dont know', "don't know", 'do not know', 'flexible', 'open', 'no budget yet'];
+
+/* Free mailbox providers. Anything else is treated as a company domain. */
+const FREE_MAIL = ['gmail.', 'googlemail.', 'yahoo.', 'ymail.', 'hotmail.',
+  'outlook.', 'live.', 'msn.', 'icloud.', 'me.com', 'mac.com', 'aol.',
+  'proton.', 'protonmail.', 'gmx.', 'zoho.', 'mail.com', 'mail.ru', 'yandex.',
+  'qq.com', '163.com', '126.com', 'rediffmail.', 'inbox.', 'fastmail.'];
+
+/* Job approaches and vendor spam. Tightened twice. 'resume' alone used to be
+   here and this site has a /resume/ page, so "I saw your resume page" from a
+   real buyer matched a job pattern. And these are word-matched, not substring
+   matched, because 'hire me' as a substring hits "hire merchants" and
+   'backlink' misses "backlinks" without its own entry. */
+const LOW_SIGNALS = ['looking for a job', 'looking for work', 'job opportunity',
+  'job opening', 'my resume', 'my cv', 'resume attached', 'cv attached',
+  'internship', 'hire me', 'guest post', 'guest posting', 'link building',
+  'seo services', 'web design services', 'we can increase your traffic',
+  'backlink', 'backlinks', 'increase your ranking', 'increase your rankings'];
+
+/* Substring. For the fixed-option fields only; see the note above. */
+function has_(hay, list) {
+  return list.some(function (w) { return hay.indexOf(w) > -1; });
+}
+
+/* Word-boundary. For anything matched against free text.
+
+   Apps Script runs modern V8, so a RegExp built per call is fine at this
+   volume; the alternative is caching compiled patterns in module scope, and a
+   handful of submissions a day does not earn that complexity. Each term is
+   escaped, so '.' in 'next.js' and '-' in 'co-founder' are literal. */
+function hasWord_(hay, list) {
+  const alt = list
+    .map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); })
+    .join('|');
+  return new RegExp('\\b(?:' + alt + ')\\b', 'i').test(hay);
+}
 
 function scoreLead_(lead) {
   let score = 0;
   const why = [];
-  const hay = (lead.message + ' ' + lead.service).toLowerCase();
 
-  if (lead.website)  { score += 2; why.push('site given'); }
-  if (lead.company)  { score += 1; why.push('company given'); }
+  const msg  = (lead.message || '').toLowerCase();
+  const mail = (lead.email || '').toLowerCase();
+  /* Service is in the haystack for the spam rules only. It is 'Project enquiry'
+     on everything the current form sends, so it contributes no signal. */
+  const hay  = msg + ' ' + (lead.service || '').toLowerCase();
 
-  const role = lead.role.toLowerCase();
-  if (role && DECISION_ROLES.some(function (r) { return role.indexOf(r) > -1; })) {
-    score += 2; why.push('decision maker');
+  /* ── What the form asks for ──────────────────────────────── */
+
+  /* One field holds a company name or a store URL. Either is the same signal:
+     there is a business behind this. `website` is read too, for the rows in the
+     sheet from when it was its own field. */
+  if (lead.company || lead.website) { score += 2; why.push('business named'); }
+
+  if (lead.budget) {
+    if (has_(lead.budget.toLowerCase(), VAGUE_BUDGET)) {
+      score += 1; why.push('budget open');
+    } else {
+      score += 2; why.push('budget given');
+    }
   }
 
-  const tl = lead.timeline.toLowerCase();
+  /* The address is required, so this scores every lead one way or the other. */
+  const at = mail.lastIndexOf('@');
+  if (at > -1) {
+    const domain = mail.slice(at + 1);
+    if (!has_(domain, FREE_MAIL)) { score += 2; why.push('company domain'); }
+  }
+
+  /* Detail is effort, and effort correlates with intent. Two tiers rather than
+     one, because the gap between a paragraph and a brief is real. */
+  if (msg.length > 600)      { score += 2; why.push('detailed brief'); }
+  else if (msg.length > 200) { score += 1; why.push('detailed message'); }
+
+  /* ── What the message carries, now that nothing asks ─────── */
+
+  if (hasWord_(msg, PLATFORM_WORDS)) { score += 2; why.push('platform named'); }
+  if (hasWord_(msg, URGENCY_WORDS))  { score += 1; why.push('urgency stated'); }
+
+  /* Seniority, from the role field on a legacy row or from the message on a
+     current one. Scored once either way, and matched differently in each case:
+     substring against a known select option, word boundary against free text. */
+  const role = (lead.role || '').toLowerCase();
+  const senior = role ? has_(role, DECISION_ROLES) : hasWord_(msg, DECISION_ROLES);
+  if (senior) { score += 2; why.push('decision maker'); }
+
+  /* ── Legacy selects, still read if a row has them ────────── */
+
+  const tl = (lead.timeline || '').toLowerCase();
   if (tl.indexOf('now') > -1 || tl.indexOf('1 month') > -1 || tl.indexOf('3 month') > -1) {
     score += 3; why.push('near timeline');
   } else if (tl.indexOf('6 month') > -1) {
@@ -168,35 +326,39 @@ function scoreLead_(lead) {
   } else if (tl) {
     score += 1; why.push('timeline given');
   }
-
   if (lead.platform && lead.platform.toLowerCase().indexOf('not sure') === -1) {
-    score += 1; why.push('platform named');
+    score += 1; why.push('platform selected');
   }
-  if (lead.budget) { score += 1; why.push('budget band given'); }
-  if (lead.message.length > 120) { score += 1; why.push('detailed message'); }
 
   // Obvious non-business contact. Still saved, still emailed, replied to last.
-  if (LOW_SIGNALS.some(function (s) { return hay.indexOf(s) > -1; })) {
+  if (hasWord_(hay, LOW_SIGNALS)) {
     return { score: score, band: 'LOW PRIORITY', why: 'matched a job or vendor pattern' };
   }
 
-  /* If the form sent none of the qualifying fields, there is nothing to score
-     on, and calling that "LOW PRIORITY" would libel every good lead the current
-     form produces. Say so instead: UNSCORED means the form needs the fields,
-     not that the enquiry is weak. */
-  const asked = lead.website || lead.company || lead.role ||
-                lead.platform || lead.timeline || lead.budget;
-  if (!asked) {
+  /* Nothing scored at all. That is a thin enquiry, not a weak business, and the
+     band says which: a 20-word message from a free address with no company and
+     no budget gives the triage nothing to work with, and calling it LOW
+     PRIORITY would be a judgement the enquiry does not support. */
+  if (score === 0) {
     return {
       score: score,
       band: 'UNSCORED',
-      why: 'form did not send the qualifying fields'
+      why: 'nothing in the enquiry to score on'
     };
   }
 
-  const band = score >= 7 ? 'HOT'
-             : score >= 4 ? 'QUALIFIED'
-             : score >= 2 ? 'NURTURE'
+  /* Thresholds against a ceiling of 13 on the current form: business named 2,
+     budget 2, company domain 2, detail 2, platform 2, urgency 1, seniority 2.
+
+     Calibrated against real enquiry shapes rather than picked off the old
+     thresholds, which were set for a different ceiling. At 8 and 5 the first
+     draft banded an ordinary good lead (business, budget, company address,
+     platform) as HOT, and HOT has to mean something or it means nothing: four
+     routine signals is the shape of most serious first enquiries, so that is
+     QUALIFIED. HOT needs detail or seniority on top of them. */
+  const band = score >= 10 ? 'HOT'
+             : score >= 6  ? 'QUALIFIED'
+             : score >= 2  ? 'NURTURE'
              : 'LOW PRIORITY';
 
   return { score: score, band: band, why: why.join(', ') };
@@ -316,6 +478,21 @@ function appendLead_(lead) {
 
 /* ── Email to YOU ─────────────────────────────────────────── */
 
+/**
+ * The rows the five-field form can fill, always shown, plus the rows only an
+ * older submission has, shown only when they have something in them.
+ *
+ * The table listed all fourteen unconditionally, so every email from the
+ * current form carried "Role: Not given", "Platform: Not given", "Timeline:
+ * Not given", "Website: Not given" and "Phone: Not given" every time. Five
+ * rows of nothing, on every lead, for fields the site stopped asking for:
+ * that is not a record of what is missing, it is noise between you and the
+ * message.
+ *
+ * Company and Budget stay unconditional even when empty, because those two
+ * ARE on the current form and their absence is a fact about the enquiry worth
+ * seeing at a glance.
+ */
 function sendOwnerEmail_(lead) {
   const rows = [
     ['Funnel',   lead.funnel ? esc_(lead.funnel) : 'general'],
@@ -323,17 +500,20 @@ function sendOwnerEmail_(lead) {
                  '<span style="color:#999">' + esc_(lead.why) + '</span>'],
     ['Name',     esc_(lead.name)],
     ['Email',    link_('mailto:' + esc_(lead.email), esc_(lead.email))],
-    ['Phone',    lead.phone ? link_('tel:' + esc_(lead.phone), esc_(lead.phone)) : 'Not given'],
     ['Company',  lead.company ? esc_(lead.company) : 'Not given'],
-    ['Website',  lead.website ? link_(esc_(href_(lead.website)), esc_(lead.website)) : 'Not given'],
-    ['Role',     lead.role     ? esc_(lead.role)     : 'Not given'],
-    ['Platform', lead.platform ? esc_(lead.platform) : 'Not given'],
-    ['Timeline', lead.timeline ? esc_(lead.timeline) : 'Not given'],
-    ['Budget',   lead.budget   ? esc_(lead.budget)   : 'Not given'],
-    ['About',    esc_(lead.service)],
-    ['Page',     lead.page ? esc_(lead.page) : 'Not given'],
-    ['Date',     Utilities.formatDate(lead.date, Session.getScriptTimeZone(), 'dd MMM yyyy, HH:mm')]
+    ['Budget',   lead.budget   ? esc_(lead.budget)   : 'Not given']
   ];
+
+  /* Only if present. These are the fields the nine-field forms collected. */
+  if (lead.website)  rows.push(['Website',  link_(esc_(href_(lead.website)), esc_(lead.website))]);
+  if (lead.phone)    rows.push(['Phone',    link_('tel:' + esc_(lead.phone), esc_(lead.phone))]);
+  if (lead.role)     rows.push(['Role',     esc_(lead.role)]);
+  if (lead.platform) rows.push(['Platform', esc_(lead.platform)]);
+  if (lead.timeline) rows.push(['Timeline', esc_(lead.timeline)]);
+
+  rows.push(['About', esc_(lead.service)]);
+  rows.push(['Page',  lead.page ? esc_(lead.page) : 'Not given']);
+  rows.push(['Date',  Utilities.formatDate(lead.date, Session.getScriptTimeZone(), 'dd MMM yyyy, HH:mm')]);
 
   const html = emailShell_(
     'New lead: ' + esc_(lead.name),
@@ -509,19 +689,25 @@ function logError_(where, err) {
    sends both emails so you can verify the whole path. */
 
 function testSetup() {
+  /* The shape the five-field form actually sends: name, email, company or
+     website, project requirements, budget, plus the funnel and page the client
+     adds. It used to set role, platform, timeline, website and phone as well,
+     which meant the one test of this path exercised five fields that can no
+     longer arrive and scored on rules the live form never reaches. */
   const lead = {
     date: new Date(),
+    funnel: 'project',
     name: 'Test Lead',
     email: CONFIG.OWNER_EMAIL,
-    phone: '9898334731',
+    phone: '',
     company: 'Test Commerce Ltd',
-    website: 'example.com',
-    role: 'Head of eCommerce',
-    platform: 'Magento 2',
-    timeline: 'Within 3 months',
-    budget: 'Not disclosed',
-    service: 'A replatforming or migration',
-    message: 'Test lead from testSetup(). If this arrived, the sheet, the scoring and both emails are working.',
+    website: '',
+    role: '',
+    platform: '',
+    timeline: '',
+    budget: '8,000 to 12,000 USD',
+    service: 'Project enquiry',
+    message: 'Test lead from testSetup(). We are on Magento 2 and need the catalogue architecture reviewed before peak season. If this arrived, the sheet, the scoring and both emails are working.',
     page: CONFIG.SITE_URL + '/contact/'
   };
   const scored = scoreLead_(lead);
