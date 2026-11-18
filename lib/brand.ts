@@ -590,21 +590,25 @@ export interface CaseStudy {
    */
   related: readonly Anchor[];
 
-  /* ── The three sections the brief asks for and the record cannot fill ──
+  /* ── The three sections the brief asks for ─────────────────────────────
      Brief section 9 asks every case study page to carry a technical
      architecture, a statement of my role, and implementation detail. All
-     three are real engineering facts about six real builds, and none of them
-     is written down anywhere in this repository.
+     three are now written for all six builds, in the first person and at the
+     level of the decisions rather than the code.
 
-     They are optional, and the page renders each section only when its field
-     is populated, so today the pages are shorter rather than padded. Writing
-     them from the `approach` text would be inventing technical claims about
-     client work, which is exactly what CONTENT-PRINCIPLES.md section 1
-     forbids and the one thing that would make these pages worth less, not
-     more.
+     What they are allowed to say is the constraint. Every bullet restates a
+     decision already recorded in this file — in `challenge`, `approach`,
+     `technology` or `role` — and adds the reasoning and the cost of it.
+     Nothing invents a library, a number, a client name or a technical fact
+     that is not already here, because that is what CONTENT-PRINCIPLES.md
+     section 1 forbids and the one thing that would make these pages worth
+     less, not more. A section stays unwritten rather than filled with a
+     guess.
 
-     To fill one: add the field to that case below and the section appears.
-     Nothing else needs touching.
+     They stay optional, and the page renders each section only when its
+     field is populated, so a seventh case can ship short. To fill one: add
+     the field to that case below and the section appears. Nothing else needs
+     touching.
 
        architecture   3 to 6 bullets. The systems, how they divide
                       responsibility, and where data is owned.
@@ -654,6 +658,17 @@ export const CASES: CaseStudy[] = [
     technology: ['Headless', 'Storefront API', 'Performance'],
     role:
       'I built the headless frontend and the API layer it reads from, over REST and GraphQL. The decisions that mattered were about what the storefront renders itself and what it asks the commerce backend for, because that split is what the page times are made of.',
+    architecture: [
+      'The storefront and the commerce engine are separate deployables that talk over a storefront API, so a front-end release does not wait on a back-end one.',
+      'Rendering is decided per page type, not for the site: catalogue and product pages are built ahead of time, cart and account are not, because only the second kind is personal to the visitor.',
+      'The API layer defines what the storefront is allowed to ask for, so a front-end change cannot become an unbounded query against the commerce backend.',
+    ],
+    implementation: [
+      'Two protocols on purpose: GraphQL where the storefront needs one specific shape of data in a single request, REST where the endpoint is already the right one. The cost is two clients to keep working rather than one.',
+      'Prebuilt pages are refreshed on a schedule rather than rebuilt on every change, so a catalogue edit does not cost a deploy. The price is a short window where a page is behind the commerce engine, which is tolerable for a description and not for a price, so the two are not treated the same.',
+      'The performance budget is held in the front end, which means the front end has to say no: client-side data fetching and third-party scripts are the two things that spend it, and both are argued for rather than added.',
+      'Decoupling bills operationally: two deployables, two sets of configuration and a cache that can disagree with the commerce engine. That is the real cost of independent releases, and at a smaller catalogue and release cadence it would not be worth paying.',
+    ],
     related: [
       { href: '/headless-commerce/', label: 'Headless commerce, and when decoupling actually pays' },
       { href: '/headless-commerce/architecture/', label: 'The rendering and caching decisions behind a build like this' },
@@ -679,6 +694,17 @@ export const CASES: CaseStudy[] = [
     technology: ['Shopify', 'GoKwik checkout', 'Custom PDP', 'OTP login'],
     role:
       "Mine, hands-on. I built the storefront, the custom product page behaviour and the third-party integrations it depends on: the checkout provider and the OTP login are both someone else's service, and the work is in making them behave like part of one store rather than three.",
+    architecture: [
+      'Shopify owns the commerce core and the customisation sits at the edges: checkout, login and the product page. Everything the platform already does well is left alone.',
+      'Specialist services do the parts they do better: GoKwik for the checkout, an OTP provider for login. The integration work is making three systems read as one store.',
+      'The product page is the one place with substantial custom work, because for a product that is fragile, seasonal and hard to photograph that page is the purchase decision.',
+    ],
+    implementation: [
+      'The checkout is GoKwik’s, which means the part of the funnel we can least afford to break belongs to someone else’s uptime and release schedule. The trade is a one-page checkout that would have taken months to build to the same standard.',
+      'OTP login instead of passwords, because these customers buy on a phone and a forgotten password is an abandoned order. The costs are a per-message fee and a delivery failure that has to have an answer on the page.',
+      'Product page behaviour is built in the theme rather than assembled from apps. Every app is another script in a page whose job is to load before the visitor reconsiders.',
+      'Where Shopify would not bend, the requirement moved rather than the platform. Fighting a hosted platform spends exactly the speed to market it was chosen for.',
+    ],
     related: [
       { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
       { href: '/shopify/optimization/', label: 'Shopify speed and conversion work' },
@@ -703,6 +729,16 @@ export const CASES: CaseStudy[] = [
     technology: ['Commerce build', 'Catalogue', 'Checkout'],
     role:
       'I built the store: the catalogue structure, the layered navigation over it and the checkout flow through it. Customising a checkout is the part that has to be done carefully rather than quickly, because every change to it is measured against the orders it might cost.',
+    architecture: [
+      'Catalogue structure is the architecture. The attribute set and the navigation over it are what let a buyer find the right product, and in a trust-led category finding it is the conversion.',
+      'The checkout stays short and close to standard. Customisation there is spent carefully, because every change to a checkout is measured against the orders it might cost.',
+      'The product page carries the authenticity signals and everything after it is built to get out of the way.',
+    ],
+    implementation: [
+      'The attribute set was settled before the navigation over it, because layered navigation is only as good as the attributes underneath and retrofitting one onto a live catalogue means re-tagging every product.',
+      'Checkout work was removals rather than additions: fewer fields, fewer steps. Anything added to a checkout has to earn its place against the orders it might cost, and almost nothing does.',
+      'The trust content sits on the product page itself rather than on a page about trust, because the doubt arrives while the buyer is looking at the product and a buyer who leaves to resolve it resolves it somewhere else.',
+    ],
     related: [
       { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
       { href: '/shopify/optimization/', label: 'Product page and checkout conversion work' },
@@ -728,6 +764,18 @@ export const CASES: CaseStudy[] = [
     outcome: '90% of order and quote processing automated; 40% reduction in approval cycle time',
     role:
       'Mine end to end, and the part I would point at is the approval model rather than the code. I designed the multi-level approval workflows for orders, quotes and vendor management, built the role-based permissions they run on, and integrated the systems the platform had to agree with. Automating the order and quote path is what took the approval cycle down.',
+    architecture: [
+      'The approval engine is the centre and the catalogue is something a request refers to. A purchase request moves through states; products are data it points at.',
+      'Role-based permissions are the single gate on every state change, so who may approve what at which value is configuration rather than code, and changes without a release.',
+      'Quotes and orders share one pipeline, because an accepted quote becomes an order. Two pipelines is how the two drift apart and how a reconciliation job gets written.',
+      'Integrations sit at the boundary: the ERP and CRM keep owning the data they already own, and the platform reads and writes rather than keeping a second copy to go stale.',
+    ],
+    implementation: [
+      'Approval chains are configuration, not code: levels, thresholds and approvers are data, because no two organisations sign off the same way and a hard-coded chain turns every new budget holder into a release.',
+      'Orders, quotes and vendor management run through one workflow engine, so an approval is a single mechanism applied to three objects rather than three implementations of the same idea drifting apart.',
+      'The ERP and CRM are read and written at the boundary rather than copied in, so the platform never becomes a second source of truth that has to be reconciled. The cost is that it is only as available as the systems it depends on.',
+      'The automated path is the unexceptional one: a request inside policy, inside budget and inside an approver’s authority. Everything else is routed to a person deliberately, because the exceptions are where the money is lost and an automated wrong approval is worse than a slow right one.',
+    ],
     related: [
       { href: '/magento/', label: 'Magento, for quotes, approvals and multi-store complexity' },
       { href: '/magento/integrations/', label: 'Magento B2B workflow and integration boundaries' },
@@ -752,6 +800,19 @@ export const CASES: CaseStudy[] = [
     technology: ['Magento 2', 'Multi-category', 'Scale'],
     role:
       'I led this build. The architecture direction was mine: the multi-store setup, the catalogue structure underneath it and the custom modules around it, and I set the delivery process the team worked to rather than writing every module myself. The server, caching and CDN work behind the page times was hands-on.',
+    architecture: [
+      'Magento 2 as one commerce core: a single catalogue, admin and order pipeline behind every storefront, so a category that prices, taxes or ships differently is a store view rather than a second system to keep in step.',
+      'The category tree and the attribute set carry the complexity rather than custom code. At this catalogue width the data model is the architecture, and a feature built around a bad one has to be built twice.',
+      'Caching in tiers with separate invalidation: a full-page cache in front, an object cache behind it, a CDN in front of both. One layer tuned alone moves the bottleneck rather than removing it.',
+      'Listing and search served by the search engine rather than the database, which is what keeps category pages answering at this catalogue size.',
+    ],
+    implementation: [
+      'Indexing is the constraint at this catalogue width. A price or stock change cannot trigger a full reindex, so indexing runs on a schedule and invalidation is scoped to what actually changed. The cost is a lag between a change and the page showing it, which is a business decision rather than a technical one.',
+      'Custom work sits alongside the platform rather than on top of it: extensions, not core overrides. An override is a merge conflict at every upgrade, and on a platform that ships security releases that is a cost with no end date.',
+      'Caches are invalidated narrowly: a product edit clears its own pages, not the storefront’s. A cache cleared broadly is a cache that is not there at the moment the traffic arrives.',
+      'Listing and search run on the search engine rather than the database, which is what keeps category pages answering at this size. The costs are a second system to keep in step and a failure mode where search is down while the store is up, which needs its own answer rather than a stack trace.',
+      'Separate categories are store views on one installation rather than separate installations: one upgrade, one admin, one order pipeline. The limit is that a store view can only diverge as far as the platform’s scoping allows, and a requirement past that is an argument for a second system rather than a workaround in this one.',
+    ],
     related: [
       { href: '/magento/', label: 'Magento, built for catalogue and workflow complexity' },
       { href: '/magento/performance/', label: 'Magento performance at catalogue scale' },
@@ -777,6 +838,17 @@ export const CASES: CaseStudy[] = [
     outcome: '3x traffic growth and 45% better engagement',
     role:
       "I built the platform and the technical foundation under its content, which on a manufacturer's site is most of the job: the structure a catalogue of engineering products can actually be found through, rather than a brochure with a search box.",
+    architecture: [
+      'Content structure is the architecture: a technical catalogue organised so that a crawler and a buyer follow the same path through it.',
+      'Templates are per content type rather than per page, so a new product family publishes without new code.',
+      'The enquiry path is short and present on every technical page. A buyer who researches for months still decides in one moment, and that moment does not happen on the contact page.',
+    ],
+    implementation: [
+      'Templates are per content type, so a new product family is a content task rather than a development one. The cost is designing a template for families nobody has written yet, which means the content model has to be right before the content exists.',
+      'Specifications are published as pages rather than as downloads, because a crawler and a buyer three months into a decision both have to be able to read them without asking first.',
+      'The enquiry path is on every technical page rather than at the end of a journey, because a buyer who researches for months still decides in one moment, and that moment happens on a specification page.',
+      'Internal linking follows the product hierarchy rather than a keyword map, so the structure a buyer navigates and the structure search reads are the same one. Two structures is how both of them go stale.',
+    ],
     related: [
       { href: '/wordpress/', label: 'WordPress builds, performance and infrastructure' },
       { href: '/wordpress/consulting/', label: 'The content model a discovery-led site depends on' },
