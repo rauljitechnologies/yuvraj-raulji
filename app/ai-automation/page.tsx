@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: tech.description,
   keywords: [
     'AI automation',
+    'AI automation developer',
     'AI agents',
     'LLMs',
     'RAG',

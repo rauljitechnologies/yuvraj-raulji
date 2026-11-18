@@ -163,7 +163,12 @@ const CONSULTANT = ['Yuvraj Raulji', 'eCommerce Consultant', 'AI Consultant', 'T
 const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entities: string[] }> = {
   magento: {
     primary: 'magento consultant',
-    secondary: ['magento 2 consultant', 'adobe commerce consultant', 'magento ecommerce consultant'],
+    secondary: [
+      'magento 2 consultant',
+      'adobe commerce consultant',
+      'magento ecommerce consultant',
+      'magento development consultant',
+    ],
     entities: ['Magento', 'Magento 2', 'Adobe Commerce'],
   },
   shopify: {
@@ -183,7 +188,12 @@ const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entit
   },
   'headless-commerce': {
     primary: 'headless commerce consultant',
-    secondary: ['composable commerce consultant', 'headless ecommerce expert', 'decoupled storefront'],
+    secondary: [
+      'composable commerce consultant',
+      'headless ecommerce expert',
+      'decoupled storefront',
+      'headless commerce developer',
+    ],
     entities: ['Headless Commerce', 'Composable Commerce', 'Next.js'],
   },
   nextjs: {
@@ -203,7 +213,12 @@ const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entit
   },
   'ai-automation': {
     primary: 'ai automation consultant',
-    secondary: ['business process automation', 'ai agents for operations', 'workflow automation'],
+    secondary: [
+      'business process automation',
+      'ai agents for operations',
+      'workflow automation',
+      'ai automation developer',
+    ],
     entities: ['AI Automation', 'AI Agents', 'MCP'],
   },
   'digital-transformation': {
@@ -237,7 +252,12 @@ const FROM_HUBS: ContentMapRow[] = TECHNOLOGIES.map((t) => {
 const PILLAR_KEYWORDS: Record<string, { primary: string; secondary: string[] }> = {
   'ecommerce-consulting': {
     primary: 'ecommerce consulting',
-    secondary: ['ecommerce consultant', 'platform selection', 'technical due diligence'],
+    secondary: [
+      'ecommerce consultant',
+      'ecommerce development consultant',
+      'platform selection',
+      'technical due diligence',
+    ],
   },
   'website-management': {
     primary: 'website management services',

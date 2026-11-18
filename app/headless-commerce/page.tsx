@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   keywords: [
     'headless commerce',
     'composable commerce',
+    'headless commerce developer',
     'commerce APIs',
     'GraphQL',
     'Next.js',

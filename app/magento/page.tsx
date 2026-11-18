@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     'Magento 2',
     'Adobe Commerce',
     'enterprise commerce',
+    'Magento development consultant',
     'Magento performance',
     'Magento integrations',
     'Magento AI',
