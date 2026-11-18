@@ -88,6 +88,24 @@ export interface LeadFields {
    * nothing.
    */
   funnel?: 'project' | 'general';
+  /**
+   * Which of the three instances of the form this was sent from.
+   *
+   * The same ProjectForm renders on /contact/, in the homepage enquiry
+   * section and in the modal that every call to action on the site opens.
+   * All three send `funnel: 'project'`, so in GA4 an enquiry from the
+   * homepage and an enquiry from a service page's modal were the same
+   * undifferentiated row, and the question the brief actually asks, which
+   * page produces enquiries, could not be answered from the event.
+   *
+   * It is a parameter on the existing `generate_lead` rather than a second
+   * event, because two events for one conversion is how a conversion count
+   * doubles.
+   *
+   * Deliberately not sent to the lead endpoint: the sheet has a fixed set of
+   * columns and this is a reporting dimension, not a field of the enquiry.
+   */
+  formLocation?: 'contact-page' | 'homepage' | 'modal';
   /** Honeypot. Filled means a bot; a person never sees the field. */
   hp?: string;
 }
@@ -140,7 +158,13 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
 
   if (!LEAD_ENDPOINT) {
     openMailFallback(f);
-    track('form_error', { error_type: 'not_configured', funnel: f.funnel, service_selected: f.service, page_path: path() });
+    track('form_error', {
+      error_type: 'not_configured',
+      funnel: f.funnel,
+      service_selected: f.service,
+      form_location: f.formLocation,
+      page_path: path(),
+    });
     return 'fallback';
   }
 
@@ -183,7 +207,12 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
     const data = (await res.json()) as { ok?: boolean };
     if (data?.ok !== true) throw new Error('rejected');
 
-    track('generate_lead', { funnel: f.funnel, service_selected: f.service, page_path: path() });
+    track('generate_lead', {
+      funnel: f.funnel,
+      service_selected: f.service,
+      form_location: f.formLocation,
+      page_path: path(),
+    });
     return 'sent';
   } catch (err) {
     openMailFallback(f);
@@ -196,6 +225,7 @@ export async function submitLead(f: LeadFields): Promise<LeadResult> {
       error_type: err instanceof Error ? err.message || err.name : 'unknown',
       funnel: f.funnel,
       service_selected: f.service,
+      form_location: f.formLocation,
       page_path: path(),
     });
     return 'fallback';

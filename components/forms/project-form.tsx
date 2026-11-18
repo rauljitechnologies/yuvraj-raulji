@@ -12,7 +12,7 @@ import {
   projectToLead,
   type ProjectInput,
 } from '../../lib/forms';
-import { submitLead, type LeadResult } from '../../lib/lead';
+import { submitLead, type LeadFields, type LeadResult } from '../../lib/lead';
 import { CONTACT } from '../../lib/site';
 import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } from './fields';
 
@@ -60,7 +60,19 @@ import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } fro
  * field revalidates as it is edited, so an error clears when it is fixed
  * rather than on the next submit.
  */
-export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string }) {
+export function ProjectForm({
+  tone = 'dark',
+  id,
+  /* Where this instance is rendered, carried into `generate_lead` as
+     `form_location`. Defaults to the modal because that is the instance every
+     call to action on the site opens, and it is the one a new call site is
+     most likely to be. */
+  source = 'modal',
+}: {
+  tone?: Tone;
+  id?: string;
+  source?: LeadFields['formLocation'];
+}) {
   const [f, setF] = useState<ProjectInput>(PROJECT_EMPTY);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -97,7 +109,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
       setErrors(errs);
       /* Recorded so a form nobody can get past is visible in the analytics
          rather than only in the drop-off. */
-      track('form_invalid', { form: 'project', field: Object.keys(errs)[0] });
+      track('form_invalid', { form: 'project', field: Object.keys(errs)[0], form_location: source });
       /* Focus the first blocker, within this form. Without this a keyboard or
          screen-reader user submits, hears nothing, and has no idea which field
          is wrong. */
@@ -109,7 +121,11 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
 
     setErrors({});
     setSending(true);
-    const r = await submitLead({ ...projectToLead(parsed.data), funnel: 'project' });
+    const r = await submitLead({
+      ...projectToLead(parsed.data),
+      funnel: 'project',
+      formLocation: source,
+    });
     setResult(r);
     setSending(false);
   };
