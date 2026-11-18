@@ -222,7 +222,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     h1: ['Magento development', 'for catalogues that have', 'outgrown the defaults.'],
     lede:
       'Custom module development, multi-store architecture, B2B workflows and the performance work that follows. Nine years on the platform, most of it on stores where the catalogue size is the architecture problem.',
-    cta: 'Discuss a Magento project',
+    cta: 'Discuss Your Magento Project',
     title: 'Magento 2 Development Services | Yuvraj Raulji',
     description:
       'Magento 2 and Adobe Commerce development: custom modules, multi-store, B2B workflows, ERP integration and performance engineering. 500K+ SKUs on the record.',
@@ -333,7 +333,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     h1: ['Shopify development', 'for brands that have', 'outgrown the theme.'],
     lede:
       'Custom theme architecture, private apps, checkout extensibility and app consolidation. The work that starts when the store is working and the stack around it is not.',
-    cta: 'Discuss a Shopify project',
+    cta: 'Discuss Your Shopify Project',
     title: 'Shopify Development Services | Yuvraj Raulji',
     description:
       'Shopify and Shopify Plus development: custom themes, private apps, checkout extensions and app consolidation. Senior engineering, not a theme install.',
@@ -1212,7 +1212,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     h1: ['Someone who owns', 'the platform', 'between projects.'],
     lede:
       'Patching, upgrades, monitoring and the occasional thing that breaks at a bad time. For a store that works and needs to keep working, without a developer on payroll.',
-    cta: 'Discuss a retainer',
+    cta: 'Get Technical Support',
     title: 'eCommerce Website Maintenance & Support | Yuvraj Raulji',
     description:
       'Ongoing maintenance for Magento, Shopify and WooCommerce stores: security patching, upgrades, monitoring and incident response, on a retainer.',
@@ -1724,7 +1724,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     h1: ['Next.js and React,', 'with the rendering', 'decision made on purpose.'],
     lede:
       'App Router applications, commerce storefronts and interfaces over existing APIs. The decisions that matter are made before the first component, and most of them are about where things render.',
-    cta: 'Discuss a Next.js project',
+    cta: 'Discuss Your Next.js Project',
     title: 'Next.js & React Development Services | Yuvraj Raulji',
     description:
       'Next.js and React development: App Router architecture, server components, commerce storefronts, TypeScript, and Core Web Vitals held as a budget.',
