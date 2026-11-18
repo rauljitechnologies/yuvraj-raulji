@@ -1,4 +1,4 @@
-import { ROLE_LINE } from '../../lib/identity';
+import { EXPERTISE_LINE, ROLE_LINE } from '../../lib/identity';
 import { HERO, PORTRAITS } from '../../lib/homepage';
 import { CONTACT } from '../../lib/site';
 import { Cta, Marquee } from './primitives';
@@ -203,14 +203,41 @@ export function Hero() {
           */}
           <Eager className="mt-9 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
             <Cta href="/contact/" variant="accent">
-              Hire Me for Your Project
+              Discuss Your Project
             </Cta>
             <Cta href="/work/" variant="outline">
-              View My Projects <span className="font-mono">&#8594;</span>
+              Explore My Work <span className="font-mono">&#8594;</span>
             </Cta>
             <Cta href={CONTACT.whatsapp} variant="outline" external="WhatsApp">
-              Let&apos;s Talk on WhatsApp
+              WhatsApp Me
             </Cta>
+          </Eager>
+
+          {/*
+            The credibility line, under the calls to action rather than above
+            them. Above, it separates the supporting paragraph from the button
+            the paragraph is arguing for; below, it is the last thing read
+            before the decision and it is evidence rather than preamble.
+
+            Same unbreakable-item treatment as the headline above: these are
+            five units and a line must not break inside "9+ Years Experience".
+          */}
+          <Eager className="mt-7 sm:mt-8" delay={0.3}>
+            <p className="m-0 max-w-[46ch] font-mono text-[11px] font-medium uppercase leading-[1.9] tracking-[0.14em] text-ink/50 sm:max-w-none sm:text-[12px]">
+              {EXPERTISE_LINE.map((part, i, all) => (
+                <span key={part} className="inline-block whitespace-nowrap">
+                  {part}
+                  {i < all.length - 1 ? (
+                    <>
+                      <span aria-hidden="true" className="px-2.5 text-accent/50">
+                        |
+                      </span>
+                      <span className="sr-only">, </span>
+                    </>
+                  ) : null}
+                </span>
+              ))}
+            </p>
           </Eager>
         </div>
 

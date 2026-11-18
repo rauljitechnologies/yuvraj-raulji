@@ -56,6 +56,8 @@ export interface LeadFields {
    */
   website?: string;
   company?: string;
+  /** Where the enquiry is from. Time-zone overlap, and which market replied. */
+  country?: string;
   /**
    * Budget, free text.
    *
@@ -109,10 +111,13 @@ export function openMailFallback(f: LeadFields): void {
   const body = [
     `Name: ${f.name}`,
     `Email: ${f.email}`,
-    ...(f.company ? [`Company or website: ${f.company}`] : []),
+    ...(f.company ? [`Company: ${f.company}`] : []),
     ...(f.website ? [`Website: ${f.website}`] : []),
+    ...(f.country ? [`Country: ${f.country}`] : []),
     ...(f.phone ? [`Phone: ${f.phone}`] : []),
-    ...(f.service ? [`About: ${f.service}`] : []),
+    ...(f.service ? [`Service: ${f.service}`] : []),
+    ...(f.budget ? [`Budget: ${f.budget}`] : []),
+    ...(f.timeline ? [`Timeline: ${f.timeline}`] : []),
     '',
     'Message:',
     f.message,

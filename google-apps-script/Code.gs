@@ -55,7 +55,7 @@ const CONFIG = {
    a field here is the only change needed to start capturing it. */
 const COLUMNS = [
   'Date', 'Funnel', 'Band', 'Score', 'Name', 'Email', 'Phone', 'Company', 'Website',
-  'Role', 'Platform', 'Timeline', 'Budget', 'Service', 'Message', 'Page', 'Status'
+  'Country', 'Role', 'Platform', 'Timeline', 'Budget', 'Service', 'Message', 'Page', 'Status'
 ];
 
 /* ── Web app entry points ─────────────────────────────────── */
@@ -84,6 +84,12 @@ function doPost(e) {
          platform, the scale and usually the problem, before you read a word of
          the message. Captured whether or not the form sends it yet. */
       website:  clean_(p.website, 300),
+      /* Captured, not scored. The site is aimed at the USA, the UK, the UAE
+         and Europe, so it is tempting to weight it, but a score is a triage
+         order and down-ranking a real buyer for being somewhere unexpected is
+         a judgement this field cannot support. It answers "what time is it
+         where they are", which is what the reply needs. */
+      country:  clean_(p.country, 80),
       role:     clean_(p.role, 80),
       platform: clean_(p.platform, 80),
       timeline: clean_(p.timeline, 80),
@@ -254,6 +260,37 @@ function has_(hay, list) {
   return list.some(function (w) { return hay.indexOf(w) > -1; });
 }
 
+/**
+ * Is this email domain a free mailbox provider?
+ *
+ * ── Why this is not has_() ────────────────────────────────────────────────
+ *
+ * It was. FREE_MAIL contains 'me.com', and a substring test reads 'acme.com'
+ * as iCloud, so every buyer at acme.com lost the two points for writing from
+ * a company address. The same hit 'mail.com' inside 'yourmail.com' and
+ * 'live.' inside 'olive.io'.
+ *
+ * That is the costliest place in this function for a false positive: the
+ * address is the one required field, so this rule scores every single
+ * enquiry, and it is the same substring mistake that put 'cto' inside
+ * "sector" and "factory" before free text was word-boundary matched.
+ *
+ * The list is written in two shapes and each is matched as it is meant:
+ *
+ *   'gmail.'  a provider label, so it matches gmail.com and gmail.co.uk,
+ *             at the start of the domain or at a dot boundary inside it
+ *   'me.com'  a complete domain, so it matches me.com and mail.me.com and
+ *             nothing that merely ends in those letters
+ */
+function isFreeMail_(domain) {
+  return FREE_MAIL.some(function (w) {
+    if (w.charAt(w.length - 1) === '.') {
+      return domain.indexOf(w) === 0 || domain.indexOf('.' + w) > -1;
+    }
+    return domain === w || domain.slice(-(w.length + 1)) === '.' + w;
+  });
+}
+
 /* Word-boundary. For anything matched against free text.
 
    Apps Script runs modern V8, so a RegExp built per call is fine at this
@@ -273,9 +310,8 @@ function scoreLead_(lead) {
 
   const msg  = (lead.message || '').toLowerCase();
   const mail = (lead.email || '').toLowerCase();
-  /* Service is in the haystack for the spam rules only. It is 'Project enquiry'
-     on everything the current form sends, so it contributes no signal. */
-  const hay  = msg + ' ' + (lead.service || '').toLowerCase();
+  const svc  = (lead.service || '').toLowerCase();
+  const hay  = msg + ' ' + svc;
 
   /* ── What the form asks for ──────────────────────────────── */
 
@@ -283,6 +319,18 @@ function scoreLead_(lead) {
      there is a business behind this. `website` is read too, for the rows in the
      sheet from when it was its own field. */
   if (lead.company || lead.website) { score += 2; why.push('business named'); }
+
+  /* Service, required on the form and a real selection again.
+
+     It sent the constant 'Project enquiry' while the five-field form was live,
+     which is why the previous rewrite read it for spam patterns only. A named
+     service is a buyer who knows what they are asking for; 'Other' is a buyer
+     who has something to say that the list did not cover, which is weaker
+     signal but not none. */
+  if (svc && svc !== 'not specified' && svc !== 'project enquiry') {
+    if (svc === 'other') { score += 1; why.push('service: other'); }
+    else { score += 2; why.push('service named'); }
+  }
 
   if (lead.budget) {
     if (has_(lead.budget.toLowerCase(), VAGUE_BUDGET)) {
@@ -296,7 +344,7 @@ function scoreLead_(lead) {
   const at = mail.lastIndexOf('@');
   if (at > -1) {
     const domain = mail.slice(at + 1);
-    if (!has_(domain, FREE_MAIL)) { score += 2; why.push('company domain'); }
+    if (!isFreeMail_(domain)) { score += 2; why.push('company domain'); }
   }
 
   /* Detail is effort, and effort correlates with intent. Two tiers rather than
@@ -316,16 +364,34 @@ function scoreLead_(lead) {
   const senior = role ? has_(role, DECISION_ROLES) : hasWord_(msg, DECISION_ROLES);
   if (senior) { score += 2; why.push('decision maker'); }
 
-  /* ── Legacy selects, still read if a row has them ────────── */
+  /* ── Timeline ────────────────────────────────────────────── */
 
+  /* Matched against what the form now sends, which is not what this read
+     before: the options are "As soon as possible", "Within 1 month", "1 to 3
+     months", "3 months or later" and "Just exploring". The old rules looked
+     for 'now' and '6 month', so "As soon as possible", the most urgent answer
+     on the list, fell through to the generic +1 and scored the same as a
+     distant one.
+
+     "Just exploring" scores nothing on purpose. It is the one answer that is
+     weaker than leaving the field blank, and giving it the "timeline given"
+     point would rank an admitted browser above a buyer who skipped an
+     optional select. Legacy values from older rows still match. */
   const tl = (lead.timeline || '').toLowerCase();
-  if (tl.indexOf('now') > -1 || tl.indexOf('1 month') > -1 || tl.indexOf('3 month') > -1) {
+  if (tl.indexOf('exploring') > -1) {
+    why.push('just exploring');
+  } else if (tl.indexOf('as soon as') > -1 || tl.indexOf('asap') > -1 ||
+             tl.indexOf('now') > -1 || tl.indexOf('within 1 month') > -1 ||
+             tl.indexOf('1 to 3 month') > -1 || tl.indexOf('1-3 month') > -1) {
     score += 3; why.push('near timeline');
-  } else if (tl.indexOf('6 month') > -1) {
+  } else if (tl.indexOf('3 month') > -1 || tl.indexOf('6 month') > -1) {
     score += 2; why.push('timeline set');
   } else if (tl) {
     score += 1; why.push('timeline given');
   }
+
+  /* ── Legacy select, still read if a row has one ──────────── */
+
   if (lead.platform && lead.platform.toLowerCase().indexOf('not sure') === -1) {
     score += 1; why.push('platform selected');
   }
@@ -347,17 +413,23 @@ function scoreLead_(lead) {
     };
   }
 
-  /* Thresholds against a ceiling of 13 on the current form: business named 2,
-     budget 2, company domain 2, detail 2, platform 2, urgency 1, seniority 2.
+  /* Thresholds against a ceiling of 18 on the nine-field form: business named
+     2, service 2, budget 2, company domain 2, timeline 3, detail 2, platform
+     2, urgency 1, seniority 2.
 
-     Calibrated against real enquiry shapes rather than picked off the old
-     thresholds, which were set for a different ceiling. At 8 and 5 the first
-     draft banded an ordinary good lead (business, budget, company address,
-     platform) as HOT, and HOT has to mean something or it means nothing: four
-     routine signals is the shape of most serious first enquiries, so that is
-     QUALIFIED. HOT needs detail or seniority on top of them. */
-  const band = score >= 10 ? 'HOT'
-             : score >= 6  ? 'QUALIFIED'
+     Recalibrated because the form grew, not because the bands were wrong. The
+     previous numbers were set against a ceiling of 13, and leaving them there
+     would have promoted every band by roughly one as soon as the new fields
+     started arriving: HOT would have become the ordinary case, which is the
+     same failure as the UNSCORED-everything it replaced, pointing the other
+     way.
+
+     Calibrated against shapes, as before. An ordinary serious enquiry is a
+     business with a service, a budget, a company address and a timeline:
+     2+2+2+2+3 = 11, and that is QUALIFIED. HOT needs detail or platform or
+     seniority on top of it, so it starts at 14. */
+  const band = score >= 14 ? 'HOT'
+             : score >= 8  ? 'QUALIFIED'
              : score >= 2  ? 'NURTURE'
              : 'LOW PRIORITY';
 
@@ -471,7 +543,7 @@ function appendLead_(lead) {
   sheet.appendRow([
     Utilities.formatDate(lead.date, Session.getScriptTimeZone(), 'dd MMM yyyy HH:mm'),
     lead.funnel, lead.band, lead.score, lead.name, lead.email, lead.phone,
-    lead.company, lead.website, lead.role, lead.platform, lead.timeline,
+    lead.company, lead.website, lead.country, lead.role, lead.platform, lead.timeline,
     lead.budget, lead.service, lead.message, lead.page, 'New'
   ]);
 }
@@ -509,6 +581,7 @@ function sendOwnerEmail_(lead) {
   if (lead.phone)    rows.push(['Phone',    link_('tel:' + esc_(lead.phone), esc_(lead.phone))]);
   if (lead.role)     rows.push(['Role',     esc_(lead.role)]);
   if (lead.platform) rows.push(['Platform', esc_(lead.platform)]);
+  if (lead.country) rows.push(['Country', esc_(lead.country)]);
   if (lead.timeline) rows.push(['Timeline', esc_(lead.timeline)]);
 
   rows.push(['About', esc_(lead.service)]);

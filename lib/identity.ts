@@ -117,6 +117,24 @@ export const ROLE_LINE = 'Senior Software Developer';
  */
 export const POSITIONING_LINE = [ROLE, ...ROLES_ADDITIONAL].join(' | ');
 
+/**
+ * The hero's credibility line, verbatim from the brief.
+ *
+ * Both figures are already on the page: the credibility band below the hero
+ * carries "9+ Years Experience" and "50+ Projects Delivered" with the sentence
+ * that supports each. This is the same claim in the opening screen, where a
+ * visitor decides whether to keep reading, and it states nothing the band
+ * cannot already evidence. CONTENT-PRINCIPLES.md section 1 is the reason it
+ * repeats the band rather than introducing a third number.
+ */
+export const EXPERTISE_LINE = [
+  '9+ Years Experience',
+  '50+ Projects',
+  'Magento',
+  'Shopify',
+  'Next.js',
+] as const;
+
 /* ═══════════════════════════════════════════════════════════════
    THE HEADLINE AND THE INTRODUCTION
    ═══════════════════════════════════════════════════════════════ */
@@ -132,13 +150,13 @@ export const POSITIONING_LINE = [ROLE, ...ROLES_ADDITIONAL].join(' | ');
  * making. Both halves are the brief's own words, in section 3.
  */
 export const HEADLINE = [
-  'Building Scalable eCommerce Platforms',
-  { text: '& Powerful Digital Experiences.', accent: true },
+  'Building Scalable eCommerce Experiences',
+  { text: 'That Drive Business Growth.', accent: true },
 ] as const;
 
 /** The same headline as one string, for a <title>, an OG card or a meta tag. */
 export const HEADLINE_FLAT =
-  'Building Scalable eCommerce Platforms & Powerful Digital Experiences.';
+  'Building Scalable eCommerce Experiences That Drive Business Growth.';
 
 /**
  * The professional introduction, in the first person.
@@ -156,7 +174,7 @@ export const INTRO =
  * role and the scale as well as the subject.
  */
 export const INTRO_LONG =
-  'With 9+ years of experience in eCommerce and software development, I collaborate with businesses worldwide on project work, remote development and long-term technology partnerships.';
+  'I help ambitious businesses and digital agencies build, optimize and scale eCommerce platforms using Magento, Shopify and Next.js. Available for remote projects and long-term technical collaboration worldwide.';
 
 /** The one-line description the Person node and the meta descriptions share. */
 export const DESCRIPTION =

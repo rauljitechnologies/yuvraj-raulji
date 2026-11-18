@@ -7,6 +7,7 @@ import { Lines, type DisplayLine } from '../homepage/motion';
 import { Eager, NO_SCRIPT_REVEAL_CSS } from '../homepage-sections/rv';
 import { Shell } from '../homepage/primitives';
 import { SiteFooter } from './footer';
+import { MobileCta } from './mobile-cta';
 import { SiteNav } from './nav';
 
 /**
@@ -70,6 +71,7 @@ export function Page({
           {children}
         </main>
         <SiteFooter />
+        <MobileCta />
       </div>
       <ContactModal />
     </>

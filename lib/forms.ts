@@ -144,26 +144,96 @@ const honeypot = z.string().optional().or(z.literal(''));
  * A business has one or the other to hand and should not have to think about
  * which box it goes in.
  */
+/**
+ * The service list, and the budget bands.
+ *
+ * ── Why the bands start where they do ─────────────────────────────────────
+ *
+ * The brief listed them from "Under $500". That band prices a conversation
+ * below a day of senior engineering time, and the markets this site is aimed
+ * at are the USA, the UK, the UAE and Europe. Starting at $1,000 filters at
+ * the form instead of in a reply, which is the whole point of asking.
+ *
+ * "Not sure yet" is last and is a real answer. A band list without it forces
+ * a buyer who genuinely does not know to pick one at random, which prices the
+ * work before anyone has described it.
+ *
+ * No en or em dashes in the labels: section 2 of BRAND-DESIGN-GUIDELINE.md
+ * bans them and scripts/check-prohibited-titles.sh fails the build on one, so
+ * the ranges read "to" rather than a dash.
+ */
+export const SERVICE_OPTIONS = [
+  'Magento Development',
+  'Shopify Development',
+  'Next.js Development',
+  'eCommerce Maintenance',
+  'API Integration',
+  'Other',
+] as const;
+
+export const BUDGET_OPTIONS = [
+  '$1,000 to $3,000',
+  '$3,000 to $5,000',
+  '$5,000 to $10,000',
+  '$10,000+',
+  'Not sure yet',
+] as const;
+
+/**
+ * Timeline bands.
+ *
+ * The brief asks for the field and does not name the options, so these are
+ * the four shapes a reply actually has to plan around, plus the honest fifth.
+ */
+export const TIMELINE_OPTIONS = [
+  'As soon as possible',
+  'Within 1 month',
+  '1 to 3 months',
+  '3 months or later',
+  'Just exploring',
+] as const;
+
 export const projectSchema = z.object({
   name,
   email,
   /**
-   * Company or website, whichever they have.
+   * Service, required, and the only required field added to this form.
    *
-   * Not a URL field, because it accepts either a company name or an address
-   * and validating it as a URL would reject half the legitimate answers. If
-   * it looks like a domain the normaliser tidies it; otherwise it is text.
+   * It is what routes the enquiry and the one answer that cannot be inferred
+   * from the message often enough to be worth guessing. A required select
+   * costs one click, which is the cheapest required field on the form.
    */
+  service: z
+    .string()
+    .trim()
+    .min(1, 'Choose the service this is about.')
+    .refine((v) => (SERVICE_OPTIONS as readonly string[]).includes(v), 'Choose one of the listed services.'),
+  /** Company name, separate from the website now that the brief asks for both. */
   company: z.string().trim().max(200).optional().or(z.literal('')),
-  message,
   /**
-   * Budget, optional, and free text rather than a select.
+   * The store URL.
    *
-   * A band list forces a buyer who genuinely does not know yet to pick one at
-   * random, which prices the conversation before it starts. Free text lets
-   * them write "not sure yet", which is a real and useful answer.
+   * Still not validated as a URL. "yourstore.com" is the form a person types
+   * and `new URL()` rejects it, so a strict check would reject the most
+   * common correct answer. The normaliser tidies what looks like a domain.
    */
-  budget: z.string().trim().max(120).optional().or(z.literal('')),
+  website: z.string().trim().max(300).optional().or(z.literal('')),
+  /** Country, for time-zone overlap and for knowing which market replied. */
+  country: z.string().trim().max(80).optional().or(z.literal('')),
+  message,
+  /** Budget, now a band rather than free text. "Not sure yet" is in the list. */
+  budget: z
+    .string()
+    .trim()
+    .refine((v) => v === '' || (BUDGET_OPTIONS as readonly string[]).includes(v), 'Choose one of the listed ranges.')
+    .optional()
+    .or(z.literal('')),
+  timeline: z
+    .string()
+    .trim()
+    .refine((v) => v === '' || (TIMELINE_OPTIONS as readonly string[]).includes(v), 'Choose one of the listed timelines.')
+    .optional()
+    .or(z.literal('')),
   hp: honeypot,
 });
 
@@ -173,9 +243,13 @@ export type ProjectData = z.output<typeof projectSchema>;
 export const PROJECT_EMPTY: ProjectInput = {
   name: '',
   email: '',
+  service: '',
   company: '',
+  website: '',
+  country: '',
   message: '',
   budget: '',
+  timeline: '',
   hp: '',
 };
 
@@ -201,14 +275,19 @@ export function projectToLead(d: ProjectData): LeadFields {
   return {
     name: d.name,
     email: d.email,
-    /* The one field holds a company name or a website and the endpoint has a
-       column for each. Sending it as `company` keeps it in a column that is
-       always text; the scoring treats a populated `company` as signal either
-       way. */
     company: d.company,
+    /* Its own column again. The five-field form sent a company name and a URL
+       through one field, so the endpoint's `website` column, which the scoring
+       weights highest, was always empty. */
+    website: d.website,
+    country: d.country,
     budget: d.budget,
-    service: 'Project enquiry',
+    timeline: d.timeline,
+    /* The selected service, not the constant 'Project enquiry' this sent when
+       the form had nothing to put here. */
+    service: d.service,
     message: d.message,
+    funnel: 'project',
     hp: d.hp,
   };
 }

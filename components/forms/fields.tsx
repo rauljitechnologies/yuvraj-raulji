@@ -222,6 +222,84 @@ export function TextField({
    forms were cut to the brief's five fields. Nothing imports it, so it is
    deleted rather than kept warm for a field nobody has asked for. */
 
+/**
+ * A select, for a field whose useful answers are a known short list.
+ *
+ * ── Why these exist again ─────────────────────────────────────────────────
+ *
+ * `TONE` has carried `chevron` and `selectBg` since the selects were deleted
+ * with the nine-field forms, which is the tell that this component used to be
+ * here. The brief asks for the service and the budget back as lists, so it is
+ * back, once, instead of being re-declared at each call site the way the old
+ * forms did it.
+ *
+ * ── The empty option is a real option ─────────────────────────────────────
+ *
+ * The first entry is the placeholder and its value is the empty string, so an
+ * untouched optional select submits nothing rather than submitting whichever
+ * answer happened to be listed first. For a required select the empty value
+ * is what the schema rejects, which is why it is not disabled: a reader who
+ * picks it back deliberately gets the error rather than being trapped.
+ *
+ * `appearance-none` removes the platform chevron, and the replacement is a
+ * background image rather than an overlaid element so it cannot intercept the
+ * click that opens the menu.
+ */
+export function SelectField({
+  name,
+  label,
+  tone,
+  value,
+  onChange,
+  options,
+  placeholder,
+  error,
+  required,
+  hint,
+}: Base & { options: readonly string[] }) {
+  const uid = useId();
+  const errId = `${uid}-error`;
+  const hintId = `${uid}-hint`;
+  const t = TONE[tone];
+  return (
+    <label className={labelClass(tone)}>
+      <LabelRow label={label} required={required} />
+      <select
+        name={name}
+        aria-required={required}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errId : hint ? hintId : undefined}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={`${fieldClass(tone, Boolean(error))} cursor-pointer bg-[length:11px] bg-[right_2px_center] bg-no-repeat pr-7 ${
+          value ? '' : t.placeholder
+        }`}
+        style={{
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'><path d='M1 1l4.5 4.5L10 1' stroke='${t.chevron}' stroke-width='1.4' fill='none'/></svg>")`,
+        }}
+      >
+        <option value="" className={t.selectBg}>
+          {placeholder ?? 'Select one'}
+        </option>
+        {options.map((o) => (
+          <option key={o} value={o} className={t.selectBg}>
+            {o}
+          </option>
+        ))}
+      </select>
+      {hint && !error ? (
+        <span
+          id={hintId}
+          className={`font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal ${t.hint}`}
+        >
+          {hint}
+        </span>
+      ) : null}
+      <Err id={errId} msg={error} />
+    </label>
+  );
+}
+
 export function TextArea({
   name,
   label,

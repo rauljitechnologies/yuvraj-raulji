@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SiteFooter } from '../components/chrome/footer';
+import { MobileCta } from '../components/chrome/mobile-cta';
 import { SiteNav } from '../components/chrome/nav';
 import { Hero } from '../components/homepage-sections/hero';
 import { NO_SCRIPT_REVEAL_CSS } from '../components/homepage-sections/rv';
@@ -198,6 +199,7 @@ export default function Home() {
         </main>
 
         <SiteFooter />
+        <MobileCta />
       </div>
     </>
   );

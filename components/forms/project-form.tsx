@@ -3,7 +3,10 @@
 import { useRef, useState } from 'react';
 import { track } from '../../lib/analytics';
 import {
+  BUDGET_OPTIONS,
   PROJECT_EMPTY,
+  SERVICE_OPTIONS,
+  TIMELINE_OPTIONS,
   fieldErrors,
   projectSchema,
   projectToLead,
@@ -11,7 +14,7 @@ import {
 } from '../../lib/forms';
 import { submitLead, type LeadResult } from '../../lib/lead';
 import { CONTACT } from '../../lib/site';
-import { FormResult, Honeypot, TextArea, TextField, type Tone } from './fields';
+import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } from './fields';
 
 /**
  * The one enquiry form.
@@ -32,12 +35,22 @@ import { FormResult, Honeypot, TextArea, TextField, type Tone } from './fields';
  * four chances to get `aria-describedby` wrong, and two of them had no
  * honeypot and no announced errors at all.
  *
- * This one went from nine fields to five, three of them required. The
- * instruction was not to overload the site with forms, and a nine-field form
- * on the page whose entire job is making contact easy was the overload.
- * Platform, timeline and project type are all things I can ask in the reply.
- * Asking them in the reply costs nothing; asking them on the form costs
- * submissions.
+ * ── Nine fields, four of them required ──────────────────────────────────
+ *
+ * This went to five fields on the reading that the instruction was about
+ * overload. The owner's brief is explicit that it is not: it names nine
+ * fields and marks four required, because the objective is qualified
+ * international enquiries and an unqualified one costs a round trip before
+ * it can even be priced.
+ *
+ * The five optional fields are optional in the schema as well as on the page,
+ * so none of them can cost a submission. Only the service is new as a
+ * requirement, and it is a select: one click, and it is the answer that
+ * routes the enquiry.
+ *
+ * Company and website are separate fields again. Merged, the endpoint's
+ * `website` column, which `scoreLead_` weights highest, was always empty
+ * because everything arrived as `company`.
  *
  * ── Validation timing ────────────────────────────────────────────────────
  *
@@ -109,8 +122,17 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
         sentHeading="Enquiry received"
         sentBody={
           <>
-            Thank you. I read every enquiry myself and will reply within 24 hours, including if I
-            think you do not need the project you just described.
+            {/*
+              The brief's sentence, with "enquiry" rather than its "inquiry":
+              the rest of the site uses the British spelling throughout and one
+              American one in the confirmation reads as a copied string. The
+              second sentence is the existing commitment, kept because "get
+              back to you" with no timeframe is the part a waiting buyer
+              notices, and "Replies within 24 hours" is already printed beside
+              the button they just pressed.
+            */}
+            Thank you for your enquiry. I will review your requirements and get back to you, within
+            24 hours, including if I think you do not need the project you just described.
           </>
         }
         email={CONTACT.email}
@@ -125,7 +147,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
       <div className="grid gap-6 sm:grid-cols-2">
         <TextField
           name="name"
-          label="Name"
+          label="Full name"
           tone={tone}
           required
           autoComplete="name"
@@ -136,7 +158,7 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
         />
         <TextField
           name="email"
-          label="Email"
+          label="Business email"
           tone={tone}
           required
           type="email"
@@ -148,19 +170,44 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
         />
       </div>
 
-      {/* One field for either, because a business has one or the other to hand
-          and should not have to decide which box it goes in. */}
-      <TextField
-        name="company"
-        label="Company or website"
+      {/* Required, and first of the two selects, because it is what routes
+          the enquiry and everything below it reads differently once it is
+          answered. */}
+      <SelectField
+        name="service"
+        label="Service required"
         tone={tone}
-        autoComplete="organization"
-        placeholder="yourstore.com, or your company name"
-        hint="Optional. A store URL tells me the platform and the scale before I read a word."
-        value={f.company ?? ''}
-        onChange={set('company')}
-        error={errors.company}
+        required
+        options={SERVICE_OPTIONS}
+        placeholder="Choose a service"
+        value={f.service}
+        onChange={set('service')}
+        error={errors.service}
       />
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <TextField
+          name="company"
+          label="Company name"
+          tone={tone}
+          autoComplete="organization"
+          placeholder="Your company"
+          value={f.company ?? ''}
+          onChange={set('company')}
+          error={errors.company}
+        />
+        <TextField
+          name="website"
+          label="Website"
+          tone={tone}
+          autoComplete="url"
+          placeholder="yourstore.com"
+          hint="A store URL tells me the platform and the scale before I read a word."
+          value={f.website ?? ''}
+          onChange={set('website')}
+          error={errors.website}
+        />
+      </div>
 
       <TextArea
         name="message"
@@ -174,20 +221,48 @@ export function ProjectForm({ tone = 'dark', id }: { tone?: Tone; id?: string })
         error={errors.message}
       />
 
-      {/* Free text, not a band list. A buyer who genuinely does not know yet
-          can write "not sure", which is a real and useful answer that a
-          select would force them to replace with a guess. */}
-      <TextField
-        name="budget"
-        label="Budget"
-        tone={tone}
-        autoComplete="off"
-        placeholder="A range, or not sure yet"
-        hint="Optional, and an indication rather than a commitment."
-        value={f.budget ?? ''}
-        onChange={set('budget')}
-        error={errors.budget}
-      />
+      <div className="grid gap-6 sm:grid-cols-3">
+        <TextField
+          name="country"
+          label="Country"
+          tone={tone}
+          autoComplete="country-name"
+          placeholder="Where you are"
+          value={f.country ?? ''}
+          onChange={set('country')}
+          error={errors.country}
+        />
+        <SelectField
+          name="budget"
+          label="Budget"
+          tone={tone}
+          options={BUDGET_OPTIONS}
+          placeholder="A range"
+          value={f.budget ?? ''}
+          onChange={set('budget')}
+          error={errors.budget}
+        />
+        <SelectField
+          name="timeline"
+          label="Timeline"
+          tone={tone}
+          options={TIMELINE_OPTIONS}
+          placeholder="When you need it"
+          value={f.timeline ?? ''}
+          onChange={set('timeline')}
+          error={errors.timeline}
+        />
+      </div>
+
+      {/* Said once, under the optional row, rather than "Optional" repeated on
+          five hints. Five repetitions of one word read as five caveats. */}
+      <p
+        className={`m-0 font-manrope text-[13px] font-light leading-[1.5] ${
+          tone === 'paper' ? 'text-ground/50' : 'text-ink/45'
+        }`}
+      >
+        Everything except your name, email, service and requirements is optional.
+      </p>
 
       <div className="mt-tight flex flex-wrap items-center gap-5">
         <button
