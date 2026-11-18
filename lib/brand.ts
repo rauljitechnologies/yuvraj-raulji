@@ -99,7 +99,7 @@ export const CORE_IDEA = 'Technology that creates business leverage.';
  * from the footer.
  *
  * `Hire` left the bar. It is in the Resources menu alongside /pricing/, which
- * is where its intent actually sits, and /remote-work/ took the commercial
+ * is where its intent actually sits, and /remote-collaboration/ took the commercial
  * slot next to the call to action because the employment funnel is what the
  * site is now pointed at.
  *
@@ -158,7 +158,7 @@ export const NAV: readonly NavItem[] = [
     children: [
       { label: 'Resume', href: '/resume/' },
       { label: 'Certifications', href: '/certifications/' },
-      { label: 'Remote collaboration', href: '/remote-work/' },
+      { label: 'Remote collaboration', href: '/remote-collaboration/' },
       { label: 'Pricing & engagement', href: '/pricing/' },
       { label: 'Hire me', href: '/hire/' },
     ],
@@ -168,7 +168,7 @@ export const NAV: readonly NavItem[] = [
      with someone in another time zone is practical, and that is one step from
      writing. The label was "Remote work" twice, here and inside Resources,
      which gave the bar two links to one page under two names. */
-  { label: 'How we work', href: '/remote-work/' },
+  { label: 'How we work', href: '/remote-collaboration/' },
 ];
 
 /** Flat list of every nav destination, for the condensed phone row. */

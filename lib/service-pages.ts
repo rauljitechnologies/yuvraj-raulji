@@ -198,7 +198,7 @@ const BUILD_PROCESS: readonly ServiceStep[] = [
 
      adobe-commerce-development   the licensed platform, not Open Source
      shopify-plus-development     the tier, not the platform
-     nextjs-react-development     the framework, not the application
+     nextjs-development     the framework, not the application
      custom-module-development    the extension, not the build around it
      erp-crm-integration          the business systems, not the API itself
      workflow-automation          the operation, not the model
@@ -1204,7 +1204,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
 
   /* ── 9. Maintenance and support ─────────────────────────────── */
   {
-    slug: 'maintenance-support',
+    slug: 'ecommerce-maintenance',
     featured: true,
     label: 'Website Maintenance & Support',
     navLabel: 'Maintenance & Support',
@@ -1716,7 +1716,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
 
   /* ── 13. Next.js and React ──────────────────────────────────── */
   {
-    slug: 'nextjs-react-development',
+    slug: 'nextjs-development',
     featured: true,
     label: 'Next.js & React Development',
     navLabel: 'Next.js & React',

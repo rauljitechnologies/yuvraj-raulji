@@ -168,7 +168,7 @@ export const CURRENT_EMPLOYER = CAREER.find((r) => r.current) ?? CAREER[0];
 
 /**
  * Industries the record actually covers. Named because /about/ and
- * /remote-work/ both claim breadth, and a claim of breadth with no list under
+ * /remote-collaboration/ both claim breadth, and a claim of breadth with no list under
  * it is the kind of sentence CONTENT-PRINCIPLES.md exists to stop.
  *
  * Not `INDUSTRIES`: lib/site.ts already exports that name, for the richer

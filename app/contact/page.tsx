@@ -99,7 +99,7 @@ const CHANNELS = [
 const NEXT_STEPS = [
   { href: '/services/', label: 'Which service the problem belongs to' },
   { href: '/pricing/', label: 'How an engagement is structured and priced' },
-  { href: '/remote-work/', label: 'How remote collaboration actually runs' },
+  { href: '/remote-collaboration/', label: 'How remote collaboration actually runs' },
   { href: '/work/', label: 'Whether I have built something like it' },
 ] as const;
 

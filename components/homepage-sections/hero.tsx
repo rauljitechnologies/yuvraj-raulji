@@ -164,7 +164,7 @@ export function Hero() {
             This is the sentence the site's primary objective rests on, so it
             is the last thing read before the buttons rather than a band three
             scrolls down. The blinking dot is the same mark the header strip
-            and /remote-work/ use, so the three read as one signal.
+            and /remote-collaboration/ use, so the three read as one signal.
 
             It replaced a paragraph that linked three of its own nouns to
             #expertise, #growth and #ai. Two of those were worth keeping and

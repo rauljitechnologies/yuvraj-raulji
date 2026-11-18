@@ -67,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE + SERVICES.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
     /* The seven service pages. Priority with the platform hubs: these are the
        pages a build query lands on, and they are the strongest commercial
-       intent on the site after /pricing/ and /remote-work/. */
+       intent on the site after /pricing/ and /remote-collaboration/. */
     ...SERVICE_PAGES.map((sp) => ({
       url: `${BASE}${servicePageHref(sp.slug)}`,
       lastModified: buildDate,
@@ -78,7 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: BASE + PRICING.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
     /* Credentials. A verification page rather than an entry point. */
     { url: BASE + CERTS.path, lastModified: buildDate, changeFrequency: 'yearly', priority: 0.6 },
-    /* The employment funnel. Priority with the core pages: /remote-work/ is
+    /* The employment funnel. Priority with the core pages: /remote-collaboration/ is
        the page the repositioned site is pointed at, and /resume/ is what a
        recruiter opens next. */
     { url: BASE + REMOTE.path, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },

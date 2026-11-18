@@ -1451,7 +1451,7 @@ export function Certification() {
  * near-black from the work section down, the ground change is what stops it
  * being scrolled past.
  *
- * It does not repeat /remote-work/. It states the availability, the
+ * It does not repeat /remote-collaboration/. It states the availability, the
  * logistics and the engagement models, then links. Everything else is on
  * that page.
  */
@@ -1527,7 +1527,7 @@ export function RemoteWork() {
                 <Cta href="/contact/" variant="accent">
                   Discuss Your Project
                 </Cta>
-                <Cta href="/remote-work/" variant="outline">
+                <Cta href="/remote-collaboration/" variant="outline">
                   How remote collaboration works <span className="font-mono">&#8594;</span>
                 </Cta>
               </div>

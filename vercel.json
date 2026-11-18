@@ -2,6 +2,36 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/services/nextjs-react-development",
+      "destination": "/services/nextjs-development/",
+      "permanent": true
+    },
+    {
+      "source": "/services/nextjs-react-development/",
+      "destination": "/services/nextjs-development/",
+      "permanent": true
+    },
+    {
+      "source": "/services/maintenance-support",
+      "destination": "/services/ecommerce-maintenance/",
+      "permanent": true
+    },
+    {
+      "source": "/services/maintenance-support/",
+      "destination": "/services/ecommerce-maintenance/",
+      "permanent": true
+    },
+    {
+      "source": "/remote-work",
+      "destination": "/remote-collaboration/",
+      "permanent": true
+    },
+    {
+      "source": "/remote-work/",
+      "destination": "/remote-collaboration/",
+      "permanent": true
+    },
+    {
       "source": "/projects",
       "destination": "/work/",
       "permanent": true

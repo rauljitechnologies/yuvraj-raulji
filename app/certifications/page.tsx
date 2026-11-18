@@ -221,7 +221,7 @@ export default function Certifications() {
             <Btn href="/resume/" variant="primary">
               The full resume
             </Btn>
-            <Btn href="/remote-work/" variant="ghost">
+            <Btn href="/remote-collaboration/" variant="ghost">
               Remote opportunities
             </Btn>
           </Rise>

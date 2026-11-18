@@ -809,7 +809,7 @@ export function privacySchema(crumbs: Crumb[]) {
 }
 
 /**
- * /remote-work/
+ * /remote-collaboration/
  *
  * `Service` plus `FAQPage`, and no longer `ProfilePage`.
  *

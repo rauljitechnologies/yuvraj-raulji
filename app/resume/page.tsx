@@ -94,7 +94,7 @@ export default function Resume() {
             </Btn>
           </>
         ) : (
-          <Btn href="/remote-work/" variant="primary">
+          <Btn href="/remote-collaboration/" variant="primary">
             Send me a remote opportunity
           </Btn>
         )}
@@ -356,7 +356,7 @@ export default function Resume() {
                 how a project actually starts, so a first reply can be a straight yes or no.
               </p>
               <div className="mt-block flex flex-wrap gap-3">
-                <Btn href="/remote-work/" variant="primary">
+                <Btn href="/remote-collaboration/" variant="primary">
                   How we work together
                 </Btn>
                 <Btn href="/experience/" variant="ghost">

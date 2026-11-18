@@ -249,7 +249,7 @@ export const ENGAGEMENT_MODELS = [
 ] as const;
 
 /**
- * Who the work is for. Named because /remote-work/ claims breadth and a claim
+ * Who the work is for. Named because /remote-collaboration/ claims breadth and a claim
  * of breadth with nothing under it is the kind of sentence
  * CONTENT-PRINCIPLES.md exists to stop.
  */

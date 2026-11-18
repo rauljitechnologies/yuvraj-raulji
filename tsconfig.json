@@ -36,9 +36,10 @@
     ".next-dev/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "//exclude": "The `include` globs above are `**/*.ts` and `**/*.tsx`, which walk the whole repo. There are ~30 abandoned Next build directories at the root (.next-ro-*, .next-rootowned-*, .next-stale-*, and several one-off names), each containing generated .ts and .d.ts files, and tsc was type-checking all of them: a --noEmit run took over fifteen minutes and a production build never finished. They are all gitignored build output and can be deleted; until they are, they are excluded by name here. `.next` and `.next-dev` are deliberately NOT excluded, because the typed-routes definitions Next generates under .next/types are listed in `include` and are needed.",
+  "//exclude": "The `include` globs above are `**/*.ts` and `**/*.tsx`, which walk the whole repo. There are ~30 abandoned Next build directories at the root (.next-ro-*, .next-rootowned-*, .next-stale-*, and several one-off names), each containing generated .ts and .d.ts files, and tsc was type-checking all of them: a --noEmit run took over fifteen minutes and a production build never finished. They are all gitignored build output and can be deleted; until they are, they are excluded by name here. `.next` and `.next-dev` are deliberately NOT excluded, because the typed-routes definitions Next generates under .next/types are listed in `include` and are needed. `.next/dev` IS excluded: that subtree is the dev server's output, not the build's, it is root-owned here so it cannot be deleted or refreshed, and its stale validator.ts kept naming a route that had been renamed, which failed every production build with an error about a file nobody had touched. The build's own typed routes are under .next/types and are untouched by this.",
   "exclude": [
     "node_modules",
+    ".next/dev",
     "node_modules.nosync",
     ".quarantine-root-owned",
     "private",

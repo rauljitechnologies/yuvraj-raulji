@@ -99,7 +99,7 @@ const EXPLORE = [
 const ENGAGE = [
   { href: '/hire/', label: 'Hire me' },
   { href: '/pricing/', label: 'Pricing & engagement' },
-  { href: '/remote-work/', label: 'Remote collaboration' },
+  { href: '/remote-collaboration/', label: 'Remote collaboration' },
   { href: CONTACT.whatsapp, label: 'WhatsApp' },
   { href: '/resume/', label: 'Resume' },
   { href: '/certifications/', label: 'Certifications' },

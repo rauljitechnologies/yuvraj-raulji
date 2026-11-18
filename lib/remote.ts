@@ -1,5 +1,5 @@
 /**
- * /remote-work/ : working with clients worldwide.
+ * /remote-collaboration/ : working with clients worldwide.
  *
  * ── What this page was, and why the URL stayed ────────────────────────────
  *
@@ -54,7 +54,7 @@ export interface EngagementModel {
 }
 
 export const REMOTE = {
-  path: '/remote-work/',
+  path: '/remote-collaboration/',
   label: 'Remote work',
   eyebrow: 'Remote collaboration',
   h1: ['Working with clients', { text: 'worldwide.', accent: true }],

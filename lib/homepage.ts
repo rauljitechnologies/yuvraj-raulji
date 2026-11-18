@@ -166,7 +166,7 @@ export const HERO = {
 
   /**
    * The specialty marquee. `SPECIALTIES` from lib/identity.ts rather than a
-   * second list here, so the hero, /remote-work/ and the Person node's
+   * second list here, so the hero, /remote-collaboration/ and the Person node's
    * `knowsAbout` cannot drift.
    */
   marquee: SPECIALTIES,

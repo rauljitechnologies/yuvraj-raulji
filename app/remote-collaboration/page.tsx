@@ -11,7 +11,7 @@ import { CONTACT, OG_HIRE, SITE_URL } from '../../lib/site';
 import '../home.css';
 
 /**
- * /remote-work/ : working with clients worldwide.
+ * /remote-collaboration/ : working with clients worldwide.
  *
  * ── What this page was ────────────────────────────────────────────────────
  *

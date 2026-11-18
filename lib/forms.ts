@@ -104,7 +104,7 @@ const honeypot = z.string().optional().or(z.literal(''));
 
    A `recruiterSchema` stood here, with EMPLOYMENT_TYPES and
    WORK_ARRANGEMENTS above it and a RecruiterForm component rendering
-   it on /remote-work/ and /contact/. It collected a job title, an
+   it on /remote-collaboration/ and /contact/. It collected a job title, an
    employment type, a work arrangement and a job description URL.
 
    The objective changed and is now explicit: freelance clients and

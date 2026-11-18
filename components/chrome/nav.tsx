@@ -151,7 +151,7 @@ export function SiteNav({ active }: { active?: string }) {
           above the wordmark rather than inside the page, where it would only
           be seen by a reader who scrolled. Hidden under `md` because the bar
           and the condensed link row already take 102px there and a third
-          stacked strip would push the hero off a phone; /remote-work/ carries
+          stacked strip would push the hero off a phone; /remote-collaboration/ carries
           the same line as its eyebrow, which is where a phone reader meets it.
         */}
         <div className="hidden border-b border-ink/10 md:block">
