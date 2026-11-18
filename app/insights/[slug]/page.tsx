@@ -5,6 +5,7 @@ import { Breadcrumbs, Page } from '../../../components/chrome/page';
 import { Lines, Rise } from '../../../components/homepage/motion';
 import { Btn, Marker, Section, Shell } from '../../../components/homepage/primitives';
 import { getArticle } from '../../../lib/articles';
+import { ARTICLE_FAQS } from '../../../lib/article-faqs';
 import { articleSchema, PERSON_JOB_TITLE, type Crumb } from '../../../lib/schema';
 import { POSTS, postDateISO } from '../../../lib/posts';
 import { SITE_URL } from '../../../lib/site';
@@ -103,6 +104,7 @@ export default async function Article({ params }: Props) {
   const { html, toc } = getArticle(slug);
   const tags = TAGS[slug] ?? [p.cat];
   const related = relatedFor(slug);
+  const faqs = ARTICLE_FAQS[slug] ?? [];
 
   /*
     The graph comes from lib/schema.ts, not from a literal built here.
@@ -119,7 +121,7 @@ export default async function Article({ params }: Props) {
     `publisher` at it by reference, which is what ties eight articles to the
     one entity the rest of the site defines.
   */
-  const ld = articleSchema({ slug, crumbs: articleCrumbs(p.title, url), keywords: tags });
+  const ld = articleSchema({ slug, crumbs: articleCrumbs(p.title, url), keywords: tags, faqs });
 
   return (
     <Page schema={ld} active="Insights">
@@ -158,9 +160,19 @@ export default async function Article({ params }: Props) {
           <Rise delay={0.4} className="mt-head border-t border-ink/10 pt-6">
             <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
               <p className="m-0">
-                <span className="block font-manrope text-[15px] font-semibold leading-none">
+                {/* The byline name is a link rather than a string. /about/ and
+                    /contact/ are both "Discovered, currently not indexed" in
+                    Search Console: they are linked from the header and footer
+                    of all 89 pages and from the body of none, and a crawler
+                    weighs a boilerplate link and an in-content one
+                    differently. This is also the link an author block is
+                    supposed to carry. */}
+                <Link
+                  href="/about/"
+                  className="block font-manrope text-[15px] font-semibold leading-none transition-colors duration-200 hover:text-accent-bright"
+                >
                   Yuvraj Raulji
-                </span>
+                </Link>
                 <span className="mt-2 block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
                   {PERSON_JOB_TITLE}
                 </span>
@@ -228,6 +240,33 @@ export default async function Article({ params }: Props) {
           <ArticleAside toc={toc} tags={tags} title={p.title} />
         </div>
       </div>
+
+      {/* ── Questions ─────────────────────────────────────────────
+          Rendered only where lib/article-faqs.ts has answers for this slug,
+          and rendered as open text, which is the only condition the FAQPage
+          markup in the graph above is legitimate under. */}
+      {faqs.length ? (
+        <Section id="questions" labelledBy="faq-title">
+          <Shell>
+            <Marker label="Questions" />
+            <div className="mb-10 lg:mb-14">
+              <Lines as="h2" id="faq-title" lines={['The questions', 'people ask.']} />
+            </div>
+            <ul className="m-0 grid list-none gap-0 p-0 border-t border-ink/10">
+              {faqs.map((f) => (
+                <li key={f.q} className="border-b border-ink/10 py-7">
+                  <h3 className="m-0 max-w-[60ch] font-manrope text-[18px] font-semibold leading-[1.35] tracking-[-0.02em]">
+                    {f.q}
+                  </h3>
+                  <p className="m-0 mt-3 max-w-[70ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/60">
+                    {f.a}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Shell>
+        </Section>
+      ) : null}
 
       {/* ── Related ───────────────────────────────────────────────
           The hub's card, at the hub's proportions. */}
@@ -309,6 +348,12 @@ export default async function Article({ params }: Props) {
           </Rise>
           <Rise delay={0.4} className="mt-block flex flex-wrap gap-3">
             <Btn href="/ecommerce-audit/">See what an audit covers</Btn>
+            {/* The one in-content link to /contact/ on an article. Same reason
+                as the byline link above, and it is the step a reader who has
+                read to the end is closest to taking. */}
+            <Btn href="/contact/" variant="ghost">
+              Discuss Your Project
+            </Btn>
             <Btn href="/insights/" variant="ghost">
               Read the rest
             </Btn>

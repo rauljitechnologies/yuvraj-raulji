@@ -1109,12 +1109,15 @@ export function articleSchema({
   slug,
   crumbs,
   keywords,
+  faqs = [],
 }: {
   slug: string;
   crumbs: Crumb[];
   /** The article's tags. Left off the node entirely when there are none,
       rather than emitted as an empty string. */
   keywords?: string[];
+  /** The same array the page renders as open text. See `faqNode`. */
+  faqs?: readonly { q: string; a: string }[];
 }) {
   const post = POSTS[slug];
   const path = `/insights/${slug}/`;
@@ -1143,6 +1146,7 @@ export function articleSchema({
       isPartOf: { '@id': `${SITE_URL}/insights/#blog` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}${path}` },
     },
+    ...(faqs.length ? [faqNode(path, faqs)] : []),
   ]);
 }
 
