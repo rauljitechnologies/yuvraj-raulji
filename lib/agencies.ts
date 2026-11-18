@@ -51,6 +51,7 @@ export const AGENCIES = {
   primaryKeyword: 'ecommerce technical partner for agencies',
   secondaryKeywords: [
     'white label magento partner',
+    'magento white label development',
     'agency shopify technical partner',
     'subcontract ecommerce development',
     'freelance magento consultant for agencies',
@@ -186,7 +187,7 @@ export const AGENCIES = {
       a: 'No, and it is a written commitment rather than an assurance. Communication runs through the agency unless you put me in a room, I do not pitch services around you during or after a project, and if a client contacts me directly I tell you and route it back to you.',
     },
     {
-      q: 'Do you work under our brand?',
+      q: 'Do you work white-label, under our brand?',
       a: 'Yes. Your process, your project management and your client-facing documents. If you want me on a client call I introduce myself however you have positioned the engagement, and if you would rather I stayed invisible that is also fine.',
     },
     {

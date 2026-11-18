@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { Page, PageHero } from '../chrome/page';
+import { MarketsNote } from '../chrome/markets-note';
 import { ContactButton } from '../homepage/contact-button';
 import { Lines, Rise, type DisplayLine } from '../homepage/motion';
 import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../homepage/primitives';
@@ -904,6 +905,9 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
             <Btn href="/work/" variant="ghost">
               View relevant work
             </Btn>
+          </Rise>
+          <Rise delay={0.3}>
+            <MarketsNote />
           </Rise>
         </Shell>
       </Section>

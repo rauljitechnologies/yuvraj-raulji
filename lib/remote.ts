@@ -73,6 +73,12 @@ export const REMOTE = {
     'freelance ecommerce developer india',
     'remote full stack developer for hire',
     'long term remote development partner',
+    /* The two geo-qualified queries the brief names. They belong here rather
+       than on the platform hubs because the hubs answer "what is this
+       platform and who does it", and these ask where the developer is, which
+       is this page's whole subject. */
+    'magento developer india',
+    'shopify developer india',
   ],
   searchIntent:
     'Commercial. A business or agency looking for a developer who works remotely, and checking whether the arrangement would actually work.',
@@ -223,6 +229,10 @@ export const REMOTE = {
     {
       q: 'Do you work with clients outside India?',
       a: `Yes, and most of the work is. ${MARKETS.join(', ')} are the markets I work with most. My hours overlap the full European and Gulf working day and the US East Coast morning, so a daily sync is practical with all of them.`,
+    },
+    {
+      q: 'Do you work with Indian businesses as well as international ones?',
+      a: `Both, and on the same terms. I am a Magento and Shopify developer based in ${LOCATION}, so an Indian client gets the whole working day overlapped and a conversation in Hindi or Gujarati if that is easier, and a client in the USA, the UK, Europe or the UAE gets the overlap above. Nothing else about the engagement changes.`,
     },
     {
       q: 'How do we communicate during a project?',

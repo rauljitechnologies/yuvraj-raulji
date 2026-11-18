@@ -1957,9 +1957,9 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     lede:
       'Stock, pricing, orders and customers synchronised between the storefront and the systems that run the business, with the failure behaviour designed rather than discovered.',
     cta: 'Discuss an integration',
-    title: 'ERP & CRM Integration Services for eCommerce | Yuvraj Raulji',
+    title: 'ERP & CRM Integration for eCommerce | Yuvraj Raulji',
     description:
-      'ERP and CRM integration for Magento, Shopify and WooCommerce: stock, pricing, order and customer sync with reconciliation, retries and an auditable failure path.',
+      'ERP and CRM integration for Magento, Shopify and WooCommerce: stock, pricing, order and customer sync with reconciliation, retries and an audit trail.',
     primaryKeyword: 'erp integration services',
     secondaryKeywords: [
       'ecommerce erp integration',

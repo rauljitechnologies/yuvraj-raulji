@@ -168,14 +168,13 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-            {/* ── Architecture, role and implementation ─────────────────
-          Each renders only when its field is populated in lib/brand.ts. All
-          three are empty on all six builds today: they are real engineering
-          facts that are not written down anywhere, and writing them from the
-          `approach` text would be inventing technical claims about client
-          work. A shorter honest page beats a padded one.
+      {/* ── 05 Architecture, role and implementation ──────────────────
+          The three sections brief section 9 asks for. Each renders only when
+          its field is populated in lib/brand.ts, so a case that has not been
+          written up yet ships short rather than padded.
 
-          See the note on the CaseStudy interface for what each field wants. */}
+          See the note on the CaseStudy interface for what each field wants
+          and for the rule on what a bullet is allowed to claim. */}
       {study.architecture?.length ? (
         <Section id="architecture" labelledBy="architecture-title">
           <Shell>
@@ -209,7 +208,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
       {study.implementation?.length ? (
         <Section id="implementation" labelledBy="implementation-title">
           <Shell>
-            <Head label="Implementation" id="implementation-title" lines={['The decisions', 'inside it.']} />
+            <Head label="Implementation" id="implementation-title" lines={['The calls,', 'and what they cost.']} />
             <ul className="m-0 grid list-none gap-2.5 p-0">
               {study.implementation.map((x) => (
                 <li
@@ -225,7 +224,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Section>
       ) : null}
 
-{/* ── 05 Technology ──────────────────────────────────────── */}
+      {/* ── 06 Technology ──────────────────────────────────────── */}
       <Section id="technology" labelledBy="technology-title">
         <Shell>
           <Head label="Technology" id="technology-title" lines={['What it', 'was built on.']} />
@@ -239,7 +238,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-      {/* ── 06 Outcome ──────────────────────────────────────────────
+      {/* ── 07 Outcome ──────────────────────────────────────────────
           Two states, and the second one is the point. Only the manufacturer
           platform has a published measurement; the other five render the note
           instead of a number, which is the same position /work/ takes and the
@@ -270,7 +269,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-      {/* ── 07 Related ─────────────────────────────────────────────
+      {/* ── 08 Related ─────────────────────────────────────────────
           The pages this build actually used, authored per case rather than
           guessed from the technology tags. */}
       <Section id="related" labelledBy="related-title">
@@ -316,7 +315,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-      {/* ── 08 The other builds ─────────────────────────────────── */}
+      {/* ── 09 The other builds ─────────────────────────────────── */}
       <Section id="more" labelledBy="more-title">
         <Shell>
           <Head label="More work" id="more-title" lines={['The other', 'builds.']} />
@@ -337,7 +336,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
         </Shell>
       </Section>
 
-      {/* ── 09 Next ─────────────────────────────────────────────── */}
+      {/* ── 10 Next ─────────────────────────────────────────────── */}
       <Section id="next" labelledBy="next-title" tall>
         <Shell>
           <Marker label="Next step" />
