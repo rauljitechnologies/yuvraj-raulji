@@ -652,6 +652,8 @@ export const CASES: CaseStudy[] = [
     approach:
       'Headless architecture: the storefront decoupled from the commerce engine and served over a storefront API. Front-end releases stop waiting on back-end ones, and performance becomes a budget the front end can actually hold rather than an outcome it inherits.',
     technology: ['Headless', 'Storefront API', 'Performance'],
+    role:
+      'I built the headless frontend and the API layer it reads from, over REST and GraphQL. The decisions that mattered were about what the storefront renders itself and what it asks the commerce backend for, because that split is what the page times are made of.',
     related: [
       { href: '/headless-commerce/', label: 'Headless commerce, and when decoupling actually pays' },
       { href: '/headless-commerce/architecture/', label: 'The rendering and caching decisions behind a build like this' },
@@ -675,6 +677,8 @@ export const CASES: CaseStudy[] = [
     approach:
       'Shopify, chosen for speed to market rather than for flexibility, with the customisation spent where it converts: OTP login, a one-page checkout through GoKwik, and product pages built for a catalogue that does not behave like apparel.',
     technology: ['Shopify', 'GoKwik checkout', 'Custom PDP', 'OTP login'],
+    role:
+      "Mine, hands-on. I built the storefront, the custom product page behaviour and the third-party integrations it depends on: the checkout provider and the OTP login are both someone else's service, and the work is in making them behave like part of one store rather than three.",
     related: [
       { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
       { href: '/shopify/optimization/', label: 'Shopify speed and conversion work' },
@@ -697,6 +701,8 @@ export const CASES: CaseStudy[] = [
     approach:
       'A commerce build organised around catalogue clarity and a short checkout, on the principle that in a trust-led category the product page is doing the selling and everything after it should get out of the way.',
     technology: ['Commerce build', 'Catalogue', 'Checkout'],
+    role:
+      'I built the store: the catalogue structure, the layered navigation over it and the checkout flow through it. Customising a checkout is the part that has to be done carefully rather than quickly, because every change to it is measured against the orders it might cost.',
     related: [
       { href: '/shopify/', label: 'Shopify and Shopify Plus, and where the platform stops' },
       { href: '/shopify/optimization/', label: 'Product page and checkout conversion work' },
@@ -720,6 +726,8 @@ export const CASES: CaseStudy[] = [
       'A custom procurement platform built around the approval structure rather than around the catalogue: purchase requests, quotes and multi-level sign-off with role-based permissions, wired into the systems that already held the order data.',
     technology: ['B2B workflows', 'Approvals', 'Role-based permissions', 'Integrations'],
     outcome: '90% of order and quote processing automated; 40% reduction in approval cycle time',
+    role:
+      'Mine end to end, and the part I would point at is the approval model rather than the code. I designed the multi-level approval workflows for orders, quotes and vendor management, built the role-based permissions they run on, and integrated the systems the platform had to agree with. Automating the order and quote path is what took the approval cycle down.',
     related: [
       { href: '/magento/', label: 'Magento, for quotes, approvals and multi-store complexity' },
       { href: '/magento/integrations/', label: 'Magento B2B workflow and integration boundaries' },
@@ -742,6 +750,8 @@ export const CASES: CaseStudy[] = [
     approach:
       'Magento 2, which is the right answer precisely here and the wrong one for a small single-store catalogue: the platform earns its complexity when the category tree, the attribute model and the scale are all genuinely hard.',
     technology: ['Magento 2', 'Multi-category', 'Scale'],
+    role:
+      'I led this build. The architecture direction was mine: the multi-store setup, the catalogue structure underneath it and the custom modules around it, and I set the delivery process the team worked to rather than writing every module myself. The server, caching and CDN work behind the page times was hands-on.',
     related: [
       { href: '/magento/', label: 'Magento, built for catalogue and workflow complexity' },
       { href: '/magento/performance/', label: 'Magento performance at catalogue scale' },
@@ -765,6 +775,8 @@ export const CASES: CaseStudy[] = [
       'A brand platform built for discovery rather than for transaction: technical content structured so a crawler and a buyer can both follow it, and an enquiry path short enough to survive a long consideration cycle.',
     technology: ['Web platform', 'Technical SEO', 'Content'],
     outcome: '3x traffic growth and 45% better engagement',
+    role:
+      "I built the platform and the technical foundation under its content, which on a manufacturer's site is most of the job: the structure a catalogue of engineering products can actually be found through, rather than a brochure with a search box.",
     related: [
       { href: '/wordpress/', label: 'WordPress builds, performance and infrastructure' },
       { href: '/wordpress/consulting/', label: 'The content model a discovery-led site depends on' },
