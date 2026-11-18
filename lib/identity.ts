@@ -217,7 +217,7 @@ export const LOCATION = 'Vadodara, Gujarat, India';
 export const TIMEZONE = 'IST (UTC+5:30)';
 
 /** Markets whose working hours overlap usefully with IST, in the order claimed. */
-export const MARKETS = ['India', 'USA', 'UK', 'Europe', 'UAE'] as const;
+export const MARKETS = ['USA', 'UK', 'UAE', 'Europe', 'India'] as const;
 
 /**
  * How a client can engage, from §11 of the brief.
