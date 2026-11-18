@@ -2649,7 +2649,7 @@ const DIGITAL_TRANSFORMATION: Technology = {
   lede:
     'The phrase usually arrives attached to a two-year programme and a slide deck. The version worth paying for is narrower: replace the parts of the stack that are actively costing money, in an order that lets the business keep trading, and stop. What makes these programmes fail is almost never the technology, it is the sequencing.',
   cta: 'Discuss a transformation plan',
-  title: 'Digital Transformation Consultant for Commerce | Yuvraj Raulji',
+  title: 'Digital Transformation Consultant | Yuvraj Raulji',
   description:
     'Digital transformation for commerce businesses: modernising legacy stacks into API-first systems, with phased migration sequenced so trading continues.',
 

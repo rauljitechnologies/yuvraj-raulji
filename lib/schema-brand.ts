@@ -57,10 +57,12 @@ const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
  * description is one of the places that has room to say it plainly anyway,
  * because a SERP snippet is read by someone deciding whether to click.
  *
- * Under 160 characters, which keeps it inside the SERP limit.
+ * Under 160 characters, which keeps it inside the SERP limit. It was 167 and
+ * the comment claimed otherwise; the last clause is shorter now and says the
+ * same thing.
  */
 export const HOME_DESCRIPTION =
-  'Senior Software Developer and Technology Consultant, 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and AI. Available for projects and remote development.';
+  'Senior Software Developer and Technology Consultant, 9+ years across Magento 2, Adobe Commerce, Shopify, Next.js and AI. Available for remote project work.';
 
 /* "from the first Magento role in 2016" described a career start the CV does
    not support: the record in lib/career.ts begins in 2018. */
