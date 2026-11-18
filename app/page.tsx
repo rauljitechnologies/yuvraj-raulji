@@ -149,6 +149,18 @@ export default function Home() {
             enquiries, and eleven sections ahead of the offer is the most
             expensive thing on a page with that objective.
 
+            RemoteWork moved the same way and for the same reason, from
+            sixteenth to seventh. The target markets are the USA, the UK, the
+            UAE and Europe, so "can someone in Vadodara actually work with
+            us" is not a detail a buyer checks at the end: it is the
+            objection that decides whether the services above it are worth
+            reading about at all. It now answers that immediately after the
+            proof that the work has been built, while the question is live.
+
+            It did not move further up. Ahead of SelectedWork it would be
+            explaining how an engagement runs to someone who has not yet seen
+            that there is anything worth engaging for.
+
             What each one is doing, in order:
 
               Hero          who, what, and the three ways to start
@@ -157,6 +169,7 @@ export default function Home() {
               About         who is behind it
               Services      what can be bought
               SelectedWork  proof that it has been built
+              RemoteWork    how working across time zones actually runs
               Capabilities  the four areas, in depth
               Ecosystem     the stack, grouped by what it is for
               AiCommerce    the AI position, which is the newest claim
@@ -166,7 +179,6 @@ export default function Home() {
               Professional  the employment record behind all of it
               Certification the one credential, as evidence for the AI half
               TechnologyPartner  the alternative to hiring an agency
-              RemoteWork    how working across time zones actually runs
               Insights      the writing, for a reader not ready to write
               Faq           what is asked before a first call
               Contact       the close, three channels and the form
@@ -176,6 +188,7 @@ export default function Home() {
           <About />
           <Services />
           <SelectedWork />
+          <RemoteWork />
           <Capabilities />
           <Ecosystem />
           <AiCommerce />
@@ -192,7 +205,6 @@ export default function Home() {
           <ProfessionalExperience />
           <Certification />
           <TechnologyPartner />
-          <RemoteWork />
           <Insights />
           <Faq />
           <Contact />
