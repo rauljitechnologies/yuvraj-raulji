@@ -155,7 +155,7 @@ export function SiteNav({ active }: { active?: string }) {
           the same line as its eyebrow, which is where a phone reader meets it.
         */}
         <div className="hidden border-b border-ink/10 md:block">
-          <div className="mx-auto flex h-[30px] max-w-[1440px] items-center gap-2.5 px-8 lg:px-12">
+          <div className="yr-shell flex h-[30px] items-center gap-2.5">
             <span
               aria-hidden="true"
               className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent animate-yr-blink"
@@ -172,7 +172,11 @@ export function SiteNav({ active }: { active?: string }) {
           </div>
         </div>
 
-        <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:gap-6 sm:px-6 md:h-[78px] md:px-8 lg:px-12">
+        {/* `yr-shell`, the one container. This bar declared its own 1440px
+            box with 48px gutters while the page beneath it used the 1400px
+            shell with a fluid one, so the logo and the first heading of
+            every page were out of line by 36px at wide viewports. */}
+        <div className="yr-shell flex h-[68px] items-center justify-between gap-4 sm:gap-6 md:h-[78px]">
           <Link
             href="/"
             aria-label="Yuvraj Raulji, home"
