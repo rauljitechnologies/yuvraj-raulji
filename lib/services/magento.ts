@@ -802,6 +802,11 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
         note: 'The commercial half of a performance engagement, written out.',
       },
       {
+        href: '/insights/magento2-seo-technical-audit/',
+        label: 'The Magento 2 technical SEO audit framework, written out',
+        note: 'Its third phase is Core Web Vitals, which is this page measured from the crawler side.',
+      },
+      {
         href: '/headless-commerce/',
         label: 'Headless commerce, and when decoupling actually pays',
         note: 'Sometimes proposed as a speed fix. Often it is not one.',
