@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CONTACT } from '../../lib/site';
+import { CONTACT } from '../../lib/contact';
 
 /**
  * The sticky contact bar, phones only.

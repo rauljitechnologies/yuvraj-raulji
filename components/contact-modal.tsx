@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef } from 'react';
-import { CONTACT } from '../lib/site';
+import { CONTACT } from '../lib/contact';
 import { ProjectForm } from './forms/project-form';
 import { useUI } from './ui-context';
 

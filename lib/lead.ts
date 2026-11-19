@@ -1,5 +1,5 @@
 import { track } from './analytics';
-import { CONTACT, LEAD_ENDPOINT } from './site';
+import { CONTACT, LEAD_ENDPOINT } from './contact';
 
 /**
  * Lead submission, shared by the enquiry modal and the /contact/ form.

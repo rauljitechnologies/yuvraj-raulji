@@ -13,7 +13,7 @@ import {
   type ProjectInput,
 } from '../../lib/forms';
 import { submitLead, type LeadFields, type LeadResult } from '../../lib/lead';
-import { CONTACT } from '../../lib/site';
+import { CONTACT } from '../../lib/contact';
 import { FormResult, Honeypot, SelectField, TextArea, TextField, type Tone } from './fields';
 
 /**

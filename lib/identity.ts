@@ -72,6 +72,17 @@ export const ROLE = 'Senior Software Developer & Technology Consultant';
 export const ROLE_TITLE = 'Senior Software Developer';
 
 /**
+ * The same string, under the name the schema and the article byline use.
+ *
+ * It was defined in lib/schema.ts, which is 1,190 lines that import the
+ * posts, the career record, the case studies and this file. The article aside
+ * is a client component and needed this one string, so importing it from
+ * there shipped that whole graph to the browser on all eight article pages.
+ * lib/schema.ts re-exports it, so its own call sites are unchanged.
+ */
+export const PERSON_JOB_TITLE = ROLE_TITLE;
+
+/**
  * The specialisms, in the order they are claimed.
  *
  * These are the segments after the role in the owner's headline, and they are

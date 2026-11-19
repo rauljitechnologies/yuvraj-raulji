@@ -6,16 +6,12 @@
 import type { IconName } from '../components/ui/icons';
 import { POSTS } from './posts';
 
-export const CONTACT = {
-  email: 'toyuvrajraulji@gmail.com',
-  phoneDisplay: '+91 9898 334 731',
-  phoneE164: '+919898334731',
-  whatsapp: 'https://wa.me/919898334731?text=Hi%20Yuvraj%2C%20I%27d%20like%20to%20discuss%20a%20project.',
-  linkedin: 'https://www.linkedin.com/in/yuvraj-raulji/',
-  instagram: 'https://www.instagram.com/iamyuvrajraulji',
-  facebook: 'https://www.facebook.com/iamyuvrajraulji',
-  location: 'Vadodara, Gujarat, India',
-} as const;
+/* Moved to lib/contact.ts, and re-exported here so every server-side import
+   of it from this module keeps resolving. The move is a bundle one: four
+   client components need these eight strings and none of the 880 lines below
+   them. See the note in that file. */
+import { CONTACT } from './contact';
+export { CONTACT };
 
 /**
  * Canonical origin, no trailing slash. Must match the host the site is actually
@@ -118,8 +114,8 @@ export const OG_HIRE = card('og-hire.jpg', 'Hire Yuvraj Raulji, Your Technology 
 /** /insights/ */
 export const OG_INSIGHTS = card('og-insights.jpg', 'Insights written for the people making the decision');
 
-export const LEAD_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycby7S2OHkpqvM_HdKdivemmw6PGeYkKnH98eH7mw57iZ1gQyb_vENtxoUouQgu6aoK1WRg/exec';
+/* With CONTACT, in lib/contact.ts, and re-exported for the same reason. */
+export { LEAD_ENDPOINT } from './contact';
 
 /** GA4 measurement ID. Only loaded in production builds — see app/layout.tsx. */
 export const GA_MEASUREMENT_ID = 'G-5JHWRDWD9K';

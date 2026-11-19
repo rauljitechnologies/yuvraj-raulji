@@ -31,7 +31,7 @@ import { SERVICES } from './services-hub';
 import { servicePageHref, type ServicePage } from './service-pages';
 import { RESUME } from './resume';
 import { CAREER_START_YEAR, CURRENT_EMPLOYER } from './career';
-import { DESCRIPTION, ROLES_ADDITIONAL, ROLE_TITLE } from './identity';
+import { DESCRIPTION, PERSON_JOB_TITLE, ROLES_ADDITIONAL, ROLE_TITLE } from './identity';
 import { PILLARS, pillarHref, type Pillar } from './expertise';
 import { TECHNOLOGIES, techHref, type Technology } from './technology';
 import { POSTS, postDateISO } from './posts';
@@ -98,7 +98,7 @@ export const PERSON_DESCRIPTION = DESCRIPTION;
  * the honest one. The additional titles are capability claims and go in
  * `knowsAbout`; a `jobTitle` carrying six strings tells a parser nothing.
  */
-export const PERSON_JOB_TITLE = ROLE_TITLE;
+export { PERSON_JOB_TITLE };
 
 /** Points at a file that exists in public/. Verified, not assumed. */
 const PERSON_IMAGE = `${SITE_URL}/assets/yuvraj-raulji.jpg`;
