@@ -104,7 +104,7 @@ export function WritingList() {
           : `${shown.length} of ${ALL_WRITING.length} under ${activeLabel}`}
       </p>
 
-      <ul className="mt-10 grid list-none gap-4 sm:gap-6 lg:mt-12 lg:grid-cols-2">
+      <ul className="mt-head grid list-none gap-4 sm:gap-6 lg:grid-cols-2">
         {shown.map((w, i) => {
           const post = POSTS[w.slug];
           return (

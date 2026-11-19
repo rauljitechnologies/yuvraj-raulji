@@ -45,7 +45,7 @@ function marketSentence(): string {
 
 export function MarketsNote() {
   return (
-    <p className="m-0 mt-8 max-w-[62ch] font-manrope text-[14px] font-light leading-[1.7] text-ink/45">
+    <p className="m-0 mt-block max-w-[62ch] font-manrope text-[14px] font-light leading-[1.7] text-ink/45">
       I work remotely from {LOCATION} on {TIMEZONE}, with clients in {marketSentence()}.{' '}
       <InlineLink href="/remote-collaboration/">How remote collaboration works</InlineLink>.
     </p>

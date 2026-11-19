@@ -132,7 +132,7 @@ export default function ContactPage() {
       <Section id="channels" labelledBy="channels-title">
         <Shell>
           <Marker label="Direct" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <h2
               id="channels-title"
               className="yr-display yr-display--2 m-0 max-w-[22ch]"
@@ -168,7 +168,7 @@ export default function ContactPage() {
             ))}
           </ul>
 
-          <Rise delay={0.3} className="mt-10 flex flex-wrap items-center gap-3 border-t border-line pt-8">
+          <Rise delay={0.3} className="mt-block flex flex-wrap items-center gap-3 border-t border-line pt-8">
             <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink" />
             <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-ink/60">
               {CONTACT.location} · IST · GMT+5:30
@@ -228,7 +228,7 @@ export default function ContactPage() {
           */}
           <Rise
             delay={0.15}
-            className="mt-12 border-t border-line pt-8 sm:mt-16"
+            className="mt-head border-t border-line pt-8"
           >
             <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Not ready to write yet

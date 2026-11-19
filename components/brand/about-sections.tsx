@@ -120,7 +120,7 @@ export function Journey() {
       <Shell>
         <Marker label="The journey" />
 
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+        <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
           <Lines as="h2" id="journey-title" lines={JOURNEY.headline} />
           <Rise delay={0.18}>
             <p className={SUPPORT}>{JOURNEY.body}</p>
@@ -185,7 +185,7 @@ export function Beliefs() {
     <Section id="beliefs" labelledBy="beliefs-title">
       <Shell>
         <Marker label="Positions" />
-        <div className="mb-10 sm:mb-14">
+        <div className="mb-head">
           <Lines as="h2" id="beliefs-title" lines={BELIEFS_INTRO.headline} />
         </div>
 
@@ -230,7 +230,7 @@ export function Focus() {
       <Shell>
         <Marker label="Current focus" />
 
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14">
+        <div className="mb-head flex flex-wrap items-end justify-between gap-8">
           <Lines as="h2" id="focus-title" lines={FOCUS_INTRO.headline} />
           <Rise delay={0.18}>
             <p className={SUPPORT}>{FOCUS_INTRO.body}</p>
@@ -268,7 +268,7 @@ export function Process() {
       <Shell>
         <Marker label="Method" />
 
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+        <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
           <Lines as="h2" id="process-title" lines={PROCESS_INTRO.headline} />
           <Rise delay={0.18}>
             <p className={SUPPORT}>{PROCESS_INTRO.body}</p>
@@ -318,7 +318,7 @@ export function Personal() {
       <Shell>
         <Marker label="Beyond the work" />
 
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14">
+        <div className="mb-head flex flex-wrap items-end justify-between gap-8">
           <Lines as="h2" id="personal-title" lines={PERSONAL.headline} />
           <Rise delay={0.18}>
             <p className={SUPPORT}>{PERSONAL.body}</p>

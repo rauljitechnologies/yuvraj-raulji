@@ -121,7 +121,7 @@ function Head({
   return (
     <>
       <Marker label={label} />
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+      <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
         <Lines as="h2" id={id} lines={accentLastLine(lines)} />
         {lede ? (
           <Rise delay={0.18}>
@@ -794,7 +794,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   {hire.body}
                 </p>
                 <p className={`m-0 mt-6 max-w-[62ch] ${BODY}`}>{hire.usuallyMeans}</p>
-                <p className="m-0 mt-8 flex flex-wrap gap-3">
+                <p className="m-0 mt-block flex flex-wrap gap-3">
                   <ContactButton>{tech.cta}</ContactButton>
                   <Btn href="/hire/" variant="ghost">
                     How engagements work
@@ -882,7 +882,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
         <Shell>
           <Marker label="Next step" />
           <Lines as="h2" id="next-title" lines={accentLastLine(tech.finalHeadline)} />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Let us look at your business model, the systems you already run and where you are
               trying to get to, before choosing the technology. That conversation is usually
@@ -900,7 +900,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
               <InlineLink href="/agencies/">there is a partnership model</InlineLink>.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>{tech.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               View relevant work

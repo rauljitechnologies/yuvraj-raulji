@@ -80,7 +80,7 @@ export default function NotFound() {
 
           {/* A list, because that is what it is: four destinations of equal
               weight, not a hero with a primary action. */}
-          <ul className="m-0 mt-10 grid list-none gap-px border border-line bg-line p-0 sm:mt-14 sm:grid-cols-2">
+          <ul className="m-0 mt-head grid list-none gap-px border border-line bg-line p-0 sm:grid-cols-2">
             {EXITS.map((x) => (
               <li key={x.href} className="bg-ground p-6 sm:p-8">
                 <Btn href={x.href} variant="ghost" arrow>

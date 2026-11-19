@@ -41,7 +41,7 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
   if (toc.length < 2) return null;
 
   return (
-    <div className={mobile ? `lg:hidden p-6 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2 mb-10` : `hidden lg:block ${panelCls}`}>
+    <div className={mobile ? `lg:hidden p-6 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2 mb-block` : `hidden lg:block ${panelCls}`}>
       <div className={`flex items-center gap-3 ${mobile ? 'mb-4' : 'mb-5'}`}>
         {spine}
         <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-[rgba(245,243,238,.55)]">On This Page</p>

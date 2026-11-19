@@ -96,7 +96,7 @@ function SignalSection({
     <Section id={id} labelledBy={`${id}-title`}>
       <Shell>
         <Marker label={marker} />
-        <div className="mb-10 sm:mb-14">
+        <div className="mb-head">
           <Lines as="h2" id={`${id}-title`} lines={lines} />
         </div>
         <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-3">
@@ -127,7 +127,7 @@ export default function MagentoShopifyMigration() {
       <Section id="answer" labelledBy="answer-title" className="yr-paper">
         <Shell>
           <Marker label="Straight answer" />
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-block">
             <Lines
               as="h2"
               id="answer-title"
@@ -139,7 +139,7 @@ export default function MagentoShopifyMigration() {
               {MIGRATION.quickAnswer.answer}
             </p>
           </Rise>
-          <Rise delay={0.12} className="mt-9 border-t border-line pt-7">
+          <Rise delay={0.12} className="mt-block border-t border-line pt-7">
             <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Usually the right move for
             </p>
@@ -178,7 +178,7 @@ export default function MagentoShopifyMigration() {
       <Section id="transfers" labelledBy="transfers-title" className="yr-paper">
         <Shell>
           <Marker label="What actually moves" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines
               as="h2"
               id="transfers-title"
@@ -196,7 +196,7 @@ export default function MagentoShopifyMigration() {
       <Section id="process" labelledBy="process-title">
         <Shell>
           <Marker label="How it runs" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines
               as="h2"
               id="process-title"
@@ -227,7 +227,7 @@ export default function MagentoShopifyMigration() {
       <Section id="boundary" labelledBy="boundary-title" className="yr-paper">
         <Shell>
           <Marker label="Where the work lives" />
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-block">
             <Lines
               as="h2"
               id="boundary-title"
@@ -240,7 +240,7 @@ export default function MagentoShopifyMigration() {
               per pairing, because the mechanics differ far more than the decision does.
             </p>
           </Rise>
-          <Rise delay={0.12} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-10">
+          <Rise delay={0.12} className="mt-block flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-10">
             <InlineLink href="/shopify/migration/">Moving on to Shopify, in detail</InlineLink>
             <InlineLink href="/magento/migration/">Moving on to Magento, in detail</InlineLink>
             <InlineLink href="/expertise/ecommerce-consulting/">
@@ -255,7 +255,7 @@ export default function MagentoShopifyMigration() {
       <Section id="faq" labelledBy="faq-title">
         <Shell>
           <Marker label="Straight answers" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="faq-title" lines={['What people ask', 'before replatforming.']} />
           </div>
           <dl className="m-0 grid gap-px border border-line bg-line md:grid-cols-2">
@@ -279,14 +279,14 @@ export default function MagentoShopifyMigration() {
             id="next-title"
             lines={[MIGRATION.finalHeadline[0], { text: MIGRATION.finalHeadline[1], accent: true }]}
           />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Bring the symptom driving the conversation and what it is costing. Thirty minutes is
               usually enough to say whether the platform is the problem, and that answer is
               occasionally that it is not.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>{MIGRATION.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               See the work first

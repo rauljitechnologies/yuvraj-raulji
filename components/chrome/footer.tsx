@@ -209,7 +209,7 @@ export function SiteFooter() {
 
           <div className="relative grid gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-16 lg:py-[104px]">
             <div>
-              <div className="mb-6 flex items-center gap-3.5 sm:mb-8">
+              <div className="mb-block flex items-center gap-3.5">
                 <span aria-hidden="true" className="h-px w-11 bg-accent" />
                 <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/50">
                   Next step
@@ -226,12 +226,12 @@ export function SiteFooter() {
                 <span className="block font-semibold text-ink">the decision behind it?</span>
               </p>
 
-              <p className="mt-6 max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50 sm:mt-7 sm:text-[17px]">
+              <p className="mt-item max-w-[46ch] font-manrope text-[16px] font-light leading-[1.7] text-ink/50 sm:text-[17px]">
                 Thirty minutes on your constraint, not on my slides. Bring the problem and we will
                 name the decision behind it, and the next practical step.
               </p>
 
-              <div className="mt-9 flex flex-col gap-3.5 sm:mt-11 sm:flex-row sm:flex-wrap">
+              <div className="mt-block flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
                 <Cta href={`mailto:${CONTACT.email}`} variant="accent">
                   Start a conversation
                 </Cta>
@@ -337,7 +337,7 @@ export function SiteFooter() {
               {FOOTER_TAGLINE}
             </p>
 
-            <p className="mb-7 max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/50">
+            <p className="mb-item max-w-[330px] font-manrope text-[15px] font-light leading-[1.7] text-ink/50">
               {CORE_IDEA} Writing and building at the intersection of AI, business and eCommerce,
               from Vadodara, India.
             </p>

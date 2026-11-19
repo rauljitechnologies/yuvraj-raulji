@@ -249,7 +249,7 @@ export default async function Article({ params }: Props) {
         <Section id="questions" labelledBy="faq-title">
           <Shell>
             <Marker label="Questions" />
-            <div className="mb-10 lg:mb-14">
+            <div className="mb-head">
               <Lines as="h2" id="faq-title" lines={['The questions', 'people ask.']} />
             </div>
             <ul className="m-0 grid list-none gap-0 p-0 border-t border-ink/10">
@@ -274,7 +274,7 @@ export default async function Article({ params }: Props) {
         <Section id="related" labelledBy="related-title">
           <Shell>
             <Marker label="Keep reading" />
-            <div className="mb-10 lg:mb-14">
+            <div className="mb-head">
               <Lines as="h2" id="related-title" lines={['Related', 'writing.']} />
             </div>
 

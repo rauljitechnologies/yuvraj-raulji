@@ -52,7 +52,7 @@ function Head({ label, id, lines }: { label: string; id: string; lines: readonly
   return (
     <>
       <Marker label={label} />
-      <div className="mb-8 sm:mb-12 lg:mb-14">
+      <div className="mb-head">
         <Lines as="h2" id={id} lines={accentLastLine(lines)} />
       </div>
     </>
@@ -345,7 +345,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
             id="next-title"
             lines={accentLastLine(['Have a problem', 'shaped like this one?'])}
           />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Describe what is in front of you and what it is costing. Thirty minutes is usually
               enough to name the decision underneath it, and that conversation occasionally ends
@@ -361,7 +361,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
               defined version of that: the same review, delivered in writing.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>Book a 30-minute consultation</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

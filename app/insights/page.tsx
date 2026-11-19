@@ -108,7 +108,7 @@ export default function Insights() {
       <Section id="latest" labelledBy="latest-title">
         <Shell>
           <Marker label="Latest" />
-          <div className="mb-10 lg:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="latest-title" lines={['The most recent', 'thing I wrote.']} />
           </div>
 
@@ -173,7 +173,7 @@ export default function Insights() {
       <Section id="archive" labelledBy="archive-title">
         <Shell>
           <Marker label="Archive" />
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-x-16 gap-y-8 lg:mb-14">
+          <div className="mb-head flex flex-wrap items-end justify-between gap-x-16 gap-y-8">
             <Lines as="h2" id="archive-title" lines={['Everything,', 'by subject.']} />
             <Rise delay={0.18} className="max-w-[420px]">
               <p className="m-0 font-manrope text-[15px] font-light leading-[1.7] text-ink/55">

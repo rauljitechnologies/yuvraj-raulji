@@ -94,7 +94,7 @@ export default function ExpertiseHub() {
         <Shell>
           <Marker label="The stack" />
 
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+          <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
             <Lines as="h2" id="stack-title" lines={['Seven categories.', 'No percentage bars.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
@@ -154,7 +154,7 @@ export default function ExpertiseHub() {
         <Shell>
           <Marker label="By technology" />
 
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+          <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
             <Lines as="h2" id="technology-title" lines={['Nine technologies.', 'Nine honest limits.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
@@ -182,7 +182,7 @@ export default function ExpertiseHub() {
                     </span>
                   </div>
 
-                  <h3 className="mb-4 mt-7 font-manrope text-[clamp(22px,2.2vw,32px)] font-semibold leading-[1.08] tracking-[-0.03em]">
+                  <h3 className="mb-4 mt-item font-manrope text-[clamp(22px,2.2vw,32px)] font-semibold leading-[1.08] tracking-[-0.03em]">
                     <a
                       href={techHref(t.slug)}
                       className="transition-colors duration-200 after:absolute after:inset-0 after:content-[''] group-hover:text-accent-bright"
@@ -247,7 +247,7 @@ export default function ExpertiseHub() {
         <Section key={p.slug} id={p.slug} labelledBy={`${p.slug}-title`}>
           <Shell>
             <Marker label={p.eyebrow} />
-            <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14">
+            <div className="mb-head flex flex-wrap items-end justify-between gap-8">
               <Lines as="h2" id={`${p.slug}-title`} lines={p.h1} />
             </div>
             <div className="grid gap-x-16 gap-y-8 border-t border-line pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
@@ -264,7 +264,7 @@ export default function ExpertiseHub() {
                   aria-hidden="true"
                   className="mt-4 h-0.5 w-16 bg-accent"
                 />
-                <div className="mt-8 flex flex-wrap gap-2">
+                <div className="mt-block flex flex-wrap gap-2">
                   {p.stack.slice(0, 4).map((sTag) => (
                     <Tag key={sTag}>{sTag}</Tag>
                   ))}
@@ -298,13 +298,13 @@ export default function ExpertiseHub() {
             lines={['Not sure which', 'of these it is?']}
             className="max-w-[20ch]"
           />
-          <Rise delay={0.2} className="mt-10">
+          <Rise delay={0.2} className="mt-block">
             <p className="m-0 max-w-[56ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/55 sm:text-[19px]">
               That is usually the right starting position. Most engagements begin as one of these
               and turn out to be another, which is what the first conversation is for.
             </p>
           </Rise>
-          <Rise delay={0.3} className="mt-10 flex flex-wrap gap-3 sm:mt-12">
+          <Rise delay={0.3} className="mt-head flex flex-wrap gap-3">
             <ContactButton>Discuss a project</ContactButton>
             <Btn href="/about/" variant="ghost">
               About Yuvraj Raulji

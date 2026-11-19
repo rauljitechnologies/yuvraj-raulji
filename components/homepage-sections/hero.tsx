@@ -44,7 +44,7 @@ export function Hero() {
             this held one line and illegible the moment it wrapped, which it
             does on any phone.
           */}
-          <Eager className="mb-6 sm:mb-8">
+          <Eager className="mb-block">
             <span className="flex items-center gap-3.5">
               <span className="h-px w-11 shrink-0 bg-accent" aria-hidden="true" />
               <span className="font-mono text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.3em] text-ink">
@@ -144,7 +144,7 @@ export function Hero() {
           </Eager>
 
           <Eager delay={0.12}>
-            <p className="mt-7 max-w-[62ch] font-manrope text-[clamp(17px,1.5vw,21px)] font-normal leading-[1.5] tracking-[-0.01em] text-ink/85">
+            <p className="mt-item max-w-[62ch] font-manrope text-[clamp(17px,1.5vw,21px)] font-normal leading-[1.5] tracking-[-0.01em] text-ink/85">
               {HERO.subLead}
             </p>
           </Eager>
@@ -173,7 +173,7 @@ export function Hero() {
             rebuilt. The two live links moved into the specialty row below.
           */}
           <Eager delay={0.18}>
-            <p className="mt-7 flex max-w-[600px] items-start gap-3.5">
+            <p className="mt-item flex max-w-[600px] items-start gap-3.5">
               <span
                 aria-hidden="true"
                 className="mt-[7px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
@@ -201,7 +201,7 @@ export function Hero() {
             an off-screen note, because a button that opens a new tab should
             say so in its accessible name.
           */}
-          <Eager className="mt-9 flex flex-wrap gap-3 sm:mt-11 sm:gap-4" delay={0.24}>
+          <Eager className="mt-block flex flex-wrap gap-3 sm:gap-4" delay={0.24}>
             <Cta href="/contact/" variant="accent">
               Discuss Your Project
             </Cta>
@@ -222,7 +222,7 @@ export function Hero() {
             Same unbreakable-item treatment as the headline above: these are
             five units and a line must not break inside "9+ Years Experience".
           */}
-          <Eager className="mt-7 sm:mt-8" delay={0.3}>
+          <Eager className="mt-block" delay={0.3}>
             <p className="m-0 max-w-[46ch] font-mono text-[11px] font-medium uppercase leading-[1.9] tracking-[0.14em] text-ink/50 sm:max-w-none sm:text-[12px]">
               {EXPERTISE_LINE.map((part, i, all) => (
                 <span key={part} className="inline-block whitespace-nowrap">

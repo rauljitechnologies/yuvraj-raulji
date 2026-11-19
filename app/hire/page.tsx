@@ -87,7 +87,7 @@ function Head({
   return (
     <>
       <Marker label={label} />
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+      <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
         <Lines as="h2" id={id} lines={accentLastLine(lines)} />
         {lede ? (
           <Rise delay={0.18}>
@@ -161,7 +161,7 @@ export default function Hire() {
               {HIRE.notThis.body}
             </p>
           </Rise>
-          <ul className="m-0 mt-10 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-3">
+          <ul className="m-0 mt-block grid list-none gap-px border border-line bg-line p-0 md:grid-cols-3">
             {HIRE.notThis.points.map((pt, i) => (
               <li key={pt.title} className="bg-[var(--bg)]">
                 <Rise delay={Math.min(i, 3) * 0.06} className="flex h-full flex-col p-6 sm:p-8">
@@ -350,7 +350,7 @@ export default function Hire() {
         <Shell>
           <Marker label="Next step" />
           <Lines as="h2" id="next-title" lines={accentLastLine(HIRE.finalHeadline)} />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Send the symptom, what it is costing and what has already been tried. Thirty
               minutes is usually enough to name the decision underneath it, and that conversation
@@ -363,21 +363,21 @@ export default function Hire() {
           {/* The smaller first step. Most people arriving here are not ready to
               commit to an engagement, and an audit is the version of this that
               produces something they keep whether or not anything follows. */}
-          <Rise delay={0.18} className="mt-8">
+          <Rise delay={0.18} className="mt-block">
             <p className={`m-0 max-w-[62ch] ${BODY}`}>
               Not ready to commit to an engagement?{' '}
               <InlineLink href="/ecommerce-audit/">Start with a technical audit</InlineLink>, which
               is fixed in scope and ends with a document rather than a proposal.
             </p>
           </Rise>
-          <Rise delay={0.2} className="mt-8">
+          <Rise delay={0.2} className="mt-block">
             <p className={`m-0 max-w-[62ch] ${BODY}`}>
               Working at an agency rather than buying for your own business?{' '}
               <InlineLink href="/agencies/">There is a separate page for that</InlineLink>, because
               the arrangement and the commitments are different.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>{HIRE.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               See the work first

@@ -78,7 +78,7 @@ function Head({
   return (
     <>
       <Marker label={label} />
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+      <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
         <Lines as="h2" id={id} lines={accentLastLine(lines)} />
         {lede ? (
           <Rise delay={0.18}>
@@ -483,7 +483,7 @@ export function ServicePage({ service }: { service: PlatformService }) {
         <Shell>
           <Marker label="Next step" />
           <Lines as="h2" id="next-title" lines={accentLastLine(service.finalHeadline)} />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Describe what is actually in front of you and we will work out whether this is the
               right piece of work before anyone scopes it. That conversation is usually shorter
@@ -500,7 +500,7 @@ export function ServicePage({ service }: { service: PlatformService }) {
               <InlineLink href="/ecommerce-audit/">eCommerce technical audit</InlineLink> is for.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>{service.cta}</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

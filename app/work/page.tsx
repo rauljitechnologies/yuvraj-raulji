@@ -82,7 +82,7 @@ export default function WorkPage() {
       <Section id="cases" labelledBy="cases-title">
         <Shell>
           <Marker label="Case studies" />
-          <div className="mb-10 lg:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="cases-title" lines={['Real work.', 'Real systems.']} />
           </div>
           <WorkCases />
