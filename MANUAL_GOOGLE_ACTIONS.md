@@ -72,6 +72,27 @@ choose between these.
 
 ---
 
+## 3b. GA4: get the bot traffic out of the reports (audit item 6)
+
+The audit found 34 referral sessions with 0% engagement and 0 seconds,
+including `aocr.org / referral`, and 78 users from the US and Singapore with
+almost no engagement. That is bot or data-centre traffic, and it is why the
+engagement rate reads 40% and the average session 19 seconds.
+
+GA4 cannot delete it retroactively, so the fix is a comparison you apply when
+reading reports:
+
+1. Open any report, then **Add comparison**.
+2. Condition: **Session medium** does not exactly match `referral`.
+3. Add a second condition: **Session duration** greater than `0`.
+4. Save it as "Humans" and leave it applied while you read.
+
+Do not build this as a data filter. A filter is permanent and drops the rows;
+a comparison leaves the data intact and lets you check whether the pattern
+changes.
+
+---
+
 ## 4. Search Console: request indexing for `/about/` and `/contact/`
 
 Both are "Discovered, currently not indexed". Both return 200, are in the
