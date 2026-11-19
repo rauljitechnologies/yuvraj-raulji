@@ -423,9 +423,13 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
     lede:
       'Most Magento platforms fall behind for the same reason: the last upgrade hurt, so the next one gets deferred, and every deferral makes the one after it larger. The way out is not a braver upgrade. It is a smaller one, run against a rehearsed path, with the extension debt dealt with as its own piece of work.',
     cta: 'Discuss a Magento upgrade',
-    title: 'Magento 2 Upgrade Services | Yuvraj Raulji',
+    /* Rewritten 19 Nov 2026 off the Search Console audit: this page sits at
+       position 5.6 and takes no clicks. The title said what the page is and
+       nothing about why to open it, and the thing a buyer deferring an
+       upgrade is actually afraid of is the upgrade going wrong. */
+    title: 'Magento 2 Upgrade Services | Rehearsed and Reversible',
     description:
-      'Magento 2 version upgrades and Magento 1 to Magento 2 moves: extension compatibility, regression testing, a rehearsed path and a written rollback.',
+      'Magento 2 version upgrades run as a rehearsed piece of work: extension compatibility settled first, regression tested on a copy, with a written rollback.',
 
     primaryKeyword: 'magento 2 upgrade services',
     secondaryKeywords: [
@@ -796,6 +800,11 @@ export const MAGENTO_SERVICES: readonly PlatformService[] = [
         href: '/insights/cro-double-conversion/',
         label: 'The CRO frameworks behind a faster checkout',
         note: 'The commercial half of a performance engagement, written out.',
+      },
+      {
+        href: '/insights/magento2-seo-technical-audit/',
+        label: 'The Magento 2 technical SEO audit framework, written out',
+        note: 'Its third phase is Core Web Vitals, which is this page measured from the crawler side.',
       },
       {
         href: '/headless-commerce/',

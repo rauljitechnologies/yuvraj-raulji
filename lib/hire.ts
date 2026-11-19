@@ -84,9 +84,9 @@ export const HIRE = {
     'One senior technology partner, working directly with you. The person you speak to is the person doing the work. No account manager between you and the decision, no bench behind it, and no proposal for a project you do not need.',
   cta: 'Start a Conversation',
 
-  title: 'Hire Yuvraj Raulji | Your Technology Partner',
+  title: 'Hire an eCommerce Developer and Consultant | Yuvraj Raulji',
   description:
-    'Work directly with Yuvraj Raulji as your technology partner. Direct access, senior expertise, one point of accountability. No agency, no team to manage.',
+    'Work directly with one senior developer across Magento, Shopify, headless and AI. A written scope and a figure before you commit. No agency, no middle layer.',
 
   primaryKeyword: 'hire ecommerce consultant',
   secondaryKeywords: [

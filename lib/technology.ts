@@ -244,7 +244,7 @@ const SHOPIFY: Technology = {
   cta: 'Discuss your Shopify project',
   title: 'Shopify and Shopify Plus Consultant | Yuvraj Raulji',
   description:
-    'Shopify and Shopify Plus: theme architecture, checkout, app consolidation and the AI that pays on a D2C catalogue. Where it fits, and where it stops.',
+    'Shopify and Shopify Plus work where it moves the number: theme architecture, checkout, app consolidation, integrations. Including when the platform is wrong.',
 
   quickAnswer: {
     answer:
@@ -3232,9 +3232,9 @@ const NEXTJS: Technology = {
   lede:
     'Next.js is the default way to build a decoupled storefront in React, and choosing it settles far less than people expect. What decides whether the result is fast is the rendering tier each template sits in, what invalidates the cache, and how much the GraphQL boundary is asked to return. Teams that get those three right succeed on any framework. Teams that do not are slower than the theme they replaced.',
   cta: 'Discuss a Next.js storefront',
-  title: 'Next.js Consultant | Yuvraj Raulji',
+  title: 'Next.js Consultant for Commerce Storefronts | Yuvraj Raulji',
   description:
-    'Next.js for commerce storefronts: rendering strategy, caching and revalidation, the GraphQL boundary, Core Web Vitals and SEO on Shopify and Magento.',
+    'Next.js commerce storefronts: rendering strategy, caching and revalidation, the GraphQL boundary, Core Web Vitals and SEO over Shopify and Magento back ends.',
 
   quickAnswer: {
     answer:

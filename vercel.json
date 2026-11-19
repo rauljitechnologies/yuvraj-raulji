@@ -210,6 +210,66 @@
       "source": "/insights/shopify-plus-vs-magento2-2025/",
       "destination": "/insights/shopify-plus-vs-magento2-2026/",
       "permanent": true
+    },
+    {
+      "source": "/unlocking-the-potential-how-b2b-ecommerce-is-reshaping-global-trade",
+      "destination": "/insights/",
+      "permanent": true
+    },
+    {
+      "source": "/unlocking-the-potential-how-b2b-ecommerce-is-reshaping-global-trade/",
+      "destination": "/insights/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-clean-up-magento2-database-programatically",
+      "destination": "/magento/performance/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-clean-up-magento2-database-programatically/",
+      "destination": "/magento/performance/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-clean-up-magento2-database-programmatically",
+      "destination": "/magento/performance/",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-clean-up-magento2-database-programmatically/",
+      "destination": "/magento/performance/",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/custom",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/custom/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/magento2-pwa-studio-headless/src/components/CustomPage",
+      "destination": "/insights/magento2-pwa-studio-headless/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/magento2-pwa-studio-headless/src/components/CustomPage/",
+      "destination": "/insights/magento2-pwa-studio-headless/",
+      "permanent": true
     }
   ],
   "headers": [

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import type { Heading } from '../../lib/articles';
-import { CONTACT } from '../../lib/site';
-import { PERSON_JOB_TITLE } from '../../lib/schema';
+import { CONTACT } from '../../lib/contact';
+import { PERSON_JOB_TITLE } from '../../lib/identity';
 
 const panelCls = 'p-7 rounded-xl border border-[rgba(255,255,255,.07)] bg-bg2';
 const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,var(--accent-bright),rgba(215, 25, 32,.15))', borderRadius: 2, flexShrink: 0 }} />;

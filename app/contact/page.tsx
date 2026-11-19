@@ -207,7 +207,7 @@ export default function ContactPage() {
               </p>
             </div>
             <div className="min-w-0 bg-[var(--bg)] p-card">
-              <ProjectForm tone="paper" id="project-form" />
+              <ProjectForm tone="paper" id="project-form" source="contact-page" />
             </div>
           </Rise>
 

@@ -25,6 +25,7 @@ export interface Post {
 
 export const POSTS: Record<string, Post> = {
   "magento2-seo-technical-audit": {
+    "seoTitle": "Magento 2 SEO Audit: The Complete Technical Guide (2026)",
     "cat": "Magento 2",
     "filter": "magento-2",
     "date": "12 Jun 2026",
@@ -32,7 +33,7 @@ export const POSTS: Record<string, Post> = {
     "img": "/assets/blog/magento2-seo-technical-audit.webp",
     "ogImg": "/assets/blog/magento2-seo-technical-audit.jpg",
     "title": "Magento 2 SEO: The Complete Technical Audit Guide 2026",
-    "excerpt": "A step-by-step framework for auditing Magento 2 stores: XML sitemaps, canonical tags, hreflang, structured data, crawl budget"
+    "excerpt": "A step-by-step framework for auditing Magento 2 stores: XML sitemaps, canonical tags, hreflang, structured data, crawl budget and Core Web Vitals"
   },
   "ai-ecommerce-revenue-2026": {
     "seoTitle": "AI for E-commerce in 2026: Real Use Cases That Drive Revenue",
