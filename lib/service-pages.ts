@@ -91,12 +91,16 @@ export interface ServicePage {
   /**
    * Shown in the header dropdown.
    *
-   * Every service is on /services/ and in the sitemap; only nine are in the
-   * menu. Sixteen links plus "All services" is a 700px panel that runs off a
+   * Every service is on /services/ and in the sitemap; only ten are in the
+   * menu. Seventeen links plus "All services" is a 700px panel that runs off a
    * laptop screen, and a menu nobody can read in one glance is not a menu. The
-   * nine are the engagements this site is pointed at: the four platform build
-   * pages, the two routes in through a whole project, the frontend, the AI
-   * work and the retainer.
+   * ten are the engagements this site is pointed at: the four platform build
+   * pages, the two routes in through a whole project, the frontend, the two
+   * AI pages and the retainer.
+   *
+   * The counts in that paragraph are the only place in this file they are
+   * typed rather than derived; the display copy reads them from
+   * FEATURED_COUNT_WORD and SERVICE_COUNT_WORD at the bottom.
    */
   featured?: boolean;
   eyebrow: string;
@@ -189,7 +193,7 @@ const BUILD_PROCESS: readonly ServiceStep[] = [
 ];
 
 /* ═══════════════════════════════════════════════════════════════
-   THE SIXTEEN
+   THE SEVENTEEN
 
    Ten shipped first. Six more were added to close the gap against
    the service list in the brief, and each one was added only where
@@ -209,6 +213,17 @@ const BUILD_PROCESS: readonly ServiceStep[] = [
    Shopify handed over "shopify plus development", and full stack
    handed over the Next.js and React queries. The content-map gate
    in lib/content-map.ts is what proves it.
+
+   The seventeenth, ai-ecommerce-development, was added for a query
+   that fell between three pages and was therefore owned by none of
+   them: generative-ai owns the AI feature built against a platform
+   that is staying, ecommerce-development owns the store build with
+   no AI in the brief, and /ai-commerce/ is the hub and owns the
+   entity term rather than a service. The build where the two are
+   one project had no page, so "ai ecommerce development" was a
+   query this site could not answer. It takes no ground from the
+   other three: each one's boundary block names it, and it names
+   them back.
    ═══════════════════════════════════════════════════════════════ */
 
 export const SERVICE_PAGES: readonly ServicePage[] = [
@@ -844,10 +859,10 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     ],
     boundary: {
       body:
-        'This is build work. The certification is from November 2026, so the honest statement is that it formalised and extended work already underway rather than started it, and there is no published AI engagement with a measured outcome on this site.',
+        'This is build work against a platform you are keeping, and the certification is from November 2026, so the honest statement is that it formalised and extended work already underway rather than started it. There is no published AI engagement with a measured outcome on this site. Where the platform itself is being built or replatformed, the AI work belongs inside that project rather than after it.',
       link: {
-        href: '/ai-commerce/',
-        label: 'AI in commerce, including where it does not belong',
+        href: '/services/ai-ecommerce-development/',
+        label: 'AI designed into a commerce build, rather than added to one',
       },
     },
     challenges: [
@@ -1123,10 +1138,10 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     ],
     boundary: {
       body:
-        'This is a whole-store build. If you already know the platform and need specific work on it, the platform pages are more direct.',
+        'This is a whole-store build with no AI in the brief, which is the right shape more often than the alternative. If you already know the platform and need specific work on it, the platform pages are more direct; if the brief does include AI, the catalogue and search decisions in this build change and they are better made with that known.',
       link: {
-        href: '/services/',
-        label: 'All services, including the platform-specific ones',
+        href: '/services/ai-ecommerce-development/',
+        label: 'The same build with AI designed into it',
       },
     },
     challenges: [
@@ -2229,6 +2244,169 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       },
     ],
     finalHeadline: ['Process quietly', 'absorbing a salary?'],
+  },
+  /* ── 17. AI eCommerce development ───────────────────────────── */
+  {
+    slug: 'ai-ecommerce-development',
+    featured: true,
+    label: 'AI eCommerce Development',
+    navLabel: 'AI eCommerce Development',
+    eyebrow: 'Commerce build | AI in the architecture',
+    h1: ['A store built so', 'the AI parts can', 'actually work.'],
+    lede:
+      'A commerce build where the catalogue, the search layer and the event data are designed for AI from the start, rather than a model attached later to a platform that cannot feed it. Nine years of commerce engineering underneath, and the generative AI work scoped to where it earns its place.',
+    cta: 'Discuss an AI-ready build',
+    title: 'AI eCommerce Development | Yuvraj Raulji',
+    description:
+      'eCommerce development with AI in the architecture: catalogue data worth generating from, a swappable search layer, assistants grounded in live stock.',
+    primaryKeyword: 'ai ecommerce development',
+    secondaryKeywords: [
+      'ecommerce development with ai',
+      'ai powered ecommerce development',
+      'ai ecommerce development services',
+      'ai ready ecommerce architecture',
+      'ai ecommerce developer',
+    ],
+    searchIntent:
+      'Commercial. Someone commissioning a build or a replatform who wants the AI work to be part of it rather than a separate project in a year.',
+    audience:
+      'Founders and technology leads planning a build, who have been told AI should be in it and want to know what that actually requires of the platform.',
+    purpose:
+      'Own the AI eCommerce development query, and make the case that what decides an AI feature in commerce is the commerce data model rather than the model.',
+    entities: [
+      'AI eCommerce Development',
+      'Generative AI',
+      'Retrieval-Augmented Generation',
+      'Semantic Search',
+      'Magento 2',
+      'Shopify',
+      'Headless Commerce',
+      'Yuvraj Raulji',
+    ],
+    quickAnswer: {
+      question: 'What does an eCommerce platform need before AI features can work on it?',
+      answer:
+        'Four things, and none of them is the model. Product attributes structured well enough that generated copy has something to say. A search layer that can be replaced with a semantic one without rebuilding the category pages. An event record of what customers searched for, saw and skipped. And an integration boundary where an automated step can be added with a human checkpoint in front of it. A store with those four can take AI features one at a time. A store without them needs the data work first, and that is the part most AI proposals leave out of the estimate.',
+    },
+    overview: [
+      'AI features in commerce usually fail on the commerce side rather than on the model side. The assistant invents an answer because nothing grounded it in the catalogue. The generated descriptions read as filler because the products carry three usable attributes between them. The recommendation engine has nothing to learn from because no one recorded what customers did. In each case the model was the part that worked.',
+      'So this is a build service rather than an AI service. The platform decision, the catalogue data model, the search layer and the event data get made in the order that leaves the AI work possible, which is the order they should be made in anyway, because every one of them pays for itself without a model attached.',
+      'It is also deliberately incremental. An AI feature that ships behind an evaluation and a review step can be judged on what it does; a build where five of them land at launch cannot be, and the first wrong answer takes the credibility of the other four with it.',
+    ],
+    boundary: {
+      body:
+        'This is a commerce build with the AI work designed into it. If the platform is staying and you want the AI feature on its own against it, that is the generative AI page rather than this one. If you want a store built and AI is not in the brief, the eCommerce development page is the straight version of the same work, and it is the right page more often than this one is.',
+      link: {
+        href: '/services/generative-ai/',
+        label: 'Generative AI against a platform you are keeping',
+      },
+    },
+    challenges: [
+      {
+        symptom: 'AI was quoted against a catalogue with three usable attributes per product.',
+        impact:
+          'Generated copy has nothing to work from, so it produces confident filler, and the quality ceiling was set by the attribute data before any model was chosen.',
+      },
+      {
+        symptom: 'The search is the platform default and cannot be replaced without rebuilding the category pages.',
+        impact:
+          'Semantic search becomes a replatform rather than a feature, which is how it ends up postponed indefinitely.',
+      },
+      {
+        symptom: 'Nobody can say what customers searched for last month.',
+        impact:
+          'There is no held-out set to evaluate against and no baseline to improve on, so any AI feature is judged on impressions rather than on evidence.',
+      },
+      {
+        symptom: 'An assistant answers from a product feed that is a day old.',
+        impact:
+          'It is confidently wrong about stock and price, which is the one failure customers remember and the reason the category gets distrusted internally.',
+      },
+    ],
+    solutions: [
+      {
+        name: 'A catalogue data model worth generating from',
+        body: 'Attributes defined, normalised and required, so generated descriptions and translations have source material rather than a product name to paraphrase. This is the unglamorous half of the project and it sets the ceiling for everything above it.',
+      },
+      {
+        name: 'A search layer you can swap',
+        body: 'Search behind an interface the storefront does not know the internals of, so moving from keyword matching to semantic retrieval is a change in one place rather than a rebuild of the category pages.',
+      },
+      {
+        name: 'Event data recorded from launch',
+        body: 'Searches, including the ones that returned nothing, views, and what was skipped. It costs little during a build and cannot be backfilled afterwards, which is why it belongs in the first release.',
+      },
+      {
+        name: 'Assistants grounded in live catalogue data',
+        body: 'Retrieval against your own products, prices and policies, reading the same source the storefront reads, with citation. An assistant on a stale export is a support ticket generator.',
+      },
+      {
+        name: 'Automation at the integration boundary',
+        body: 'The operational steps that are text moving between systems, automated where a wrong answer is visible and cheap, and left with a human checkpoint where it is neither.',
+      },
+      {
+        name: 'An evaluation set before the feature ships',
+        body: 'Real questions with known good answers, built before the AI work starts. Without one there is no way to separate an improvement from a change of mood in the model.',
+      },
+    ],
+    technologies: [
+      { group: 'Platforms', items: ['Magento 2', 'Adobe Commerce', 'Shopify', 'Shopify Plus'] },
+      { group: 'Storefront', items: ['Next.js', 'React', 'GraphQL', 'Headless'] },
+      { group: 'AI layer', items: ['RAG', 'Embeddings', 'Vector stores', 'Evaluation', 'Tool calling'] },
+      { group: 'Search & data', items: ['Elasticsearch', 'Semantic search', 'Event tracking', 'Mixpanel'] },
+      { group: 'Operations', items: ['n8n', 'Webhooks', 'Queues', 'Human-in-the-loop review'] },
+    ],
+    process: [
+      {
+        num: '01',
+        title: 'The readiness pass',
+        body: 'Attributes, search layer, event data and integration points, assessed against the AI features actually wanted. It frequently ends with a shorter AI scope and a longer data scope, which is the finding, not a failure of the exercise.',
+      },
+      {
+        num: '02',
+        title: 'Fix the data model first',
+        body: 'The attribute work and the event tracking go in before the model does. Both are worth doing on their own evidence, so the build is not hostage to whether the AI layer proves out.',
+      },
+      {
+        num: '03',
+        title: 'Build the commerce platform properly',
+        body: 'Catalogue, checkout, integrations and performance, to the same standard as a build with no AI in it. A store that is slow or wrong is not rescued by an assistant on top of it.',
+      },
+      {
+        num: '04',
+        title: 'Add one AI feature behind an evaluation',
+        body: 'The highest-volume one first, measured against the set from step one, shipped with a review step in front of any customer-facing output. The checkpoint is removed on measured evidence rather than on schedule.',
+      },
+      {
+        num: '05',
+        title: 'Measure in production, then widen',
+        body: 'What it answered, what it refused, what a person corrected. If the number has not moved, that is information, and the second feature waits until it has.',
+      },
+    ],
+    cases: [],
+    faqs: [
+      {
+        q: 'Can AI be added to our existing store, or does it need a rebuild?',
+        a: 'Usually it can be added, and the readiness pass is what tells you which. The three things that force a larger piece of work are a search layer that cannot be replaced, an attribute set too thin to generate from, and no event data at all. None of those is a rebuild on its own; together on an ageing platform they often cost more to work around than to replatform, and that comparison is worth making explicitly rather than discovering halfway.',
+      },
+      {
+        q: 'Will AI fix our catalogue data?',
+        a: 'It can expand and translate what is there, and it cannot invent what was never recorded. A model can write a good description from a dozen structured attributes; from a product name and a weight it produces plausible text that says nothing, and at catalogue scale that is worse than empty fields because it reads as content. The attribute work comes first in the order for that reason.',
+      },
+      {
+        q: 'Does this need a headless build?',
+        a: 'No, and I would not recommend one for that reason alone. A semantic search layer, a grounded assistant and generated catalogue content all run against a conventional Magento or Shopify build. Headless earns its place when you need independent frontend releases or several experiences off one catalogue, which is a separate decision with its own operational cost.',
+      },
+      {
+        q: 'What AI work have you actually shipped?',
+        a: 'The generative AI certification with IBM and AcceleratorX is from November 2026, and this site publishes no AI engagement with a measured outcome, so I state this as applied capability rather than as a long track record. The nine years and the fifty-plus projects are in the commerce engineering underneath it, which is the half that decides whether the AI features can work at all.',
+      },
+      {
+        q: 'What does an AI feature cost to keep running?',
+        a: 'Per-token inference, embedding storage, and the engineering to keep retrieval current as the catalogue changes. The third is the one missing from most estimates and it is usually the largest, because a catalogue that moves daily is a retrieval layer that has to move with it.',
+      },
+    ],
+    finalHeadline: ['Planning a build', 'with AI in the brief?'],
   },
 ];
 
