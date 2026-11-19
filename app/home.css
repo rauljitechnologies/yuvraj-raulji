@@ -115,6 +115,31 @@
   --gut: clamp(20px, 4.4vw, 64px);
 }
 
+/* ── The shell on a large monitor ────────────────────────────────
+   1400px was the whole story at every width, so a 1920 or 2560 screen
+   rendered the same column with progressively more empty ground beside it:
+   at 2560 that is 580px of nothing on each side of a grid that would
+   happily be wider.
+
+   Only the top of the range moves. Below 1680 nothing changes at all, so
+   every layout that was tuned against 1400 is untouched on the screens most
+   readers are on, and the gutter grows with it so the content does not end
+   up pinned to the glass. Line length is unaffected: body copy is capped in
+   `ch` by the components themselves, and what widens is the grids and card
+   rows, which is where the empty space was. */
+@media (min-width: 1680px) {
+  :root {
+    --shell: 1560px;
+    --gut: clamp(64px, 4.4vw, 88px);
+  }
+}
+
+@media (min-width: 2200px) {
+  :root {
+    --shell: 1720px;
+  }
+}
+
 /* The interior ground, and the interior face.
    Manrope, not Inter. The homepage sets `font-manrope` on its own wrapper and
    every other route was reading Inter for body copy and Space Grotesk for

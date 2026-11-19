@@ -81,9 +81,18 @@ import { Rv, RvGroup, RvItem } from './rv';
  * page ships is the scroll-reveal wrappers and the contact form.
  */
 
-/* Shared shell classes: a 1440px container with 48px gutters. */
-const SHELL = 'mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12';
-const SECTION_Y = 'py-16 sm:py-20 md:py-24 lg:py-[140px]';
+/* The shell every other route uses, rather than a second one.
+   `.yr-shell` is 1400px with a fluid gutter, defined in app/home.css. This
+   file declared its own 1440px container with 48px gutters, and the header
+   and footer copied it, so on every interior page the navigation sat 36px
+   to the left of the content beneath it at wide viewports. One container
+   now, and the left edge of a heading lines up with the logo above it. */
+const SHELL = 'yr-shell';
+/* The same padding `.yr-section` uses. Seven variants of
+   `py-16 sm:py-20 md:py-24 lg:py-[120|130|140|150px]` stood here, which is
+   why the gaps between homepage bands never looked even, and why they
+   stepped at breakpoints while the rest of the site scaled fluidly. */
+const SECTION_Y = 'py-pad';
 
 /** Display heading, dark sections (inherits off-white text). */
 const H2 =
@@ -365,7 +374,7 @@ const INTERSECTION = ['Business', 'Technology', 'eCommerce', 'AI', 'Growth'] as 
 export function Why() {
   return (
     <section id="why" aria-labelledby="why-title" className="bg-accent text-white">
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[130px]`}>
+      <div className={`${SHELL} py-pad`}>
         <div className="mb-4 flex items-center gap-3">
           <span aria-hidden="true" className="h-px w-5 shrink-0 bg-white/60" />
           <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-white/80">
@@ -444,7 +453,7 @@ export function SelectedWork() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="mx-auto max-w-[1440px] py-16 sm:py-20 md:py-24 lg:pb-[120px] lg:pt-[140px]"
+      className="yr-shell py-pad"
     >
       <div className="px-5 sm:px-6 md:px-8 lg:px-12">
         <SectionLabel className="mb-10">Selected work</SectionLabel>
@@ -590,7 +599,7 @@ export function AiCommerce() {
         </svg>
       </div>
 
-      <div className={`${SHELL} relative py-16 sm:py-20 md:py-24 lg:py-[150px]`}>
+      <div className={`${SHELL} relative py-pad`}>
         <SectionLabel className="mb-10">AI and automation</SectionLabel>
 
         <Rv>
@@ -824,7 +833,7 @@ export function About() {
       aria-labelledby="about-title"
       className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel tone="light" className="mb-10">
           About
         </SectionLabel>
@@ -904,7 +913,7 @@ export function TechnologyPartner() {
       aria-labelledby="partner-title"
       className="border-t border-ink/10 bg-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-10">Technology Partner</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
@@ -1142,7 +1151,7 @@ export function WhyWorkWithMe() {
       aria-labelledby="why-me-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-8 sm:mb-11">Why work with me</SectionLabel>
 
         <div className="mb-grid grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
@@ -1211,7 +1220,7 @@ export function Services() {
       aria-labelledby="services-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-8 sm:mb-11">Services</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] lg:gap-x-16">
@@ -1294,7 +1303,7 @@ export function ProfessionalExperience() {
       aria-labelledby="experience-title"
       className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel tone="light" className="mb-8 sm:mb-11">
           Professional experience
         </SectionLabel>
@@ -1382,7 +1391,7 @@ export function Certification() {
       aria-labelledby="certification-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-8 sm:mb-11">Most recent credential</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
@@ -1462,7 +1471,7 @@ export function RemoteWork() {
       aria-labelledby="remote-title"
       className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-8 sm:mb-11 !text-ground/55">
           Working with clients worldwide
         </SectionLabel>
@@ -1576,7 +1585,7 @@ export function Contact() {
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
       <span id="book" aria-hidden="true" />
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:pb-[130px] lg:pt-[150px]`}>
+      <div className={`${SHELL} py-pad`}>
         <SectionLabel className="mb-8 sm:mb-11">Contact</SectionLabel>
 
         <Rv>
