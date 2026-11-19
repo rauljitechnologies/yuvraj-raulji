@@ -574,6 +574,18 @@ export interface CaseStudy {
   id: string;
   num: string;
   name: string;
+  /**
+   * A shorter name for the `<title>` only, where the display name would push
+   * it past the ~60-character SERP limit once "case study | Yuvraj Raulji" is
+   * added. The H1 and every card always use `name`.
+   *
+   * The same mechanism `Post.seoTitle` provides for articles, and used for
+   * the same reason: one build is called "Procurement and approvals
+   * platform", which made a 61-character title, and renaming the build to
+   * save one character would change the H1 and the homepage work card to fix
+   * something only a SERP sees.
+   */
+  seoName?: string;
   industry: string;
   challenge: string;
   approach: string;
@@ -755,6 +767,7 @@ export const CASES: CaseStudy[] = [
     id: 'b2b-procurement',
     num: '04',
     name: 'Procurement and approvals platform',
+    seoName: 'B2B procurement platform',
     industry: 'B2B procurement · Platform',
     challenge:
       'B2B buying is not a cart. It is a request, a quote, an approval chain and a budget holder, and a consumer checkout models none of that.',

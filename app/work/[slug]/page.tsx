@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
      The six titles ran 34-50 characters without it, so the term is added into
      space the SERP was already giving away rather than at the cost of the
      name. */
-  const title = `${study.name} case study | Yuvraj Raulji`;
+  const title = `${study.seoName ?? study.name} case study | Yuvraj Raulji`;
   /* Trimmed on a word boundary. `slice(0, 155)` alone cuts mid-word the first
      time a challenge runs past the limit; none does today, which is exactly
      why the bug would ship unnoticed. */
