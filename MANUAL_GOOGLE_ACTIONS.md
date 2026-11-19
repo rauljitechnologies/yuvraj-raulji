@@ -111,13 +111,14 @@ There is a daily quota on indexing requests. Three URLs is well inside it.
 
 ## 5. Search Console: validate the 404 fixes (after deploy)
 
-Do this **after** the branch is merged and deployed, not before. Validating
-against a site that still 404s restarts the clock.
+The branch is merged and deployed, and the redirects were verified against
+production on 20 November 2026: all eight URLs resolve to a live page, no
+loops. The evidence table is in `REDIRECT_TEST_REPORT.md`, section 3.
 
-1. Confirm the redirects are live. The exact `curl` commands are in
-   `REDIRECT_TEST_REPORT.md`, section 3.
-2. Search Console, then Pages, then **Not found (404)**.
-3. Click **Validate fix**.
+So only the Search Console half is left, and it is yours:
+
+1. Search Console, then Pages, then **Not found (404)**.
+2. Click **Validate fix**.
 
 Google re-crawls over days, not minutes. The 12% of crawl requests hitting 404s
 should fall as it works through them.

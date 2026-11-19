@@ -121,11 +121,39 @@ every destination is a real page that returns 200:
 404  /custom          <- pre-fix behaviour, with no vercel.json applied
 ```
 
-### Production check, still outstanding
+### Production check, done
 
-**The 301s have not been verified in production, because this branch is not
-deployed.** After it is merged and deployed, each of these should answer `301`
-with the expected `location`:
+Verified on 20 November 2026, against the deploy of merge commit `252d640`.
+Every rule resolves to a live page and no chain loops:
+
+| Requested | Hops | Final |
+| --- | --- | --- |
+| `/custom` | 2 | 200 `/` |
+| `/custom/` | 1 | 200 `/` |
+| `/home` | 2 | 200 `/` |
+| `/home/` | 1 | 200 `/` |
+| `/unlocking-the-potential-how-b2b-ecommerce-is-reshaping-global-trade/` | 1 | 200 `/insights/` |
+| `/how-to-clean-up-magento2-database-programatically/` | 1 | 200 `/magento/performance/` |
+| `/how-to-clean-up-magento2-database-programmatically/` | 1 | 200 `/magento/performance/` |
+| `/insights/magento2-pwa-studio-headless/src/components/CustomPage` | 2 | 200 `/insights/magento2-pwa-studio-headless/` |
+
+Control: `/definitely-not-a-page-xyz/` still returns 404, so the rules are
+matching what they were written for and nothing else.
+
+**Two things worth knowing about the responses.**
+
+Vercel answers `permanent: true` with **308**, not 301. Both are permanent
+and Google treats them the same way for consolidation; the difference is that
+308 preserves the request method. Nothing to change, but the status code in a
+Search Console report will read 308.
+
+The spellings without a trailing slash take **two hops**: Vercel normalises
+`/custom` to `/custom/` first, and the rule fires on the second request. The
+forms Search Console actually lists are the slashed ones, which are one hop.
+This is also why both spellings are declared: without the slashed rule, the
+normalisation would land on a 404.
+
+### The commands, for re-running this after any routing change
 
 ```bash
 for u in \
