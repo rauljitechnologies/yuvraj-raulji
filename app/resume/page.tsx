@@ -233,7 +233,7 @@ export default function Resume() {
                     )}
 
                     {r.stack.length ? (
-                      <ul className="m-0 mt-7 flex list-none flex-wrap gap-2 p-0">
+                      <ul className="m-0 mt-item flex list-none flex-wrap gap-2 p-0">
                         {r.stack.map((tech) => (
                           <li key={tech}>
                             <Tag>{tech}</Tag>

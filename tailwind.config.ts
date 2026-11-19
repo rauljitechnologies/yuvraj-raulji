@@ -99,6 +99,13 @@ const config: Config = {
         grid: 'var(--sp-grid)',
         tail: 'var(--sp-tail)',
         card: 'var(--sp-card)',
+        /* Section padding, the same value `.yr-section` uses in home.css.
+           The homepage sections are plain <section> elements with their own
+           bands rather than `.yr-section`, and each invented its own: four
+           different `lg:py` values across seven variants, stepping at
+           breakpoints where the rest of the site scales fluidly. */
+        pad: 'var(--pad-y)',
+        'pad-tall': 'var(--pad-y-tall)',
       },
       transitionTimingFunction: {
         out: 'var(--ease-out)',

@@ -77,7 +77,7 @@ export default function Pricing() {
                 {PRICING.whyNoPrices.body.map((para) => (
                   <p
                     key={para}
-                    className="m-0 mb-item max-w-[62ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65 last:mb-0"
+                    className="m-0 mb-item max-w-[62ch] font-manrope text-[18px] font-light leading-[1.7] text-ink/65"
                   >
                     {para}
                   </p>

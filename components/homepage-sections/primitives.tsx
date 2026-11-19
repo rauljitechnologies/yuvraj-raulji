@@ -282,7 +282,7 @@ export function Marquee({ items }: { items: readonly string[] }) {
   return (
     <div
       aria-hidden="true"
-      className="relative mt-14 overflow-hidden border-y border-ink/10 py-5 sm:mt-[88px]"
+      className="relative mt-grid overflow-hidden border-y border-ink/10 py-5"
     >
       <div className="flex w-max gap-12 animate-yr-marquee">
         {row}

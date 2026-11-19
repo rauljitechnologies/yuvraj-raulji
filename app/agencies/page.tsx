@@ -103,7 +103,7 @@ export default function Agencies() {
       <Section id="commitments" labelledBy="commitments-title" className="yr-paper">
         <Shell>
           <Marker label="In writing" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines
               as="h2"
               id="commitments-title"
@@ -121,7 +121,7 @@ export default function Agencies() {
       <Section id="answer" labelledBy="answer-title">
         <Shell>
           <Marker label="Straight answer" />
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-block">
             <Lines
               as="h2"
               id="answer-title"
@@ -133,7 +133,7 @@ export default function Agencies() {
               {AGENCIES.quickAnswer.answer}
             </p>
           </Rise>
-          <Rise delay={0.12} className="mt-9 border-t border-line pt-7">
+          <Rise delay={0.12} className="mt-block border-t border-line pt-7">
             <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Usually brought in for
             </p>
@@ -151,7 +151,7 @@ export default function Agencies() {
       <Section id="scope" labelledBy="scope-title" className="yr-paper">
         <Shell>
           <Marker label="What I take on" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="scope-title" lines={['The parts that need', 'a decision, not a pair of hands.']} />
           </div>
           <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-3">
@@ -165,7 +165,7 @@ export default function Agencies() {
       <Section id="not" labelledBy="not-title">
         <Shell>
           <Marker label="What this is not" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="not-title" lines={['Three times you should', 'hire someone else.']} />
           </div>
           <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-3">
@@ -179,7 +179,7 @@ export default function Agencies() {
       <Section id="process" labelledBy="process-title" className="yr-paper">
         <Shell>
           <Marker label="How it works" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="process-title" lines={['Four steps, and the second', 'is sometimes a no.']} />
           </div>
           <ol className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-4">
@@ -203,7 +203,7 @@ export default function Agencies() {
       <Section id="platforms" labelledBy="platforms-title">
         <Shell>
           <Marker label="Platforms" />
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-block">
             <Lines as="h2" id="platforms-title" lines={['The stacks, and what', 'each one is written up as.']} />
           </div>
           <Rise className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-10">
@@ -219,7 +219,7 @@ export default function Agencies() {
       <Section id="faq" labelledBy="faq-title" className="yr-paper">
         <Shell>
           <Marker label="Straight answers" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="faq-title" lines={['What agencies ask', 'before the first project.']} />
           </div>
           <dl className="m-0 grid gap-px border border-line bg-line md:grid-cols-2">
@@ -243,14 +243,14 @@ export default function Agencies() {
             id="next-title"
             lines={[AGENCIES.finalHeadline[0], { text: AGENCIES.finalHeadline[1], accent: true }]}
           />
-          <Rise delay={0.16} className="mt-10 max-w-[62ch]">
+          <Rise delay={0.16} className="mt-block max-w-[62ch]">
             <p className={`m-0 ${BODY}`}>
               Tell me the platform, what you have committed to and where the uncertainty sits. If it
               is not a fit I will say so on the first call, which is cheaper for both of us than
               finding out at the halfway point.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-10 flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
             <ContactButton>{AGENCIES.cta}</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

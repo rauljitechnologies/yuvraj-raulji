@@ -91,7 +91,7 @@ export function WorkCases() {
           with a measured outcome yet, and reframing one of the other five
           to fill the gap is the single thing this site does not do. */}
       {shown.length === 0 ? (
-        <div className="mt-10 border border-ink/10 bg-surface p-8 sm:p-10">
+        <div className="mt-block border border-ink/10 bg-surface p-8 sm:p-10">
           <p className="m-0 max-w-[34ch] font-manrope text-[clamp(20px,2.2vw,28px)] font-light leading-[1.25] tracking-[-0.02em] text-ink/80">
             Nothing published here yet.{' '}
             <span className="text-ink/55">
@@ -103,7 +103,7 @@ export function WorkCases() {
       ) : null}
 
       {/* ── Cases ───────────────────────────────────────────────── */}
-      <ul className="mt-10 grid list-none gap-4 sm:gap-6 lg:mt-12 lg:grid-cols-2">
+      <ul className="mt-head grid list-none gap-4 sm:gap-6 lg:grid-cols-2">
         {shown.map((c, i) => (
           <li key={c.id} id={c.id} className="flex">
             <Rise

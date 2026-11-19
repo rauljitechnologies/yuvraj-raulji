@@ -86,7 +86,7 @@ export default function ExperiencePage() {
       <Section id="record" labelledBy="record-title">
         <Shell>
           <Marker label="The record" />
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-head">
             <Lines as="h2" id="record-title" lines={['Five numbers', 'I can point at.']} />
           </div>
 
@@ -125,7 +125,7 @@ export default function ExperiencePage() {
       <Section id="timeline" labelledBy="timeline-title">
         <Shell>
           <Marker label="Timeline" />
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+          <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
             <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
@@ -173,7 +173,7 @@ export default function ExperiencePage() {
       <Section id="roles" labelledBy="roles-title">
         <Shell>
           <Marker label="Employment record" />
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+          <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
             <Lines as="h2" id="roles-title" lines={['Role by role,', 'as it happened.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
@@ -235,7 +235,7 @@ export default function ExperiencePage() {
                         technical screen looks for, so it is printed per role
                         rather than only aggregated under Technologies below. */}
                     {r.stack.length ? (
-                      <ul className="m-0 mt-7 flex list-none flex-wrap gap-2 p-0">
+                      <ul className="m-0 mt-item flex list-none flex-wrap gap-2 p-0">
                         {r.stack.map((tech) => (
                           <li key={tech}>
                             <Tag>{tech}</Tag>
@@ -268,7 +268,7 @@ export default function ExperiencePage() {
       <Section id="credentials" labelledBy="credentials-title">
         <Shell>
           <Marker label="Technologies & credentials" />
-          <div className="mb-10 sm:mb-14 lg:mb-[70px]">
+          <div className="mb-grid">
             <Lines
               as="h2"
               id="credentials-title"
@@ -309,7 +309,7 @@ export default function ExperiencePage() {
                 ))}
               </ul>
 
-              <h3 className={`mt-12 ${LABEL}`}>Certifications</h3>
+              <h3 className={`mt-head ${LABEL}`}>Certifications</h3>
               <ul className="m-0 mt-6 list-none border-t border-line p-0">
                 {CERTIFICATIONS.map((c) => (
                   <li key={c.name} className="border-b border-line py-5">

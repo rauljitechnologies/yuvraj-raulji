@@ -189,9 +189,9 @@ export function Credibility() {
 export function Problems() {
   return (
     <section id="problems" aria-labelledby="problems-title" className={`border-t border-ink/10 ${SHELL} ${SECTION_Y}`}>
-      <SectionLabel className="mb-10">The problem</SectionLabel>
+      <SectionLabel className="mb-block">The problem</SectionLabel>
 
-      <div className="mb-12 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+      <div className="mb-head grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
         <Rv>
           <h2 id="problems-title" className={H2}>
             Technology should help <span className="font-bold">your business grow.</span>
@@ -236,7 +236,7 @@ export function Problems() {
         ))}
       </RvGroup>
 
-      <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5">
+      <Rv className="mt-block flex flex-wrap items-center gap-x-8 gap-y-5">
         <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/60 sm:text-[19px]">
           The first step is understanding what is actually holding the business back.
         </p>
@@ -268,11 +268,11 @@ export function Capabilities() {
       className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel tone="light" className="mb-10">
+        <SectionLabel tone="light" className="mb-block">
           What I help businesses with
         </SectionLabel>
 
-        <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+        <div className="mb-head grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
           <Rv>
             <h2 id="capabilities-title" className={H2L}>
               Four areas, and <span className="font-bold">the decisions inside them.</span>
@@ -329,7 +329,7 @@ export function Capabilities() {
           ))}
         </RvGroup>
 
-        <Rv className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
+        <Rv className="mt-head flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
           <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ground/55">
             Not sure which of these the problem sits in? Establishing that is what{' '}
             <Link
@@ -386,7 +386,7 @@ export function Why() {
             </Rv>
 
             <Rv>
-              <p className="mt-8 max-w-[50ch] font-manrope text-[18px] font-light leading-[1.7] text-white/95 sm:text-[20px]">
+              <p className="mt-block max-w-[50ch] font-manrope text-[18px] font-light leading-[1.7] text-white/95 sm:text-[20px]">
                 Technology is not valuable simply because it is new.
               </p>
             </Rv>
@@ -419,7 +419,7 @@ export function Why() {
           </RvGroup>
         </div>
 
-        <Rv className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-white/20 pt-10">
+        <Rv className="mt-block flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-white/20 pt-10">
           <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-white/85">
             Work directly with one person on the technology decisions that are holding the business back.
           </p>
@@ -447,8 +447,8 @@ export function SelectedWork() {
       className="mx-auto max-w-[1440px] py-16 sm:py-20 md:py-24 lg:pb-[120px] lg:pt-[140px]"
     >
       <div className="px-5 sm:px-6 md:px-8 lg:px-12">
-        <SectionLabel className="mb-10">Selected work</SectionLabel>
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-10">
+        <SectionLabel className="mb-block">Selected work</SectionLabel>
+        <div className="mb-head flex flex-wrap items-end justify-between gap-10">
           <Rv>
             <h2 id="work-title" className={H2}>
               Real work. <span className="font-bold">Real systems.</span>
@@ -590,8 +590,8 @@ export function AiCommerce() {
         </svg>
       </div>
 
-      <div className={`${SHELL} relative py-16 sm:py-20 md:py-24 lg:py-[150px]`}>
-        <SectionLabel className="mb-10">AI and automation</SectionLabel>
+      <div className={`${SHELL} relative py-pad`}>
+        <SectionLabel className="mb-block">AI and automation</SectionLabel>
 
         <Rv>
           <h2
@@ -603,7 +603,7 @@ export function AiCommerce() {
           </h2>
         </Rv>
         <Rv>
-          <p className="mb-10 mt-7 max-w-[620px] font-manrope text-[18px] font-light leading-[1.7] text-ink/55 sm:mb-16 sm:mt-9 sm:text-[19px]">
+          <p className="mb-head mt-block max-w-[620px] font-manrope text-[18px] font-light leading-[1.7] text-ink/55 sm:text-[19px]">
             From AI search and intelligent product discovery to agents, automation and business
             intelligence, I help businesses identify where AI can create practical value. The useful
             part of that work is usually deciding what it should not touch: a process nobody has
@@ -639,7 +639,7 @@ export function AiCommerce() {
           ))}
         </RvGroup>
 
-        <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5">
+        <Rv className="mt-block flex flex-wrap items-center gap-x-8 gap-y-5">
           <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
             Wondering whether an AI idea is worth building, or whether it is a process problem
             wearing a model?
@@ -669,11 +669,11 @@ export function Ecosystem() {
       className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel tone="light" className="mb-10">
+        <SectionLabel tone="light" className="mb-block">
           Technology ecosystem
         </SectionLabel>
 
-        <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+        <div className="mb-head grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
           <Rv>
             <h2 id="technology-title" className={H2L}>
               The stack, <span className="font-bold">grouped by what it is for.</span>
@@ -721,7 +721,7 @@ export function Ecosystem() {
         </RvGroup>
         <div className="border-t border-ground/12" />
 
-        <Rv className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
+        <Rv className="mt-block flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ground/12 pt-10">
           <p className="m-0 max-w-[44ch] font-manrope text-[17px] font-light leading-[1.65] text-ground/55">
             Need to evaluate a platform or review your current stack before committing to a direction?
           </p>
@@ -746,9 +746,9 @@ export function Approach() {
       className="border-t border-ink/10 bg-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel className="mb-10">Working approach</SectionLabel>
+      <SectionLabel className="mb-block">Working approach</SectionLabel>
 
-      <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+      <div className="mb-head grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
         <Rv>
           <h2 id="approach-title" className={H2}>
             From problem to <span className="font-bold">practical solution.</span>
@@ -793,7 +793,7 @@ export function Approach() {
         ))}
       </RvGroup>
 
-      <Rv className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/10 pt-10">
+      <Rv className="mt-block flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-ink/10 pt-10">
         <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.65] text-ink/55">
           Ready to start? The first step is a short conversation about the problem, not a proposal.
         </p>
@@ -824,8 +824,8 @@ export function About() {
       aria-labelledby="about-title"
       className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[120px]`}>
-        <SectionLabel tone="light" className="mb-10">
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel tone="light" className="mb-block">
           About
         </SectionLabel>
 
@@ -841,7 +841,7 @@ export function About() {
               </h2>
             </Rv>
             <Rv>
-              <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/60 sm:text-[19px]">
+              <p className="mt-block max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ground/60 sm:text-[19px]">
                 {INTRO}
               </p>
             </Rv>
@@ -856,7 +856,7 @@ export function About() {
                 B2B approval workflows and the operations behind them.
               </p>
             </Rv>
-            <Rv className="mt-9 flex flex-wrap gap-3.5">
+            <Rv className="mt-block flex flex-wrap gap-3.5">
               <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
               </Cta>
@@ -904,8 +904,8 @@ export function TechnologyPartner() {
       aria-labelledby="partner-title"
       className="border-t border-ink/10 bg-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24`}>
-        <SectionLabel className="mb-10">Technology Partner</SectionLabel>
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block">Technology Partner</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
           <div>
@@ -916,7 +916,7 @@ export function TechnologyPartner() {
               </h2>
             </Rv>
             <Rv>
-              <p className="mt-8 max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/60 sm:text-[19px]">
+              <p className="mt-block max-w-[54ch] font-manrope text-[17px] font-light leading-[1.75] text-ink/60 sm:text-[19px]">
                 Sometimes you do not need another agency or a larger team. You need one experienced
                 person who can understand the problem, make the technology decision and help get the
                 important work done.
@@ -927,7 +927,7 @@ export function TechnologyPartner() {
                 Direct access. Senior judgement. One point of accountability.
               </p>
             </Rv>
-            <Rv className="mt-10">
+            <Rv className="mt-block">
               <Cta href="/hire/" variant="accent">
                 Hire Yuvraj Raulji
               </Cta>
@@ -983,9 +983,9 @@ export function Insights() {
       className="border-t border-ink/10 bg-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-      <SectionLabel className="mb-10">Insights</SectionLabel>
+      <SectionLabel className="mb-block">Insights</SectionLabel>
 
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10">
+      <div className="mb-head flex flex-wrap items-end justify-between gap-8 sm:gap-10">
         <Rv>
           <h2 id="insights-title" className={H2}>
             Written for the people <span className="font-bold">making the decision.</span>
@@ -1044,11 +1044,11 @@ export function Faq() {
       className="border-t border-ground/12 bg-[#f5f3ee] text-ground"
     >
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <SectionLabel tone="light" className="mb-10">
+        <SectionLabel tone="light" className="mb-block">
           Questions
         </SectionLabel>
 
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 sm:gap-10 lg:mb-[60px]">
+        <div className="mb-head flex flex-wrap items-end justify-between gap-8 sm:gap-10">
           <Rv>
             <h2 id="faq-title" className={H2L}>
               What people ask <span className="font-bold">before a first call.</span>
@@ -1085,7 +1085,7 @@ export function Faq() {
           ))}
         </RvGroup>
 
-        <div className="mt-11 flex flex-wrap items-center gap-[18px]">
+        <div className="mt-block flex flex-wrap items-center gap-[18px]">
           <span className="font-manrope text-[17px] font-light leading-[1.6] text-ground/50">
             Question not answered here?
           </span>
@@ -1142,8 +1142,8 @@ export function WhyWorkWithMe() {
       aria-labelledby="why-me-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
-        <SectionLabel className="mb-8 sm:mb-11">Why work with me</SectionLabel>
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block">Why work with me</SectionLabel>
 
         <div className="mb-grid grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
           <Rv>
@@ -1211,8 +1211,8 @@ export function Services() {
       aria-labelledby="services-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
-        <SectionLabel className="mb-8 sm:mb-11">Services</SectionLabel>
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block">Services</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] lg:gap-x-16">
           <div>
@@ -1225,14 +1225,14 @@ export function Services() {
               </h2>
             </Rv>
             <Rv>
-              <p className="m-0 mt-7 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
+              <p className="m-0 mt-item max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 {SERVICE_COUNT_WORD_CAP} services, each with its own page covering the problems it
                 solves, what gets built, the delivery process and what it is not. The{' '}
                 {FEATURED_COUNT_WORD} asked for most often are below.
               </p>
             </Rv>
             <Rv>
-              <div className="mt-9">
+              <div className="mt-block">
                 <RuleLink href="/services/">All services, and the platform pages under them</RuleLink>
               </div>
             </Rv>
@@ -1294,8 +1294,8 @@ export function ProfessionalExperience() {
       aria-labelledby="experience-title"
       className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
-        <SectionLabel tone="light" className="mb-8 sm:mb-11">
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel tone="light" className="mb-block">
           Professional experience
         </SectionLabel>
 
@@ -1308,13 +1308,13 @@ export function ProfessionalExperience() {
               </h2>
             </Rv>
             <Rv>
-              <p className="m-0 mt-7 max-w-[42ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/60">
+              <p className="m-0 mt-item max-w-[42ch] font-manrope text-[17px] font-light leading-[1.7] text-ground/60">
                 Named, dated and verifiable. Nine years of continuous professional engineering
                 since {CAREER_START_YEAR}, from the first Magento role to leading a development
                 team.
               </p>
             </Rv>
-            <Rv className="mt-9 flex flex-wrap gap-3.5">
+            <Rv className="mt-block flex flex-wrap gap-3.5">
               <Cta href="/experience/" variant="outline" tone="light">
                 Full career record
               </Cta>
@@ -1382,8 +1382,8 @@ export function Certification() {
       aria-labelledby="certification-title"
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
-        <SectionLabel className="mb-8 sm:mb-11">Most recent credential</SectionLabel>
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block">Most recent credential</SectionLabel>
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-16">
           <div>
@@ -1403,13 +1403,13 @@ export function Certification() {
             </Rv>
 
             <Rv>
-              <p className="m-0 mt-7 max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
+              <p className="m-0 mt-item max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
                 {f.body}
               </p>
             </Rv>
 
             <Rv>
-              <div className="mt-9">
+              <div className="mt-block">
                 <RuleLink href="/certifications/">The full credential record</RuleLink>
               </div>
             </Rv>
@@ -1462,8 +1462,8 @@ export function RemoteWork() {
       aria-labelledby="remote-title"
       className="border-y border-ground/12 bg-[#f5f3ee] text-ground"
     >
-      <div className={`${SHELL} py-16 sm:py-20 lg:py-[120px]`}>
-        <SectionLabel className="mb-8 sm:mb-11 !text-ground/55">
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block !text-ground/55">
           Working with clients worldwide
         </SectionLabel>
 
@@ -1482,7 +1482,7 @@ export function RemoteWork() {
             </Rv>
 
             <Rv>
-              <p className="m-0 mt-7 max-w-[50ch] font-manrope text-[18px] font-light leading-[1.7] text-ground/65 sm:text-[19px]">
+              <p className="m-0 mt-item max-w-[50ch] font-manrope text-[18px] font-light leading-[1.7] text-ground/65 sm:text-[19px]">
                 {REMOTE.lede}
               </p>
             </Rv>
@@ -1503,7 +1503,7 @@ export function RemoteWork() {
                 recruiter establishes before reading a CV, and answering them
                 here removes a round trip. */}
             <Rv>
-              <dl className="m-0 mt-9 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+              <dl className="m-0 mt-block grid gap-x-10 gap-y-5 sm:grid-cols-2">
                 {[
                   { label: 'Location', value: LOCATION },
                   { label: 'Time zone', value: TIMEZONE },
@@ -1523,7 +1523,7 @@ export function RemoteWork() {
             </Rv>
 
             <Rv>
-              <div className="mt-10 flex flex-wrap gap-3 sm:gap-4">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <Cta href="/contact/" variant="accent">
                   Discuss Your Project
                 </Cta>
@@ -1576,8 +1576,8 @@ export function Contact() {
       className="border-t border-ink/10 bg-[#050505] text-ink"
     >
       <span id="book" aria-hidden="true" />
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:pb-[130px] lg:pt-[150px]`}>
-        <SectionLabel className="mb-8 sm:mb-11">Contact</SectionLabel>
+      <div className={`${SHELL} py-pad`}>
+        <SectionLabel className="mb-block">Contact</SectionLabel>
 
         <Rv>
           <h2
@@ -1592,7 +1592,7 @@ export function Contact() {
         </Rv>
 
         <Rv>
-          <p className="mt-7 max-w-[46ch] font-manrope text-[19px] font-light leading-[1.6] text-ink/60 sm:text-[21px]">
+          <p className="mt-item max-w-[46ch] font-manrope text-[19px] font-light leading-[1.6] text-ink/60 sm:text-[21px]">
             Bring the problem. Leave with the next practical step.
           </p>
         </Rv>
@@ -1623,7 +1623,7 @@ export function Contact() {
           rather than a form.
         */}
         <RvGroup
-          className="mt-11 grid gap-px border border-ink/15 bg-ink/15 sm:mt-12 md:grid-cols-3"
+          className="mt-head grid gap-px border border-ink/15 bg-ink/15 md:grid-cols-3"
           each={0.06}
         >
           {[
@@ -1674,7 +1674,7 @@ export function Contact() {
         <span id="contact-form" aria-hidden="true" className="block scroll-mt-[120px]" />
 
         {/* Dark left panel (contact info) + white right panel (form) */}
-        <Rv className="mt-12 grid gap-px border border-ink/15 bg-ink/15 sm:mt-14 lg:mt-[70px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <Rv className="mt-grid grid gap-px border border-ink/15 bg-ink/15 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div className="flex min-w-0 flex-col gap-8 bg-surface p-6 sm:gap-10 sm:p-8 lg:p-12">
             <p className="m-0 max-w-[46ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/60">
               Describe the problem in a few lines and I will reply within 24 hours, IST business

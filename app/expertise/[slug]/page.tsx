@@ -107,7 +107,7 @@ function Head({
   return (
     <>
       <Marker label={label} />
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-8 sm:mb-14 lg:mb-[70px]">
+      <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
         <Lines as="h2" id={id} lines={lines} />
         {lede ? (
           <Rise delay={0.18}>
@@ -287,7 +287,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
             ))}
           </ol>
 
-          <Rise delay={0.3} className="mt-10 border-t border-line pt-8">
+          <Rise delay={0.3} className="mt-block border-t border-line pt-8">
             <h3 className={LABEL}>Stack</h3>
             <p className="m-0 mt-4 flex flex-wrap gap-2">
               {pillar.stack.map((tag) => (
