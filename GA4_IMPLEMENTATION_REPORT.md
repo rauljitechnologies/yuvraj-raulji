@@ -114,12 +114,32 @@ today counts forward from today; it does not backfill.
 
 ---
 
-## 5. Known risk, unchanged
+## 5. One tagging path (audit item 8)
 
-GTM container `GTM-TNKVWXJ5` loads alongside gtag.js. The container holds no
-GA4 tag today, which is why nothing double-counts. **If a GA4 tag is ever added
-to that container, the standalone gtag.js in `app/layout.tsx` has to be removed
-in the same release or every page view counts twice.**
+The audit left this open: gtag.js and GTM-TNKVWXJ5 both loaded, and if a GA4
+tag were ever added to the container, every page view would silently count
+twice.
 
-The audit recommends settling this by choosing one path. That is a decision
-about your tag setup rather than a code fix, so nothing here changed it.
+The container was fetched and read rather than assumed:
+
+```
+$ curl -s "https://www.googletagmanager.com/gtm.js?id=GTM-TNKVWXJ5" | grep -o '"tags":\[[^]]*\]'
+"tags":[]
+```
+
+`"tags":[]` and `"rules":[]`. The container is empty. No GA4 tag, no Ads tag,
+no pixel, nothing. It was costing every production page a connection to
+googletagmanager.com and a 335 KB script that fires nothing.
+
+**The snippet is removed** from `app/layout.tsx`, along with its `noscript`
+iframe. gtag.js is untouched and remains the one tagging path, which is what
+the audit asked for. Verified in the export: 0 of 90 pages reference
+`gtm.js` or `ns.html`, and the gtag.js tag is still on the homepage.
+
+The container itself is not deleted and the ID stays recorded in
+`lib/site.ts`. If you give it tags later, reinstating the snippet is four
+lines, and the GA4 config block has to come out in the same release.
+
+**If you would rather keep GTM on the page**, this is one commit
+(`Take the empty GTM container off every page`) and dropping it changes
+nothing else.

@@ -112,6 +112,14 @@ is no link gap to close in the usual sense. What they had no instance of was an
 Inspection request, which is manual and is written up in
 `MANUAL_GOOGLE_ACTIONS.md`.
 
+One more link, for audit item 10: `/magento/performance/` now cites the SEO
+audit article in its related list, with the reason it belongs there. The
+article's third phase is Core Web Vitals, which is the same subject that page
+sells, read from the crawler's side. The other Magento pages already linked
+it, and the article already closes with the audit call to action the item
+asks for, pointing at `/ecommerce-audit/`, `/magento/consulting/` and
+`/hire/`.
+
 ---
 
 ## 4. Reviewed and deliberately not changed
