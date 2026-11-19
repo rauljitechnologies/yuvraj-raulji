@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono, Manrope, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
-import { GA_MEASUREMENT_ID, GTM_CONTAINER_ID, SITE_URL } from '../lib/site';
+import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
 import './globals.css';
 /* The shared editorial page system. Imported here, not per page: the nav and
    the footer are built out of it and they render on every route, including the
@@ -90,16 +90,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${display.variable} ${body.variable} ${manrope.variable} ${mono.variable}`}
     >
       <body className="bg-ground text-ink font-body overflow-x-hidden">
-        {isProd && (
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            />
-          </noscript>
-        )}
+        {/* The GTM noscript iframe stood here. It went with the container.
+            See the note above the tag scripts at the bottom of this file. */}
         <UIProvider>{children}</UIProvider>
 
         {/*
@@ -222,8 +214,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           the container's format when gtag is absent. Same change, same
           reasoning, as lib/analytics.ts; the note there has the measurements.
 
-          If a GA4 tag is ever added to the container, the standalone gtag.js
-          below has to come out at the same time or page views double-count.
+          The container has since been removed from the page entirely, for
+          the reason set out below. The `dataLayer` fallback stays: it costs
+          one line and it is what makes this code correct again the day a
+          container is reintroduced.
         */}
         <script
           dangerouslySetInnerHTML={{
@@ -231,15 +225,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "(function(){function p(e,o){o=o||{};o.page_path=location.pathname;if(typeof window.gtag==='function'){window.gtag('event',e,o);return}window.dataLayer=window.dataLayer||[];o.event=e;window.dataLayer.push(o)}addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href],button');if(!a)return;var t=(a.textContent||'').trim().slice(0,80);var h=a.getAttribute('href')||'';var d=a.getAttribute('data-event');if(d)return p(d,{cta_text:t,destination:h});if(h.indexOf('mailto:')===0)return p('email_click',{cta_text:t});if(h.indexOf('tel:')===0)return p('phone_click',{cta_text:t});if(h.indexOf('wa.me')>-1)return p('whatsapp_click',{cta_text:t});if(h.indexOf('linkedin.com')>-1)return p('linkedin_click',{cta_text:t,destination:h});if(h.indexOf('/contact/')===0||h.indexOf('#contact')>-1)return p('contact_cta_click',{cta_text:t,destination:h});if(/\\.pdf(\\?|$)/i.test(h))return p('resume_download',{cta_text:t,destination:h});if(/^\\/work\\/[^/]+\\//.test(h))return p('project_view',{cta_text:t,destination:h});if(/book/i.test(h)||/book\\s*(a\\s*)?30/i.test(t))return p('consultation_cta_click',{cta_text:t,destination:h});if(a.className&&String(a.className).indexOf('yr-btn')>-1)p('cta_click',{cta_text:t,destination:h})},true)})();",
           }}
         />
+        {/*
+          One tagging path, which is gtag.js.
+
+          GTM-TNKVWXJ5 loaded on every production page beside it. The
+          container was fetched and read on 19 Nov 2026, not inferred:
+
+            https://www.googletagmanager.com/gtm.js?id=GTM-TNKVWXJ5
+            "tags":[]   "rules":[]
+
+          It is empty. No GA4 tag, no Ads tag, no pixel, nothing. It cost
+          every visitor a connection to googletagmanager.com and a 335 KB
+          script that fires nothing, on a site where the article pages were
+          already the heaviest thing a mobile reader downloads.
+
+          Removing it also removes the standing hazard the note below used to
+          describe: with both loaded, adding a GA4 tag to the container would
+          have doubled every page view silently.
+
+          The container is not deleted and the ID is still recorded in
+          lib/site.ts. If it is ever given tags, this snippet comes back as
+          four lines, and the GA4 config below comes out in the same release.
+        */}
         {isProd && (
           <>
-            <Script id="gtm-init" strategy="afterInteractive">
-              {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`}
-            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
               strategy="afterInteractive"

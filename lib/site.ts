@@ -120,7 +120,18 @@ export { LEAD_ENDPOINT } from './contact';
 /** GA4 measurement ID. Only loaded in production builds — see app/layout.tsx. */
 export const GA_MEASUREMENT_ID = 'G-5JHWRDWD9K';
 
-/** Google Tag Manager container. Production-only, same as GA4. */
+/**
+ * Google Tag Manager container.
+ *
+ * Not loaded. The published container was read on 19 Nov 2026 and is empty:
+ * `"tags":[]`, `"rules":[]`. It was costing every production page a 335 KB
+ * script that fires nothing, so the snippet came out of app/layout.tsx.
+ *
+ * The ID is kept here rather than deleted, because the container still
+ * exists in the account and reinstating it is four lines in the layout. See
+ * the note there before doing that: gtag.js and a container holding a GA4
+ * tag cannot both be on the page.
+ */
 export const GTM_CONTAINER_ID = 'GTM-TNKVWXJ5';
 
 /**
