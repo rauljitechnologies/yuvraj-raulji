@@ -123,6 +123,14 @@ linked to the property it is already linked to.
 
 **Core Web Vitals.** Search Console says "not enough usage data in the last 90
 days" for both mobile and desktop, which is a traffic problem rather than a
-performance one. Until field data exists, PageSpeed Insights lab data is the
-only signal, and the thing to watch is mobile LCP and INP, because the site
-loads three.js, GSAP and Lenis.
+performance one. Until field data exists, lab data is the only signal.
+
+One correction to the audit on this point. It lists three.js, GSAP and Lenis
+as reasons to watch mobile LCP and INP. They are in `package.json` and they
+are imported by nothing: no shipped chunk contains a single reference to any
+of them. They have been removed from the manifest, which changes no bytes in
+the browser because none were ever sent.
+
+What the browser does load, measured from the export rather than estimated,
+is in `SEO_FIXES_REPORT.md` section 6, along with the 35% cut made to the
+article pages and the next lever if more is needed.

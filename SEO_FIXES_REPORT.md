@@ -135,3 +135,51 @@ clean, redirects checked, every internal link and image source resolved.
 Canonicals re-verified across the exported site: 87 pages, each self-canonical
 on `https://www.yuvrajraulji.com` with a trailing slash, 0 mismatches. The only
 pages without one are `/404/` and `/_not-found/`, which robots.txt disallows.
+
+---
+
+## 6. JavaScript weight, measured
+
+Audit item 14 says to watch mobile LCP and INP because the site loads
+three.js, GSAP and Lenis. **It does not.** Those three, plus `@react-three/
+drei`, `@react-three/fiber`, `@react-three/postprocessing`, `animejs`,
+`postprocessing` and `@types/three`, are declared in `package.json` and
+imported by nothing. No shipped chunk contains a reference to any of them.
+
+They are removed from the manifest. That is hygiene, not performance: the
+browser never received them, so nothing about the byte count changes. The one
+animation library actually in use is `motion`.
+
+What the browser does load was measured from the export, by resolving every
+`<script src>` on a page and summing the files:
+
+| Page | Before | After | Change |
+| --- | --- | --- | --- |
+| Homepage | 1,108 KB raw / 317 KB gzipped | 1,095 KB / 312 KB | small |
+| Any article | 1,686 KB raw / 487 KB gzipped | 1,103 KB / 314 KB | **-583 KB raw, -173 KB gzipped, -35%** |
+| `/contact/` | 1,108 KB / 317 KB | 1,095 KB / 312 KB | small |
+
+The article pages were carrying 449 KB of server-side content data into the
+browser, on all eight of them, including the one that holds 61% of the site's
+impressions. The cause was two single-constant imports from large modules:
+
+- `components/insights/article-aside.tsx` is a client component and imported
+  `PERSON_JOB_TITLE` from `lib/schema.ts`, which is 1,190 lines importing the
+  posts, the career record, the case studies and the identity file. The
+  constant now lives in `lib/identity.ts`, which imports nothing, and
+  `lib/schema.ts` re-exports it.
+- The same component, the contact modal, the mobile call to action and the
+  project form all imported `CONTACT` from `lib/site.ts`, which is 880 lines
+  of page copy that also imports `POSTS`. `CONTACT` and `LEAD_ENDPOINT` now
+  live in `lib/contact.ts`; `lib/site.ts` re-exports both, so no server-side
+  call site changed.
+
+No component was rewritten and no rendered output changed. Verified: the same
+90 pages, the same schema `jobTitle`, the same contact details on the page.
+
+**The next lever, not taken.** The largest remaining chunk, 576 KB raw and
+shared by every page, is `zod` plus `motion`. `zod` is there for form
+validation, and the form is behind a click everywhere except `/contact/`, so
+loading it on demand would take it off every other route. That is a change to
+how the modal mounts, which is more than a metadata fix and wants its own
+branch.
