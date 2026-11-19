@@ -83,7 +83,19 @@ import { Rv, RvGroup, RvItem } from './rv';
 
 /* Shared shell classes: a 1440px container with 48px gutters. */
 const SHELL = 'mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12';
-const SECTION_Y = 'py-16 sm:py-20 md:py-24 lg:py-[140px]';
+/*
+ * Section padding, from the token the rest of the site uses.
+ *
+ * This was `py-16 sm:py-20 md:py-24 lg:py-[140px]`: four fixed steps,
+ * stepping at breakpoints while the type either side of it scaled fluidly.
+ * Nine sections had already moved to `py-pad` (--pad-y, the value
+ * `.yr-section` uses on every interior route) and six had not, so the
+ * homepage ran two rhythms down one page.
+ *
+ * The token resolves to clamp(60px, 10.5vw, 176px), which is 151px at
+ * 1440 against the 140 this replaced, and 60px on a phone against 64.
+ */
+const SECTION_Y = 'py-pad';
 
 /** Display heading, dark sections (inherits off-white text). */
 const H2 =
@@ -365,7 +377,7 @@ const INTERSECTION = ['Business', 'Technology', 'eCommerce', 'AI', 'Growth'] as 
 export function Why() {
   return (
     <section id="why" aria-labelledby="why-title" className="bg-accent text-white">
-      <div className={`${SHELL} py-16 sm:py-20 md:py-24 lg:py-[130px]`}>
+      <div className={`${SHELL} ${SECTION_Y}`}>
         <div className="mb-4 flex items-center gap-3">
           <span aria-hidden="true" className="h-px w-5 shrink-0 bg-white/60" />
           <span className="font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] text-white/80">
@@ -444,7 +456,7 @@ export function SelectedWork() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="mx-auto max-w-[1440px] py-16 sm:py-20 md:py-24 lg:pb-[120px] lg:pt-[140px]"
+      className={`mx-auto max-w-[1440px] ${SECTION_Y}`}
     >
       <div className="px-5 sm:px-6 md:px-8 lg:px-12">
         <SectionLabel className="mb-block">Selected work</SectionLabel>

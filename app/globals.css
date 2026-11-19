@@ -138,6 +138,28 @@
        same relationship between its edge and its content. */
     --sp-card: clamp(26px, 2.6vw, 40px);
 
+    /* Section padding: the air above and below a whole section, which is a
+       different measurement from the gaps between content inside one.
+       `py-pad` and `py-pad-tall` in tailwind.config.ts read these, and
+       `.yr-section` / `.yr-section--tall` in app/home.css read them too.
+
+       They were declared on `.yr-page` in home.css, which is the interior
+       pages' wrapper. Every interior route is inside it, so `.yr-section`
+       resolved them and the value looked correct everywhere it was checked.
+       The homepage is not inside `.yr-page`: its sections are plain
+       <section> elements, so `padding: var(--pad-y)` there referred to a
+       custom property that did not exist in scope, the declaration was
+       invalid at computed-value time, and the padding fell back to 0. Nine
+       homepage sections were rendering with no vertical padding at all,
+       their last button sitting flush on the band boundary.
+
+       A token a global utility class compiles against has to be global.
+       The floors stay as they were tuned: on a phone the floor is the only
+       term that applies, and 88px top and bottom on a 390px screen is
+       desktop air on a device that cannot spare it. */
+    --pad-y: clamp(60px, 10.5vw, 176px);
+    --pad-y-tall: clamp(84px, 15vw, 248px);
+
     /* Spacing — density 3 (spacious) */
     --space-1: 4px;
     --space-2: 8px;
