@@ -311,7 +311,7 @@ export default function Services() {
                 Describe the symptom rather than the solution. Working out which service it is, is
                 part of the first reply rather than a separate purchase.
               </p>
-              <div className="mt-block flex flex-wrap gap-3">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <ContactButton variant="primary">{SERVICES.cta}</ContactButton>
                 <Btn href="/work/" variant="ghost">
                   See the case studies

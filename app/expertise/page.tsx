@@ -304,7 +304,7 @@ export default function ExpertiseHub() {
               and turn out to be another, which is what the first conversation is for.
             </p>
           </Rise>
-          <Rise delay={0.3} className="mt-head flex flex-wrap gap-3">
+          <Rise delay={0.3} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>Discuss a project</ContactButton>
             <Btn href="/about/" variant="ghost">
               About Yuvraj Raulji

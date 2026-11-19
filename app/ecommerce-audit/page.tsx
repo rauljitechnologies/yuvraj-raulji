@@ -209,7 +209,7 @@ export default function EcommerceAudit() {
               whether an audit is the right thing before either of us scopes one.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{AUDIT.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               See the work first

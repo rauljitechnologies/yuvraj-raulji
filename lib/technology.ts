@@ -2233,6 +2233,10 @@ const AI_COMMERCE: Technology = {
     links: [
       { href: '/ai-search/', label: 'AI search and GEO, the discovery half of this' },
       { href: '/ai-automation/', label: 'AI automation for the operational half' },
+      {
+        href: '/services/ai-ecommerce-development/',
+        label: 'AI eCommerce development, where the build and the AI are one project',
+      },
       { href: '/magento/', label: 'Magento, where most of this gets wired in' },
     ],
   },
@@ -2314,6 +2318,11 @@ const AI_COMMERCE: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/ai-ecommerce-development/',
+      label: 'AI eCommerce development',
+      note: 'The build where the platform and the AI layer are one project.',
+    },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Discovery, on your site and in front of it.' },
     { href: '/ai-automation/', label: 'AI automation', note: 'Agents, retrieval and workflow beyond the storefront.' },
     { href: '/magento/', label: 'Magento', note: 'Where the catalogue, pricing and permission rules live.' },

@@ -500,7 +500,7 @@ export function ServicePage({ service }: { service: PlatformService }) {
               <InlineLink href="/ecommerce-audit/">eCommerce technical audit</InlineLink> is for.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{service.cta}</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

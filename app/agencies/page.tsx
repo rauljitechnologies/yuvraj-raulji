@@ -250,7 +250,7 @@ export default function Agencies() {
               finding out at the halfway point.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{AGENCIES.cta}</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

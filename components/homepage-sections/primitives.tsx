@@ -218,9 +218,31 @@ export function Cta({
 }) {
   /* `relative` for the same reason as RuleLink: it is the containing block for
      the `sr-only` note below, which is absolutely positioned. */
-  const base =
-    'relative inline-flex max-w-full items-center justify-center gap-3 text-center font-manrope text-xs font-bold uppercase leading-none tracking-[0.16em] px-6 py-[18px] sm:px-8 sm:py-5 transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0';
+  /* `w-full sm:w-auto`: on a phone the buttons of a row stack, and stacked
+     buttons at their own content widths read as a layout accident —
+     "Discuss Your Project" ran the column while "WhatsApp Me" hugged its
+     label beneath it. `.yr-btn` in app/home.css has filled the column below
+     640px since the interior pages were built, with the reasoning written
+     out there; this is the same rule for the one component that was missing
+     it, so a button is the same object on both halves of the site.
 
+     `leading-[1.35]` rather than `leading-none`, with the vertical padding
+     taken down by the 3px that adds back on a single line. A one-line label
+     does not care either way; a label that wraps does, and the ones that
+     wrap are the long ones on a phone — "Book a 30-minute consultation" set
+     its two lines solid, with the uppercase tracking making them look like
+     one block of letters rather than two lines of a sentence. */
+  const base =
+    'relative inline-flex w-full max-w-full items-center justify-center gap-3 text-center font-manrope text-xs font-bold uppercase leading-[1.35] tracking-[0.16em] px-6 py-[15px] transition-[background-color,color,border-color,transform] duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 sm:w-auto sm:px-8 sm:py-5';
+
+  /* The outline edge at /50 rather than /25.
+     
+     An outlined button's border is the whole of its affordance, so it is a
+     non-text contrast target: 3:1 against the ground (WCAG 1.4.11). At /25
+     it measured 1.98:1 on the black sections and 1.8:1 on the paper ones —
+     present in the DOM, effectively not drawn. /50 is 4.95:1 and 3.7:1. The
+     same value is set on `.yr-btn--ghost` in app/home.css, which is the
+     interior pages' version of this button. */
   const skin =
     variant === 'accent'
       ? 'bg-accent text-white hover:bg-accent-bright'
@@ -229,8 +251,8 @@ export function Cta({
           ? 'bg-ground text-white hover:bg-accent'
           : 'bg-white text-ground hover:bg-accent hover:text-white'
         : tone === 'light'
-          ? 'border border-ground/25 text-ground hover:border-accent'
-          : 'border border-ink/25 text-ink hover:border-accent';
+          ? 'border border-ground/50 text-ground hover:border-accent'
+          : 'border border-ink/50 text-ink hover:border-accent';
 
   return (
     <InternalOrExternal href={href} className={`${base} ${skin}`} newTab={Boolean(external)}>

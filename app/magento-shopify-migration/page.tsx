@@ -286,7 +286,7 @@ export default function MagentoShopifyMigration() {
               occasionally that it is not.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{MIGRATION.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               See the work first

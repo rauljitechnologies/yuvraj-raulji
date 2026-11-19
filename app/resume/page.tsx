@@ -355,7 +355,7 @@ export default function Resume() {
                 The remote collaboration page has the engagement models, the time zone overlap and
                 how a project actually starts, so a first reply can be a straight yes or no.
               </p>
-              <div className="mt-block flex flex-wrap gap-3">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <Btn href="/remote-collaboration/" variant="primary">
                   How we work together
                 </Btn>

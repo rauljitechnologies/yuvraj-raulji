@@ -212,7 +212,7 @@ export function PageHero({
         </Eager>
 
         {children ? (
-          <Eager delay={0.4} className="mt-block flex flex-wrap gap-3">
+          <Eager delay={0.4} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             {children}
           </Eager>
         ) : null}

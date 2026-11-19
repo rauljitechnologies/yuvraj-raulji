@@ -361,7 +361,7 @@ export function CasePage({ study }: { study: CaseStudy }) {
               defined version of that: the same review, delivered in writing.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>Book a 30-minute consultation</ContactButton>
             <Btn href="/hire/" variant="ghost">
               How engagements work

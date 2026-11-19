@@ -346,7 +346,7 @@ export default async function Article({ params }: Props) {
               takes looking at that store, which is what the audit is for.
             </p>
           </Rise>
-          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3">
+          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <Btn href="/ecommerce-audit/">See what an audit covers</Btn>
             {/* The one in-content link to /contact/ on an article. Same reason
                 as the byline link above, and it is the step a reader who has

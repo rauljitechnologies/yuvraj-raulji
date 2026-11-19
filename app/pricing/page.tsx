@@ -258,7 +258,7 @@ export default function Pricing() {
                 Tell me the platform, the problem and what you have already been quoted. You get a
                 written scope and a figure, and no charge for either.
               </p>
-              <div className="mt-block flex flex-wrap gap-3">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <ContactButton variant="primary">{PRICING.cta}</ContactButton>
                 <Btn href="/services/" variant="ghost">
                   What I actually do
