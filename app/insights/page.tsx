@@ -203,7 +203,7 @@ export default function Insights() {
               particular store takes looking at it, which is what the audit is.
             </p>
           </Rise>
-          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3">
+          <Rise delay={0.4} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <Btn href="/ecommerce-audit/">See what an audit covers</Btn>
             <Btn href="/contact/" variant="ghost">
               Describe the problem

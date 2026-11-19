@@ -217,7 +217,7 @@ export default function Certifications() {
             ))}
           </dl>
 
-          <Rise delay={0.2} className="mt-tail flex flex-wrap gap-3">
+          <Rise delay={0.2} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <Btn href="/resume/" variant="primary">
               The full resume
             </Btn>

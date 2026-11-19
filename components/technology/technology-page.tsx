@@ -794,7 +794,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   {hire.body}
                 </p>
                 <p className={`m-0 mt-6 max-w-[62ch] ${BODY}`}>{hire.usuallyMeans}</p>
-                <p className="m-0 mt-block flex flex-wrap gap-3">
+                <p className="m-0 mt-block flex flex-wrap gap-3 sm:gap-4">
                   <ContactButton>{tech.cta}</ContactButton>
                   <Btn href="/hire/" variant="ghost">
                     How engagements work
@@ -900,7 +900,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
               <InlineLink href="/agencies/">there is a partnership model</InlineLink>.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{tech.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               View relevant work

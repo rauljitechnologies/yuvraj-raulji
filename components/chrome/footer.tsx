@@ -231,7 +231,7 @@ export function SiteFooter() {
                 name the decision behind it, and the next practical step.
               </p>
 
-              <div className="mt-block flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <Cta href={`mailto:${CONTACT.email}`} variant="accent">
                   Start a conversation
                 </Cta>
@@ -426,7 +426,7 @@ export function SiteFooter() {
                   aria-label={social.label}
                   rel="me noopener noreferrer"
                   target="_blank"
-                  className="border border-ink/20 px-3 py-2.5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.14em] text-ink/70 transition-colors duration-200 hover:border-accent hover:text-ink"
+                  className="border border-ink/40 px-3 py-2.5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.14em] text-ink/80 transition-colors duration-200 hover:border-accent hover:text-ink"
                 >
                   {social.short}
                   <span className="sr-only"> (opens in a new tab)</span>

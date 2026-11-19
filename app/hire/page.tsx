@@ -377,7 +377,7 @@ export default function Hire() {
               the arrangement and the commitments are different.
             </p>
           </Rise>
-          <Rise delay={0.24} className="mt-block flex flex-wrap gap-4">
+          <Rise delay={0.24} className="mt-block flex flex-wrap gap-3 sm:gap-4">
             <ContactButton>{HIRE.cta}</ContactButton>
             <Btn href="/work/" variant="ghost">
               See the work first

@@ -856,7 +856,7 @@ export function About() {
                 B2B approval workflows and the operations behind them.
               </p>
             </Rv>
-            <Rv className="mt-block flex flex-wrap gap-3.5">
+            <Rv className="mt-block flex flex-wrap gap-3 sm:gap-4">
               <Cta href="/about/" variant="outline" tone="light">
                 More about Yuvraj
               </Cta>
@@ -1314,7 +1314,7 @@ export function ProfessionalExperience() {
                 team.
               </p>
             </Rv>
-            <Rv className="mt-block flex flex-wrap gap-3.5">
+            <Rv className="mt-block flex flex-wrap gap-3 sm:gap-4">
               <Cta href="/experience/" variant="outline" tone="light">
                 Full career record
               </Cta>
@@ -1527,7 +1527,14 @@ export function RemoteWork() {
                 <Cta href="/contact/" variant="accent">
                   Discuss Your Project
                 </Cta>
-                <Cta href="/remote-collaboration/" variant="outline">
+                {/* tone="light". Without it an outline button renders
+                    `border-ink/25 text-ink`, and `ink` on this ground is the
+                    off-white used on the black sections, so the label and the
+                    border were both #f5f3ee on an #f5f3ee band: the button was
+                    there, took clicks, and could not be read. Every other
+                    outline button on a paper section passes the tone; this one
+                    was missed. */}
+                <Cta href="/remote-collaboration/" variant="outline" tone="light">
                   How remote collaboration works <span className="font-mono">&#8594;</span>
                 </Cta>
               </div>
@@ -1706,7 +1713,7 @@ export function Contact() {
               ))}
             </dl>
 
-            <div className="mt-auto flex flex-wrap gap-3.5 pt-2">
+            <div className="mt-auto flex flex-wrap gap-3 sm:gap-4 pt-2">
               <Cta href={CONTACT.whatsapp} variant="accent" external="WhatsApp">
                 Book a 30-minute consultation
               </Cta>

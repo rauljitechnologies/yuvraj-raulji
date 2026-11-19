@@ -374,7 +374,7 @@ export default async function ServiceDetail({ params }: Props) {
                 Describe what is in front of you and you get a written scope and a figure, usually
                 within a few days of a short call. No charge for either.
               </p>
-              <div className="mt-block flex flex-wrap gap-3">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <ContactButton variant="primary">{service.cta}</ContactButton>
                 <Btn href={SERVICES.path} variant="ghost">
                   All services

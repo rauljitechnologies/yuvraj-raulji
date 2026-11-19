@@ -409,7 +409,22 @@
 
 .yr-btn--ghost {
   background: transparent;
-  border-color: var(--rule-strong);
+  /* The edge is the only thing that says "button" here, so it has to clear
+     3:1 against the ground it is drawn on — WCAG 1.4.11, which governs the
+     boundary of a control the same way 1.4.3 governs its label.
+
+     It was `--rule-strong`: #2e2e2e on the black scope and #d0d0d0 on paper,
+     which measure 1.5:1 and 1.4:1. Both are the hairline used to divide
+     content, and at that weight the ghost button stopped looking like a
+     control at all: a line of uppercase text with a faint box somewhere
+     behind it. Reported as "the button's design doesn't show".
+
+     `--text-rgb` is the one token the paper scope already redeclares (5 5 5
+     against the dark scope's 245 243 238), so one expression covers both
+     grounds. At 0.5 it measures 4.95:1 on black and 3.7:1 on white; 0.45
+     passes on black and lands at 2.8:1 on white, which is why it is not
+     0.45. */
+  border-color: rgb(var(--text-rgb) / 0.5);
   color: var(--text);
 }
 
@@ -1059,7 +1074,13 @@ a:focus-visible .yr-frame::after {
   align-items: center;
   min-height: 40px;
   padding-inline: 18px;
-  border: 1px solid var(--rule);
+  /* Same 3:1 rule as `.yr-btn--ghost` above, and the same expression at the
+     same weight, for the same reason: `--rule` is the hairline that divides
+     content, and it measured 1.25:1 around a control whose only boundary is
+     that line. A filter whose edge cannot be seen is a word, not a button.
+     Anything lighter than 0.5 fails on the paper scope — 0.45 lands at
+     2.8:1 on white — so the two controls carry the one value. */
+  border: 1px solid rgb(var(--text-rgb) / 0.5);
   background: transparent;
   font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
   font-size: 10px;

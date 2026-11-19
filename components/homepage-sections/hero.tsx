@@ -62,7 +62,41 @@ export function Hero() {
               reads as marking both lines, and the separators are dimmed so the
               specialisms scan as a list rather than as one long sentence.
             */}
-            <span className="mt-3 block max-w-[46ch] pl-[58px] font-manrope text-[13px] font-light leading-[1.7] text-ink/55 sm:max-w-[72ch] sm:text-[14px]">
+            {/*
+              One label for assistive technology, read from the same string,
+              with the visual list marked decorative behind it.
+
+              It was built the other way: a visible pipe marked aria-hidden
+              with an `sr-only` comma beside it, per separator. That reads
+              correctly, and it also means the separator exists twice in the
+              DOM, so anything that takes the text rather than the pixels gets
+              both: copy the line and you paste "Technology Consultant|,
+              Full-Stack Development|, eCommerce & Headless Commerce|,". The
+              label carries the spoken version once, and the markup below is
+              now purely visual.
+            */}
+            {/*
+              `text-ink/70` and not `/55`, and `font-normal` and not `/light`.
+
+              This is the second thing read on the page and it was set in the
+              lightest weight the face has, at 13px, at 55% of the text colour
+              — 5.6:1 on the black ground, which passes AA and still reads as
+              greyed-out next to the H1 under it. At 70% it is 8.9:1 and the
+              specialisms are legible on a phone in daylight, which is where
+              this page is opened.
+
+              `text-balance` is what stops the rag. The line is seven items
+              and wrapped 3/2/1 at 1440px, leaving "SEO & CRO" alone on a
+              third line reading as an afterthought rather than as the last
+              item of a list; balanced, the browser evens the lines itself and
+              the orphan goes. Supported everywhere this site's analytics show
+              traffic from, and a browser without it wraps the way it does
+              today.
+            */}
+            <span
+              aria-label={HERO.eyebrowSub.split(' | ').join(', ')}
+              className="mt-3 block max-w-[46ch] text-balance pl-[58px] font-manrope text-[13px] font-normal leading-[1.7] text-ink/70 sm:max-w-[72ch] sm:text-[14px]"
+            >
               {HERO.eyebrowSub.split(' | ').map((part, i, all) => (
                 /*
                   Each item is its own unbreakable unit, separator included, so
@@ -71,30 +105,17 @@ export function Hero() {
                   lines and started the next with a dangling "AI", which reads
                   as a seventh specialism rather than the tail of the sixth.
                 */
-                <span key={part} className="inline-block whitespace-nowrap">
+                <span key={part} aria-hidden="true" className="inline-block whitespace-nowrap">
                   {part}
                   {i < all.length - 1 ? (
-                    <>
-                      {/*
-                        The separator trails its item rather than leading the
-                        next one. Leading, it wrapped to the head of a new line
-                        and every continuation line opened with a stray "|".
-                        Trailing, a break falls after it, where a separator
-                        reads as "continues below".
-                      */}
-                      <span aria-hidden="true" className="px-2 text-ink/25">
-                        |
-                      </span>
-                      {/*
-                        The pipe is aria-hidden and these spans sit flush
-                        together, so without this a screen reader runs the
-                        parts into each other: "Technology ConsultantFull-Stack
-                        Development". A comma restores the boundary and is read
-                        as the pause it is, where a spoken "vertical bar"
-                        between every item would not be.
-                      */}
-                      <span className="sr-only">, </span>
-                    </>
+                    /*
+                      The separator trails its item rather than leading the
+                      next one. Leading, it wrapped to the head of a new line
+                      and every continuation line opened with a stray "|".
+                      Trailing, a break falls after it, where a separator
+                      reads as "continues below".
+                    */
+                    <span className="px-2 text-ink/40">|</span>
                   ) : null}
                 </span>
               ))}
@@ -221,20 +242,23 @@ export function Hero() {
 
             Same unbreakable-item treatment as the headline above: these are
             five units and a line must not break inside "9+ Years Experience".
+
+            And the same one accessible label as the specialism line, for the
+            same reason: a visible pipe beside an `sr-only` comma puts the
+            separator in the DOM twice, so every reader that takes the text
+            rather than the pixels — a copy-paste, a scraper, an LLM — gets
+            "9+ Years Experience|, 50+ Projects|,". The label spells the list
+            once and the markup under it is decoration.
           */}
           <Eager className="mt-block" delay={0.3}>
-            <p className="m-0 max-w-[46ch] font-mono text-[11px] font-medium uppercase leading-[1.9] tracking-[0.14em] text-ink/50 sm:max-w-none sm:text-[12px]">
+            <p
+              aria-label={EXPERTISE_LINE.join(', ')}
+              className="m-0 max-w-[46ch] text-balance font-mono text-[11px] font-medium uppercase leading-[1.9] tracking-[0.14em] text-ink/65 sm:max-w-none sm:text-[12px]"
+            >
               {EXPERTISE_LINE.map((part, i, all) => (
-                <span key={part} className="inline-block whitespace-nowrap">
+                <span key={part} aria-hidden="true" className="inline-block whitespace-nowrap">
                   {part}
-                  {i < all.length - 1 ? (
-                    <>
-                      <span aria-hidden="true" className="px-2.5 text-accent/50">
-                        |
-                      </span>
-                      <span className="sr-only">, </span>
-                    </>
-                  ) : null}
+                  {i < all.length - 1 ? <span className="px-2.5 text-accent/70">|</span> : null}
                 </span>
               ))}
             </p>

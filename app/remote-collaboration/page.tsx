@@ -361,7 +361,7 @@ export default function RemoteWork() {
                 Describe what you are building or fixing and you get a written scope and a figure,
                 usually within a few days of a short call.
               </p>
-              <div className="mt-block flex flex-wrap gap-3">
+              <div className="mt-block flex flex-wrap gap-3 sm:gap-4">
                 <Btn href="/contact/" variant="primary">
                   {REMOTE.cta}
                 </Btn>
