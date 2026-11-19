@@ -26,11 +26,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      /* `yr-shell` rather than a second 1440px container: the hero's left
-         edge now lines up with the navigation above it and with every
-         section below it. Top padding stays its own, because the hero is
-         the only block that has to clear the fixed header. */
-      className="yr-shell relative pt-[128px] sm:pt-[140px] lg:pt-[176px]"
+      className="relative mx-auto max-w-[1440px] px-5 pt-[128px] sm:px-6 sm:pt-[140px] md:px-8 lg:px-12 lg:pt-[176px]"
     >
       {/*
         The faint blueprint grid. Two repeating linear-gradients, masked to a

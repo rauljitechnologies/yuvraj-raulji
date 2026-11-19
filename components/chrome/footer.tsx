@@ -173,7 +173,7 @@ function Column({
 export function SiteFooter() {
   return (
     <footer className="overflow-hidden border-t border-ink/10 bg-ground font-manrope text-ink">
-      <div className="yr-shell">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-6 md:px-8 lg:px-12">
         {/*
           The closing call to action.
 
