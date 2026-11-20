@@ -48,6 +48,7 @@ import { SHOPIFY_SERVICES } from './services/shopify';
 import { WOOCOMMERCE_SERVICES } from './services/woocommerce';
 import { WORDPRESS_SERVICES } from './services/wordpress';
 import { PILLARS, pillarHref } from './expertise';
+import { SERVICE_PAGES, servicePageHref } from './service-pages';
 import { TECHNOLOGIES, TECHNOLOGIES_BY_SLUG, techHref } from './technology';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -239,11 +240,28 @@ const KNOWN_ROUTES = new Set<string>([
   '/magento-shopify-migration/',
   '/agencies/',
   '/ecommerce-audit/',
+  /* Typed for the same reason as the three above: each is a single page with
+     no registry behind it, and the modules that hold their copy read from
+     lib/site.ts, which reads the posts. Importing them here to recover three
+     strings would pull that whole graph into this file's load order. */
+  '/pricing/',
+  '/certifications/',
+  '/remote-collaboration/',
   ...TECHNOLOGIES.map((t) => techHref(t.slug)),
   ...PILLARS.map((p) => pillarHref(p.slug)),
   ...Object.keys(POSTS).map((slug) => `/insights/${slug}/`),
   ...CASES.map((c) => `/work/${c.id}/`),
   ...ALL_PLATFORM_SERVICES.map((s) => serviceHref(s.platform, s.slug)),
+  /* The services hub and the seventeen build pages under it. These were absent
+     from this set until the spokes started linking down into them, which is
+     the reciprocal of a link that already ran the other way: every build page
+     carries a `boundary` pointing up at the platform page it sits beside, and
+     nothing pointed back. The literal '/services/' is typed rather than read
+     from lib/services-hub.ts on purpose: that file imports this one, so taking
+     the constant from it would close a cycle for the sake of eleven
+     characters. */
+  '/services/',
+  ...SERVICE_PAGES.map((sp) => servicePageHref(sp.slug)),
 ]);
 
 for (const service of ALL_PLATFORM_SERVICES) {
@@ -255,6 +273,26 @@ for (const service of ALL_PLATFORM_SERVICES) {
     if (!KNOWN_ROUTES.has(href)) {
       throw new Error(
         `${service.platform}/${service.slug} links to "${href}", which is not a page on this site`,
+      );
+    }
+  }
+}
+
+/**
+ * The same check, for the seventeen build pages under /services/.
+ *
+ * It lives here rather than in lib/service-pages.ts because this is the file
+ * that holds the route set, and the set cannot move the other way: this module
+ * imports that one. Until the build pages had a `related` list their only
+ * internal link was `boundary`, which nothing validated, so '/pricing/' on the
+ * maintenance page was a href nobody had checked.
+ */
+for (const page of SERVICE_PAGES) {
+  const hrefs = [...page.related.map((r) => r.href), page.boundary.link.href];
+  for (const href of hrefs) {
+    if (!KNOWN_ROUTES.has(href)) {
+      throw new Error(
+        `services/${page.slug} links to "${href}", which is not a page on this site`,
       );
     }
   }

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Page, PageHero } from '../../../components/chrome/page';
 import { ContactButton } from '../../../components/homepage/contact-button';
 import { Lines, Rise } from '../../../components/homepage/motion';
-import { Btn, Marker, Section, Shell, Tag } from '../../../components/homepage/primitives';
+import { Btn, InlineLink, Marker, Section, Shell, Tag } from '../../../components/homepage/primitives';
 import { WORK_ITEMS } from '../../../lib/home';
 import { servicePageSchema, type Crumb } from '../../../lib/schema';
 import { SERVICE_PAGES, SERVICE_PAGES_BY_SLUG, servicePageHref } from '../../../lib/service-pages';
@@ -36,7 +36,8 @@ import '../../home.css';
  *   08 Process        how delivery actually runs
  *   09 Relevant work  real builds only, or the section does not render
  *   10 FAQ            open text, because the FAQPage markup must match it
- *   11 CTA
+ *   11 Related        where this connects, with the reason for each pairing
+ *   12 CTA
  *
  * Section 04 sits fourth, high on the page, and it is the one that keeps these
  * sixteen pages from merging with the platform pages they sit beside. A reader
@@ -364,7 +365,51 @@ export default async function ServiceDetail({ params }: Props) {
         </Shell>
       </Section>
 
-      {/* ── 11 CTA ────────────────────────────────────────────────── */}
+      {/* ── 11 Related ────────────────────────────────────────────
+          These pages shipped without this section, and the in-content link
+          graph showed what it cost: one or two pages linking in and three to
+          seven links out, where every platform spoke carries thirteen to
+          seventeen. A page at the end of the funnel with nowhere to go next is
+          a dead end for a reader and a leaf for a crawler.
+
+          The anchor text is the sentence the pairing is worth, which is the
+          rule stated at the top of lib/platform-services.ts. `boundary.link`
+          is not repeated here: it is already rendered in section 04, where it
+          does more work. */}
+      <Section id="related" labelledBy="related-title">
+        <Shell>
+          <Marker label="Related" />
+          <div className="mb-grid">
+            <Lines as="h2" id="related-title" lines={['Where this', 'connects.']} />
+          </div>
+
+          <ul className="m-0 grid list-none gap-px border border-line bg-line p-0 md:grid-cols-2 lg:grid-cols-3">
+            {service.related.map((r, i) => (
+              <li key={r.href} className="bg-[var(--bg)]">
+                <Rise delay={Math.min(i, 3) * 0.06} className="flex h-full flex-col p-6 sm:p-8">
+                  <h3 className="m-0 font-manrope text-[19px] font-semibold leading-[1.25] tracking-[-0.02em]">
+                    <InlineLink href={r.href} lead>
+                      {r.label}
+                    </InlineLink>
+                  </h3>
+                  {/* Guarded for the same reason the platform template guards
+                      it: `note` is optional on ServiceAnchor, and an anchor
+                      without one should render no paragraph rather than an
+                      empty one. All seventeen pages carry a note on every
+                      link today. */}
+                  {r.note ? (
+                    <p className="m-0 mt-4 max-w-[40ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
+                      {r.note}
+                    </p>
+                  ) : null}
+                </Rise>
+              </li>
+            ))}
+          </ul>
+        </Shell>
+      </Section>
+
+      {/* ── 12 CTA ────────────────────────────────────────────────── */}
       <Section id="start" labelledBy="start-title">
         <Shell>
           <div className="grid gap-x-12 gap-y-item lg:grid-cols-2">

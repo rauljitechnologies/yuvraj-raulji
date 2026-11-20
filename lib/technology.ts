@@ -518,6 +518,16 @@ const SHOPIFY: Technology = {
 
   related: [
     { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what the current platform is costing before deciding whether to move.' },
+    {
+      href: '/services/shopify-development/',
+      label: 'Shopify development, for building on the platform',
+      note: 'Theme architecture, private apps and app consolidation, on any plan.',
+    },
+    {
+      href: '/services/shopify-plus-development/',
+      label: 'Shopify Plus, and what the tier is for',
+      note: 'Checkout extensibility, Functions and B2B, which are the only reasons to pay for it.',
+    },
     { href: '/magento/', label: 'Magento commerce', note: 'Where Shopify stops fitting: quotes, approvals, multi-store.' },
     {
       href: '/magento-shopify-migration/',
@@ -828,6 +838,11 @@ const AI_SEARCH: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/generative-ai/',
+      label: 'Generative AI integration, against the platform you are keeping',
+      note: 'Retrieval-grounded answers and semantic search, scoped to where they earn their place.',
+    },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'Search alongside catalogue, ranking and operations.' },
     { href: '/ai-automation/', label: 'AI automation', note: 'Agents, retrieval and the workflows behind the catalogue.' },
     { href: '/shopify/', label: 'Shopify', note: 'Where semantic search is usually the first AI spend worth making.' },
@@ -1150,6 +1165,16 @@ const MAGENTO: Technology = {
 
   related: [
     { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what the platform is costing before deciding what to build next.' },
+    {
+      href: '/services/magento-development/',
+      label: 'Magento 2 development, once the platform question is settled',
+      note: 'Custom modules, multi-store architecture and B2B workflows, built rather than advised on.',
+    },
+    {
+      href: '/services/adobe-commerce-development/',
+      label: 'Adobe Commerce, the licensed half of the platform',
+      note: 'Company accounts, shared catalogues and purchase approvals, which Open Source does not carry.',
+    },
     { href: '/shopify/', label: 'Shopify', note: 'The alternative, and often the right one.' },
     {
       href: '/magento-shopify-migration/',
@@ -1443,6 +1468,16 @@ const WOOCOMMERCE: Technology = {
 
   related: [
     { href: '/ecommerce-audit/', label: 'eCommerce technical audit', note: 'Find what WooCommerce is costing before the stay-or-leave decision.' },
+    {
+      href: '/services/ecommerce-development/',
+      label: 'A complete store build, platform decision included',
+      note: 'For a first store, or one being replaced because it stopped keeping up.',
+    },
+    {
+      href: '/services/ecommerce-maintenance/',
+      label: 'Maintenance and support, without a developer on payroll',
+      note: 'Patching, upgrades and monitoring on a store that works and needs to keep working.',
+    },
     { href: '/wordpress/', label: 'WordPress', note: 'The host system, and what it is good at on its own.' },
     { href: '/shopify/', label: 'Shopify', note: 'Where most WooCommerce stores go when they outgrow it.' },
     { href: '/magento/', label: 'Magento', note: 'If the growth is in pricing and approval complexity.' },
@@ -1732,6 +1767,16 @@ const WORDPRESS: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/custom-module-development/',
+      label: 'Plugins written against the documented extension points',
+      note: 'So an upgrade is a Tuesday rather than a project.',
+    },
+    {
+      href: '/services/ecommerce-maintenance/',
+      label: 'Maintenance and support on a site that has to keep working',
+      note: 'Patching, upgrades, monitoring and the occasional thing that breaks at a bad time.',
+    },
     { href: '/woocommerce/', label: 'WooCommerce', note: 'When the content site needs to sell.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Being cited when the answer arrives before the link.' },
     { href: '/shopify/', label: 'Shopify', note: 'If selling is the business rather than a section of the site.' },
@@ -2014,6 +2059,16 @@ const HEADLESS: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/headless-commerce/',
+      label: 'Headless commerce development, once the case is made',
+      note: 'The decoupled build itself, including the four conditions that justify one.',
+    },
+    {
+      href: '/services/ecommerce-architecture/',
+      label: 'Architecture as its own engagement, before any build',
+      note: 'The decision written down, with what each option costs to build and to run.',
+    },
     { href: '/magento/', label: 'Magento', note: 'The commerce layer, over GraphQL and PWA Studio.' },
     { href: '/nextjs/', label: 'Next.js', note: 'The framework the decoupled storefront is actually built in.' },
     {
@@ -2049,7 +2104,7 @@ const AI_COMMERCE: Technology = {
   cta: 'Discuss an AI opportunity',
   title: 'AI for eCommerce: Search and Operations | Yuvraj Raulji',
   description:
-    'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume, not demos.',
+    'AI for eCommerce from a consultant who starts with the process: catalogue enrichment, semantic search and operations automation, not demos.',
 
   quickAnswer: {
     answer:
@@ -2322,6 +2377,11 @@ const AI_COMMERCE: Technology = {
       href: '/services/ai-ecommerce-development/',
       label: 'AI eCommerce development',
       note: 'The build where the platform and the AI layer are one project.',
+    },
+    {
+      href: '/services/generative-ai/',
+      label: 'Generative AI against a platform you are keeping',
+      note: 'The AI feature on its own, when the commerce stack is not being rebuilt.',
     },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Discovery, on your site and in front of it.' },
     { href: '/ai-automation/', label: 'AI automation', note: 'Agents, retrieval and workflow beyond the storefront.' },
@@ -2627,6 +2687,11 @@ const AI_AUTOMATION: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/workflow-automation/',
+      label: 'Workflow automation as a scoped engagement',
+      note: 'The four conditions a process has to meet before automating it is an improvement.',
+    },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'The same thinking, applied to catalogue and search.' },
     { href: '/ai-search/', label: 'AI search and GEO', note: 'Retrieval pointed at customers instead of at staff.' },
     { href: '/digital-transformation/', label: 'Digital transformation', note: 'Redesigning the process before automating it.' },
@@ -2920,6 +2985,16 @@ const DIGITAL_TRANSFORMATION: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/ecommerce-architecture/',
+      label: 'Architecture and platform selection, written down',
+      note: 'The document a modernisation programme is costed from, options and failure modes included.',
+    },
+    {
+      href: '/services/erp-crm-integration/',
+      label: 'ERP and CRM integration, system by system',
+      note: 'Which system owns each field, and what happens when one of them is unavailable.',
+    },
     { href: '/ai-automation/', label: 'AI automation', note: 'What to automate once the process is worth keeping.' },
     { href: '/magento/', label: 'Magento', note: 'A common target platform for complex commerce.' },
     {
@@ -3186,6 +3261,11 @@ const MIXPANEL: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/api-integration/',
+      label: 'The integration behind the server-side events',
+      note: 'Including what happens when the same event arrives twice, which is where the numbers go wrong.',
+    },
     { href: '/ai-commerce/', label: 'AI commerce', note: 'Where behavioural data becomes personalisation and recommendation.' },
     { href: '/ai-automation/', label: 'AI automation', note: 'When a reported number should trigger a process instead.' },
     { href: '/shopify/optimization/', label: 'Shopify optimisation', note: 'Where the funnel instrumentation usually gets used first.' },
@@ -3448,6 +3528,16 @@ const NEXTJS: Technology = {
   ],
 
   related: [
+    {
+      href: '/services/nextjs-development/',
+      label: 'Next.js and React development, as a build',
+      note: 'App Router applications and storefronts, where the rendering decisions are made first.',
+    },
+    {
+      href: '/services/full-stack-development/',
+      label: 'Full stack applications behind the frontend',
+      note: 'Portals, internal tools and Node services a commerce platform cannot be.',
+    },
     { href: '/headless-commerce/', label: 'Headless commerce', note: 'The decision this page assumes has already been made.' },
     { href: '/shopify/', label: 'Shopify', note: 'The commonest commerce backend behind a Next.js storefront.' },
     { href: '/magento/', label: 'Magento', note: 'Over GraphQL, where the catalogue is the complicated part.' },

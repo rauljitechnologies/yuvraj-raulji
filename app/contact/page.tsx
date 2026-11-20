@@ -15,7 +15,7 @@ const crumbs: Crumb[] = [
 
 const title = `Contact | Hire a ${ROLE_LINE}`;
 const description =
-  'Have a project in mind? Describe what you need and get a written scope and a figure, usually within a few days. WhatsApp, email or the form below.';
+  'Contact an independent eCommerce consultant. Describe what you need and get a written scope and a figure within a few days. WhatsApp, email or the form below.';
 
 export const metadata: Metadata = {
   title,

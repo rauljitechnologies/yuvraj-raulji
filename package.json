@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && ./scripts/check-prohibited-titles.sh out && node scripts/check-routes.mjs out && node scripts/check-redirects.mjs out && node scripts/check-links.mjs out",
+    "build": "next build && ./scripts/check-prohibited-titles.sh out && node scripts/check-routes.mjs out && node scripts/check-redirects.mjs out && node scripts/check-links.mjs out && node scripts/check-keywords.mjs out",
     "build:only": "next build",
     "cv": "python3 scripts/make-cv.py",
     "typecheck": "tsc --noEmit",
@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "check:links": "node scripts/check-links.mjs out",
     "lead-api:check": "./scripts/check-lead-endpoint.sh",
-    "lead-api:deploy": "./scripts/deploy-lead-api.sh"
+    "lead-api:deploy": "./scripts/deploy-lead-api.sh",
+    "check:keywords": "node scripts/check-keywords.mjs out"
   },
   "dependencies": {
     "motion": "^13.1.0",
@@ -32,6 +33,7 @@
     "autoprefixer": "^10.5.4",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
+    "jiti": "^1.21.7",
     "postcss": "^8.5.26",
     "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3"

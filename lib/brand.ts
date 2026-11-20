@@ -844,7 +844,7 @@ export const CASES: CaseStudy[] = [
     name: 'Engineering manufacturer platform',
     industry: 'Manufacturing · Engineering',
     challenge:
-      'An engineering manufacturer whose buyers research for months and never fill in a form, on a site that search could not read.',
+      'An engineering manufacturer whose buyers research for months and never fill in a form, on a website that search could not read.',
     approach:
       'A brand platform built for discovery rather than for transaction: technical content structured so a crawler and a buyer can both follow it, and an enquiry path short enough to survive a long consideration cycle.',
     technology: ['Web platform', 'Technical SEO', 'Content'],
