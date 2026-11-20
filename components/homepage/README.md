@@ -112,19 +112,23 @@ is why the Twitter card is `summary` rather than `summary_large_image`; a
 
 ## Typefaces
 
-The site sets display type in **Bebas Neue** (`--font-display`, `font-display`,
-and `font-bebas` as a legacy alias to the same face) and body copy in **Inter**
-(`--font-body`). One display face, one body face, across every page.
+The site is set in **Manrope** (`--font-sans`), with **JetBrains Mono** for
+labels, eyebrows and numerals. One sans face across every page.
 
-Bebas ships a single 400 cut, so nothing may ask for a weight above 400: the
-browser synthesises one by smearing the outlines. Every display rule pins 400 for
-that reason. It is also condensed, so display type runs roughly a quarter shorter
-than a normal-width grotesque at the same size, and sizes tuned against a wider
-face will read small here.
+That was not always true. The homepage was built in Manrope while the rest of
+the site read Inter for body copy and Space Grotesk for the chrome, so the
+header and footer were set in a different typeface from the page they sat on,
+and a third face rendered wherever neither had an opinion. This paragraph used
+to claim Bebas Neue and Inter, which by then described no template on the site.
 
-The standing recommendation is to move display to a face with a real weight range,
-because a heading system that cannot vary weight has only size to work with. That
-is a design decision, not a defect, and nothing here depends on it.
+Manrope is variable across 200-800, which is what this design leans on: 200 for
+a display line and 700 for the emphasis half of a heading, out of one file.
+Nothing has to pin a weight to avoid synthesis, which is the constraint the
+single-cut face used to impose on every display rule.
+
+That standing recommendation, to move display to a face with a real weight
+range because a heading system that cannot vary weight has only size to work
+with, is now met and closed.
 
 ## Motion
 

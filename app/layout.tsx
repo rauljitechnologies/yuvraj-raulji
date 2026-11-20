@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono, Manrope, Space_Grotesk } from 'next/font/google';
+import { JetBrains_Mono, Manrope } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
@@ -10,56 +10,52 @@ import './globals.css';
 import './home.css';
 
 /**
- * Body face, and the only face paragraph copy is ever set in. The display face
- * below is drawn to be looked at; Inter is drawn to be read at 16px and at
- * 0.64rem uppercase, which is where a display grotesque gets effortful.
+ * One sans face, for every page.
  *
- * No `weight` array: that requests the variable font, so every weight from 400
- * to 700 arrives in one file rather than four static cuts.
+ * ── What this replaced, and why ─────────────────────────────────────────────
+ *
+ * Three sans families were being loaded and they had divided the site up by
+ * accident rather than by design:
+ *
+ *   Manrope        356 uses across 37 files. Every content page.
+ *   Space Grotesk   28 uses across 14 files. The chrome: nav, footer,
+ *                   wordmark, buttons, the article aside.
+ *   Inter            1 use. The `font-body` class on <body>, which made it
+ *                   the document default and therefore the face of anything
+ *                   that did not set one.
+ *
+ * So the header and footer were set in a different typeface from the page they
+ * sat on, and a third face rendered wherever neither had an opinion. Four
+ * places in the repo documented the typography and all four disagreed:
+ * design-system/yuvraj-raulji/MASTER.md still named Bebas Neue, which no
+ * template has used for some time.
+ *
+ * Manrope wins by use and by range. It is variable across 200-800, which is
+ * what the design actually leans on: 200 for a display line and 700 for the
+ * emphasis half of a heading, both out of one file. Space Grotesk is variable
+ * 300-700 and Inter 400-700, so neither reaches the 200 the homepage display
+ * is set at.
+ *
+ * ── Why the variable names did not change ──────────────────────────────────
+ *
+ * `--font-display` and `--font-body` now both resolve to Manrope. Pointing the
+ * variables at it, rather than rewriting 28 `font-display` classes across 14
+ * files, keeps this a change to the font layer instead of a change to every
+ * template, and makes it one line to reverse. The utilities stay meaningful:
+ * `font-display` is still where a heading declares itself, it is simply no
+ * longer a different family.
+ *
+ * This is the "improve and standardize" in BRAND-DESIGN-GUIDELINE.md rather
+ * than the redesign the same paragraph rules out. Nothing about the palette,
+ * the spacing scale or the layout moves.
  */
-const body = Inter({
+const sans = Manrope({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-body',
-});
-
-/**
- * The display face, for every heading on every page.
- *
- * Space Grotesk replaces Bebas Neue. Bebas ships a single 400 cut and is
- * condensed uppercase-only, which suited a headline set as a poster but gave
- * the page no way to set an editorial H2 in mixed case or to hold a statement
- * at 300. Space Grotesk is variable across 300-700, so the whole display scale
- * comes from one file and a statement can be set light and large rather than
- * heavy and small.
- *
- * It is a normal-width grotesque, so it runs roughly a quarter wider than
- * Bebas at the same size. Every clamp in app/home.css was retuned downward for
- * that; sizes carried over from the condensed face would overflow.
- */
-const display = Space_Grotesk({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-});
-
-/**
- * The homepage pair, from the design canvas the homepage is built to.
- *
- * They are declared here because next/font has to be called at module scope in
- * a layout or page to be hoisted into the build, but nothing in `<body>` uses
- * them by default: only components under components/homepage-sections reach for
- * `font-manrope` / `font-mono`. The rest of the site keeps Space Grotesk and
- * Inter.
- *
- * Both are self-hosted by next/font at build time, so there is no render-blocking
- * request to fonts.googleapis.com and no layout shift, which is what the raw
- * `<link>` in the canvas mockup would have cost.
- */
-const manrope = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-manrope',
+  /* Three variables off one font so no component class has to change:
+     --font-manrope for the content pages that name it, and --font-display and
+     --font-body for the chrome and the document default. */
+  variable: '--font-sans',
 });
 
 const mono = JetBrains_Mono({
@@ -85,10 +81,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${manrope.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {/* The GTM noscript iframe stood here. It went with the container.
             See the note above the tag scripts at the bottom of this file. */}

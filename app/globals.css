@@ -14,6 +14,25 @@
    ═══════════════════════════════════════════════════════════════ */
 @layer base {
   :root {
+    /* ── Type faces ───────────────────────────────────────────────
+       One sans, under three names.
+
+       next/font defines --font-sans on <html>; these three aliases are what
+       the rest of the repo already asks for. Keeping them means the font
+       consolidation did not have to touch 28 `font-display` classes across
+       14 files, nor the eleven `font-family` declarations below, nor the
+       homepage's own stack in app/home.css. Reversing it is one line here and
+       one in app/layout.tsx.
+
+       The literal fallbacks after each var are kept and are now all Manrope:
+       a stale 'Space Grotesk' fallback would have rendered the chrome in the
+       old face on the one request where the woff2 had not arrived yet, which
+       is exactly the flash this consolidation removes. */
+    --font-sans-stack: var(--font-sans), Manrope, system-ui, -apple-system, sans-serif;
+    --font-display: var(--font-sans);
+    --font-body: var(--font-sans);
+    --font-manrope: var(--font-sans);
+
     /* ── Surfaces ────────────────────────────────────────────────
        Phase 1 palette, mandated by the brief. Two grounds, one hairline.
        There is no light mode; the palette is committed. */
@@ -598,7 +617,7 @@
     font-size: 0.72rem !important;
   }
   .sec-num {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.18em;
     color: rgb(var(--accent-rgb) / 0.5);
@@ -766,7 +785,7 @@
 
   /* ── Work slider ── */
   .ws-digit {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     line-height: 0.84;
     letter-spacing: -0.01em;
     background: linear-gradient(180deg, rgb(var(--accent-bright-rgb) / 0.3), rgb(var(--accent-bright-rgb) / 0.03));
@@ -871,7 +890,7 @@
     background: linear-gradient(90deg, rgb(var(--accent-rgb) / 0.14), transparent 72%);
   }
   .ind-num {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     font-size: 1rem;
     letter-spacing: 0.08em;
     color: rgb(var(--accent-bright-rgb) / 0.42);
@@ -883,7 +902,7 @@
     color: var(--accent-bright);
   }
   .ind-name {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.035em;
     line-height: 1;
@@ -956,7 +975,7 @@
     animation-duration: 5s;
   }
   .tst-mark {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     line-height: 1;
     color: transparent;
     -webkit-text-stroke: 1.5px rgb(var(--accent-bright-rgb) / 0.22);
@@ -971,7 +990,7 @@
     background: linear-gradient(160deg, rgb(var(--accent-rgb) / 0.22), rgb(var(--accent-rgb) / 0.05));
     display: grid;
     place-items: center;
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     font-size: 1.15rem;
     letter-spacing: 0.06em;
     color: var(--accent-bright);
@@ -1048,7 +1067,7 @@
     user-select: none;
   }
   .faq-num {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     font-size: 0.92rem;
     letter-spacing: 0.08em;
     color: rgb(var(--accent-bright-rgb) / 0.36);
@@ -1248,7 +1267,7 @@
     }
   }
   .pnum {
-    font-family: var(--font-display), 'Space Grotesk', sans-serif;
+    font-family: var(--font-display), Manrope, system-ui, sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     color: rgb(var(--accent-rgb) / 0.45);
