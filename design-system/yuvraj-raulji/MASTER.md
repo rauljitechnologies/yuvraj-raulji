@@ -58,10 +58,22 @@ Red is an accent, never the interface. Never rely on color alone to carry meanin
 
 ## 3. Typography
 
+One sans face, one mono. This table named Bebas Neue and Space Grotesk until
+the typography was consolidated, and by then neither matched a single template:
+Bebas had no uses at all, Space Grotesk was down to the chrome, and Manrope was
+carrying 356 of the site's font classes across 37 files. The reasoning and the
+counts are in the header of `app/layout.tsx`.
+
 | Role | Family | Notes |
 |---|---|---|
-| Display (H1, H2, stats) | Bebas Neue (`--font-bebas`) | Uppercase, tracking `.02–.06em`, leading `.92–1.0` |
-| Body / UI / forms | Space Grotesk (`--font-grotesk`) | Base 16px minimum, line-height 1.6–1.76 |
+| Everything set in type | Manrope (`--font-sans`) | Variable 200-800. 200 for a display line, 700 for the emphasis half of a heading, both from one file |
+| Labels, eyebrows, meta, numerals | JetBrains Mono (`--font-mono`) | 400 and 500 only |
+
+`--font-display`, `--font-body` and `--font-manrope` all resolve to
+`--font-sans`, and `font-display` / `font-body` / `font-manrope` / `font-bebas`
+/ `font-grotesk` all resolve to Manrope. The names are kept so the utilities
+stay readable at the call site: `font-display` is still where a heading
+declares itself, it is simply no longer a different family.
 
 Type scale (`clamp()`, fluid): `--fs-display` 2.8→5rem · `--fs-h2` 2→3.25rem · `--fs-h3`
 1.25→1.6rem · `--fs-body-lg` 1.02rem · `--fs-body` 1rem · `--fs-sm` .875rem ·

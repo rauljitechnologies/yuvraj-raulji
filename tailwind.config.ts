@@ -42,28 +42,28 @@ const config: Config = {
         rv: 'var(--accent-bright)',
       },
       fontFamily: {
-        display: ['var(--font-display)', '"Space Grotesk"', 'system-ui', 'sans-serif'],
-        // Kept as an alias so any `font-bebas` still in a template resolves to
-        // the display face rather than silently falling back to the system
-        // stack. The display face is Space Grotesk now; the alias name is
-        // wrong and stays only until the last template using it is migrated.
-        bebas: ['var(--font-display)', '"Space Grotesk"', 'system-ui', 'sans-serif'],
-        body: ['var(--font-body)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        // Kept as an alias so any `font-grotesk` still in a template resolves to
-        // the body face rather than silently falling back to the system stack.
-        grotesk: ['var(--font-body)', 'Inter', 'system-ui', 'sans-serif'],
-
-        /**
-         * The two faces the homepage design canvas is drawn in. Scoped to the
-         * homepage rather than swapped in globally: the rest of the site is set
-         * in Space Grotesk and Inter, and changing those here would restyle
-         * every route as a side effect of a homepage redesign.
+        /*
+         * One sans face under every name it is already called by.
          *
-         * Manrope is requested as a variable font across 200-800, because the
-         * design leans on 200 for display and 700 for the emphasis half of each
-         * heading. Both cuts come from the one file.
+         * Three sans families were loaded until the typography was
+         * consolidated: Manrope on the content pages (356 uses), Space
+         * Grotesk in the chrome (28), and Inter as the document default (1).
+         * The header and footer were therefore set in a different face from
+         * the page they sat on. See the note in app/layout.tsx for the counts
+         * and the reasoning.
+         *
+         * `display`, `body` and `manrope` all resolve to Manrope now. The
+         * names are kept because the utilities stay meaningful: `font-display`
+         * is still where a heading declares itself, it is simply no longer a
+         * different family. `bebas` and `grotesk` remain as aliases for the
+         * same reason they always were, and both are now down to zero uses in
+         * templates.
          */
+        display: ['var(--font-display)', 'Manrope', 'system-ui', 'sans-serif'],
+        body: ['var(--font-body)', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
         manrope: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
+        bebas: ['var(--font-display)', 'Manrope', 'system-ui', 'sans-serif'],
+        grotesk: ['var(--font-body)', 'Manrope', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {

@@ -939,7 +939,7 @@ a:focus-visible .yr-frame::after {
 
 .yr-num {
   display: block;
-  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-family: var(--font-display), Manrope, system-ui, sans-serif;
   font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   font-weight: 500;
   line-height: 0.8;
@@ -991,7 +991,7 @@ a:focus-visible .yr-frame::after {
    a long line in at a glance. */
 
 .yr-pov {
-  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-family: var(--font-display), Manrope, system-ui, sans-serif;
   font-size: clamp(1.4rem, 2.6vw, 2.35rem);
   font-weight: 500;
   line-height: 1.16;
