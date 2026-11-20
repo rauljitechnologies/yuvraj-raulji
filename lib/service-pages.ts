@@ -141,6 +141,21 @@ export interface ServicePage {
 
   faqs: readonly { q: string; a: string }[];
   /**
+   * Where this page connects. Rendered as section 11, between the questions
+   * and the closing call to action, which is the same slot the platform
+   * pages and the technology hubs put it in.
+   *
+   * These seventeen pages shipped without one. The in-content link graph of
+   * the exported site says what that cost: each of them had one or two pages
+   * linking to it and three to seven links out, against thirteen to seventeen
+   * out on every platform spoke. A page at the end of the funnel with no way
+   * onward is a dead end for a reader and a leaf for a crawler.
+   *
+   * `boundary.link` is deliberately not repeated here: it is already rendered
+   * high on the page, in section 04, where it does more work.
+   */
+  related: readonly ServiceAnchor[];
+  /**
    * Plain strings, not `DisplayLine`.
    *
    * An accent on the last line would read well and `Lines` accepts it, but
@@ -335,6 +350,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Yes, and it is one of the more satisfying engagements because the result is measurable. It starts with finding out where the time actually goes, which is frequently not where the team assumes.',
       },
     ],
+    related: [
+      {
+        href: '/magento/',
+        label: 'Magento 2 and Adobe Commerce, and where the platform stops',
+        note: 'The entity page above this one, including the catalogues Magento is the wrong answer for.',
+      },
+      {
+        href: '/services/adobe-commerce-development/',
+        label: 'Adobe Commerce, if the licence is in the picture',
+        note: 'Company accounts, shared catalogues and purchase approvals, which Open Source does not carry.',
+      },
+      {
+        href: '/services/custom-module-development/',
+        label: 'Custom modules, against the documented extension points',
+        note: 'The part of a Magento build that decides what the next upgrade costs.',
+      },
+      {
+        href: '/magento/performance/',
+        label: 'Magento performance work on a store already live',
+        note: 'Varnish, Redis, the indexers and the database, once catalogue scale is the problem.',
+      },
+      {
+        href: '/insights/aws-magento2-server-setup/',
+        label: 'The production server setup behind a build like this',
+        note: 'EC2, RDS, Varnish and Redis, and why each is sized the way it is.',
+      },
+      {
+        href: '/pricing/',
+        label: 'How a build like this is scoped and priced',
+        note: 'Fixed scope, retainer or hourly, and which one fits work with a defined end.',
+      },
+    ],
+
     finalHeadline: ['Magento project', 'that needs doing properly?'],
   },
 
@@ -447,6 +495,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Yes, over the Storefront API with Next.js or Hydrogen. It is the right answer less often than it is proposed, and the headless commerce page covers when it is and is not.',
       },
     ],
+    related: [
+      {
+        href: '/shopify/',
+        label: 'Shopify and Shopify Plus, and where the platform stops',
+        note: 'The entity page above this one, including the limits no build can engineer around.',
+      },
+      {
+        href: '/services/shopify-plus-development/',
+        label: 'Shopify Plus, if the work needs the tier',
+        note: 'Checkout extensibility, Functions and B2B, which are the only reasons to upgrade.',
+      },
+      {
+        href: '/shopify/integrations/',
+        label: 'Shopify integrations, platform-specific',
+        note: 'ERP, 3PL and payment connections, and what happens while one of them is down.',
+      },
+      {
+        href: '/insights/shopify-headless-nextjs-guide/',
+        label: 'Shopify behind a Next.js storefront, implemented',
+        note: 'The Storefront API route, and the decisions made before the first component.',
+      },
+      {
+        href: '/services/performance-optimization/',
+        label: 'Performance optimisation on a store already live',
+        note: 'App scripts, theme weight and Core Web Vitals, measured before anything is changed.',
+      },
+      {
+        href: '/pricing/',
+        label: 'How a build like this is scoped and priced',
+        note: 'A written scope and a figure before anything is committed to.',
+      },
+    ],
+
     finalHeadline: ['Shopify work', 'a theme editor cannot do?'],
   },
 
@@ -558,6 +639,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'AWS where there is existing infrastructure to fit into, Vercel where the application is Next.js and the team is small. Either way the release process gets written down, because a deploy only one person can do is a risk rather than a convenience.',
       },
     ],
+    related: [
+      {
+        href: '/services/nextjs-development/',
+        label: 'Next.js and React development, the frontend half',
+        note: 'Where each page renders, which is most of what a Next.js application is.',
+      },
+      {
+        href: '/services/api-integration/',
+        label: 'The API layer the application talks to',
+        note: 'Retries, duplicates, and the field that has never been null before.',
+      },
+      {
+        href: '/work/b2b-procurement/',
+        label: 'A procurement platform on the record',
+        note: 'The dealer-facing application behind the approval workflow.',
+      },
+      {
+        href: '/work/manufacturing/',
+        label: 'A manufacturer platform on the record',
+        note: 'The tooling around a site that had to serve engineers rather than shoppers.',
+      },
+      {
+        href: '/headless-commerce/',
+        label: 'Headless commerce, when the application is a storefront',
+        note: 'The decision this page does not assume you have made.',
+      },
+      {
+        href: '/services/ecommerce-architecture/',
+        label: 'Architecture first, when the system boundaries are not settled',
+        note: 'What the application owns and what the platform owns, written down.',
+      },
+    ],
+
     finalHeadline: ['Something to build', 'that is not a storefront?'],
   },
 
@@ -670,6 +784,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Yes, over Magento GraphQL, and PWA Studio exists for it. The considerations differ: Magento gives more control over the API layer and more responsibility with it.',
       },
     ],
+    related: [
+      {
+        href: '/headless-commerce/',
+        label: 'Headless and composable commerce, and when decoupling pays',
+        note: 'The entity page above this one, written to talk you out of it where it does not.',
+      },
+      {
+        href: '/services/nextjs-development/',
+        label: 'Next.js and React development, the framework underneath',
+        note: 'Rendering tiers, caching and the data layer, decided before the first component.',
+      },
+      {
+        href: '/headless-commerce/optimization/',
+        label: 'Storefront performance on a decoupled build already live',
+        note: 'Cache hit rate, rendering tiers and bundle budgets, measured rather than assumed.',
+      },
+      {
+        href: '/work/fashion-d2c/',
+        label: 'A decoupled storefront on the record',
+        note: 'The one headless build here, and the decision inside it.',
+      },
+      {
+        href: '/insights/shopify-headless-nextjs-guide/',
+        label: 'The Shopify and Next.js route, written out',
+        note: 'Storefront API, Hydrogen against plain Next.js, and where each one costs more.',
+      },
+      {
+        href: '/insights/magento2-pwa-studio-headless/',
+        label: 'The Magento and PWA Studio route, written out',
+        note: 'What Venia gives you, and what you end up replacing anyway.',
+      },
+    ],
+
     finalHeadline: ['Considering headless?', 'Start with whether to.'],
   },
 
@@ -811,6 +958,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Where it is useful. An architecture nobody owns during the build tends to be followed for about six weeks. That can be a review cadence rather than a full engagement.',
       },
     ],
+    related: [
+      {
+        href: '/services/ecommerce-development/',
+        label: 'The build that follows the decision',
+        note: 'Once the platform is chosen, this is the shape of the work.',
+      },
+      {
+        href: '/magento-shopify-migration/',
+        label: 'Magento and Shopify compared, in both directions',
+        note: 'The commonest version of this decision, including when neither move is the answer.',
+      },
+      {
+        href: '/services/erp-crm-integration/',
+        label: 'Integration architecture, system by system',
+        note: 'Which system owns each field, which is the decision the rest hangs off.',
+      },
+      {
+        href: '/services/performance-optimization/',
+        label: 'Scale planning, checked against a store carrying it',
+        note: 'What the architecture has to survive, measured rather than estimated.',
+      },
+      {
+        href: '/ecommerce-audit/',
+        label: 'An audit, if the platform is already live',
+        note: 'What the current build is costing, in writing, before a new one is designed.',
+      },
+      {
+        href: '/digital-transformation/',
+        label: 'Digital transformation, when the architecture is one part of it',
+        note: 'Sequencing the programme this document feeds.',
+      },
+    ],
+
     finalHeadline: ['A decision that is', 'expensive to get wrong?'],
   },
 
@@ -957,6 +1137,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Per-token inference, embedding storage, and the engineering to keep the retrieval layer current as the catalogue changes. The third is the one left out of most estimates and it is usually the largest.',
       },
     ],
+    related: [
+      {
+        href: '/ai-search/',
+        label: 'AI search and GEO, the discovery half',
+        note: 'Semantic search on your own site, and being cited by the engines in front of it.',
+      },
+      {
+        href: '/services/workflow-automation/',
+        label: 'Workflow automation, when no model is needed',
+        note: 'Most of what gets asked for as AI is a process problem with a cheaper answer.',
+      },
+      {
+        href: '/ai-commerce/',
+        label: 'AI commerce, the entity page above this',
+        note: 'Catalogue, search and operations, and what is worth funding before anything else.',
+      },
+      {
+        href: '/insights/ai-ecommerce-revenue-2026/',
+        label: 'The AI use cases that actually return something',
+        note: 'Written out, with the ones that do not included.',
+      },
+      {
+        href: '/mixpanel/',
+        label: 'The event record these features depend on',
+        note: 'What customers searched for, saw and skipped, instrumented properly.',
+      },
+      {
+        href: '/certifications/',
+        label: 'The Generative AI certification in detail',
+        note: 'IBM and AcceleratorX, November 2026, and what it does and does not establish.',
+      },
+    ],
+
     finalHeadline: ['An AI idea that needs', 'an honest second opinion?'],
   },
 
@@ -1098,6 +1311,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Yes, and for anything in the order path it is worth doing before it needs changing. The output is the map, the failure modes and the replay procedure.',
       },
     ],
+    related: [
+      {
+        href: '/services/erp-crm-integration/',
+        label: 'ERP and CRM integration, where the systems are named',
+        note: 'Stock, pricing, orders and customers, and which system owns each field.',
+      },
+      {
+        href: '/shopify/integrations/',
+        label: 'Shopify integrations, platform-specific',
+        note: 'The same work inside the app and webhook model Shopify gives you.',
+      },
+      {
+        href: '/wordpress/integrations/',
+        label: 'WordPress and WooCommerce integrations',
+        note: 'The same work where the plugin layer is the integration surface.',
+      },
+      {
+        href: '/services/workflow-automation/',
+        label: 'The process on top, once the systems are connected',
+        note: 'The step after integration, and the conditions that have to hold before it pays.',
+      },
+      {
+        href: '/work/b2b-procurement/',
+        label: 'An integration-heavy build on the record',
+        note: 'Approval workflow and ERP boundaries inside one system.',
+      },
+      {
+        href: '/services/ecommerce-architecture/',
+        label: 'Integration architecture, before any of it is built',
+        note: 'The boundaries and the failure modes agreed on paper.',
+      },
+    ],
+
     finalHeadline: ['Two systems that', 'need to agree?'],
   },
 
@@ -1214,6 +1460,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'URL mapping and redirects are part of the scope, not an afterthought. A replatform that drops its old URLs loses the ranking the business has already paid for, and recovering it costs more than mapping it would have.',
       },
     ],
+    related: [
+      {
+        href: '/services/ecommerce-architecture/',
+        label: 'Platform selection as its own engagement',
+        note: 'The decision written down first, when it is neither obvious nor agreed.',
+      },
+      {
+        href: '/magento/',
+        label: 'Magento, if the complexity is real',
+        note: 'Catalogue scale, pricing logic and approvals, and when it is the wrong answer.',
+      },
+      {
+        href: '/shopify/',
+        label: 'Shopify, which is the right answer more often',
+        note: 'Where it fits, and the point at which stores outgrow it.',
+      },
+      {
+        href: '/woocommerce/',
+        label: 'WooCommerce, for content-led commerce at a smaller scale',
+        note: 'And the point a store outgrows the plugin layer.',
+      },
+      {
+        href: '/services/ecommerce-maintenance/',
+        label: 'Who keeps it running after launch',
+        note: 'Patching, upgrades and monitoring, without a developer on payroll.',
+      },
+      {
+        href: '/work/plant-store/',
+        label: 'A store build on the record',
+        note: 'What a complete build looks like once it is finished.',
+      },
+    ],
+
     finalHeadline: ['Store to build,', 'or replace?'],
   },
 
@@ -1351,6 +1630,49 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Yes, and that is most of this work. It starts with reading it, which is the audit in step one, because an undocumented platform in the order path is not something to start changing on day one.',
       },
     ],
+    related: [
+      {
+        href: '/magento/maintenance/',
+        label: 'Magento support and maintenance, platform-specific',
+        note: 'Patching, upgrades and the indexers, on the platform that needs it most.',
+      },
+      {
+        href: '/shopify/maintenance/',
+        label: 'Shopify store maintenance, platform-specific',
+        note: 'Apps, themes and the script-tag tax, kept under control.',
+      },
+      {
+        href: '/wordpress/maintenance/',
+        label: 'WordPress maintenance, platform-specific',
+        note: 'Plugins, core updates, and the hardening that has to come with them.',
+      },
+      {
+        href: '/magento/security/',
+        label: 'Security patching, where the stakes are highest',
+        note: 'A patch applied once is a task. Staying patched is what this retainer is.',
+      },
+      {
+        href: '/services/performance-optimization/',
+        label: 'Performance work, which this retainer does not include',
+        note: 'Diagnosis and fixing as its own engagement, measured first.',
+      },
+      {
+        href: '/remote-collaboration/',
+        label: 'How a retainer runs across time zones',
+        note: 'Hours, handover, and what response actually means in practice.',
+      },
+      /* The seventh link, and the only one on these pages pointing at an
+         expertise pillar. /expertise/website-management/ had two in-content
+         links to its name, the thinnest of the three pillars, and this is the
+         page whose reader is closest to it: a retainer is what owning a web
+         estate looks like once it is bought. */
+      {
+        href: '/expertise/website-management/',
+        label: 'Website management as a discipline rather than a retainer',
+        note: 'The pillar above this page: owning the estate instead of patching it.',
+      },
+    ],
+
     finalHeadline: ['Platform nobody', 'is looking after?'],
   },
 
@@ -1492,6 +1814,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Usually not. Most slow stores are slow because of configuration, queries and third-party scripts rather than because the platform is incapable. Replatforming for speed alone is an expensive answer to a question that has not been diagnosed.',
       },
     ],
+    related: [
+      {
+        href: '/magento/performance/',
+        label: 'Magento performance, platform-specific',
+        note: 'Varnish, Redis, the indexers and the database, where catalogue scale bites.',
+      },
+      {
+        href: '/shopify/optimization/',
+        label: 'Shopify optimisation, platform-specific',
+        note: 'Apps, theme weight and the funnel, in that order.',
+      },
+      {
+        href: '/wordpress/optimization/',
+        label: 'WordPress speed optimisation, platform-specific',
+        note: 'Hosting, plugins and the render path.',
+      },
+      {
+        href: '/headless-commerce/optimization/',
+        label: 'Storefront performance on a decoupled build',
+        note: 'Rendering tiers, cache hit rate and bundle budgets.',
+      },
+      {
+        href: '/insights/magento2-seo-technical-audit/',
+        label: 'Core Web Vitals, read from the crawler side',
+        note: 'The third phase of that audit is the same subject as this page.',
+      },
+      {
+        href: '/ecommerce-audit/',
+        label: 'An audit, if nothing has been measured yet',
+        note: 'Where the time is actually going, in writing, before any work is scoped.',
+      },
+    ],
+
     finalHeadline: ['Slow store,', 'and nobody knows why?'],
   },
 
@@ -1609,6 +1964,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'It is an upgrade path rather than a replatform, and the data comes across. The real work is adopting the modules you are now paying for, which means retiring the custom code that was standing in for them. Budget for that rather than for the move.',
       },
     ],
+    related: [
+      {
+        href: '/magento/',
+        label: 'Magento and Adobe Commerce, and where the platform stops',
+        note: 'The entity page above both build pages, licence or no licence.',
+      },
+      {
+        href: '/services/custom-module-development/',
+        label: 'Modules against the B2B and staging surfaces',
+        note: 'Written so Page Builder and content staging survive the next upgrade.',
+      },
+      {
+        href: '/magento/upgrade/',
+        label: 'Upgrades on the licensed platform',
+        note: 'Rehearsed and reversible, and the part the licence does not make easier.',
+      },
+      {
+        href: '/work/b2b-procurement/',
+        label: 'Company accounts and approvals on the record',
+        note: 'The B2B build this tier exists for.',
+      },
+      {
+        href: '/insights/shopify-plus-vs-magento2-2026/',
+        label: 'The two licensed tiers compared',
+        note: 'Adobe Commerce against Shopify Plus, cost drivers included.',
+      },
+      {
+        href: '/pricing/',
+        label: 'How a licensed-platform build is scoped',
+        note: 'And why the licence is not the figure that decides the project.',
+      },
+    ],
+
     finalHeadline: ['Paying for Adobe Commerce', 'and using half of it?'],
   },
 
@@ -1726,6 +2114,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'That is precisely why they exist. Extensions and Functions are supported extension points that Shopify tests against; the previous generation of checkout customisation was script injection into a page Shopify kept changing, which is why it kept breaking.',
       },
     ],
+    related: [
+      {
+        href: '/shopify/',
+        label: 'Shopify and Shopify Plus, and where the platform stops',
+        note: 'The entity page above both build pages, tier or no tier.',
+      },
+      {
+        href: '/shopify/consulting/',
+        label: 'Whether the tier is worth it, before upgrading',
+        note: 'The cheaper version of this conversation, and sometimes the one that ends it.',
+      },
+      {
+        href: '/services/custom-module-development/',
+        label: 'Apps and extensions on the supported surfaces',
+        note: 'Admin and Storefront APIs, with no script-tag workarounds.',
+      },
+      {
+        href: '/insights/shopify-plus-vs-magento2-2026/',
+        label: 'Plus against Adobe Commerce',
+        note: 'The comparison most Plus decisions are actually made against.',
+      },
+      {
+        href: '/work/fashion-d2c/',
+        label: 'A D2C build on the record',
+        note: 'Where the storefront was decoupled and the checkout deliberately was not.',
+      },
+      {
+        href: '/services/workflow-automation/',
+        label: 'Flow, Launchpad and the operations around the store',
+        note: 'The process work the tier makes possible, and when it pays for itself.',
+      },
+    ],
+
     finalHeadline: ['On Plus, and using', 'none of what it bought?'],
   },
 
@@ -1843,6 +2264,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'App Router for new work. For an existing Pages Router application the answer is usually not to migrate wholesale: they interoperate, so new routes can go in the App Router and the old ones can move when they are being touched anyway.',
       },
     ],
+    related: [
+      {
+        href: '/services/full-stack-development/',
+        label: 'The services behind the frontend',
+        note: 'Node, APIs and the data layer, when the application is more than a storefront.',
+      },
+      {
+        href: '/services/headless-commerce/',
+        label: 'The same framework, pointed at a commerce API',
+        note: 'Decoupled storefronts, and the four conditions that justify one.',
+      },
+      {
+        href: '/headless-commerce/optimization/',
+        label: 'Rendering tiers and cache hit rate on a live build',
+        note: 'Where the rendering decisions turn into numbers.',
+      },
+      {
+        href: '/work/fashion-d2c/',
+        label: 'A Next.js storefront on the record',
+        note: 'The decoupled build, and the decision inside it.',
+      },
+      {
+        href: '/insights/shopify-headless-nextjs-guide/',
+        label: 'Next.js over the Shopify Storefront API',
+        note: 'Implementation, including Hydrogen against plain Next.js.',
+      },
+      {
+        href: '/services/api-integration/',
+        label: 'The APIs the application renders from',
+        note: 'Failure behaviour defined rather than discovered.',
+      },
+    ],
+
     finalHeadline: ['Frontend that needs', 'deciding before building?'],
   },
 
@@ -1959,6 +2413,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Always, in your repository, with the documentation. There is no arrangement here where the code stays with me.',
       },
     ],
+    related: [
+      {
+        href: '/magento/upgrade/',
+        label: 'Upgrades, which is where module quality shows up',
+        note: 'Most of what makes an upgrade expensive was written years earlier.',
+      },
+      {
+        href: '/services/adobe-commerce-development/',
+        label: 'Modules on the licensed platform',
+        note: 'B2B, Page Builder and staging, which carry their own extension points.',
+      },
+      {
+        href: '/services/shopify-plus-development/',
+        label: 'Shopify apps and extensions',
+        note: 'Admin and Storefront APIs, and checkout extensibility on Plus.',
+      },
+      {
+        href: '/wordpress/',
+        label: 'WordPress plugins, the same discipline',
+        note: 'Hooks and filters, and nothing that edits core.',
+      },
+      {
+        href: '/work/marketplace/',
+        label: 'A marketplace build on the record',
+        note: 'Where custom modules carried the business logic.',
+      },
+      {
+        href: '/services/api-integration/',
+        label: 'When the module is really an integration',
+        note: 'A different job, with different failure modes.',
+      },
+    ],
+
     finalHeadline: ['Platform almost', 'does what you need?'],
   },
 
@@ -2101,6 +2588,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'The build is rarely the long part. Establishing what each system actually contains, and getting agreement on who owns which field, routinely takes longer than writing the connector, and skipping it is why integrations get rebuilt.',
       },
     ],
+    related: [
+      {
+        href: '/magento/integrations/',
+        label: 'Magento ERP integration, platform-specific',
+        note: 'The same boundaries drawn inside the Magento model.',
+      },
+      {
+        href: '/woocommerce/integrations/',
+        label: 'WooCommerce integrations, platform-specific',
+        note: 'The same boundaries where the plugin layer is the surface.',
+      },
+      {
+        href: '/services/workflow-automation/',
+        label: 'The process on top of the connected systems',
+        note: 'The step after the data is reliable, which is the condition it needs.',
+      },
+      {
+        href: '/work/b2b-procurement/',
+        label: 'Order and approval flow across systems, on the record',
+        note: 'Where field ownership decided the architecture.',
+      },
+      {
+        href: '/services/ecommerce-architecture/',
+        label: 'Integration architecture, agreed on paper first',
+        note: 'Ownership, queues and reconciliation, before any code.',
+      },
+      {
+        href: '/mixpanel/',
+        label: 'When a disagreement has to be visible',
+        note: 'Instrumentation and reporting across the system boundary.',
+      },
+    ],
+
     finalHeadline: ['Store and back office', 'telling different stories?'],
   },
 
@@ -2243,6 +2763,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Your team, by design. The workflows are built to be read and changed by the operations people who own the process, documented accordingly, and I am available on a retainer where that is wanted rather than assumed.',
       },
     ],
+    related: [
+      {
+        href: '/ai-automation/',
+        label: 'AI automation, the entity page above this',
+        note: 'Agents, retrieval and the workflows behind the catalogue.',
+      },
+      {
+        href: '/services/erp-crm-integration/',
+        label: 'The systems this automation runs on',
+        note: 'Reliable data first, which is one of the four conditions.',
+      },
+      {
+        href: '/services/api-integration/',
+        label: 'The interfaces the automation calls',
+        note: 'Retries, idempotency, and what happens while one side is down.',
+      },
+      {
+        href: '/digital-transformation/',
+        label: 'Redesigning the process before automating it',
+        note: 'Automating a bad process makes it faster and more confusing.',
+      },
+      {
+        href: '/insights/ai-ecommerce-revenue-2026/',
+        label: 'The automation use cases that return something',
+        note: 'And the ones that do not, which is the more useful half.',
+      },
+      {
+        href: '/work/marketplace/',
+        label: 'Operations at marketplace scale, on the record',
+        note: 'Where the repetitive work was worth removing.',
+      },
+    ],
+
     finalHeadline: ['Process quietly', 'absorbing a salary?'],
   },
   /* ── 17. AI eCommerce development ───────────────────────────── */
@@ -2406,6 +2959,39 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
         a: 'Per-token inference, embedding storage, and the engineering to keep retrieval current as the catalogue changes. The third is the one missing from most estimates and it is usually the largest, because a catalogue that moves daily is a retrieval layer that has to move with it.',
       },
     ],
+    related: [
+      {
+        href: '/ai-commerce/',
+        label: 'AI commerce, the entity page above this',
+        note: 'Catalogue, search and operations, and what to fund first.',
+      },
+      {
+        href: '/services/ecommerce-development/',
+        label: 'The same build with no AI in the brief',
+        note: 'The straight version, and the right page more often than this one.',
+      },
+      {
+        href: '/ai-search/',
+        label: 'Search, on your site and in front of it',
+        note: 'Semantic search, and being cited by the engines that answer instead of listing.',
+      },
+      {
+        href: '/mixpanel/',
+        label: 'The event record this build depends on',
+        note: 'What customers searched for, saw and skipped, captured from the start.',
+      },
+      {
+        href: '/insights/ai-ecommerce-revenue-2026/',
+        label: 'Which AI features actually return something',
+        note: 'Written out, with the honest list of the ones that do not.',
+      },
+      {
+        href: '/certifications/',
+        label: 'The Generative AI certification, dated',
+        note: 'November 2026, and what it does and does not establish.',
+      },
+    ],
+
     finalHeadline: ['Planning a build', 'with AI in the brief?'],
   },
 ];
