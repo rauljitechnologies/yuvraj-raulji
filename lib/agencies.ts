@@ -53,8 +53,6 @@ export const AGENCIES = {
     'white label magento partner',
     'magento white label development',
     'agency shopify technical partner',
-    'subcontract ecommerce development',
-    'freelance magento consultant for agencies',
     'headless commerce partner agency',
   ],
   searchIntent: 'Transactional. An agency with work in hand and a capability gap.',

@@ -56,7 +56,7 @@ export const RESUME = {
 
   eyebrow: 'The record, as a document',
   h1: ['Resume.'],
-  lede: `${ROLE} and Enterprise eCommerce Architect, ${CAREER.length} roles since ${CAREER_START_YEAR}, based in ${LOCATION}. The full record is on this page, and the same record is in the file.`,
+  lede: `${ROLE} and Enterprise eCommerce Architect, ${CAREER.length} roles since ${CAREER_START_YEAR}, based in ${LOCATION}. The full record is on this page, and the same record downloads as a CV.`,
 
   title: `Resume | Yuvraj Raulji, ${ROLE_LINE}`,
   description:

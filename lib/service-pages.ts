@@ -113,6 +113,18 @@ export interface ServicePage {
   description: string;
 
   primaryKeyword: string;
+  /**
+   * The other queries this page is written to catch. Reported by
+   * scripts/check-keywords.mjs, never enforced, because a page covering a
+   * query in its own words rather than in the query's words is this site
+   * working as intended.
+   *
+   * What was removed from these rows when that report was first read: every
+   * "hire <x> developer" variant, because /hire/ owns the hire intent and
+   * these pages open with a scope rather than an offer of employment; and the
+   * "development agency" and "development company" variants, because this
+   * site is one person and says so.
+   */
   secondaryKeywords: readonly string[];
   searchIntent: string;
   audience: string;
@@ -259,9 +271,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     primaryKeyword: 'magento development services',
     secondaryKeywords: [
       'magento 2 development company',
-      'magento 2 development agency',
       'magento b2b development',
-      'hire magento developer',
     ],
     searchIntent: 'Commercial. Someone with a Magento build or a Magento problem, looking for who does it.',
     audience: 'Businesses and agencies running Magento 2 or Adobe Commerce at a size where the defaults stopped being enough.',
@@ -405,7 +415,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'custom shopify theme development',
       'shopify liquid development',
       'shopify theme development',
-      'hire shopify developer',
       'shopify checkout extensibility',
     ],
     searchIntent: 'Commercial. A D2C brand or agency with Shopify work that a theme editor cannot do.',
@@ -549,7 +558,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'node.js development services',
       'custom portal development',
       'internal tools development',
-      'hire full stack developer',
       'custom web application development',
     ],
     searchIntent: 'Commercial. Someone needing an application built, not a storefront configured.',
@@ -1367,7 +1375,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'build an online store',
       'custom ecommerce website',
       'b2b ecommerce website development',
-      'ecommerce website development company',
     ],
     searchIntent: 'Commercial. Someone who wants a store built and has not settled on a platform.',
     audience: 'Businesses launching a first online store, or replacing one that has outgrown its platform.',
@@ -1870,7 +1877,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'adobe commerce b2b development',
       'magento commerce development',
       'adobe commerce cloud development',
-      'hire adobe commerce developer',
     ],
     searchIntent: 'Commercial, and usually enterprise. A business already paying for Adobe Commerce, or deciding whether to.',
     audience: 'Mid-market and enterprise merchants on Adobe Commerce, and the agencies delivering for them.',
@@ -2020,7 +2026,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'shopify checkout extensibility development',
       'shopify functions development',
       'shopify plus b2b development',
-      'hire shopify plus developer',
     ],
     searchIntent: 'Commercial. A brand already on Plus, or about to upgrade and wanting to know what it buys.',
     audience: 'High-volume D2C and B2B brands on Shopify Plus, and agencies needing Plus-specific engineering.',
@@ -2167,9 +2172,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     primaryKeyword: 'next.js development services',
     secondaryKeywords: [
       'react development services',
-      'hire next.js developer',
       'next.js ecommerce development',
-      'react frontend development company',
       'next.js app router development',
     ],
     searchIntent: 'Commercial. A team that has chosen React or Next.js and needs someone senior to build it.',
@@ -2319,7 +2322,6 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       'magento 2 extension development',
       'custom shopify app development',
       'custom wordpress plugin development',
-      'hire magento extension developer',
     ],
     searchIntent: 'Commercial and specific. Someone who knows they need a module and wants it written properly.',
     audience: 'Merchants and agencies needing platform functionality that no existing extension provides, or whose existing one has become a liability.',

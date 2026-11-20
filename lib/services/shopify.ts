@@ -37,7 +37,6 @@ export const SHOPIFY_SERVICES: readonly PlatformService[] = [
     primaryKeyword: 'shopify consulting services',
     secondaryKeywords: [
       'shopify plus consultant',
-      'shopify expert advice',
       'shopify app audit',
       'shopify architecture review',
     ],

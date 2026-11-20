@@ -109,6 +109,33 @@ There is a daily quota on indexing requests. Three URLs is well inside it.
 
 ---
 
+## 4b. Search Console: re-request indexing for the four changed descriptions
+
+Deployed 20 November 2026. Four pages had their meta description rewritten, so
+the snippet Google is showing for each of them is the old one. Google refreshes
+it on its own schedule; URL Inspection is what makes that this week rather than
+next month.
+
+| URL | What changed |
+| --- | --- |
+| `https://www.yuvrajraulji.com/contact/` | Now opens "Contact an independent eCommerce consultant". The page took the enquiry without ever saying whose |
+| `https://www.yuvrajraulji.com/pricing/` | "fixed-scope eCommerce development", which is what the development on offer actually is |
+| `https://www.yuvrajraulji.com/agencies/` | "eCommerce technology depth for agencies and studios" |
+| `https://www.yuvrajraulji.com/ai-commerce/` | "AI for eCommerce from a consultant who starts with the process", which is the page's own thesis |
+
+1. Open the property `https://www.yuvrajraulji.com/`.
+2. Paste each URL into URL Inspection and click **Request indexing**.
+
+Same daily quota as section 4. Four URLs is inside it, and these are a lower
+priority than the two unindexed pages above: these pages are indexed already,
+only the snippet is stale.
+
+Worth knowing: Google rewrites the description it shows for roughly two thirds
+of results anyway, so a request here changes what it is working from rather
+than guaranteeing what appears.
+
+---
+
 ## 5. Search Console: validate the 404 fixes (after deploy)
 
 The branch is merged and deployed, and the redirects were verified against

@@ -159,7 +159,24 @@ const FROM_HIRE: ContentMapRow = {
 
 const CONSULTANT = ['Yuvraj Raulji', 'eCommerce Consultant', 'AI Consultant', 'Technology Consultant'];
 
-/** The eleven technology hubs. Each owns its entity term, never a service term. */
+/**
+ * The eleven technology hubs. Each owns its entity term, never a service term.
+ *
+ * Two kinds of secondary were removed from these rows rather than written into
+ * the pages, and the reason is the same for both. scripts/check-keywords.mjs
+ * reports every secondary whose words appear nowhere on its page, and five of
+ * these rows were asking for a word this site does not use about itself:
+ * "expert". The copy says consultant, and it says expertise, and on the
+ * platform it recommends against most often it says so out loud. Writing
+ * "Shopify expert" to catch the query is the keyword-first move
+ * CONTENT-PRINCIPLES.md section 3 bans, and the row was the thing that was
+ * wrong, not the page.
+ *
+ * The others were "<platform> developer" queries on hub pages. A hub owns the
+ * entity term and routes the build intent down to /services/, which is where
+ * someone searching for a developer should land. Leaving the query on the hub
+ * described a page that was deliberately not written to answer it.
+ */
 const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entities: string[] }> = {
   magento: {
     primary: 'magento consultant',
@@ -173,32 +190,27 @@ const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entit
   },
   shopify: {
     primary: 'shopify consultant',
-    secondary: ['shopify plus consultant', 'shopify ecommerce consultant', 'shopify expert'],
+    secondary: ['shopify plus consultant', 'shopify ecommerce consultant'],
     entities: ['Shopify', 'Shopify Plus'],
   },
   woocommerce: {
     primary: 'woocommerce consultant',
-    secondary: ['woocommerce expert', 'woocommerce developer', 'wordpress ecommerce consultant'],
+    secondary: ['woocommerce developer', 'wordpress ecommerce consultant'],
     entities: ['WooCommerce', 'WordPress'],
   },
   wordpress: {
     primary: 'wordpress consultant',
-    secondary: ['wordpress expert', 'wordpress architecture', 'wordpress technical consultant'],
+    secondary: ['wordpress architecture', 'wordpress technical consultant'],
     entities: ['WordPress', 'WooCommerce'],
   },
   'headless-commerce': {
     primary: 'headless commerce consultant',
-    secondary: [
-      'composable commerce consultant',
-      'headless ecommerce expert',
-      'decoupled storefront',
-      'headless commerce developer',
-    ],
+    secondary: ['composable commerce consultant', 'decoupled storefront'],
     entities: ['Headless Commerce', 'Composable Commerce', 'Next.js'],
   },
   nextjs: {
     primary: 'next.js consultant',
-    secondary: ['next.js developer', 'react commerce storefront', 'next.js ecommerce'],
+    secondary: ['react commerce storefront', 'next.js ecommerce'],
     entities: ['Next.js', 'React', 'GraphQL', 'Headless Commerce'],
   },
   'ai-commerce': {
@@ -213,12 +225,7 @@ const HUB_KEYWORDS: Record<string, { primary: string; secondary: string[]; entit
   },
   'ai-automation': {
     primary: 'ai automation consultant',
-    secondary: [
-      'business process automation',
-      'ai agents for operations',
-      'workflow automation',
-      'ai automation developer',
-    ],
+    secondary: ['business process automation', 'ai agents for operations', 'workflow automation'],
     entities: ['AI Automation', 'AI Agents', 'MCP'],
   },
   'digital-transformation': {

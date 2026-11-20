@@ -85,7 +85,18 @@ const text = (html) =>
    and the articles write e-commerce, and "magento-shopify" has to satisfy a
    keyword written as two words. Collapsing and splitting both, then taking the
    union, means neither spelling is a miss. */
-const forms = (s) => [s.replace(/-/g, ''), s.replace(/-/g, ' ')];
+/* British copy, American keywords. The copy on this site writes optimisation,
+   personalisation and modernisation; the keyword rows write the z. Equating
+   the two is not a nicety: without it /headless-commerce/optimization/ reads
+   as a page that never mentions optimisation. */
+const zed = (s) => s.replace(/is(ation|ations|ed|es|e|ing)\b/g, 'iz$1').replace(/yse\b/g, 'yze');
+
+/* A slash is resolved like a hyphen, so "A/B testing" satisfies "ab testing"
+   and "ERP/CRM" satisfies either half. */
+const forms = (s) => {
+  const base = [s.replace(/[-/]/g, ''), s.replace(/[-/]/g, ' ')];
+  return [...new Set([...base, ...base.map(zed)])];
+};
 /* A dot is a word character here so that "next.js" survives tokenising, which
    means a word at the end of a sentence arrives as "consultant." and has to be
    trimmed or it never matches. Both forms are kept: the trimmed one for prose,
@@ -144,6 +155,13 @@ for (const row of CONTENT_MAP) {
     inDescription: hasPhrase(p.description, row.primaryKeyword),
     inBody: hasPhrase(p.body, row.primaryKeyword),
     secondaryHit: row.secondaryKeywords.filter((k) => hasPhrase(p.all, k)),
+    /* Word level, which is the number worth reading. A page covering a query
+       in its own words rather than in the query's words is this site working
+       as intended; a page missing the words altogether cannot be said to
+       cover it at all. */
+    secondarySupported: row.secondaryKeywords.filter((k) =>
+      contentWords(k).every((w) => present.has(w)),
+    ),
   });
 }
 
@@ -179,6 +197,7 @@ const n = rows.length;
 const count = (f) => rows.filter(f).length;
 const secTotal = rows.reduce((a, r) => a + r.secondaryKeywords.length, 0);
 const secHit = rows.reduce((a, r) => a + r.secondaryHit.length, 0);
+const secSupported = rows.reduce((a, r) => a + r.secondarySupported.length, 0);
 const wordByWord = rows.filter((r) => !r.inTitle && !r.inDescription && !r.inH1 && !r.inBody);
 
 console.log(`check-keywords: ${n} mapped pages, every primary keyword present on its own page.`);
@@ -190,17 +209,20 @@ console.log(
   `                ${wordByWord.length} carry the primary word by word rather than as the phrase.`,
 );
 console.log(
-  `                secondary keywords present on their page: ${secHit}/${secTotal} ` +
-    `(${Math.round((secHit / secTotal) * 100)}%), not enforced.`,
+  `                secondary keywords, words present ${secSupported}/${secTotal} ` +
+    `(${Math.round((secSupported / secTotal) * 100)}%), exact phrase ${secHit}. Not enforced.`,
 );
 
 if (verbose) {
   console.log('\n  Primary keyword never appears as the phrase, only word by word:');
   for (const r of wordByWord) console.log(`    ${r.url}  "${r.primaryKeyword}"`);
 
-  console.log('\n  Secondary keywords declared but absent from their page:');
+  /* Not "absent as a phrase", which is most of them and is fine, but absent
+     word by word: a row the page cannot support in any wording. Each one is
+     either a copy gap or a row describing a page that was never written. */
+  console.log('\n  Secondary keywords the page cannot support, word by word:');
   for (const r of rows) {
-    const miss = r.secondaryKeywords.filter((k) => !r.secondaryHit.includes(k));
+    const miss = r.secondaryKeywords.filter((k) => !r.secondarySupported.includes(k));
     if (miss.length) console.log(`    ${r.url}  ${miss.map((k) => JSON.stringify(k)).join(', ')}`);
   }
 
