@@ -70,9 +70,21 @@
      ceiling below is the size at which the longest authored line in the
      content model still fits the column it is set in, measured rather than
      guessed. */
-  --hd-1: clamp(2.6rem, 6.4vw, 5.6rem); /* Hero H1, four short authored lines */
-  --hd-statement: clamp(2.3rem, 6.2vw, 5.4rem); /* A section that is one sentence */
-  --hd-2: clamp(1.9rem, 4.2vw, 3.5rem);
+  /* ── The display scale ───────────────────────────────────────
+     Raised on the preferred and maximum terms only. Every minimum is
+     unchanged on purpose: the minimum is what applies on a 360px screen, the
+     hero sets four authored lines there, and 2.6rem was already tuned to the
+     longest of them. Growing the floor to match the ceiling is how a headline
+     starts wrapping to five lines on the one device that can least afford it.
+
+     So this is a desktop and tablet change, and the clamp maths says exactly
+     how much. At 360px the minimum governs both before and after, so the hero
+     display stays 41.6px and nothing moves. At 768px it goes from 49px to
+     55px. At 1440px, where the old ceiling was already capping it, from 90px
+     to 102px, and --hd-2 from 56px to 62px. */
+  --hd-1: clamp(2.6rem, 7.1vw, 6.5rem); /* Hero H1, four short authored lines */
+  --hd-statement: clamp(2.3rem, 6.9vw, 6.2rem); /* A section that is one sentence */
+  --hd-2: clamp(1.9rem, 4.6vw, 3.9rem);
   --hd-3: clamp(1.15rem, 1.9vw, 1.65rem);
   --hd-year: clamp(2rem, 4.4vw, 3.6rem);
   --hd-quote: clamp(1.35rem, 2.4vw, 2.1rem);
@@ -207,7 +219,7 @@
 .yr-display--1 {
   font-size: var(--hd-1);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
 }
 
 /* One sentence, set as the whole section. Section 02 and the closing
@@ -215,7 +227,7 @@
 .yr-display--statement {
   font-size: var(--hd-statement);
   line-height: 1.02;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
 }
 
 .yr-display--2 {
@@ -244,6 +256,29 @@
 .yr-display__strong {
   font-weight: 600;
   color: var(--text);
+}
+
+/* ── Wider weight contrast, at the two display sizes only ──────────────────
+   The sans is variable 200-800 and the heading system was using 300 against
+   600 of it, a 300 point span, because the faces that came before could not
+   reach 200. It can now.
+
+   At --1 and --statement the span opens to 200 against 700. That is the whole
+   of option C: more editorial contrast out of the face already loaded, rather
+   than a second family and another 104 KB.
+
+   Scoped by size rather than applied to the classes themselves, because
+   `.yr-display--3` is a section heading at 1.15 to 1.65rem and 200 there is
+   thin enough on this ground to read as a loading state. The two sizes below
+   are both well past the 24px where a light weight stops costing legibility. */
+.yr-display--1 .yr-display__soft,
+.yr-display--statement .yr-display__soft {
+  font-weight: 200;
+}
+
+.yr-display--1 .yr-display__strong,
+.yr-display--statement .yr-display__strong {
+  font-weight: 700;
 }
 
 /* The one word in a headline that carries the red. Used on BUSINESS in the
