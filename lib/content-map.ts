@@ -375,8 +375,21 @@ const CORE: ContentMapRow[] = [
   {
     url: '/experience/',
     pageType: 'Core',
-    primaryKeyword: 'ecommerce consultant experience',
-    secondaryKeywords: ['magento developer experience', 'ecommerce career record'],
+    /*
+      This row used to claim "ecommerce consultant experience", and the page
+      does not contain either of the first two words. That is not a copy gap
+      to close: the purpose below says the page carries the employment record
+      unembellished, and bending an employment record towards a consultant
+      query is the keyword-first move CONTENT-PRINCIPLES.md section 3 exists
+      to stop. So the row follows the page. What it actually is, in its own
+      words, is the Magento developer record: Team Lead and Senior Magento
+      Developer at Archer Business Solution, and earlier roles at Magento IT
+      Solutions. Nothing else on the site claims the phrase, and the page it
+      used to claim is /hire/, which owns "hire ecommerce consultant" and is
+      written for that buyer.
+    */
+    primaryKeyword: 'magento developer experience',
+    secondaryKeywords: ['magento team lead', 'ecommerce career record', 'senior magento developer'],
     searchIntent: 'Informational. Verifying the record.',
     audience: 'Due diligence, including recruiters and procurement.',
     purpose: 'Carry the employment record, unembellished.',

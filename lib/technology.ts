@@ -2104,7 +2104,7 @@ const AI_COMMERCE: Technology = {
   cta: 'Discuss an AI opportunity',
   title: 'AI for eCommerce: Search and Operations | Yuvraj Raulji',
   description:
-    'AI for eCommerce: catalogue enrichment, semantic search and operations automation, wired into platforms carrying real order volume, not demos.',
+    'AI for eCommerce from a consultant who starts with the process: catalogue enrichment, semantic search and operations automation, not demos.',
 
   quickAnswer: {
     answer:

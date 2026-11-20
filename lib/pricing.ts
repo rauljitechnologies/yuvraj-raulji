@@ -60,7 +60,7 @@ export const PRICING = {
 
   title: 'Pricing & Engagement Models | Yuvraj Raulji',
   description:
-    'Hourly consulting, fixed-scope development, retainer, contract engineering and long-term partnership. How each is structured and what is included.',
+    'Hourly consulting, fixed-scope eCommerce development, retainer, contract engineering and long-term partnership. How each is structured and what is included.',
 
   primaryKeyword: 'ecommerce development engagement models',
   secondaryKeywords: [
