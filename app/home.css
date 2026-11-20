@@ -1182,3 +1182,129 @@ a:focus-visible .yr-frame::after {
     animation: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   THE HERO PORTRAIT PLATE, AND THE FOLD
+
+   Two requirements, from the owner: the photograph must not be cropped, and
+   the whole plate must be visible on the first screen without scrolling.
+
+   ── Why it was cropped ──────────────────────────────────────────────────────
+
+   The plate was a fixed box, 560px tall under `lg`, and the image filled it
+   with `object-cover` focused at 50% 18%. The source is 1200x1680, so a box
+   of any other proportion cuts the photograph: at 1440px the box measured
+   464x526, which is 0.88 against the file's 0.714, and the crop took the lower
+   third of the frame.
+
+   The fix is to stop fixing the box. The image carries `aspect-ratio` and is
+   in normal flow, so the container sizes to the photograph rather than the
+   photograph being cut to the container. The three decorative layers stay
+   absolute and keep their geometry, because the 34px padding below means the
+   container is exactly the image plus the offset in both axes, which is what
+   `calc(100% - 34px)` on each layer already assumed.
+
+   ── Why the two axes are driven differently ────────────────────────────────
+
+   Below `lg` the layout is a single column and vertical space is not scarce,
+   so width drives: the plate is as wide as it can be up to 400px and the
+   height follows the photograph. The image gets taller than the old 380px box
+   and that is correct, because a phone scrolls.
+
+   At `lg` the opposite is true. Vertical space is the whole problem, so height
+   drives and the width follows. The height is capped against the viewport so
+   the plate's bottom edge, which is also the section's bottom edge because the
+   grid is `items-end` and the section has no bottom padding, lands above the
+   fold.
+   ═══════════════════════════════════════════════════════════════ */
+
+.yr-plate {
+  /* The offset that gives the stack its depth. Literal, as it was. */
+  --plate-offset: 34px;
+  position: relative;
+  padding-right: var(--plate-offset);
+  padding-bottom: var(--plate-offset);
+}
+
+.yr-plate__img {
+  display: block;
+  aspect-ratio: 1200 / 1680;
+  /* Nothing to position, because nothing is cropped. `contain` rather than
+     `cover` so that if the file is ever replaced with a slightly different
+     ratio the result is a hairline of ground rather than a silent crop. */
+  object-fit: contain;
+  width: min(100%, 400px);
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  /*
+    The reserve is what the viewport owes to everything above and below the
+    plate: the hero's own top padding, plus 64px so the plate does not sit
+    flush against the fold.
+
+    560px is the height the design was drawn at and stays the ceiling, so on a
+    tall display nothing changes.
+  */
+  .yr-plate {
+    --plate-h: min(560px, calc(100svh - var(--hero-pt, 176px) - 64px));
+  }
+
+  .yr-plate__img {
+    /*
+      Two caps, and the smaller wins, because the plate has to satisfy the
+      viewport in both axes and `max-width` cannot do the job: with `height`
+      set and `aspect-ratio` carrying the width, a `max-width` that bites
+      clamps the width while the height stays, which breaks the ratio and
+      letterboxes the photograph inside its own frame.
+
+      The second cap is the column's width expressed in vw. The shell is
+      100vw up to its 1440px maximum, less 96px of `lg:px-12` and the 56px
+      grid gap, and the portrait column is 0.85 of 2.2 of what is left:
+
+        column        = (100vw - 152px) * 0.3864  =  38.64vw - 58.7px
+        image width   = column - 34px             =  38.64vw - 92.7px
+        image height  = width * 1680 / 1200       =  54.1vw - 129.8px
+
+      Checked at the four widths this has to hold at, against a column that
+      measures 337px at 1024, 436px at 1280 and 498px at 1440:
+
+        1024    424px tall, 303px wide. The width governs
+        1280    526px tall, 376px wide. The viewport cap governs
+        1440    526px tall, 376px wide. The viewport cap governs, column spare
+        1920    526px tall, 376px wide. The shell is capped at 1440 anyway
+    */
+    height: min(
+      calc(var(--plate-h) - var(--plate-offset)),
+      calc(54.1vw - 129.8px)
+    );
+    width: auto;
+  }
+}
+
+/*
+  The hero's top padding, and the headline's ceiling.
+
+  Both are viewport-height aware, and both exist for the same reason: at
+  1440x900 the text column measured about 710px and the padding added 176,
+  which put the section's bottom edge near 886px against roughly 800px of
+  usable height. The plate is the last thing in the column, so it was the first
+  thing below the fold.
+
+  The padding gives back 68px at that size and the headline cap gives back
+  about 19px, by taking four authored lines from 70.6px to 66px. On a display
+  tall enough for the clamp's own maximum, neither does anything.
+*/
+.yr-hero {
+  --hero-pt: clamp(104px, 12svh, 176px);
+}
+
+@media (min-width: 1024px) {
+  .yr-hero {
+    padding-top: var(--hero-pt);
+  }
+
+  .yr-hero h1 {
+    font-size: min(clamp(34px, 4.9vw, 76px), 7.3svh);
+  }
+}

@@ -26,7 +26,13 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto max-w-[1440px] px-5 pt-[128px] sm:px-6 sm:pt-[140px] md:px-8 lg:px-12 lg:pt-[176px]"
+      /*
+        `yr-hero` carries the lg top padding and the headline's height-aware
+        ceiling, both in app/home.css next to the plate they are balanced
+        against. Below lg the Tailwind padding still applies: a phone scrolls,
+        so there is nothing to balance.
+      */
+      className="yr-hero relative mx-auto max-w-[1440px] px-5 pt-[128px] sm:px-6 sm:pt-[140px] md:px-8 lg:px-12"
     >
       {/*
         The faint blueprint grid. Two repeating linear-gradients, masked to a
@@ -272,7 +278,14 @@ export function Hero() {
           rather than a token.
         */}
         <Eager delay={0.3}>
-          <div className="relative mx-auto flex h-[380px] w-full max-w-[400px] items-end justify-center sm:h-[420px] lg:mx-0 lg:h-[560px] lg:max-w-none">
+          {/*
+            No fixed height any more, in either axis. The container is the
+            photograph plus the 34px offset, so the three decorative layers
+            below keep the geometry they already assumed and the image is never
+            cut. The sizing, and why the two axes are driven differently above
+            and below lg, is in app/home.css under `.yr-plate`.
+          */}
+          <div className="yr-plate mx-auto w-fit lg:mx-0">
             <div
               aria-hidden="true"
               className="absolute inset-x-0 bottom-[34px] top-0 border border-ink/15 bg-surface"
@@ -298,23 +311,24 @@ export function Hero() {
                 choosing a candidate, so overstating it costs bytes on exactly
                 the element that decides LCP.
 
-                This said `(min-width: 1024px) 480px, min(400px, 100vw)`, and
-                both halves were too big: the plate is inset 34px inside a
-                shell that is itself padded, so under `lg` it measures
-                `100vw - 74px`, and on a large desktop it is 464px, not 480.
-                The consequence was that a DPR-2 phone asked for 800 pixels
-                for a 286px box and took the 118 KB file.
+                These values were rewritten when the plate stopped being a
+                fixed box. Under `lg` the width is no longer the column's: the
+                height is capped against the viewport and the width follows the
+                photograph's 1200x1680, which lands between 356 and 376px
+                across the viewport heights this has to hold at:
 
-                The values below are the element's actual width, measured
-                across thirteen viewports from 320 to 1920:
+                  1440 x 1080   376px   the 560px ceiling governs
+                  1440 x  900   376px   the ceiling still governs
+                  1440 x  700   356px   the viewport governs
+                  440 to 1023   400px   the plate's own max-width
+                  up to 439px   100vw - 74px, as before
 
-                  up to 439px     100vw - 74px   (246 at 320, 338 at 412)
-                  440 to 1023     366px          (the plate hits its max)
-                  1024 to 1279    303px          (the two-column layout)
-                  1280 to 1439    402px
-                  1440 and up     464px
+                376 is quoted for the whole `lg` range rather than a stack of
+                breakpoints, because `sizes` cannot ask about viewport height
+                and 376 is the larger of the two ends. Quoting the larger end
+                costs nothing: it is the same srcSet candidate either way.
               */
-              sizes="(min-width: 1440px) 464px, (min-width: 1280px) 402px, (min-width: 1024px) 303px, (min-width: 440px) 366px, calc(100vw - 74px)"
+              sizes="(min-width: 1024px) 376px, (min-width: 440px) 400px, calc(100vw - 74px)"
               alt="Yuvraj Raulji, Senior Software Developer and Technology Consultant"
               width={1200}
               height={1680}
@@ -324,7 +338,13 @@ export function Hero() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="absolute left-0 top-0 h-[calc(100%-34px)] w-[calc(100%-34px)] object-cover object-[50%_18%] grayscale contrast-[1.06]"
+              /*
+                In flow rather than absolute, and no `object-position`: with
+                the box set to the file's own 1200x1680 there is no crop left
+                to position. This was `object-cover object-[50%_18%]`, which is
+                what cut the lower third of the frame.
+              */
+              className="yr-plate__img grayscale contrast-[1.06]"
             />
 
             {/* Legibility scrim for the name plate below it. */}
