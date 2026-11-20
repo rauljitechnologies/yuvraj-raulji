@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { JetBrains_Mono, Manrope } from 'next/font/google';
+import { JetBrains_Mono, Manrope, Newsreader } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
@@ -58,6 +58,47 @@ const sans = Manrope({
   variable: '--font-sans',
 });
 
+/**
+ * The display serif, for the H1 and H2 of every page.
+ *
+ * ── Why a serif at all ─────────────────────────────────────────────────────
+ *
+ * The 2026 direction for premium and editorial brands is an expressive serif
+ * display against a clean interface sans, and BRAND-DESIGN-GUIDELINE.md asks
+ * for a site that feels premium, luxury and editorial. The sans alone carries
+ * technical and intelligent; it does not carry editorial on its own.
+ *
+ * ── Why Newsreader and not Instrument Serif ────────────────────────────────
+ *
+ * Instrument Serif was the first candidate and it ships one cut, 400, plus an
+ * italic. This site's heading device is weight contrast inside a single line:
+ * `.yr-display__soft` at 300 and `.yr-display__strong` at 600, across 91
+ * `<Lines>` usages in 22 files. A single-weight face cannot express that, and
+ * asking for 600 from a 400 cut makes the browser synthesise one by smearing
+ * the outlines.
+ *
+ * That is not a hypothetical. components/homepage/README.md records the site
+ * having already been here with Bebas Neue, which ships a single 400 cut and
+ * forced every display rule to pin 400 for exactly this reason. Choosing
+ * Instrument Serif would have repeated it.
+ *
+ * Newsreader is variable across 200-800 with a true italic, so the soft and
+ * strong halves of every heading survive the swap untouched, and the 200 the
+ * sans just gained is available here too.
+ *
+ * Scoped to the display sizes only. `.yr-display--3`, the section heading at
+ * 1.15 to 1.65rem, stays in the sans: a serif at that size stops reading as
+ * display and starts reading as body copy set wrong.
+ */
+const serif = Newsreader({
+  subsets: ['latin'],
+  display: 'swap',
+  /* Normal only. The italic was requested in the first pass and nothing uses
+     it: the heading device is weight contrast, not italic contrast. Two styles
+     doubled the woff2 count for a face no rule asks for in italic. */
+  variable: '--font-serif',
+});
+
 const mono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
@@ -81,7 +122,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {/* The GTM noscript iframe stood here. It went with the container.
             See the note above the tag scripts at the bottom of this file. */}

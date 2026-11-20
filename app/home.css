@@ -74,6 +74,14 @@
   --hd-statement: clamp(2.3rem, 6.2vw, 5.4rem); /* A section that is one sentence */
   --hd-2: clamp(1.9rem, 4.2vw, 3.5rem);
   --hd-3: clamp(1.15rem, 1.9vw, 1.65rem);
+
+  /* Display sizes when the serif is carrying them. Newsreader sets optically
+     smaller than Manrope at the same value, so each is raised roughly one
+     step. The mobile minimums are raised least: a serif at 2.6rem on a 360px
+     screen is already at the edge of a four-line authored headline. */
+  --hd-1-serif: clamp(2.75rem, 6.9vw, 6.1rem);
+  --hd-statement-serif: clamp(2.45rem, 6.7vw, 5.9rem);
+  --hd-2-serif: clamp(2rem, 4.5vw, 3.8rem);
   --hd-year: clamp(2rem, 4.4vw, 3.6rem);
   --hd-quote: clamp(1.35rem, 2.4vw, 2.1rem);
 
@@ -196,35 +204,45 @@
      with one weight change inside it, and that is the voice being matched here.
      Caps also cost width, which is why these clamps still fit after the swap:
      the same string sets narrower in mixed case than it did in capitals. */
-  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  /* The display serif. Newsreader is variable 200-800, so the soft and strong
+     halves below are unchanged by the swap; see the note in app/layout.tsx for
+     why a single-cut serif was rejected.
+
+     The clamps in the three size rules move with this, not because the serif
+     is bigger but because it is optically smaller: Newsreader's cap height and
+     x-height both sit below Manrope's at the same font-size, so the same
+     authored line reads about one step quieter until the size compensates. */
+  font-family: var(--font-serif), 'Newsreader', Georgia, 'Times New Roman', serif;
   font-weight: 300;
-  line-height: 1.04;
-  letter-spacing: -0.035em;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
 }
 
 /* Hero H1. Tighter still, because it is the only type on the page large
    enough that the default tracking opens visible gaps between the caps. */
 .yr-display--1 {
-  font-size: var(--hd-1);
-  line-height: 1;
-  letter-spacing: -0.04em;
+  font-size: var(--hd-1-serif, var(--hd-1));
+  line-height: 1.02;
+  letter-spacing: -0.026em;
 }
 
 /* One sentence, set as the whole section. Section 02 and the closing
    question are the only two things that use it. */
 .yr-display--statement {
-  font-size: var(--hd-statement);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  font-size: var(--hd-statement-serif, var(--hd-statement));
+  line-height: 1.04;
+  letter-spacing: -0.026em;
 }
 
 .yr-display--2 {
-  font-size: var(--hd-2);
-  line-height: 1.06;
-  letter-spacing: -0.035em;
+  font-size: var(--hd-2-serif, var(--hd-2));
+  line-height: 1.08;
+  letter-spacing: -0.022em;
 }
 
 .yr-display--3 {
+  /* Back to the sans on purpose. See the scoping note in app/layout.tsx. */
+  font-family: var(--font-sans), Manrope, system-ui, sans-serif;
   font-size: var(--hd-3);
   font-weight: 600;
   line-height: 1.2;
