@@ -64,6 +64,14 @@ const config: Config = {
         manrope: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
         bebas: ['var(--font-display)', 'Manrope', 'system-ui', 'sans-serif'],
         grotesk: ['var(--font-body)', 'Manrope', 'system-ui', 'sans-serif'],
+        /*
+         * The display serif. A real token rather than an arbitrary value,
+         * because `.yr-display` in app/home.css reaches for the same face and
+         * the two must not drift: the homepage hero H1 is the one heading on
+         * the site that does not go through that rule, so it is the one that
+         * needs this utility.
+         */
+        serif: ['var(--font-serif)', 'Newsreader', 'Georgia', '"Times New Roman"', 'serif'],
         mono: ['var(--font-mono)', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {

@@ -152,7 +152,30 @@ export function Hero() {
             for a break to mean anything. Below that the browser wraps.
           */}
           <Eager delay={0.06}>
-            <h1 className="m-0 max-w-[21ch] font-manrope text-[clamp(34px,4.9vw,76px)] font-extralight leading-[1.04] tracking-[-0.038em] text-ink/90">
+            {/*
+              The serif, like every other H1 on the site.
+
+              This was the one heading that did not go through `.yr-display`,
+              so when the display face changed it was the one that did not
+              follow: the homepage ended up with a sans H1 above serif section
+              headings. 91 headings render through `Lines` and this is the
+              92nd, hand-set because the hero's clamp and its viewport-height
+              ceiling are its own.
+
+              Three things deliberately do not change, because the fold fix in
+              app/home.css is balanced against them: the size clamp, the 7.3svh
+              ceiling, and `21ch`. The measure stays in `ch` rather than
+              becoming pixels precisely because `ch` is face-relative, so the
+              line it holds is still about 21 characters in the new face and
+              the headline keeps its line count. Tracking opens from -0.038em
+              to -0.022em, which is the same adjustment the serif got in
+              `.yr-display`.
+
+              200 and 700 are both inside Newsreader's range, so
+              `font-extralight` here and `font-bold` on the accent span below
+              resolve to real cuts rather than synthesised ones.
+            */}
+            <h1 className="m-0 max-w-[21ch] font-serif text-[clamp(34px,4.9vw,76px)] font-extralight leading-[1.04] tracking-[-0.022em] text-ink/90">
               {HERO.h1.map((line, i) => {
                 const text = typeof line === 'string' ? line : line.text;
                 const accent = typeof line === 'string' ? false : line.accent;
