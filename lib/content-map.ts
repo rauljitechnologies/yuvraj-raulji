@@ -502,6 +502,62 @@ export const CONTENT_MAP: readonly ContentMapRow[] = [
   ...CORE,
   ...FROM_HUBS,
   ...FROM_PILLARS,
+  /* ── Redesign v2: the three routes created for relocated homepage
+     sections. Each one owns a query no existing page claimed, which is the
+     check in part 1 below; the move map is in components/relocated.tsx. ── */
+  {
+    url: '/ai/',
+    pageType: 'Core',
+    /* Not "ai automation consultant": /ai-automation/ already owns that, and
+       the gate in part 1 below caught the collision on the first build. This
+       page is the hub over /ai-automation/, /ai-commerce/ and /ai-search/, so
+       it owns the broader term and each spoke keeps its own. */
+    primaryKeyword: 'practical ai and automation',
+    secondaryKeywords: [
+      'llm application development',
+      'ai agents development',
+      'retrieval augmented generation consultant',
+    ],
+    searchIntent: 'Commercial investigation. Someone deciding whether an AI idea is worth building.',
+    audience: 'A business owner or technical lead with an AI brief and no way to judge it.',
+    purpose:
+      'Carry the eight practical AI tracks and the three operational problems that moved off the homepage, and route to /ai-commerce/, /ai-automation/ and /ai-search/ rather than restating them.',
+    entities: ['Yuvraj Raulji', 'Generative AI', 'LLM', 'RAG', 'n8n', 'AI search'],
+  },
+  {
+    url: '/how-we-work/',
+    pageType: 'Core',
+    /* "development", not "developer": `ENGAGEMENT_MODELS` names Fixed-Scope
+       Development, Hourly Development and Contract Development, so the page
+       says the word it claims. check-keywords caught the first spelling, and
+       the right fix is the claim rather than padding the copy. */
+    primaryKeyword: 'development engagement models',
+    secondaryKeywords: [
+      'fixed scope development engagement',
+      'monthly retainer developer',
+      'hire a technology partner not an agency',
+    ],
+    searchIntent: 'Commercial. Someone who has decided the work is worth buying and is asking how.',
+    audience: 'A buyer comparing a single senior contractor against an agency.',
+    purpose:
+      'Answer "how would I buy this": the seven engagement shapes, the practical facts of working across time zones, and the agency alternative. Distinct from /remote-collaboration/, which answers whether a remote arrangement works at all.',
+    entities: ['Yuvraj Raulji', 'Vadodara', 'IST', 'retainer', 'fixed scope'],
+  },
+  {
+    url: '/faq/',
+    pageType: 'Core',
+    primaryKeyword: 'ecommerce project faq',
+    secondaryKeywords: [
+      'freelance developer project questions',
+      'ecommerce project scope and timelines',
+      'ecommerce developer faq',
+    ],
+    searchIntent: 'Informational. Removing the last objections before making contact.',
+    audience: 'A buyer about to write, checking for a reason not to.',
+    purpose:
+      'Carry FAQs 7 to 14, which the homepage no longer shows, with their own FAQPage node over exactly those eight so neither page claims a question it does not display.',
+    entities: ['Yuvraj Raulji', 'Magento 2', 'Shopify', 'Next.js'],
+  },
   ...FROM_SERVICES,
   ...FROM_SERVICE_PAGES,
   FROM_HIRE,
@@ -522,6 +578,10 @@ export const INDEXABLE_ROUTES: readonly string[] = [
   '/insights/',
   '/contact/',
   '/hire/',
+  /* Redesign v2. */
+  '/ai/',
+  '/how-we-work/',
+  '/faq/',
   '/magento-shopify-migration/',
   '/agencies/',
   '/ecommerce-audit/',

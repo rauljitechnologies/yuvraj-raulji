@@ -3,221 +3,314 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════
-   Ported from the inline <style> blocks of app/_html/{home,blog,detail}.html.
-   Literal display family names are replaced with var(--font-display),
-   which next/font defines in the root layout.
-   ═══════════════════════════════════════════════════════════════ */
+   DESIGN TOKENS — this file is the source of truth.
 
-/* ═══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — source of truth: design-system/yuvraj-raulji/MASTER.md
-   Semantic only. Components must never hardcode raw hex values.
+   design-system/yuvraj-raulji/MASTER.md used to claim that title and had
+   drifted from the shipped values on nine of fifteen colours. It is now a
+   pointer at this block rather than a second copy of it.
+
+   The rules, in one place:
+
+     COLOUR    six values, section 2 below. No component writes a hex.
+     TYPE      three faces, six sizes, section 1 and 3. No component
+               writes a font-family or an arbitrary font-size.
+     SPACING   one section padding token and an eight-step gap scale,
+               section 4. No component writes its own section padding.
+     LAYOUT    one container, section 5.
+
+   The lower two thirds of this file is still the port of the original
+   static mockups' inline <style> blocks. Every value in it resolves
+   against the block below; none of it declares a colour or a face.
    ═══════════════════════════════════════════════════════════════ */
 @layer base {
+  /* ═══════════════════════════════════════════════════════════════
+     REDESIGN V2 — THE WHOLE TOKEN SET
+
+     Every value the site paints, measures or sets type with is declared
+     once, here. A component never writes a hex value, a font family, a
+     type size or a section padding of its own.
+
+     Scopes. This block is the DARK scope and it is the default, because
+     the site's ground is near-black. `.theme-light` further down
+     re-declares exactly the tokens whose *role* changes on the off-white
+     ground (text, hairlines, and which red is safe for small text) and
+     nothing else. `.yr-paper` in app/home.css aliases `.theme-light` so
+     the interior pages that already carry that class keep working.
+     ═══════════════════════════════════════════════════════════════ */
   :root {
-    /* ── Type faces ───────────────────────────────────────────────
-       One sans, under three names.
+    /* ── 1. TYPE FACES ────────────────────────────────────────────
+       Three faces, three jobs, no overlap:
 
-       next/font defines --font-sans on <html>; these three aliases are what
-       the rest of the repo already asks for. Keeping them means the font
-       consolidation did not have to touch 28 `font-display` classes across
-       14 files, nor the eleven `font-family` declarations below, nor the
-       homepage's own stack in app/home.css. Reversing it is one line here and
-       one in app/layout.tsx.
+         --font-heading  Plus Jakarta Sans. h1, h2, h3 and nothing else.
+         --font-body     Inter. Every sentence, label and button.
+         --font-mono     JetBrains Mono. Eyebrows and small labels only.
 
-       The literal fallbacks after each var are kept and are now all Manrope:
-       a stale 'Space Grotesk' fallback would have rendered the chrome in the
-       old face on the one request where the woff2 had not arrived yet, which
-       is exactly the flash this consolidation removes. */
-    --font-sans-stack: var(--font-sans), Manrope, system-ui, -apple-system, sans-serif;
-    --font-display: var(--font-sans);
-    --font-body: var(--font-sans);
-    --font-manrope: var(--font-sans);
+       next/font defines the three `--font-*-src` variables on <html>
+       (app/layout.tsx). The aliases underneath exist because 400+ call
+       sites across 89 routes already name `font-manrope`, `font-display`,
+       `font-body` and `font-serif`. Repointing the variables is what made
+       removing Manrope and Newsreader a change to this file instead of a
+       change to every template, and it is one line to reverse.
 
-    /* ── Surfaces ────────────────────────────────────────────────
-       Phase 1 palette, mandated by the brief. Two grounds, one hairline.
-       There is no light mode; the palette is committed. */
-    --bg: #050505; /* Page ground */
-    --surface: #0a0a0a; /* Section bands, cards, elevated panels */
-    --surface-elevated: #101010; /* Modals and popovers only */
-    --border: #202020; /* The one hairline */
-    --border-strong: #2e2e2e; /* Interactive edges, secondary buttons */
+       Manrope and Newsreader are no longer loaded by app/layout.tsx. The
+       aliases below are the reason nothing broke when they went. */
+    --font-heading: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+    --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
 
-    /* ── Text ─────────────────────────────────────────────────────
-       Contrast measured against --bg, not assumed.
-         --text        #f5f3ee  ~18.2:1
-         --text-muted  #929292   ~6.6:1  — passes AA at any size
-       The two derived tones below are alpha ramps off --text, kept because
-       an editorial page needs a step between "read this" and "this is a
-       label" that the brief's two values do not provide on their own. */
-    --text: #f5f3ee;
-    --text-secondary: rgba(245, 243, 238, 0.74); /* ~10.0:1 */
-    --text-muted: #929292; /* ~6.6:1 */
-    /*
-     * Was 0.4, which measures 3.46:1 on --bg and was labelled here as
-     * "decorative / large only". It was never used that way: `text-ink-faint`
-     * carries the eyebrow, the stat label and the meta line in ten components,
-     * all of them set between 0.6rem and 0.78rem, which is small text and needs
-     * 4.5:1. Every one of those failed AA.
-     *
-     * 0.50 measures 4.89:1, so the label it was already doing is now legal,
-     * and the four-step ramp stays strictly ordered and visibly distinct:
-     *   --text            18.4:1
-     *   --text-secondary  10.0:1
-     *   --text-muted       6.6:1
-     *   --text-faint       4.9:1
-     */
-    --text-faint: rgba(245, 243, 238, 0.5); /* ~4.9:1 */
+    /* Legacy aliases. Do not use in new code. */
+    --font-sans: var(--font-inter);
+    --font-sans-stack: var(--font-body);
+    --font-display: var(--font-heading);
+    --font-manrope: var(--font-body);
+    /* `font-serif` and `.yr-display` both asked for Newsreader. The serif
+       is gone; both now resolve to the heading face, so the 92 headings
+       that went through it follow the new system without being touched. */
+    --font-serif: var(--font-heading);
 
-    /* ── Red ──────────────────────────────────────────────────────
-       Measured, because the brief's primary does not pass AA for small text
-       and shipping it as body colour would be a quiet accessibility bug:
+    /* ── 2. COLOUR ────────────────────────────────────────────────
+       Six values. Three brand, three neutral grey. Nothing else is a
+       colour on this site.
 
-         --accent        #d71920  3.93:1 on --bg
-           Legal for large text (>=24px, or >=18.66px bold), borders, rules,
-           icons and fills. Never for a sentence.
-         --accent-bright #ee2a34  4.87:1 on --bg
-           The ONLY red safe for small text. Every label, eyebrow, meta line
-           and inline link uses this one.
-         --accent-deep   #8f1016  the brief's deep red. Pressed states,
-           gradient floors and the far end of a rule. Never text.
+         --primary      #C8102E   the red
+         --near-black   #0A0A0A   the ground
+         --off-white    #F5F3EF   the ink on that ground
+         --grey-900     #1C1C1C   surfaces and cards on the near-black
+         --grey-500     #6E6E6E   hairlines; and muted text on off-white
+         --grey-300     #A3A3A3   muted text on the near-black
 
-       White on an --accent fill is 5.35:1, so primary buttons pass. */
-    --accent: #d71920;
-    --accent-bright: #ee2a34;
-    --accent-deep: #8f1016;
-    --accent-soft: rgba(215, 25, 32, 0.1);
-    /* Channel-only duplicates. Tailwind v3 cannot apply an alpha modifier
-       (`border-accent/30`) to a colour whose value is a bare var(), so the
-       config routes the accents through these via rgb(... / <alpha-value>).
-       Keep each pair in sync with the hex above. */
-    --accent-rgb: 215 25 32;
-    --accent-bright-rgb: 238 42 52;
-    /* Same reason, for the foreground. Without this every `text-ink/45`,
-       `border-ink/10` and `bg-ink/10` on the site compiles to nothing: 20
-       distinct utilities, all silently dropped, which left every hairline
-       border falling back to Tailwind's preflight #e5e7eb. Keep in sync with
-       --text above. */
-    --text-rgb: 245 243 238;
-    /* And again for the ground, which the two white bands need: on white the
-       hairlines and the muted text are the page ground at low alpha, so
-       `border-ground/15`, `bg-ground/15` and `text-ground/60` are load-bearing
-       there. Without this they compiled to nothing, the rules fell back to
-       Tailwind's preflight #e5e7eb and the muted text fell back to solid
-       black. Keep in sync with --bg above. */
-    --bg-rgb: 5 5 5;
-    --focus: #ee2a34;
+       MEASURED CONTRAST, not assumed (scripts/check-contrast.mjs):
 
-    /* State */
-    /*
-     * Retired 26 Aug 2026. Section 32 of BRAND-DESIGN-GUIDELINE.md allows
-     * black, white and red and names green among the accents not to introduce,
-     * so a green success token is a rule violation with a friendly name. The
-     * confirmation states are drawn in the accent instead; nothing else read
-     * these two.
-     */
-    --error: #ee2a34;
+         off-white  on near-black  17.86:1
+         grey-300   on near-black   7.85:1   AA at any size
+         grey-500   on off-white    4.60:1   AA at any size
+         near-black on off-white   17.86:1
+         primary    on off-white    5.31:1   AA at any size
+         white      on primary      5.88:1   so filled buttons pass
+         primary    on near-black    3.37:1  <- FAILS AA for small text
 
-    /* Radii */
-    --r-sm: 4px;
-    --r-md: 8px;
-    --r-lg: 14px;
-    --r-full: 999px;
+       That last line is the one thing the brief's palette cannot do on
+       its own, and it is why --primary-bright exists. #C8102E on the
+       near-black ground is legal for fills, borders, rules, icons and
+       display text at 24px+ (or 18.66px+ bold), and illegal for a label.
+       --primary-bright (#EA3347) is the same hue opened up until it
+       measures 4.77:1, and it is the ONLY red used for small text on the
+       dark ground. On the off-white ground the plain primary already
+       passes, so .theme-light points --primary-bright back at it. */
+    --primary: #c8102e;
+    --primary-bright: #ea3347;
+    --primary-deep: #8e0b20;
+    --near-black: #0a0a0a;
+    --off-white: #f5f3ef;
+    --grey-900: #1c1c1c;
+    --grey-500: #6e6e6e;
+    --grey-300: #a3a3a3;
 
-    /* Shadows */
-    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --shadow-lifted: 0 16px 48px rgba(0, 0, 0, 0.55);
-    --shadow-accent: 0 16px 48px rgba(215, 25, 32, 0.28);
+    /* Channel-only duplicates of every colour an alpha modifier is taken
+       against. Tailwind v3 cannot apply `/30` to a custom property whose
+       value is a bare var(), so tailwind.config.ts routes these through
+       rgb(... / <alpha-value>). Keep each in sync with the hex above. */
+    --primary-rgb: 200 16 46;
+    --primary-bright-rgb: 234 51 71;
+    --near-black-rgb: 10 10 10;
+    --off-white-rgb: 245 243 239;
+    --grey-500-rgb: 110 110 110;
 
-    /* ── Vertical rhythm ──────────────────────────────────────────
-       Semantic layer over the raw --space-* steps below. A component
-       picks a step by the job it is doing, never by a pixel value, which
-       is what stops twelve sections each inventing their own idea of
-       "the gap under a headline".
+    /* ── 2b. SEMANTIC COLOUR ──────────────────────────────────────
+       What the six above are FOR. Components read these, never the
+       palette, so the light scope can change a role without changing a
+       value. */
+    --bg: var(--near-black);
+    --surface: var(--grey-900);
+    --surface-elevated: var(--grey-900);
+    /* One hairline, as an alpha ramp off grey-500 rather than a fourth
+       and fifth grey, so the same token reads correctly on both grounds. */
+    --border: rgb(var(--grey-500-rgb) / 0.4);
+    --border-strong: rgb(var(--grey-500-rgb) / 0.7);
 
-       Each is a clamp, so the rhythm compresses on a phone and opens up
-       on a desktop by the same ratio the type does. Exposed to Tailwind
-       as spacing keys in tailwind.config.ts: mt-item, mt-block, mt-head,
-       mt-grid, mt-tail and so on.
+    --text: var(--off-white);
+    --text-secondary: rgb(var(--off-white-rgb) / 0.74); /* 13.3:1 */
+    --text-muted: var(--grey-300); /*  7.9:1 */
+    --text-faint: rgb(var(--off-white-rgb) / 0.55); /*  5.8:1 */
 
-       hair    label to the value it labels
-       tight   inside a single thought
-       item    between elements of one card
-       block   between blocks in a column
-       head    a heading group to the content it introduces
-       grid    a section intro to its grid or list
-       tail    a grid to the link that follows it */
-    --sp-hair: clamp(6px, 0.5vw, 8px);
-    --sp-tight: clamp(12px, 1.2vw, 18px);
-    --sp-item: clamp(18px, 1.9vw, 28px);
-    --sp-block: clamp(28px, 3.2vw, 46px);
-    --sp-head: clamp(40px, 4.6vw, 68px);
-    --sp-grid: clamp(52px, 6vw, 90px);
-    --sp-tail: clamp(40px, 4.6vw, 64px);
-    /* Card interior padding. One value, so every card on the page has the
-       same relationship between its edge and its content. */
-    --sp-card: clamp(26px, 2.6vw, 40px);
+    --accent: var(--primary);
+    --accent-bright: var(--primary-bright);
+    --accent-deep: var(--primary-deep);
+    --accent-soft: rgb(var(--primary-rgb) / 0.1);
+    --error: var(--primary-bright);
+    --focus: var(--primary-bright);
 
-    /* Section padding: the air above and below a whole section, which is a
-       different measurement from the gaps between content inside one.
-       `py-pad` and `py-pad-tall` in tailwind.config.ts read these, and
-       `.yr-section` / `.yr-section--tall` in app/home.css read them too.
+    /* The three alpha-channel aliases the pre-existing utilities compile
+       against: `text-ink/45`, `border-accent/30`, `text-ground/60` and the
+       18 others like them. Each mirrors the semantic colour above it. */
+    --text-rgb: var(--off-white-rgb);
+    --bg-rgb: var(--near-black-rgb);
+    --accent-rgb: var(--primary-rgb);
+    --accent-bright-rgb: var(--primary-bright-rgb);
 
-       They were declared on `.yr-page` in home.css, which is the interior
-       pages' wrapper. Every interior route is inside it, so `.yr-section`
-       resolved them and the value looked correct everywhere it was checked.
-       The homepage is not inside `.yr-page`: its sections are plain
-       <section> elements, so `padding: var(--pad-y)` there referred to a
-       custom property that did not exist in scope, the declaration was
-       invalid at computed-value time, and the padding fell back to 0. Nine
-       homepage sections were rendering with no vertical padding at all,
-       their last button sitting flush on the band boundary.
+    /* ── 3. TYPE SCALE ────────────────────────────────────────────
+       Six sizes. The brief's desktop and mobile ends, reached exactly:
+       each clamp is linear between 768px and 1440px, floors at the mobile
+       value below 768 and ceilings at the desktop value above 1440.
 
-       A token a global utility class compiles against has to be global.
-       The floors stay as they were tuned: on a phone the floor is the only
-       term that applies, and 88px top and bottom on a 390px screen is
-       desktop air on a device that cannot spare it. */
-    --pad-y: clamp(60px, 10.5vw, 176px);
-    --pad-y-tall: clamp(84px, 15vw, 248px);
+         h1       64 / 40
+         h2       44 / 32
+         h3       24 / 20
+         body     18 / 16
+         small    14        one size, no scaling
+         eyebrow  12        mono, uppercase, 0.15em
 
-    /* Spacing — density 3 (spacious) */
+       Verified at 375 / 768 / 1024 / 1440 by scripts/check-type-scale.mjs. */
+    --fs-h1: clamp(2.5rem, 0.7857rem + 3.5714vw, 4rem);
+    --fs-h2: clamp(2rem, 1.1429rem + 1.7857vw, 2.75rem);
+    --fs-h3: clamp(1.25rem, 0.9643rem + 0.5952vw, 1.5rem);
+    --fs-body: clamp(1rem, 0.8571rem + 0.2976vw, 1.125rem);
+    --fs-small: 0.875rem; /* 14px — the floor. Nothing on the site is smaller. */
+    --fs-eyebrow: 0.75rem; /* 12px — mono only, uppercase, tracked 0.15em */
+
+    --lh-heading: 1.1;
+    --lh-body: 1.6;
+    --tracking-eyebrow: 0.15em;
+    /* Optical tightening on the two display sizes only. A heading at 64px
+       set at 0 tracking reads loose; body copy set tight reads cramped. */
+    --tracking-h1: -0.02em;
+    --tracking-h2: -0.015em;
+
+    /* Max measure for any run of prose. 65ch, from the brief. */
+    --measure: 65ch;
+
+    /* ── 4. SPACING ───────────────────────────────────────────────
+       ONE section padding token. py-16 (64px) on a phone, py-24 (96px)
+       from md. There is no second section rhythm and no `--pad-y-tall`:
+       a section that needs more air gets it from the content inside it.
+
+       Nineteen homepage sections previously resolved four different
+       section paddings between them, one of which (`py-14 sm:py-16
+       lg:py-20`) stepped at breakpoints while the rest scaled fluidly. */
+    --section-py: 4rem; /* 64px — py-16 */
+
+    /* Component gaps come from the 8-step scale and nowhere else:
+       4 8 12 16 24 32 48 64. Tailwind's 1/2/3/4/6/8/12/16 keys are
+       exactly these, so `gap-4` and `mt-8` are the vocabulary; every
+       other numeric key is removed in tailwind.config.ts. */
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
     --space-4: 16px;
     --space-6: 24px;
     --space-8: 32px;
-    --space-10: 40px;
-    --space-12: 56px;
-    --space-14: 72px;
-    --space-16: 96px;
-    --section-y: clamp(88px, 10vw, 160px);
+    --space-12: 48px;
+    --space-16: 64px;
 
-    /* Layout */
-    --container: 1400px;
-    --gutter: clamp(20px, 4vw, 48px);
+    /* ── 5. LAYOUT ────────────────────────────────────────────────
+       One container. 1200px, px-6 on a phone, px-8 from md.
+       There were three widths (1400px in two places, 1440px in the
+       markup) and two gutter scales before this. */
+    --container: 1200px;
+    --container-px: 1.5rem; /* 24px — px-6 */
 
-    /* Typography scale */
-    --fs-display: clamp(2.8rem, 5vw, 5rem);
-    --fs-h2: clamp(2rem, 3.6vw, 3.25rem);
-    --fs-h3: clamp(1.25rem, 1.8vw, 1.6rem);
-    --fs-body-lg: 1.02rem;
-    --fs-body: 1rem;
-    --fs-sm: 0.875rem;
-    --fs-label: 0.7rem;
+    /* The header, as a number the rest of the site can read.
+       72px is the maximum the brief allows and the height the bar is
+       built to. Everything that used to hardcode a bar height — the
+       anchor offset, the hero's top padding, the article aside's sticky
+       top — reads this instead. */
+    --header-h: 72px;
 
-    /* Motion — one easing family, three duration levels */
+    /* ── 6. SHAPE, DEPTH, MOTION ─────────────────────────────────
+       One card radius, one card border, one card padding. See the
+       `.card-surface` component class below for the three together. */
+    --radius: 8px;
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 8px;
+    --r-full: 999px;
+
+    --shadow-card: 0 8px 32px rgb(0 0 0 / 0.4);
+    --shadow-lifted: 0 16px 48px rgb(0 0 0 / 0.55);
+    --shadow-accent: 0 16px 48px rgb(var(--primary-rgb) / 0.28);
+
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
     --dur-1: 200ms;
     --dur-2: 380ms;
     --dur-3: 900ms;
 
-    /* z-index scale */
     --z-base: 1;
     --z-sticky: 40;
     --z-header: 50;
     --z-modal: 90;
     --z-toast: 100;
+
+    /* ── 7. COMPATIBILITY ─────────────────────────────────────────
+       Names the pre-redesign templates and the two CSS files still ask
+       for. Each resolves to the system above rather than to a value of
+       its own, so nothing can drift. They are removed as their last call
+       site is migrated.
+
+       The eight semantic spacing steps were eight clamps. They are now
+       the fixed scale: `mt-block` is 32px everywhere rather than
+       somewhere between 28 and 46, which is what made two sections
+       trained on the same token look different. */
+    --sp-hair: var(--space-1);
+    --sp-tight: var(--space-3);
+    --sp-item: var(--space-4);
+    --sp-block: var(--space-8);
+    --sp-head: var(--space-12);
+    --sp-grid: var(--space-12);
+    --sp-tail: var(--space-12);
+    --sp-card: var(--space-6);
+    --pad-y: var(--section-py);
+    --pad-y-tall: var(--section-py);
+    --section-y: var(--section-py);
+    --gutter: var(--container-px);
+    /* Old type-scale names, repointed at the six sizes above. */
+    --fs-display: var(--fs-h1);
+    --fs-body-lg: var(--fs-body);
+    --fs-sm: var(--fs-small);
+    --fs-label: var(--fs-eyebrow);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --section-py: 6rem; /* 96px — py-24 */
+      --container-px: 2rem; /* 32px — px-8 */
+    }
+  }
+
+  /* ── THE LIGHT SCOPE ──────────────────────────────────────────
+     Only the tokens whose role changes. The palette itself does not
+     move: the same six colours, with the ground and the ink swapped and
+     the small-text red stepped back to the plain primary, which measures
+     5.31:1 on off-white and therefore needs no bright variant here.
+
+     `.yr-paper` is the name 30-odd interior templates already carry, so
+     it is aliased rather than renamed. */
+  .theme-light,
+  .yr-paper {
+    --bg: var(--off-white);
+    /* Cards on the light band are the ground darkened, not a new grey. */
+    --surface: rgb(var(--near-black-rgb) / 0.03);
+    --surface-elevated: rgb(var(--near-black-rgb) / 0.05);
+    --border: rgb(var(--grey-500-rgb) / 0.32);
+    --border-strong: rgb(var(--grey-500-rgb) / 0.6);
+
+    --text: var(--near-black);
+    --text-secondary: rgb(var(--near-black-rgb) / 0.76); /* 11.6:1 */
+    --text-muted: var(--grey-500); /*  4.6:1 */
+    --text-faint: rgb(var(--near-black-rgb) / 0.62); /*  5.4:1 */
+
+    --accent-bright: var(--primary); /*  5.3:1 — no bright cut needed */
+    --error: var(--primary);
+
+    --text-rgb: var(--near-black-rgb);
+    --bg-rgb: var(--off-white-rgb);
+    --accent-bright-rgb: var(--primary-rgb);
+  }
+
+  .theme-light,
+  .yr-paper {
+    background: var(--bg);
+    color: var(--text);
   }
 
   /* Global focus system — never removed, only replaced with something stronger */
@@ -274,22 +367,22 @@
     scroll-behavior: auto;
 
     /*
-     * The header is fixed, so without this every in-page anchor lands with its
-     * heading underneath the bar. On the homepage that is every call to action
-     * on the page: #contact, #work, #ai and #expertise all scrolled the thing
-     * they named out of sight.
+     * The header is sticky, so without this every in-page anchor lands with
+     * its heading underneath the bar. On the homepage that is every call to
+     * action on the page: #contact, #work, #services and #faq all scrolled
+     * the thing they named out of sight.
      *
-     * 112px is the tall case: a 68px bar plus the 34px condensed link row that
-     * only exists under `md`, plus a little air. From `md` the row is gone and
-     * the bar is 78px, so the padding comes down with it.
+     * ONE declaration, reading the header's own height token.
+     *
+     * There were three before this, and they disagreed: 112px/96px here,
+     * `calc(102px + var(--sp-block))` / `calc(78px + ...)` on :root in
+     * app/home.css, and `pt-[128px] sm:pt-[140px]` hardcoded on the hero.
+     * home.css loads second, so the value that actually applied was the one
+     * nobody was reading. The header is 72px at every width now, so the
+     * offset is 72px plus one 16px step of air, everywhere, and
+     * app/home.css no longer declares it at all.
      */
-    scroll-padding-top: 112px;
-  }
-
-  @media (min-width: 768px) {
-    html {
-      scroll-padding-top: 96px;
-    }
+    scroll-padding-top: calc(var(--header-h) + var(--space-4));
   }
 
   /* Set only while an in-page anchor navigation is in flight. */
@@ -299,7 +392,7 @@
 
   body {
     margin: 0;
-    background: #050505;
+    background: var(--bg);
     -webkit-tap-highlight-color: transparent;
     /* Off-white type on near-black renders heavier than it measures, and the
        body face is used down to 0.62rem for labels. Antialiasing rather than
@@ -572,12 +665,12 @@
     background: linear-gradient(
         90deg,
         #050505 0%,
-        rgba(6, 6, 6, 0.8) 14%,
-        rgba(6, 6, 6, 0.42) 34%,
-        rgba(6, 6, 6, 0.1) 56%,
+        rgb(var(--bg-rgb) / 0.8) 14%,
+        rgb(var(--bg-rgb) / 0.42) 34%,
+        rgb(var(--bg-rgb) / 0.1) 56%,
         transparent 72%
       ),
-      linear-gradient(180deg, rgba(6, 6, 6, 0.55) 0%, transparent 18%, transparent 72%, rgba(6, 6, 6, 0.8) 100%);
+      linear-gradient(180deg, rgb(var(--bg-rgb) / 0.55) 0%, transparent 18%, transparent 72%, rgb(var(--bg-rgb) / 0.8) 100%);
   }
   .hero-grid {
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000, transparent);
@@ -727,7 +820,7 @@
 
   /* ── Contact ── */
   .contact-sec {
-    background: linear-gradient(rgba(6, 6, 6, 0.78), rgba(6, 6, 6, 0.95)),
+    background: linear-gradient(rgb(var(--bg-rgb) / 0.78), rgb(var(--bg-rgb) / 0.95)),
       url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=80') center / cover fixed;
   }
   .cf-inp {
@@ -752,7 +845,7 @@
     background: rgb(var(--accent-rgb) / 0.04);
   }
   .cf-inp option {
-    background: #0d0d0d;
+    background: var(--surface);
     color: var(--text);
   }
   .cf-lbl {
@@ -934,7 +1027,7 @@
     padding: 0 14px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.26);
-    background: rgba(6, 6, 6, 0.62);
+    background: rgb(var(--bg-rgb) / 0.62);
     backdrop-filter: blur(8px);
     font-size: 0.66rem;
     font-weight: 700;
@@ -1172,7 +1265,7 @@
     overflow: hidden;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.07);
-    background: #0d0d0d;
+    background: var(--surface);
     transition: border-color 0.4s, box-shadow 0.4s;
   }
   .feat-card:hover {
@@ -1190,7 +1283,7 @@
     overflow: hidden;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.06);
-    background: #0d0d0d;
+    background: var(--surface);
     display: flex;
     flex-direction: column;
     transition: border-color 0.45s, box-shadow 0.45s, transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
@@ -1255,15 +1348,15 @@
   .img-ov {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(6, 6, 6, 0.08) 0%, rgba(6, 6, 6, 0.55) 100%);
+    background: linear-gradient(180deg, rgb(var(--bg-rgb) / 0.08) 0%, rgb(var(--bg-rgb) / 0.55) 100%);
     pointer-events: none;
   }
   .feat-card .img-ov {
-    background: linear-gradient(90deg, rgba(6, 6, 6, 0.85) 0%, rgba(6, 6, 6, 0.42) 50%, rgba(6, 6, 6, 0.08) 100%);
+    background: linear-gradient(90deg, rgb(var(--bg-rgb) / 0.85) 0%, rgb(var(--bg-rgb) / 0.42) 50%, rgb(var(--bg-rgb) / 0.08) 100%);
   }
   @media (max-width: 768px) {
     .feat-card .img-ov {
-      background: linear-gradient(180deg, rgba(6, 6, 6, 0.12) 0%, rgba(6, 6, 6, 0.92) 100%);
+      background: linear-gradient(180deg, rgb(var(--bg-rgb) / 0.12) 0%, rgb(var(--bg-rgb) / 0.92) 100%);
     }
   }
   .pnum {
@@ -1460,7 +1553,7 @@
     border: 1px solid rgb(var(--accent-rgb) / 0.18);
     padding: 2px 7px;
     border-radius: 5px;
-    color: #ff8a96;
+    color: var(--accent-bright);
   }
   .prose table {
     width: 100%;

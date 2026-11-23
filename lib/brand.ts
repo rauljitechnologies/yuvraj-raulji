@@ -28,7 +28,6 @@
 
 import type { Anchor } from './expertise';
 import { CAREER_START_YEAR } from './career';
-import { SERVICE_NAV_LINKS } from './service-pages';
 import { POSTS } from './posts';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -67,114 +66,100 @@ export const DOING =
 export const CORE_IDEA = 'Technology that creates business leverage.';
 
 /**
- * Primary navigation. One list, rendered by the one header on every route.
+ * ══════════════════════════════════════════════════════════════════════════
+ * NAVIGATION
+ * ══════════════════════════════════════════════════════════════════════════
  *
- * Five destinations and one action. It used to be three, from the days when
- * the header linked only to the personal-brand set; the homepage carried a
- * sixth, entirely separate bar whose five links were in-page anchors to its own
- * sections, so "About" meant a section on the homepage and a page everywhere
- * else. Every item here is a real, indexed route, which is what lets the same
- * bar ship on every page and what makes a click a navigation rather than a
- * scroll.
+ * Two lists. Five links in the bar, everything else behind "More".
  *
- * "Thinking" was the old label for /insights/; the header and the footer both say
- * Insights now, because the page itself is titled Insights and a label that
- * disagrees with its destination costs a reader a click to work out.
+ * ── What this replaced, and the measurement behind it ─────────────────────
  *
- * /insights/ is the indexed path carrying the article history. Renaming it to
- * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
- * trade.
- */
-/**
- * The primary navigation.
+ * `NAV` was eight top-level items — About, Experience, Work, Services,
+ * Expertise, Insights, Resources, How we work — two of which were dropdowns
+ * carrying fourteen children between them. The header rendered all eight from
+ * `md` (768px) up with every item `shrink-0 whitespace-nowrap`, so the row had
+ * no slack to give: measured at 12px uppercase with 0.1em tracking and 18px
+ * gaps, the eight labels alone needed about 620px, and the bar as a whole
+ * needed about 1,236px including the wordmark, a WhatsApp square and a
+ * "Let's Connect" button. Below roughly 1200px the children ran past the
+ * container. See section 3 of REDESIGN_AUDIT.md for the full arithmetic.
  *
- * ── What changed with the repositioning ───────────────────────────────────
+ * Under `md` the same eight plus both menus' children were flattened into
+ * `NAV_FLAT` — twenty-two links — and rendered as a 34px horizontally
+ * scrolling strip under the bar. That is where the second half of the old
+ * header's 110px went.
  *
- * Two entries are new and one moved. `Services` is the hub over the eleven
- * platform pages, which previously had no entry in the bar at all: a reader
- * who wanted to know what was on offer had to find /expertise/ and infer it.
- * `Resources` collects the four pages a recruiter or a buyer reads next
- * (resume, certifications, pricing, remote work), none of which could earn a
- * top-level slot on its own and all of which were otherwise reachable only
- * from the footer.
+ * ── The split ────────────────────────────────────────────────────────────
  *
- * `Hire` left the bar. It is in the Resources menu alongside /pricing/, which
- * is where its intent actually sits, and /remote-collaboration/ took the commercial
- * slot next to the call to action because the employment funnel is what the
- * site is now pointed at.
+ * `PRIMARY_NAV` is five, and the five are chosen by what a buyer needs in
+ * order: the proof (Work), the offer (Services), the person (About), the
+ * evidence of thinking (Insights), and the way to start (Contact).
  *
- * ── Why the two menus are CSS and not a client component ──────────────────
+ * `MORE_NAV` is the other seven. Each is a real indexed route and each is
+ * also linked from the body of a primary page and from the footer, so "More"
+ * is a third way to reach them rather than the only way:
  *
- * The bar is a server component and the note in components/chrome/nav.tsx
- * explains what that is worth: no state, no listeners, no bundle, on every
- * one of 74 pages. A dropdown does not have to cost that. These open on
- * `:hover` and on `:focus-within`, which covers pointer and keyboard without a
- * line of JavaScript, and the parent of each menu is itself a real link, so a
- * touch device that cannot hover gets a navigation to a page that lists the
- * same destinations rather than a menu it cannot open.
+ *   Experience        linked from /about/, which carries the timeline
+ *   Expertise         linked from /services/ and from every service page
+ *   How we work       linked from /services/ and /contact/
+ *   Pricing           linked from /services/ and /how-we-work/
+ *   Resume            linked from /about/ and the footer
+ *   Certifications    linked from /about/
+ *   Hire me           linked from /contact/
  *
- * `Projects` is deliberately labelled `Work`, matching /work/. The brief's
- * navigation calls it Projects; the URL is staying at /work/ to keep the six
- * case studies' rankings, and a label that disagrees with its own URL and
- * breadcrumb costs more than the word is worth.
+ * Nothing was dropped and nothing was orphaned, which is the only reason a
+ * "More" menu is acceptable: a destination that is ONLY in a More menu is a
+ * destination nobody will find.
  *
- * /insights/ is the indexed path carrying the article history. Renaming it to
- * /thinking/ would move eight ranking URLs to buy a nicer slug, which is a bad
- * trade.
+ * ── Labels that deliberately disagree with their slug ────────────────────
+ *
+ * `Work` for /work/ rather than "Projects", and `Insights` for /insights/
+ * rather than "Thinking" or "Writing". Both URLs carry the ranking history
+ * for the case studies and the eight articles; renaming either to get a
+ * nicer label would move indexed URLs to buy a word, and a label that
+ * disagrees with its own URL and breadcrumb costs a reader a click to work
+ * out.
+ *
+ * `How we work` points at /how-we-work/, which is new: the engagement
+ * models and the agency-alternative argument moved there off the homepage.
+ * /remote-collaboration/ still exists and still answers the time-zone
+ * question; it is linked from /how-we-work/ rather than from the bar,
+ * because the bar had two links to it under two different labels before.
  */
 export interface NavItem {
   label: string;
   href: string;
-  /** Submenu, rendered on hover and on focus-within. */
-  children?: readonly { label: string; href: string; note?: string }[];
 }
 
-export const NAV: readonly NavItem[] = [
-  { label: 'About', href: '/about/' },
-  { label: 'Experience', href: '/experience/' },
+/** The five in the bar. Order is the order a buyer asks. */
+export const PRIMARY_NAV: readonly NavItem[] = [
   { label: 'Work', href: '/work/' },
-  {
-    label: 'Services',
-    href: '/services/',
-    /* Nine of the sixteen service pages, read from their own registry rather
-       than retyped here. A service added to lib/service-pages.ts appears in
-       the hub, in the sitemap and in the content map at once, and in the menu
-       when it is flagged `featured`; sixteen links plus "All services" is a
-       panel taller than a laptop screen. The other seven are one click away
-       through "All services" at the foot of the same panel.
-
-       These are the service pages, not the platform hubs. The menu used to
-       list /magento/ and /shopify/, which are entity pages: a reader opening
-       a Services menu wants to know what can be built, and those pages answer
-       a different question. The hubs are still one click away from each
-       service page via its boundary link. */
-    children: [...SERVICE_NAV_LINKS, { label: 'All services', href: '/services/' }],
-  },
-  { label: 'Expertise', href: '/expertise/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'About', href: '/about/' },
   { label: 'Insights', href: '/insights/' },
-  {
-    label: 'Resources',
-    href: '/resume/',
-    children: [
-      { label: 'Resume', href: '/resume/' },
-      { label: 'Certifications', href: '/certifications/' },
-      { label: 'Remote collaboration', href: '/remote-collaboration/' },
-      { label: 'Pricing & engagement', href: '/pricing/' },
-      { label: 'Hire me', href: '/hire/' },
-    ],
-  },
-  /* How a remote engagement runs, last and next to the call to action: a
-     reader who has got this far along the bar is deciding whether working
-     with someone in another time zone is practical, and that is one step from
-     writing. The label was "Remote work" twice, here and inside Resources,
-     which gave the bar two links to one page under two names. */
-  { label: 'How we work', href: '/remote-collaboration/' },
+  { label: 'Contact', href: '/contact/' },
 ];
 
-/** Flat list of every nav destination, for the condensed phone row. */
-export const NAV_FLAT: readonly { label: string; href: string }[] = NAV.flatMap((n) =>
-  n.children ? [{ label: n.label, href: n.href }, ...n.children.filter((c) => c.href !== n.href)] : [n],
-);
+/** Everything else. The "More" menu on desktop, a two-column list on mobile. */
+export const MORE_NAV: readonly NavItem[] = [
+  { label: 'Experience', href: '/experience/' },
+  { label: 'Expertise', href: '/expertise/' },
+  { label: 'How we work', href: '/how-we-work/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Resume', href: '/resume/' },
+  { label: 'Certifications', href: '/certifications/' },
+  { label: 'Hire me', href: '/hire/' },
+];
+
+/**
+ * Every nav destination in one list.
+ *
+ * It existed for the condensed phone row, which is gone. It is kept because
+ * the footer builds its sitemap columns from it and scripts/check-links.mjs
+ * reads it to confirm every nav destination is a route that exists.
+ */
+export const NAV: readonly NavItem[] = [...PRIMARY_NAV, ...MORE_NAV];
+export const NAV_FLAT: readonly NavItem[] = NAV;
 
 export const CTA_LABEL = "Let's Connect";
 
@@ -965,6 +950,18 @@ export interface WritingItem {
   summary: string;
   date: string;
   readTime: string;
+  /**
+   * The article's cover, from the post record.
+   *
+   * Added for the homepage Insights cards. The section used to be six
+   * hairline rows of category, title and date with no image at all, which
+   * meant the only thing telling a reader what a piece was about was its
+   * title. Three cards with the cover is the brief's layout and the cover is
+   * the field that makes a card worth being a card.
+   *
+   * Every post in lib/posts.ts carries one, so this is not optional.
+   */
+  img: string;
 }
 
 export const WRITING_INTRO = {
@@ -992,6 +989,7 @@ export const ALL_WRITING: WritingItem[] = Object.entries(POSTS)
     summary: p.excerpt,
     date: p.date,
     readTime: p.readTime,
+    img: p.img,
   }))
   .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 

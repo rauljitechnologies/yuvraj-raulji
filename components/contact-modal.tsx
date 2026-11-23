@@ -108,17 +108,17 @@ export function ContactModal() {
       aria-modal="true"
       aria-labelledby="contact-modal-title"
     >
-      <div className="absolute inset-0 bg-[rgba(0,0,0,.90)] backdrop-blur-2xl" onClick={close} />
+      <div className="absolute inset-0 bg-[rgb(0_0_0_/_0.9)] backdrop-blur-2xl" onClick={close} />
 
       <div
         ref={dialogRef}
-        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] border border-[rgba(215,25,32,.22)] border-t-[rgba(215,25,32,.55)] shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgba(215,25,32,.10)] transition-all duration-[420ms] ${
+        className={`relative z-[1] w-[min(980px,100%)] max-h-[calc(100vh-48px)] overflow-y-auto supports-[max-height:100svh]:max-h-[calc(100svh-32px)] border border-accent/25 border-t-accent/60 shadow-[0_80px_220px_rgba(0,0,0,.80),0_0_120px_rgb(var(--accent-rgb)_/_0.1)] transition-all duration-[420ms] ${
           contactOpen ? 'translate-y-0 scale-100' : 'translate-y-8 scale-[.96]'
         }`}
         style={{ background: 'var(--surface-elevated)' }}
       >
         <button
-          className="absolute top-4 right-4 z-10 w-9 h-9 border border-[rgba(255,255,255,.12)] grid place-items-center text-[rgba(245,243,238,.50)] transition-all duration-200 hover:border-accent hover:text-white hover:bg-accent hover:rotate-90 active:scale-90"
+          className="absolute top-4 right-4 z-10 w-9 h-9 border border-line grid place-items-center text-ink-faint transition-all duration-200 hover:border-accent hover:text-white hover:bg-accent hover:rotate-90 active:scale-90"
           onClick={close}
           aria-label="Close"
         >

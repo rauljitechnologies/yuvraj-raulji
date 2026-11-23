@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Page, PageHero } from '../../components/chrome/page';
+import { CapabilityAreas } from '../../components/relocated';
 import { ContactButton } from '../../components/homepage/contact-button';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
@@ -257,6 +258,22 @@ export default function Services() {
       </Section>
 
       {/* ── 05 Engagement ────────────────────────────────────────── */}
+      {/*
+        The four capability areas, relocated from the homepage in redesign v2.
+
+        The brief sends the homepage's "full services list" here, and this page
+        already carries it twice over: `#service-pages` is the seventeen service
+        pages and `#index` is the full platform-by-platform index. What it did
+        not have is the layer above those, which is what the homepage's
+        Capabilities section was: four areas, each with the sentence saying what
+        it is for in the client's terms and the six or seven named capabilities
+        inside it.
+
+        It sits above `#engagement` because "what are the areas" precedes "how
+        is it bought". See components/relocated.tsx for the full move map.
+      */}
+      <CapabilityAreas />
+
       <Section id="engagement" labelledBy="engagement-title">
         <Shell>
           <div className="grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.4fr]">

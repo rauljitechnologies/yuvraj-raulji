@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { JetBrains_Mono, Manrope, Newsreader } from 'next/font/google';
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
@@ -10,103 +10,89 @@ import './globals.css';
 import './home.css';
 
 /**
- * One sans face, for every page.
+ * ── THE THREE FACES ────────────────────────────────────────────────────────
  *
- * ── What this replaced, and why ─────────────────────────────────────────────
+ * Three faces, three jobs, no overlap. Redesign v2 fixes the job of each one
+ * in app/globals.css and this file is the only place any of them is loaded.
  *
- * Three sans families were being loaded and they had divided the site up by
- * accident rather than by design:
+ *   Plus Jakarta Sans   headings. h1, h2, h3, and nothing else.
+ *   Inter               body. Every sentence, label, button and form field.
+ *   JetBrains Mono      small labels and eyebrows ONLY. Never a sentence.
  *
- *   Manrope        356 uses across 37 files. Every content page.
- *   Space Grotesk   28 uses across 14 files. The chrome: nav, footer,
- *                   wordmark, buttons, the article aside.
- *   Inter            1 use. The `font-body` class on <body>, which made it
- *                   the document default and therefore the face of anything
- *                   that did not set one.
+ * ── What this replaced ────────────────────────────────────────────────────
  *
- * So the header and footer were set in a different typeface from the page they
- * sat on, and a third face rendered wherever neither had an opinion. Four
- * places in the repo documented the typography and all four disagreed:
- * design-system/yuvraj-raulji/MASTER.md still named Bebas Neue, which no
- * template has used for some time.
+ * Manrope and Newsreader, both removed. Manrope was the single sans for
+ * everything (headings, body and chrome alike, so a heading differed from the
+ * paragraph under it only by size and weight) and Newsreader was an editorial
+ * display serif layered on top of it for the H1 and H2 of every page.
  *
- * Manrope wins by use and by range. It is variable across 200-800, which is
- * what the design actually leans on: 200 for a display line and 700 for the
- * emphasis half of a heading, both out of one file. Space Grotesk is variable
- * 300-700 and Inter 400-700, so neither reaches the 200 the homepage display
- * is set at.
+ * Two problems with that pairing, and the redesign brief resolves both by
+ * naming the faces outright:
  *
- * ── Why the variable names did not change ──────────────────────────────────
+ *   One face for headings and body means the type system has no voice of its
+ *   own. Plus Jakarta Sans against Inter is a real pairing: the geometric
+ *   display gives a heading its own shape, and Inter is the most legible
+ *   interface face at 16 to 18px, which is where this site does most of its
+ *   reading.
  *
- * `--font-display` and `--font-body` now both resolve to Manrope. Pointing the
- * variables at it, rather than rewriting 28 `font-display` classes across 14
- * files, keeps this a change to the font layer instead of a change to every
- * template, and makes it one line to reverse. The utilities stay meaningful:
- * `font-display` is still where a heading declares itself, it is simply no
- * longer a different family.
+ *   A serif display and a sans display were both in play. `.yr-display` used
+ *   the serif, the homepage H1 hand-set its own copy of it, and
+ *   `.yr-display--3` deliberately stayed in the sans at section-heading size.
+ *   So one page carried two display voices by design. There is one now.
  *
- * This is the "improve and standardize" in BRAND-DESIGN-GUIDELINE.md rather
- * than the redesign the same paragraph rules out. Nothing about the palette,
- * the spacing scale or the layout moves.
+ * ── Why the CSS variables are named for the file, not the role ────────────
+ *
+ * `--font-jakarta`, `--font-inter` and `--font-jetbrains` name the FACE.
+ * app/globals.css maps them onto the roles (`--font-heading`, `--font-body`,
+ * `--font-mono`) and then onto every legacy alias the templates still ask for
+ * (`--font-display`, `--font-manrope`, `--font-serif`, `--font-sans`).
+ *
+ * That indirection is what let Manrope and Newsreader be removed without
+ * touching 400+ `font-manrope` and `font-serif` class names across 89 routes,
+ * and it is what makes swapping a face one line in two files rather than a
+ * find-and-replace across the repo.
+ *
+ * ── Loading cost ─────────────────────────────────────────────────────────
+ *
+ * All three are variable fonts, so each is one woff2 for its whole weight
+ * range: three files, same as before, and no synthesised weights. `display:
+ * 'swap'` on all three, and next/font emits a `<link rel="preload">` for each
+ * because all three render above the fold (heading, body, hero eyebrow).
+ *
+ * `adjustFontFallback` is left at its default (on). next/font computes a
+ * size-adjusted local fallback per face, which is what keeps the swap from
+ * costing layout shift — the CLS term the brief asks to hold down.
  */
-const sans = Manrope({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  /* Three variables off one font so no component class has to change:
-     --font-manrope for the content pages that name it, and --font-display and
-     --font-body for the chrome and the document default. */
-  variable: '--font-sans',
+  /* Variable 200-800. The heading scale uses 500 to 800; the range is one
+     file either way, so it is not narrowed. */
+  variable: '--font-jakarta',
 });
 
-/**
- * The display serif, for the H1 and H2 of every page.
- *
- * ── Why a serif at all ─────────────────────────────────────────────────────
- *
- * The 2026 direction for premium and editorial brands is an expressive serif
- * display against a clean interface sans, and BRAND-DESIGN-GUIDELINE.md asks
- * for a site that feels premium, luxury and editorial. The sans alone carries
- * technical and intelligent; it does not carry editorial on its own.
- *
- * ── Why Newsreader and not Instrument Serif ────────────────────────────────
- *
- * Instrument Serif was the first candidate and it ships one cut, 400, plus an
- * italic. This site's heading device is weight contrast inside a single line:
- * `.yr-display__soft` at 300 and `.yr-display__strong` at 600, across 91
- * `<Lines>` usages in 22 files. A single-weight face cannot express that, and
- * asking for 600 from a 400 cut makes the browser synthesise one by smearing
- * the outlines.
- *
- * That is not a hypothetical. components/homepage/README.md records the site
- * having already been here with Bebas Neue, which ships a single 400 cut and
- * forced every display rule to pin 400 for exactly this reason. Choosing
- * Instrument Serif would have repeated it.
- *
- * Newsreader is variable across 200-800 with a true italic, so the soft and
- * strong halves of every heading survive the swap untouched, and the 200 the
- * sans just gained is available here too.
- *
- * Scoped to the display sizes only. `.yr-display--3`, the section heading at
- * 1.15 to 1.65rem, stays in the sans: a serif at that size stops reading as
- * display and starts reading as body copy set wrong.
- */
-const serif = Newsreader({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  /* Normal only. The italic was requested in the first pass and nothing uses
-     it: the heading device is weight contrast, not italic contrast. Two styles
-     doubled the woff2 count for a face no rule asks for in italic. */
-  variable: '--font-serif',
+  /* Variable 100-900. Body copy is 400, emphasis 600, buttons 600. */
+  variable: '--font-inter',
 });
 
-const mono = JetBrains_Mono({
+const jetbrains = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
+  /* Two cuts, not the variable range. This face only ever sets 12px eyebrows
+     and 14px labels, at 400 and 500; loading 100-800 for two weights is bytes
+     on the critical path for nothing. */
   weight: ['400', '500'],
-  variable: '--font-mono',
+  variable: '--font-jetbrains',
 });
 
-export const viewport: Viewport = { themeColor: '#050505' };
+/* The near-black ground, so the browser chrome matches the page.
+   Literal rather than var(--near-black): this is serialised into a <meta>
+   tag at build time, where a custom property has nothing to resolve
+   against. Keep in sync with --near-black in app/globals.css. */
+export const viewport: Viewport = { themeColor: '#0A0A0A' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -122,7 +108,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {/* The GTM noscript iframe stood here. It went with the container.
             See the note above the tag scripts at the bottom of this file. */}

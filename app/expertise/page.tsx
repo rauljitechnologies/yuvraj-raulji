@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Page, PageHero } from '../../components/chrome/page';
+import { TechnologyEcosystem } from '../../components/relocated';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
 import { ContactButton } from '../../components/homepage/contact-button';
@@ -173,11 +174,11 @@ export default function ExpertiseHub() {
                   <div className="flex items-start justify-between">
                     <span
                       aria-hidden="true"
-                      className="font-mono text-xs font-medium leading-none tracking-[0.2em] text-accent-bright"
+                      className="font-mono text-eyebrow font-medium text-accent-bright"
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span aria-hidden="true" className="font-mono text-xl leading-none text-ink-faint">
+                    <span aria-hidden="true" className="font-mono text-h3 text-ink-faint">
                       ↗
                     </span>
                   </div>
@@ -290,6 +291,20 @@ export default function ExpertiseHub() {
 
       {/* The question the index leaves a reader with, set as the homepage sets
           a statement: one line, large and light, with the turn at 600. */}
+      {/*
+        The technology ecosystem, relocated from the homepage in redesign v2.
+
+        It is additive rather than duplicative, which is worth stating because
+        this page already carries two technology sections. `#stack` is seven
+        CAPABILITY categories (what the work consists of) and `#technology` is
+        the nine technologies that have their own hub page. Neither is a list
+        of the 32 named technologies grouped by the layer they sit in, which
+        is what this is and what a client's technical reviewer asks for.
+
+        See components/relocated.tsx for the full move map.
+      */}
+      <TechnologyEcosystem />
+
       <Section id="next" labelledBy="next-title" tall>
         <Shell>
           <Lines

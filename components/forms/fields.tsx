@@ -400,7 +400,7 @@ export function FormResult({
       <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent-bright">
         {result === 'sent' ? sentHeading : 'Send it from your email'}
       </span>
-      <p className={`m-0 max-w-[46ch] font-manrope text-2xl font-light leading-[1.35] ${t.text}`}>
+      <p className={`m-0 max-w-[46ch] font-heading text-h3 font-medium ${t.text}`}>
         {result === 'sent' ? (
           sentBody
         ) : (
@@ -411,7 +411,7 @@ export function FormResult({
         )}
       </p>
       {result === 'fallback' ? (
-        <p className={`m-0 font-manrope text-base font-light leading-[1.6] ${t.hint}`}>
+        <p className={`m-0 font-body text-body ${t.hint}`}>
           If nothing opened:{' '}
           <a href={`mailto:${email}`} className="text-accent-bright underline">
             {email}

@@ -127,7 +127,7 @@ export function WorkCases() {
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                  className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .25)_0%,rgb(var(--bg-rgb) / .82)_100%)]"
                 />
                 <span
                   aria-hidden="true"
@@ -155,7 +155,7 @@ export function WorkCases() {
                   </Link>
                 </h3>
 
-                <p className="mt-4 font-manrope text-base font-light leading-[1.65] text-ink/55">
+                <p className="mt-4 font-body text-body text-ink-muted">
                   {c.challenge}
                 </p>
 

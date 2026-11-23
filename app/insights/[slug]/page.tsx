@@ -221,7 +221,7 @@ export default async function Article({ params }: Props) {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.18)_0%,transparent_40%,rgba(5,5,5,.45)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .18)_0%,transparent_40%,rgb(var(--bg-rgb) / .45)_100%)]"
           />
         </div>
       </div>
@@ -301,7 +301,7 @@ export default async function Article({ params }: Props) {
                       />
                       <div
                         aria-hidden="true"
-                        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                        className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .25)_0%,rgb(var(--bg-rgb) / .82)_100%)]"
                       />
                       <span className="absolute bottom-5 left-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                         {r.cat}

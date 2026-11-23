@@ -94,7 +94,8 @@ const EXPLORE = [
  *
  * WhatsApp is in it because section 14 asks for that action to be easy to
  * find on desktop and on mobile, and the footer is the one component on every
- * page. The header carries it too; see components/chrome/whatsapp-action.tsx.
+ * page. The floating button carries it too, on every route; see
+ * components/chrome/whatsapp-float.tsx.
  */
 const ENGAGE = [
   { href: '/hire/', label: 'Hire me' },
@@ -450,7 +451,7 @@ export function SiteFooter() {
           for the page it points at, so the bar now carries the entity line
           instead: the one thing worth repeating on every page.
         */}
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-small text-ink-muted sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="text-ink-muted">{FOOTER_TAGLINE}</span>

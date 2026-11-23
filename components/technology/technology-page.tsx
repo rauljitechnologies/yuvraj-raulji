@@ -323,7 +323,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-xs font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium text-accent-bright"
                   >
                     {stage.num}
                   </span>

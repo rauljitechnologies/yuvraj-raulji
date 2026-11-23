@@ -1,119 +1,208 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Token → utility mapping. Source of truth for the values themselves is the
- * :root block in app/globals.css (see design-system/yuvraj-raulji/MASTER.md).
- * `bg`/`bg2`/`red`/`rv` are kept as aliases so pre-existing sections keep
- * compiling while they are migrated section by section.
+ * REDESIGN V2 — the utility layer over the token set.
+ *
+ * ── The one rule ───────────────────────────────────────────────────────────
+ *
+ * Every value here resolves to a custom property declared in the `:root`
+ * block of app/globals.css. Nothing in this file states a colour, a font
+ * family, a type size or a section padding of its own, so there is exactly
+ * one place any of those four things can be changed.
+ *
+ * ── What `theme` vs `theme.extend` means here ─────────────────────────────
+ *
+ * `colors`, `fontFamily`, `fontSize`, `spacing`, `borderRadius` and
+ * `maxWidth` are declared OUTSIDE `extend`, which replaces Tailwind's
+ * defaults rather than adding to them. That is deliberate and it is what
+ * makes the design system strict instead of advisory:
+ *
+ *   `bg-red-500`, `text-slate-400`, `font-sans`, `text-2xl`, `p-7`,
+ *   `rounded-2xl` and `max-w-prose` no longer compile.
+ *
+ * Before this, the full default palette and the full default 35-step spacing
+ * scale were both available alongside the tokens, and the homepage used 38
+ * distinct ad-hoc vertical spacing values as a result. A design system that
+ * leaves the alternative compiling is a suggestion.
+ *
+ * `screens`, `keyframes`, `animation`, `zIndex`, `boxShadow` and
+ * `transitionTimingFunction` stay inside `extend`, because for those the
+ * defaults are additive rather than competing.
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './lib/**/*.{ts,tsx}'],
   theme: {
-    extend: {
-      colors: {
-        // Semantic tokens
-        // Routed through the channel-only var so `text-ground/60` and the
-        // hairlines on the white bands compile. Same reason as `ink` below.
-        ground: 'rgb(var(--bg-rgb) / <alpha-value>)',
-        surface: 'var(--surface)',
-        elevated: 'var(--surface-elevated)',
-        line: 'var(--border)',
-        'line-strong': 'var(--border-strong)',
-        ink: 'rgb(var(--text-rgb) / <alpha-value>)',
-        'ink-secondary': 'var(--text-secondary)',
-        'ink-muted': 'var(--text-muted)',
-        'ink-faint': 'var(--text-faint)',
-        // Routed through the channel-only vars so alpha modifiers such as
-        // `border-accent/30` actually compile — see the note in globals.css.
-        accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
-        'accent-bright': 'rgb(var(--accent-bright-rgb) / <alpha-value>)',
-        'accent-deep': 'var(--accent-deep)',
-        'accent-soft': 'var(--accent-soft)',
-        success: 'var(--success)',
-        warning: 'var(--warning)',
-        error: 'var(--error)',
+    /* ── COLOUR ───────────────────────────────────────────────────────────
+       Six palette values and the semantic names over them. `transparent`,
+       `current`, `inherit`, `white` and `black` are kept: the first three are
+       not colours, and white/black are needed for text on a primary fill and
+       for mask stops.
 
-        // Legacy aliases — do not use in new code. Routed through the tokens
-        // rather than repeating hex values, so the Phase 1 palette reaches the
-        // pages that still carry these classes.
-        bg: 'var(--bg)',
-        bg2: 'var(--surface)',
-        red: 'var(--accent)',
-        rv: 'var(--accent-bright)',
-      },
-      fontFamily: {
-        /*
-         * One sans face under every name it is already called by.
-         *
-         * Three sans families were loaded until the typography was
-         * consolidated: Manrope on the content pages (356 uses), Space
-         * Grotesk in the chrome (28), and Inter as the document default (1).
-         * The header and footer were therefore set in a different face from
-         * the page they sat on. See the note in app/layout.tsx for the counts
-         * and the reasoning.
-         *
-         * `display`, `body` and `manrope` all resolve to Manrope now. The
-         * names are kept because the utilities stay meaningful: `font-display`
-         * is still where a heading declares itself, it is simply no longer a
-         * different family. `bebas` and `grotesk` remain as aliases for the
-         * same reason they always were, and both are now down to zero uses in
-         * templates.
-         */
-        display: ['var(--font-display)', 'Manrope', 'system-ui', 'sans-serif'],
-        body: ['var(--font-body)', 'Manrope', 'system-ui', '-apple-system', 'sans-serif'],
-        manrope: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
-        bebas: ['var(--font-display)', 'Manrope', 'system-ui', 'sans-serif'],
-        grotesk: ['var(--font-body)', 'Manrope', 'system-ui', 'sans-serif'],
-        /*
-         * The display serif. A real token rather than an arbitrary value,
-         * because `.yr-display` in app/home.css reaches for the same face and
-         * the two must not drift: the homepage hero H1 is the one heading on
-         * the site that does not go through that rule, so it is the one that
-         * needs this utility.
-         */
-        serif: ['var(--font-serif)', 'Newsreader', 'Georgia', '"Times New Roman"', 'serif'],
-        mono: ['var(--font-mono)', '"JetBrains Mono"', 'ui-monospace', 'monospace'],
-      },
-      fontSize: {
-        display: 'var(--fs-display)',
-        h2: 'var(--fs-h2)',
-        h3: 'var(--fs-h3)',
-        'body-lg': 'var(--fs-body-lg)',
-        label: 'var(--fs-label)',
-      },
-      borderRadius: {
-        sm: 'var(--r-sm)',
-        md: 'var(--r-md)',
-        lg: 'var(--r-lg)',
+       `<alpha-value>` wiring: a Tailwind v3 colour whose value is a bare
+       `var()` cannot take an alpha modifier, so every colour an alpha
+       modifier is used against is routed through its channel-only token
+       (`--primary-rgb` and friends). That is why `border-accent/30`,
+       `text-ink/70` and `bg-ground/85` compile. */
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      inherit: 'inherit',
+      white: '#ffffff',
+      black: '#000000',
+
+      /* The palette, by its own name. Use these when the colour is the point
+         (a red rule, the off-white plate) rather than the role. */
+      primary: 'rgb(var(--primary-rgb) / <alpha-value>)',
+      'primary-bright': 'rgb(var(--primary-bright-rgb) / <alpha-value>)',
+      'primary-deep': 'var(--primary-deep)',
+      'near-black': 'rgb(var(--near-black-rgb) / <alpha-value>)',
+      'off-white': 'rgb(var(--off-white-rgb) / <alpha-value>)',
+      'grey-900': 'var(--grey-900)',
+      'grey-500': 'rgb(var(--grey-500-rgb) / <alpha-value>)',
+      'grey-300': 'var(--grey-300)',
+
+      /* The roles. Use these for anything that has to invert correctly
+         between the dark and the light band — which is most things. Inside a
+         `.theme-light` section `bg-ground` paints off-white and `text-ink`
+         paints near-black, with no class change at the call site. */
+      ground: 'rgb(var(--bg-rgb) / <alpha-value>)',
+      surface: 'var(--surface)',
+      elevated: 'var(--surface-elevated)',
+      line: 'var(--border)',
+      'line-strong': 'var(--border-strong)',
+      ink: 'rgb(var(--text-rgb) / <alpha-value>)',
+      'ink-secondary': 'var(--text-secondary)',
+      'ink-muted': 'var(--text-muted)',
+      'ink-faint': 'var(--text-faint)',
+      accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
+      'accent-bright': 'rgb(var(--accent-bright-rgb) / <alpha-value>)',
+      'accent-deep': 'var(--accent-deep)',
+      'accent-soft': 'var(--accent-soft)',
+      error: 'var(--error)',
+
+      /* Legacy aliases. Do not use in new code; each resolves to a role
+         above, so none of them can drift. Removed as their last call site
+         goes. */
+      bg: 'var(--bg)',
+      bg2: 'var(--surface)',
+      red: 'var(--accent)',
+      rv: 'var(--accent-bright)',
+    },
+
+    /* ── TYPE FACES ───────────────────────────────────────────────────────
+       Three roles. `display`, `manrope`, `serif`, `bebas` and `grotesk` are
+       the names 400+ existing call sites use; each is aliased to the role it
+       was doing, which is what let Manrope and Newsreader be removed without
+       touching those call sites. */
+    fontFamily: {
+      heading: ['var(--font-heading)'],
+      body: ['var(--font-body)'],
+      mono: ['var(--font-mono)'],
+
+      /* Aliases. */
+      sans: ['var(--font-body)'],
+      display: ['var(--font-heading)'],
+      serif: ['var(--font-heading)'],
+      bebas: ['var(--font-heading)'],
+      manrope: ['var(--font-body)'],
+      grotesk: ['var(--font-body)'],
+    },
+
+    /* ── TYPE SCALE ───────────────────────────────────────────────────────
+       Six sizes, each paired with the line height it is always set at, so
+       `text-h1` carries 1.1 and `text-body` carries 1.6 without a second
+       class. The eyebrow carries its tracking too, for the same reason.
+
+       `text-xs` through `text-9xl` are gone. Every `text-[13px]`,
+       `text-[clamp(34px,4.6vw,68px)]` and `text-[.60rem]` on the site is
+       therefore a compile-visible exception rather than an invisible one, and
+       the 14px floor the brief sets is enforceable. */
+    fontSize: {
+      h1: ['var(--fs-h1)', { lineHeight: 'var(--lh-heading)', letterSpacing: 'var(--tracking-h1)' }],
+      h2: ['var(--fs-h2)', { lineHeight: 'var(--lh-heading)', letterSpacing: 'var(--tracking-h2)' }],
+      h3: ['var(--fs-h3)', { lineHeight: 'var(--lh-heading)' }],
+      body: ['var(--fs-body)', { lineHeight: 'var(--lh-body)' }],
+      small: ['var(--fs-small)', { lineHeight: 'var(--lh-body)' }],
+      eyebrow: [
+        'var(--fs-eyebrow)',
+        { lineHeight: '1.3', letterSpacing: 'var(--tracking-eyebrow)' },
+      ],
+    },
+
+    /* ── SHAPE ────────────────────────────────────────────────────────────
+       One card radius. `rounded`, `rounded-md` and `rounded-lg` all resolve
+       to the same 8px so the three names left in the templates cannot
+       produce three different cards. */
+    borderRadius: {
+      none: '0',
+      DEFAULT: 'var(--radius)',
+      sm: 'var(--r-sm)',
+      md: 'var(--radius)',
+      lg: 'var(--radius)',
+      xl: 'var(--radius)',
+      '2xl': 'var(--radius)',
+      full: 'var(--r-full)',
+    },
+
+    /* ── MEASURE AND WIDTH ────────────────────────────────────────────────
+       `shell` is the 1200px container; `measure` is the 65ch prose cap.
+       Both come from the token set, so a page cannot be 1400px wide by
+       writing `max-w-[1400px]` without that showing up in a diff. */
+    maxWidth: {
+      none: 'none',
+      0: '0',
+      full: '100%',
+      min: 'min-content',
+      max: 'max-content',
+      fit: 'fit-content',
+      shell: 'var(--container)',
+      measure: 'var(--measure)',
+      /* Narrower measures, for a lede or a card paragraph that should break
+         before 65ch. Still `ch`, so they stay face-relative. */
+      'measure-sm': '45ch',
+      'measure-md': '55ch',
+    },
+
+    extend: {
+      /* ── SPACING ────────────────────────────────────────────────────────
+         The eight steps the brief allows for a component gap are exactly
+         Tailwind's own 1 / 2 / 3 / 4 / 6 / 8 / 12 / 16 keys:
+
+           gap-1   4px     gap-6   24px
+           gap-2   8px     gap-8   32px
+           gap-3  12px     gap-12  48px
+           gap-4  16px     gap-16  64px
+
+         so the rule needs no new keys, it needs the OTHER keys not to be
+         used. This is an `extend` rather than a replacement, deliberately,
+         and the reason is worth writing down:
+
+         Tailwind derives width, height, inset, translate and flex-basis from
+         the same `spacing` scale as padding, margin and gap. Replacing the
+         scale to delete `py-7` also deletes `w-11`, `h-9`, `top-24` and
+         `size-5`, which are sizes rather than spacing choices and which 1,300
+         call sites across 89 routes depend on. The homepage would have been
+         strict and the other 88 routes would have been broken.
+
+         So the eight-step rule is enforced where the brief asks for it — on
+         the homepage — by `scripts/check-design-system.mjs`, which fails the
+         build on a padding, margin or gap utility outside the eight steps in
+         any homepage file. A rule a script checks is a rule; a rule in a
+         comment is a preference. The same script enforces the 14px type
+         floor and the no-raw-colour rule on the same files.
+
+         `section`, `gutter` and `header` are the three layout tokens.
+         `section` is the ONE section padding value: 64px on a phone, 96px
+         from md, declared once in app/globals.css. */
+      spacing: {
+        section: 'var(--section-py)',
+        gutter: 'var(--container-px)',
+        header: 'var(--header-h)',
       },
       boxShadow: {
         card: 'var(--shadow-card)',
         lifted: 'var(--shadow-lifted)',
         accent: 'var(--shadow-accent)',
-      },
-      maxWidth: { shell: 'var(--container)', measure: '62ch' },
-      spacing: {
-        gutter: 'var(--gutter)',
-        section: 'var(--section-y)',
-        // Semantic vertical rhythm — see the block in globals.css for what
-        // each step is for. Use these rather than a numeric step for any
-        // gap that separates content; the numeric scale stays available for
-        // one-off optical corrections.
-        hair: 'var(--sp-hair)',
-        tight: 'var(--sp-tight)',
-        item: 'var(--sp-item)',
-        block: 'var(--sp-block)',
-        head: 'var(--sp-head)',
-        grid: 'var(--sp-grid)',
-        tail: 'var(--sp-tail)',
-        card: 'var(--sp-card)',
-        /* Section padding, the same value `.yr-section` uses in home.css.
-           The homepage sections are plain <section> elements with their own
-           bands rather than `.yr-section`, and each invented its own: four
-           different `lg:py` values across seven variants, stepping at
-           breakpoints where the rest of the site scales fluidly. */
-        pad: 'var(--pad-y)',
-        'pad-tall': 'var(--pad-y-tall)',
       },
       transitionTimingFunction: {
         out: 'var(--ease-out)',
@@ -125,23 +214,34 @@ const config: Config = {
         modal: '90',
         toast: '100',
       },
+      /* `lg` is 1024 and `xl` is 1280, which are two of the four widths the
+         brief requires nothing to overflow at; `2xl` is 1440, the third.
+         `nav` at 1100px is the one addition: it is where the header swaps
+         from the link row to the hamburger, and it is a named breakpoint
+         rather than an arbitrary value so the bar and the menu button can
+         never be told different numbers. */
       screens: {
         xs: '390px',
         sm: '640px',
         md: '768px',
         lg: '1024px',
+        nav: '1100px',
         xl: '1280px',
         '2xl': '1440px',
       },
       /**
-       * Ambient loops carried over from the homepage design canvas. These are
-       * decorative and infinite, so they are CSS rather than Framer Motion:
-       * Motion is reserved for the scroll-triggered reveals, which need to know
-       * about the viewport. Every consumer is `aria-hidden` or purely visual.
+       * Ambient loops carried over from the original design canvas. These are
+       * decorative and infinite, so they are CSS rather than Motion: Motion is
+       * reserved for the scroll-triggered reveals, which need to know about the
+       * viewport. Every consumer is `aria-hidden` or purely visual.
        *
        * `prefers-reduced-motion` is honoured globally in app/globals.css, which
        * collapses animation-duration for the whole document, so none of these
        * need their own media query.
+       *
+       * `yr-marquee` is kept but has no consumer: the scrolling tech marquee it
+       * drove was removed from the homepage in redesign v2. It stays because
+       * two interior pages still carry a ticker.
        */
       keyframes: {
         'yr-dash': {
@@ -153,8 +253,6 @@ const config: Config = {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-14px)' },
         },
-        // Travels exactly half the track; the track renders its content twice,
-        // so the wrap is invisible.
         'yr-marquee': {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },

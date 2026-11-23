@@ -138,7 +138,7 @@ export default function Insights() {
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.15)_0%,rgba(5,5,5,.55)_100%)]"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .15)_0%,rgb(var(--bg-rgb) / .55)_100%)]"
               />
             </Link>
 
