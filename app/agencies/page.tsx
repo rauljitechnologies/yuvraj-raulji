@@ -134,7 +134,7 @@ export default function Agencies() {
             </p>
           </Rise>
           <Rise delay={0.12} className="mt-block border-t border-line pt-7">
-            <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+            <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Usually brought in for
             </p>
             <ul className="m-0 mt-4 flex list-none flex-col gap-2 p-0">
@@ -186,7 +186,7 @@ export default function Agencies() {
             {AGENCIES.howItWorks.map((s, i) => (
               <li key={s.num} className="bg-[var(--bg)]">
                 <Rise delay={Math.min(i, 3) * 0.06} className="flex h-full flex-col p-6 sm:p-8 lg:p-10">
-                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     {s.num}
                   </span>
                   <h3 className="m-0 mt-5 font-manrope text-[clamp(17px,1.6vw,20px)] font-semibold leading-[1.2] tracking-[-0.02em]">

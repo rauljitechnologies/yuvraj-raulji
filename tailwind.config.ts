@@ -200,6 +200,7 @@ const config: Config = {
         header: 'var(--header-h)',
       },
       boxShadow: {
+        'header-rule': 'var(--shadow-header-rule)',
         card: 'var(--shadow-card)',
         lifted: 'var(--shadow-lifted)',
         accent: 'var(--shadow-accent)',
@@ -238,10 +239,6 @@ const config: Config = {
        * `prefers-reduced-motion` is honoured globally in app/globals.css, which
        * collapses animation-duration for the whole document, so none of these
        * need their own media query.
-       *
-       * `yr-marquee` is kept but has no consumer: the scrolling tech marquee it
-       * drove was removed from the homepage in redesign v2. It stays because
-       * two interior pages still carry a ticker.
        */
       keyframes: {
         'yr-dash': {
@@ -252,10 +249,6 @@ const config: Config = {
         'yr-float': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-14px)' },
-        },
-        'yr-marquee': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
         },
         'yr-blink': {
           '0%, 100%': { opacity: '1' },
@@ -270,7 +263,6 @@ const config: Config = {
         'yr-dash': 'yr-dash 7s linear infinite',
         'yr-dash-slow': 'yr-dash 12s linear infinite',
         'yr-float': 'yr-float 9s ease-in-out infinite',
-        'yr-marquee': 'yr-marquee 34s linear infinite',
         'yr-blink': 'yr-blink 2.6s ease-in-out infinite',
         'yr-sweep': 'yr-sweep 2.4s var(--ease-out) both',
       },

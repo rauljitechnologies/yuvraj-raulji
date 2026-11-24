@@ -206,7 +206,7 @@ export default function ExpertiseHub() {
                       keeps a two-column grid of unequal text from looking
                       ragged along the bottom. */}
                   <div className="mt-auto border-l border-accent/40 pl-5 pt-8">
-                    <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                    <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                       Think twice when
                     </p>
                     <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
@@ -276,7 +276,7 @@ export default function ExpertiseHub() {
                   {p.lede}
                 </p>
                 <div className="mt-6 border-l border-accent/40 pl-5">
-                  <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     Wrong choice when
                   </p>
                   <p className="m-0 mt-2.5 max-w-[52ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">

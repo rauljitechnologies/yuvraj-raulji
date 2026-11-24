@@ -146,7 +146,7 @@ export default function ContactPage() {
             {CHANNELS.map((c, i) => (
               <li key={c.label} className="bg-[var(--bg)]">
                 <Rise delay={Math.min(i, 3) * 0.06} className="group flex h-full flex-col p-6 sm:p-8 lg:p-10">
-                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+                  <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
                     {c.label}
                   </span>
                   <p className="m-0 mt-5 font-manrope text-[clamp(20px,2vw,28px)] font-semibold leading-[1.15] tracking-[-0.025em]">
@@ -170,7 +170,7 @@ export default function ContactPage() {
 
           <Rise delay={0.3} className="mt-block flex flex-wrap items-center gap-3 border-t border-line pt-8">
             <span aria-hidden="true" className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink" />
-            <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-ink/60">
+            <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.18em] text-ink/60">
               {CONTACT.location} · IST · GMT+5:30
             </span>
           </Rise>
@@ -230,7 +230,7 @@ export default function ContactPage() {
             delay={0.15}
             className="mt-head border-t border-line pt-8"
           >
-            <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+            <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Not ready to write yet
             </p>
             <ul className="m-0 mt-5 flex list-none flex-col gap-3 p-0 sm:flex-row sm:flex-wrap sm:gap-x-10">

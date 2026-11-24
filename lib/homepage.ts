@@ -13,7 +13,7 @@
  */
 
 import { CAREER_STATS } from './career';
-import { AVAILABILITY, HEADLINE, INTRO_LONG, POSITIONING_LINE, SPECIALTIES } from './identity';
+import { AVAILABILITY, HEADLINE, INTRO_LONG, POSITIONING_LINE } from './identity';
 import { CONTACT as SITE_CONTACT } from './site';
 
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
@@ -163,13 +163,6 @@ export const HERO = {
    * position itself changes.
    */
   availability: AVAILABILITY,
-
-  /**
-   * The specialty marquee. `SPECIALTIES` from lib/identity.ts rather than a
-   * second list here, so the hero, /remote-collaboration/ and the Person node's
-   * `knowsAbout` cannot drift.
-   */
-  marquee: SPECIALTIES,
 } as const;
 
 export type Stat = { value: string; label: string; href?: string; note?: string };

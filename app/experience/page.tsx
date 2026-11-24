@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 /* The one mono eyebrow used inside the sections below, so four of them cannot
    drift into four different small-caps treatments. */
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function ExperiencePage() {
   return (
@@ -104,7 +104,7 @@ export default function ExperiencePage() {
                   {s.value.replace('+', '')}
                   {s.value.includes('+') && <span className="text-accent">+</span>}
                 </dd>
-                <dt className="m-0 mt-4 font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-ink/55">
+                <dt className="m-0 mt-4 font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.2em] text-ink/55">
                   {s.label}
                 </dt>
                 <p className="m-0 mt-5 max-w-[34ch] font-manrope text-[15px] font-light leading-[1.65] text-ink/55">
@@ -142,7 +142,7 @@ export default function ExperiencePage() {
                   delay={Math.min(i, 5) * 0.05}
                   className="grid gap-x-8 gap-y-2 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]"
                 >
-                  <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright md:pt-8 lg:pt-9">
+                  <p className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.18em] text-accent-bright md:pt-8 lg:pt-9">
                     {t.year}
                   </p>
                   <div className="relative border-t border-line pb-8 pt-6 sm:pb-10 sm:pt-8 md:border-l md:border-t-0 md:pl-8 md:pt-8 lg:pl-10 lg:pt-9">
@@ -192,11 +192,11 @@ export default function ExperiencePage() {
                   className="grid gap-x-8 gap-y-2 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]"
                 >
                   <div className="md:pt-8 lg:pt-9">
-                    <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright">
+                    <p className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.18em] text-accent-bright">
                       {r.period}
                     </p>
                     {r.location ? (
-                      <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
+                      <p className="m-0 mt-2.5 font-mono text-eyebrow uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
                         {r.location}
                       </p>
                     ) : null}
@@ -210,7 +210,7 @@ export default function ExperiencePage() {
                     <h3 className="m-0 font-manrope text-[clamp(21px,2.2vw,30px)] font-semibold leading-[1.15] tracking-[-0.02em]">
                       {r.title}
                     </h3>
-                    <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
+                    <p className="m-0 mt-2.5 font-mono text-eyebrow uppercase leading-[1.5] tracking-[0.14em] text-ink/55">
                       {r.org}
                     </p>
                     <p className="m-0 mt-5 max-w-[68ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">

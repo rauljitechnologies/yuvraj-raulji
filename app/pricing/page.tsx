@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function Pricing() {
   return (
@@ -121,7 +121,7 @@ export default function Pricing() {
                   <div>
                     <p
                       aria-hidden="true"
-                      className="m-0 font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                      className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                     >
                       {m.num}
                     </p>
@@ -206,7 +206,7 @@ export default function Pricing() {
               <Rise key={p.num} as="li" delay={i * 0.06} className="bg-[var(--bg)] p-card">
                 <p
                   aria-hidden="true"
-                  className="m-0 font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                  className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                 >
                   {p.num}
                 </p>

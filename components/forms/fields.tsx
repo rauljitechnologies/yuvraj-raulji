@@ -75,7 +75,7 @@ const TONE = {
 } as const;
 
 function labelClass(tone: Tone) {
-  return `flex flex-col gap-2.5 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] ${TONE[tone].label}`;
+  return `flex flex-col gap-2.5 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.16em] ${TONE[tone].label}`;
 }
 
 /**
@@ -104,7 +104,7 @@ function Err({ id, msg }: { id: string; msg?: string }) {
     <span
       id={id}
       role="alert"
-      className="font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal text-error"
+      className="font-manrope text-small font-normal normal-case leading-[1.5] tracking-normal text-error"
     >
       {msg}
     </span>
@@ -208,7 +208,7 @@ export function TextField({
         className={fieldClass(tone, Boolean(error))}
       />
       {hint && !error ? (
-        <span id={hintId} className={`font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal ${TONE[tone].hint}`}>
+        <span id={hintId} className={`font-manrope text-small font-normal normal-case leading-[1.5] tracking-normal ${TONE[tone].hint}`}>
           {hint}
         </span>
       ) : null}
@@ -290,7 +290,7 @@ export function SelectField({
       {hint && !error ? (
         <span
           id={hintId}
-          className={`font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal ${t.hint}`}
+          className={`font-manrope text-small font-normal normal-case leading-[1.5] tracking-normal ${t.hint}`}
         >
           {hint}
         </span>
@@ -330,7 +330,7 @@ export function TextArea({
         className={`${fieldClass(tone, Boolean(error))} resize-y`}
       />
       {hint && !error ? (
-        <span id={hintId} className={`font-manrope text-[13px] font-normal normal-case leading-[1.5] tracking-normal ${TONE[tone].hint}`}>
+        <span id={hintId} className={`font-manrope text-small font-normal normal-case leading-[1.5] tracking-normal ${TONE[tone].hint}`}>
           {hint}
         </span>
       ) : null}
@@ -397,7 +397,7 @@ export function FormResult({
       aria-live="polite"
       className="flex min-h-[260px] flex-col justify-center gap-4"
     >
-      <span className="font-mono text-[10px] font-medium uppercase tracking-[0.24em] text-accent-bright">
+      <span className="font-mono text-eyebrow font-medium uppercase tracking-[0.24em] text-accent-bright">
         {result === 'sent' ? sentHeading : 'Send it from your email'}
       </span>
       <p className={`m-0 max-w-[46ch] font-heading text-h3 font-medium ${t.text}`}>

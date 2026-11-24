@@ -42,7 +42,7 @@ import { Rise } from '../homepage/motion';
  * instead of having to go and find out.
  */
 
-const dt = 'font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+const dt = 'font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 const dd = 'm-0 mt-2.5 font-manrope text-[15px] font-light leading-[1.6] text-ink/55';
 
 export function WorkCases() {
@@ -78,7 +78,7 @@ export function WorkCases() {
 
       <p
         aria-live="polite"
-        className="mt-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/55"
+        className="mt-5 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.24em] text-ink/55"
       >
         {shown.length === 0
           ? `No case studies under ${activeLabel}`
@@ -131,11 +131,11 @@ export function WorkCases() {
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute right-6 top-6 font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/60"
+                  className="absolute right-6 top-6 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-ink/60"
                 >
                   {c.num}
                 </span>
-                <span className="relative font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                <span className="relative font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                   {c.industry}
                 </span>
               </div>
@@ -174,7 +174,7 @@ export function WorkCases() {
                       {c.technology.map((t) => (
                         <span
                           key={t}
-                          className="inline-flex items-center border border-ink/15 px-2.5 py-1.5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.16em] text-ink/60"
+                          className="inline-flex items-center border border-ink/15 px-2.5 py-1.5 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.16em] text-ink/60"
                         >
                           {t}
                         </span>

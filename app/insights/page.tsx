@@ -157,7 +157,7 @@ export default function Insights() {
               <p className="mt-block max-w-[52ch] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
                 {featured.summary}
               </p>
-              <p className="mt-block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+              <p className="mt-block font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
                 {featured.date} <span aria-hidden="true"> · </span> {featured.readTime}
               </p>
             </div>

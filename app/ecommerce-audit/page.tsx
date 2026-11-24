@@ -104,7 +104,7 @@ export default function EcommerceAudit() {
             </p>
           </Rise>
           <Rise delay={0.12} className="mt-block border-t border-line pt-7">
-            <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+            <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Usually commissioned when
             </p>
             <ul className="m-0 mt-4 flex list-none flex-col gap-2 p-0">

@@ -66,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function Services() {
   return (
@@ -118,7 +118,7 @@ export default function Services() {
             {SERVICE_PAGES.map((sp, i) => (
               <Rise key={sp.slug} as="li" delay={Math.min(i, 6) * 0.04} className="bg-[var(--bg)]">
                 <Link href={servicePageHref(sp.slug)} className="group flex h-full flex-col p-card">
-                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     {sp.eyebrow}
                   </span>
                   <h3 className="m-0 mt-item max-w-[22ch] font-manrope text-[clamp(19px,2vw,25px)] font-semibold leading-[1.2] tracking-[-0.02em] transition-colors duration-200 group-hover:text-accent-bright">
@@ -151,7 +151,7 @@ export default function Services() {
                 >
                   <p
                     aria-hidden="true"
-                    className="m-0 font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {g.num}
                   </p>

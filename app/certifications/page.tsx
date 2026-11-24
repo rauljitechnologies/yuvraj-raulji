@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 const hasArtwork = certImageAvailable();
 
@@ -92,7 +92,7 @@ export default function Certifications() {
                       aria-hidden="true"
                       className="block h-px w-full bg-accent/40 animate-yr-sweep origin-left"
                     />
-                    <p className="m-0 mt-item font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
+                    <p className="m-0 mt-item font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
                       {f.completed}
                     </p>
                     <p className="m-0 mt-tight font-manrope text-[14px] font-light leading-[1.6] text-ink/45">
@@ -180,11 +180,11 @@ export default function Certifications() {
                       c.name
                     )}
                   </p>
-                  <p className="m-0 mt-1.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.16em] text-ink/45">
+                  <p className="m-0 mt-1.5 font-mono text-eyebrow uppercase leading-[1.5] tracking-[0.16em] text-ink/45">
                     {c.issuer}
                   </p>
                 </div>
-                <p className="m-0 font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-accent-bright sm:text-right">
+                <p className="m-0 font-mono text-eyebrow uppercase leading-none tracking-[0.16em] text-accent-bright sm:text-right">
                   {c.date || 'Date not recorded'}
                 </p>
               </Rise>

@@ -107,21 +107,21 @@ export function ProofStrip() {
           each={0.06}
         >
           {STATS.map((stat) => (
-            <RvItem key={stat.label} className="max-md:last:col-span-2">
-              {/* The figure links to the page that evidences it where there
-                  is one, which is four of the five. A number a reader cannot
-                  check is a number they discount. */}
-              {stat.href ? (
-                <Link
-                  href={stat.href}
-                  className="group block transition-colors duration-200"
-                  aria-label={`${stat.value} ${stat.label}`}
-                >
-                  <StatBody stat={stat} linked />
-                </Link>
-              ) : (
-                <StatBody stat={stat} />
-              )}
+            /*
+              `RvItem` renders a <div>, which is the only wrapper a <dl> may
+              carry around a dt/dd group. The link is INSIDE the <dd> and
+              stretched over the tile with `absolute inset-0`, rather than
+              wrapping the pair.
+
+              That is not a style preference. An <a> between the <dl> and its
+              dt/dd is invalid: Lighthouse failed both `definition-list` and
+              `dlitem` on this one element, which was the whole of the
+              homepage's accessibility gap (93 against a 95 target). Moving the
+              <a> inside the <dd> and stretching it keeps the figure, the
+              label, the semantics and the full-tile hit area all at once.
+            */
+            <RvItem key={stat.label} className="group relative max-md:last:col-span-2">
+              <StatBody stat={stat} />
             </RvItem>
           ))}
         </RvGroup>
@@ -130,22 +130,27 @@ export function ProofStrip() {
   );
 }
 
-function StatBody({
-  stat,
-  linked = false,
-}: {
-  stat: (typeof STATS)[number];
-  linked?: boolean;
-}) {
+function StatBody({ stat }: { stat: (typeof STATS)[number] }) {
   return (
     <>
       <dt className="font-mono text-eyebrow font-medium uppercase text-ink-muted">{stat.label}</dt>
       <dd
         className={`m-0 mt-2 font-heading text-h1 font-extrabold leading-none text-ink transition-colors duration-200 ${
-          linked ? 'group-hover:text-accent-bright' : ''
+          stat.href ? 'group-hover:text-accent-bright' : ''
         }`}
       >
         {stat.value}
+        {/* The figure links to the page that evidences it where there is one,
+            which is four of the five. A number a reader cannot check is a
+            number they discount. Stretched over the whole tile, so the target
+            is the tile and not the glyphs. */}
+        {stat.href ? (
+          <Link
+            href={stat.href}
+            className="absolute inset-0"
+            aria-label={`${stat.value} ${stat.label}`}
+          />
+        ) : null}
       </dd>
     </>
   );

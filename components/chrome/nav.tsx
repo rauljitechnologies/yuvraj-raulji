@@ -50,7 +50,9 @@ import { Wordmark } from '../wordmark';
  *
  * At the top of the page the bar is transparent, so the hero reads to the top
  * edge of the viewport. After 8px of scroll it takes a translucent ground, a
- * 14px backdrop blur and a hairline. 8px rather than a viewport fraction
+ * 14px backdrop blur and a hairline. That hairline is an INSET shadow, not a
+ * `border-b`: a border would make the bar 73px against a 72px cap. 8px rather
+ * than a viewport fraction
  * because the state is about "has the page moved at all", and anything larger
  * leaves the bar transparent over content it is sitting on top of.
  *
@@ -188,10 +190,10 @@ export function SiteNav({ active }: { active?: string }) {
       </a>
 
       <header
-        className={`sticky top-0 z-header transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        className={`sticky top-0 z-header transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
           scrolled
-            ? 'border-b border-line bg-ground/80 backdrop-blur-[14px]'
-            : 'border-b border-transparent bg-transparent'
+            ? 'bg-ground/80 shadow-header-rule backdrop-blur-[14px]'
+            : 'bg-transparent shadow-none'
         }`}
       >
         <div className="mx-auto flex h-header w-full max-w-shell items-center gap-6 px-gutter">

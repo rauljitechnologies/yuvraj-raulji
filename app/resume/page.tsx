@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 /* Resolved once at build time, in a server component, and threaded into both
    the schema and the markup so the two can never disagree about whether the
@@ -85,7 +85,7 @@ export default function Resume() {
               href={RESUME.href}
               download={RESUME.filename}
               data-event="resume_download"
-              className="yr-btn inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-[.7rem] font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright motion-reduce:hover:translate-y-0"
+              className="yr-btn inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-small font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright motion-reduce:hover:translate-y-0"
             >
               Download Resume
             </a>
@@ -123,7 +123,7 @@ export default function Resume() {
                     aria-hidden="true"
                     className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
                   />
-                  <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
+                  <span className="font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
                     {RESUME.availability}
                   </span>
                 </p>
@@ -144,7 +144,7 @@ export default function Resume() {
               <dl className="m-0 mt-tight border-t border-line">
                 {RESUME.contact.map((c) => (
                   <div key={c.label} className="flex flex-wrap items-baseline gap-x-4 border-b border-line py-3.5">
-                    <dt className="font-mono text-[10px] font-medium uppercase leading-[1.5] tracking-[0.18em] text-ink/45">
+                    <dt className="font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.18em] text-ink/45">
                       {c.label}
                     </dt>
                     <dd className="m-0 ml-auto font-manrope text-[15px] font-light leading-[1.4] text-ink/75">
@@ -184,16 +184,16 @@ export default function Resume() {
                   className="grid gap-x-10 gap-y-2 md:grid-cols-[180px_minmax(0,1fr)]"
                 >
                   <div className="md:pt-7">
-                    <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.16em] text-accent-bright">
+                    <p className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.16em] text-accent-bright">
                       {r.period}
                     </p>
                     {r.current ? (
-                      <p className="m-0 mt-2.5 font-mono text-[10px] uppercase leading-none tracking-[0.18em] text-ink/45">
+                      <p className="m-0 mt-2.5 font-mono text-eyebrow uppercase leading-none tracking-[0.18em] text-ink/45">
                         Current
                       </p>
                     ) : null}
                     {r.location ? (
-                      <p className="m-0 mt-2.5 font-mono text-[11px] uppercase leading-[1.5] tracking-[0.14em] text-ink/45">
+                      <p className="m-0 mt-2.5 font-mono text-eyebrow uppercase leading-[1.5] tracking-[0.14em] text-ink/45">
                         {r.location}
                       </p>
                     ) : null}
@@ -266,7 +266,7 @@ export default function Resume() {
                     key={g.group}
                     className="grid gap-x-8 gap-y-3 border-b border-line py-6 sm:grid-cols-[11rem_1fr]"
                   >
-                    <dt className="m-0 font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.16em] text-ink/55">
+                    <dt className="m-0 font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.16em] text-ink/55">
                       {g.group}
                     </dt>
                     <dd className="m-0">
@@ -291,7 +291,7 @@ export default function Resume() {
                     <dt className="m-0 font-manrope text-[16px] font-light leading-[1.5] text-ink/75">
                       {e.qualification}
                     </dt>
-                    <dd className="m-0 mt-1.5 font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-ink/45">
+                    <dd className="m-0 mt-1.5 font-mono text-eyebrow uppercase leading-none tracking-[0.16em] text-ink/45">
                       {e.period}
                     </dd>
                   </div>
@@ -320,7 +320,7 @@ export default function Resume() {
                         c.name
                       )}
                     </dt>
-                    <dd className="m-0 mt-1.5 font-mono text-[11px] uppercase leading-none tracking-[0.16em] text-ink/45">
+                    <dd className="m-0 mt-1.5 font-mono text-eyebrow uppercase leading-none tracking-[0.16em] text-ink/45">
                       {c.issuer}
                       {c.date ? ` | ${c.date}` : ''}
                     </dd>

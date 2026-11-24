@@ -84,7 +84,7 @@ export function SectionLabel({
     <div className={`flex items-center gap-3 ${className}`}>
       <span aria-hidden="true" className="h-px w-5 shrink-0 bg-accent" />
       <span
-        className={`font-mono text-[11px] font-medium uppercase leading-none tracking-[0.3em] ${
+        className={`font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.3em] ${
           tone === 'light' ? 'text-ground/55' : 'text-ink/55'
         }`}
       >
@@ -146,7 +146,7 @@ export function Monogram({
 export function Tag({ children, tone = 'dark' }: { children: ReactNode; tone?: 'dark' | 'light' }) {
   return (
     <span
-      className={`font-mono text-[11px] font-medium uppercase leading-none tracking-[0.12em] px-3.5 py-2.5 border ${
+      className={`font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.12em] px-3.5 py-2.5 border ${
         tone === 'light' ? 'border-ground/20 text-ground/80' : 'border-ink/15 text-ink/60'
       }`}
     >
@@ -182,7 +182,7 @@ export function RuleLink({
   return (
     <InternalOrExternal
       href={href}
-      className={`relative inline-flex items-center gap-2.5 font-manrope text-[11px] font-bold uppercase leading-none tracking-[0.2em] pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent hover:text-accent-bright ${
+      className={`relative inline-flex items-center gap-2.5 font-manrope text-small font-bold uppercase leading-none tracking-[0.2em] pb-2.5 pt-2.5 transition-colors duration-200 hover:border-accent hover:text-accent-bright ${
         tone === 'light'
           ? 'border-b border-ground/30 text-ground/70'
           : 'border-b border-ink/30 text-ink/70'
@@ -273,43 +273,9 @@ export function StatusPill({ children }: { children: ReactNode }) {
         aria-hidden="true"
         className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
       />
-      <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-ink/70 whitespace-nowrap">
+      <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.18em] text-ink/70 whitespace-nowrap">
         {children}
       </span>
-    </div>
-  );
-}
-
-/**
- * The infinite capability ticker under the hero.
- *
- * The list is rendered twice inside a `w-max` flex track and the keyframe
- * travels exactly -50%, so the second copy lands where the first started and
- * the loop has no visible seam. The whole thing is `aria-hidden`: it is the
- * same set of terms the Expertise section lists as real text, and a screen
- * reader should not have to sit through it twice.
- */
-export function Marquee({ items }: { items: readonly string[] }) {
-  const row = (
-    <div className="flex gap-12 font-mono text-xs font-medium uppercase leading-none tracking-[0.22em] text-ink/55">
-      {items.map((item) => (
-        <span key={item} className="flex items-center gap-12 whitespace-nowrap">
-          {item}
-          <span className="text-accent">·</span>
-        </span>
-      ))}
-    </div>
-  );
-
-  return (
-    <div
-      aria-hidden="true"
-      className="relative mt-grid overflow-hidden border-y border-ink/10 py-5"
-    >
-      <div className="flex w-max gap-12 animate-yr-marquee">
-        {row}
-        {row}
-      </div>
     </div>
   );
 }

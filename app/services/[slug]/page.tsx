@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default async function ServiceDetail({ params }: Props) {
   const { slug } = await params;
@@ -284,7 +284,7 @@ export default async function ServiceDetail({ params }: Props) {
               >
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright md:pt-2"
+                  className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright md:pt-2"
                 >
                   {step.num}
                 </span>
@@ -315,7 +315,7 @@ export default async function ServiceDetail({ params }: Props) {
               {cases.map((w, i) => (
                 <Rise key={w.id} as="li" delay={Math.min(i, 3) * 0.05} className="bg-[var(--bg)]">
                   <Link href={w.href} className="group flex h-full flex-col p-card">
-                    <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/45">
+                    <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/45">
                       {w.category}
                     </span>
                     <h3 className="m-0 mt-item font-manrope text-[clamp(18px,1.9vw,24px)] font-semibold leading-[1.2] tracking-[-0.02em] transition-colors duration-200 group-hover:text-accent-bright">
