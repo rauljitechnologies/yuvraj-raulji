@@ -13,7 +13,7 @@
  */
 
 import { CAREER_STATS } from './career';
-import { AVAILABILITY, HEADLINE, INTRO_LONG, POSITIONING_LINE, SPECIALTIES } from './identity';
+import { AVAILABILITY, HEADLINE, INTRO_LONG, POSITIONING_LINE } from './identity';
 import { CONTACT as SITE_CONTACT } from './site';
 
 /** Portrait used by a section. Kept here so swapping a file is a one-line edit. */
@@ -163,13 +163,6 @@ export const HERO = {
    * position itself changes.
    */
   availability: AVAILABILITY,
-
-  /**
-   * The specialty marquee. `SPECIALTIES` from lib/identity.ts rather than a
-   * second list here, so the hero, /remote-collaboration/ and the Person node's
-   * `knowsAbout` cannot drift.
-   */
-  marquee: SPECIALTIES,
 } as const;
 
 export type Stat = { value: string; label: string; href?: string; note?: string };
@@ -389,6 +382,30 @@ export type QaBlock = { no: string; q: string; a: string };
  * page is a structured-data violation, so the two can never be allowed to
  * drift apart.
  */
+/**
+ * How many of `FAQS` the homepage shows.
+ *
+ * ── Why this is a constant and not a literal 6 ────────────────────────────
+ *
+ * Three things have to agree about it and two of them are not in the same
+ * file:
+ *
+ *   `FaqContact` in components/homepage-sections/sections.tsx renders
+ *   `FAQS.slice(0, HOME_FAQ_COUNT)`.
+ *
+ *   `brandHomeSchema()` in lib/schema-brand.ts emits
+ *   `faqNode('/', FAQS.slice(0, HOME_FAQ_COUNT))`.
+ *
+ *   `/faq/` renders and emits `FAQS.slice(HOME_FAQ_COUNT)`.
+ *
+ * FAQPage markup describing questions that are not visible on the page it is
+ * attached to is a structured-data violation, and the two slices have to
+ * partition the array exactly or a question is either claimed by two pages
+ * or by none. One constant is what makes all three move together; the array
+ * itself, all fourteen questions, is untouched.
+ */
+export const HOME_FAQ_COUNT = 6;
+
 export const FAQS: readonly QaBlock[] = [
   {
     no: '01',

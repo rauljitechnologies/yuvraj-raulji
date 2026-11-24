@@ -44,7 +44,7 @@ const accentLastLine = (lines: readonly string[]): readonly DisplayLine[] =>
   lines.map((text, i) => (i === lines.length - 1 ? { text, accent: true } : text));
 
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/55';
 

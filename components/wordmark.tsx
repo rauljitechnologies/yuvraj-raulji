@@ -32,11 +32,22 @@ export function Wordmark({
    * much; it brings the requirement under 340px.
    */
   const initials =
-    size === 'sm' ? 'text-[13px] sm:text-[15px]' : 'text-[15px] sm:text-[17px]';
+    size === 'sm' ? 'text-small sm:text-[15px]' : 'text-[15px] sm:text-[17px]';
+  /*
+   * Both ends sit on the type scale now. They were .68rem/11px rising to
+   * .78rem/13px, which is 10.88px and 11px at the small end: below the 14px
+   * floor and below even the 12px the eyebrow is specified at, on a lockup
+   * that renders in the header and the footer of all 94 pages.
+   *
+   * `text-eyebrow` is 12px, the floor the brief sets for mono/tracked labels,
+   * and `text-small` is 14px. The tracking still steps up at `sm` for the
+   * reason described above: it is most of the lockup's width, so giving it
+   * back is what keeps the header lockup plus the CTA inside a 360px phone.
+   */
   const name =
     size === 'sm'
-      ? 'text-[.68rem] tracking-[.12em] sm:text-[.78rem] sm:tracking-[.2em]'
-      : 'text-[11px] tracking-[.12em] sm:text-[13px] sm:tracking-[.2em]';
+      ? 'text-eyebrow tracking-[.12em] sm:tracking-[.2em]'
+      : 'text-eyebrow tracking-[.12em] sm:text-small sm:tracking-[.2em]';
 
   return (
     <span className="inline-flex items-center gap-2 sm:gap-2.5">

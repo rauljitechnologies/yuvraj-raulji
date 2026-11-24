@@ -69,7 +69,7 @@ const accentLastLine = (lines: readonly string[]): readonly DisplayLine[] =>
   lines.map((text, i) => (i === lines.length - 1 ? { text, accent: true } : text));
 
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/55';
 
@@ -194,7 +194,7 @@ export default function Hire() {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {m.num}
                   </span>
@@ -247,7 +247,7 @@ export default function Hire() {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {step.num}
                   </span>
@@ -330,7 +330,7 @@ export default function Hire() {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>

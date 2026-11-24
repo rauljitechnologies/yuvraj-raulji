@@ -2,12 +2,12 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { Crumb } from '../../lib/schema';
 import { JsonLd } from '../json-ld';
-import { ContactModal } from '../contact-modal';
+import { ContactModalLazy } from '../contact-modal-lazy';
 import { Lines, type DisplayLine } from '../homepage/motion';
 import { Eager, NO_SCRIPT_REVEAL_CSS } from '../homepage-sections/rv';
 import { Shell } from '../homepage/primitives';
 import { SiteFooter } from './footer';
-import { MobileCta } from './mobile-cta';
+import { WhatsAppFloat } from './whatsapp-float';
 import { SiteNav } from './nav';
 
 /**
@@ -71,9 +71,9 @@ export function Page({
           {children}
         </main>
         <SiteFooter />
-        <MobileCta />
+        <WhatsAppFloat />
       </div>
-      <ContactModal />
+      <ContactModalLazy />
     </>
   );
 }
@@ -98,7 +98,7 @@ export function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
           return (
             <li key={c.href} className="flex items-center gap-2">
               {i > 0 ? (
-                <span aria-hidden="true" className="text-[.6rem] text-ink-faint">
+                <span aria-hidden="true" className="text-small text-ink-faint">
                   /
                 </span>
               ) : null}
@@ -197,7 +197,7 @@ export function PageHero({
         {eyebrow ? (
           <Eager as="div" className="mb-item flex items-center gap-3.5">
             <span aria-hidden="true" className="h-px w-11 bg-accent" />
-            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
+            <span className="font-mono text-eyebrow font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
               {eyebrow}
             </span>
           </Eager>

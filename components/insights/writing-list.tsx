@@ -39,7 +39,7 @@ import { articleSrcSet } from '../../lib/images';
  */
 
 const meta =
-  'font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint';
+  'font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint';
 
 export function WritingList() {
   const [active, setActive] = useState('all');
@@ -132,15 +132,15 @@ export function WritingList() {
                   />
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .25)_0%,rgb(var(--bg-rgb) / .82)_100%)]"
                   />
                   <span
                     aria-hidden="true"
-                    className="absolute right-6 top-6 font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-ink/60"
+                    className="absolute right-6 top-6 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-ink/60"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="relative font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  <span className="relative font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     {w.category}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ export function WritingList() {
                     </Link>
                   </h3>
 
-                  <p className="mt-4 flex-1 font-manrope text-base font-light leading-[1.65] text-ink/55">
+                  <p className="mt-4 flex-1 font-body text-body text-ink-muted">
                     {w.summary}
                   </p>
 

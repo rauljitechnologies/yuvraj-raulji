@@ -88,7 +88,7 @@ export async function generateMetadata({
 
 /* One mono label, used by every eyebrow inside a section below. */
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint';
 
 /* One body size, so eight sections cannot drift into eight body sizes. */
 const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/50';
@@ -199,7 +199,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -274,7 +274,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-xs font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium text-accent-bright"
                   >
                     {step.num}
                   </span>
@@ -448,7 +448,7 @@ export default async function PillarPage({ params }: { params: Promise<{ slug: s
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>

@@ -8,6 +8,7 @@ import {
   Process,
 } from '../../components/brand/about-sections';
 import { Page, PageHero } from '../../components/chrome/page';
+import { Certification, TechnologyPosition, WhyWorkWithMe } from '../../components/relocated';
 import { ABOUT_HERO } from '../../lib/about';
 import { ABOUT_DESCRIPTION, brandAboutSchema } from '../../lib/schema-brand';
 import type { Crumb } from '../../lib/schema';
@@ -60,9 +61,16 @@ export const metadata: Metadata = {
 /**
  * About.
  *
- * Six sections: the short version, the journey, the beliefs, the current
- * focus, the method, and the human bit. In that order, because a reader who
- * stops after two has still got the two that matter most.
+ * Nine sections: the short version, the journey, the beliefs, the method, the
+ * current focus, the position, the reasons behind it, the credential, and the
+ * human bit. In that order, because a reader who stops after two has still
+ * got the two that matter most.
+ *
+ * The position, the nine reasons and the certification arrived in redesign
+ * v2, off the homepage. Nothing was rewritten: `WHY_WORK_WITH_ME` and
+ * `CERTS.feature` are the same data the homepage read, and the position is
+ * the same belief that used to be a solid-red band in the middle of the
+ * homepage's nineteen sections.
  *
  * This is the page that should define the entity for search engines and answer
  * engines, so its ProfilePage graph carries the full Person node including
@@ -93,6 +101,19 @@ export default function About() {
       <Beliefs />
       <Process />
       <Focus />
+      {/*
+        Three sections relocated from the homepage in redesign v2. See the map
+        in components/relocated.tsx and app/page.tsx.
+
+        They sit after `Focus` and before `Personal` deliberately: Focus says
+        what the work is currently pointed at, so the position and the reasons
+        behind it follow from it, and the certification is the evidence for
+        the AI half of that position. `Personal` stays last, because the human
+        bit is the right thing to close a page about a person on.
+      */}
+      <TechnologyPosition />
+      <WhyWorkWithMe />
+      <Certification />
       <Personal />
     </Page>
   );

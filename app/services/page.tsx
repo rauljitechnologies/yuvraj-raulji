@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Page, PageHero } from '../../components/chrome/page';
+import { CapabilityAreas } from '../../components/relocated';
 import { ContactButton } from '../../components/homepage/contact-button';
 import { Lines, Rise } from '../../components/homepage/motion';
 import { Btn, Marker, Section, Shell, Tag } from '../../components/homepage/primitives';
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function Services() {
   return (
@@ -117,7 +118,7 @@ export default function Services() {
             {SERVICE_PAGES.map((sp, i) => (
               <Rise key={sp.slug} as="li" delay={Math.min(i, 6) * 0.04} className="bg-[var(--bg)]">
                 <Link href={servicePageHref(sp.slug)} className="group flex h-full flex-col p-card">
-                  <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                  <span className="font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                     {sp.eyebrow}
                   </span>
                   <h3 className="m-0 mt-item max-w-[22ch] font-manrope text-[clamp(19px,2vw,25px)] font-semibold leading-[1.2] tracking-[-0.02em] transition-colors duration-200 group-hover:text-accent-bright">
@@ -150,7 +151,7 @@ export default function Services() {
                 >
                   <p
                     aria-hidden="true"
-                    className="m-0 font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {g.num}
                   </p>
@@ -257,6 +258,22 @@ export default function Services() {
       </Section>
 
       {/* ── 05 Engagement ────────────────────────────────────────── */}
+      {/*
+        The four capability areas, relocated from the homepage in redesign v2.
+
+        The brief sends the homepage's "full services list" here, and this page
+        already carries it twice over: `#service-pages` is the seventeen service
+        pages and `#index` is the full platform-by-platform index. What it did
+        not have is the layer above those, which is what the homepage's
+        Capabilities section was: four areas, each with the sentence saying what
+        it is for in the client's terms and the six or seven named capabilities
+        inside it.
+
+        It sits above `#engagement` because "what are the areas" precedes "how
+        is it bought". See components/relocated.tsx for the full move map.
+      */}
+      <CapabilityAreas />
+
       <Section id="engagement" labelledBy="engagement-title">
         <Shell>
           <div className="grid gap-x-12 gap-y-item lg:grid-cols-[1fr_1.4fr]">

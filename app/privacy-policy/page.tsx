@@ -69,7 +69,7 @@ export default function PrivacyPolicy() {
             Privacy policy clauses
           </h2>
           <Rise>
-            <p className="m-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
+            <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55">
               Last updated {PRIVACY.updated}
             </p>
           </Rise>

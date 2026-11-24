@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#050505"/>
-  <circle cx="32" cy="32" r="25" fill="none" stroke="#d71920" stroke-width="2.5" opacity=".85"/>
-  <text x="32" y="40.5" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="900" fill="#ee2a34" text-anchor="middle" letter-spacing="1">YR</text>
+  <!-- Redesign v2 palette. A static SVG cannot read a custom property, so the
+       three values are literal; they are #0A0A0A (--near-black), #C8102E
+       (--primary) and #F0485A (--primary-bright) and must be kept in step with
+       app/globals.css by hand. -->
+  <rect width="64" height="64" rx="8" fill="#0A0A0A"/>
+  <circle cx="32" cy="32" r="25" fill="none" stroke="#C8102E" stroke-width="2.5" opacity=".85"/>
+  <text x="32" y="40.5" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="900" fill="#F0485A" text-anchor="middle" letter-spacing="1">YR</text>
 </svg>

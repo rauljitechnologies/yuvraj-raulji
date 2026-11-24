@@ -134,7 +134,7 @@ export function Journey() {
                 delay={Math.min(i, 5) * 0.05}
                 className="grid gap-x-8 gap-y-2 md:grid-cols-[150px_minmax(0,1fr)] lg:gap-x-10 lg:grid-cols-[190px_minmax(0,1fr)]"
               >
-                <p className="m-0 font-mono text-[13px] font-medium leading-none tracking-[0.18em] text-accent-bright md:pt-8 lg:pt-9">
+                <p className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.18em] text-accent-bright md:pt-8 lg:pt-9">
                   {era.year}
                 </p>
 
@@ -201,7 +201,7 @@ export function Beliefs() {
               >
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                  className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                 >
                   {b.num}
                 </span>
@@ -241,7 +241,7 @@ export function Focus() {
           <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
             {FOCUS.map((f) => (
               <li key={f}>
-                <span className="inline-flex items-center border border-line px-4 py-3 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.16em] text-ink/60 transition-colors duration-300 hover:border-accent hover:text-ink">
+                <span className="inline-flex items-center border border-line px-4 py-3 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.16em] text-ink/60 transition-colors duration-300 hover:border-accent hover:text-ink">
                   {f}
                 </span>
               </li>
@@ -284,7 +284,7 @@ export function Process() {
               >
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent"
+                  className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent"
                 >
                   {step.num}
                 </span>

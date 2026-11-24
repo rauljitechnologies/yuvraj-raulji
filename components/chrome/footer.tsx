@@ -54,7 +54,13 @@ const EXPLORE = [
   { href: '/expertise/', label: 'Expertise' },
   { href: '/experience/', label: 'Experience' },
   { href: '/insights/', label: `Insights (${POST_COUNT} articles)` },
-  { href: '/#ai', label: 'AI' },
+  /*
+     `/#ai` stood here, an anchor to a homepage section. That section moved to
+     /ai/ in redesign v2, so the anchor pointed at a fragment that no longer
+     exists on the page it named: a link that scrolls nowhere, on all 94
+     pages. It is the real route now.
+  */
+  { href: '/ai/', label: 'AI & automation' },
   /* /hire/ sits above Contact deliberately: it answers the question a reader
      has just before they get in touch, and it is the page that disqualifies a
      wrong-fit enquiry before it becomes a call. It ships in the footer rather
@@ -70,6 +76,14 @@ const EXPLORE = [
      why it sits in Explore rather than under Platforms, and above Contact
      because Contact is where this column ends. */
   { href: '/agencies/', label: 'For agencies' },
+  /*
+     New in redesign v2, both of them. The homepage carried fourteen FAQs and
+     all seven engagement models; it carries six and none, and these are where
+     the rest went. A relocated section needs a link on every page or it is a
+     page nobody reaches, which is the whole condition on moving content off a
+     homepage rather than deleting it.
+  */
+  { href: '/faq/', label: 'FAQ' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
 
@@ -94,11 +108,16 @@ const EXPLORE = [
  *
  * WhatsApp is in it because section 14 asks for that action to be easy to
  * find on desktop and on mobile, and the footer is the one component on every
- * page. The header carries it too; see components/chrome/whatsapp-action.tsx.
+ * page. The floating button carries it too, on every route; see
+ * components/chrome/whatsapp-float.tsx.
  */
 const ENGAGE = [
   { href: '/hire/', label: 'Hire me' },
   { href: '/pricing/', label: 'Pricing & engagement' },
+  /* /how-we-work/ before /remote-collaboration/: the first answers "how would
+     I buy this" and the second answers "does a remote arrangement work at
+     all", and a reader in this column is past the second question. */
+  { href: '/how-we-work/', label: 'How we work' },
   { href: '/remote-collaboration/', label: 'Remote collaboration' },
   { href: CONTACT.whatsapp, label: 'WhatsApp' },
   { href: '/resume/', label: 'Resume' },
@@ -132,7 +151,7 @@ const linkCls =
   'py-1.5 font-manrope text-[15px] leading-[1.3] text-ink/70 transition-colors duration-200 hover:text-accent-bright';
 
 const headingCls =
-  'mb-2 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/55';
+  'mb-2 font-mono text-eyebrow font-medium uppercase text-ink/55';
 
 /**
  * A labelled group of footer links.
@@ -211,7 +230,7 @@ export function SiteFooter() {
             <div>
               <div className="mb-block flex items-center gap-3.5">
                 <span aria-hidden="true" className="h-px w-11 bg-accent" />
-                <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.24em] text-ink/50">
+                <span className="font-mono text-eyebrow font-medium uppercase text-ink/50">
                   Next step
                 </span>
               </div>
@@ -278,7 +297,7 @@ export function SiteFooter() {
                   aria-hidden="true"
                   className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
                 />
-                <span className="font-mono text-[10px] font-medium uppercase leading-none tracking-[0.18em] text-ink/60">
+                <span className="font-mono text-eyebrow font-medium uppercase text-ink/60">
                   Replies within 24 hours, IST business days
                 </span>
               </p>
@@ -333,7 +352,7 @@ export function SiteFooter() {
               per page, on every page. It is read from the same constant the
               schema uses, so the two cannot drift again.
             */}
-            <p className="mb-6 font-mono text-[10px] uppercase leading-[1.6] tracking-[0.16em] text-ink/55">
+            <p className="mb-6 font-mono text-eyebrow uppercase text-ink/55">
               {FOOTER_TAGLINE}
             </p>
 
@@ -426,7 +445,7 @@ export function SiteFooter() {
                   aria-label={social.label}
                   rel="me noopener noreferrer"
                   target="_blank"
-                  className="border border-ink/40 px-3 py-2.5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.14em] text-ink/80 transition-colors duration-200 hover:border-accent hover:text-ink"
+                  className="border border-ink/40 px-3 py-2.5 font-mono text-eyebrow font-medium uppercase text-ink/80 transition-colors duration-200 hover:border-accent hover:text-ink"
                 >
                   {social.short}
                   <span className="sr-only"> (opens in a new tab)</span>
@@ -450,7 +469,7 @@ export function SiteFooter() {
           for the page it points at, so the bar now carries the entity line
           instead: the one thing worth repeating on every page.
         */}
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-xs leading-[1.6] text-ink/55 sm:py-8">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-7 font-mono text-small text-ink-muted sm:py-8">
           <span>© {new Date().getFullYear()} {NAME}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="text-ink-muted">{FOOTER_TAGLINE}</span>

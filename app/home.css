@@ -24,30 +24,21 @@
    read from further away.
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Anchor offset ─────────────────────────────────────────────
-   The header is position: fixed, so without an offset every in-page jump
-   ("Explore my work", "Where I would start", the footer's contact link)
-   landed with the target section's first bar-height hidden underneath it.
-   The section marker, which is the first thing in every section, was the
-   part being eaten.
+/* ── Anchor offset ────────────────────────────────────────────
+   NOT DECLARED HERE ANY MORE.
 
-   scroll-padding-top has to sit on the scrolling element, so it is
-   declared on :root. It is site-wide because the header is: one bar, one
-   height, one offset for every anchor on every page. */
+   This file used to set `scroll-padding-top` on `:root` as
+   `calc(102px + var(--sp-block))`, and app/globals.css set `112px` on
+   `html`, and components/homepage-sections/hero.tsx set `pt-[128px]`. Three
+   numbers for one bar, and because this file is imported second its value
+   was the one that won, so the two that were maintained were the two that
+   did nothing.
 
-:root {
-  /* The bar is 68px with a 34px link row under it, and 78px alone from `md`.
-     Not scoped to `.yr-page` any more: the same header ships on every route,
-     including the homepage and the article pages, and an in-page anchor landed
-     under the bar on all of them. */
-  scroll-padding-top: calc(102px + var(--sp-block));
-}
-
-@media (min-width: 768px) {
-  :root {
-    scroll-padding-top: calc(78px + var(--sp-block));
-  }
-}
+   There is one declaration now, in app/globals.css, reading
+   `calc(var(--header-h) + var(--space-4))`. The header is 72px at every
+   width, so the offset is 88px at every width. Change the bar's height in
+   one place and the anchor offset, the hero's top padding and the article
+   aside's sticky top all follow it. */
 
 /* The token scope.
    Split out of `.yr-page` so the site chrome can carry it too. The navigation
@@ -60,73 +51,64 @@
 
 .yr-scope,
 .yr-page {
-  /* Display scale. Every clamp is viewport-width based, so the jump from
-     phone to 1440 is continuous and there is no breakpoint where a
-     headline suddenly reflows to an extra line.
+  /* ── The display scale, now derived ──────────────────────────
+     Nine clamps stood here, hand-tuned first for Bebas Neue, then retuned
+     for Space Grotesk, then duplicated into a `-serif` set when Newsreader
+     arrived. That is three generations of measurements for faces the site no
+     longer loads, and they disagreed with the homepage's own hand-set clamps
+     by up to 26px at 1440.
 
-     Retuned for Space Grotesk. The previous values were drawn around Bebas
-     Neue, which is condensed: it sets roughly a quarter more characters per
-     line at the same size, so a clamp tuned for it overflows here. Each
-     ceiling below is the size at which the longest authored line in the
-     content model still fits the column it is set in, measured rather than
-     guessed. */
-  /* ── The display scale ───────────────────────────────────────
-     Raised on the preferred and maximum terms only. Every minimum is
-     unchanged on purpose: the minimum is what applies on a 360px screen, the
-     hero sets four authored lines there, and 2.6rem was already tuned to the
-     longest of them. Growing the floor to match the ceiling is how a headline
-     starts wrapping to five lines on the one device that can least afford it.
+     Redesign v2 has one type scale, in app/globals.css, and these are
+     aliases onto it. So `.yr-display--1` and a `text-h1` utility are the
+     same size by construction rather than by coincidence, and the `-serif`
+     variants resolve to the same value as their base because there is no
+     second display face to compensate for.
 
-     So this is a desktop and tablet change, and the clamp maths says exactly
-     how much. At 360px the minimum governs both before and after, so the hero
-     display stays 41.6px and nothing moves. At 768px it goes from 49px to
-     55px. At 1440px, where the old ceiling was already capping it, from 90px
-     to 102px, and --hd-2 from 56px to 62px. */
-  --hd-1: clamp(2.6rem, 7.1vw, 6.5rem); /* Hero H1, four short authored lines */
-  --hd-statement: clamp(2.3rem, 6.9vw, 6.2rem); /* A section that is one sentence */
-  --hd-2: clamp(1.9rem, 4.6vw, 3.9rem);
-  --hd-3: clamp(1.15rem, 1.9vw, 1.65rem);
+       --hd-1, --hd-statement   the h1 size, 64/40
+       --hd-2                   the h2 size, 44/32
+       --hd-3                   the h3 size, 24/20
 
-  /* Display sizes when the serif is carrying them. Newsreader sets optically
-     smaller than Manrope at the same value, so each is raised roughly one
-     step. The mobile minimums are raised least: a serif at 2.6rem on a 360px
-     screen is already at the edge of a four-line authored headline. */
-  --hd-1-serif: clamp(2.75rem, 7.6vw, 7rem);
-  --hd-statement-serif: clamp(2.45rem, 7.4vw, 6.75rem);
-  --hd-2-serif: clamp(2rem, 5vw, 4.2rem);
-  --hd-year: clamp(2rem, 4.4vw, 3.6rem);
-  --hd-quote: clamp(1.35rem, 2.4vw, 2.1rem);
+     --hd-year and --hd-quote keep their own sizes: a four-digit year set as
+     a graphic element and a pull quote are display objects rather than
+     headings, and neither is an h1/h2/h3 anywhere in the markup. Both are
+     expressed against the scale so they move with it. */
+  --hd-1: var(--fs-h1);
+  --hd-statement: var(--fs-h1);
+  --hd-2: var(--fs-h2);
+  --hd-3: var(--fs-h3);
+  --hd-1-serif: var(--fs-h1);
+  --hd-statement-serif: var(--fs-h1);
+  --hd-2-serif: var(--fs-h2);
+  --hd-year: var(--fs-h2);
+  --hd-quote: var(--fs-h3);
 
-  /* The brief's one hairline, and a stronger cousin for interactive edges.
-     #202020 is a flat value rather than white-at-8%, so a rule reads the
-     same over --bg and over --surface instead of shifting between bands. */
+  /* The one hairline, and a stronger cousin for interactive edges. Both are
+     the global tokens; see the note on --border in app/globals.css for why
+     the hairline is an alpha ramp off grey-500 rather than a flat value. */
   --rule: var(--border);
   --rule-strong: var(--border-strong);
 
   /* The hover wash on a card. A token rather than a literal because the page
-     now has two grounds: on black the wash has to be white, on paper it has
-     to be black, and every consumer of it is the same declaration. */
-  --wash: rgba(255, 255, 255, 0.022);
+     has two grounds: on near-black the wash has to be off-white, on the
+     off-white band it has to be near-black, and every consumer of it is the
+     same declaration. */
+  --wash: rgb(var(--text-rgb) / 0.022);
 
-  /* The veil over an image in a .yr-frame. On black an image has to be sunk
-     into the ground or it punches a lit hole in the page; on paper the ground
-     already supplies the contrast and the same veil only makes the picture
-     muddy. Tokens rather than one opacity, so the `--live` and hover rules
-     that adjust `opacity` on the same pseudo-element keep working. */
+  /* The veil over an image in a .yr-frame. On the dark ground an image has to
+     be sunk into the page or it punches a lit hole in it; on the off-white
+     band the ground already supplies the contrast and the same veil only
+     makes the picture muddy. Tokens rather than one opacity, so the `--live`
+     and hover rules that adjust `opacity` on the same pseudo-element keep
+     working. */
   --veil-top: 0.32;
   --veil-mid: 0.06;
   --veil-foot: 0.62;
 
-  /*
-   * Section rhythm: `--pad-y` and `--pad-y-tall` are in the :root block of
-   * app/globals.css, with the sizing note. They were declared here, on this
-   * class, and `.yr-section` below resolved them because every interior page
-   * is inside `.yr-page`. The homepage is not, and its sections compile
-   * `py-pad` against the same two names, so from outside this scope the
-   * property did not exist and the padding computed to 0.
-   */
-  --shell: 1400px;
-  --gut: clamp(20px, 4.4vw, 64px);
+  /* The container, from the one layout token. This was `--shell: 1400px` and
+     `--gut: clamp(20px, 4.4vw, 64px)`, which was the third container width
+     on the site and the second gutter scale. */
+  --shell: var(--container);
+  --gut: var(--container-px);
 }
 
 /* The interior ground, and the interior face.
@@ -138,7 +120,7 @@
 .yr-page {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 /* ── Shell ───────────────────────────────────────────────────── */
@@ -186,10 +168,10 @@
   align-items: center;
   gap: 14px;
   margin-bottom: var(--sp-block);
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   line-height: 1;
   color: rgb(var(--text-rgb) / 0.55);
@@ -224,7 +206,7 @@
      is bigger but because it is optically smaller: Newsreader's cap height and
      x-height both sit below Manrope's at the same font-size, so the same
      authored line reads about one step quieter until the size compensates. */
-  font-family: var(--font-serif), 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-family: var(--font-heading);
   font-weight: 300;
   line-height: 1.06;
   letter-spacing: -0.022em;
@@ -258,7 +240,7 @@
 
 .yr-display--3 {
   /* Back to the sans on purpose. See the scoping note in app/layout.tsx. */
-  font-family: var(--font-sans), Manrope, system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--hd-3);
   font-weight: 600;
   line-height: 1.2;
@@ -311,7 +293,7 @@
 }
 
 .yr-lede {
-  font-size: clamp(17px, 1.5vw, 19px);
+  font-size: var(--fs-body);
   font-weight: 300;
   line-height: 1.65;
   color: rgb(var(--text-rgb) / 0.6);
@@ -319,7 +301,7 @@
 }
 
 .yr-note {
-  font-size: 15px;
+  font-size: var(--fs-small);
   font-weight: 300;
   line-height: 1.7;
   color: rgb(var(--text-rgb) / 0.58);
@@ -329,8 +311,8 @@
    label on the page. A monospace at 10px keeps its counters and its rhythm
    under 0.24em of tracking, which is what a text face at this size does not. */
 .yr-label {
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -370,8 +352,8 @@
   min-height: 54px;
   padding-inline: 30px;
   border: 1px solid transparent;
-  font-family: var(--font-manrope), 'Manrope', system-ui, sans-serif;
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -491,7 +473,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.72rem;
+  font-size: var(--fs-eyebrow);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -616,8 +598,8 @@
 }
 
 .yr-card__num {
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
   font-weight: 600;
   letter-spacing: 0.18em;
   color: var(--text-faint);
@@ -636,8 +618,8 @@
   height: 28px;
   padding-inline: 12px;
   border: 1px solid var(--rule);
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -744,9 +726,9 @@ a:focus-visible .yr-frame img {
     linear-gradient(200deg, rgb(var(--accent-rgb) / 0.16) 0%, rgb(var(--accent-rgb) / 0) 44%),
     linear-gradient(
       180deg,
-      rgba(5, 5, 5, var(--veil-top)) 0%,
-      rgba(5, 5, 5, var(--veil-mid)) 38%,
-      rgba(5, 5, 5, var(--veil-foot)) 100%
+      rgb(var(--bg-rgb) / var(--veil-top)) 0%,
+      rgb(var(--bg-rgb) / var(--veil-mid)) 38%,
+      rgb(var(--bg-rgb) / var(--veil-foot)) 100%
     );
   transition: opacity 0.6s var(--ease-out);
 }
@@ -891,81 +873,40 @@ a:focus-visible .yr-frame::after {
 
 /* ── Paper ───────────────────────────────────────────────────────
 
-   The page alternates black, paper, black, paper. This class is the
-   paper half, and it is the single most load-bearing rule in the file.
-
-   It was `.yr-band`, and it set `background: var(--surface)` — #0a0a0a
-   against a #050505 ground. That is a five-point step on a 255-point
-   scale: the rhythm existed in the markup and was invisible on screen,
-   so the whole site read as one continuous black. The brief is explicit
-   that it must not, and that white is what carries the editorial half of
-   the design.
+   `.yr-paper` is the off-white half of the band alternation, and it is the
+   single most load-bearing rule in the file.
 
    ── Why this is a token swap and not a set of overrides ──────────────
 
-   Nothing below restyles a component. Every `yr-` class already resolves
-   its colour from --text / --text-muted / --rule / --accent and never
-   from a literal, so redeclaring those eight custom properties on this
-   scope inverts every descendant at once: cards, markers, rules, tags,
-   the ordinals, the filter buttons and the Tailwind token utilities
-   (`text-ink`, `border-line`) alike. A section is on paper because it
-   carries this class, and for no other reason. Adding a component means
-   using the tokens; it never means writing a `.yr-paper .thing` rule,
-   and there is not one of those in this file.
+   Nothing below restyles a component. Every `yr-` class resolves its colour
+   from --text / --text-muted / --rule / --accent and never from a literal,
+   so redeclaring those token values on this scope inverts every descendant
+   at once: cards, markers, rules, tags, ordinals, filter buttons and the
+   Tailwind token utilities (`text-ink`, `border-line`, `bg-ground`) alike.
+   A section is on the off-white because it carries this class and for no
+   other reason. Adding a component means using the tokens; it never means
+   writing a `.yr-paper .thing` rule, and there is not one of those here.
 
-   ── The red on paper ─────────────────────────────────────────────────
+   ── Where the values now live ───────────────────────────────────────
 
-   --accent stays #d71920 in both scopes; it is the brand and it must not
-   shift between grounds. --accent-bright cannot stay: #ee2a34 is drawn
-   to lift off black and lands at 3.4:1 on white, which fails AA for the
-   labels and marker numbers that use it. On paper it maps to the brief's
-   dark red, #a30f15, at 7.6:1. So "bright" means *further from the
-   ground* rather than literally lighter, and the accent reads as one
-   colour family across the whole page.
+   They were HERE, seventeen of them, which made this a second palette: the
+   off-white band on an interior page and the off-white band on the homepage
+   were different grounds, different hairlines and different reds, because
+   two files each had an opinion. Redesign v2 moved them to the `.theme-light,
+   .yr-paper` block in app/globals.css, next to the dark scope they invert,
+   so both halves of the site turn on exactly the same six colours.
 
-   Contrast on #ffffff, measured:
-     --text            #050505   20.4:1
-     --text-secondary  ~#434343   9.9:1
-     --text-muted      #565656    7.4:1   passes AA at any size
-     --accent          #d71920    5.1:1   passes AA for body text
-     --accent-bright   #a30f15    7.6:1
-   --text-faint is decorative only and is used for large ordinals, the
-   same role it has on the dark scope.
+   The red is the part worth repeating here. --accent stays #C8102E in both
+   scopes: it is the brand and it must not shift between grounds. What
+   changes is --accent-bright, the token every small red label reads.
+   #EA3347 is drawn to lift off the near-black and measures 3.0:1 on the
+   off-white, which fails AA. On the light scope --accent-bright resolves
+   back to #C8102E, which measures 5.31:1 there. So "bright" means further
+   from the ground rather than literally lighter, and the accent reads as
+   one colour family across the whole page.
 
    The top hairline is dropped: the change of ground is already the
    separation, and a rule drawn on top of it reads as an accident. */
-
-.yr-paper {
-  --bg: #ffffff;
-  --surface: #f7f7f5;
-  --surface-elevated: #ffffff;
-  --border: #e5e5e5;
-  --border-strong: #d0d0d0;
-
-  --text: #050505;
-  --text-secondary: rgba(5, 5, 5, 0.74);
-  --text-muted: #565656;
-  --text-faint: rgba(5, 5, 5, 0.55);
-
-  --accent: #d71920;
-  --accent-bright: #a30f15;
-  --accent-deep: #7c0c11;
-  --accent-soft: rgba(215, 25, 32, 0.07);
-  --accent-rgb: 215 25 32;
-  --accent-bright-rgb: 163 15 21;
-  /* Paired with --text: #050505 above. The paper scope has to redeclare this
-     alongside the accent channels, or every ink hairline keeps the dark
-     scope's near-white value and disappears on white. */
-  --text-rgb: 5 5 5;
-
-  --rule: var(--border);
-  --rule-strong: var(--border-strong);
-  --wash: rgba(5, 5, 5, 0.028);
-
-  --veil-top: 0.1;
-  --veil-mid: 0.02;
-  --veil-foot: 0.2;
-}
 
 .yr-paper {
   background: var(--bg);
@@ -996,8 +937,8 @@ a:focus-visible .yr-frame::after {
 
 .yr-num {
   display: block;
-  font-family: var(--font-display), Manrope, system-ui, sans-serif;
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
   font-weight: 500;
   line-height: 0.8;
   letter-spacing: -0.04em;
@@ -1048,8 +989,8 @@ a:focus-visible .yr-frame::after {
    a long line in at a glance. */
 
 .yr-pov {
-  font-family: var(--font-display), Manrope, system-ui, sans-serif;
-  font-size: clamp(1.4rem, 2.6vw, 2.35rem);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
   font-weight: 500;
   line-height: 1.16;
   letter-spacing: -0.025em;
@@ -1113,7 +1054,7 @@ a:focus-visible .yr-frame::after {
   pointer-events: none;
   background:
     linear-gradient(205deg, rgb(var(--accent-rgb) / 0.14) 0%, rgb(var(--accent-rgb) / 0) 46%),
-    linear-gradient(180deg, rgba(5, 5, 5, 0.28) 0%, rgba(5, 5, 5, 0.02) 40%, rgba(5, 5, 5, 0.7) 100%);
+    linear-gradient(180deg, rgb(var(--bg-rgb) / 0.28) 0%, rgb(var(--bg-rgb) / 0.02) 40%, rgb(var(--bg-rgb) / 0.7) 100%);
 }
 
 /* ── Filter control ──────────────────────────────────────────────
@@ -1133,8 +1074,8 @@ a:focus-visible .yr-frame::after {
      2.8:1 on white — so the two controls carry the one value. */
   border: 1px solid rgb(var(--text-rgb) / 0.5);
   background: transparent;
-  font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1184,127 +1125,26 @@ a:focus-visible .yr-frame::after {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   THE HERO PORTRAIT PLATE, AND THE FOLD
+   THE HERO PORTRAIT PLATE
+   REMOVED FROM THIS FILE.
 
-   Two requirements, from the owner: the photograph must not be cropped, and
-   the whole plate must be visible on the first screen without scrolling.
+   `.yr-plate` and `.yr-plate__img` were 70 lines of two-axis sizing: a
+   `--plate-offset`, an `aspect-ratio`, a `width: min(100%, 400px)` below
+   `lg`, and above `lg` a `--plate-h: min(560px, calc(100svh - var(--hero-pt,
+   176px) - 64px))` with the image's height taking the smaller of that and
+   `calc(54.1vw - 129.8px)`.
 
-   ── Why it was cropped ──────────────────────────────────────────────────────
+   All of it was solving one problem: the hero section had no bottom padding,
+   the grid was `items-end`, and the header was a `fixed` 110px, so the
+   plate's bottom edge WAS the fold and its height had to be computed against
+   the viewport to stay above it.
 
-   The plate was a fixed box, 560px tall under `lg`, and the image filled it
-   with `object-cover` focused at 50% 18%. The source is 1200x1680, so a box
-   of any other proportion cuts the photograph: at 1440px the box measured
-   464x526, which is 0.88 against the file's 0.714, and the crop took the lower
-   third of the frame.
-
-   The fix is to stop fixing the box. The image carries `aspect-ratio` and is
-   in normal flow, so the container sizes to the photograph rather than the
-   photograph being cut to the container. The three decorative layers stay
-   absolute and keep their geometry, because the 34px padding below means the
-   container is exactly the image plus the offset in both axes, which is what
-   `calc(100% - 34px)` on each layer already assumed.
-
-   ── Why the two axes are driven differently ────────────────────────────────
-
-   Below `lg` the layout is a single column and vertical space is not scarce,
-   so width drives: the plate is as wide as it can be up to 400px and the
-   height follows the photograph. The image gets taller than the old 380px box
-   and that is correct, because a phone scrolls.
-
-   At `lg` the opposite is true. Vertical space is the whole problem, so height
-   drives and the width follows. The height is capped against the viewport so
-   the plate's bottom edge, which is also the section's bottom edge because the
-   grid is `items-end` and the section has no bottom padding, lands above the
-   fold.
+   The hero is `items-center` inside a section with real `py-section` top and
+   bottom, and the header is `sticky` and in flow. The plate is sized by its
+   grid cell and the photograph's own ratio, in
+   components/homepage-sections/hero.tsx, with no viewport-height arithmetic
+   anywhere. The frame and the red offset block are two absolutely positioned
+   divs in that file, which is where the geometry they assume is visible next
+   to them.
    ═══════════════════════════════════════════════════════════════ */
 
-.yr-plate {
-  /* The offset that gives the stack its depth. Literal, as it was. */
-  --plate-offset: 34px;
-  position: relative;
-  padding-right: var(--plate-offset);
-  padding-bottom: var(--plate-offset);
-}
-
-.yr-plate__img {
-  display: block;
-  aspect-ratio: 1200 / 1680;
-  /* Nothing to position, because nothing is cropped. `contain` rather than
-     `cover` so that if the file is ever replaced with a slightly different
-     ratio the result is a hairline of ground rather than a silent crop. */
-  object-fit: contain;
-  width: min(100%, 400px);
-  height: auto;
-}
-
-@media (min-width: 1024px) {
-  /*
-    The reserve is what the viewport owes to everything above and below the
-    plate: the hero's own top padding, plus 64px so the plate does not sit
-    flush against the fold.
-
-    560px is the height the design was drawn at and stays the ceiling, so on a
-    tall display nothing changes.
-  */
-  .yr-plate {
-    --plate-h: min(560px, calc(100svh - var(--hero-pt, 176px) - 64px));
-  }
-
-  .yr-plate__img {
-    /*
-      Two caps, and the smaller wins, because the plate has to satisfy the
-      viewport in both axes and `max-width` cannot do the job: with `height`
-      set and `aspect-ratio` carrying the width, a `max-width` that bites
-      clamps the width while the height stays, which breaks the ratio and
-      letterboxes the photograph inside its own frame.
-
-      The second cap is the column's width expressed in vw. The shell is
-      100vw up to its 1440px maximum, less 96px of `lg:px-12` and the 56px
-      grid gap, and the portrait column is 0.85 of 2.2 of what is left:
-
-        column        = (100vw - 152px) * 0.3864  =  38.64vw - 58.7px
-        image width   = column - 34px             =  38.64vw - 92.7px
-        image height  = width * 1680 / 1200       =  54.1vw - 129.8px
-
-      Checked at the four widths this has to hold at, against a column that
-      measures 337px at 1024, 436px at 1280 and 498px at 1440:
-
-        1024    424px tall, 303px wide. The width governs
-        1280    526px tall, 376px wide. The viewport cap governs
-        1440    526px tall, 376px wide. The viewport cap governs, column spare
-        1920    526px tall, 376px wide. The shell is capped at 1440 anyway
-    */
-    height: min(
-      calc(var(--plate-h) - var(--plate-offset)),
-      calc(54.1vw - 129.8px)
-    );
-    width: auto;
-  }
-}
-
-/*
-  The hero's top padding, and the headline's ceiling.
-
-  Both are viewport-height aware, and both exist for the same reason: at
-  1440x900 the text column measured about 710px and the padding added 176,
-  which put the section's bottom edge near 886px against roughly 800px of
-  usable height. The plate is the last thing in the column, so it was the first
-  thing below the fold.
-
-  The padding gives back 68px at that size and the headline cap gives back
-  about 19px, by taking four authored lines from 70.6px to 66px. On a display
-  tall enough for the clamp's own maximum, neither does anything.
-*/
-.yr-hero {
-  --hero-pt: clamp(104px, 12svh, 176px);
-}
-
-@media (min-width: 1024px) {
-  .yr-hero {
-    padding-top: var(--hero-pt);
-  }
-
-  .yr-hero h1 {
-    font-size: min(clamp(34px, 4.9vw, 76px), 7.3svh);
-  }
-}

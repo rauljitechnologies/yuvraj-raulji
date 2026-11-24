@@ -20,7 +20,7 @@
  */
 
 import { CASES, WRITING } from './brand';
-import { FAQS } from './homepage';
+import { FAQS, HOME_FAQ_COUNT } from './homepage';
 import {
   breadcrumbNode,
   faqNode,
@@ -107,18 +107,25 @@ export function brandHomeSchema() {
       caption: 'Yuvraj Raulji',
     },
     /*
-     * FAQPage, from the same FAQS array the Questions section renders. The
-     * node is only legitimate because every one of those questions and answers
-     * is visible text on this page; if that section is ever removed, this
-     * comes out with it.
+     * FAQPage, over the SIX questions the FaqContact section renders.
+     *
+     * It was `faqNode('/', FAQS)` — all fourteen — against a section that
+     * showed all fourteen. The section shows six now, and the node has to
+     * follow: FAQPage markup describing questions that are not visible text
+     * on the page it is attached to is a structured-data violation and a
+     * manual-action risk.
+     *
+     * `HOME_FAQ_COUNT` is the one constant the section, this node and
+     * /faq/'s own FAQPage node all slice against, so the homepage's six and
+     * /faq/'s eight partition the array exactly: no question is claimed by
+     * two pages, and none is claimed by neither.
      */
-    faqNode('/', FAQS),
+    faqNode('/', FAQS.slice(0, HOME_FAQ_COUNT)),
     /*
-     * The six article links the Insights section renders, as an ItemList.
-     * This function has existed since the section did and was never added to
-     * the graph, so the page's clearest internal-linking signal, six pointers
-     * at real indexed URLs, was machine-readable only as six anchors. Both the
-     * section and this list slice WRITING, so they name the same six in the
+     * The article links the Insights section renders, as an ItemList, so the
+     * page's clearest internal-linking signal is machine-readable as pointers
+     * at real indexed URLs rather than only as anchors. Both the section and
+     * this list slice `WRITING` to three, so they name the same three in the
      * same order.
      */
     homeWritingList(),
@@ -200,11 +207,11 @@ export function brandWorkSchema(crumbs: Crumb[]) {
  * URLs, which is the internal-linking signal the section exists to send.
  */
 export function homeWritingList() {
-  /* Sliced against what the section actually renders. WRITING already holds
-     six, so this is a guard rather than a change: if that array is ever
-     widened, the list would start claiming articles the page does not show,
-     which is markup describing a page that is not there. */
-  const shown = WRITING.slice(0, 6);
+  /* Three, matching what the Insights section renders. It was six, which was
+     also what the section showed; the section shows three cards now and an
+     ItemList claiming six items on a page displaying three is markup
+     describing a page that is not there. */
+  const shown = WRITING.slice(0, 3);
 
   return {
     '@type': 'ItemList',
@@ -217,4 +224,95 @@ export function homeWritingList() {
       url: `${SITE_URL}/insights/${w.slug}/`,
     })),
   };
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FAQ
+
+   The other eight questions, as their own FAQPage.
+
+   ── Why two FAQPage nodes and not one ─────────────────────────────────────
+
+   The homepage shows six questions and emits a FAQPage over those six; this
+   page shows the remaining eight and emits a FAQPage over those. Both slice
+   `FAQS` against `HOME_FAQ_COUNT`, so the two nodes partition the fourteen
+   exactly.
+
+   The alternative, one FAQPage on /faq/ carrying all fourteen, would have
+   claimed six questions that are not visible text on /faq/, which is the
+   structured-data violation this split exists to avoid. The alternative in
+   the other direction, dropping the homepage's node, would give up a rich
+   result on the page that earns the traffic.
+   ═══════════════════════════════════════════════════════════════ */
+
+export const FAQ_DESCRIPTION =
+  'Answers to the questions asked before a first call: platforms, scope, timelines, pricing, communication and what happens after launch.';
+
+export function brandFaqSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path: '/faq/',
+      name: 'Frequently asked questions',
+      description: FAQ_DESCRIPTION,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    faqNode('/faq/', FAQS.slice(HOME_FAQ_COUNT)),
+  ]);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AI
+
+   The eight practical AI tracks and the three operational problems that
+   moved off the homepage. A WebPage rather than a CollectionPage: it argues
+   a position and lists capabilities, it does not index a set of other pages.
+   ═══════════════════════════════════════════════════════════════ */
+
+export const AI_DESCRIPTION =
+  'Practical AI and automation: LLM applications, agents with a deliberate tool boundary, retrieval augmented generation, AI search and workflow automation.';
+
+export function brandAiSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path: '/ai/',
+      name: 'AI and automation',
+      description: AI_DESCRIPTION,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+  ]);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOW WE WORK
+
+   The engagement models, the remote facts and the agency-alternative
+   argument.
+
+   Distinct from /remote-collaboration/, which is linked from it and which
+   answers the time-zone question at length. This page answers "how would I
+   buy this"; that one answers "can someone in Vadodara actually work with
+   us". Two questions, two pages, and each one's canonical points at itself.
+   ═══════════════════════════════════════════════════════════════ */
+
+export const HOW_WE_WORK_DESCRIPTION =
+  'How an engagement runs: seven engagement models from fixed-scope to retainer, the practical facts of working across time zones, and direct access to the person doing the work.';
+
+export function brandHowWeWorkSchema(crumbs: Crumb[]) {
+  return graph([
+    personNode(),
+    websiteNode(),
+    webPageNode({
+      path: '/how-we-work/',
+      name: 'How we work',
+      description: HOW_WE_WORK_DESCRIPTION,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+  ]);
 }

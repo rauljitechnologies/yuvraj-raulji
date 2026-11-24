@@ -71,7 +71,7 @@ export const metadata: Metadata = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[11px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 export default function RemoteWork() {
   return (
@@ -97,7 +97,7 @@ export default function RemoteWork() {
                   aria-hidden="true"
                   className="h-[7px] w-[7px] shrink-0 rounded-full bg-accent animate-yr-blink"
                 />
-                <span className="font-mono text-[11px] font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
+                <span className="font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.2em] text-accent-bright">
                   {AVAILABILITY}
                 </span>
               </p>
@@ -164,7 +164,7 @@ export default function RemoteWork() {
               >
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright md:pt-2"
+                  className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright md:pt-2"
                 >
                   {m.num}
                 </span>
@@ -265,7 +265,7 @@ export default function RemoteWork() {
               <Rise key={p.num} as="li" delay={i * 0.06} className="bg-[var(--bg)] p-card">
                 <p
                   aria-hidden="true"
-                  className="m-0 font-mono text-[12px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                  className="m-0 font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                 >
                   {p.num}
                 </p>
@@ -293,7 +293,7 @@ export default function RemoteWork() {
                   {s.value.replace('+', '')}
                   {s.value.includes('+') && <span className="text-accent">+</span>}
                 </dd>
-                <dt className="m-0 mt-3 font-mono text-[10px] font-medium uppercase leading-[1.5] tracking-[0.18em] text-ink/55">
+                <dt className="m-0 mt-3 font-mono text-eyebrow font-medium uppercase leading-[1.5] tracking-[0.18em] text-ink/55">
                   {s.label}
                 </dt>
               </Rise>

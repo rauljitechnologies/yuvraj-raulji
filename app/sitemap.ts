@@ -52,6 +52,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* /hire/ carries transactional intent, so it sits with the core pages
        rather than with the services below them. */
     { url: BASE + '/hire/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.9 },
+    /*
+       The three routes created in redesign v2 for sections relocated off the
+       homepage.
+
+       /how-we-work/ at 0.8, with the commercial pages: it answers "how would
+       I buy this", which is one step from /contact/. /ai/ at 0.8 with the
+       technology hubs, which it is the hub over. /faq/ at 0.6: it removes an
+       objection rather than being an entry point, and the six questions that
+       earn the rich result are on the homepage.
+    */
+    { url: BASE + '/how-we-work/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: BASE + '/ai/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: BASE + '/faq/', lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
     /* The replatforming decision page. Priority with the technology hubs
        rather than the services: it is an entry point for a query in its own
        right, not a spoke under one of them. */

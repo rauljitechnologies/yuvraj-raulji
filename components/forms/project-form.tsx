@@ -273,7 +273,7 @@ export function ProjectForm({
       {/* Said once, under the optional row, rather than "Optional" repeated on
           five hints. Five repetitions of one word read as five caveats. */}
       <p
-        className={`m-0 font-manrope text-[13px] font-light leading-[1.5] ${
+        className={`m-0 font-manrope text-small font-light leading-[1.5] ${
           tone === 'paper' ? 'text-ground/50' : 'text-ink/45'
         }`}
       >
@@ -284,12 +284,12 @@ export function ProjectForm({
         <button
           type="submit"
           disabled={sending}
-          className="inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-[.7rem] font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:hover:translate-y-0"
+          className="inline-flex h-[52px] shrink-0 items-center bg-accent px-8 font-display text-small font-bold uppercase leading-none tracking-[.18em] text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:hover:translate-y-0"
         >
           {sending ? 'Sending...' : 'Discuss Your Project'}
         </button>
         <span
-          className={`font-mono text-[11px] uppercase leading-[1.5] tracking-[0.16em] ${
+          className={`font-mono text-eyebrow uppercase leading-[1.5] tracking-[0.16em] ${
             tone === 'paper' ? 'text-ground/50' : 'text-ink/45'
           }`}
         >

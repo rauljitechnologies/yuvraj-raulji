@@ -142,7 +142,7 @@ export default async function Article({ params }: Props) {
 
           <Rise as="p" className="mb-item flex items-center gap-3.5">
             <span aria-hidden="true" className="h-px w-11 bg-accent" />
-            <span className="font-mono text-[11px] font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
+            <span className="font-mono text-eyebrow font-medium uppercase leading-[1.6] tracking-[0.3em] text-ink/55">
               {p.cat}
             </span>
           </Rise>
@@ -173,11 +173,11 @@ export default async function Article({ params }: Props) {
                 >
                   Yuvraj Raulji
                 </Link>
-                <span className="mt-2 block font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+                <span className="mt-2 block font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
                   {PERSON_JOB_TITLE}
                 </span>
               </p>
-              <p className="m-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+              <p className="m-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
                 <time dateTime={postDateISO(p.date)}>{p.date}</time>
                 <span aria-hidden="true"> · </span>
                 {p.readTime}
@@ -221,7 +221,7 @@ export default async function Article({ params }: Props) {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.18)_0%,transparent_40%,rgba(5,5,5,.45)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .18)_0%,transparent_40%,rgb(var(--bg-rgb) / .45)_100%)]"
           />
         </div>
       </div>
@@ -301,9 +301,9 @@ export default async function Article({ params }: Props) {
                       />
                       <div
                         aria-hidden="true"
-                        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.25)_0%,rgba(5,5,5,.82)_100%)]"
+                        className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--bg-rgb) / .25)_0%,rgb(var(--bg-rgb) / .82)_100%)]"
                       />
-                      <span className="absolute bottom-5 left-5 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
+                      <span className="absolute bottom-5 left-5 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-accent-bright">
                         {r.cat}
                       </span>
                     </div>
@@ -316,7 +316,7 @@ export default async function Article({ params }: Props) {
                           {r.title}
                         </Link>
                       </h3>
-                      <p className="mt-auto pt-6 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
+                      <p className="mt-auto pt-6 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink-faint">
                         {r.date} <span aria-hidden="true"> · </span> {r.readTime}
                       </p>
                     </div>
