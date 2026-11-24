@@ -75,7 +75,7 @@ import { Eager } from './rv';
 export function Hero() {
 
   return (
-    <Section id="top" labelledBy="hero-title">
+    <Section id="top" labelledBy="hero-title" tone="ink">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
           <div>

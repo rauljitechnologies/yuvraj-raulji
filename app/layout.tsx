@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
@@ -11,80 +11,79 @@ import './home.css';
 
 /**
  * ══════════════════════════════════════════════════════════════════════════
- * THE TYPE SYSTEM — two faces, three jobs
+ * THE TYPE SYSTEM — three faces, three jobs, per brand guideline v2.1
  * ══════════════════════════════════════════════════════════════════════════
  *
  * This file is the only place a face is loaded. app/globals.css fixes what
- * each one is FOR.
+ * each one is FOR, and tailwind.config.ts is the only place a size exists.
  *
- *   Geist        headings AND body. Every h1/h2/h3, and every sentence,
- *                label, button and form field.
- *   Geist Mono   small labels and eyebrows ONLY. Never a sentence.
+ *   Plus Jakarta Sans  headings. 700/800, tracking -0.02em. h1/h2/h3 and
+ *                      nothing else.
+ *   Inter              body. 400/500, 17-18px, line-height 1.65, measure
+ *                      capped at 65ch. Every sentence, button and field.
+ *   JetBrains Mono     labels, eyebrows and tags ONLY. 500, uppercase,
+ *                      12px, letter-spacing 0.12em. Never a sentence.
  *
- * ── What this replaced, and why the count went from three to two ──────────
+ * ── Why this is back from Geist ───────────────────────────────────────────
  *
- * It was Plus Jakarta Sans for headings against Inter for body, with
- * JetBrains Mono for labels, and before that Manrope and Newsreader. The
- * argument for Jakarta-against-Inter was that one face for headings and body
- * leaves the type system no voice of its own, which is true of a face chosen
- * badly and not true in general: the contrast can come from weight, size and
- * tracking instead of from a second family, and when it does the page reads
- * as one system rather than as two faces negotiating.
- *
- * Geist is built for exactly that. Its display weights (600-800) are tight
- * and geometric enough to carry a 64px H1, its 400 is an interface face at
- * the 16-18px where this site does most of its reading, and Geist Mono is
- * the same design spoken in a fixed pitch, so the eyebrows belong to the
- * headings rather than contrasting with them. It is also the face the
- * current generation of engineering products is set in, which for a site
- * selling engineering is the right register.
- *
- * The practical gain: one fewer file on the critical path, and a heading and
- * a paragraph that can no longer disagree about their vertical metrics.
+ * The site ran on Geist and Geist Mono for one release. Geist is a good
+ * face and a single-family system is defensible, but the brand guideline
+ * specifies this pairing, and a guideline outranks a face chosen in a
+ * conversation. The argument for the pairing is the one the guideline
+ * makes: Plus Jakarta's geometric display weights give a heading its own
+ * shape, and Inter is the most legible interface face at the 17-18px where
+ * this site does most of its reading. A single family has to carry both
+ * jobs with weight alone.
  *
  * ── Why the CSS variables are named for the file, not the role ────────────
  *
- * `--font-geist` and `--font-geist-mono` name the FACE. app/globals.css maps
- * them onto the roles (`--font-heading`, `--font-body`, `--font-mono`) and
- * then onto every legacy alias the templates still ask for
- * (`--font-display`, `--font-manrope`, `--font-serif`, `--font-sans`).
+ * `--font-jakarta`, `--font-inter` and `--font-jetbrains` name the FACE.
+ * app/globals.css maps them onto the roles (`--font-heading`, `--font-body`,
+ * `--font-mono`) and then onto every legacy alias the templates still ask
+ * for (`--font-display`, `--font-manrope`, `--font-serif`, `--font-sans`).
  *
- * That indirection is the whole reason this swap is two files and not a
+ * That indirection is the reason this swap is two files and not a
  * find-and-replace: 400+ `font-manrope` and `font-serif` class names across
- * 89 routes still compile and now resolve to Geist. It is what let Manrope
- * and Newsreader go, and it is what let this change happen the same way.
+ * 89 routes still compile and resolve to the right role. It is what let
+ * Manrope and Newsreader go, what let Geist in, and what lets it back out.
  *
  * ── Loading cost ─────────────────────────────────────────────────────────
  *
- * Geist is variable, so it is one woff2 for its whole 100-900 range with no
- * synthesised weights. Geist Mono is pinned to the two cuts it actually
- * uses. Two files where there were three. `display: 'swap'` on both, and
- * next/font emits a `<link rel="preload">` for each because both render
- * above the fold (heading, body, hero eyebrow).
+ * Three files, two of them variable (one request each for their whole
+ * range, no synthesised weights) and the mono pinned to its single weight.
+ * `display: 'swap'` on all three, and next/font emits a
+ * `<link rel="preload">` for each because all three render above the fold:
+ * heading, body and the hero eyebrow.
  *
  * `adjustFontFallback` is left at its default (on). next/font computes a
  * size-adjusted local fallback per face, which is what keeps the swap from
- * costing layout shift — the CLS term the brief asks to hold down, and it
- * measured 0 before this change and has to stay there.
+ * costing layout shift. CLS measured 0 before this change and has to stay
+ * there.
  */
-const geist = Geist({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  /* Variable 100-900, and it carries BOTH roles: headings at 600 to 800,
-     body at 400 with emphasis and buttons at 600. One file for the whole
-     page rather than two, which is also one fewer face on the critical
-     path. */
-  variable: '--font-geist',
+  /* Variable 200-800. Headings are set at 700 and 800, per the brand
+     guideline; the variable file covers both in one request, so the range is
+     not narrowed to two static cuts. */
+  variable: '--font-jakarta',
 });
 
-const geistMono = Geist_Mono({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  /* Two cuts, not the variable range. This face only ever sets 12px eyebrows
-     and 14px labels, at 400 and 500; loading the full range for two weights
-     is bytes on the critical path for nothing. */
-  weight: ['400', '500'],
-  variable: '--font-geist-mono',
+  /* Variable 100-900. Body is 400, emphasis and buttons 500. */
+  variable: '--font-inter',
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  /* One cut. The guideline sets labels, eyebrows and tags at 500 and
+     nothing else uses this face, so the other eight weights would be bytes
+     on the critical path for nothing. */
+  weight: ['500'],
+  variable: '--font-jetbrains',
 });
 
 /* The near-black ground, so the browser chrome matches the page.
@@ -107,7 +106,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {/* The GTM noscript iframe stood here. It went with the container.
             See the note above the tag scripts at the bottom of this file. */}
@@ -150,7 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){var o='IntersectionObserver' in window?new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){es[i].target.classList.add('yr-in');o.unobserve(es[i].target)}}},{rootMargin:'0px 0px -8% 0px'}):null;function rv(){var n=document.querySelectorAll('.yr-rv:not(.yr-in)');for(var i=0;i<n.length;i++){if(o)o.observe(n[i]);else n[i].classList.add('yr-in')}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',rv);else rv();addEventListener('load',rv)})();(function(){var t;function s(){var h=innerHeight,n=document.querySelectorAll('.yr-rv');for(var i=0;i<n.length;i++){var e=n[i],r=e.getBoundingClientRect();if(r.top<h&&r.bottom>0&&parseFloat(getComputedStyle(e).opacity)<0.05){e.style.setProperty('opacity','1','important');e.style.setProperty('transform','none','important')}}}addEventListener('load',function(){setTimeout(s,2000)});addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(s,600)},{passive:true});var m,d=document.documentElement;addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(!a)return;var u;try{u=new URL(a.getAttribute('href'),location.href)}catch(x){return}if(!u.hash||u.origin!==location.origin||u.pathname!==location.pathname)return;d.classList.add('yr-smooth');clearTimeout(m);m=setTimeout(function(){d.classList.remove('yr-smooth')},1000)},true)})();",
+              "(function(){var d=document.documentElement;d.setAttribute('data-rv','on');try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){d.removeAttribute('data-rv');return}}catch(e){}var q=function(){return document.querySelectorAll('.yr-rv:not(.yr-in)')};function sweep(){var n=q(),h=innerHeight,k=0;for(var i=0;i<n.length;i++){if(n[i].getBoundingClientRect().top<h){n[i].classList.add('yr-in');k++}}return n.length-k}var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){var e=es[i];if(e.isIntersecting||e.intersectionRatio>0){e.target.classList.add('yr-in');io.unobserve(e.target)}}},{threshold:0.1}):null;function observe(){if(!io)return;var n=q();for(var i=0;i<n.length;i++)io.observe(n[i])}var t=0;function onScroll(){if(t)return;t=1;requestAnimationFrame(function(){t=0;if(sweep()===0){removeEventListener('scroll',onScroll);removeEventListener('resize',onScroll)}})}function start(){sweep();observe();addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();addEventListener('load',function(){sweep();observe()});addEventListener('pageshow',sweep);})();(function(){var m,d=document.documentElement;addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(!a)return;var u;try{u=new URL(a.getAttribute('href'),location.href)}catch(x){return}if(!u.hash||u.origin!==location.origin||u.pathname!==location.pathname)return;d.classList.add('yr-smooth');clearTimeout(m);m=setTimeout(function(){d.classList.remove('yr-smooth')},1000)},true)})();",
           }}
         />
         {/*

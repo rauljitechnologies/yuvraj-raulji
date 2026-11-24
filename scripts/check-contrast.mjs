@@ -22,7 +22,7 @@
  *
  * ── The one pair that is allowed to fail, and why it is listed ────────────
  *
- * `--primary` (#C8102E) on `--near-black` measures 3.37:1. That is legal for
+ * `--primary` (#C8102E) on `--ink` (#0E0E10) measures 3.4:1. That is legal for
  * a fill, a rule, an icon and display text, and illegal for a label, so it is
  * checked at the 3.0 floor and `--primary-bright` is checked at 4.5. The
  * brief names #C8102E as the primary and this is the arithmetic that follows
@@ -88,49 +88,70 @@ function over(hex, groundHex, alpha) {
 
 const PRIMARY = token('primary');
 const BRIGHT = token('primary-bright');
-const DARK = token('near-black');
-const LIGHT = token('off-white');
-const G900 = token('grey-900');
-const G500 = token('grey-500');
-const G300 = token('grey-300');
+const INK = token('ink');
+const PAPER = token('off-white');
+const MUTED = token('muted');
+const LINE = token('line');
+const INK_SURFACE = token('ink-surface');
+const INK_LINE = token('ink-line');
+const INK_MUTED = token('ink-muted');
+const PAPER_CARD = '#ffffff';
+const SECONDARY_PAPER = '#3a3a42';
+const SECONDARY_INK = '#c9c9d1';
+const INK_ELEVATED = '#1f1f24';
 const WHITE = '#ffffff';
 
-/* Every pair the site renders. `min` is the floor that pair has to clear. */
+/* Every pair the site renders. `min` is the floor that pair has to clear.
+   Three scopes now, not two: the paper page, the two ink bands cut into it,
+   and the whole page in dark mode (which shares the ink values, with a band
+   lifting to --ink-surface so it stays a band). */
 const PAIRS = [
-  /* ── Dark scope ── */
-  { fg: LIGHT, bg: DARK, min: 4.5, name: '--text on --bg (dark)' },
-  { fg: over(LIGHT, DARK, 0.74), bg: DARK, min: 4.5, name: '--text-secondary on --bg (dark)' },
-  { fg: G300, bg: DARK, min: 4.5, name: '--text-muted on --bg (dark)' },
-  { fg: over(LIGHT, DARK, 0.55), bg: DARK, min: 4.5, name: '--text-faint on --bg (dark)' },
-  { fg: BRIGHT, bg: DARK, min: 4.5, name: '--accent-bright on --bg (dark), small text' },
-  { fg: PRIMARY, bg: DARK, min: 3.0, name: '--accent on --bg (dark), large text and non-text' },
-  { fg: LIGHT, bg: G900, min: 4.5, name: '--text on --surface (dark card)' },
-  { fg: G300, bg: G900, min: 4.5, name: '--text-muted on --surface (dark card)' },
-  { fg: BRIGHT, bg: G900, min: 4.5, name: '--accent-bright on --surface (dark card)' },
+  /* ── Paper: the page ── */
+  { fg: INK, bg: PAPER, min: 4.5, name: '--text on --bg (paper)' },
+  { fg: SECONDARY_PAPER, bg: PAPER, min: 4.5, name: '--text-secondary on --bg (paper)' },
+  { fg: MUTED, bg: PAPER, min: 4.5, name: '--text-muted on --bg (paper)' },
+  { fg: over(INK, PAPER, 0.6), bg: PAPER, min: 4.5, name: '--text-faint on --bg (paper)' },
+  { fg: PRIMARY, bg: PAPER, min: 4.5, name: '--accent on --bg (paper), small text' },
 
-  /* ── Light scope ── */
-  { fg: DARK, bg: LIGHT, min: 4.5, name: '--text on --bg (light)' },
-  { fg: over(DARK, LIGHT, 0.76), bg: LIGHT, min: 4.5, name: '--text-secondary on --bg (light)' },
-  { fg: G500, bg: LIGHT, min: 4.5, name: '--text-muted on --bg (light)' },
-  { fg: over(DARK, LIGHT, 0.62), bg: LIGHT, min: 4.5, name: '--text-faint on --bg (light)' },
-  { fg: PRIMARY, bg: LIGHT, min: 4.5, name: '--accent-bright on --bg (light), small text' },
-  /* The light scope's card ground is `rgb(var(--near-black-rgb) / 0.03)`
-     rather than a hex, so it is composited here the same way the text ramps
-     are. Every card on an off-white band sets its eyebrow on it. */
-  { fg: DARK, bg: over(DARK, LIGHT, 0.03), min: 4.5, name: '--text on --surface (light card)' },
-  { fg: G500, bg: over(DARK, LIGHT, 0.03), min: 4.5, name: '--text-muted on --surface (light card)' },
-  { fg: PRIMARY, bg: over(DARK, LIGHT, 0.03), min: 4.5, name: '--accent-bright on --surface (light card)' },
+  /* ── Paper: a card on it. White, so a card is lighter than its ground. ── */
+  { fg: INK, bg: PAPER_CARD, min: 4.5, name: '--text on --surface (paper card)' },
+  { fg: SECONDARY_PAPER, bg: PAPER_CARD, min: 4.5, name: '--text-secondary on --surface (paper card)' },
+  { fg: MUTED, bg: PAPER_CARD, min: 4.5, name: '--text-muted on --surface (paper card)' },
+  { fg: PRIMARY, bg: PAPER_CARD, min: 4.5, name: '--accent on --surface (paper card), small text' },
+
+  /* ── Ink: the hero band, the closing band, and dark mode ── */
+  { fg: PAPER, bg: INK, min: 4.5, name: '--text on --bg (ink)' },
+  { fg: SECONDARY_INK, bg: INK, min: 4.5, name: '--text-secondary on --bg (ink)' },
+  { fg: INK_MUTED, bg: INK, min: 4.5, name: '--text-muted on --bg (ink)' },
+  { fg: over(PAPER, INK, 0.58), bg: INK, min: 4.5, name: '--text-faint on --bg (ink)' },
+  { fg: BRIGHT, bg: INK, min: 4.5, name: '--accent-bright on --bg (ink), small text' },
+  /* The one pair allowed under 4.5. See the note at the top of this file:
+     #C8102E on ink is 3.4:1, which is legal for a fill, a rule, an icon and
+     24px+ display text, and illegal for a label. The brief restricts the
+     accent to exactly those uses on the dark side. */
+  { fg: PRIMARY, bg: INK, min: 3.0, name: '--accent on --bg (ink), large text and non-text only' },
+
+  /* ── Ink: a card on it ── */
+  { fg: PAPER, bg: INK_SURFACE, min: 4.5, name: '--text on --surface (ink card)' },
+  { fg: INK_MUTED, bg: INK_SURFACE, min: 4.5, name: '--text-muted on --surface (ink card)' },
+  { fg: BRIGHT, bg: INK_SURFACE, min: 4.5, name: '--accent-bright on --surface (ink card)' },
+
+  /* ── Dark mode: an ink BAND lifts to --ink-surface, and its cards to
+       --surface-elevated, so both pairs have to hold one step lighter. ── */
+  { fg: PAPER, bg: INK_ELEVATED, min: 4.5, name: '--text on a band card (dark mode)' },
+  { fg: INK_MUTED, bg: INK_ELEVATED, min: 4.5, name: '--text-muted on a band card (dark mode)' },
+  { fg: BRIGHT, bg: INK_ELEVATED, min: 4.5, name: '--accent-bright on a band card (dark mode)' },
 
   /* ── Fills ── */
-  { fg: WHITE, bg: PRIMARY, min: 4.5, name: 'white on an --accent fill (primary button)' },
+  { fg: PAPER_CARD, bg: PRIMARY, min: 4.5, name: 'white on an --accent fill (primary button)' },
 
-  /* ── Non-text: the hairline against both grounds (WCAG 1.4.11 does not
-       require 3:1 of a decorative divider, so this is the weaker 1.4 floor
-       the design intends rather than a legal minimum. It is here to catch a
-       hairline becoming invisible, which is what happened when the border
-       tokens briefly compiled to nothing and fell back to preflight grey.) ── */
-  { fg: over(G500, DARK, 0.4), bg: DARK, min: 1.3, name: '--border on --bg (dark)' },
-  { fg: over(G500, LIGHT, 0.32), bg: LIGHT, min: 1.2, name: '--border on --bg (light)' },
+  /* ── Non-text: the hairline against each ground. WCAG 1.4.11 does not
+       require 3:1 of a decorative divider, so these are the weaker floors
+       the design intends rather than a legal minimum. They exist to catch a
+       hairline becoming invisible, which is what happened once when the
+       border tokens compiled to nothing and fell back to preflight grey. ── */
+  { fg: LINE, bg: PAPER, min: 1.05, name: '--border on --bg (paper)' },
+  { fg: INK_LINE, bg: INK, min: 1.1, name: '--border on --bg (ink)' },
 ];
 
 const rows = PAIRS.map((p) => ({ ...p, got: ratio(p.fg, p.bg) }));
