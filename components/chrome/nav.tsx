@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { MORE_NAV, PRIMARY_NAV } from '../../lib/brand';
-import { AVAILABILITY_CHIP } from '../../lib/identity';
 import { Wordmark } from '../wordmark';
 
 /**
@@ -206,22 +205,13 @@ export function SiteNav({ active }: { active?: string }) {
           </Link>
 
           {/*
-            The availability line, in the bar. `xl` and up only: at 1100 and
-            1280 the links and the button own the row, and a third element
-            between them is what the old three-strip header was built to
-            avoid. The dot is the same mark the hero and
-            /remote-collaboration/ use, so the three read as one signal.
+            The availability line stood here, `xl` and up, between the
+            wordmark and the links. It is in the footer now, next to the
+            response-time line: a 46-character uppercase mono sentence in the
+            header competed with the five nav links and the button for the one
+            row they share, and it read as a third strip in a bar that exists
+            to be one. The claim itself is unchanged and still on every page.
           */}
-          <p className="m-0 hidden items-center gap-2 xl:flex">
-            <span
-              aria-hidden="true"
-              className="h-[6px] w-[6px] shrink-0 rounded-full bg-accent animate-yr-blink"
-            />
-            <span className="font-mono text-eyebrow font-medium uppercase text-ink-muted">
-              {AVAILABILITY_CHIP}
-            </span>
-          </p>
-
           <nav aria-label="Primary" className="ml-auto hidden items-center gap-6 nav:flex">
             {PRIMARY_NAV.map((item) => (
               <Link
@@ -414,15 +404,6 @@ export function SiteNav({ active }: { active?: string }) {
             Start a project
           </Link>
 
-          <p className="m-0 mt-6 flex items-start gap-2">
-            <span
-              aria-hidden="true"
-              className="mt-[6px] h-[6px] w-[6px] shrink-0 rounded-full bg-accent"
-            />
-            <span className="font-mono text-eyebrow font-medium uppercase text-ink-muted">
-              {AVAILABILITY_CHIP}
-            </span>
-          </p>
         </nav>
       </div>
     </>
