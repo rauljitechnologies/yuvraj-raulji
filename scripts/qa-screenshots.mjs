@@ -27,7 +27,9 @@ import { existsSync } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 import { chromium } from 'playwright';
 
-const WIDTHS = [375, 768, 1024, 1440];
+/* The guideline's four test widths. 1024 was here; 1280 replaced it,
+   because that is where the redesign's nav and bento grids change. */
+const WIDTHS = [375, 768, 1280, 1440];
 const OUT_DIR = 'qa-screenshots';
 const ROOT = 'out';
 

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { MORE_NAV, PRIMARY_NAV } from '../../lib/brand';
 import { Wordmark } from '../wordmark';
+import { ThemeToggle } from './theme-toggle';
 
 /**
  * The site header. One component, rendered by every route.
@@ -195,7 +196,11 @@ export function SiteNav({ active }: { active?: string }) {
             : 'bg-transparent shadow-none'
         }`}
       >
-        <div className="mx-auto flex h-header w-full max-w-shell items-center gap-6 px-gutter">
+        <div
+          className={`mx-auto flex w-full max-w-shell items-center gap-6 px-gutter transition-[height] duration-300 ${
+            scrolled ? 'h-header-sm' : 'h-header'
+          }`}
+        >
           <Link
             href="/"
             aria-label="Yuvraj Raulji, home"
@@ -298,46 +303,63 @@ export function SiteNav({ active }: { active?: string }) {
               brief puts it and where it is reachable from any scroll position
               rather than only from the top of the page.
             */}
+            <ThemeToggle />
+
             <Link
               href="/contact/"
               data-event="contact_cta_click"
-              className="ml-2 inline-flex min-h-[44px] shrink-0 items-center rounded bg-accent px-6 font-body text-small font-semibold text-white transition-colors duration-200 hover:bg-accent-deep"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded bg-accent px-6 font-body text-small font-semibold text-white transition-colors duration-200 hover:bg-accent-deep"
             >
-              Start a project
+              Book a 30-min call
             </Link>
           </nav>
 
-          {/* The hamburger. Below `nav` (1100px) only. 44px square, which is
-              the touch-target minimum. */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            className="ml-auto grid h-[44px] w-[44px] shrink-0 place-items-center rounded text-ink transition-colors duration-200 hover:text-accent-bright nav:hidden"
-          >
-            <span aria-hidden="true" className="relative block h-[14px] w-[22px]">
-              {/* Three bars that become a cross. Transform only, so it is
-                  cheap and it respects prefers-reduced-motion through the
-                  global transition-duration collapse in app/globals.css. */}
-              <span
-                className={`absolute left-0 block h-[2px] w-full bg-current transition-transform duration-200 ${
-                  open ? 'top-[6px] rotate-45' : 'top-0'
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-[6px] block h-[2px] w-full bg-current transition-opacity duration-200 ${
-                  open ? 'opacity-0' : 'opacity-100'
-                }`}
-              />
-              <span
-                className={`absolute left-0 block h-[2px] w-full bg-current transition-transform duration-200 ${
-                  open ? 'top-[6px] -rotate-45' : 'top-[12px]'
-                }`}
-              />
-            </span>
-          </button>
+          {/*
+              One right-hand cluster below `nav`: the theme toggle and the
+              hamburger, in that order.
+
+              Grouped in a single `ml-auto` flex rather than given one each.
+              Two siblings both carrying `ml-auto` do not sit together — the
+              first is pushed right, then the second is pushed right of that,
+              and the gap between them becomes the parent's `gap-6`. One
+              wrapper with `gap-2` keeps them as the pair they read as.
+
+              The toggle is outside the panel deliberately: a reader changing
+              theme should not have to open the menu to do it.
+          */}
+          <div className="ml-auto flex items-center gap-2 nav:hidden">
+            <ThemeToggle />
+
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              className="grid h-[44px] w-[44px] shrink-0 place-items-center rounded text-ink transition-colors duration-200 hover:text-accent-bright nav:hidden"
+            >
+              <span aria-hidden="true" className="relative block h-[14px] w-[22px]">
+                {/* Three bars that become a cross. Transform only, so it is
+                    cheap and it respects prefers-reduced-motion through the
+                    global transition-duration collapse in app/globals.css. */}
+                <span
+                  className={`absolute left-0 block h-[2px] w-full bg-current transition-transform duration-200 ${
+                    open ? 'top-[6px] rotate-45' : 'top-0'
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 top-[6px] block h-[2px] w-full bg-current transition-opacity duration-200 ${
+                    open ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 block h-[2px] w-full bg-current transition-transform duration-200 ${
+                    open ? 'top-[6px] -rotate-45' : 'top-[12px]'
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -401,7 +423,7 @@ export function SiteNav({ active }: { active?: string }) {
             data-event="contact_cta_click"
             className="mt-8 flex min-h-[48px] items-center justify-center rounded bg-accent px-6 font-body text-small font-semibold text-white"
           >
-            Start a project
+            Book a 30-min call
           </Link>
 
         </nav>

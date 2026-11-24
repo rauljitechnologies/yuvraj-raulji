@@ -140,7 +140,7 @@ const config: Config = {
       md: 'var(--radius)',
       lg: 'var(--radius)',
       xl: 'var(--radius)',
-      '2xl': 'var(--radius)',
+      '2xl': 'var(--r-2xl)',
       full: 'var(--r-full)',
     },
 
@@ -198,6 +198,7 @@ const config: Config = {
         section: 'var(--section-py)',
         gutter: 'var(--container-px)',
         header: 'var(--header-h)',
+        'header-sm': 'var(--header-h-scrolled)',
       },
       boxShadow: {
         'header-rule': 'var(--shadow-header-rule)',
@@ -226,7 +227,11 @@ const config: Config = {
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        nav: '1100px',
+        /* The nav breakpoint. 1100px until the guideline moved the hamburger
+           to "below 768px only", which is `md`; it is kept as its own name
+           because ~20 class names across the header compile against it and
+           the name says what it is for. */
+        nav: '768px',
         xl: '1280px',
         '2xl': '1440px',
       },

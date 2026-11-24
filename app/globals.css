@@ -257,6 +257,12 @@
        anchor offset, the hero's top padding, the article aside's sticky
        top — reads this instead. */
     --header-h: 72px;
+    /* The shrunk bar, after scroll. The guideline asks the header to shrink
+       on scroll; 56px is the smallest that still clears a 44px touch target
+       with 6px of air either side. --header-h stays the token that
+       scroll-padding-top and the article aside's sticky offset read, because
+       an anchor has to clear the bar in its TALLEST state. */
+    --header-h-scrolled: 56px;
 
     /* ── 6. SHAPE, DEPTH, MOTION ─────────────────────────────────
        One card radius, one card border, one card padding. See the
@@ -265,6 +271,10 @@
     --r-sm: 4px;
     --r-md: 8px;
     --r-lg: 8px;
+    /* 16px, for the one thing the guideline asks to be visibly rounder than
+       a card: the hero portrait. Cards stay on --radius (8px), so this does
+       not become a second card shape. */
+    --r-2xl: 16px;
     --r-full: 999px;
 
     /* The header's bottom hairline, drawn INSIDE the 72px strip.
@@ -659,6 +669,71 @@
     }
     :root[data-rv='on'] .yr-rv {
       transition: none;
+    }
+  }
+
+  /* ── Theme toggle icon ────────────────────────────────────────────────
+     Which of the three glyphs is drawn, keyed off the same attribute the
+     theme itself is keyed off. This is here rather than in React state so
+     the right icon is painted on the first frame; see the note in
+     components/chrome/theme-toggle.tsx. */
+  .yr-theme-icon-light,
+  .yr-theme-icon-dark {
+    display: none;
+  }
+  :root[data-theme='light'] .yr-theme-icon-system,
+  :root[data-theme='dark'] .yr-theme-icon-system {
+    display: none;
+  }
+  :root[data-theme='light'] .yr-theme-icon-light {
+    display: inline;
+  }
+  :root[data-theme='dark'] .yr-theme-icon-dark {
+    display: inline;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     TECH-STACK MARQUEE
+     ══════════════════════════════════════════════════════════════════════
+
+     Re-added for the redesign, and built differently from the one that was
+     removed. That one was an infinite ticker of eight capability phrases
+     next to a hero that already listed them, so it was decoration carrying
+     duplicate text. This one carries five platform names and nothing else
+     says them in the hero, so it is the only place the stack appears above
+     the fold.
+
+     Two identical tracks and a -50% translate: the second copy lands exactly
+     where the first started, so the loop has no seam. `w-max` on the track is
+     what makes 50% mean "one full copy" rather than "half the viewport".
+
+     The list is rendered twice, so the duplicate is `aria-hidden` and the
+     whole strip is given a label by the hero. A screen reader reads five
+     platform names once.
+
+     PAUSED entirely under prefers-reduced-motion. A marquee is the one
+     pattern where shortening the duration is wrong — a 0.01ms infinite loop
+     is a strobe — so the animation is removed and the track sits still,
+     showing the first copy. */
+  .yr-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: yr-marquee 32s linear infinite;
+  }
+  .yr-marquee:hover .yr-marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes yr-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yr-marquee-track {
+      animation: none;
     }
   }
 

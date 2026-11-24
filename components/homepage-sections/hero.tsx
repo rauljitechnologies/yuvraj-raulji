@@ -1,5 +1,6 @@
-import { ROLE, ROLE_LINE } from '../../lib/identity';
-import { HERO, PORTRAITS } from '../../lib/homepage';
+import { ROLE } from '../../lib/identity';
+import { HERO, HERO_EYEBROW, HERO_H1, PORTRAITS } from '../../lib/homepage';
+import { HeroProof } from './hero-proof';
 import { Button, Container, Section } from '../ui';
 import { Eager } from './rv';
 
@@ -82,51 +83,50 @@ export function Hero() {
             {/* The eyebrow: the name, and one role line. A <p>, not a
                 heading — the h1 below is the first heading on the page. */}
             <Eager>
+              {/* One line, from the guideline. It was the name, a slash and
+                  the job title in two different inks, which is a lockup
+                  rather than a sentence; this states the position once. */}
               <p className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
                 <span aria-hidden="true" className="h-px w-6 shrink-0 bg-accent" />
-                <span className="font-mono text-eyebrow font-medium uppercase text-ink">
-                  {HERO.eyebrow}
-                </span>
-                <span aria-hidden="true" className="text-ink-faint">
-                  /
-                </span>
                 <span className="font-mono text-eyebrow font-medium uppercase text-ink-muted">
-                  {ROLE_LINE}
+                  {HERO_EYEBROW}
                 </span>
               </p>
             </Eager>
 
             {/*
-              The one h1 on the page, and it names what the work produces
-              rather than restating the job title the eyebrow just gave.
+              The one h1 on the page.
 
-              Two authored lines from `HERO.h1`, which is `HEADLINE` in
-              lib/identity.ts. At the 64px ceiling and a 20-character measure
-              those two lines set as three on a desktop and three on a phone,
-              which is the brief's 2-3 line budget. The accent falls on the
-              second line because the first half is the established record and
-              the second is the wider claim, so the colour marks the part
-              being asserted rather than decorating the whole heading.
+              `HERO_H1` is authored as runs rather than lines, so exactly one
+              of them takes the accent. The guideline asks for "only the
+              outcome word in crimson": the outcome is what the stores do
+              differently afterwards, so "sell more" is crimson and nothing
+              else is. The previous hero coloured a whole line, which reads as
+              decoration rather than emphasis.
+
+              No `block` on the spans, so it wraps as prose and the break
+              falls wherever the measure puts it. At the 80px ceiling and a
+              24ch measure that is two lines on a desktop and three on a
+              phone, inside the brief's budget.
 
               `text-h1` carries the size, the 1.1 line height and the -0.02em
-              tracking from the scale. The hand-set
-              `text-[clamp(34px,4.9vw,76px)] leading-[1.04]
-              tracking-[-0.022em]` that stood here was the 92nd heading on the
-              site and the only one not going through the shared scale, which
-              is exactly why it was the one that did not follow when the
-              display face changed.
+              tracking from the scale, so this heading cannot drift from the
+              other 91 on the site.
             */}
             <Eager delay={0.06} className="mt-6">
-              <h1 id="hero-title" className="m-0 max-w-[20ch] font-heading text-h1 font-extrabold text-ink">
-                {HERO.h1.map((line) => {
-                  const text = typeof line === 'string' ? line : line.text;
-                  const accent = typeof line === 'string' ? false : line.accent;
-                  return (
-                    <span key={text} className="block">
-                      {accent ? <span className="text-accent-bright">{text}</span> : text}
+              <h1
+                id="hero-title"
+                className="m-0 max-w-[24ch] font-heading text-h1 font-extrabold text-ink"
+              >
+                {HERO_H1.map((part) =>
+                  part.accent ? (
+                    <span key={part.text} className="text-accent-bright">
+                      {part.text}
                     </span>
-                  );
-                })}
+                  ) : (
+                    <span key={part.text}>{part.text}</span>
+                  ),
+                )}
               </h1>
             </Eager>
 
@@ -152,28 +152,18 @@ export function Hero() {
 
             {/*
               The proof row stood here: three figures in a <dl> under the
-              calls to action.
+              calls to action, which were the same first three of the
+              five-figure strip one section below. Removed; the strip is the
+              page's one proof block.
 
-              It is gone because it was the SAME three figures, in the same
-              order, as the first three of the five-figure strip in the
-              section immediately below it — `STATS.slice(0, 3)` against a
-              strip that renders all of `STATS`. So "9+ / 50+ / 1M+" was
-              read twice within about one screen, the second time under a
-              heading announcing it as the record. Two proof blocks a border
-              apart do not reinforce each other; they read as the page
-              repeating itself, which is exactly how it was reported.
-
-              The row also had a duplication bug of its own, which is worth
-              recording because it is the kind that only shows up in
-              extracted text: the label was in an `sr-only` <dt> AND again
-              in a visible <span> inside the <dd>, so a screen reader and a
-              copy-paste both got "Years Experience 9+ Years Experience".
-
-              The five-figure strip is now the page's one proof block. It
-              still sits directly under the hero's call to action, which is
-              where the brief wanted the evidence; it is simply its own band
-              rather than a second copy.
+              In its place, the two strips the guideline asks for: the client
+              logo row and the tech-stack marquee. Both carry information the
+              hero does not otherwise state, which is the test the old proof
+              row failed.
             */}
+            <Eager delay={0.24}>
+              <HeroProof />
+            </Eager>
           </div>
 
           {/*
@@ -189,15 +179,22 @@ export function Hero() {
             the whole first screen. On `lg` the grid puts it beside the column.
           */}
           <Eager delay={0.3} className="w-full">
+            {/*
+              The plate is one element now.
+
+              It was three stacked boxes: a hairline frame offset up-left, a
+              solid crimson rectangle offset down-right by 24px so it read as
+              a bar down two edges, and the photograph on top. The guideline
+              removes the bar, and with the bar gone the offset frame behind
+              it has nothing to offset against, so both are gone and the
+              photograph is the plate.
+
+              That also settles the accent budget: crimson is now the CTA,
+              one word of the H1 and active states, which is what the
+              guideline restricts it to. A 400px solid crimson rectangle in
+              the first screen was the single largest use of it on the site.
+            */}
             <div className="relative mx-auto w-full max-w-[420px] lg:mr-0">
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-6 top-0 rounded border border-line bg-surface"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute bottom-0 right-0 h-[calc(100%-24px)] w-[calc(100%-24px)] rounded bg-accent"
-              />
 
               {/*
                 Three cuts of one photograph, and `sizes` written against the
@@ -231,7 +228,10 @@ export function Hero() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="relative block h-auto w-[calc(100%-24px)] rounded grayscale contrast-[1.06]"
+                /* In colour, and `rounded-2xl` (16px) so the portrait is visibly
+                   rounder than a card. It was `grayscale contrast-[1.06]`;
+                   the guideline asks for colour. */
+                className="relative block h-auto w-full rounded-2xl border border-line"
               />
             </div>
           </Eager>

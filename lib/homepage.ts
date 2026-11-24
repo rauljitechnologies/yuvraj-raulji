@@ -738,3 +738,91 @@ export const ECOSYSTEM: readonly EcosystemGroup[] = [
     ],
   },
 ];
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HERO — the redesign's opening block
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * The hero eyebrow.
+ *
+ * ── NOT the string the redesign brief asked for, and this is why ──────────
+ *
+ * The brief asks for "Founder, Raulji Technologies · eCommerce Architect".
+ * That string cannot ship. Two separate rules in the repo forbid it:
+ *
+ *   BRAND-DESIGN-GUIDELINE.md section 3 — "GLOBAL PROHIBITED WORD: Founder.
+ *   MUST NOT APPEAR ANYWHERE", checked in visible content, metadata, schema
+ *   and alt text alike.
+ *
+ *   Section 4 keeps the historical company names off the site, "Raulji
+ *   Technologies" among them.
+ *
+ * Both are enforced by scripts/check-prohibited-titles.sh, which greps the
+ * EXPORTED HTML and fails the build. Writing the brief's string in produced
+ * exactly that: three failures on out/index.html.
+ *
+ * So this is the nearest compliant line. It keeps what the brief was reaching
+ * for — an independent practice, then the discipline — without the two
+ * forbidden strings:
+ *
+ *   "Independent" carries the same standing as "Founder" without the word,
+ *   and it is the positioning the rest of the site already uses.
+ *   "eCommerce Architect" is the brief's own second half, unchanged.
+ *
+ * This is a brand decision, not a code one, so it is flagged rather than
+ * settled here. If the guideline is meant to change, section 3 and section 4
+ * of BRAND-DESIGN-GUIDELINE.md and the two arrays in
+ * scripts/check-prohibited-titles.sh all have to change with it, and
+ * PROHIBITED_TITLES in lib/identity.ts is the fourth copy.
+ */
+export const HERO_EYEBROW = 'Independent eCommerce Architect · Magento & Shopify Plus';
+
+export const HERO_H1 = [
+  { text: 'I make eCommerce stores faster, and they ', accent: false },
+  { text: 'sell more', accent: true },
+  { text: '.', accent: false },
+] as const;
+
+/**
+ * Client logos under the calls to action.
+ *
+ * PLACEHOLDER — no logo assets exist in public/, and a logo wall is a claim
+ * about who the work was for. These render as wordmarks so the row has its
+ * real height, rhythm and hover behaviour, and swapping each `src` in is a
+ * one-line edit per row. They are deliberately NOT presented as verified
+ * client relationships: see the `todo` flag, which the component renders as
+ * a visible note until it is cleared.
+ */
+export type ClientLogo = { name: string; src?: string };
+/*
+   PLACEHOLDER ROW, and deliberately sectors rather than company names.
+
+   The brief asks for a client logo row. There are no logo files in public/,
+   and naming companies here would make two claims the site cannot support:
+   that they were clients (most are past EMPLOYERS, which is a different
+   relationship) and that their marks may be used. One of the names I first
+   put here, Nxtby, is also on the section 4 prohibited list and failed the
+   build.
+
+   These five are the case-study sectors, which are factual, already on the
+   site, and give the row its real height, rhythm and hover behaviour. The
+   visible TODO under it says what to swap in. A placeholder that looks
+   finished is how a mockup ships as a factual claim.
+*/
+export const CLIENT_LOGOS: readonly ClientLogo[] = [
+  { name: 'Fashion D2C' },
+  { name: 'Sports nutrition' },
+  { name: 'Horticulture' },
+  { name: 'B2B procurement' },
+  { name: 'Marketplace' },
+];
+
+/** The tech-stack marquee, from the brief. Five items, in its order. */
+export const TECH_STACK = [
+  'Magento',
+  'Adobe Commerce',
+  'Shopify Plus',
+  'Next.js',
+  'GenAI',
+] as const;
