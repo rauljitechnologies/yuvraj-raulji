@@ -826,3 +826,27 @@ export const TECH_STACK = [
   'Next.js',
   'GenAI',
 ] as const;
+
+/**
+ * The measurable result chip on each case-study card.
+ *
+ * PLACEHOLDERS, and flagged as such on the card itself. The brief asks for a
+ * result chip with examples like "+38% CR" and "LCP 1.2s", marked TODO to be
+ * filled in.
+ *
+ * They are kept OUT of lib/brand.ts, where the real case-study data lives,
+ * for one reason: CONTENT-PRINCIPLES.md section 1 treats an unsupported
+ * figure as an invented one, and a performance number on a case study is the
+ * most quotable claim on the page. Sitting here, keyed by project id and
+ * rendered with a visible TODO marker, they cannot be mistaken for the
+ * verified record or leak into the case study's schema node.
+ *
+ * To make one real: move the value into the project's entry in lib/brand.ts
+ * and delete its key here. The card drops the marker as soon as the key is
+ * gone.
+ */
+export const RESULT_CHIPS: Record<string, string> = {
+  'fashion-d2c': '+38% CR',
+  'plant-store': 'LCP 1.2s',
+  'sports-nutrition': '+24% AOV',
+};

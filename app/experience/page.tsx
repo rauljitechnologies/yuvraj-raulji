@@ -126,17 +126,29 @@ export default function ExperiencePage() {
         <Shell>
           <Marker label="Timeline" />
           <div className="mb-grid flex flex-wrap items-end justify-between gap-8">
-            <Lines as="h2" id="timeline-title" lines={['2010', 'to today.']} />
+            <Lines as="h2" id="timeline-title" lines={['Today', 'back to 2010.']} />
             <Rise delay={0.18}>
               <p className="m-0 max-w-[520px] font-manrope text-[17px] font-light leading-[1.7] text-ink/55">
-                Seven points where the work changed shape, from a diploma in information
-                technology to incorporating the practice.
+                Seven points where the work changed shape, most recent first,
+                back to a diploma in information technology.
               </p>
             </Rise>
           </div>
 
           <ol className="m-0 list-none p-0">
-            {TIMELINE.map((t, i) => (
+            {/*
+              NEWEST FIRST.
+
+              `TIMELINE` in lib/home.ts is authored chronologically, 2010 to
+              2026, and was rendered in that order: a reader landed on a
+              diploma from sixteen years ago and had to scroll the whole rail
+              to reach what this person does now. Reversed here rather than in
+              the data, because the data's order is also what the ItemList
+              node reports and a schema timeline reads correctly ascending.
+              `toReversed()` leaves the module-scope array alone — `reverse()`
+              would mutate it and flip the schema with it.
+            */}
+            {TIMELINE.toReversed().map((t, i) => (
               <li key={t.year}>
                 <Rise
                   delay={Math.min(i, 5) * 0.05}

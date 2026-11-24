@@ -14,6 +14,7 @@ import {
   SelectedWork,
   Services,
 } from '../components/homepage-sections/sections';
+import { FinalCta, Testimonials } from '../components/homepage-sections/closing';
 import { JsonLd } from '../components/json-ld';
 import { brandHomeSchema, HOME_DESCRIPTION } from '../lib/schema-brand';
 import { OG_IMAGE, SITE_URL } from '../lib/site';
@@ -119,7 +120,21 @@ export const metadata: Metadata = {
  *   6  About + record    who is behind it, and the employment history
  *   7  Process           how an engagement runs, so the risk is legible
  *   8  Insights          evidence of thinking, for a reader not ready to buy
- *   9  FAQ + close       the last objections, then the action
+ *   9  Testimonials      reassurance, once the information is in
+ *  10  FAQ               the last objections
+ *  11  Closing CTA       the ask
+ *
+ * Eleven, not nine. The redesign brief adds the testimonials section and the
+ * closing CTA band; nothing was removed to make room, because the nine that
+ * were here each answer something and the two new ones answer the two
+ * questions left at the bottom of the page: "has anyone else trusted this
+ * person" and "what exactly do I do now".
+ *
+ * ── THE GROUND ────────────────────────────────────────────────────────────
+ *
+ * One theme, two ink bands: section 1 and section 11. Everything between is
+ * warm paper. The nine-band alternation this replaced is written up on
+ * `Section` in components/ui/index.tsx, along with why it went.
  *
  * Services is fourth, not twelfth. That is the one ordering change worth
  * calling out: on the previous page a buyer passed the problems, the figures,
@@ -234,7 +249,14 @@ export default function Home() {
           <AboutExperience />
           <Process />
           <Insights />
+          {/* Social proof immediately before the close: a reader who has
+              reached this far has the information and needs the reassurance,
+              which is the one job a testimonial does. */}
+          <Testimonials />
           <FaqContact />
+          {/* The second and last ink band. See the alternation note on
+              `Section` in components/ui/index.tsx. */}
+          <FinalCta />
         </main>
 
         <SiteFooter />
