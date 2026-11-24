@@ -54,8 +54,18 @@ export function RvGroup({
   delayChildren?: number;
   as?: 'div' | 'ul' | 'ol' | 'dl' | 'section';
 }) {
+  /*
+     NO `MARK` here, deliberately. The group orchestrates its children; it is
+     not itself a reveal. Stamping `yr-rv` on it made every child's visibility
+     depend on the GROUP intersecting first as well as itself, which is a
+     double gate on a container that is often taller than the viewport, and it
+     nested two opacity transitions. Measured before this: the services grid
+     reported 7 reveal elements for 6 cards, problems 7 for 6, insights 4 for
+     3 and the stat strip 6 for 5 — the extra one in each case being the
+     container.
+  */
   return (
-    <RevealGroup className={`${MARK} ${className}`} each={each} delayChildren={delayChildren} as={as}>
+    <RevealGroup className={className} each={each} delayChildren={delayChildren} as={as}>
       {children}
     </RevealGroup>
   );

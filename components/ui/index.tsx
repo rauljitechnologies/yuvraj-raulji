@@ -41,56 +41,63 @@ import type { ReactNode } from 'react';
    ══════════════════════════════════════════════════════════════════════════ */
 
 /**
- * One section band: the ground it sits on and the air above and below it.
+ * ══════════════════════════════════════════════════════════════════════════
+ * SECTION — one light theme, and exactly two ink bands
+ * ══════════════════════════════════════════════════════════════════════════
  *
- * ── THE BACKGROUND ALTERNATION RULE ───────────────────────────────────────
+ * ── The rule, stated once so it is checkable rather than remembered ───────
  *
- * The homepage is nine sections and the grounds go:
+ * The page is ONE theme: warm paper, `--off-white`. Two sections are ink,
+ * and they are named here rather than chosen locally:
  *
- *   1  Hero                 DARK
- *   2  Proof strip          DARK
- *   3  Selected work        LIGHT
- *   4  Services             DARK
- *   5  Problems I solve     LIGHT
- *   6  About + experience   DARK
- *   7  Process              LIGHT
- *   8  Insights             DARK
- *   9  FAQ + contact        LIGHT
+ *   1  Hero            INK    the opening claim
+ *   9  Closing CTA     INK    the ask
  *
- * The rule, stated once so it is checkable rather than remembered:
+ * Everything between them is paper. That is the whole alternation rule now.
  *
- *   Sections 1 and 2 are both dark, because they are one opening unit: the
- *   hero makes the claim and the proof strip evidences it, and a band
- *   boundary between them would split a single argument in half.
+ * ── What this replaced, and why ───────────────────────────────────────────
  *
- *   From section 3 the ground strictly alternates, starting LIGHT. So for
- *   n >= 3, the ground is LIGHT when n is odd and DARK when n is even.
+ * It alternated: dark, dark, light, dark, light, dark, light, dark, light.
+ * The reasoning was that a rhythm tells a reader how far down the page they
+ * are, which is true of a long editorial page and wrong here. Nine bands
+ * inverting every section means nine ground changes in one scroll, every
+ * card and hairline flipping with them, and the eye re-adapting each time;
+ * what reads as rhythm in a mockup reads as flicker in a scroll. It also
+ * doubled the contrast surface: every text token had to be legal on two
+ * grounds, which is why --accent-bright had to exist at all.
  *
- * Why alternate at all: the previous page ran dark, dark, light, light,
- * dark, light, light, light, dark, red, dark, dark, light, dark, dark,
- * dark, light, dark — which is not a rhythm, it is the residue of nineteen
- * sections each deciding locally. Two adjacent light bands read as one
- * section twice as long, and the red band in the middle read as a different
- * website. The rhythm is what tells a reader how far down the page they are.
+ * Two ink bands at the top and bottom do the job the alternation was
+ * reaching for: they frame the page. The opening is dark, the argument runs
+ * on paper, the close is dark.
  *
- * `tone="light"` sets `.theme-light`, which re-declares the ground, the ink,
- * the hairline and the small-text red on this subtree only. A child writes
- * `bg-ground`, `text-ink` and `border-line` and gets the right side of the
- * inversion without knowing which band it is in. That is why there is no
- * `tone` prop anywhere below this component.
+ * ── How a band works ──────────────────────────────────────────────────────
+ *
+ * `tone="ink"` sets `.theme-ink`, which re-declares the ground, the ink, the
+ * hairline, the surface and the small-text red on that subtree only. A child
+ * writes `bg-ground`, `text-ink` and `border-line` and gets the right side
+ * of the inversion without knowing which band it is in. That is why there is
+ * no `tone` prop anywhere below this component.
+ *
+ * It also composes with dark mode: in dark mode the root is already ink, so
+ * an ink band lifts to `--ink-surface` instead, and the two bands stay
+ * legible as bands rather than dissolving into the page. See the comment on
+ * `.theme-ink` in app/globals.css.
+ *
+ * `tone="light"` is accepted as an alias for the default so the interior
+ * templates that pass it keep compiling.
  *
  * ── The padding ───────────────────────────────────────────────────────────
  *
- * `py-section` and nothing else: 64px on a phone, 96px from md, declared
- * once as `--section-py` in app/globals.css. There is no `tall` variant and
- * no `compact` variant. A section that needs more air gets it from the
- * spacing inside it, which is content, not chrome.
+ * `py-section` and nothing else: 64px on a phone rising to 128px on a wide
+ * desktop, declared once as `--section-py` in app/globals.css. There is no
+ * `tall` variant and no `compact` variant. A section that needs more air
+ * gets it from the spacing inside it, which is content, not chrome.
  */
 export function Section({
   id,
   children,
   labelledBy,
-  tone = 'dark',
+  tone = 'paper',
   className = '',
 }: {
   /** The in-page anchor. Every section on the homepage has one. */
@@ -98,8 +105,11 @@ export function Section({
   children: ReactNode;
   /** The id of the section's own heading, for `aria-labelledby`. */
   labelledBy?: string;
-  /** Which ground. See the alternation rule above; never chosen locally. */
-  tone?: 'dark' | 'light';
+  /**
+   * Which ground. Only the hero and the closing CTA pass `ink`.
+   * `light` is an alias for `paper`, kept for the interior templates.
+   */
+  tone?: 'paper' | 'ink' | 'light';
   /** Layout only. Never padding, never a colour. */
   className?: string;
 }) {
@@ -107,8 +117,8 @@ export function Section({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={`relative py-section ${
-        tone === 'light' ? 'theme-light bg-ground text-ink' : 'bg-ground text-ink'
+      className={`relative py-section bg-ground text-ink ${
+        tone === 'ink' ? 'theme-ink' : ''
       } ${className}`}
     >
       {children}

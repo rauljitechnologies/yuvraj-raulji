@@ -25,6 +25,7 @@
     "qa:lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
+    "lucide-react": "^1.79.0",
     "motion": "^13.1.0",
     "next": "^16.3.2",
     "react": "^19.2.8",

@@ -1,4 +1,14 @@
 import Link from 'next/link';
+import {
+  ArrowRight,
+  Layers,
+  Rocket,
+  ShoppingCart,
+  Sparkles,
+  Store,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react';
 import { coverSrcSet, WRITING } from '../../lib/brand';
 import { CAREER } from '../../lib/career';
 import { INTRO } from '../../lib/identity';
@@ -10,6 +20,7 @@ import {
   HOME_FAQ_COUNT,
   PROBLEMS,
   PROJECTS,
+  RESULT_CHIPS,
   STATS,
 } from '../../lib/homepage';
 import { Button, Card, Container, Eyebrow, Section, SectionHeading } from '../ui';
@@ -101,9 +112,19 @@ export function ProofStrip() {
           The record, in five figures
         </h2>
 
+        {/*
+          A bento strip: five tiles, each a surface with its own hairline,
+          rather than five bare figures on the band. The tile is what makes it
+          a strip — before this the five sat in a grid with nothing around
+          them, so at 1440 they read as four columns of text and a gap.
+
+          2 columns on a phone with the fifth spanning both, 5 across from
+          `md`. The span is on the LAST tile rather than the first because a
+          5-item list in a 2-column grid leaves its orphan at the end.
+        */}
         <RvGroup
           as="dl"
-          className="m-0 grid grid-cols-2 gap-8 md:grid-cols-5 md:gap-6"
+          className="m-0 grid grid-cols-2 gap-4 md:grid-cols-5"
           each={0.06}
         >
           {STATS.map((stat) => (
@@ -120,7 +141,10 @@ export function ProofStrip() {
               <a> inside the <dd> and stretching it keeps the figure, the
               label, the semantics and the full-tile hit area all at once.
             */
-            <RvItem key={stat.label} className="group relative max-md:last:col-span-2">
+            <RvItem
+              key={stat.label}
+              className="group relative flex flex-col justify-between rounded border border-line bg-surface p-6 transition-[border-color,transform] duration-200 ease-out hover:border-accent hover:-translate-y-[2px] motion-reduce:hover:translate-y-0 max-md:last:col-span-2"
+            >
               <StatBody stat={stat} />
             </RvItem>
           ))}
@@ -133,9 +157,16 @@ export function ProofStrip() {
 function StatBody({ stat }: { stat: (typeof STATS)[number] }) {
   return (
     <>
-      <dt className="font-mono text-eyebrow font-medium uppercase text-ink-muted">{stat.label}</dt>
+      {/* Label first in the DOM because <dt> is the term and <dd> is the
+          value, and `flex-col-reverse` on the tile is what puts the figure
+          on top visually. Reversing with CSS rather than with markup keeps
+          the list valid and keeps a screen reader reading "Years
+          Experience, 9+" rather than "9+, Years Experience". */}
+      <dt className="order-2 mt-2 font-mono text-eyebrow font-medium uppercase text-ink-muted">
+        {stat.label}
+      </dt>
       <dd
-        className={`m-0 mt-2 font-heading text-h1 font-extrabold leading-none text-ink transition-colors duration-200 ${
+        className={`order-1 m-0 font-heading text-h2 font-extrabold leading-none text-ink transition-colors duration-200 ${
           stat.href ? 'group-hover:text-accent-bright' : ''
         }`}
       >
@@ -225,13 +256,29 @@ export function SelectedWork() {
           Real work.
         </SectionHeading>
 
+        {/*
+          A bento: one large card and two small, per the brief.
+
+          `md:grid-cols-3` with the first card spanning two columns and both
+          rows, so the two small ones stack beside it. One column on a phone,
+          where a 2:1 bento is just two different card widths on top of each
+          other.
+
+          `md:auto-rows-fr` makes the two right-hand rows equal, which is what
+          keeps the small pair aligned with the large card's top and bottom
+          edges instead of floating.
+        */}
         <RvGroup
           as="ul"
-          className="m-0 mt-12 grid list-none gap-6 p-0 md:grid-cols-3"
+          className="m-0 mt-12 grid list-none gap-4 p-0 md:auto-rows-fr md:grid-cols-3"
           each={0.06}
         >
-          {shown.map((project) => (
-            <RvItem key={project.id} as="li" className="h-full">
+          {shown.map((project, i) => (
+            <RvItem
+              key={project.id}
+              as="li"
+              className={`h-full ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
+            >
               {/*
                 The whole card is the link, so the target is the card and not
                 a 20px line of text at the bottom of it. `Card` supplies the
@@ -252,7 +299,11 @@ export function SelectedWork() {
                         height={675}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+                        /* In colour, and it zooms on hover. The zoom is on
+                           the image inside an `overflow-hidden` box, so the
+                           card's own edges do not move: `scale` on the card
+                           would reflow its neighbours in the grid. */
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
                       />
                     ) : (
                       /* The ghost tile, for a case study with no cover in
@@ -265,9 +316,37 @@ export function SelectedWork() {
                   </div>
 
                   <div className="flex flex-1 flex-col p-6 md:p-8">
-                    <p className="m-0 font-mono text-eyebrow font-medium uppercase text-accent-bright">
-                      {project.industry}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="m-0 font-mono text-eyebrow font-medium uppercase text-accent-bright">
+                        {project.industry}
+                      </p>
+
+                      {/*
+                        The measurable result chip.
+
+                        `RESULT_CHIPS` holds PLACEHOLDERS and the asterisk
+                        says so on the card, because a performance figure on
+                        a case study is the most quotable claim on this page
+                        and CONTENT-PRINCIPLES.md section 1 treats an
+                        unsupported figure as an invented one. The chip keeps
+                        the design honest in the meantime: the layout is real,
+                        the number is marked.
+
+                        To make one real, move the value into the project's
+                        entry in lib/brand.ts and delete its key from
+                        RESULT_CHIPS. The marker disappears with the key.
+                      */}
+                      {RESULT_CHIPS[project.id] ? (
+                        <span
+                          title="Placeholder figure, not yet verified"
+                          className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-3 py-1 font-mono text-eyebrow font-medium uppercase text-accent-bright"
+                        >
+                          {RESULT_CHIPS[project.id]}
+                          <span aria-hidden="true">*</span>
+                          <span className="sr-only"> (placeholder, to be verified)</span>
+                        </span>
+                      ) : null}
+                    </div>
                     <h3 className="m-0 mt-3 font-heading text-h3 font-bold text-ink">
                       {project.name}
                     </h3>
@@ -319,6 +398,26 @@ export function SelectedWork() {
  * lib/service-pages.ts, so adding a service to the registry adds it here
  * without this file knowing about it.
  */
+/**
+ * One lucide icon per service, keyed by slug.
+ *
+ * Keyed rather than positional: `FEATURED_SERVICE_PAGES` is a registry and
+ * its order can change, and a positional array would silently reassign every
+ * icon the next time a service is added. A slug with no entry falls back to
+ * `Layers`, so a new service renders rather than crashing.
+ *
+ * Imported one by one, not as the whole `lucide-react` namespace: the barrel
+ * import pulls the full icon set into the bundle, and this page needs six.
+ */
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  'magento-development': ShoppingCart,
+  'shopify-development': Store,
+  'headless-commerce': Layers,
+  'generative-ai': Sparkles,
+  'ecommerce-development': Rocket,
+  'ecommerce-maintenance': Wrench,
+};
+
 export function Services() {
   const shown = FEATURED_SERVICE_PAGES.slice(0, 6);
 
@@ -341,15 +440,38 @@ export function Services() {
         >
           {shown.map((sp) => (
             <RvItem key={sp.slug} as="li" className="h-full">
-              <Link href={servicePageHref(sp.slug)} className="block h-full">
+              <Link href={servicePageHref(sp.slug)} className="group block h-full">
                 <Card interactive>
-                  <p className="m-0 font-mono text-eyebrow font-medium uppercase text-accent-bright">
+                  {(() => {
+                    const Icon = SERVICE_ICONS[sp.slug] ?? Layers;
+                    return (
+                      <Icon
+                        aria-hidden="true"
+                        strokeWidth={1.5}
+                        className="h-6 w-6 text-accent transition-colors duration-200 group-hover:text-accent-bright"
+                      />
+                    );
+                  })()}
+                  <p className="m-0 mt-6 font-mono text-eyebrow font-medium uppercase text-accent-bright">
                     {sp.eyebrow}
                   </p>
                   <h3 className="m-0 mt-3 font-heading text-h3 font-bold text-ink">
                     {sp.navLabel}
                   </h3>
                   <p className="m-0 mt-3 font-body text-small text-ink-secondary">{sp.lede}</p>
+
+                  {/* The arrow sits at the card's foot on `mt-auto`, so the
+                      six arrows line up across a row regardless of how long
+                      each lede runs. It is the Card's column flex that makes
+                      `mt-auto` work here. */}
+                  <span className="mt-auto inline-flex items-center gap-2 pt-6 font-mono text-eyebrow font-medium uppercase text-ink-muted transition-colors duration-200 group-hover:text-accent-bright">
+                    Explore
+                    <ArrowRight
+                      aria-hidden="true"
+                      strokeWidth={2}
+                      className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
+                    />
+                  </span>
                 </Card>
               </Link>
             </RvItem>
@@ -402,20 +524,36 @@ export function Problems() {
         </SectionHeading>
 
         <RvGroup
-          as="ul"
-          className="m-0 mt-12 grid list-none gap-x-12 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3"
+          as="ol"
+          /* Two columns, not three. Six items in a 3-column grid is two rows
+             of three, which reads as a card grid without the cards; two
+             columns of three reads as a list, which is what it is. */
+          className="m-0 mt-12 grid list-none gap-x-12 gap-y-8 p-0 sm:grid-cols-2"
           each={0.04}
         >
           {shown.map((problem) => (
-            <RvItem key={problem.no} as="li" className="border-t border-line pt-6">
+            <RvItem
+              key={problem.no}
+              as="li"
+              className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 border-t border-line pt-6"
+            >
+              {/*
+                The number is a crimson accent in the left margin rather than
+                a line above the heading, so the six read as one numbered
+                list down the page. aria-hidden because the <ol> semantics
+                already convey the position, and a screen reader announcing
+                "01" before every heading is noise.
+              */}
               <span
                 aria-hidden="true"
-                className="font-mono text-eyebrow font-medium text-accent"
+                className="font-heading text-h3 font-extrabold leading-none text-accent"
               >
                 {problem.no}
               </span>
-              <h3 className="m-0 mt-3 font-heading text-h3 font-bold text-ink">{problem.name}</h3>
-              <p className="m-0 mt-2 font-body text-small text-ink-secondary">{problem.note}</p>
+              <div>
+                <h3 className="m-0 font-heading text-h3 font-bold text-ink">{problem.name}</h3>
+                <p className="m-0 mt-2 font-body text-small text-ink-secondary">{problem.note}</p>
+              </div>
             </RvItem>
           ))}
         </RvGroup>

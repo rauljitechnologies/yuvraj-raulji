@@ -76,7 +76,7 @@ const files = ALL
    structural rather than spacing choices and are allowed everywhere. */
 const ALLOWED_STEPS = new Set(['0', 'px', 'auto', 'full', '1', '2', '3', '4', '6', '8', '12', '16']);
 /* Plus the three layout tokens, which ARE the system. */
-const ALLOWED_TOKENS = new Set(['section', 'gutter', 'header']);
+const ALLOWED_TOKENS = new Set(['section', 'gutter', 'header', 'header-sm']);
 
 /* Longest alternative first. Written `gap|gap-x` the alternation matched
    `gap` inside `gap-x-12`, left `x-12` as the step, and reported every
