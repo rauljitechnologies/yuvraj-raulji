@@ -1,5 +1,5 @@
 import { ROLE, ROLE_LINE } from '../../lib/identity';
-import { HERO, PORTRAITS, STATS } from '../../lib/homepage';
+import { HERO, PORTRAITS } from '../../lib/homepage';
 import { Button, Container, Section } from '../ui';
 import { Eager } from './rv';
 
@@ -73,12 +73,6 @@ import { Eager } from './rv';
  * JavaScript.
  */
 export function Hero() {
-  /* The three figures, from the same record the proof strip reads. Taking a
-     slice rather than retyping three values is what stops the hero and the
-     strip under it disagreeing, which is the failure mode `EXPERTISE_LINE`
-     had: it stated "9+ Years" and "50+ Projects" as its own literals beside
-     a strip deriving the same two from lib/career.ts. */
-  const proof = STATS.slice(0, 3);
 
   return (
     <Section id="top" labelledBy="hero-title">
@@ -157,35 +151,29 @@ export function Hero() {
             </Eager>
 
             {/*
-              The proof row. Three figures, under the call to action rather
-              than above it: above, it separates the subheading from the
-              button the subheading is arguing for; below, it is the last
-              thing read before the decision and it is evidence rather than
-              preamble.
+              The proof row stood here: three figures in a <dl> under the
+              calls to action.
 
-              A `<dl>` because each item is a value and the thing it measures,
-              which is what a description list is. The old version was a
-              single `<p>` of pipe-separated spans with an `aria-label`
-              rebuilding the spoken form, so a screen reader got one run-on
-              line and a copy-paste got the pipes.
+              It is gone because it was the SAME three figures, in the same
+              order, as the first three of the five-figure strip in the
+              section immediately below it — `STATS.slice(0, 3)` against a
+              strip that renders all of `STATS`. So "9+ / 50+ / 1M+" was
+              read twice within about one screen, the second time under a
+              heading announcing it as the record. Two proof blocks a border
+              apart do not reinforce each other; they read as the page
+              repeating itself, which is exactly how it was reported.
+
+              The row also had a duplication bug of its own, which is worth
+              recording because it is the kind that only shows up in
+              extracted text: the label was in an `sr-only` <dt> AND again
+              in a visible <span> inside the <dd>, so a screen reader and a
+              copy-paste both got "Years Experience 9+ Years Experience".
+
+              The five-figure strip is now the page's one proof block. It
+              still sits directly under the hero's call to action, which is
+              where the brief wanted the evidence; it is simply its own band
+              rather than a second copy.
             */}
-            <Eager delay={0.24} className="mt-12">
-              <dl className="m-0 flex flex-wrap gap-x-12 gap-y-6 border-t border-line pt-8">
-                {proof.map((stat) => (
-                  <div key={stat.label}>
-                    <dt className="sr-only">{stat.label}</dt>
-                    <dd className="m-0">
-                      <span className="block font-heading text-h2 font-extrabold leading-none text-ink">
-                        {stat.value}
-                      </span>
-                      <span className="mt-2 block font-mono text-eyebrow font-medium uppercase text-ink-muted">
-                        {stat.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Eager>
           </div>
 
           {/*
