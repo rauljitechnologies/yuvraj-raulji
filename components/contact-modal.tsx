@@ -149,7 +149,7 @@ export function ContactModal() {
           >
             <div
               className="absolute bottom-0 left-0 right-0 pointer-events-none"
-              style={{ height: '50%', background: 'radial-gradient(ellipse 100% 80% at 50% 100%,rgba(215, 25, 32,.12),transparent)' }}
+              style={{ height: '50%', background: 'radial-gradient(ellipse 100% 80% at 50% 100%,rgb(var(--accent-rgb) / .12),transparent)' }}
             />
             <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none select-none opacity-60" aria-hidden="true">
               <p className="font-display uppercase text-[8rem] tracking-[.01em] text-accent/[0.04] whitespace-nowrap translate-y-[15%]">
@@ -160,7 +160,7 @@ export function ContactModal() {
             <div className="relative z-[1]">
               <div className="flex items-center gap-2.5 mb-5">
                 <span className="h-px w-6 shrink-0 bg-accent-bright" aria-hidden="true" />
-                <span className="font-mono text-[10px] font-bold tracking-[0.32em] uppercase text-accent/60">
+                <span className="font-mono text-eyebrow font-bold tracking-[0.32em] uppercase text-accent/60">
                   Private Consultation
                 </span>
               </div>
@@ -178,19 +178,19 @@ export function ContactModal() {
               </p>
             </div>
 
-            <div className="relative z-[1]" style={{ height: 1, background: 'linear-gradient(90deg,rgba(215, 25, 32,.30),transparent)' }} />
+            <div className="relative z-[1]" style={{ height: 1, background: 'linear-gradient(90deg,rgb(var(--accent-rgb) / .30),transparent)' }} />
 
             <div className="relative z-[1] flex flex-col gap-5">
               <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 group no-underline">
                 <span className="w-9 h-9 border border-white/[0.08] bg-white/[0.03] grid place-items-center shrink-0 transition-[border-color] duration-[220ms] group-hover:border-accent/40">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--accent-rgb) / .70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <polyline points="2,4 12,13 22,4" />
                   </svg>
                 </span>
                 <div>
-                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Email</p>
-                  <p className="text-[.82rem] text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
+                  <p className="font-mono text-eyebrow font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Email</p>
+                  <p className="text-small text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
                     {CONTACT.email}
                   </p>
                 </div>
@@ -209,8 +209,8 @@ export function ContactModal() {
                   </svg>
                 </span>
                 <div>
-                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">WhatsApp Business</p>
-                  <p className="text-[.82rem] text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
+                  <p className="font-mono text-eyebrow font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">WhatsApp Business</p>
+                  <p className="text-small text-ink/70 transition-colors duration-[220ms] group-hover:text-white">
                     {CONTACT.phoneDisplay}
                   </p>
                 </div>
@@ -218,14 +218,14 @@ export function ContactModal() {
 
               <div className="flex items-center gap-3">
                 <span className="w-9 h-9 border border-white/[0.08] bg-white/[0.03] grid place-items-center shrink-0">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(215, 25, 32,.70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--accent-rgb) / .70)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 </span>
                 <div>
-                  <p className="font-mono text-[.65rem] font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Location</p>
-                  <p className="text-[.82rem] text-ink/70">{CONTACT.location}</p>
+                  <p className="font-mono text-eyebrow font-bold tracking-[.20em] uppercase text-ink/40 mb-0.5">Location</p>
+                  <p className="text-small text-ink/70">{CONTACT.location}</p>
                 </div>
               </div>
 
@@ -251,8 +251,8 @@ export function ContactModal() {
             </div>
 
             <div className="relative z-[1] inline-flex items-center gap-2 px-3.5 py-2.5 border border-white/[0.16] bg-white/[0.03]">
-              <span className="w-1.5 h-1.5 shrink-0 bg-accent" style={{ boxShadow: '0 0 0 0 rgba(215,25,32,.5)', animation: 'avP 1.6s infinite' }} />
-              <span className="font-mono text-[.68rem] font-bold tracking-[.18em] uppercase text-ink/70">
+              <span className="w-1.5 h-1.5 shrink-0 bg-accent" style={{ boxShadow: '0 0 0 0 rgb(var(--accent-rgb) / .5)', animation: 'avP 1.6s infinite' }} />
+              <span className="font-mono text-eyebrow font-bold tracking-[.18em] uppercase text-ink/70">
                 Responds within 24 hours
               </span>
             </div>

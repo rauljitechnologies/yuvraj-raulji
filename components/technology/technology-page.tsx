@@ -26,11 +26,12 @@ import { coverSrcSet } from '../../lib/images';
  * it has.
  *
  * The red is the reason the swap is a class and not a palette rewrite here.
- * --accent stays #d71920 on both grounds because it is the brand. What cannot
- * stay is --accent-bright: #ee2a34 is drawn to lift off black and lands at
- * 3.4:1 on white, failing AA for the labels and marker numbers that use it, so
- * on paper it maps to #a30f15 at 7.6:1. Reach for a token and the contrast is
- * handled; hardcode a hex and it is not.
+ * --accent stays #C8102E on both grounds because it is the brand. What cannot
+ * stay is --accent-bright: #F0485A is drawn to lift off the near-black and
+ * measures 3.0:1 on the off-white, failing AA for the labels and marker
+ * numbers that use it, so on the light scope it resolves back to #C8102E at
+ * 5.31:1. Reach for a token and the contrast is handled; hardcode a hex and
+ * it is not. scripts/check-contrast.mjs measures every one of those pairs.
  *
  * So nothing in this file styles for a ground. There is no `.yr-paper .thing`
  * rule anywhere, and there should not be one. If a section needs a colour it
@@ -102,7 +103,7 @@ const SERVICE_COUNT: Record<number, string> = {
 };
 
 const LABEL =
-  'm-0 font-mono text-[10px] font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
+  'm-0 font-mono text-eyebrow font-medium uppercase leading-none tracking-[0.2em] text-ink/55';
 
 /* One body size, so fourteen sections cannot drift into fourteen body sizes. */
 const BODY = 'font-manrope text-[17px] font-light leading-[1.7] text-ink/55';
@@ -282,7 +283,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -342,7 +343,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                     aria-hidden because the spans are already discrete to a
                     screen reader.
                   */}
-                  <p className="m-0 mt-4 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ink/55">
+                  <p className="m-0 mt-4 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 font-mono text-eyebrow uppercase tracking-[0.14em] text-ink/55">
                     {stage.covers.map((c, i) => (
                       <Fragment key={c}>
                         {i > 0 ? (
@@ -423,7 +424,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                   <div>
                     <span
                       aria-hidden="true"
-                      className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                      className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>
@@ -478,7 +479,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -757,7 +758,7 @@ export function TechnologyPage({ tech }: { tech: Technology }) {
                 >
                   <span
                     aria-hidden="true"
-                    className="font-mono text-[11px] font-medium leading-none tracking-[0.2em] text-accent-bright"
+                    className="font-mono text-eyebrow font-medium leading-none tracking-[0.2em] text-accent-bright"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>

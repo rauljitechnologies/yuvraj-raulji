@@ -76,34 +76,50 @@
          --near-black   #0A0A0A   the ground
          --off-white    #F5F3EF   the ink on that ground
          --grey-900     #1C1C1C   surfaces and cards on the near-black
-         --grey-500     #6E6E6E   hairlines; and muted text on off-white
+         --grey-500     #686868   hairlines; and muted text on off-white
          --grey-300     #A3A3A3   muted text on the near-black
 
-       MEASURED CONTRAST, not assumed (scripts/check-contrast.mjs):
+       MEASURED CONTRAST, printed and enforced by
+       scripts/check-contrast.mjs, which reads these hex values out of this
+       file rather than carrying a copy of them. It checks every pair the
+       site renders, including each text token against the CARD ground as
+       well as the page ground — which is the check that caught two of the
+       values below being chosen against the page ground alone:
 
          off-white  on near-black  17.86:1
          grey-300   on near-black   7.85:1   AA at any size
-         grey-500   on off-white    4.60:1   AA at any size
+         grey-300   on a dark card  6.76:1   AA at any size
+         grey-500   on off-white    5.03:1   AA at any size
+         grey-500   on a light card  4.72:1   AA at any size
          near-black on off-white   17.86:1
          primary    on off-white    5.31:1   AA at any size
          white      on primary      5.88:1   so filled buttons pass
+         primary-bright on near-black 5.45:1  AA at any size
+         primary-bright on a dark card 4.69:1 AA at any size
          primary    on near-black    3.37:1  <- FAILS AA for small text
 
        That last line is the one thing the brief's palette cannot do on
        its own, and it is why --primary-bright exists. #C8102E on the
        near-black ground is legal for fills, borders, rules, icons and
        display text at 24px+ (or 18.66px+ bold), and illegal for a label.
-       --primary-bright (#EA3347) is the same hue opened up until it
-       measures 4.77:1, and it is the ONLY red used for small text on the
-       dark ground. On the off-white ground the plain primary already
-       passes, so .theme-light points --primary-bright back at it. */
+       --primary-bright (#F0485A) is the same hue opened up until it clears
+       4.5:1 against BOTH dark grounds, and it is the ONLY red used for small
+       text on the dark side. On the off-white ground the plain primary
+       already passes, so .theme-light points --primary-bright back at it.
+
+       It was #EA3347 for one commit, which measures 4.77:1 on --bg and
+       4.11:1 on --surface. That second number is the one that matters:
+       every card on the page sets its category eyebrow in this token on
+       --surface, so the value had to be chosen against the card ground
+       rather than the page ground. scripts/check-contrast.mjs is what
+       caught it, and it checks both pairs for exactly that reason. */
     --primary: #c8102e;
-    --primary-bright: #ea3347;
+    --primary-bright: #f0485a;
     --primary-deep: #8e0b20;
     --near-black: #0a0a0a;
     --off-white: #f5f3ef;
     --grey-900: #1c1c1c;
-    --grey-500: #6e6e6e;
+    --grey-500: #686868;
     --grey-300: #a3a3a3;
 
     /* Channel-only duplicates of every colour an alpha modifier is taken
@@ -111,10 +127,10 @@
        value is a bare var(), so tailwind.config.ts routes these through
        rgb(... / <alpha-value>). Keep each in sync with the hex above. */
     --primary-rgb: 200 16 46;
-    --primary-bright-rgb: 234 51 71;
+    --primary-bright-rgb: 240 72 90;
     --near-black-rgb: 10 10 10;
     --off-white-rgb: 245 243 239;
-    --grey-500-rgb: 110 110 110;
+    --grey-500-rgb: 104 104 104;
 
     /* ── 2b. SEMANTIC COLOUR ──────────────────────────────────────
        What the six above are FOR. Components read these, never the
@@ -224,6 +240,15 @@
     --r-md: 8px;
     --r-lg: 8px;
     --r-full: 999px;
+
+    /* The header's bottom hairline, drawn INSIDE the 72px strip.
+       It was `border-b`, which is 1px of extra box: the bar measured 73px
+       against a brief that caps it at 72, at every width, in both scroll
+       states (the unscrolled state carried a transparent border of the same
+       1px). An inset shadow paints the same hairline without occupying
+       height, so --header-h stays the true total and scroll-padding-top,
+       `top-header` and the aside's sticky top all stay correct. */
+    --shadow-header-rule: inset 0 -1px 0 0 var(--border);
 
     --shadow-card: 0 8px 32px rgb(0 0 0 / 0.4);
     --shadow-lifted: 0 16px 48px rgb(0 0 0 / 0.55);
@@ -441,13 +466,101 @@
    * hero cannot get stuck. It also sits above inline styles in the cascade,
    * which is what lets it win.
    */
+  /*
+   * The above-the-fold entrance. TRANSFORM ONLY, and that is the whole point.
+   *
+   * It animated `opacity` from 0 as well, which cost the homepage its Largest
+   * Contentful Paint. Chrome considers an element for LCP only at its FIRST
+   * paint: an element whose first paint happens at `opacity: 0` is excluded
+   * permanently, and finishing the fade does not bring it back. Every item in
+   * the first screen is wrapped in this class, so the hero H1 (364x220 on a
+   * phone) and the portrait were both disqualified, and the largest element
+   * left was the 104x12 wordmark in the header. Measured: LCP 7.5s, 94% of it
+   * "render delay", on a page whose hero image had already arrived.
+   *
+   * A translateY does not affect candidacy, because the element is painted at
+   * full opacity from the first frame and merely in the wrong place. So the
+   * rise-in survives, the fade does not, and the H1 becomes the LCP element
+   * at first contentful paint.
+   */
+  /* ══════════════════════════════════════════════════════════════════════
+     SCROLL REVEAL
+     ══════════════════════════════════════════════════════════════════════
+
+     The hidden state, the transition and the stagger. This is what replaced
+     Motion's `whileInView`; see components/ui/reveal.tsx for why. The class
+     is added by the observer in app/layout.tsx on first intersection.
+
+     Transform and opacity only, so a reveal is composited and never triggers
+     layout. Note that an element in here is BELOW the fold by construction —
+     anything in the first screen uses `.yr-enter` instead, which never starts
+     at opacity 0 because that would disqualify it from being the LCP. */
+  .yr-rv {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.38s var(--ease-out),
+      transform 0.38s var(--ease-out);
+    transition-delay: var(--rv-delay, 0s);
+    will-change: opacity, transform;
+  }
+  .yr-rv.yr-in {
+    opacity: 1;
+    transform: none;
+    /* Dropped once the element has arrived: a page of 60 revealed elements
+       all holding a compositor layer is worse than the one-off cost of
+       promoting them while they move. */
+    will-change: auto;
+  }
+
+  /* The stagger. `--rv-each` and `--rv-dc` come from `RevealGroup` as inline
+     custom properties, and the index is counted here rather than injected as
+     a prop. Twenty-four covers every group on the site; a 25th child simply
+     shares the 24th's delay, which is invisible at 0.04s steps. */
+  .yr-rv-group > .yr-rv {
+    --rv-delay: calc(var(--rv-dc, 0s) + var(--rv-i, 0) * var(--rv-each, 0.07s));
+  }
+  .yr-rv-group > *:nth-child(1) { --rv-i: 0; }
+  .yr-rv-group > *:nth-child(2) { --rv-i: 1; }
+  .yr-rv-group > *:nth-child(3) { --rv-i: 2; }
+  .yr-rv-group > *:nth-child(4) { --rv-i: 3; }
+  .yr-rv-group > *:nth-child(5) { --rv-i: 4; }
+  .yr-rv-group > *:nth-child(6) { --rv-i: 5; }
+  .yr-rv-group > *:nth-child(7) { --rv-i: 6; }
+  .yr-rv-group > *:nth-child(8) { --rv-i: 7; }
+  .yr-rv-group > *:nth-child(9) { --rv-i: 8; }
+  .yr-rv-group > *:nth-child(10) { --rv-i: 9; }
+  .yr-rv-group > *:nth-child(11) { --rv-i: 10; }
+  .yr-rv-group > *:nth-child(12) { --rv-i: 11; }
+  .yr-rv-group > *:nth-child(13) { --rv-i: 12; }
+  .yr-rv-group > *:nth-child(14) { --rv-i: 13; }
+  .yr-rv-group > *:nth-child(15) { --rv-i: 14; }
+  .yr-rv-group > *:nth-child(16) { --rv-i: 15; }
+  .yr-rv-group > *:nth-child(17) { --rv-i: 16; }
+  .yr-rv-group > *:nth-child(18) { --rv-i: 17; }
+  .yr-rv-group > *:nth-child(19) { --rv-i: 18; }
+  .yr-rv-group > *:nth-child(20) { --rv-i: 19; }
+  .yr-rv-group > *:nth-child(21) { --rv-i: 20; }
+  .yr-rv-group > *:nth-child(22) { --rv-i: 21; }
+  .yr-rv-group > *:nth-child(23) { --rv-i: 22; }
+  .yr-rv-group > *:nth-child(n + 24) { --rv-i: 23; }
+
+  /* Reduced motion. The content still arrives, it just stops travelling —
+     the same contract the Motion `reducedVariants` had, now answered by the
+     media query directly instead of by a hook. */
+  @media (prefers-reduced-motion: reduce) {
+    .yr-rv {
+      transform: none;
+      transition-duration: 0.01ms;
+      transition-delay: 0ms;
+    }
+  }
+
   @keyframes yr-enter {
     from {
-      opacity: 0;
       transform: translateY(24px);
     }
     to {
-      opacity: 1;
       transform: none;
     }
   }
@@ -498,14 +611,6 @@
     }
     50% {
       transform: translateY(-9px);
-    }
-  }
-  @keyframes mq {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
     }
   }
   @keyframes sd {
@@ -664,7 +769,7 @@
     z-index: 1;
     background: linear-gradient(
         90deg,
-        #050505 0%,
+        rgb(var(--bg-rgb)) 0%,
         rgb(var(--bg-rgb) / 0.8) 14%,
         rgb(var(--bg-rgb) / 0.42) 34%,
         rgb(var(--bg-rgb) / 0.1) 56%,
@@ -856,24 +961,6 @@
     text-transform: uppercase;
     color: rgba(245, 243, 238, 0.45);
     margin-bottom: 8px;
-  }
-
-  /* ── Marquee ── */
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: mq 30s linear infinite;
-  }
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
-  .mqt {
-    display: flex;
-    width: max-content;
-    animation: mq 32s linear infinite;
-  }
-  .mqt:hover {
-    animation-play-state: paused;
   }
 
   /* ── Work slider ── */

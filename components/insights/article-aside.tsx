@@ -6,16 +6,16 @@ import { CONTACT } from '../../lib/contact';
 import { PERSON_JOB_TITLE } from '../../lib/identity';
 
 const panelCls = 'p-7 rounded-xl border border-line bg-surface';
-const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,var(--accent-bright),rgba(215, 25, 32,.15))', borderRadius: 2, flexShrink: 0 }} />;
+const spine = <span style={{ width: 2, height: 14, background: 'linear-gradient(180deg,var(--accent-bright),rgb(var(--accent-rgb) / .15))', borderRadius: 2, flexShrink: 0 }} />;
 const shareBtnCls =
-  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-accent-bright hover:shadow-[0_8px_28px_rgba(215,25,32,.28)]';
+  'w-10 h-10 grid place-items-center rounded-full cursor-pointer bg-transparent transition-all duration-300 hover:-translate-y-[2px] hover:!border-rv hover:!text-accent-bright hover:shadow-[0_8px_28px_rgb(var(--accent-rgb) / .28)]';
 const shareBtnStyle: React.CSSProperties = { border: '1px solid rgba(255,255,255,.12)', color: 'rgba(245, 243, 238,.55)', fontSize: '.74rem', fontWeight: 700 };
 
 function PanelHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       {spine}
-      <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-ink-faint">{children}</p>
+      <p className="text-small font-bold tracking-[.26em] uppercase text-ink-faint">{children}</p>
     </div>
   );
 }
@@ -44,7 +44,7 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
     <div className={mobile ? `lg:hidden p-6 rounded-xl border border-line bg-surface mb-block` : `hidden lg:block ${panelCls}`}>
       <div className={`flex items-center gap-3 ${mobile ? 'mb-4' : 'mb-5'}`}>
         {spine}
-        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-ink-faint">On This Page</p>
+        <p className="text-small font-bold tracking-[.26em] uppercase text-ink-faint">On This Page</p>
       </div>
       <nav className={`flex flex-col ${mobile ? 'gap-[10px]' : 'gap-[12px]'}`}>
         {toc.map((h, i) => {
@@ -60,12 +60,12 @@ export function TocList({ toc, mobile = false }: { toc: Heading[]; mobile?: bool
               // `py-1.5` for the touch target. These rows were 20px tall, and
               // in the mobile sheet they are the only way to move around a long
               // article.
-              className={`flex items-start gap-[10px] py-1.5 text-[.79rem] leading-[1.5] transition-colors duration-200 ${
+              className={`flex items-start gap-[10px] py-1.5 text-small leading-[1.5] transition-colors duration-200 ${
                 mobile ? 'text-ink-faint hover:text-accent-bright' : on ? 'text-accent-bright' : 'text-ink-faint hover:text-ink'
               }`}
             >
               <span
-                className={`font-display pt-[2px] flex-shrink-0 ${mobile ? 'text-[#ee2a34]' : on ? 'text-accent-bright' : 'text-[#ee2a34]'}`}
+                className={`font-display pt-[2px] flex-shrink-0 ${mobile ? 'text-accent-bright' : on ? 'text-accent-bright' : 'text-accent-bright'}`}
                 style={{ fontSize: '.74rem', letterSpacing: '.08em' }}
               >
                 {String(i + 1).padStart(2, '0')}
@@ -116,7 +116,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
         <div className="flex items-center gap-4 mb-4">
           <div
             className="w-14 h-14 rounded-full grid place-items-center font-heading text-accent-bright text-h3 flex-shrink-0"
-            style={{ border: '1px solid rgba(215, 25, 32,.35)', background: 'rgba(215, 25, 32,.08)', boxShadow: '0 0 28px rgba(215, 25, 32,.14)' }}
+            style={{ border: '1px solid rgb(var(--accent-rgb) / .35)', background: 'rgb(var(--accent-rgb) / .08)', boxShadow: '0 0 28px rgb(var(--accent-rgb) / .14)' }}
           >
             YR
           </div>
@@ -128,18 +128,18 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
                 Consultant" and a Person node that says the same, which is the
                 drift the schema comment on the article page complains about,
                 reproduced in the visible copy. */}
-            <p className="text-[.70rem] text-ink-faint leading-snug">
+            <p className="text-small text-ink-faint leading-snug">
               {PERSON_JOB_TITLE}
             </p>
           </div>
         </div>
-        <p className="text-[.82rem] text-ink-faint leading-[1.7] mb-5">
+        <p className="text-small text-ink-faint leading-[1.7] mb-5">
           eCommerce, AI and technology consultant. Nine years across Magento, Shopify, headless commerce and AI, on B2B, D2C and marketplace models. Based in Vadodara, India.
         </p>
         <div className="flex flex-col gap-[10px]">
           <a
             href="/hire/"
-            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(215,25,32,.30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-small font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgb(var(--accent-rgb) / .30)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
           >
             Work with Yuvraj
           </a>
@@ -147,7 +147,7 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             href={CONTACT.linkedin}
             target="_blank"
             rel="noopener"
-            className="flex items-center justify-center gap-2 h-11 rounded border border-line text-[.70rem] font-semibold tracking-[.12em] uppercase text-ink-faint transition-all hover:border-accent hover:text-accent-bright touch-manipulation"
+            className="flex items-center justify-center gap-2 h-11 rounded border border-line text-small font-semibold tracking-[.12em] uppercase text-ink-faint transition-all hover:border-accent hover:text-accent-bright touch-manipulation"
           >
             Connect on LinkedIn
           </a>
@@ -180,22 +180,22 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             {copied ? '✓' : '⧉'}
           </button>
         </div>
-        {copied && <p className="text-[.62rem] tracking-[.10em] uppercase text-accent-bright font-bold mt-3">Link copied!</p>}
+        {copied && <p className="text-small tracking-[.10em] uppercase text-accent-bright font-bold mt-3">Link copied!</p>}
       </div>
 
       {/* Contact CTA */}
-      <div className="relative p-7 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(215, 25, 32,.26)', background: 'linear-gradient(160deg,rgba(215, 25, 32,.10),rgba(215, 25, 32,.03))' }}>
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,rgba(238, 42, 52,.65),transparent)' }} />
-        <p className="text-[.60rem] font-bold tracking-[.26em] uppercase text-accent-bright mb-3">Free Consultation</p>
+      <div className="relative p-7 rounded-xl overflow-hidden" style={{ border: '1px solid rgb(var(--accent-rgb) / .26)', background: 'linear-gradient(160deg,rgb(var(--accent-rgb) / .10),rgb(var(--accent-rgb) / .03))' }}>
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,rgb(var(--accent-bright-rgb) / .65),transparent)' }} />
+        <p className="text-small font-bold tracking-[.26em] uppercase text-accent-bright mb-3">Free Consultation</p>
         <p className="font-display text-[1.55rem] uppercase tracking-[.03em] leading-[.98] mb-3">
           Need Help With
           <br />
           Your Project?
         </p>
-        <p className="text-[.78rem] text-ink-faint leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
+        <p className="text-small text-ink-faint leading-[1.65] mb-5">Magento 2 · Shopify · SEO/CRO · AWS · WordPress · AI Automation</p>
         <a
           href={`mailto:${CONTACT.email}?subject=Consultation+Request`}
-          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-[.70rem] font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgba(215,25,32,.34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
+          className="flex items-center justify-center gap-2 h-11 rounded bg-red text-white text-small font-bold tracking-[.12em] uppercase transition-all hover:bg-rv hover:shadow-[0_12px_36px_rgb(var(--accent-rgb) / .34)] hover:-translate-y-px active:scale-[.97] touch-manipulation"
         >
           Book Now →
         </a>
@@ -209,8 +209,8 @@ export function ArticleAside({ toc, tags, title }: { toc: Heading[]; tags: strin
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center h-[26px] px-3 rounded-full text-[.60rem] font-bold tracking-[.10em] uppercase"
-                style={{ border: '1px solid rgba(215, 25, 32,.20)', background: 'rgba(215, 25, 32,.05)', color: 'rgba(245, 243, 238,.55)' }}
+                className="inline-flex items-center h-[26px] px-3 rounded-full text-small font-bold tracking-[.10em] uppercase"
+                style={{ border: '1px solid rgb(var(--accent-rgb) / .20)', background: 'rgb(var(--accent-rgb) / .05)', color: 'rgba(245, 243, 238,.55)' }}
               >
                 {tag}
               </span>
