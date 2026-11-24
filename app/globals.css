@@ -41,9 +41,15 @@
     /* ── 1. TYPE FACES ────────────────────────────────────────────
        Three faces, three jobs, no overlap:
 
-         --font-heading  Plus Jakarta Sans. h1, h2, h3 and nothing else.
-         --font-body     Inter. Every sentence, label and button.
-         --font-mono     JetBrains Mono. Eyebrows and small labels only.
+         --font-heading  Geist. h1, h2, h3 and nothing else.
+         --font-body     Geist. Every sentence, label and button.
+         --font-mono     Geist Mono. Eyebrows and small labels only.
+
+       --font-heading and --font-body are the SAME FACE, deliberately. The
+       contrast between a heading and the paragraph under it is carried by
+       weight (700/800 against 400), size and tracking rather than by a
+       second family. They stay two separate variables so that a future
+       pairing is one line here and not a sweep through the templates.
 
        next/font defines the three `--font-*-src` variables on <html>
        (app/layout.tsx). The aliases underneath exist because 400+ call
@@ -54,12 +60,12 @@
 
        Manrope and Newsreader are no longer loaded by app/layout.tsx. The
        aliases below are the reason nothing broke when they went. */
-    --font-heading: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
-    --font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
-    --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+    --font-heading: var(--font-geist), Geist, system-ui, sans-serif;
+    --font-body: var(--font-geist), Geist, system-ui, -apple-system, sans-serif;
+    --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
 
     /* Legacy aliases. Do not use in new code. */
-    --font-sans: var(--font-inter);
+    --font-sans: var(--font-geist);
     --font-sans-stack: var(--font-body);
     --font-display: var(--font-heading);
     --font-manrope: var(--font-body);
@@ -815,7 +821,7 @@
     font-size: 0.72rem !important;
   }
   .sec-num {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.18em;
     color: rgb(var(--accent-rgb) / 0.5);
@@ -965,7 +971,7 @@
 
   /* ── Work slider ── */
   .ws-digit {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     line-height: 0.84;
     letter-spacing: -0.01em;
     background: linear-gradient(180deg, rgb(var(--accent-bright-rgb) / 0.3), rgb(var(--accent-bright-rgb) / 0.03));
@@ -1070,7 +1076,7 @@
     background: linear-gradient(90deg, rgb(var(--accent-rgb) / 0.14), transparent 72%);
   }
   .ind-num {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     font-size: 1rem;
     letter-spacing: 0.08em;
     color: rgb(var(--accent-bright-rgb) / 0.42);
@@ -1082,7 +1088,7 @@
     color: var(--accent-bright);
   }
   .ind-name {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.035em;
     line-height: 1;
@@ -1155,7 +1161,7 @@
     animation-duration: 5s;
   }
   .tst-mark {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     line-height: 1;
     color: transparent;
     -webkit-text-stroke: 1.5px rgb(var(--accent-bright-rgb) / 0.22);
@@ -1170,7 +1176,7 @@
     background: linear-gradient(160deg, rgb(var(--accent-rgb) / 0.22), rgb(var(--accent-rgb) / 0.05));
     display: grid;
     place-items: center;
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     font-size: 1.15rem;
     letter-spacing: 0.06em;
     color: var(--accent-bright);
@@ -1247,7 +1253,7 @@
     user-select: none;
   }
   .faq-num {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     font-size: 0.92rem;
     letter-spacing: 0.08em;
     color: rgb(var(--accent-bright-rgb) / 0.36);
@@ -1447,7 +1453,7 @@
     }
   }
   .pnum {
-    font-family: var(--font-display), Manrope, system-ui, sans-serif;
+    font-family: var(--font-display), Geist, system-ui, sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     color: rgb(var(--accent-rgb) / 0.45);
@@ -1537,7 +1543,7 @@
   }
   .prose h2 {
     counter-increment: sec;
-    font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
+    font-family: var(--font-manrope), Geist, system-ui, sans-serif;
     font-size: clamp(1.6rem, 2.9vw, 2.2rem);
     font-weight: 600;
     letter-spacing: -0.03em;
@@ -1562,7 +1568,7 @@
     border-top: none;
   }
   .prose h3 {
-    font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
+    font-family: var(--font-manrope), Geist, system-ui, sans-serif;
     font-size: clamp(1.15rem, 1.9vw, 1.4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -1578,7 +1584,7 @@
     margin-bottom: 1.55em;
   }
   .prose > p:first-of-type::first-letter {
-    font-family: var(--font-manrope), Manrope, system-ui, sans-serif;
+    font-family: var(--font-manrope), Geist, system-ui, sans-serif;
     font-size: 3.4em;
     line-height: 0.78;
     float: left;

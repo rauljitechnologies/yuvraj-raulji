@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CORE_IDEA, FOOTER_TAGLINE, NAME } from '../../lib/brand';
 import { PILLAR_LINKS } from '../../lib/expertise';
+import { AVAILABILITY } from '../../lib/identity';
 import { AI_LINKS, PLATFORM_LINKS } from '../../lib/technology';
 import { CONTACT, POST_COUNT } from '../../lib/site';
 import { Cta } from '../homepage-sections/primitives';
@@ -300,6 +301,27 @@ export function SiteFooter() {
                 <span className="font-mono text-eyebrow font-medium uppercase text-ink/60">
                   Replies within 24 hours, IST business days
                 </span>
+              </p>
+
+              {/*
+                  The availability statement, which was in the header bar until
+                  it was taking a row it had to share with five links and a
+                  button. It belongs next to the response time rather than
+                  anywhere else in the footer: the two together answer "can I
+                  get this person, and how fast do they reply", which is the
+                  pair of questions the panel above is already answering.
+
+                  `AVAILABILITY` in full here, not the header's trimmed
+                  `AVAILABILITY_CHIP` — there is width for the real sentence,
+                  and it names the three engagement shapes rather than two.
+                  Sentence case, not uppercase: it is a sentence.
+              */}
+              <p className="flex items-start gap-2.5 px-6 pt-4 sm:px-7">
+                <span
+                  aria-hidden="true"
+                  className="mt-[7px] h-[7px] w-[7px] shrink-0 rounded-full bg-accent"
+                />
+                <span className="font-body text-small text-ink/70">{AVAILABILITY}</span>
               </p>
             </div>
           </div>

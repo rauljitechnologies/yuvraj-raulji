@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
 import { UIProvider } from '../components/ui-context';
 import { GA_MEASUREMENT_ID, SITE_URL } from '../lib/site';
@@ -10,82 +10,81 @@ import './globals.css';
 import './home.css';
 
 /**
- * ── THE THREE FACES ────────────────────────────────────────────────────────
+ * ══════════════════════════════════════════════════════════════════════════
+ * THE TYPE SYSTEM — two faces, three jobs
+ * ══════════════════════════════════════════════════════════════════════════
  *
- * Three faces, three jobs, no overlap. Redesign v2 fixes the job of each one
- * in app/globals.css and this file is the only place any of them is loaded.
+ * This file is the only place a face is loaded. app/globals.css fixes what
+ * each one is FOR.
  *
- *   Plus Jakarta Sans   headings. h1, h2, h3, and nothing else.
- *   Inter               body. Every sentence, label, button and form field.
- *   JetBrains Mono      small labels and eyebrows ONLY. Never a sentence.
+ *   Geist        headings AND body. Every h1/h2/h3, and every sentence,
+ *                label, button and form field.
+ *   Geist Mono   small labels and eyebrows ONLY. Never a sentence.
  *
- * ── What this replaced ────────────────────────────────────────────────────
+ * ── What this replaced, and why the count went from three to two ──────────
  *
- * Manrope and Newsreader, both removed. Manrope was the single sans for
- * everything (headings, body and chrome alike, so a heading differed from the
- * paragraph under it only by size and weight) and Newsreader was an editorial
- * display serif layered on top of it for the H1 and H2 of every page.
+ * It was Plus Jakarta Sans for headings against Inter for body, with
+ * JetBrains Mono for labels, and before that Manrope and Newsreader. The
+ * argument for Jakarta-against-Inter was that one face for headings and body
+ * leaves the type system no voice of its own, which is true of a face chosen
+ * badly and not true in general: the contrast can come from weight, size and
+ * tracking instead of from a second family, and when it does the page reads
+ * as one system rather than as two faces negotiating.
  *
- * Two problems with that pairing, and the redesign brief resolves both by
- * naming the faces outright:
+ * Geist is built for exactly that. Its display weights (600-800) are tight
+ * and geometric enough to carry a 64px H1, its 400 is an interface face at
+ * the 16-18px where this site does most of its reading, and Geist Mono is
+ * the same design spoken in a fixed pitch, so the eyebrows belong to the
+ * headings rather than contrasting with them. It is also the face the
+ * current generation of engineering products is set in, which for a site
+ * selling engineering is the right register.
  *
- *   One face for headings and body means the type system has no voice of its
- *   own. Plus Jakarta Sans against Inter is a real pairing: the geometric
- *   display gives a heading its own shape, and Inter is the most legible
- *   interface face at 16 to 18px, which is where this site does most of its
- *   reading.
- *
- *   A serif display and a sans display were both in play. `.yr-display` used
- *   the serif, the homepage H1 hand-set its own copy of it, and
- *   `.yr-display--3` deliberately stayed in the sans at section-heading size.
- *   So one page carried two display voices by design. There is one now.
+ * The practical gain: one fewer file on the critical path, and a heading and
+ * a paragraph that can no longer disagree about their vertical metrics.
  *
  * ── Why the CSS variables are named for the file, not the role ────────────
  *
- * `--font-jakarta`, `--font-inter` and `--font-jetbrains` name the FACE.
- * app/globals.css maps them onto the roles (`--font-heading`, `--font-body`,
- * `--font-mono`) and then onto every legacy alias the templates still ask for
+ * `--font-geist` and `--font-geist-mono` name the FACE. app/globals.css maps
+ * them onto the roles (`--font-heading`, `--font-body`, `--font-mono`) and
+ * then onto every legacy alias the templates still ask for
  * (`--font-display`, `--font-manrope`, `--font-serif`, `--font-sans`).
  *
- * That indirection is what let Manrope and Newsreader be removed without
- * touching 400+ `font-manrope` and `font-serif` class names across 89 routes,
- * and it is what makes swapping a face one line in two files rather than a
- * find-and-replace across the repo.
+ * That indirection is the whole reason this swap is two files and not a
+ * find-and-replace: 400+ `font-manrope` and `font-serif` class names across
+ * 89 routes still compile and now resolve to Geist. It is what let Manrope
+ * and Newsreader go, and it is what let this change happen the same way.
  *
  * ── Loading cost ─────────────────────────────────────────────────────────
  *
- * All three are variable fonts, so each is one woff2 for its whole weight
- * range: three files, same as before, and no synthesised weights. `display:
- * 'swap'` on all three, and next/font emits a `<link rel="preload">` for each
- * because all three render above the fold (heading, body, hero eyebrow).
+ * Geist is variable, so it is one woff2 for its whole 100-900 range with no
+ * synthesised weights. Geist Mono is pinned to the two cuts it actually
+ * uses. Two files where there were three. `display: 'swap'` on both, and
+ * next/font emits a `<link rel="preload">` for each because both render
+ * above the fold (heading, body, hero eyebrow).
  *
  * `adjustFontFallback` is left at its default (on). next/font computes a
  * size-adjusted local fallback per face, which is what keeps the swap from
- * costing layout shift — the CLS term the brief asks to hold down.
+ * costing layout shift — the CLS term the brief asks to hold down, and it
+ * measured 0 before this change and has to stay there.
  */
-const jakarta = Plus_Jakarta_Sans({
+const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
-  /* Variable 200-800. The heading scale uses 500 to 800; the range is one
-     file either way, so it is not narrowed. */
-  variable: '--font-jakarta',
+  /* Variable 100-900, and it carries BOTH roles: headings at 600 to 800,
+     body at 400 with emphasis and buttons at 600. One file for the whole
+     page rather than two, which is also one fewer face on the critical
+     path. */
+  variable: '--font-geist',
 });
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  /* Variable 100-900. Body copy is 400, emphasis 600, buttons 600. */
-  variable: '--font-inter',
-});
-
-const jetbrains = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
   /* Two cuts, not the variable range. This face only ever sets 12px eyebrows
-     and 14px labels, at 400 and 500; loading 100-800 for two weights is bytes
-     on the critical path for nothing. */
+     and 14px labels, at 400 and 500; loading the full range for two weights
+     is bytes on the critical path for nothing. */
   weight: ['400', '500'],
-  variable: '--font-jetbrains',
+  variable: '--font-geist-mono',
 });
 
 /* The near-black ground, so the browser chrome matches the page.
@@ -108,7 +107,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <body className="bg-ground text-ink font-body overflow-x-hidden">
         {/* The GTM noscript iframe stood here. It went with the container.
             See the note above the tag scripts at the bottom of this file. */}
