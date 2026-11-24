@@ -21,3 +21,9 @@ private/
 # Bytecode from the Python build scripts. Created the moment one of them is
 # imported rather than run, which is how it first appeared in a diff.
 __pycache__/
+
+# QA artefacts from scripts/qa-screenshots.mjs and scripts/lighthouse.mjs.
+# 60 full-page screenshots at DPR 2 plus the Lighthouse reports is ~180 MB,
+# which does not belong in git history. Regenerate with `npm run qa` and
+# `npm run qa:lighthouse` after a build; both are deterministic.
+qa-screenshots/

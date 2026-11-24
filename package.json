@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && ./scripts/check-prohibited-titles.sh out && node scripts/check-routes.mjs out && node scripts/check-redirects.mjs out && node scripts/check-links.mjs out && node scripts/check-keywords.mjs out",
+    "build": "next build && ./scripts/check-prohibited-titles.sh out && node scripts/check-routes.mjs out && node scripts/check-redirects.mjs out && node scripts/check-links.mjs out && node scripts/check-keywords.mjs out && node scripts/check-contrast.mjs && node scripts/check-type-scale.mjs && node scripts/check-design-system.mjs && node scripts/check-overflow.mjs out",
     "build:only": "next build",
     "cv": "python3 scripts/make-cv.py",
     "typecheck": "tsc --noEmit",
@@ -16,7 +16,13 @@
     "check:links": "node scripts/check-links.mjs out",
     "lead-api:check": "./scripts/check-lead-endpoint.sh",
     "lead-api:deploy": "./scripts/deploy-lead-api.sh",
-    "check:keywords": "node scripts/check-keywords.mjs out"
+    "check:keywords": "node scripts/check-keywords.mjs out",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:type": "node scripts/check-type-scale.mjs",
+    "check:ds": "node scripts/check-design-system.mjs",
+    "check:overflow": "node scripts/check-overflow.mjs out",
+    "qa": "node scripts/qa-screenshots.mjs",
+    "qa:lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "motion": "^13.1.0",
@@ -34,6 +40,8 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
     "jiti": "^1.21.7",
+    "lighthouse": "^12.8.2",
+    "playwright": "^1.56.0",
     "postcss": "^8.5.26",
     "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3"
